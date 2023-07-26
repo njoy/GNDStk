@@ -108,23 +108,23 @@ public:
       distribution{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(multiplicity(),XYs1d);
-   GNDSTK_SHORTCUT(distribution(),XYs2d);
-   GNDSTK_SHORTCUT(multiplicity(),branching1d);
-   GNDSTK_SHORTCUT(multiplicity(),constant1d);
-   GNDSTK_SHORTCUT(multiplicity(),polynomial1d);
-   GNDSTK_SHORTCUT(multiplicity(),reference);
-   GNDSTK_SHORTCUT(multiplicity(),regions1d);
-   GNDSTK_SHORTCUT(distribution(),thermalNeutronScatteringLaw);
-   GNDSTK_SHORTCUT(distribution(),uncorrelated);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(distribution(),XYs2d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),branching1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),constant1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),polynomial1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),reference);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(distribution(),thermalNeutronScatteringLaw);
+   NJOY_GNDSTK_SHORTCUT(distribution(),uncorrelated);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -136,7 +136,7 @@ public:
 
    // default
    Product() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -152,7 +152,7 @@ public:
       const wrapper<reduced::Distribution>
          &distribution = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       pid(this,pid),
       multiplicity(this,multiplicity),
@@ -163,14 +163,14 @@ public:
 
    // from node
    explicit Product(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Product(const Product &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       pid(this,other.pid),
@@ -182,7 +182,7 @@ public:
 
    // move
    Product(Product &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),
@@ -229,7 +229,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/reduced/Product/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Product
 
 } // namespace reduced

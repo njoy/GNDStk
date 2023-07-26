@@ -88,7 +88,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -97,7 +97,7 @@ public:
 
    // default
    Spectra() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -107,7 +107,7 @@ public:
       const wrapper<std::vector<general::Spectrum>>
          &spectrum
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       spectrum(this,spectrum)
    {
       Component::finish();
@@ -115,14 +115,14 @@ public:
 
    // from node
    explicit Spectra(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Spectra(const Spectra &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       spectrum(this,other.spectrum)
    {
@@ -131,7 +131,7 @@ public:
 
    // move
    Spectra(Spectra &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       spectrum(this,std::move(other.spectrum))
    {
@@ -169,7 +169,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Spectra/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Spectra
 
 } // namespace general

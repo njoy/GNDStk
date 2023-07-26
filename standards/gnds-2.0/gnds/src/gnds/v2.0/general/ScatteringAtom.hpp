@@ -142,18 +142,18 @@ public:
       T_effective{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(mass(),Double);
-   GNDSTK_SHORTCUT(selfScatteringKernel(),SCTApproximation);
-   GNDSTK_SHORTCUT(selfScatteringKernel(),freeGasApproximation);
-   GNDSTK_SHORTCUT(selfScatteringKernel(),gridded3d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(mass(),Double);
+   NJOY_GNDSTK_SHORTCUT(selfScatteringKernel(),SCTApproximation);
+   NJOY_GNDSTK_SHORTCUT(selfScatteringKernel(),freeGasApproximation);
+   NJOY_GNDSTK_SHORTCUT(selfScatteringKernel(),gridded3d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -170,7 +170,7 @@ public:
 
    // default
    ScatteringAtom() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -196,7 +196,7 @@ public:
       const wrapper<std::optional<general::T_effective>>
          &T_effective = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       pid(this,pid),
       numberPerMolecule(this,numberPerMolecule),
       primaryScatterer(this,primaryScatterer),
@@ -212,14 +212,14 @@ public:
 
    // from node
    explicit ScatteringAtom(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ScatteringAtom(const ScatteringAtom &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       pid(this,other.pid),
       numberPerMolecule(this,other.numberPerMolecule),
@@ -236,7 +236,7 @@ public:
 
    // move
    ScatteringAtom(ScatteringAtom &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       pid(this,std::move(other.pid)),
       numberPerMolecule(this,std::move(other.numberPerMolecule)),
@@ -298,7 +298,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ScatteringAtom/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ScatteringAtom
 
 } // namespace general

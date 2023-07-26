@@ -95,7 +95,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    Halflife() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<std::optional<general::Double>>
          &Double = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       string(this,string),
       Double(this,Double)
    {
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit Halflife(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Halflife(const Halflife &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       string(this,other.string),
       Double(this,other.Double)
@@ -143,7 +143,7 @@ public:
 
    // move
    Halflife(Halflife &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       string(this,std::move(other.string)),
       Double(this,std::move(other.Double))
@@ -184,7 +184,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Halflife/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Halflife
 
 } // namespace general

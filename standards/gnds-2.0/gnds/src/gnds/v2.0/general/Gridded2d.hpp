@@ -92,16 +92,16 @@ public:
       array{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(axes(),axis);
-   GNDSTK_SHORTCUT(axes(),grid);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(axes(),grid);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -111,7 +111,7 @@ public:
 
    // default
    Gridded2d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -123,7 +123,7 @@ public:
       const wrapper<g2d::Array>
          &array = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       axes(this,axes),
       array(this,array)
    {
@@ -132,14 +132,14 @@ public:
 
    // from node
    explicit Gridded2d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Gridded2d(const Gridded2d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       axes(this,other.axes),
       array(this,other.array)
@@ -149,7 +149,7 @@ public:
 
    // move
    Gridded2d(Gridded2d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       axes(this,std::move(other.axes)),
       array(this,std::move(other.array))
@@ -190,7 +190,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Gridded2d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Gridded2d
 
 } // namespace general

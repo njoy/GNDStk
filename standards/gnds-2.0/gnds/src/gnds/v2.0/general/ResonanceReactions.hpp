@@ -88,7 +88,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -97,7 +97,7 @@ public:
 
    // default
    ResonanceReactions() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -107,7 +107,7 @@ public:
       const wrapper<std::vector<general::ResonanceReaction>>
          &resonanceReaction
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       resonanceReaction(this,resonanceReaction)
    {
       Component::finish();
@@ -115,14 +115,14 @@ public:
 
    // from node
    explicit ResonanceReactions(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ResonanceReactions(const ResonanceReactions &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       resonanceReaction(this,other.resonanceReaction)
    {
@@ -131,7 +131,7 @@ public:
 
    // move
    ResonanceReactions(ResonanceReactions &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       resonanceReaction(this,std::move(other.resonanceReaction))
    {
@@ -169,7 +169,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ResonanceReactions/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ResonanceReactions
 
 } // namespace general

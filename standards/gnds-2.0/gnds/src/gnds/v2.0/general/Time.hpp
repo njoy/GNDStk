@@ -95,7 +95,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    Time() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<std::optional<general::String>>
          &string = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       Double(this,Double),
       string(this,string)
    {
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit Time(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Time(const Time &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       Double(this,other.Double),
       string(this,other.string)
@@ -143,7 +143,7 @@ public:
 
    // move
    Time(Time &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       Double(this,std::move(other.Double)),
       string(this,std::move(other.string))
@@ -184,7 +184,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Time/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Time
 
 } // namespace general

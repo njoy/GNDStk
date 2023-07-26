@@ -88,7 +88,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -97,7 +97,7 @@ public:
 
    // default
    Double() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -107,7 +107,7 @@ public:
       const wrapper<double>
          &value
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value)
    {
       Component::finish();
@@ -115,14 +115,14 @@ public:
 
    // from node
    explicit Double(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Double(const Double &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       value(this,other.value)
    {
@@ -131,7 +131,7 @@ public:
 
    // move
    Double(Double &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value))
    {
@@ -169,7 +169,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/reduced/Double/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Double
 
 } // namespace reduced

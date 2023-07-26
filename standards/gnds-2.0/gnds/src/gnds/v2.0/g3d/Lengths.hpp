@@ -104,7 +104,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -115,7 +115,7 @@ public:
 
    // default
    Lengths() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -127,7 +127,7 @@ public:
       const wrapper<std::string>
          &label = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       valueType(this,valueType),
       label(this,label)
    {
@@ -136,14 +136,14 @@ public:
 
    // from node
    explicit Lengths(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // from vector<int>
    explicit Lengths(const std::vector<int> &vector) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {
       Component::finish(vector);
@@ -151,7 +151,7 @@ public:
 
    // copy
    Lengths(const Lengths &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       DataNode(other),
       comment(this,other.comment),
       valueType(this,other.valueType),
@@ -162,7 +162,7 @@ public:
 
    // move
    Lengths(Lengths &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       DataNode(std::move(other)),
       comment(this,std::move(other.comment)),
       valueType(this,std::move(other.valueType)),
@@ -206,7 +206,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/g3d/Lengths/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Lengths
 
 } // namespace g3d

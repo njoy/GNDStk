@@ -88,7 +88,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -97,21 +97,21 @@ public:
 
    // default
    Data() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
 
    // from node
    explicit Data(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // from vector<double>
    explicit Data(const std::vector<double> &vector) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       DataNode(vector)
    {
       Component::finish(vector);
@@ -119,7 +119,7 @@ public:
 
    // copy
    Data(const Data &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       DataNode(other),
       comment(this,other.comment)
    {
@@ -128,7 +128,7 @@ public:
 
    // move
    Data(Data &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       DataNode(std::move(other)),
       comment(this,std::move(other.comment))
    {
@@ -166,7 +166,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Data/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Data
 
 } // namespace general

@@ -21,7 +21,7 @@ using namespace GNDStk;
 
 namespace meta {
 
-#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
+#define NJOY_GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \
    inline const auto nameField = makeLookup( \
       #nameGNDS, \
       [](const auto &obj) -> decltype(obj.nameField()) \
@@ -31,90 +31,90 @@ namespace meta {
    )
 // nameField vs. nameGNDS: e.g. Double, vs. double in GNDS; usually identical
 
-GNDSTK_MAKE_LOOKUP(A,A);
-GNDSTK_MAKE_LOOKUP(ENDF_MFMT,ENDF_MFMT);
-GNDSTK_MAKE_LOOKUP(ENDF_MT,ENDF_MT);
-GNDSTK_MAKE_LOOKUP(L,L);
-GNDSTK_MAKE_LOOKUP(Z,Z);
-GNDSTK_MAKE_LOOKUP(algorithm,algorithm);
-GNDSTK_MAKE_LOOKUP(approximation,approximation);
-GNDSTK_MAKE_LOOKUP(boundaryCondition,boundaryCondition);
-GNDSTK_MAKE_LOOKUP(calculateChannelRadius,calculateChannelRadius);
-GNDSTK_MAKE_LOOKUP(calculatedAtThermal,calculatedAtThermal);
-GNDSTK_MAKE_LOOKUP(channelSpin,channelSpin);
-GNDSTK_MAKE_LOOKUP(checksum,checksum);
-GNDSTK_MAKE_LOOKUP(coefficient,coefficient);
-GNDSTK_MAKE_LOOKUP(columnIndex,columnIndex);
-GNDSTK_MAKE_LOOKUP(columns,columns);
-GNDSTK_MAKE_LOOKUP(complete,complete);
-GNDSTK_MAKE_LOOKUP(compression,compression);
-GNDSTK_MAKE_LOOKUP(crossTerm,crossTerm);
-GNDSTK_MAKE_LOOKUP(date,date);
-GNDSTK_MAKE_LOOKUP(dateType,dateType);
-GNDSTK_MAKE_LOOKUP(degreesOfFreedom,degreesOfFreedom);
-GNDSTK_MAKE_LOOKUP(dependenceOnProcessedGroupWidth,dependenceOnProcessedGroupWidth);
-GNDSTK_MAKE_LOOKUP(derivedFrom,derivedFrom);
-GNDSTK_MAKE_LOOKUP(dimension,dimension);
-GNDSTK_MAKE_LOOKUP(domainMax,domainMax);
-GNDSTK_MAKE_LOOKUP(domainMin,domainMin);
-GNDSTK_MAKE_LOOKUP(domainUnit,domainUnit);
-GNDSTK_MAKE_LOOKUP(domainValue,domainValue);
-GNDSTK_MAKE_LOOKUP(ejectile,ejectile);
-GNDSTK_MAKE_LOOKUP(electronNumber,electronNumber);
-GNDSTK_MAKE_LOOKUP(eliminated,eliminated);
-GNDSTK_MAKE_LOOKUP(evaluation,evaluation);
-GNDSTK_MAKE_LOOKUP(fissionGenre,fissionGenre);
-GNDSTK_MAKE_LOOKUP(flags,flags);
-GNDSTK_MAKE_LOOKUP(format,format);
-GNDSTK_MAKE_LOOKUP(generation,generation);
-GNDSTK_MAKE_LOOKUP(genre,genre);
-GNDSTK_MAKE_LOOKUP(href,href);
-GNDSTK_MAKE_LOOKUP(id,id);
-GNDSTK_MAKE_LOOKUP(identicalParticles,identicalParticles);
-GNDSTK_MAKE_LOOKUP(index,index);
-GNDSTK_MAKE_LOOKUP(interaction,interaction);
-GNDSTK_MAKE_LOOKUP(interpolation,interpolation);
-GNDSTK_MAKE_LOOKUP(interpolationQualifier,interpolationQualifier);
-GNDSTK_MAKE_LOOKUP(label,label);
-GNDSTK_MAKE_LOOKUP(library,library);
-GNDSTK_MAKE_LOOKUP(matrixStartIndex,matrixStartIndex);
-GNDSTK_MAKE_LOOKUP(max,max);
-GNDSTK_MAKE_LOOKUP(metaStableIndex,metaStableIndex);
-GNDSTK_MAKE_LOOKUP(min,min);
-GNDSTK_MAKE_LOOKUP(mode,mode);
-GNDSTK_MAKE_LOOKUP(muCutoff,muCutoff);
-GNDSTK_MAKE_LOOKUP(nParameters,nParameters);
-GNDSTK_MAKE_LOOKUP(name,name);
-GNDSTK_MAKE_LOOKUP(numberOfProducts,numberOfProducts);
-GNDSTK_MAKE_LOOKUP(numberPerMolecule,numberPerMolecule);
-GNDSTK_MAKE_LOOKUP(outerDomainValue,outerDomainValue);
-GNDSTK_MAKE_LOOKUP(parity,parity);
-GNDSTK_MAKE_LOOKUP(path,path);
-GNDSTK_MAKE_LOOKUP(pid,pid);
-GNDSTK_MAKE_LOOKUP(primaryScatterer,primaryScatterer);
-GNDSTK_MAKE_LOOKUP(process,process);
-GNDSTK_MAKE_LOOKUP(productFrame,productFrame);
-GNDSTK_MAKE_LOOKUP(projectile,projectile);
-GNDSTK_MAKE_LOOKUP(projectileFrame,projectileFrame);
-GNDSTK_MAKE_LOOKUP(resonanceReaction,resonanceReaction);
-GNDSTK_MAKE_LOOKUP(rows,rows);
-GNDSTK_MAKE_LOOKUP(shape,shape);
-GNDSTK_MAKE_LOOKUP(spin,spin);
-GNDSTK_MAKE_LOOKUP(style,style);
-GNDSTK_MAKE_LOOKUP(subshell,subshell);
-GNDSTK_MAKE_LOOKUP(supportsAngularReconstruction,supportsAngularReconstruction);
-GNDSTK_MAKE_LOOKUP(symbol,symbol);
-GNDSTK_MAKE_LOOKUP(symmetric,symmetric);
-GNDSTK_MAKE_LOOKUP(symmetry,symmetry);
-GNDSTK_MAKE_LOOKUP(target,target);
-GNDSTK_MAKE_LOOKUP(type,type);
-GNDSTK_MAKE_LOOKUP(unit,unit);
-GNDSTK_MAKE_LOOKUP(useForSelfShieldingOnly,useForSelfShieldingOnly);
-GNDSTK_MAKE_LOOKUP(value,value);
-GNDSTK_MAKE_LOOKUP(valueType,valueType);
-GNDSTK_MAKE_LOOKUP(version,version);
+NJOY_GNDSTK_MAKE_LOOKUP(A,A);
+NJOY_GNDSTK_MAKE_LOOKUP(ENDF_MFMT,ENDF_MFMT);
+NJOY_GNDSTK_MAKE_LOOKUP(ENDF_MT,ENDF_MT);
+NJOY_GNDSTK_MAKE_LOOKUP(L,L);
+NJOY_GNDSTK_MAKE_LOOKUP(Z,Z);
+NJOY_GNDSTK_MAKE_LOOKUP(algorithm,algorithm);
+NJOY_GNDSTK_MAKE_LOOKUP(approximation,approximation);
+NJOY_GNDSTK_MAKE_LOOKUP(boundaryCondition,boundaryCondition);
+NJOY_GNDSTK_MAKE_LOOKUP(calculateChannelRadius,calculateChannelRadius);
+NJOY_GNDSTK_MAKE_LOOKUP(calculatedAtThermal,calculatedAtThermal);
+NJOY_GNDSTK_MAKE_LOOKUP(channelSpin,channelSpin);
+NJOY_GNDSTK_MAKE_LOOKUP(checksum,checksum);
+NJOY_GNDSTK_MAKE_LOOKUP(coefficient,coefficient);
+NJOY_GNDSTK_MAKE_LOOKUP(columnIndex,columnIndex);
+NJOY_GNDSTK_MAKE_LOOKUP(columns,columns);
+NJOY_GNDSTK_MAKE_LOOKUP(complete,complete);
+NJOY_GNDSTK_MAKE_LOOKUP(compression,compression);
+NJOY_GNDSTK_MAKE_LOOKUP(crossTerm,crossTerm);
+NJOY_GNDSTK_MAKE_LOOKUP(date,date);
+NJOY_GNDSTK_MAKE_LOOKUP(dateType,dateType);
+NJOY_GNDSTK_MAKE_LOOKUP(degreesOfFreedom,degreesOfFreedom);
+NJOY_GNDSTK_MAKE_LOOKUP(dependenceOnProcessedGroupWidth,dependenceOnProcessedGroupWidth);
+NJOY_GNDSTK_MAKE_LOOKUP(derivedFrom,derivedFrom);
+NJOY_GNDSTK_MAKE_LOOKUP(dimension,dimension);
+NJOY_GNDSTK_MAKE_LOOKUP(domainMax,domainMax);
+NJOY_GNDSTK_MAKE_LOOKUP(domainMin,domainMin);
+NJOY_GNDSTK_MAKE_LOOKUP(domainUnit,domainUnit);
+NJOY_GNDSTK_MAKE_LOOKUP(domainValue,domainValue);
+NJOY_GNDSTK_MAKE_LOOKUP(ejectile,ejectile);
+NJOY_GNDSTK_MAKE_LOOKUP(electronNumber,electronNumber);
+NJOY_GNDSTK_MAKE_LOOKUP(eliminated,eliminated);
+NJOY_GNDSTK_MAKE_LOOKUP(evaluation,evaluation);
+NJOY_GNDSTK_MAKE_LOOKUP(fissionGenre,fissionGenre);
+NJOY_GNDSTK_MAKE_LOOKUP(flags,flags);
+NJOY_GNDSTK_MAKE_LOOKUP(format,format);
+NJOY_GNDSTK_MAKE_LOOKUP(generation,generation);
+NJOY_GNDSTK_MAKE_LOOKUP(genre,genre);
+NJOY_GNDSTK_MAKE_LOOKUP(href,href);
+NJOY_GNDSTK_MAKE_LOOKUP(id,id);
+NJOY_GNDSTK_MAKE_LOOKUP(identicalParticles,identicalParticles);
+NJOY_GNDSTK_MAKE_LOOKUP(index,index);
+NJOY_GNDSTK_MAKE_LOOKUP(interaction,interaction);
+NJOY_GNDSTK_MAKE_LOOKUP(interpolation,interpolation);
+NJOY_GNDSTK_MAKE_LOOKUP(interpolationQualifier,interpolationQualifier);
+NJOY_GNDSTK_MAKE_LOOKUP(label,label);
+NJOY_GNDSTK_MAKE_LOOKUP(library,library);
+NJOY_GNDSTK_MAKE_LOOKUP(matrixStartIndex,matrixStartIndex);
+NJOY_GNDSTK_MAKE_LOOKUP(max,max);
+NJOY_GNDSTK_MAKE_LOOKUP(metaStableIndex,metaStableIndex);
+NJOY_GNDSTK_MAKE_LOOKUP(min,min);
+NJOY_GNDSTK_MAKE_LOOKUP(mode,mode);
+NJOY_GNDSTK_MAKE_LOOKUP(muCutoff,muCutoff);
+NJOY_GNDSTK_MAKE_LOOKUP(nParameters,nParameters);
+NJOY_GNDSTK_MAKE_LOOKUP(name,name);
+NJOY_GNDSTK_MAKE_LOOKUP(numberOfProducts,numberOfProducts);
+NJOY_GNDSTK_MAKE_LOOKUP(numberPerMolecule,numberPerMolecule);
+NJOY_GNDSTK_MAKE_LOOKUP(outerDomainValue,outerDomainValue);
+NJOY_GNDSTK_MAKE_LOOKUP(parity,parity);
+NJOY_GNDSTK_MAKE_LOOKUP(path,path);
+NJOY_GNDSTK_MAKE_LOOKUP(pid,pid);
+NJOY_GNDSTK_MAKE_LOOKUP(primaryScatterer,primaryScatterer);
+NJOY_GNDSTK_MAKE_LOOKUP(process,process);
+NJOY_GNDSTK_MAKE_LOOKUP(productFrame,productFrame);
+NJOY_GNDSTK_MAKE_LOOKUP(projectile,projectile);
+NJOY_GNDSTK_MAKE_LOOKUP(projectileFrame,projectileFrame);
+NJOY_GNDSTK_MAKE_LOOKUP(resonanceReaction,resonanceReaction);
+NJOY_GNDSTK_MAKE_LOOKUP(rows,rows);
+NJOY_GNDSTK_MAKE_LOOKUP(shape,shape);
+NJOY_GNDSTK_MAKE_LOOKUP(spin,spin);
+NJOY_GNDSTK_MAKE_LOOKUP(style,style);
+NJOY_GNDSTK_MAKE_LOOKUP(subshell,subshell);
+NJOY_GNDSTK_MAKE_LOOKUP(supportsAngularReconstruction,supportsAngularReconstruction);
+NJOY_GNDSTK_MAKE_LOOKUP(symbol,symbol);
+NJOY_GNDSTK_MAKE_LOOKUP(symmetric,symmetric);
+NJOY_GNDSTK_MAKE_LOOKUP(symmetry,symmetry);
+NJOY_GNDSTK_MAKE_LOOKUP(target,target);
+NJOY_GNDSTK_MAKE_LOOKUP(type,type);
+NJOY_GNDSTK_MAKE_LOOKUP(unit,unit);
+NJOY_GNDSTK_MAKE_LOOKUP(useForSelfShieldingOnly,useForSelfShieldingOnly);
+NJOY_GNDSTK_MAKE_LOOKUP(value,value);
+NJOY_GNDSTK_MAKE_LOOKUP(valueType,valueType);
+NJOY_GNDSTK_MAKE_LOOKUP(version,version);
 
-#undef GNDSTK_MAKE_LOOKUP
+#undef NJOY_GNDSTK_MAKE_LOOKUP
 
 } // namespace meta
 

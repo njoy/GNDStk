@@ -95,7 +95,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    Aliases() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<std::optional<std::vector<general::MetaStable>>>
          &metaStable = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       alias(this,alias),
       metaStable(this,metaStable)
    {
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit Aliases(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Aliases(const Aliases &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       alias(this,other.alias),
       metaStable(this,other.metaStable)
@@ -143,7 +143,7 @@ public:
 
    // move
    Aliases(Aliases &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       alias(this,std::move(other.alias)),
       metaStable(this,std::move(other.metaStable))
@@ -184,7 +184,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Aliases/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Aliases
 
 } // namespace general

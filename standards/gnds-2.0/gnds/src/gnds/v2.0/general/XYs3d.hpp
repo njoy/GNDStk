@@ -105,7 +105,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -116,7 +116,7 @@ public:
 
    // default
    XYs3d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -130,7 +130,7 @@ public:
       const wrapper<std::vector<general::Function2ds>>
          &function2ds = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       interpolationQualifier(this,interpolationQualifier),
       axes(this,axes),
       function2ds(this,function2ds)
@@ -140,14 +140,14 @@ public:
 
    // from node
    explicit XYs3d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    XYs3d(const XYs3d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       interpolationQualifier(this,other.interpolationQualifier),
       axes(this,other.axes),
@@ -158,7 +158,7 @@ public:
 
    // move
    XYs3d(XYs3d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       interpolationQualifier(this,std::move(other.interpolationQualifier)),
       axes(this,std::move(other.axes)),
@@ -202,7 +202,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/XYs3d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class XYs3d
 
 } // namespace general

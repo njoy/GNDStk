@@ -112,7 +112,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -124,7 +124,7 @@ public:
 
    // default
    Mixed() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -140,7 +140,7 @@ public:
       const wrapper<std::optional<general::ShortRangeSelfScalingVariance>>
          &shortRangeSelfScalingVariance = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       covarianceMatrix(this,covarianceMatrix),
       sum(this,sum),
@@ -151,14 +151,14 @@ public:
 
    // from node
    explicit Mixed(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Mixed(const Mixed &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       covarianceMatrix(this,other.covarianceMatrix),
@@ -170,7 +170,7 @@ public:
 
    // move
    Mixed(Mixed &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       covarianceMatrix(this,std::move(other.covarianceMatrix)),
@@ -217,7 +217,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Mixed/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Mixed
 
 } // namespace general

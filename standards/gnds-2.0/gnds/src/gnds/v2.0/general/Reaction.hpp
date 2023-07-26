@@ -121,24 +121,24 @@ public:
       doubleDifferentialCrossSection{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(outputChannel().Q(),Double);
-   GNDSTK_SHORTCUT(outputChannel(),Q);
-   GNDSTK_SHORTCUT(crossSection(),XYs1d);
-   GNDSTK_SHORTCUT(outputChannel().Q(),constant1d);
-   GNDSTK_SHORTCUT(outputChannel(),fissionFragmentData);
-   GNDSTK_SHORTCUT(outputChannel(),products);
-   GNDSTK_SHORTCUT(crossSection(),reference);
-   GNDSTK_SHORTCUT(crossSection(),regions1d);
-   GNDSTK_SHORTCUT(crossSection(),resonancesWithBackground);
-   GNDSTK_SHORTCUT(crossSection(),thermalNeutronScatteringLaw1d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(outputChannel().Q(),Double);
+   NJOY_GNDSTK_SHORTCUT(outputChannel(),Q);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(outputChannel().Q(),constant1d);
+   NJOY_GNDSTK_SHORTCUT(outputChannel(),fissionFragmentData);
+   NJOY_GNDSTK_SHORTCUT(outputChannel(),products);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),reference);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),resonancesWithBackground);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),thermalNeutronScatteringLaw1d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -152,7 +152,7 @@ public:
 
    // default
    Reaction() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -172,7 +172,7 @@ public:
       const wrapper<std::optional<general::DoubleDifferentialCrossSection>>
          &doubleDifferentialCrossSection = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       ENDF_MT(this,ENDF_MT),
       fissionGenre(this,fissionGenre),
@@ -185,14 +185,14 @@ public:
 
    // from node
    explicit Reaction(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Reaction(const Reaction &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       ENDF_MT(this,other.ENDF_MT),
@@ -206,7 +206,7 @@ public:
 
    // move
    Reaction(Reaction &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
@@ -259,7 +259,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Reaction/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Reaction
 
 } // namespace general

@@ -88,7 +88,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -97,7 +97,7 @@ public:
 
    // default
    G() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -107,7 +107,7 @@ public:
       const wrapper<std::optional<general::XYs1d>>
          &XYs1d
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d)
    {
       Component::finish();
@@ -115,14 +115,14 @@ public:
 
    // from node
    explicit G(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    G(const G &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs1d(this,other.XYs1d)
    {
@@ -131,7 +131,7 @@ public:
 
    // move
    G(G &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d))
    {
@@ -169,7 +169,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/G/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class G
 
 } // namespace general

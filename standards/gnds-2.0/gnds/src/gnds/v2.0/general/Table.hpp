@@ -108,15 +108,15 @@ public:
       data{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(columnHeaders(),column);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(columnHeaders(),column);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -128,7 +128,7 @@ public:
 
    // default
    Table() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -144,7 +144,7 @@ public:
       const wrapper<general::Data>
          &data = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       rows(this,rows),
       columns(this,columns),
       columnHeaders(this,columnHeaders),
@@ -155,14 +155,14 @@ public:
 
    // from node
    explicit Table(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Table(const Table &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       rows(this,other.rows),
       columns(this,other.columns),
@@ -174,7 +174,7 @@ public:
 
    // move
    Table(Table &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       rows(this,std::move(other.rows)),
       columns(this,std::move(other.columns)),
@@ -221,7 +221,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Table/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Table
 
 } // namespace general

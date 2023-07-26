@@ -115,23 +115,23 @@ public:
       crossSection{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(crossSection(),CoulombPlusNuclearElastic);
-   GNDSTK_SHORTCUT(Q(),Double);
-   GNDSTK_SHORTCUT(crossSection(),XYs1d);
-   GNDSTK_SHORTCUT(summands(),add);
-   GNDSTK_SHORTCUT(Q(),constant1d);
-   GNDSTK_SHORTCUT(crossSection(),reference);
-   GNDSTK_SHORTCUT(crossSection(),regions1d);
-   GNDSTK_SHORTCUT(crossSection(),resonancesWithBackground);
-   GNDSTK_SHORTCUT(crossSection(),thermalNeutronScatteringLaw1d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(crossSection(),CoulombPlusNuclearElastic);
+   NJOY_GNDSTK_SHORTCUT(Q(),Double);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(summands(),add);
+   NJOY_GNDSTK_SHORTCUT(Q(),constant1d);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),reference);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),resonancesWithBackground);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),thermalNeutronScatteringLaw1d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -144,7 +144,7 @@ public:
 
    // default
    CrossSectionSum() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -162,7 +162,7 @@ public:
       const wrapper<general::CrossSection>
          &crossSection = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       ENDF_MT(this,ENDF_MT),
       summands(this,summands),
@@ -174,14 +174,14 @@ public:
 
    // from node
    explicit CrossSectionSum(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    CrossSectionSum(const CrossSectionSum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       ENDF_MT(this,other.ENDF_MT),
@@ -194,7 +194,7 @@ public:
 
    // move
    CrossSectionSum(CrossSectionSum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
@@ -244,7 +244,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/CrossSectionSum/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class CrossSectionSum
 
 } // namespace general

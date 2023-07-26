@@ -115,16 +115,16 @@ public:
       fissionFragmentData{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(Q(),Double);
-   GNDSTK_SHORTCUT(Q(),constant1d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(Q(),Double);
+   NJOY_GNDSTK_SHORTCUT(Q(),constant1d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -137,7 +137,7 @@ public:
 
    // default
    OutputChannel() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -155,7 +155,7 @@ public:
       const wrapper<std::optional<top::FissionFragmentData>>
          &fissionFragmentData = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       genre(this,genre),
       process(this,process),
       Q(this,Q),
@@ -167,14 +167,14 @@ public:
 
    // from node
    explicit OutputChannel(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    OutputChannel(const OutputChannel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       genre(this,other.genre),
       process(this,other.process),
@@ -187,7 +187,7 @@ public:
 
    // move
    OutputChannel(OutputChannel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       genre(this,std::move(other.genre)),
       process(this,std::move(other.process)),
@@ -237,7 +237,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/OutputChannel/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class OutputChannel
 
 } // namespace general

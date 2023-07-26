@@ -107,19 +107,19 @@ public:
       gridded2d{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(gridded2d(),array);
-   GNDSTK_SHORTCUT(gridded2d(),axes);
-   GNDSTK_SHORTCUT(gridded2d().axes(),axis);
-   GNDSTK_SHORTCUT(gridded2d().axes(),grid);
-   GNDSTK_SHORTCUT(gridded2d().array(),values);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(gridded2d(),array);
+   NJOY_GNDSTK_SHORTCUT(gridded2d(),axes);
+   NJOY_GNDSTK_SHORTCUT(gridded2d().axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(gridded2d().axes(),grid);
+   NJOY_GNDSTK_SHORTCUT(gridded2d().array(),values);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -131,7 +131,7 @@ public:
 
    // default
    ShortRangeSelfScalingVariance() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -147,7 +147,7 @@ public:
       const wrapper<general::Gridded2d>
          &gridded2d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       type(this,type),
       dependenceOnProcessedGroupWidth(this,dependenceOnProcessedGroupWidth),
@@ -158,14 +158,14 @@ public:
 
    // from node
    explicit ShortRangeSelfScalingVariance(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ShortRangeSelfScalingVariance(const ShortRangeSelfScalingVariance &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       type(this,other.type),
@@ -177,7 +177,7 @@ public:
 
    // move
    ShortRangeSelfScalingVariance(ShortRangeSelfScalingVariance &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       type(this,std::move(other.type)),
@@ -224,7 +224,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ShortRangeSelfScalingVariance/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ShortRangeSelfScalingVariance
 
 } // namespace general

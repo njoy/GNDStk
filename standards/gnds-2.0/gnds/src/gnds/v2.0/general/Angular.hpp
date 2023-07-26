@@ -95,7 +95,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    Angular() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<std::optional<general::XYs2d>>
          &XYs2d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       isotropic2d(this,isotropic2d),
       XYs2d(this,XYs2d)
    {
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit Angular(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Angular(const Angular &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       isotropic2d(this,other.isotropic2d),
       XYs2d(this,other.XYs2d)
@@ -143,7 +143,7 @@ public:
 
    // move
    Angular(Angular &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       isotropic2d(this,std::move(other.isotropic2d)),
       XYs2d(this,std::move(other.XYs2d))
@@ -184,7 +184,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Angular/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Angular
 
 } // namespace general

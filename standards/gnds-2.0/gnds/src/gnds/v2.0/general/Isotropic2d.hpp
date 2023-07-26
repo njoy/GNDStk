@@ -78,7 +78,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment \
@@ -86,21 +86,21 @@ public:
 
    // default
    Isotropic2d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
 
    // from node
    explicit Isotropic2d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Isotropic2d(const Isotropic2d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment)
    {
       Component::finish(other);
@@ -108,7 +108,7 @@ public:
 
    // move
    Isotropic2d(Isotropic2d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment))
    {
       Component::finish(other);
@@ -143,7 +143,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Isotropic2d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Isotropic2d
 
 } // namespace general

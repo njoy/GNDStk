@@ -119,15 +119,15 @@ public:
       scatteringAtoms{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(scatteringAtoms(),scatteringAtom);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(scatteringAtoms(),scatteringAtom);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -141,7 +141,7 @@ public:
 
    // default
    ThermalNeutronScatteringLaw_incoherentInelastic() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -161,7 +161,7 @@ public:
       const wrapper<general::ScatteringAtoms>
          &scatteringAtoms = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       pid(this,pid),
       productFrame(this,productFrame),
@@ -174,14 +174,14 @@ public:
 
    // from node
    explicit ThermalNeutronScatteringLaw_incoherentInelastic(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ThermalNeutronScatteringLaw_incoherentInelastic(const ThermalNeutronScatteringLaw_incoherentInelastic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       pid(this,other.pid),
@@ -195,7 +195,7 @@ public:
 
    // move
    ThermalNeutronScatteringLaw_incoherentInelastic(ThermalNeutronScatteringLaw_incoherentInelastic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       pid(this,std::move(other.pid)),
@@ -248,7 +248,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ThermalNeutronScatteringLaw_incoherentInelastic/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ThermalNeutronScatteringLaw_incoherentInelastic
 
 } // namespace general

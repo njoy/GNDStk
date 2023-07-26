@@ -117,7 +117,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -130,7 +130,7 @@ public:
 
    // default
    Resolved() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -148,7 +148,7 @@ public:
       const wrapper<std::optional<general::RMatrix>>
          &RMatrix = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
       domainMax(this,domainMax),
       domainUnit(this,domainUnit),
@@ -160,14 +160,14 @@ public:
 
    // from node
    explicit Resolved(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Resolved(const Resolved &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       domainMin(this,other.domainMin),
       domainMax(this,other.domainMax),
@@ -180,7 +180,7 @@ public:
 
    // move
    Resolved(Resolved &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       domainMin(this,std::move(other.domainMin)),
       domainMax(this,std::move(other.domainMax)),
@@ -230,7 +230,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Resolved/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Resolved
 
 } // namespace general

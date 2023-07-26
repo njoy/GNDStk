@@ -85,17 +85,17 @@ public:
       table{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(table().columnHeaders(),column);
-   GNDSTK_SHORTCUT(table(),columnHeaders);
-   GNDSTK_SHORTCUT(table(),data);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(table().columnHeaders(),column);
+   NJOY_GNDSTK_SHORTCUT(table(),columnHeaders);
+   NJOY_GNDSTK_SHORTCUT(table(),data);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -104,7 +104,7 @@ public:
 
    // default
    ResonanceParameters() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -114,7 +114,7 @@ public:
       const wrapper<general::Table>
          &table
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       table(this,table)
    {
       Component::finish();
@@ -122,14 +122,14 @@ public:
 
    // from node
    explicit ResonanceParameters(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ResonanceParameters(const ResonanceParameters &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       table(this,other.table)
    {
@@ -138,7 +138,7 @@ public:
 
    // move
    ResonanceParameters(ResonanceParameters &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       table(this,std::move(other.table))
    {
@@ -176,7 +176,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ResonanceParameters/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ResonanceParameters
 
 } // namespace general

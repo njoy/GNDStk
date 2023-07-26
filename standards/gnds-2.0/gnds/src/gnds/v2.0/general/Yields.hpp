@@ -99,17 +99,17 @@ public:
       uncertainty{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(uncertainty(),listOfCovariances);
-   GNDSTK_SHORTCUT(uncertainty(),polynomial1d);
-   GNDSTK_SHORTCUT(uncertainty(),standard);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(uncertainty(),listOfCovariances);
+   NJOY_GNDSTK_SHORTCUT(uncertainty(),polynomial1d);
+   NJOY_GNDSTK_SHORTCUT(uncertainty(),standard);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -120,7 +120,7 @@ public:
 
    // default
    Yields() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -134,7 +134,7 @@ public:
       const wrapper<general::Uncertainty>
          &uncertainty = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       nuclides(this,nuclides),
       values(this,values),
       uncertainty(this,uncertainty)
@@ -144,14 +144,14 @@ public:
 
    // from node
    explicit Yields(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Yields(const Yields &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       nuclides(this,other.nuclides),
       values(this,other.values),
@@ -162,7 +162,7 @@ public:
 
    // move
    Yields(Yields &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       nuclides(this,std::move(other.nuclides)),
       values(this,std::move(other.values)),
@@ -206,7 +206,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Yields/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Yields
 
 } // namespace general

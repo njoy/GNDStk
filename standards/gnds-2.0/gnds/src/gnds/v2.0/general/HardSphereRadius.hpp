@@ -85,17 +85,17 @@ public:
       constant1d{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(constant1d(),axes);
-   GNDSTK_SHORTCUT(constant1d().axes(),axis);
-   GNDSTK_SHORTCUT(constant1d().axes(),grid);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(constant1d(),axes);
+   NJOY_GNDSTK_SHORTCUT(constant1d().axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(constant1d().axes(),grid);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -104,7 +104,7 @@ public:
 
    // default
    HardSphereRadius() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -114,7 +114,7 @@ public:
       const wrapper<general::Constant1d>
          &constant1d
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       constant1d(this,constant1d)
    {
       Component::finish();
@@ -122,14 +122,14 @@ public:
 
    // from node
    explicit HardSphereRadius(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    HardSphereRadius(const HardSphereRadius &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       constant1d(this,other.constant1d)
    {
@@ -138,7 +138,7 @@ public:
 
    // move
    HardSphereRadius(HardSphereRadius &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       constant1d(this,std::move(other.constant1d))
    {
@@ -176,7 +176,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/HardSphereRadius/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class HardSphereRadius
 
 } // namespace general

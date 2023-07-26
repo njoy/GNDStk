@@ -95,7 +95,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    FastRegion() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<std::optional<general::Regions1d>>
          &regions1d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
       regions1d(this,regions1d)
    {
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit FastRegion(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    FastRegion(const FastRegion &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs1d(this,other.XYs1d),
       regions1d(this,other.regions1d)
@@ -143,7 +143,7 @@ public:
 
    // move
    FastRegion(FastRegion &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d)),
       regions1d(this,std::move(other.regions1d))
@@ -184,7 +184,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/FastRegion/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class FastRegion
 
 } // namespace general

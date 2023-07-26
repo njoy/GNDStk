@@ -102,7 +102,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -113,7 +113,7 @@ public:
 
    // default
    NuclearAmplitudeExpansion() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -127,7 +127,7 @@ public:
       const wrapper<general::ImaginaryInterferenceTerm>
          &imaginaryInterferenceTerm = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       nuclearTerm(this,nuclearTerm),
       realInterferenceTerm(this,realInterferenceTerm),
       imaginaryInterferenceTerm(this,imaginaryInterferenceTerm)
@@ -137,14 +137,14 @@ public:
 
    // from node
    explicit NuclearAmplitudeExpansion(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    NuclearAmplitudeExpansion(const NuclearAmplitudeExpansion &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       nuclearTerm(this,other.nuclearTerm),
       realInterferenceTerm(this,other.realInterferenceTerm),
@@ -155,7 +155,7 @@ public:
 
    // move
    NuclearAmplitudeExpansion(NuclearAmplitudeExpansion &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       nuclearTerm(this,std::move(other.nuclearTerm)),
       realInterferenceTerm(this,std::move(other.realInterferenceTerm)),
@@ -199,7 +199,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/NuclearAmplitudeExpansion/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class NuclearAmplitudeExpansion
 
 } // namespace general

@@ -95,7 +95,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -105,7 +105,7 @@ public:
 
    // default
    ParameterCovariances() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<std::optional<std::vector<general::AverageParameterCovariance>>>
          &averageParameterCovariance = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       parameterCovariance(this,parameterCovariance),
       averageParameterCovariance(this,averageParameterCovariance)
    {
@@ -126,14 +126,14 @@ public:
 
    // from node
    explicit ParameterCovariances(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ParameterCovariances(const ParameterCovariances &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       parameterCovariance(this,other.parameterCovariance),
       averageParameterCovariance(this,other.averageParameterCovariance)
@@ -143,7 +143,7 @@ public:
 
    // move
    ParameterCovariances(ParameterCovariances &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       parameterCovariance(this,std::move(other.parameterCovariance)),
       averageParameterCovariance(this,std::move(other.averageParameterCovariance))
@@ -184,7 +184,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ParameterCovariances/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ParameterCovariances
 
 } // namespace general

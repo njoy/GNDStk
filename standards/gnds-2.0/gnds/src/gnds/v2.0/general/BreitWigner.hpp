@@ -121,17 +121,17 @@ public:
       scatteringRadius{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(resonanceParameters().table(),columnHeaders);
-   GNDSTK_SHORTCUT(resonanceParameters().table(),data);
-   GNDSTK_SHORTCUT(resonanceParameters(),table);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(resonanceParameters().table(),columnHeaders);
+   NJOY_GNDSTK_SHORTCUT(resonanceParameters().table(),data);
+   NJOY_GNDSTK_SHORTCUT(resonanceParameters(),table);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -145,7 +145,7 @@ public:
 
    // default
    BreitWigner() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -165,7 +165,7 @@ public:
       const wrapper<std::optional<general::ScatteringRadius>>
          &scatteringRadius = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       approximation(this,approximation),
       calculateChannelRadius(this,calculateChannelRadius),
@@ -178,14 +178,14 @@ public:
 
    // from node
    explicit BreitWigner(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    BreitWigner(const BreitWigner &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       approximation(this,other.approximation),
@@ -199,7 +199,7 @@ public:
 
    // move
    BreitWigner(BreitWigner &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       approximation(this,std::move(other.approximation)),
@@ -252,7 +252,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/BreitWigner/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class BreitWigner
 
 } // namespace general

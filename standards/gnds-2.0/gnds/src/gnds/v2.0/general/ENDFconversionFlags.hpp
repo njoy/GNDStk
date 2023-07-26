@@ -104,7 +104,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -115,7 +115,7 @@ public:
 
    // default
    ENDFconversionFlags() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -129,7 +129,7 @@ public:
       const wrapper<std::vector<general::Conversion>>
          &conversion = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       flags(this,flags),
       href(this,href),
       conversion(this,conversion)
@@ -139,14 +139,14 @@ public:
 
    // from node
    explicit ENDFconversionFlags(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ENDFconversionFlags(const ENDFconversionFlags &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       flags(this,other.flags),
       href(this,other.href),
@@ -157,7 +157,7 @@ public:
 
    // move
    ENDFconversionFlags(ENDFconversionFlags &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       flags(this,std::move(other.flags)),
       href(this,std::move(other.href)),
@@ -201,7 +201,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ENDFconversionFlags/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ENDFconversionFlags
 
 } // namespace general

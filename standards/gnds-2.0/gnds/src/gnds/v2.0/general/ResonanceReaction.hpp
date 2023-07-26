@@ -131,7 +131,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -146,7 +146,7 @@ public:
 
    // default
    ResonanceReaction() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -168,7 +168,7 @@ public:
       const wrapper<std::optional<general::ScatteringRadius>>
          &scatteringRadius = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       ejectile(this,ejectile),
       eliminated(this,eliminated),
@@ -182,14 +182,14 @@ public:
 
    // from node
    explicit ResonanceReaction(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ResonanceReaction(const ResonanceReaction &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       ejectile(this,other.ejectile),
@@ -204,7 +204,7 @@ public:
 
    // move
    ResonanceReaction(ResonanceReaction &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       ejectile(this,std::move(other.ejectile)),
@@ -260,7 +260,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ResonanceReaction/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ResonanceReaction
 
 } // namespace general

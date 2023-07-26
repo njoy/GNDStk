@@ -133,16 +133,16 @@ public:
       spinGroups{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(resonanceReactions(),resonanceReaction);
-   GNDSTK_SHORTCUT(spinGroups(),spinGroup);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(resonanceReactions(),resonanceReaction);
+   NJOY_GNDSTK_SHORTCUT(spinGroups(),spinGroup);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -158,7 +158,7 @@ public:
 
    // default
    RMatrix() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -182,7 +182,7 @@ public:
       const wrapper<general::SpinGroups>
          &spinGroups = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       approximation(this,approximation),
       boundaryCondition(this,boundaryCondition),
@@ -197,14 +197,14 @@ public:
 
    // from node
    explicit RMatrix(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    RMatrix(const RMatrix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       approximation(this,other.approximation),
@@ -220,7 +220,7 @@ public:
 
    // move
    RMatrix(RMatrix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       approximation(this,std::move(other.approximation)),
@@ -279,7 +279,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/RMatrix/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class RMatrix
 
 } // namespace general

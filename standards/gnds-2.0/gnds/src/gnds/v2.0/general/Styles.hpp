@@ -92,22 +92,22 @@ public:
       crossSectionReconstructed{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(evaluated().documentation(),authors);
-   GNDSTK_SHORTCUT(evaluated().documentation(),body);
-   GNDSTK_SHORTCUT(evaluated().documentation(),dates);
-   GNDSTK_SHORTCUT(evaluated(),documentation);
-   GNDSTK_SHORTCUT(evaluated().documentation(),endfCompatible);
-   GNDSTK_SHORTCUT(evaluated(),projectileEnergyDomain);
-   GNDSTK_SHORTCUT(evaluated(),temperature);
-   GNDSTK_SHORTCUT(evaluated().documentation(),title);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(evaluated().documentation(),authors);
+   NJOY_GNDSTK_SHORTCUT(evaluated().documentation(),body);
+   NJOY_GNDSTK_SHORTCUT(evaluated().documentation(),dates);
+   NJOY_GNDSTK_SHORTCUT(evaluated(),documentation);
+   NJOY_GNDSTK_SHORTCUT(evaluated().documentation(),endfCompatible);
+   NJOY_GNDSTK_SHORTCUT(evaluated(),projectileEnergyDomain);
+   NJOY_GNDSTK_SHORTCUT(evaluated(),temperature);
+   NJOY_GNDSTK_SHORTCUT(evaluated().documentation(),title);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -117,7 +117,7 @@ public:
 
    // default
    Styles() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -129,7 +129,7 @@ public:
       const wrapper<std::optional<general::CrossSectionReconstructed>>
          &crossSectionReconstructed = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       evaluated(this,evaluated),
       crossSectionReconstructed(this,crossSectionReconstructed)
    {
@@ -138,14 +138,14 @@ public:
 
    // from node
    explicit Styles(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Styles(const Styles &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       evaluated(this,other.evaluated),
       crossSectionReconstructed(this,other.crossSectionReconstructed)
@@ -155,7 +155,7 @@ public:
 
    // move
    Styles(Styles &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       evaluated(this,std::move(other.evaluated)),
       crossSectionReconstructed(this,std::move(other.crossSectionReconstructed))
@@ -196,7 +196,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Styles/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Styles
 
 } // namespace general

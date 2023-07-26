@@ -112,7 +112,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -125,7 +125,7 @@ public:
 
    // default
    Slice() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -143,7 +143,7 @@ public:
       const wrapper<std::optional<std::string>>
          &domainUnit = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       dimension(this,dimension),
       domainValue(this,domainValue),
       domainMin(this,domainMin),
@@ -155,14 +155,14 @@ public:
 
    // from node
    explicit Slice(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Slice(const Slice &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       dimension(this,other.dimension),
       domainValue(this,other.domainValue),
@@ -175,7 +175,7 @@ public:
 
    // move
    Slice(Slice &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       dimension(this,std::move(other.dimension)),
       domainValue(this,std::move(other.domainValue)),
@@ -225,7 +225,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Slice/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Slice
 
 } // namespace general

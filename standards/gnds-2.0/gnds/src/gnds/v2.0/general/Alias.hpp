@@ -94,7 +94,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -104,7 +104,7 @@ public:
 
    // default
    Alias() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -116,7 +116,7 @@ public:
       const wrapper<std::optional<std::string>>
          &pid = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
       pid(this,pid)
    {
@@ -125,14 +125,14 @@ public:
 
    // from node
    explicit Alias(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Alias(const Alias &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       id(this,other.id),
       pid(this,other.pid)
@@ -142,7 +142,7 @@ public:
 
    // move
    Alias(Alias &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       pid(this,std::move(other.pid))
@@ -183,7 +183,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Alias/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Alias
 
 } // namespace general

@@ -101,15 +101,15 @@ public:
       nuclides{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(nuclides(),nuclide);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(nuclides(),nuclide);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -120,7 +120,7 @@ public:
 
    // default
    Isotope() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -134,7 +134,7 @@ public:
       const wrapper<general::Nuclides>
          &nuclides = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
       A(this,A),
       nuclides(this,nuclides)
@@ -144,14 +144,14 @@ public:
 
    // from node
    explicit Isotope(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Isotope(const Isotope &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       symbol(this,other.symbol),
       A(this,other.A),
@@ -162,7 +162,7 @@ public:
 
    // move
    Isotope(Isotope &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       symbol(this,std::move(other.symbol)),
       A(this,std::move(other.A)),
@@ -206,7 +206,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Isotope/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Isotope
 
 } // namespace general

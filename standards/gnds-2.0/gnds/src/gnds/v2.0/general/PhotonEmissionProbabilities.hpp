@@ -85,15 +85,15 @@ public:
       shell{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(shell(),uncertainty);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(shell(),uncertainty);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -102,7 +102,7 @@ public:
 
    // default
    PhotonEmissionProbabilities() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -112,7 +112,7 @@ public:
       const wrapper<general::Shell>
          &shell
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       shell(this,shell)
    {
       Component::finish();
@@ -120,14 +120,14 @@ public:
 
    // from node
    explicit PhotonEmissionProbabilities(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    PhotonEmissionProbabilities(const PhotonEmissionProbabilities &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       shell(this,other.shell)
    {
@@ -136,7 +136,7 @@ public:
 
    // move
    PhotonEmissionProbabilities(PhotonEmissionProbabilities &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       shell(this,std::move(other.shell))
    {
@@ -174,7 +174,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/PhotonEmissionProbabilities/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class PhotonEmissionProbabilities
 
 } // namespace general

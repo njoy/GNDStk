@@ -123,27 +123,27 @@ public:
       fissionFragmentData{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(nucleus().energy(),MadlandNix);
-   GNDSTK_SHORTCUT(nucleus().energy(),NBodyPhaseSpace);
-   GNDSTK_SHORTCUT(nucleus().energy(),XYs2d);
-   GNDSTK_SHORTCUT(nucleus().energy(),discreteGamma);
-   GNDSTK_SHORTCUT(nucleus(),energy);
-   GNDSTK_SHORTCUT(nucleus().energy(),evaporation);
-   GNDSTK_SHORTCUT(nucleus().energy(),generalEvaporation);
-   GNDSTK_SHORTCUT(nucleus(),halflife);
-   GNDSTK_SHORTCUT(nucleus(),parity);
-   GNDSTK_SHORTCUT(nucleus().energy(),primaryGamma);
-   GNDSTK_SHORTCUT(nucleus().energy(),simpleMaxwellianFission);
-   GNDSTK_SHORTCUT(nucleus(),spin);
-   GNDSTK_SHORTCUT(nucleus().energy(),weightedFunctionals);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),MadlandNix);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),NBodyPhaseSpace);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),XYs2d);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),discreteGamma);
+   NJOY_GNDSTK_SHORTCUT(nucleus(),energy);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),evaporation);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),generalEvaporation);
+   NJOY_GNDSTK_SHORTCUT(nucleus(),halflife);
+   NJOY_GNDSTK_SHORTCUT(nucleus(),parity);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),primaryGamma);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),simpleMaxwellianFission);
+   NJOY_GNDSTK_SHORTCUT(nucleus(),spin);
+   NJOY_GNDSTK_SHORTCUT(nucleus().energy(),weightedFunctionals);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -157,7 +157,7 @@ public:
 
    // default
    Nuclide() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -177,7 +177,7 @@ public:
       const wrapper<std::optional<top::FissionFragmentData>>
          &fissionFragmentData = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
       mass(this,mass),
       charge(this,charge),
@@ -190,14 +190,14 @@ public:
 
    // from node
    explicit Nuclide(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Nuclide(const Nuclide &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       id(this,other.id),
       mass(this,other.mass),
@@ -211,7 +211,7 @@ public:
 
    // move
    Nuclide(Nuclide &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       mass(this,std::move(other.mass)),
@@ -264,7 +264,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Nuclide/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Nuclide
 
 } // namespace general

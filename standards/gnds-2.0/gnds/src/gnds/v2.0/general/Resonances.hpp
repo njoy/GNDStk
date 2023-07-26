@@ -112,7 +112,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -124,7 +124,7 @@ public:
 
    // default
    Resonances() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -140,7 +140,7 @@ public:
       const wrapper<std::optional<general::Unresolved>>
          &unresolved = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       href(this,href),
       scatteringRadius(this,scatteringRadius),
       resolved(this,resolved),
@@ -151,14 +151,14 @@ public:
 
    // from node
    explicit Resonances(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Resonances(const Resonances &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       href(this,other.href),
       scatteringRadius(this,other.scatteringRadius),
@@ -170,7 +170,7 @@ public:
 
    // move
    Resonances(Resonances &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       href(this,std::move(other.href)),
       scatteringRadius(this,std::move(other.scatteringRadius)),
@@ -217,7 +217,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Resonances/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Resonances
 
 } // namespace general

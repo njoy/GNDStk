@@ -108,24 +108,24 @@ public:
       energy{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(energy(),Double);
-   GNDSTK_SHORTCUT(energy(),MadlandNix);
-   GNDSTK_SHORTCUT(energy(),NBodyPhaseSpace);
-   GNDSTK_SHORTCUT(energy(),discreteGamma);
-   GNDSTK_SHORTCUT(energy(),evaporation);
-   GNDSTK_SHORTCUT(energy(),generalEvaporation);
-   GNDSTK_SHORTCUT(angular(),isotropic2d);
-   GNDSTK_SHORTCUT(energy(),primaryGamma);
-   GNDSTK_SHORTCUT(energy(),simpleMaxwellianFission);
-   GNDSTK_SHORTCUT(energy(),weightedFunctionals);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(energy(),Double);
+   NJOY_GNDSTK_SHORTCUT(energy(),MadlandNix);
+   NJOY_GNDSTK_SHORTCUT(energy(),NBodyPhaseSpace);
+   NJOY_GNDSTK_SHORTCUT(energy(),discreteGamma);
+   NJOY_GNDSTK_SHORTCUT(energy(),evaporation);
+   NJOY_GNDSTK_SHORTCUT(energy(),generalEvaporation);
+   NJOY_GNDSTK_SHORTCUT(angular(),isotropic2d);
+   NJOY_GNDSTK_SHORTCUT(energy(),primaryGamma);
+   NJOY_GNDSTK_SHORTCUT(energy(),simpleMaxwellianFission);
+   NJOY_GNDSTK_SHORTCUT(energy(),weightedFunctionals);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -137,7 +137,7 @@ public:
 
    // default
    Uncorrelated() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -153,7 +153,7 @@ public:
       const wrapper<general::Energy>
          &energy = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       productFrame(this,productFrame),
       angular(this,angular),
@@ -164,14 +164,14 @@ public:
 
    // from node
    explicit Uncorrelated(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Uncorrelated(const Uncorrelated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
@@ -183,7 +183,7 @@ public:
 
    // move
    Uncorrelated(Uncorrelated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
@@ -230,7 +230,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Uncorrelated/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Uncorrelated
 
 } // namespace general

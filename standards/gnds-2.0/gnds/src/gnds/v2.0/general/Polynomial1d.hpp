@@ -121,16 +121,16 @@ public:
       uncertainty{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(axes(),axis);
-   GNDSTK_SHORTCUT(axes(),grid);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(axes(),grid);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -144,7 +144,7 @@ public:
 
    // default
    Polynomial1d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -164,7 +164,7 @@ public:
       const wrapper<std::optional<general::Uncertainty>>
          &uncertainty = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       domainMin(this,domainMin),
       domainMax(this,domainMax),
@@ -177,14 +177,14 @@ public:
 
    // from node
    explicit Polynomial1d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Polynomial1d(const Polynomial1d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       domainMin(this,other.domainMin),
@@ -198,7 +198,7 @@ public:
 
    // move
    Polynomial1d(Polynomial1d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       domainMin(this,std::move(other.domainMin)),
@@ -251,7 +251,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Polynomial1d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Polynomial1d
 
 } // namespace general

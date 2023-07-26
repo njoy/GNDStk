@@ -123,16 +123,16 @@ public:
       halflife{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(spin(),fraction);
-   GNDSTK_SHORTCUT(halflife(),string);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(spin(),fraction);
+   NJOY_GNDSTK_SHORTCUT(halflife(),string);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -146,7 +146,7 @@ public:
 
    // default
    GaugeBoson() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -166,7 +166,7 @@ public:
       const wrapper<general::Halflife>
          &halflife = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       id(this,id),
       mass(this,mass),
       spin(this,spin),
@@ -179,14 +179,14 @@ public:
 
    // from node
    explicit GaugeBoson(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    GaugeBoson(const GaugeBoson &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       id(this,other.id),
       mass(this,other.mass),
@@ -200,7 +200,7 @@ public:
 
    // move
    GaugeBoson(GaugeBoson &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       id(this,std::move(other.id)),
       mass(this,std::move(other.mass)),
@@ -253,7 +253,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/GaugeBoson/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class GaugeBoson
 
 } // namespace general

@@ -127,20 +127,20 @@ public:
       projectileEnergyDomain{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(documentation().authors(),author);
-   GNDSTK_SHORTCUT(documentation(),authors);
-   GNDSTK_SHORTCUT(documentation(),body);
-   GNDSTK_SHORTCUT(documentation(),dates);
-   GNDSTK_SHORTCUT(documentation(),endfCompatible);
-   GNDSTK_SHORTCUT(documentation(),title);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(documentation().authors(),author);
+   NJOY_GNDSTK_SHORTCUT(documentation(),authors);
+   NJOY_GNDSTK_SHORTCUT(documentation(),body);
+   NJOY_GNDSTK_SHORTCUT(documentation(),dates);
+   NJOY_GNDSTK_SHORTCUT(documentation(),endfCompatible);
+   NJOY_GNDSTK_SHORTCUT(documentation(),title);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -155,7 +155,7 @@ public:
 
    // default
    Evaluated() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -177,7 +177,7 @@ public:
       const wrapper<std::optional<general::ProjectileEnergyDomain>>
          &projectileEnergyDomain = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       date(this,date),
       library(this,library),
@@ -191,14 +191,14 @@ public:
 
    // from node
    explicit Evaluated(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Evaluated(const Evaluated &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       date(this,other.date),
@@ -213,7 +213,7 @@ public:
 
    // move
    Evaluated(Evaluated &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       date(this,std::move(other.date)),
@@ -269,7 +269,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Evaluated/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Evaluated
 
 } // namespace general

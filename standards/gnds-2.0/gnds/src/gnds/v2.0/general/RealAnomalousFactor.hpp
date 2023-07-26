@@ -85,17 +85,17 @@ public:
       XYs1d{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(XYs1d(),axes);
-   GNDSTK_SHORTCUT(XYs1d(),uncertainty);
-   GNDSTK_SHORTCUT(XYs1d(),values);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(XYs1d(),axes);
+   NJOY_GNDSTK_SHORTCUT(XYs1d(),uncertainty);
+   NJOY_GNDSTK_SHORTCUT(XYs1d(),values);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -104,7 +104,7 @@ public:
 
    // default
    RealAnomalousFactor() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -114,7 +114,7 @@ public:
       const wrapper<general::XYs1d>
          &XYs1d
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d)
    {
       Component::finish();
@@ -122,14 +122,14 @@ public:
 
    // from node
    explicit RealAnomalousFactor(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    RealAnomalousFactor(const RealAnomalousFactor &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs1d(this,other.XYs1d)
    {
@@ -138,7 +138,7 @@ public:
 
    // move
    RealAnomalousFactor(RealAnomalousFactor &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d))
    {
@@ -176,7 +176,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/RealAnomalousFactor/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class RealAnomalousFactor
 
 } // namespace general

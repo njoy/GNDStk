@@ -116,7 +116,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -129,7 +129,7 @@ public:
 
    // default
    Sum() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -147,7 +147,7 @@ public:
       const wrapper<std::vector<general::Summand>>
          &summand = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       domainMin(this,domainMin),
       domainMax(this,domainMax),
@@ -159,14 +159,14 @@ public:
 
    // from node
    explicit Sum(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Sum(const Sum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       domainMin(this,other.domainMin),
@@ -179,7 +179,7 @@ public:
 
    // move
    Sum(Sum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       domainMin(this,std::move(other.domainMin)),
@@ -229,7 +229,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Sum/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Sum
 
 } // namespace general

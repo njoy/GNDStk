@@ -112,7 +112,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -124,7 +124,7 @@ public:
 
    // default
    SelfScatteringKernel() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -140,7 +140,7 @@ public:
       const wrapper<std::optional<general::FreeGasApproximation>>
          &freeGasApproximation = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       symmetric(this,symmetric),
       gridded3d(this,gridded3d),
       SCTApproximation(this,SCTApproximation),
@@ -151,14 +151,14 @@ public:
 
    // from node
    explicit SelfScatteringKernel(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    SelfScatteringKernel(const SelfScatteringKernel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       symmetric(this,other.symmetric),
       gridded3d(this,other.gridded3d),
@@ -170,7 +170,7 @@ public:
 
    // move
    SelfScatteringKernel(SelfScatteringKernel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       symmetric(this,std::move(other.symmetric)),
       gridded3d(this,std::move(other.gridded3d)),
@@ -217,7 +217,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/SelfScatteringKernel/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class SelfScatteringKernel
 
 } // namespace general

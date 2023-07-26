@@ -99,15 +99,15 @@ public:
       g{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(theta(),regions1d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(theta(),regions1d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -118,7 +118,7 @@ public:
 
    // default
    GeneralEvaporation() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -132,7 +132,7 @@ public:
       const wrapper<general::G>
          &g = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       U(this,U),
       theta(this,theta),
       g(this,g)
@@ -142,14 +142,14 @@ public:
 
    // from node
    explicit GeneralEvaporation(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    GeneralEvaporation(const GeneralEvaporation &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       U(this,other.U),
       theta(this,other.theta),
@@ -160,7 +160,7 @@ public:
 
    // move
    GeneralEvaporation(GeneralEvaporation &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       U(this,std::move(other.U)),
       theta(this,std::move(other.theta)),
@@ -204,7 +204,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/GeneralEvaporation/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class GeneralEvaporation
 
 } // namespace general

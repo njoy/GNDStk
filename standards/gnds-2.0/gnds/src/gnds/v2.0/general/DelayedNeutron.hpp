@@ -102,27 +102,27 @@ public:
       product{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(rate(),Double);
-   GNDSTK_SHORTCUT(product().multiplicity(),XYs1d);
-   GNDSTK_SHORTCUT(product().distribution(),XYs2d);
-   GNDSTK_SHORTCUT(product().multiplicity(),branching1d);
-   GNDSTK_SHORTCUT(product().multiplicity(),constant1d);
-   GNDSTK_SHORTCUT(product(),distribution);
-   GNDSTK_SHORTCUT(product(),multiplicity);
-   GNDSTK_SHORTCUT(product().multiplicity(),polynomial1d);
-   GNDSTK_SHORTCUT(product().multiplicity(),reference);
-   GNDSTK_SHORTCUT(product().multiplicity(),regions1d);
-   GNDSTK_SHORTCUT(product().distribution(),thermalNeutronScatteringLaw);
-   GNDSTK_SHORTCUT(rate().Double(),uncertainty);
-   GNDSTK_SHORTCUT(product().distribution(),uncorrelated);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(rate(),Double);
+   NJOY_GNDSTK_SHORTCUT(product().multiplicity(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(product().distribution(),XYs2d);
+   NJOY_GNDSTK_SHORTCUT(product().multiplicity(),branching1d);
+   NJOY_GNDSTK_SHORTCUT(product().multiplicity(),constant1d);
+   NJOY_GNDSTK_SHORTCUT(product(),distribution);
+   NJOY_GNDSTK_SHORTCUT(product(),multiplicity);
+   NJOY_GNDSTK_SHORTCUT(product().multiplicity(),polynomial1d);
+   NJOY_GNDSTK_SHORTCUT(product().multiplicity(),reference);
+   NJOY_GNDSTK_SHORTCUT(product().multiplicity(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(product().distribution(),thermalNeutronScatteringLaw);
+   NJOY_GNDSTK_SHORTCUT(rate().Double(),uncertainty);
+   NJOY_GNDSTK_SHORTCUT(product().distribution(),uncorrelated);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -133,7 +133,7 @@ public:
 
    // default
    DelayedNeutron() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -147,7 +147,7 @@ public:
       const wrapper<reduced::Product>
          &product = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       rate(this,rate),
       product(this,product)
@@ -157,14 +157,14 @@ public:
 
    // from node
    explicit DelayedNeutron(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    DelayedNeutron(const DelayedNeutron &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       rate(this,other.rate),
@@ -175,7 +175,7 @@ public:
 
    // move
    DelayedNeutron(DelayedNeutron &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       rate(this,std::move(other.rate)),
@@ -219,7 +219,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/DelayedNeutron/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class DelayedNeutron
 
 } // namespace general

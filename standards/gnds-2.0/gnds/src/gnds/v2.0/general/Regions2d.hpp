@@ -99,17 +99,17 @@ public:
       uncertainty{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(function2ds(),XYs2d);
-   GNDSTK_SHORTCUT(axes(),axis);
-   GNDSTK_SHORTCUT(axes(),grid);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(function2ds(),XYs2d);
+   NJOY_GNDSTK_SHORTCUT(axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(axes(),grid);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -120,7 +120,7 @@ public:
 
    // default
    Regions2d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -134,7 +134,7 @@ public:
       const wrapper<std::optional<general::Uncertainty>>
          &uncertainty = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       axes(this,axes),
       function2ds(this,function2ds),
       uncertainty(this,uncertainty)
@@ -144,14 +144,14 @@ public:
 
    // from node
    explicit Regions2d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Regions2d(const Regions2d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       axes(this,other.axes),
       function2ds(this,other.function2ds),
@@ -162,7 +162,7 @@ public:
 
    // move
    Regions2d(Regions2d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       axes(this,std::move(other.axes)),
       function2ds(this,std::move(other.function2ds)),
@@ -206,7 +206,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Regions2d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Regions2d
 
 } // namespace general

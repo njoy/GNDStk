@@ -109,20 +109,20 @@ public:
       uncertainty{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(background(),fastRegion);
-   GNDSTK_SHORTCUT(resonances(),resolved);
-   GNDSTK_SHORTCUT(background(),resolvedRegion);
-   GNDSTK_SHORTCUT(resonances(),scatteringRadius);
-   GNDSTK_SHORTCUT(resonances(),unresolved);
-   GNDSTK_SHORTCUT(background(),unresolvedRegion);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(background(),fastRegion);
+   NJOY_GNDSTK_SHORTCUT(resonances(),resolved);
+   NJOY_GNDSTK_SHORTCUT(background(),resolvedRegion);
+   NJOY_GNDSTK_SHORTCUT(resonances(),scatteringRadius);
+   NJOY_GNDSTK_SHORTCUT(resonances(),unresolved);
+   NJOY_GNDSTK_SHORTCUT(background(),unresolvedRegion);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -134,7 +134,7 @@ public:
 
    // default
    ResonancesWithBackground() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -150,7 +150,7 @@ public:
       const wrapper<std::optional<general::Uncertainty>>
          &uncertainty = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       resonances(this,resonances),
       background(this,background),
@@ -161,14 +161,14 @@ public:
 
    // from node
    explicit ResonancesWithBackground(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ResonancesWithBackground(const ResonancesWithBackground &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       resonances(this,other.resonances),
@@ -180,7 +180,7 @@ public:
 
    // move
    ResonancesWithBackground(ResonancesWithBackground &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       resonances(this,std::move(other.resonances)),
@@ -227,7 +227,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ResonancesWithBackground/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ResonancesWithBackground
 
 } // namespace general

@@ -108,18 +108,18 @@ public:
       parameters{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(array(),lengths);
-   GNDSTK_SHORTCUT(parameters(),parameterLink);
-   GNDSTK_SHORTCUT(array(),starts);
-   GNDSTK_SHORTCUT(array(),values);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(array(),lengths);
+   NJOY_GNDSTK_SHORTCUT(parameters(),parameterLink);
+   NJOY_GNDSTK_SHORTCUT(array(),starts);
+   NJOY_GNDSTK_SHORTCUT(array(),values);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -131,7 +131,7 @@ public:
 
    // default
    ParameterCovarianceMatrix() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -147,7 +147,7 @@ public:
       const wrapper<general::Parameters>
          &parameters = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       type(this,type),
       array(this,array),
@@ -158,14 +158,14 @@ public:
 
    // from node
    explicit ParameterCovarianceMatrix(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ParameterCovarianceMatrix(const ParameterCovarianceMatrix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       type(this,other.type),
@@ -177,7 +177,7 @@ public:
 
    // move
    ParameterCovarianceMatrix(ParameterCovarianceMatrix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       type(this,std::move(other.type)),
@@ -224,7 +224,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ParameterCovarianceMatrix/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ParameterCovarianceMatrix
 
 } // namespace general

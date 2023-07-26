@@ -102,7 +102,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -113,7 +113,7 @@ public:
 
    // default
    Background() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -127,7 +127,7 @@ public:
       const wrapper<std::optional<general::UnresolvedRegion>>
          &unresolvedRegion = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       resolvedRegion(this,resolvedRegion),
       fastRegion(this,fastRegion),
       unresolvedRegion(this,unresolvedRegion)
@@ -137,14 +137,14 @@ public:
 
    // from node
    explicit Background(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Background(const Background &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       resolvedRegion(this,other.resolvedRegion),
       fastRegion(this,other.fastRegion),
@@ -155,7 +155,7 @@ public:
 
    // move
    Background(Background &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       resolvedRegion(this,std::move(other.resolvedRegion)),
       fastRegion(this,std::move(other.fastRegion)),
@@ -199,7 +199,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Background/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Background
 
 } // namespace general

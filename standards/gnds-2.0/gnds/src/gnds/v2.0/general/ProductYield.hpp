@@ -102,15 +102,15 @@ public:
       elapsedTimes{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(elapsedTimes(),elapsedTime);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(elapsedTimes(),elapsedTime);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -121,7 +121,7 @@ public:
 
    // default
    ProductYield() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -135,7 +135,7 @@ public:
       const wrapper<general::ElapsedTimes>
          &elapsedTimes = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       nuclides(this,nuclides),
       elapsedTimes(this,elapsedTimes)
@@ -145,14 +145,14 @@ public:
 
    // from node
    explicit ProductYield(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ProductYield(const ProductYield &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       nuclides(this,other.nuclides),
@@ -163,7 +163,7 @@ public:
 
    // move
    ProductYield(ProductYield &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       nuclides(this,std::move(other.nuclides)),
@@ -207,7 +207,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ProductYield/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ProductYield
 
 } // namespace general

@@ -174,7 +174,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -195,7 +195,7 @@ public:
 
    // default
    Energy() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -229,7 +229,7 @@ public:
       const wrapper<std::optional<general::MadlandNix>>
          &MadlandNix = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
       unit(this,unit),
       Double(this,Double),
@@ -249,14 +249,14 @@ public:
 
    // from node
    explicit Energy(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Energy(const Energy &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       value(this,other.value),
       unit(this,other.unit),
@@ -277,7 +277,7 @@ public:
 
    // move
    Energy(Energy &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       unit(this,std::move(other.unit)),
@@ -351,7 +351,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Energy/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Energy
 
 } // namespace general

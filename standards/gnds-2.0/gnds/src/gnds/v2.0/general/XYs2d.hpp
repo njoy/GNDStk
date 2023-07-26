@@ -127,17 +127,17 @@ public:
       uncertainty{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(function1ds(),Legendre);
-   GNDSTK_SHORTCUT(function1ds(),XYs1d);
-   GNDSTK_SHORTCUT(function1ds(),regions1d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(function1ds(),Legendre);
+   NJOY_GNDSTK_SHORTCUT(function1ds(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(function1ds(),regions1d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -152,7 +152,7 @@ public:
 
    // default
    XYs2d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -174,7 +174,7 @@ public:
       const wrapper<std::optional<general::Uncertainty>>
          &uncertainty = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
       interpolation(this,interpolation),
       interpolationQualifier(this,interpolationQualifier),
@@ -188,14 +188,14 @@ public:
 
    // from node
    explicit XYs2d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    XYs2d(const XYs2d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       index(this,other.index),
       interpolation(this,other.interpolation),
@@ -210,7 +210,7 @@ public:
 
    // move
    XYs2d(XYs2d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       interpolation(this,std::move(other.interpolation)),
@@ -266,7 +266,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/XYs2d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class XYs2d
 
 } // namespace general

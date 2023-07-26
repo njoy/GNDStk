@@ -1402,7 +1402,7 @@ void writeClassSuffix(
        specs.Project, specs.Version, per.nsname, per.clname);
 
    // this *follows* the customization #include (because it might be used there)
-   out(1,"#undef GNDSTK_COMPONENT");
+   out(1,"#undef NJOY_GNDSTK_COMPONENT");
 
    // ------------------------
    // class+namespace end
@@ -1520,7 +1520,7 @@ void writeClassCtorComponent(
    writer &out, const PerClass &per, const bool copyOrMove,
    const bool newline = true
 ) {
-   out(2,"GNDSTK_COMPONENT(@)",
+   out(2,"NJOY_GNDSTK_COMPONENT(@)",
        std::string(copyOrMove ? "other.baseBlockData()" : "BlockData{}"),
        newline);
 }
@@ -1551,7 +1551,7 @@ void writeClassCtors(writer &out, const PerClass &per)
    int count; const int total = per.nfields();
 
    out();
-   out(1,"#define GNDSTK_COMPONENT(blockdata) \\");
+   out(1,"#define NJOY_GNDSTK_COMPONENT(blockdata) \\");
    out(1,"Component( \\");
    out(2,"blockdata, \\");
    out(2,"this->comment@ \\", std::string(total || per.isDataNode ? "," : ""));
@@ -1828,7 +1828,7 @@ void writeClass(
    if (per.name2path.size()) {
       out();
       out(1,"// shortcuts");
-      out(1,"#define GNDSTK_SHORTCUT(to,name) "
+      out(1,"#define NJOY_GNDSTK_SHORTCUT(to,name) "
           "decltype(to.name) &name = to.name");
 
       for (const auto &cut : per.name2path) {
@@ -1838,10 +1838,10 @@ void writeClass(
          for (const std::string &field : path)
             full += field + "().";
          full.pop_back(); // trailing '.'
-         out(1,"GNDSTK_SHORTCUT(@,@);", full, name);
+         out(1,"NJOY_GNDSTK_SHORTCUT(@,@);", full, name);
       }
 
-      out(1,"#undef GNDSTK_SHORTCUT");
+      out(1,"#undef NJOY_GNDSTK_SHORTCUT");
    }
 
    // output: constructors
@@ -2524,7 +2524,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
 
    if (metadata.size() > 0) {
       out();
-      out(0,"#define GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \\");
+      out(0,"#define NJOY_GNDSTK_MAKE_LOOKUP(nameField,nameGNDS) \\");
       out(1,"inline const auto nameField = makeLookup( \\");
       out(2,"#nameGNDS, \\");
       out(2,"[](const auto &obj) -> decltype(obj.nameField()) \\");
@@ -2536,9 +2536,9 @@ void fileGNDStkKey(const InfoSpecs &specs)
           "usually identical");
       out();
       for (const auto &meta : metadata)
-         out("GNDSTK_MAKE_LOOKUP(@,@);", meta.first, meta.second);
+         out("NJOY_GNDSTK_MAKE_LOOKUP(@,@);", meta.first, meta.second);
       out();
-      out(0,"#undef GNDSTK_MAKE_LOOKUP");
+      out(0,"#undef NJOY_GNDSTK_MAKE_LOOKUP");
       out();
    }
 

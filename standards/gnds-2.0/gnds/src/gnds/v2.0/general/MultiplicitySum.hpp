@@ -108,23 +108,23 @@ public:
       summands{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(multiplicity(),XYs1d);
-   GNDSTK_SHORTCUT(summands(),add);
-   GNDSTK_SHORTCUT(multiplicity(),branching1d);
-   GNDSTK_SHORTCUT(multiplicity(),branching3d);
-   GNDSTK_SHORTCUT(multiplicity(),constant1d);
-   GNDSTK_SHORTCUT(multiplicity(),polynomial1d);
-   GNDSTK_SHORTCUT(multiplicity(),reference);
-   GNDSTK_SHORTCUT(multiplicity(),regions1d);
-   GNDSTK_SHORTCUT(multiplicity(),unspecified);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(summands(),add);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),branching1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),branching3d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),constant1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),polynomial1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),reference);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(multiplicity(),unspecified);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -136,7 +136,7 @@ public:
 
    // default
    MultiplicitySum() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -152,7 +152,7 @@ public:
       const wrapper<general::Summands>
          &summands = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       ENDF_MT(this,ENDF_MT),
       multiplicity(this,multiplicity),
@@ -163,14 +163,14 @@ public:
 
    // from node
    explicit MultiplicitySum(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    MultiplicitySum(const MultiplicitySum &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       ENDF_MT(this,other.ENDF_MT),
@@ -182,7 +182,7 @@ public:
 
    // move
    MultiplicitySum(MultiplicitySum &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       ENDF_MT(this,std::move(other.ENDF_MT)),
@@ -229,7 +229,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/MultiplicitySum/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class MultiplicitySum
 
 } // namespace general

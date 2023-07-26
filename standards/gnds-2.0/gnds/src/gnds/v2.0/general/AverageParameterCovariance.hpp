@@ -115,17 +115,17 @@ public:
       columnData{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(covarianceMatrix().gridded2d(),array);
-   GNDSTK_SHORTCUT(covarianceMatrix().gridded2d(),axes);
-   GNDSTK_SHORTCUT(covarianceMatrix(),gridded2d);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(covarianceMatrix().gridded2d(),array);
+   NJOY_GNDSTK_SHORTCUT(covarianceMatrix().gridded2d(),axes);
+   NJOY_GNDSTK_SHORTCUT(covarianceMatrix(),gridded2d);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -138,7 +138,7 @@ public:
 
    // default
    AverageParameterCovariance() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -156,7 +156,7 @@ public:
       const wrapper<std::optional<general::ColumnData>>
          &columnData = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       crossTerm(this,crossTerm),
       covarianceMatrix(this,covarianceMatrix),
@@ -168,14 +168,14 @@ public:
 
    // from node
    explicit AverageParameterCovariance(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    AverageParameterCovariance(const AverageParameterCovariance &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       crossTerm(this,other.crossTerm),
@@ -188,7 +188,7 @@ public:
 
    // move
    AverageParameterCovariance(AverageParameterCovariance &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       crossTerm(this,std::move(other.crossTerm)),
@@ -238,7 +238,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/AverageParameterCovariance/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class AverageParameterCovariance
 
 } // namespace general

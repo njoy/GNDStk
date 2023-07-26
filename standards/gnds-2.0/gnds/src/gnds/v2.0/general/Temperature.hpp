@@ -94,7 +94,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -104,7 +104,7 @@ public:
 
    // default
    Temperature() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -116,7 +116,7 @@ public:
       const wrapper<std::string>
          &unit = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
       unit(this,unit)
    {
@@ -125,14 +125,14 @@ public:
 
    // from node
    explicit Temperature(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Temperature(const Temperature &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       value(this,other.value),
       unit(this,other.unit)
@@ -142,7 +142,7 @@ public:
 
    // move
    Temperature(Temperature &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       unit(this,std::move(other.unit))
@@ -183,7 +183,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Temperature/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Temperature
 
 } // namespace general

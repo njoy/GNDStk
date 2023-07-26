@@ -94,7 +94,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -104,7 +104,7 @@ public:
 
    // default
    Date() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -116,7 +116,7 @@ public:
       const wrapper<std::string>
          &dateType = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
       dateType(this,dateType)
    {
@@ -125,14 +125,14 @@ public:
 
    // from node
    explicit Date(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Date(const Date &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       value(this,other.value),
       dateType(this,other.dateType)
@@ -142,7 +142,7 @@ public:
 
    // move
    Date(Date &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       dateType(this,std::move(other.dateType))
@@ -183,7 +183,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Date/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Date
 
 } // namespace general

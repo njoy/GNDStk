@@ -102,22 +102,22 @@ public:
       distribution{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(crossSection(),XYs1d);
-   GNDSTK_SHORTCUT(distribution(),XYs2d);
-   GNDSTK_SHORTCUT(distribution(),branching3d);
-   GNDSTK_SHORTCUT(crossSection(),reference);
-   GNDSTK_SHORTCUT(crossSection(),regions1d);
-   GNDSTK_SHORTCUT(distribution(),thermalNeutronScatteringLaw);
-   GNDSTK_SHORTCUT(distribution(),uncorrelated);
-   GNDSTK_SHORTCUT(distribution(),unspecified);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(crossSection(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(distribution(),XYs2d);
+   NJOY_GNDSTK_SHORTCUT(distribution(),branching3d);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),reference);
+   NJOY_GNDSTK_SHORTCUT(crossSection(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(distribution(),thermalNeutronScatteringLaw);
+   NJOY_GNDSTK_SHORTCUT(distribution(),uncorrelated);
+   NJOY_GNDSTK_SHORTCUT(distribution(),unspecified);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -128,7 +128,7 @@ public:
 
    // default
    NuclearPlusInterference() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -142,7 +142,7 @@ public:
       const wrapper<reduced::Distribution>
          &distribution = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       muCutoff(this,muCutoff),
       crossSection(this,crossSection),
       distribution(this,distribution)
@@ -152,14 +152,14 @@ public:
 
    // from node
    explicit NuclearPlusInterference(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    NuclearPlusInterference(const NuclearPlusInterference &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       muCutoff(this,other.muCutoff),
       crossSection(this,other.crossSection),
@@ -170,7 +170,7 @@ public:
 
    // move
    NuclearPlusInterference(NuclearPlusInterference &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       muCutoff(this,std::move(other.muCutoff)),
       crossSection(this,std::move(other.crossSection)),
@@ -214,7 +214,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/NuclearPlusInterference/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class NuclearPlusInterference
 
 } // namespace general

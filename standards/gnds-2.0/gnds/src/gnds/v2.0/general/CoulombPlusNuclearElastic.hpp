@@ -136,7 +136,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -152,7 +152,7 @@ public:
 
    // default
    CoulombPlusNuclearElastic() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -176,7 +176,7 @@ public:
       const wrapper<std::optional<general::NuclearPlusInterference>>
          &nuclearPlusInterference = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       href(this,href),
       pid(this,pid),
@@ -191,14 +191,14 @@ public:
 
    // from node
    explicit CoulombPlusNuclearElastic(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    CoulombPlusNuclearElastic(const CoulombPlusNuclearElastic &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       href(this,other.href),
@@ -214,7 +214,7 @@ public:
 
    // move
    CoulombPlusNuclearElastic(CoulombPlusNuclearElastic &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       href(this,std::move(other.href)),
@@ -273,7 +273,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/CoulombPlusNuclearElastic/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class CoulombPlusNuclearElastic
 
 } // namespace general

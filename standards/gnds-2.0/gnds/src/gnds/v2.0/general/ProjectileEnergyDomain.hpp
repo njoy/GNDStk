@@ -100,7 +100,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -111,7 +111,7 @@ public:
 
    // default
    ProjectileEnergyDomain() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -125,7 +125,7 @@ public:
       const wrapper<std::string>
          &unit = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       min(this,min),
       max(this,max),
       unit(this,unit)
@@ -135,14 +135,14 @@ public:
 
    // from node
    explicit ProjectileEnergyDomain(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ProjectileEnergyDomain(const ProjectileEnergyDomain &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       min(this,other.min),
       max(this,other.max),
@@ -153,7 +153,7 @@ public:
 
    // move
    ProjectileEnergyDomain(ProjectileEnergyDomain &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       min(this,std::move(other.min)),
       max(this,std::move(other.max)),
@@ -197,7 +197,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ProjectileEnergyDomain/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ProjectileEnergyDomain
 
 } // namespace general

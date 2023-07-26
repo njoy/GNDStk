@@ -85,19 +85,19 @@ public:
       gridded2d{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(gridded2d(),array);
-   GNDSTK_SHORTCUT(gridded2d(),axes);
-   GNDSTK_SHORTCUT(gridded2d().axes(),axis);
-   GNDSTK_SHORTCUT(gridded2d().axes(),grid);
-   GNDSTK_SHORTCUT(gridded2d().array(),values);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(gridded2d(),array);
+   NJOY_GNDSTK_SHORTCUT(gridded2d(),axes);
+   NJOY_GNDSTK_SHORTCUT(gridded2d().axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(gridded2d().axes(),grid);
+   NJOY_GNDSTK_SHORTCUT(gridded2d().array(),values);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -106,7 +106,7 @@ public:
 
    // default
    S_table() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -116,7 +116,7 @@ public:
       const wrapper<general::Gridded2d>
          &gridded2d
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       gridded2d(this,gridded2d)
    {
       Component::finish();
@@ -124,14 +124,14 @@ public:
 
    // from node
    explicit S_table(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    S_table(const S_table &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       gridded2d(this,other.gridded2d)
    {
@@ -140,7 +140,7 @@ public:
 
    // move
    S_table(S_table &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       gridded2d(this,std::move(other.gridded2d))
    {
@@ -178,7 +178,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/S_table/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class S_table
 
 } // namespace general

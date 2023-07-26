@@ -99,18 +99,18 @@ public:
       T_M{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(T_M(),XYs1d);
-   GNDSTK_SHORTCUT(T_M().XYs1d(),axes);
-   GNDSTK_SHORTCUT(T_M().XYs1d(),uncertainty);
-   GNDSTK_SHORTCUT(T_M().XYs1d(),values);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(T_M(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(T_M().XYs1d(),axes);
+   NJOY_GNDSTK_SHORTCUT(T_M().XYs1d(),uncertainty);
+   NJOY_GNDSTK_SHORTCUT(T_M().XYs1d(),values);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -121,7 +121,7 @@ public:
 
    // default
    MadlandNix() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -135,7 +135,7 @@ public:
       const wrapper<general::T_M>
          &T_M = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       EFL(this,EFL),
       EFH(this,EFH),
       T_M(this,T_M)
@@ -145,14 +145,14 @@ public:
 
    // from node
    explicit MadlandNix(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    MadlandNix(const MadlandNix &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       EFL(this,other.EFL),
       EFH(this,other.EFH),
@@ -163,7 +163,7 @@ public:
 
    // move
    MadlandNix(MadlandNix &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       EFL(this,std::move(other.EFL)),
       EFH(this,std::move(other.EFH)),
@@ -207,7 +207,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/MadlandNix/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class MadlandNix
 
 } // namespace general

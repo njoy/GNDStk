@@ -98,7 +98,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -108,7 +108,7 @@ public:
 
    // default
    Intensity() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -120,7 +120,7 @@ public:
       const wrapper<std::optional<general::Uncertainty>>
          &uncertainty = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
       uncertainty(this,uncertainty)
    {
@@ -129,14 +129,14 @@ public:
 
    // from node
    explicit Intensity(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Intensity(const Intensity &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       value(this,other.value),
       uncertainty(this,other.uncertainty)
@@ -146,7 +146,7 @@ public:
 
    // move
    Intensity(Intensity &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       uncertainty(this,std::move(other.uncertainty))
@@ -187,7 +187,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Intensity/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Intensity
 
 } // namespace general

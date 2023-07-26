@@ -114,18 +114,18 @@ public:
       resonanceParameters{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(channels(),channel);
-   GNDSTK_SHORTCUT(resonanceParameters().table(),columnHeaders);
-   GNDSTK_SHORTCUT(resonanceParameters().table(),data);
-   GNDSTK_SHORTCUT(resonanceParameters(),table);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(channels(),channel);
+   NJOY_GNDSTK_SHORTCUT(resonanceParameters().table(),columnHeaders);
+   NJOY_GNDSTK_SHORTCUT(resonanceParameters().table(),data);
+   NJOY_GNDSTK_SHORTCUT(resonanceParameters(),table);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -138,7 +138,7 @@ public:
 
    // default
    SpinGroup() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -156,7 +156,7 @@ public:
       const wrapper<general::ResonanceParameters>
          &resonanceParameters = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       spin(this,spin),
       parity(this,parity),
@@ -168,14 +168,14 @@ public:
 
    // from node
    explicit SpinGroup(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    SpinGroup(const SpinGroup &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       spin(this,other.spin),
@@ -188,7 +188,7 @@ public:
 
    // move
    SpinGroup(SpinGroup &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       spin(this,std::move(other.spin)),
@@ -238,7 +238,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/SpinGroup/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class SpinGroup
 
 } // namespace general

@@ -125,7 +125,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -139,7 +139,7 @@ public:
 
    // default
    AngularTwoBody() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -159,7 +159,7 @@ public:
       const wrapper<std::optional<general::Isotropic2d>>
          &isotropic2d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       productFrame(this,productFrame),
       XYs2d(this,XYs2d),
@@ -172,14 +172,14 @@ public:
 
    // from node
    explicit AngularTwoBody(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    AngularTwoBody(const AngularTwoBody &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       productFrame(this,other.productFrame),
@@ -193,7 +193,7 @@ public:
 
    // move
    AngularTwoBody(AngularTwoBody &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       productFrame(this,std::move(other.productFrame)),
@@ -246,7 +246,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/AngularTwoBody/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class AngularTwoBody
 
 } // namespace general

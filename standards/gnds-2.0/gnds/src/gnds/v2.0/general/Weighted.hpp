@@ -92,20 +92,20 @@ public:
       evaporation{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(evaporation(),U);
-   GNDSTK_SHORTCUT(XYs1d(),axes);
-   GNDSTK_SHORTCUT(evaporation().theta(),regions1d);
-   GNDSTK_SHORTCUT(evaporation(),theta);
-   GNDSTK_SHORTCUT(XYs1d(),uncertainty);
-   GNDSTK_SHORTCUT(XYs1d(),values);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(evaporation(),U);
+   NJOY_GNDSTK_SHORTCUT(XYs1d(),axes);
+   NJOY_GNDSTK_SHORTCUT(evaporation().theta(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(evaporation(),theta);
+   NJOY_GNDSTK_SHORTCUT(XYs1d(),uncertainty);
+   NJOY_GNDSTK_SHORTCUT(XYs1d(),values);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -115,7 +115,7 @@ public:
 
    // default
    Weighted() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -127,7 +127,7 @@ public:
       const wrapper<general::Evaporation>
          &evaporation = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
       evaporation(this,evaporation)
    {
@@ -136,14 +136,14 @@ public:
 
    // from node
    explicit Weighted(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Weighted(const Weighted &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs1d(this,other.XYs1d),
       evaporation(this,other.evaporation)
@@ -153,7 +153,7 @@ public:
 
    // move
    Weighted(Weighted &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d)),
       evaporation(this,std::move(other.evaporation))
@@ -194,7 +194,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Weighted/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Weighted
 
 } // namespace general

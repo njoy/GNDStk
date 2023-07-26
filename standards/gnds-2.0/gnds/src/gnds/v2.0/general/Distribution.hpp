@@ -158,7 +158,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -177,7 +177,7 @@ public:
 
    // default
    Distribution() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -207,7 +207,7 @@ public:
       const wrapper<std::optional<general::IncoherentPhotonScattering>>
          &incoherentPhotonScattering = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       thermalNeutronScatteringLaw(this,thermalNeutronScatteringLaw),
       uncorrelated(this,uncorrelated),
       unspecified(this,unspecified),
@@ -225,14 +225,14 @@ public:
 
    // from node
    explicit Distribution(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Distribution(const Distribution &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       thermalNeutronScatteringLaw(this,other.thermalNeutronScatteringLaw),
       uncorrelated(this,other.uncorrelated),
@@ -251,7 +251,7 @@ public:
 
    // move
    Distribution(Distribution &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       thermalNeutronScatteringLaw(this,std::move(other.thermalNeutronScatteringLaw)),
       uncorrelated(this,std::move(other.uncorrelated)),
@@ -319,7 +319,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Distribution/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Distribution
 
 } // namespace general

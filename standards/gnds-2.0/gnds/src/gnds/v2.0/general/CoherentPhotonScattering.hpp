@@ -130,7 +130,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -145,7 +145,7 @@ public:
 
    // default
    CoherentPhotonScattering() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -167,7 +167,7 @@ public:
       const wrapper<std::optional<general::ImaginaryAnomalousFactor>>
          &imaginaryAnomalousFactor = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       href(this,href),
       pid(this,pid),
@@ -181,14 +181,14 @@ public:
 
    // from node
    explicit CoherentPhotonScattering(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    CoherentPhotonScattering(const CoherentPhotonScattering &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       href(this,other.href),
@@ -203,7 +203,7 @@ public:
 
    // move
    CoherentPhotonScattering(CoherentPhotonScattering &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       href(this,std::move(other.href)),
@@ -259,7 +259,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/CoherentPhotonScattering/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class CoherentPhotonScattering
 
 } // namespace general

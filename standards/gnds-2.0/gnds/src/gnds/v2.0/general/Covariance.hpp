@@ -104,7 +104,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -115,7 +115,7 @@ public:
 
    // default
    Covariance() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -129,7 +129,7 @@ public:
       const wrapper<std::optional<general::Array>>
          &array = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       href(this,href),
       array(this,array)
@@ -139,14 +139,14 @@ public:
 
    // from node
    explicit Covariance(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Covariance(const Covariance &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       href(this,other.href),
@@ -157,7 +157,7 @@ public:
 
    // move
    Covariance(Covariance &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       href(this,std::move(other.href)),
@@ -201,7 +201,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Covariance/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Covariance
 
 } // namespace general

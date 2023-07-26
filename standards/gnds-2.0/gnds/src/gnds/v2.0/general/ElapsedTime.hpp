@@ -109,16 +109,16 @@ public:
       incidentEnergies{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(time(),Double);
-   GNDSTK_SHORTCUT(time(),string);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(time(),Double);
+   NJOY_GNDSTK_SHORTCUT(time(),string);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -130,7 +130,7 @@ public:
 
    // default
    ElapsedTime() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -146,7 +146,7 @@ public:
       const wrapper<std::optional<general::IncidentEnergies>>
          &incidentEnergies = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       time(this,time),
       yields(this,yields),
@@ -157,14 +157,14 @@ public:
 
    // from node
    explicit ElapsedTime(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ElapsedTime(const ElapsedTime &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       time(this,other.time),
@@ -176,7 +176,7 @@ public:
 
    // move
    ElapsedTime(ElapsedTime &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       time(this,std::move(other.time)),
@@ -223,7 +223,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ElapsedTime/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ElapsedTime
 
 } // namespace general

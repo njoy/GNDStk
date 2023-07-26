@@ -109,7 +109,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -121,7 +121,7 @@ public:
 
    // default
    Uncertainty() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -137,7 +137,7 @@ public:
       const wrapper<std::optional<reduced::Polynomial1d>>
          &polynomial1d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       covariance(this,covariance),
       standard(this,standard),
       listOfCovariances(this,listOfCovariances),
@@ -148,14 +148,14 @@ public:
 
    // from node
    explicit Uncertainty(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Uncertainty(const Uncertainty &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       covariance(this,other.covariance),
       standard(this,other.standard),
@@ -167,7 +167,7 @@ public:
 
    // move
    Uncertainty(Uncertainty &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       covariance(this,std::move(other.covariance)),
       standard(this,std::move(other.standard)),
@@ -214,7 +214,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Uncertainty/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Uncertainty
 
 } // namespace general

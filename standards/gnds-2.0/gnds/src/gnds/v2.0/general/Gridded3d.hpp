@@ -92,18 +92,18 @@ public:
       array{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(axes(),axis);
-   GNDSTK_SHORTCUT(axes(),grid);
-   GNDSTK_SHORTCUT(array(),lengths);
-   GNDSTK_SHORTCUT(array(),starts);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(axes(),grid);
+   NJOY_GNDSTK_SHORTCUT(array(),lengths);
+   NJOY_GNDSTK_SHORTCUT(array(),starts);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -113,7 +113,7 @@ public:
 
    // default
    Gridded3d() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -125,7 +125,7 @@ public:
       const wrapper<g3d::Array>
          &array = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       axes(this,axes),
       array(this,array)
    {
@@ -134,14 +134,14 @@ public:
 
    // from node
    explicit Gridded3d(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Gridded3d(const Gridded3d &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       axes(this,other.axes),
       array(this,other.array)
@@ -151,7 +151,7 @@ public:
 
    // move
    Gridded3d(Gridded3d &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       axes(this,std::move(other.axes)),
       array(this,std::move(other.array))
@@ -192,7 +192,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Gridded3d/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Gridded3d
 
 } // namespace general

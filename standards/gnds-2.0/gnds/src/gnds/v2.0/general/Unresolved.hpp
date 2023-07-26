@@ -107,20 +107,20 @@ public:
       tabulatedWidths{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(tabulatedWidths().Ls(),L);
-   GNDSTK_SHORTCUT(tabulatedWidths(),Ls);
-   GNDSTK_SHORTCUT(tabulatedWidths(),PoPs);
-   GNDSTK_SHORTCUT(tabulatedWidths().resonanceReactions(),resonanceReaction);
-   GNDSTK_SHORTCUT(tabulatedWidths(),resonanceReactions);
-   GNDSTK_SHORTCUT(tabulatedWidths(),scatteringRadius);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(tabulatedWidths().Ls(),L);
+   NJOY_GNDSTK_SHORTCUT(tabulatedWidths(),Ls);
+   NJOY_GNDSTK_SHORTCUT(tabulatedWidths(),PoPs);
+   NJOY_GNDSTK_SHORTCUT(tabulatedWidths().resonanceReactions(),resonanceReaction);
+   NJOY_GNDSTK_SHORTCUT(tabulatedWidths(),resonanceReactions);
+   NJOY_GNDSTK_SHORTCUT(tabulatedWidths(),scatteringRadius);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -132,7 +132,7 @@ public:
 
    // default
    Unresolved() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -148,7 +148,7 @@ public:
       const wrapper<general::TabulatedWidths>
          &tabulatedWidths = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       domainMin(this,domainMin),
       domainMax(this,domainMax),
       domainUnit(this,domainUnit),
@@ -159,14 +159,14 @@ public:
 
    // from node
    explicit Unresolved(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Unresolved(const Unresolved &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       domainMin(this,other.domainMin),
       domainMax(this,other.domainMax),
@@ -178,7 +178,7 @@ public:
 
    // move
    Unresolved(Unresolved &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       domainMin(this,std::move(other.domainMin)),
       domainMax(this,std::move(other.domainMax)),
@@ -225,7 +225,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Unresolved/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Unresolved
 
 } // namespace general

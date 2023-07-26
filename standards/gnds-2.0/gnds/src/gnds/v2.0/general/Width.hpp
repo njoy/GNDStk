@@ -124,7 +124,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -138,7 +138,7 @@ public:
 
    // default
    Width() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -158,7 +158,7 @@ public:
       const wrapper<std::optional<general::Regions1d>>
          &regions1d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       resonanceReaction(this,resonanceReaction),
       degreesOfFreedom(this,degreesOfFreedom),
@@ -171,14 +171,14 @@ public:
 
    // from node
    explicit Width(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Width(const Width &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       resonanceReaction(this,other.resonanceReaction),
@@ -192,7 +192,7 @@ public:
 
    // move
    Width(Width &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       resonanceReaction(this,std::move(other.resonanceReaction)),
@@ -245,7 +245,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Width/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Width
 
 } // namespace general

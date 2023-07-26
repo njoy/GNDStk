@@ -104,7 +104,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -115,7 +115,7 @@ public:
 
    // default
    ColumnData() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -129,7 +129,7 @@ public:
       const wrapper<std::optional<general::Slices>>
          &slices = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
       href(this,href),
       slices(this,slices)
@@ -139,14 +139,14 @@ public:
 
    // from node
    explicit ColumnData(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ColumnData(const ColumnData &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       ENDF_MFMT(this,other.ENDF_MFMT),
       href(this,other.href),
@@ -157,7 +157,7 @@ public:
 
    // move
    ColumnData(ColumnData &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       ENDF_MFMT(this,std::move(other.ENDF_MFMT)),
       href(this,std::move(other.href)),
@@ -201,7 +201,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ColumnData/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ColumnData
 
 } // namespace general

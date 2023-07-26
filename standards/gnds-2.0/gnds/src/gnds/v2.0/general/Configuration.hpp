@@ -108,16 +108,16 @@ public:
       decayData{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(bindingEnergy(),Double);
-   GNDSTK_SHORTCUT(bindingEnergy().Double(),uncertainty);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(bindingEnergy(),Double);
+   NJOY_GNDSTK_SHORTCUT(bindingEnergy().Double(),uncertainty);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -129,7 +129,7 @@ public:
 
    // default
    Configuration() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -145,7 +145,7 @@ public:
       const wrapper<std::vector<general::DecayData>>
          &decayData = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       subshell(this,subshell),
       electronNumber(this,electronNumber),
       bindingEnergy(this,bindingEnergy),
@@ -156,14 +156,14 @@ public:
 
    // from node
    explicit Configuration(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Configuration(const Configuration &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       subshell(this,other.subshell),
       electronNumber(this,other.electronNumber),
@@ -175,7 +175,7 @@ public:
 
    // move
    Configuration(Configuration &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       subshell(this,std::move(other.subshell)),
       electronNumber(this,std::move(other.electronNumber)),
@@ -222,7 +222,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Configuration/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Configuration
 
 } // namespace general

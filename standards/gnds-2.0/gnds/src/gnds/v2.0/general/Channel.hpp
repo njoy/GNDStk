@@ -129,7 +129,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -144,7 +144,7 @@ public:
 
    // default
    Channel() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -166,7 +166,7 @@ public:
       const wrapper<std::optional<general::HardSphereRadius>>
          &hardSphereRadius = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       resonanceReaction(this,resonanceReaction),
       L(this,L),
@@ -180,14 +180,14 @@ public:
 
    // from node
    explicit Channel(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Channel(const Channel &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       resonanceReaction(this,other.resonanceReaction),
@@ -202,7 +202,7 @@ public:
 
    // move
    Channel(Channel &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       resonanceReaction(this,std::move(other.resonanceReaction)),
@@ -258,7 +258,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Channel/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Channel
 
 } // namespace general

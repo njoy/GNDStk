@@ -95,15 +95,15 @@ public:
       mass{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(mass(),Double);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(mass(),Double);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -113,7 +113,7 @@ public:
 
    // default
    NBodyPhaseSpace() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -125,7 +125,7 @@ public:
       const wrapper<general::Mass>
          &mass = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       numberOfProducts(this,numberOfProducts),
       mass(this,mass)
    {
@@ -134,14 +134,14 @@ public:
 
    // from node
    explicit NBodyPhaseSpace(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    NBodyPhaseSpace(const NBodyPhaseSpace &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       numberOfProducts(this,other.numberOfProducts),
       mass(this,other.mass)
@@ -151,7 +151,7 @@ public:
 
    // move
    NBodyPhaseSpace(NBodyPhaseSpace &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       numberOfProducts(this,std::move(other.numberOfProducts)),
       mass(this,std::move(other.mass))
@@ -192,7 +192,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/NBodyPhaseSpace/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class NBodyPhaseSpace
 
 } // namespace general

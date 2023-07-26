@@ -107,16 +107,16 @@ public:
       axes{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(axes(),axis);
-   GNDSTK_SHORTCUT(axes(),grid);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(axes(),axis);
+   NJOY_GNDSTK_SHORTCUT(axes(),grid);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -128,7 +128,7 @@ public:
 
    // default
    PrimaryGamma() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -144,7 +144,7 @@ public:
       const wrapper<general::Axes>
          &axes = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       value(this,value),
       domainMin(this,domainMin),
       domainMax(this,domainMax),
@@ -155,14 +155,14 @@ public:
 
    // from node
    explicit PrimaryGamma(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    PrimaryGamma(const PrimaryGamma &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       value(this,other.value),
       domainMin(this,other.domainMin),
@@ -174,7 +174,7 @@ public:
 
    // move
    PrimaryGamma(PrimaryGamma &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       value(this,std::move(other.value)),
       domainMin(this,std::move(other.domainMin)),
@@ -221,7 +221,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/PrimaryGamma/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class PrimaryGamma
 
 } // namespace general

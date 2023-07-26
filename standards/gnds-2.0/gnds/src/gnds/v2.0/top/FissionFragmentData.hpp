@@ -102,7 +102,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -113,7 +113,7 @@ public:
 
    // default
    FissionFragmentData() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -127,7 +127,7 @@ public:
       const wrapper<std::optional<general::FissionEnergyReleases>>
          &fissionEnergyReleases = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       productYields(this,productYields),
       delayedNeutrons(this,delayedNeutrons),
       fissionEnergyReleases(this,fissionEnergyReleases)
@@ -137,14 +137,14 @@ public:
 
    // from node
    explicit FissionFragmentData(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    FissionFragmentData(const FissionFragmentData &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       productYields(this,other.productYields),
       delayedNeutrons(this,other.delayedNeutrons),
@@ -155,7 +155,7 @@ public:
 
    // move
    FissionFragmentData(FissionFragmentData &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       productYields(this,std::move(other.productYields)),
       delayedNeutrons(this,std::move(other.delayedNeutrons)),
@@ -199,7 +199,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/top/FissionFragmentData/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class FissionFragmentData
 
 } // namespace top

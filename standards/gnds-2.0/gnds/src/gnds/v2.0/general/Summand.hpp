@@ -100,7 +100,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -111,7 +111,7 @@ public:
 
    // default
    Summand() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -125,7 +125,7 @@ public:
       const wrapper<std::optional<std::string>>
          &href = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       ENDF_MFMT(this,ENDF_MFMT),
       coefficient(this,coefficient),
       href(this,href)
@@ -135,14 +135,14 @@ public:
 
    // from node
    explicit Summand(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Summand(const Summand &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       ENDF_MFMT(this,other.ENDF_MFMT),
       coefficient(this,other.coefficient),
@@ -153,7 +153,7 @@ public:
 
    // move
    Summand(Summand &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       ENDF_MFMT(this,std::move(other.ENDF_MFMT)),
       coefficient(this,std::move(other.coefficient)),
@@ -197,7 +197,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Summand/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Summand
 
 } // namespace general

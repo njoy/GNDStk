@@ -154,7 +154,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -172,7 +172,7 @@ public:
 
    // default
    FissionEnergyRelease() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -200,7 +200,7 @@ public:
       const wrapper<general::TotalEnergy>
          &totalEnergy = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       label(this,label),
       promptProductKE(this,promptProductKE),
       promptNeutronKE(this,promptNeutronKE),
@@ -217,14 +217,14 @@ public:
 
    // from node
    explicit FissionEnergyRelease(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    FissionEnergyRelease(const FissionEnergyRelease &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       label(this,other.label),
       promptProductKE(this,other.promptProductKE),
@@ -242,7 +242,7 @@ public:
 
    // move
    FissionEnergyRelease(FissionEnergyRelease &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       label(this,std::move(other.label)),
       promptProductKE(this,std::move(other.promptProductKE)),
@@ -307,7 +307,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/FissionEnergyRelease/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class FissionEnergyRelease
 
 } // namespace general

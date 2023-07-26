@@ -123,7 +123,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -137,7 +137,7 @@ public:
 
    // default
    CrossSection() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -157,7 +157,7 @@ public:
       const wrapper<std::optional<general::ThermalNeutronScatteringLaw1d>>
          &thermalNeutronScatteringLaw1d = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs1d(this,XYs1d),
       regions1d(this,regions1d),
       reference(this,reference),
@@ -170,14 +170,14 @@ public:
 
    // from node
    explicit CrossSection(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    CrossSection(const CrossSection &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs1d(this,other.XYs1d),
       regions1d(this,other.regions1d),
@@ -191,7 +191,7 @@ public:
 
    // move
    CrossSection(CrossSection &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs1d(this,std::move(other.XYs1d)),
       regions1d(this,std::move(other.regions1d)),
@@ -244,7 +244,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/CrossSection/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class CrossSection
 
 } // namespace general

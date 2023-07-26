@@ -98,7 +98,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -108,7 +108,7 @@ public:
 
    // default
    Legendre() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -120,7 +120,7 @@ public:
       const wrapper<general::Values>
          &values = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       outerDomainValue(this,outerDomainValue),
       values(this,values)
    {
@@ -129,14 +129,14 @@ public:
 
    // from node
    explicit Legendre(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Legendre(const Legendre &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       outerDomainValue(this,other.outerDomainValue),
       values(this,other.values)
@@ -146,7 +146,7 @@ public:
 
    // move
    Legendre(Legendre &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       outerDomainValue(this,std::move(other.outerDomainValue)),
       values(this,std::move(other.values))
@@ -187,7 +187,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Legendre/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Legendre
 
 } // namespace general

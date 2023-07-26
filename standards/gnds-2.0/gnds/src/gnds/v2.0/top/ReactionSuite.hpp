@@ -195,23 +195,23 @@ public:
       incompleteReactions{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(PoPs(),aliases);
-   GNDSTK_SHORTCUT(PoPs(),baryons);
-   GNDSTK_SHORTCUT(PoPs(),chemicalElements);
-   GNDSTK_SHORTCUT(styles().evaluated(),documentation);
-   GNDSTK_SHORTCUT(PoPs(),gaugeBosons);
-   GNDSTK_SHORTCUT(PoPs(),leptons);
-   GNDSTK_SHORTCUT(styles().evaluated(),projectileEnergyDomain);
-   GNDSTK_SHORTCUT(styles().evaluated(),temperature);
-   GNDSTK_SHORTCUT(PoPs(),unorthodoxes);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(PoPs(),aliases);
+   NJOY_GNDSTK_SHORTCUT(PoPs(),baryons);
+   NJOY_GNDSTK_SHORTCUT(PoPs(),chemicalElements);
+   NJOY_GNDSTK_SHORTCUT(styles().evaluated(),documentation);
+   NJOY_GNDSTK_SHORTCUT(PoPs(),gaugeBosons);
+   NJOY_GNDSTK_SHORTCUT(PoPs(),leptons);
+   NJOY_GNDSTK_SHORTCUT(styles().evaluated(),projectileEnergyDomain);
+   NJOY_GNDSTK_SHORTCUT(styles().evaluated(),temperature);
+   NJOY_GNDSTK_SHORTCUT(PoPs(),unorthodoxes);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -236,7 +236,7 @@ public:
 
    // default
    ReactionSuite() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -278,7 +278,7 @@ public:
       const wrapper<std::optional<general::IncompleteReactions>>
          &incompleteReactions = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       projectile(this,projectile),
       target(this,target),
       evaluation(this,evaluation),
@@ -302,14 +302,14 @@ public:
 
    // from node
    explicit ReactionSuite(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ReactionSuite(const ReactionSuite &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       projectile(this,other.projectile),
       target(this,other.target),
@@ -334,7 +334,7 @@ public:
 
    // move
    ReactionSuite(ReactionSuite &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       projectile(this,std::move(other.projectile)),
       target(this,std::move(other.target)),
@@ -420,7 +420,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/top/ReactionSuite/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ReactionSuite
 
 } // namespace top

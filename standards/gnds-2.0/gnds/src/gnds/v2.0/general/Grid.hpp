@@ -129,7 +129,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -144,7 +144,7 @@ public:
 
    // default
    Grid() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -166,7 +166,7 @@ public:
       const wrapper<std::optional<general::Values>>
          &values = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
       label(this,label),
       unit(this,unit),
@@ -180,14 +180,14 @@ public:
 
    // from node
    explicit Grid(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Grid(const Grid &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       index(this,other.index),
       label(this,other.label),
@@ -202,7 +202,7 @@ public:
 
    // move
    Grid(Grid &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       label(this,std::move(other.label)),
@@ -258,7 +258,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Grid/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Grid
 
 } // namespace general

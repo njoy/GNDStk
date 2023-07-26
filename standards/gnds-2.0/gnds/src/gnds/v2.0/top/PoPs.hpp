@@ -152,7 +152,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -170,7 +170,7 @@ public:
 
    // default
    PoPs() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -198,7 +198,7 @@ public:
       const wrapper<std::optional<general::Leptons>>
          &leptons = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       name(this,name),
       version(this,version),
       format(this,format),
@@ -215,14 +215,14 @@ public:
 
    // from node
    explicit PoPs(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    PoPs(const PoPs &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       name(this,other.name),
       version(this,other.version),
@@ -240,7 +240,7 @@ public:
 
    // move
    PoPs(PoPs &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       name(this,std::move(other.name)),
       version(this,std::move(other.version)),
@@ -305,7 +305,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/top/PoPs/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class PoPs
 
 } // namespace top

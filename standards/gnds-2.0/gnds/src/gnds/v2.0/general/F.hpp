@@ -85,20 +85,20 @@ public:
       XYs2d{this};
 
    // shortcuts
-   #define GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
-   GNDSTK_SHORTCUT(XYs2d().function1ds(),Legendre);
-   GNDSTK_SHORTCUT(XYs2d().function1ds(),XYs1d);
-   GNDSTK_SHORTCUT(XYs2d(),axes);
-   GNDSTK_SHORTCUT(XYs2d(),function1ds);
-   GNDSTK_SHORTCUT(XYs2d().function1ds(),regions1d);
-   GNDSTK_SHORTCUT(XYs2d(),uncertainty);
-   #undef GNDSTK_SHORTCUT
+   #define NJOY_GNDSTK_SHORTCUT(to,name) decltype(to.name) &name = to.name
+   NJOY_GNDSTK_SHORTCUT(XYs2d().function1ds(),Legendre);
+   NJOY_GNDSTK_SHORTCUT(XYs2d().function1ds(),XYs1d);
+   NJOY_GNDSTK_SHORTCUT(XYs2d(),axes);
+   NJOY_GNDSTK_SHORTCUT(XYs2d(),function1ds);
+   NJOY_GNDSTK_SHORTCUT(XYs2d().function1ds(),regions1d);
+   NJOY_GNDSTK_SHORTCUT(XYs2d(),uncertainty);
+   #undef NJOY_GNDSTK_SHORTCUT
 
    // ------------------------
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -107,7 +107,7 @@ public:
 
    // default
    F() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -117,7 +117,7 @@ public:
       const wrapper<general::XYs2d>
          &XYs2d
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       XYs2d(this,XYs2d)
    {
       Component::finish();
@@ -125,14 +125,14 @@ public:
 
    // from node
    explicit F(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    F(const F &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       XYs2d(this,other.XYs2d)
    {
@@ -141,7 +141,7 @@ public:
 
    // move
    F(F &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       XYs2d(this,std::move(other.XYs2d))
    {
@@ -179,7 +179,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/F/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class F
 
 } // namespace general

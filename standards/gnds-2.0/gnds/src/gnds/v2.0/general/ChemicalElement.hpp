@@ -117,7 +117,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -130,7 +130,7 @@ public:
 
    // default
    ChemicalElement() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -148,7 +148,7 @@ public:
       const wrapper<std::optional<general::Isotopes>>
          &isotopes = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       symbol(this,symbol),
       Z(this,Z),
       name(this,name),
@@ -160,14 +160,14 @@ public:
 
    // from node
    explicit ChemicalElement(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    ChemicalElement(const ChemicalElement &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       symbol(this,other.symbol),
       Z(this,other.Z),
@@ -180,7 +180,7 @@ public:
 
    // move
    ChemicalElement(ChemicalElement &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       symbol(this,std::move(other.symbol)),
       Z(this,std::move(other.Z)),
@@ -230,7 +230,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/ChemicalElement/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class ChemicalElement
 
 } // namespace general

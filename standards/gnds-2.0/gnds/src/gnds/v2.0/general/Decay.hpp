@@ -110,7 +110,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -122,7 +122,7 @@ public:
 
    // default
    Decay() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -138,7 +138,7 @@ public:
       const wrapper<std::optional<general::Products>>
          &products = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       index(this,index),
       mode(this,mode),
       complete(this,complete),
@@ -149,14 +149,14 @@ public:
 
    // from node
    explicit Decay(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Decay(const Decay &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       index(this,other.index),
       mode(this,other.mode),
@@ -168,7 +168,7 @@ public:
 
    // move
    Decay(Decay &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       index(this,std::move(other.index)),
       mode(this,std::move(other.mode)),
@@ -215,7 +215,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/general/Decay/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Decay
 
 } // namespace general

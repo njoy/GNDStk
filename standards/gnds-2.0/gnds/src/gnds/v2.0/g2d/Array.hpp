@@ -110,7 +110,7 @@ public:
    // Constructors
    // ------------------------
 
-   #define GNDSTK_COMPONENT(blockdata) \
+   #define NJOY_GNDSTK_COMPONENT(blockdata) \
    Component( \
       blockdata, \
       this->comment, \
@@ -122,7 +122,7 @@ public:
 
    // default
    Array() :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish();
    }
@@ -138,7 +138,7 @@ public:
       const wrapper<general::Values>
          &values = {}
    ) :
-      GNDSTK_COMPONENT(BlockData{}),
+      NJOY_GNDSTK_COMPONENT(BlockData{}),
       shape(this,shape),
       compression(this,compression),
       symmetry(this,symmetry),
@@ -149,14 +149,14 @@ public:
 
    // from node
    explicit Array(const Node &node) :
-      GNDSTK_COMPONENT(BlockData{})
+      NJOY_GNDSTK_COMPONENT(BlockData{})
    {
       Component::finish(node);
    }
 
    // copy
    Array(const Array &other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,other.comment),
       shape(this,other.shape),
       compression(this,other.compression),
@@ -168,7 +168,7 @@ public:
 
    // move
    Array(Array &&other) :
-      GNDSTK_COMPONENT(other.baseBlockData()),
+      NJOY_GNDSTK_COMPONENT(other.baseBlockData()),
       comment(this,std::move(other.comment)),
       shape(this,std::move(other.shape)),
       compression(this,std::move(other.compression)),
@@ -215,7 +215,7 @@ public:
    // ------------------------
 
    #include "gnds/v2.0/g2d/Array/src/custom.hpp"
-   #undef GNDSTK_COMPONENT
+   #undef NJOY_GNDSTK_COMPONENT
 }; // class Array
 
 } // namespace g2d
