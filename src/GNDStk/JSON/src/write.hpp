@@ -11,12 +11,12 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
    static const std::string context = "JSON.write(ostream)";
 
-#ifdef GNDSTK_DISABLE_JSON
+#ifdef NJOY_GNDSTK_DISABLE_JSON
 
    (void)os; (void)decl;
    log::error(
       "We can't perform the action " + context + ", because the code\n"
-      "has been compiled with JSON disabled (macro GNDSTK_DISABLE_JSON).");
+      "has been compiled with JSON disabled (macro NJOY_GNDSTK_DISABLE_JSON).");
    log::function(context);
    throw std::exception{};
 
@@ -51,7 +51,7 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 // write(file)
 // ------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 bool write(const std::string &filename, const bool decl = true) const
 {
    // open file

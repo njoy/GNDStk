@@ -142,7 +142,7 @@ inline bool convert(const XML &from, XML &to)
 // more efficient if written directly. We'll revisit this issue if necessary.
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 inline bool convert(const JSON &j, XML &x)
 {
    try {
@@ -155,7 +155,7 @@ inline bool convert(const JSON &j, XML &x)
 }
 #endif
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 inline bool convert(const HDF5 &h, XML &x)
 {
    try {

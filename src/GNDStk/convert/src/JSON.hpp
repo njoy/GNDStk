@@ -7,12 +7,12 @@ inline bool convert(const Node &node, JSON &j)
 {
    static const std::string context = "convert(Node,JSON)";
 
-#ifdef GNDSTK_DISABLE_JSON
+#ifdef NJOY_GNDSTK_DISABLE_JSON
 
    (void)node; (void)j;
    log::error(
       "We can't make the conversion " + context + ", because the code\n"
-      "has been compiled with JSON disabled (macro GNDSTK_DISABLE_JSON).");
+      "has been compiled with JSON disabled (macro NJOY_GNDSTK_DISABLE_JSON).");
    log::function(context);
    throw std::exception{};
 
@@ -70,7 +70,7 @@ inline bool convert(const Node &node, JSON &j)
 // For completeness
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 inline bool convert(const JSON &from, JSON &to)
 {
    // same object?
@@ -104,7 +104,7 @@ inline bool convert(const JSON &from, JSON &to)
 // As with our convert()s to XML, these go through temporaries.
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 inline bool convert(const XML &x, JSON &j)
 {
    try {
@@ -116,7 +116,7 @@ inline bool convert(const XML &x, JSON &j)
    }
 }
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 inline bool convert(const HDF5 &h, JSON &j)
 {
    try {

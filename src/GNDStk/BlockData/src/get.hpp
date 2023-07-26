@@ -523,7 +523,7 @@ operator[](const size_t n)
 // element, const
 // element, non-const
 
-#define GNDSTK_MAKE_GETTER(name,TYPE) \
+#define NJOY_GNDSTK_MAKE_GETTER(name,TYPE) \
    \
    template<class D = DATATYPE> \
    std::enable_if_t< \
@@ -549,20 +549,20 @@ operator[](const size_t n)
       TYPE & \
    > name(const size_t n) { return get<TYPE>(n); }
 
-GNDSTK_MAKE_GETTER(strings,     std::string)
-GNDSTK_MAKE_GETTER(chars,       char)
-GNDSTK_MAKE_GETTER(schars,      signed char)
-GNDSTK_MAKE_GETTER(shorts,      short)
-GNDSTK_MAKE_GETTER(ints,        int)
-GNDSTK_MAKE_GETTER(longs,       long)
-GNDSTK_MAKE_GETTER(longlongs,   long long)
-GNDSTK_MAKE_GETTER(uchars,      unsigned char)
-GNDSTK_MAKE_GETTER(ushorts,     unsigned short)
-GNDSTK_MAKE_GETTER(uints,       unsigned)
-GNDSTK_MAKE_GETTER(ulongs,      unsigned long)
-GNDSTK_MAKE_GETTER(ulonglongs,  unsigned long long)
-GNDSTK_MAKE_GETTER(floats,      float)
-GNDSTK_MAKE_GETTER(doubles,     double)
-GNDSTK_MAKE_GETTER(longdoubles, long double)
+NJOY_GNDSTK_MAKE_GETTER(strings,     std::string)
+NJOY_GNDSTK_MAKE_GETTER(chars,       char)
+NJOY_GNDSTK_MAKE_GETTER(schars,      signed char)
+NJOY_GNDSTK_MAKE_GETTER(shorts,      short)
+NJOY_GNDSTK_MAKE_GETTER(ints,        int)
+NJOY_GNDSTK_MAKE_GETTER(longs,       long)
+NJOY_GNDSTK_MAKE_GETTER(longlongs,   long long)
+NJOY_GNDSTK_MAKE_GETTER(uchars,      unsigned char)
+NJOY_GNDSTK_MAKE_GETTER(ushorts,     unsigned short)
+NJOY_GNDSTK_MAKE_GETTER(uints,       unsigned)
+NJOY_GNDSTK_MAKE_GETTER(ulongs,      unsigned long)
+NJOY_GNDSTK_MAKE_GETTER(ulonglongs,  unsigned long long)
+NJOY_GNDSTK_MAKE_GETTER(floats,      float)
+NJOY_GNDSTK_MAKE_GETTER(doubles,     double)
+NJOY_GNDSTK_MAKE_GETTER(longdoubles, long double)
 
-#undef GNDSTK_MAKE_GETTER
+#undef NJOY_GNDSTK_MAKE_GETTER

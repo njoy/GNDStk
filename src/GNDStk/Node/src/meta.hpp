@@ -89,7 +89,7 @@ void meta(
          const std::string &str = meta(kwd.name,found);
          // convert str, if any, to an object of the appropriate type
          if (found) {
-            #ifdef GNDSTK_INSTRUMENT
+            #ifdef NJOY_GNDSTK_INSTRUMENT
             for (const auto &m : metadata)
                if (std::regex_match(m.first, std::regex(kwd.name)))
                   detail::instrument::mark(m.first);

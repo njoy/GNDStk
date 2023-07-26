@@ -185,7 +185,7 @@ public:
 // we don't believe those will be needed very often. If you do need to provide
 // one or both, construct a Child in some other way than by using this macro.
 
-#define GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
+#define NJOY_GNDSTK_MAKE_CHILD(TYPE,name,ALLOW) \
    inline const njoy::GNDStk::Child<TYPE,njoy::GNDStk::Allow::ALLOW> name(#name)
 
 // Note: we don't #undef this after we use it within GNDStk, as we might

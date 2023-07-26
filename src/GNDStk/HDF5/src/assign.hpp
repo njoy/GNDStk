@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 
 // move
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 HDF5 &operator=(HDF5 &&) = default;
 #else
 HDF5 &operator=(HDF5 &&other)
@@ -22,7 +22,7 @@ HDF5 &operator=(HDF5 &&other)
 #endif
 
 // copy
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 HDF5 &operator=(const HDF5 &) = default;
 #else
 HDF5 &operator=(const HDF5 &other)

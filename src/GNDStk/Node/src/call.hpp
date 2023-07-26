@@ -21,7 +21,7 @@ template<
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       // ""?
@@ -59,7 +59,7 @@ decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string label,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       // ""?
@@ -85,7 +85,7 @@ decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const char *const label,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    // Forward to the string overload
    return (*this)(kwd, std::string(label), std::forward<KEYWORDS>(keywords)...);
 }
@@ -103,7 +103,7 @@ decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::regex labelRegex,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       // ""?
@@ -129,4 +129,4 @@ decltype(auto) operator()(
 }
 
 
-#undef GNDSTK_CONST
+#undef NJOY_GNDSTK_CONST

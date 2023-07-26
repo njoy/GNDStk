@@ -204,7 +204,7 @@ SCENARIO("Testing GNDStk Component") {
          }
 
          // from JSON
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
          WHEN("We read a Component-derived object << JSON text") {
             der <<
                "{"

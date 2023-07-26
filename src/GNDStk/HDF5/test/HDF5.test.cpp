@@ -12,7 +12,7 @@ using namespace njoy::GNDStk;
 // Helper function
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 void writeAndReadHDF5(
    const Tree &oldTree,
    const bool reduced, const bool typed,
@@ -91,7 +91,7 @@ void writeAndReadHDF5(
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk HDF5, Part I") {
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
    WHEN("We create a Tree from an XML with various constructs in it") {
       // Read Tree
       Tree tree("various.xml");
@@ -117,7 +117,7 @@ SCENARIO("Testing GNDStk HDF5, Part I") {
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk HDF5, Part II") {
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
    // read an HDF5
    HDF5 h("n-069_Tm_170-covar.h5");
 

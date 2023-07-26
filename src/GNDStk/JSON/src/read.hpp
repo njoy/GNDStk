@@ -11,12 +11,12 @@ std::istream &read(std::istream &is)
 {
    static const std::string context = "JSON.read(istream)";
 
-#ifdef GNDSTK_DISABLE_JSON
+#ifdef NJOY_GNDSTK_DISABLE_JSON
 
    (void)is;
    log::error(
       "We can't perform the action " + context + ", because the code\n"
-      "has been compiled with JSON disabled (macro GNDSTK_DISABLE_JSON).");
+      "has been compiled with JSON disabled (macro NJOY_GNDSTK_DISABLE_JSON).");
    log::function(context);
    throw std::exception{};
 
@@ -47,7 +47,7 @@ std::istream &read(std::istream &is)
 // read(file)
 // ------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 bool read(const std::string &filename)
 {
    // open file

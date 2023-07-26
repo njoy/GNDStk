@@ -118,7 +118,7 @@ R"***(<?xml version="1.0" encoding="UTF-8"?>
 // json
 // ------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 static const std::string string_real_json =
 R"***({
    "covarianceSuite": {
@@ -279,7 +279,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       }
 
       // FileType::json
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
       WHEN("We write() the empty tree using FileType::json") {
          THEN("We get JSON \"(null)\" only (case: FileType::json)") {
             std::ostringstream oss;
@@ -372,7 +372,7 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       }
 
       // FileType::json
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
       WHEN("We write() the tree using FileType::json") {
          THEN("We get the correct JSON content (case: FileType::json)") {
             std::ostringstream oss;

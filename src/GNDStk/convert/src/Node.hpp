@@ -106,12 +106,12 @@ inline bool convert(const JSON &j, Node &node, const bool &DECL)
 {
    static const std::string context = "convert(JSON,Node)";
 
-#ifdef GNDSTK_DISABLE_JSON
+#ifdef NJOY_GNDSTK_DISABLE_JSON
 
    (void)j; (void)node; (void)DECL;
    log::error(
       "We can't make the conversion " + context + ", because the code\n"
-      "has been compiled with JSON disabled (macro GNDSTK_DISABLE_JSON).");
+      "has been compiled with JSON disabled (macro NJOY_GNDSTK_DISABLE_JSON).");
    log::function(context);
    throw std::exception{};
 
@@ -177,12 +177,12 @@ inline bool convert(const HDF5 &h, Node &node, const bool &DECL)
 {
    static const std::string context = "convert(HDF5,Node)";
 
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 
    (void)h; (void)node; (void)DECL;
    log::error(
       "We can't make the conversion " + context + ", because the code\n"
-      "has been compiled with HDF5 disabled (macro GNDSTK_DISABLE_HDF5).");
+      "has been compiled with HDF5 disabled (macro NJOY_GNDSTK_DISABLE_HDF5).");
    log::function(context);
    throw std::exception{};
 

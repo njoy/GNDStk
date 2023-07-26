@@ -1,5 +1,5 @@
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 
 // Helper: hdf52node_error
 inline void hdf52node_error(const std::string &message)

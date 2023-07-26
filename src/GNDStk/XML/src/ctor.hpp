@@ -33,7 +33,7 @@ XML(const XML &other)
 // ------------------------
 
 // From JSON
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 explicit XML(const JSON &j)
 {
    try {
@@ -47,7 +47,7 @@ explicit XML(const JSON &j)
 #endif
 
 // From HDF5
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 explicit XML(const HDF5 &h)
 {
    try {

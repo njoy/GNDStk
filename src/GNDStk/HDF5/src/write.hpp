@@ -11,12 +11,12 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
    static const std::string context = "HDF5.write(ostream)";
 
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 
    (void)os; (void)decl;
    log::error(
       "We can't perform the action " + context + ", because the code\n"
-      "has been compiled with HDF5 disabled (macro GNDSTK_DISABLE_HDF5).");
+      "has been compiled with HDF5 disabled (macro NJOY_GNDSTK_DISABLE_HDF5).");
    log::function(context);
    throw std::exception{};
 
@@ -110,7 +110,7 @@ std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 // write(file)
 // ------------------------
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 bool write(const std::string &filename, const bool decl = true) const
 {
    // In case the given file happens to be the same

@@ -1,5 +1,5 @@
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 
 // -----------------------------------------------------------------------------
 // Helpers

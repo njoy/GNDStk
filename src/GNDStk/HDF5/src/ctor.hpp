@@ -11,7 +11,7 @@
 HDF5() { }
 
 // move
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 HDF5(HDF5 &&) = default;
 #else
 HDF5(HDF5 &&other) :
@@ -24,7 +24,7 @@ HDF5(HDF5 &&other) :
 #endif
 
 // copy
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 HDF5(const HDF5 &) = default;
 #else
 HDF5(const HDF5 &other)
@@ -45,7 +45,7 @@ HDF5(const HDF5 &other)
 // ------------------------
 
 // From XML
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 explicit HDF5(const XML &x)
 {
    try {
@@ -59,8 +59,8 @@ explicit HDF5(const XML &x)
 #endif
 
 // From JSON
-#ifndef GNDSTK_DISABLE_HDF5
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 explicit HDF5(const JSON &j)
 {
    try {
@@ -104,7 +104,7 @@ explicit HDF5(std::istream &is)
 }
 
 // From file
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 explicit HDF5(const std::string &filename)
 {
    try {

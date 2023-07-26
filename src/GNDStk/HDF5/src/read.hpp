@@ -11,12 +11,12 @@ std::istream &read(std::istream &is)
 {
    static const std::string context = "HDF5.read(istream)";
 
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 
    (void)is;
    log::error(
       "We can't perform the action " + context + ", because the code\n"
-      "has been compiled with HDF5 disabled (macro GNDSTK_DISABLE_HDF5).");
+      "has been compiled with HDF5 disabled (macro NJOY_GNDSTK_DISABLE_HDF5).");
    log::function(context);
    throw std::exception{};
 
@@ -84,7 +84,7 @@ std::istream &read(std::istream &is)
 // read(file)
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 bool read(const std::string &filename)
 {
    clear();

@@ -182,7 +182,7 @@ class CallOpChildAssertion {
 // -----------------------------------------------------------------------------
 
 struct instrument {
-#ifdef GNDSTK_INSTRUMENT
+#ifdef NJOY_GNDSTK_INSTRUMENT
    static inline bool on = true;
 
    // for children

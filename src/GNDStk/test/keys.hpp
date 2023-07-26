@@ -119,23 +119,23 @@ namespace misc {
 
 namespace meta {
    // int
-   GNDSTK_MAKE_META(int, A);
-   GNDSTK_MAKE_META(int, ENDF_MT);
+   NJOY_GNDSTK_MAKE_META(int, A);
+   NJOY_GNDSTK_MAKE_META(int, ENDF_MT);
 
    // double
-   GNDSTK_MAKE_META(double, format);
+   NJOY_GNDSTK_MAKE_META(double, format);
 
    // string
-   GNDSTK_MAKE_META(std::string, encoding);
-   GNDSTK_MAKE_META(std::string, evaluation);
-   GNDSTK_MAKE_META(std::string, id);
-   GNDSTK_MAKE_META(std::string, label);
-   GNDSTK_MAKE_META(std::string, projectile);
-   GNDSTK_MAKE_META(std::string, projectileFrame);
-   GNDSTK_MAKE_META(std::string, symbol);
-   GNDSTK_MAKE_META(std::string, target);
-   GNDSTK_MAKE_META(std::string, unit);
-   GNDSTK_MAKE_META(std::string, version);
+   NJOY_GNDSTK_MAKE_META(std::string, encoding);
+   NJOY_GNDSTK_MAKE_META(std::string, evaluation);
+   NJOY_GNDSTK_MAKE_META(std::string, id);
+   NJOY_GNDSTK_MAKE_META(std::string, label);
+   NJOY_GNDSTK_MAKE_META(std::string, projectile);
+   NJOY_GNDSTK_MAKE_META(std::string, projectileFrame);
+   NJOY_GNDSTK_MAKE_META(std::string, symbol);
+   NJOY_GNDSTK_MAKE_META(std::string, target);
+   NJOY_GNDSTK_MAKE_META(std::string, unit);
+   NJOY_GNDSTK_MAKE_META(std::string, version);
 
    // value, as double
    inline const njoy::GNDStk::Meta<double> dvalue("value");
@@ -154,22 +154,22 @@ namespace child {
       thermalScattering("thermalScattering");
 
    // Misc. Child Objects
-   GNDSTK_MAKE_CHILD(void, axes, one);
-   GNDSTK_MAKE_CHILD(void, axis, many);
-   GNDSTK_MAKE_CHILD(void, chemicalElements, one);
-   GNDSTK_MAKE_CHILD(void, chemicalElement,  many);
-   GNDSTK_MAKE_CHILD(void, isotopes, one);
-   GNDSTK_MAKE_CHILD(void, isotope,  many);
-   GNDSTK_MAKE_CHILD(void, nuclides, one);
-   GNDSTK_MAKE_CHILD(void, reactions, one);
-   GNDSTK_MAKE_CHILD(void, reaction,  many);
-   GNDSTK_MAKE_CHILD(void, crossSection, one);
-   GNDSTK_MAKE_CHILD(void, styles, one);
-   GNDSTK_MAKE_CHILD(void, temperature, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, axes, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, axis, many);
+   NJOY_GNDSTK_MAKE_CHILD(void, chemicalElements, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, chemicalElement,  many);
+   NJOY_GNDSTK_MAKE_CHILD(void, isotopes, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, isotope,  many);
+   NJOY_GNDSTK_MAKE_CHILD(void, nuclides, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, reactions, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, reaction,  many);
+   NJOY_GNDSTK_MAKE_CHILD(void, crossSection, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, styles, one);
+   NJOY_GNDSTK_MAKE_CHILD(void, temperature, one);
    inline const njoy::GNDStk::Child<void,njoy::GNDStk::Allow::one>
       xml(njoy::GNDStk::special::xml);
-   GNDSTK_MAKE_CHILD(void, evaluated, many);
-   GNDSTK_MAKE_CHILD(void, XYs1d, many);
+   NJOY_GNDSTK_MAKE_CHILD(void, evaluated, many);
+   NJOY_GNDSTK_MAKE_CHILD(void, XYs1d, many);
 
    // CDATA
    inline const njoy::GNDStk::Child<

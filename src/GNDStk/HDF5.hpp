@@ -16,7 +16,7 @@ public:
    static inline bool reduced = true;
    static inline bool typed = true;
 
-#ifdef GNDSTK_DISABLE_HDF5
+#ifdef NJOY_GNDSTK_DISABLE_HDF5
 
    // clear
    HDF5 &clear()

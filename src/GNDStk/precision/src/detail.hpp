@@ -132,7 +132,7 @@ class Precision {
    // If it doesn't, 0 converts to double and the second version is called.
    // Thus the final parameter helps with overloading; its value isn't used.
 
-#ifdef GNDSTK_PRECISION
+#ifdef NJOY_GNDSTK_PRECISION
    // OK, apparently it may be impossible to make the SFINAE work as intended
    // in the event that the std::chars_format enum class doesn't even exist,
    // so that the token [chars_format] (which is used in both the SFINAE and
@@ -198,7 +198,7 @@ class Precision {
    // error (rvalue passed to non-const lvalue reference). Here, the attempt to
    // do so would instead make the SFINAE fail always, defeating its purpose.
 
-#ifdef GNDSTK_PRECISION
+#ifdef NJOY_GNDSTK_PRECISION
    template<class T>
    auto read(const std::string &str, T &value, int) const ->
       std::enable_if_t<

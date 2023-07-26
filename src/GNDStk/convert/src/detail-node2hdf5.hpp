@@ -1,5 +1,5 @@
 
-#ifndef GNDSTK_DISABLE_HDF5
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
 
 // -----------------------------------------------------------------------------
 // Helpers

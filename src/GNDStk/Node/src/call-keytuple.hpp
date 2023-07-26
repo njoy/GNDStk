@@ -22,7 +22,7 @@ decltype(auto) tupleApplyHead(
    const T &head,
    bool &found, // overall "found"
    std::vector<std::string> &missing
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool f = true; // head-specific "found"
    decltype(auto) ret = operator()(head, f);
    if (!f)
@@ -38,7 +38,7 @@ decltype(auto) tupleApply(
    bool &found,
    std::vector<std::string> &missing,
    const std::index_sequence<Is...> &
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    return typename detail::keys2outputs<Node,std::tuple<Ks...>>::type(
       tupleApplyHead(std::get<Is>(tup), found, missing)
       ...
@@ -57,7 +57,7 @@ template<class... Ks>
 auto operator()(
    const KeyTuple<Ks...> &keytup,
    bool &found = detail::default_bool // means "found all" in this context
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
 
    std::vector<std::string> missing;
 
@@ -107,4 +107,4 @@ auto operator()(
    }
 }
 
-#undef GNDSTK_CONST
+#undef NJOY_GNDSTK_CONST

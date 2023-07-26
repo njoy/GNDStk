@@ -114,7 +114,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
       // JSON
       // ------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
       WHEN("We read() one from a json file") {
          const std::string filename = "n-069_Tm_170-covar.json";
          t1.read(filename);
@@ -178,7 +178,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          compare(tree, decl_xml + correct_tree);
 
          // json
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
          tree.read(jfilename,FileType::guess);
          compare(tree, decl_json + correct_tree);
          tree.read(jfilename,FileType::json);
@@ -196,7 +196,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          compare(tree, decl_xml + correct_tree);
 
          // json
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
          tree.read(jfilename,"");
          compare(tree, decl_json + correct_tree);
          tree.read(jfilename,"guess");
@@ -216,7 +216,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          compare(tree, decl_xml + correct_tree);
 
          // json
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
          jifs.seekg (0,std::ios::beg);
          tree.read(jifs,FileType::guess);
          compare(tree, decl_json + correct_tree);
@@ -239,7 +239,7 @@ SCENARIO("Testing GNDStk tree read() and operator>>") {
          compare(tree, decl_xml + correct_tree);
 
          // json
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
          jifs.seekg (0,std::ios::beg);
          tree.read(jifs,"");
          compare(tree, decl_json + correct_tree);

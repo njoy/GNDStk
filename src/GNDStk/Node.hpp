@@ -29,7 +29,7 @@ public:
    std::string name;
    std::vector<metaPair> metadata;
    std::vector<childPtr> children;
-   #ifdef GNDSTK_INSTRUMENT
+   #ifdef NJOY_GNDSTK_INSTRUMENT
    mutable bool marked = false;
    #endif
 
@@ -121,21 +121,21 @@ public:
    #include "GNDStk/Node/src/call-meta.hpp"
 
    // child-specific
-   #define GNDSTK_CONST const
+   #define NJOY_GNDSTK_CONST const
    #include "GNDStk/Node/src/call-child.hpp"
-   #define GNDSTK_CONST
+   #define NJOY_GNDSTK_CONST
    #include "GNDStk/Node/src/call-child.hpp"
 
    // For the KeyTuple<...> std::tuple wrapper
-   #define GNDSTK_CONST const
+   #define NJOY_GNDSTK_CONST const
    #include "GNDStk/Node/src/call-keytuple.hpp"
-   #define GNDSTK_CONST
+   #define NJOY_GNDSTK_CONST
    #include "GNDStk/Node/src/call-keytuple.hpp"
 
    // General multi-argument
-   #define GNDSTK_CONST const
+   #define NJOY_GNDSTK_CONST const
    #include "GNDStk/Node/src/call.hpp"
-   #define GNDSTK_CONST
+   #define NJOY_GNDSTK_CONST
    #include "GNDStk/Node/src/call.hpp"
 
    // No-argument operator() returns the current Node; this is the natural

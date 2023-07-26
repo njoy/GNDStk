@@ -77,7 +77,7 @@ void convert(std::istream &is, std::pair<X,Y> &p)
 }
 
 // some sequence containers
-#define GNDSTK_CONVERT(container) \
+#define NJOY_GNDSTK_CONVERT(container) \
    template<class T, class Alloc> \
    inline void convert( \
       std::istream &is, \
@@ -96,11 +96,11 @@ void convert(std::istream &is, std::pair<X,Y> &p)
       } \
    }
 
-   GNDSTK_CONVERT(deque)
-   GNDSTK_CONVERT(list)
-   GNDSTK_CONVERT(vector)
+   NJOY_GNDSTK_CONVERT(deque)
+   NJOY_GNDSTK_CONVERT(list)
+   NJOY_GNDSTK_CONVERT(vector)
 
-#undef GNDSTK_CONVERT
+#undef NJOY_GNDSTK_CONVERT
 
 
 // -----------------------------------------------------------------------------
@@ -149,17 +149,17 @@ inline void convert(const std::string &str, bool &value)
 
 // miscellaneous
 // string-to-T specializations that may be faster than our default
-#define GNDSTK_CONVERT(fun,TYPE) \
+#define NJOY_GNDSTK_CONVERT(fun,TYPE) \
    inline void convert(const std::string &str, TYPE &value) \
    { \
       value = std::fun(str); \
    }
 
-   GNDSTK_CONVERT(stoi,   int)
-   GNDSTK_CONVERT(stol,   long)
-   GNDSTK_CONVERT(stoll,  long long)
-   GNDSTK_CONVERT(stoul,  unsigned) // apparently there's no std::stou()
-   GNDSTK_CONVERT(stoul,  unsigned long)
-   GNDSTK_CONVERT(stoull, unsigned long long)
+   NJOY_GNDSTK_CONVERT(stoi,   int)
+   NJOY_GNDSTK_CONVERT(stol,   long)
+   NJOY_GNDSTK_CONVERT(stoll,  long long)
+   NJOY_GNDSTK_CONVERT(stoul,  unsigned) // apparently there's no std::stou()
+   NJOY_GNDSTK_CONVERT(stoul,  unsigned long)
+   NJOY_GNDSTK_CONVERT(stoull, unsigned long long)
 
-#undef GNDSTK_CONVERT
+#undef NJOY_GNDSTK_CONVERT

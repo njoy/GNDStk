@@ -11,7 +11,7 @@ using namespace njoy::GNDStk;
 // JSON literal
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 static const std::string string_real_json =
 R"***({
    "covarianceSuite": {
@@ -102,7 +102,7 @@ R"***({
 // Helper function
 // -----------------------------------------------------------------------------
 
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 void writeAndReadJSON(
    const Tree &oldTree,
    const bool reduced, const bool typed,
@@ -151,7 +151,7 @@ void writeAndReadJSON(
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk JSON, Part I") {
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
    WHEN("We create a Tree from an XML with various constructs in it") {
       // Read Tree
       Tree tree("various.xml");
@@ -177,7 +177,7 @@ SCENARIO("Testing GNDStk JSON, Part I") {
 // -----------------------------------------------------------------------------
 
 SCENARIO("Testing GNDStk JSON, Part II") {
-#ifndef GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_JSON
    JSON::reduced = false;
    JSON::typed   = false;
 

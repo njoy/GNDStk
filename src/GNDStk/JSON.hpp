@@ -14,7 +14,7 @@ public:
    static inline bool reduced = true;
    static inline bool typed = true;
 
-#ifdef GNDSTK_DISABLE_JSON
+#ifdef NJOY_GNDSTK_DISABLE_JSON
 
    // clear
    JSON &clear()

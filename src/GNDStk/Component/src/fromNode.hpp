@@ -167,7 +167,7 @@ void fromNode(const Node &node)
       // Component interface...
       // ------------------------
 
-      #ifdef GNDSTK_INSTRUMENT
+      #ifdef NJOY_GNDSTK_INSTRUMENT
       {
          // context
          std::vector<std::string> ancestors;

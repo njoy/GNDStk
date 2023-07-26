@@ -11,7 +11,7 @@ struct CommentConverter {
       bool found = false;
       str = node.meta(special::text,found);
 
-      #ifdef GNDSTK_INSTRUMENT
+      #ifdef NJOY_GNDSTK_INSTRUMENT
       // Must do directly here, because we're handling #text directly
       for (const auto &m : node.metadata)
          if (m.first == special::text)
@@ -82,7 +82,7 @@ struct DataConverter {
       found = false;
       const std::string &str = data.meta(special::text,found);
 
-      #ifdef GNDSTK_INSTRUMENT
+      #ifdef NJOY_GNDSTK_INSTRUMENT
       // Must do directly here, because we're handling #text directly
       for (const auto &m : data.metadata)
          if (m.first == special::text)
@@ -174,7 +174,7 @@ struct DataConverter {
       found = false;
       str = data.meta(special::text,found);
 
-      #ifdef GNDSTK_INSTRUMENT
+      #ifdef NJOY_GNDSTK_INSTRUMENT
       // Must do directly here, because we're handling #text directly
       for (const auto &m : data.metadata)
          if (m.first == special::text)
