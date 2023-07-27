@@ -29,17 +29,12 @@ namespace enums {
     *  @brief Template specialisation to convert HashAlgorithm to/from strings
     */
    template<>
-   struct Map<HashAlgorithm>
-   {
-      static inline const std::map<HashAlgorithm,std::string> values {
+   struct Map<HashAlgorithm> {
+      static inline const map2string<HashAlgorithm> values {
          { HashAlgorithm::md5, "md5" },
          { HashAlgorithm::sha1, "sha1" }
       };
-
-      static inline const std::map<std::string,HashAlgorithm> symbols {
-         { "md5", HashAlgorithm::md5 },
-         { "sha1", HashAlgorithm::sha1 }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

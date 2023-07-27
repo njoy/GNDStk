@@ -33,9 +33,8 @@ namespace enums {
     *  @brief Template specialisation to convert Interpolation to/from strings
     */
    template<>
-   struct Map<Interpolation>
-   {
-      static inline const std::map<Interpolation,std::string> values {
+   struct Map<Interpolation> {
+      static inline const map2string<Interpolation> values {
          { Interpolation::flat, "flat" },
          { Interpolation::linlin, "lin-lin" },
          { Interpolation::linlog, "lin-log" },
@@ -43,15 +42,7 @@ namespace enums {
          { Interpolation::loglog, "log-log" },
          { Interpolation::chargedparticle, "charged-particle" }
       };
-
-      static inline const std::map<std::string,Interpolation> symbols {
-         { "flat", Interpolation::flat },
-         { "lin-lin", Interpolation::linlin },
-         { "lin-log", Interpolation::linlog },
-         { "log-lin", Interpolation::loglin },
-         { "log-log", Interpolation::loglog },
-         { "charged-particle", Interpolation::chargedparticle }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

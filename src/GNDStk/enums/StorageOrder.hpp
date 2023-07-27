@@ -7,8 +7,6 @@ namespace enums {
    /**
     *  @class
     *  @brief Enumeration class giving acceptable storage order values
-    *
-    *  See GNDS v1.9 specifications section 3.5.3
     */
    enum class StorageOrder {
       rowMajor = 1,
@@ -31,17 +29,12 @@ namespace enums {
     *  @brief Template specialisation to convert StorageOrder to/from strings
     */
    template<>
-   struct Map<StorageOrder>
-   {
-      static inline const std::map<StorageOrder,std::string> values {
+   struct Map<StorageOrder> {
+      static inline const map2string<StorageOrder> values {
          { StorageOrder::rowMajor, "rowMajor" },
          { StorageOrder::columnMajor, "columnMajor" }
       };
-
-      static inline const std::map<std::string,StorageOrder> symbols {
-         { "rowMajor", StorageOrder::rowMajor },
-         { "columnMajor", StorageOrder::columnMajor }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

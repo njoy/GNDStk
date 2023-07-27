@@ -29,17 +29,12 @@ namespace enums {
     *  @brief Template specialisation to convert Parity to/from strings
     */
    template<>
-   struct Map<Parity>
-   {
-      static inline const std::map<Parity,std::string> values {
+   struct Map<Parity> {
+      static inline const map2string<Parity> values {
          { Parity::minus, "-1" },
          { Parity::plus, "+1" }
       };
-
-      static inline const std::map<std::string,Parity> symbols {
-         { "-1", Parity::minus },
-         { "+1", Parity::plus }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

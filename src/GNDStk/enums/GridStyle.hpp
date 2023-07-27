@@ -32,23 +32,15 @@ namespace enums {
     *  @brief Template specialisation to convert GridStyle to/from strings
     */
    template<>
-   struct Map<GridStyle>
-   {
-      static inline const std::map<GridStyle,std::string> values {
+   struct Map<GridStyle> {
+      static inline const map2string<GridStyle> values {
          { GridStyle::none, "none" },
          { GridStyle::link, "link" },
          { GridStyle::points, "points" },
          { GridStyle::boundaries, "boundaries" },
          { GridStyle::parameters, "parameters" }
       };
-
-      static inline const std::map<std::string,GridStyle> symbols {
-         { "none", GridStyle::none },
-         { "link", GridStyle::link },
-         { "points", GridStyle::points },
-         { "boundaries", GridStyle::boundaries },
-         { "parameters", GridStyle::parameters }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

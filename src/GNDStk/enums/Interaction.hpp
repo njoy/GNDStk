@@ -7,8 +7,6 @@ namespace enums {
    /**
     *  @class
     *  @brief Enumeration class giving acceptable interaction values
-    *
-    *  See GNDS v1.9 specifications section 3.5.3
     */
    enum class Interaction {
       nuclear = 1,
@@ -32,19 +30,13 @@ namespace enums {
     *  @brief Template specialisation to convert Interaction to/from strings
     */
    template<>
-   struct Map<Interaction>
-   {
-      static inline const std::map<Interaction,std::string> values {
+   struct Map<Interaction> {
+      static inline const map2string<Interaction> values {
          { Interaction::nuclear, "nuclear" },
          { Interaction::atomic, "atomic" },
          { Interaction::thermalNeutronScatteringLaw, "thermalNeutronScatteringLaw" }
       };
-
-      static inline const std::map<std::string,Interaction> symbols {
-         { "nuclear", Interaction::nuclear },
-         { "atomic", Interaction::atomic },
-         { "thermalNeutronScatteringLaw", Interaction::thermalNeutronScatteringLaw }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

@@ -29,17 +29,12 @@ namespace enums {
     *  @brief Template specialisation to convert Frame to/from strings
     */
    template<>
-   struct Map<Frame>
-   {
-      static inline const std::map<Frame,std::string> values {
+   struct Map<Frame> {
+      static inline const map2string<Frame> values {
          { Frame::lab, "lab" },
          { Frame::centerOfMass, "centerOfMass" }
       };
-
-      static inline const std::map<std::string,Frame> symbols {
-         { "lab", Frame::lab },
-         { "centerOfMass", Frame::centerOfMass }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

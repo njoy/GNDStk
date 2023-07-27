@@ -7,8 +7,6 @@ namespace enums {
    /**
     *  @class
     *  @brief Enumeration class giving acceptable units for energy
-    *
-    *  See GNDS v1.9 specifications section 5.1.1
     */
    enum class Energy {
       eV,
@@ -27,22 +25,17 @@ namespace enums {
       return isSymbol<Energy>(string);
    }
 
-/**
- *  @brief Template specialisation to convert Energy to/from strings
- */
-template<>
-struct Map<Energy>
-{
-   static inline const std::map<Energy,std::string> values {
-      { Energy::eV, "eV" },
-      { Energy::MeV, "MeV" }
+   /**
+    *  @brief Template specialisation to convert Energy to/from strings
+    */
+   template<>
+   struct Map<Energy> {
+      static inline const map2string<Energy> values {
+         { Energy::eV, "eV" },
+         { Energy::MeV, "MeV" }
+      };
+      static inline const auto symbols = reverseMap(values);
    };
-
-   static inline const std::map<std::string,Energy> symbols {
-      { "eV", Energy::eV },
-      { "MeV", Energy::MeV }
-   };
-};
 
 } // namespace enums
 

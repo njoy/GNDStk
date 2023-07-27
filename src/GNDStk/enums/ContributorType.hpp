@@ -48,9 +48,8 @@ namespace enums {
     *  @brief Template specialisation to convert ContributorType to/from strings
     */
    template<>
-   struct Map<ContributorType>
-   {
-      static inline const std::map<ContributorType,std::string> values {
+   struct Map<ContributorType> {
+      static inline const map2string<ContributorType> values {
          { ContributorType::ContactPerson, "ContactPerson" },
          { ContributorType::DataCollector, "DataCollector" },
          { ContributorType::DataCurator, "DataCurator" },
@@ -73,30 +72,7 @@ namespace enums {
          { ContributorType::WorkPackageLeader, "WorkPackageLeader" },
          { ContributorType::Other, "Other" }
       };
-
-      static inline const std::map<std::string,ContributorType> symbols {
-         { "ContactPerson", ContributorType::ContactPerson },
-         { "DataCollector", ContributorType::DataCollector },
-         { "DataCurator", ContributorType::DataCurator },
-         { "DataManager", ContributorType::DataManager },
-         { "Distributor", ContributorType::Distributor },
-         { "Editor", ContributorType::Editor },
-         { "HostingInstitution", ContributorType::HostingInstitution },
-         { "Producer", ContributorType::Producer },
-         { "ProjectLeader", ContributorType::ProjectLeader },
-         { "ProjectManager", ContributorType::ProjectManager },
-         { "ProjectMember", ContributorType::ProjectMember },
-         { "RegistrationAgency", ContributorType::RegistrationAgency },
-         { "RegistrationAuthority", ContributorType::RegistrationAuthority },
-         { "RelatedPerson", ContributorType::RelatedPerson },
-         { "Researcher", ContributorType::Researcher },
-         { "ResearchGroup", ContributorType::ResearchGroup },
-         { "RightsHolder", ContributorType::RightsHolder },
-         { "Sponsor", ContributorType::Sponsor },
-         { "Supervisor", ContributorType::Supervisor },
-         { "WorkPackageLeader", ContributorType::WorkPackageLeader },
-         { "Other", ContributorType::Other }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

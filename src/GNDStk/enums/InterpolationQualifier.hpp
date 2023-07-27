@@ -32,21 +32,14 @@ namespace enums {
     *  @brief Template specialisation to convert InterpolationQualifier to/from strings
     */
    template<>
-   struct Map<InterpolationQualifier>
-   {
-      static inline const std::map<InterpolationQualifier,std::string> values {
+   struct Map<InterpolationQualifier> {
+      static inline const map2string<InterpolationQualifier> values {
          { InterpolationQualifier::direct, "direct" },
          { InterpolationQualifier::unitBase, "unitBase" },
          { InterpolationQualifier::correspondingEnergies, "correspondingEnergies" },
          { InterpolationQualifier::correspondingPoints, "correspondingPoints" }
       };
-
-      static inline const std::map<std::string,InterpolationQualifier> symbols {
-         { "direct", InterpolationQualifier::direct },
-         { "unitBase", InterpolationQualifier::unitBase },
-         { "correspondingEnergies", InterpolationQualifier::correspondingEnergies },
-         { "correspondingPoints", InterpolationQualifier::correspondingPoints }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

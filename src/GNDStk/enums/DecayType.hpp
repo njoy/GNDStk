@@ -39,9 +39,8 @@ namespace enums {
     *  @brief Template specialisation to convert DecayType to/from strings
     */
    template<>
-   struct Map<DecayType>
-   {
-      static inline const std::map<DecayType,std::string> values {
+   struct Map<DecayType> {
+      static inline const map2string<DecayType> values {
          { DecayType::SpontaneousFission, "SF" },
          { DecayType::BetaMinus, "beta-" },
          { DecayType::BetaPlus, "beta+" },
@@ -55,21 +54,7 @@ namespace enums {
          { DecayType::Alpha, "alpha" },
          { DecayType::AtomicRelaxation, "atomicRelaxation" }
       };
-
-      static inline const std::map<std::string,DecayType> symbols {
-         { "SF", DecayType::SpontaneousFission },
-         { "beta-", DecayType::BetaMinus },
-         { "beta+", DecayType::BetaPlus },
-         { "EC", DecayType::ElectronCapture },
-         { "electroMagnetic", DecayType::ElectroMagnetic },
-         { "IT", DecayType::IsomericTransition },
-         { "n", DecayType::Neutron },
-         { "p", DecayType::Proton },
-         { "d", DecayType::Deuteron },
-         { "t", DecayType::Triton },
-         { "alpha", DecayType::Alpha },
-         { "atomicRelaxation", DecayType::AtomicRelaxation }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

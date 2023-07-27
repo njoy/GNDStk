@@ -4,6 +4,20 @@
 
 namespace enums {
 
+// map2string
+template<class T>
+using map2string = std::map<T,std::string>;
+
+// reverseMap
+template<class KEY, class VALUE>
+std::map<VALUE,KEY> reverseMap(const std::map<KEY,VALUE> &in)
+{
+   std::map<VALUE,KEY> out;
+   for (const auto &pair : in)
+      out.insert(std::make_pair(pair.second,pair.first));
+   return out;
+}
+
 /**
  *  @brief Forward declaration of the templated enumeration Map used to convert
  *         enumeration values to/from string

@@ -37,9 +37,8 @@ namespace enums {
     *  @brief Template specialisation to convert DateType to/from strings
     */
    template<>
-   struct Map<DateType>
-   {
-      static inline const std::map<DateType,std::string> values {
+   struct Map<DateType> {
+      static inline const map2string<DateType> values {
          { DateType::accepted, "accepted" },
          { DateType::available, "available" },
          { DateType::copyrighted, "copyrighted" },
@@ -51,19 +50,7 @@ namespace enums {
          { DateType::valid, "valid" },
          { DateType::withdrawn, "withdrawn" }
       };
-
-      static inline const std::map<std::string,DateType> symbols {
-         { "accepted", DateType::accepted },
-         { "available", DateType::available },
-         { "copyrighted", DateType::copyrighted },
-         { "collected", DateType::collected },
-         { "created", DateType::created },
-         { "issued", DateType::issued },
-         { "submitted", DateType::submitted },
-         { "updated", DateType::updated },
-         { "valid", DateType::valid },
-         { "withdrawn", DateType::withdrawn }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

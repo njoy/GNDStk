@@ -61,9 +61,8 @@ namespace enums {
     *  @brief Template specialisation to convert RelationType to/from strings
     */
    template<>
-   struct Map<RelationType>
-   {
-      static inline const std::map<RelationType,std::string> values {
+   struct Map<RelationType> {
+      static inline const map2string<RelationType> values {
          { RelationType::IsCitedBy, "IsCitedBy" },
          { RelationType::Cites, "Cites" },
          { RelationType::IsSupplementTo, "IsSupplementTo" },
@@ -99,43 +98,7 @@ namespace enums {
          { RelationType::Obsoletes, "Obsoletes" },
          { RelationType::IsObsoletedBy, "IsObsoletedBy" }
       };
-
-      static inline const std::map<std::string,RelationType> symbols {
-         { "IsCitedBy", RelationType::IsCitedBy },
-         { "Cites", RelationType::Cites },
-         { "IsSupplementTo", RelationType::IsSupplementTo },
-         { "IsSupplementedBy", RelationType::IsSupplementedBy },
-         { "IsContinuedBy", RelationType::IsContinuedBy },
-         { "Continues", RelationType::Continues },
-         { "Describes", RelationType::Describes },
-         { "IsDescribedBy", RelationType::IsDescribedBy },
-         { "HasMetadata", RelationType::HasMetadata },
-         { "IsMetadataFor", RelationType::IsMetadataFor },
-         { "HasVersion", RelationType::HasVersion },
-         { "IsVersionOf", RelationType::IsVersionOf },
-         { "IsNewVersionOf", RelationType::IsNewVersionOf },
-         { "IsPreviousVersionOf", RelationType::IsPreviousVersionOf },
-         { "IsPartOf", RelationType::IsPartOf },
-         { "HasPart", RelationType::HasPart },
-         { "IsPublishedIn", RelationType::IsPublishedIn },
-         { "IsReferencedBy", RelationType::IsReferencedBy },
-         { "References", RelationType::References },
-         { "IsDocumentedBy", RelationType::IsDocumentedBy },
-         { "Documents", RelationType::Documents },
-         { "IsCompiledBy", RelationType::IsCompiledBy },
-         { "Compiles", RelationType::Compiles },
-         { "IsVariantFormOf", RelationType::IsVariantFormOf },
-         { "IsOriginalFormOf", RelationType::IsOriginalFormOf },
-         { "IsIdenticalTo", RelationType::IsIdenticalTo },
-         { "IsReviewedBy", RelationType::IsReviewedBy },
-         { "Reviews", RelationType::Reviews },
-         { "IsDerivedFrom", RelationType::IsDerivedFrom },
-         { "IsSourceOf", RelationType::IsSourceOf },
-         { "IsRequiredBy", RelationType::IsRequiredBy },
-         { "Requires", RelationType::Requires },
-         { "Obsoletes", RelationType::Obsoletes },
-         { "IsObsoletedBy", RelationType::IsObsoletedBy }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

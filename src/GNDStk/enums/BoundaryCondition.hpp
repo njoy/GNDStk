@@ -31,21 +31,14 @@ namespace enums {
     *  @brief Template specialisation to convert BoundaryCondition to/from strings
     */
    template<>
-   struct Map<BoundaryCondition>
-   {
-      static inline const std::map<BoundaryCondition,std::string> values {
+   struct Map<BoundaryCondition> {
+      static inline const map2string<BoundaryCondition> values {
          { BoundaryCondition::EliminateShiftFunction, "EliminateShiftFunction" },
          { BoundaryCondition::NegativeOrbitalMomentum, "NegativeOrbitalMomentum" },
          { BoundaryCondition::Brune, "Brune" },
          { BoundaryCondition::Given, "Given" }
       };
-
-      static inline const std::map<std::string,BoundaryCondition> symbols {
-         { "EliminateShiftFunction", BoundaryCondition::EliminateShiftFunction },
-         { "NegativeOrbitalMomentum", BoundaryCondition::NegativeOrbitalMomentum },
-         { "Brune", BoundaryCondition::Brune },
-         { "Given", BoundaryCondition::Given }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums

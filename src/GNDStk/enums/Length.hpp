@@ -7,8 +7,6 @@ namespace enums {
    /**
     *  @class
     *  @brief Enumeration class giving acceptable units for length
-    *
-    *  See GNDS v1.9 specifications section 5.1.1
     */
    enum class Length {
       m,
@@ -28,24 +26,18 @@ namespace enums {
       return isSymbol<Length>(string);
    }
 
-/**
- *  @brief Template specialisation to convert Length to/from strings
- */
-template<>
-struct Map<Length>
-{
-   static inline const std::map<Length,std::string> values {
-      { Length::m, "m" },
-      { Length::cm, "cm" },
-      { Length::fm, "fm" }
+   /**
+    *  @brief Template specialisation to convert Length to/from strings
+    */
+   template<>
+   struct Map<Length> {
+      static inline const map2string<Length> values {
+         { Length::m, "m" },
+         { Length::cm, "cm" },
+         { Length::fm, "fm" }
+      };
+      static inline const auto symbols = reverseMap(values);
    };
-
-   static inline const std::map<std::string,Length> symbols {
-      { "m", Length::m },
-      { "cm", Length::cm },
-      { "fm", Length::fm }
-   };
-};
 
 } // namespace enums
 

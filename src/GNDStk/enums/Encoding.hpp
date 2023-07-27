@@ -7,8 +7,6 @@ namespace enums {
    /**
     *  @class
     *  @brief Enumeration class giving acceptable encoding values
-    *
-    *  See GNDS v1.9 specifications section 3.5.3
     */
    enum class Encoding {
       ascii = 1,
@@ -31,17 +29,12 @@ namespace enums {
     *  @brief Template specialisation to convert Encoding to/from strings
     */
    template<>
-   struct Map<Encoding>
-   {
-      static inline const std::map<Encoding,std::string> values {
+   struct Map<Encoding> {
+      static inline const map2string<Encoding> values {
          { Encoding::ascii, "ascii" },
          { Encoding::utf8, "utf8" }
       };
-
-      static inline const std::map<std::string,Encoding> symbols {
-         { "ascii", Encoding::ascii },
-         { "utf8", Encoding::utf8 }
-      };
+      static inline const auto symbols = reverseMap(values);
    };
 
 } // namespace enums
