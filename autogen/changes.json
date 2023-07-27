@@ -2,8 +2,8 @@
     "name": {
         "// REMARK": [
             "These give changes to apply to METADATUM or CHILD NODE names.",
-            "GNDS v1.9 does in fact have a child node named [double]. But",
-            "that name won't work in C++, so the following forces a change."
+            "GNDS does in fact have a child node named [double]. But that",
+            "name won't work in C++, so the following forces a change."
         ],
         "double": "Double"
     },
@@ -54,7 +54,7 @@
             "row-major":    "enums::StorageOrder::rowMajor",
             "column-major": "enums::StorageOrder::columnMajor",
 
-            "// MISCELLANEOUS CONTENT SEEN IN THE GNDS V1.9 SPEC": {},
+            "// MISCELLANEOUS CONTENT SEEN IN THE GNDS SPECS": {},
             "`' (i.e. unitless)": "",
             " \\\\kern-1ex":      "",
             "`' (no label)":      "",

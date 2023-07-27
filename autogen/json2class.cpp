@@ -217,7 +217,8 @@ struct InfoSpecs {
    std::string cVersion;   // C++ backend source for the C interface
 
    // Changes to apply to a metadatum's name or a child node's name.
-   // Example: "double" (GNDS v1.9 actually has "double") to "Double" for C++.
+   // Example: "double" (GNDS v2.0, for example, actually has a "double" node)
+   // to "Double" for C++.
    std::map<std::string,std::string> mapName;
 
    // Changes to apply to metadata/attribute type.
@@ -758,15 +759,16 @@ void getClassVariants(
    // Initialize per.variants, a vector<InfoVariants> that has the "choice"
    // children from the current class. Computing a map<string,InfoVariants>,
    // first, turns out to be convenient, given the manner in which the choice
-   // children appear in the JSON specifications: listed in a "flat" manner
+   // children appear in the JSON specifications: listed in a "flat" manner,
    // as child nodes, rather than grouped one level deeper inside of, say,
    // a "choice" JSON key. Remark: this code supports the option of having
    // multiple sets of choices under the current parent; for example, the
    // parent can have {X or Y}, and (independently) have {A or B or C}. Our
    // JSON "variant" key facilitates this: give the same value for X and Y,
-   // and the same value for A, B, and C. The GNDS v1.9 specifications only
-   // appear to allow for one choice-between-things (just X,Y or just A,B,C)
-   // in a given parent, but we believe our extension will prove to be useful.
+   // and the same value for A, B, and C. At the time of this writing, GNDS
+   // specifications appear to allow for only one choice-between-things (just
+   // X,Y, for example, or just A,B,C) in a given parent, but we believe that
+   // our extension may prove to be useful at some point.
 
    std::map<std::string,InfoVariants> map;
 
