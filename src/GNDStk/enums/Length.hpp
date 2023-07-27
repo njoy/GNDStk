@@ -4,8 +4,6 @@
 
 namespace enums {
 
-namespace units {
-
    /**
     *  @class
     *  @brief Enumeration class giving acceptable units for length
@@ -18,11 +16,6 @@ namespace units {
       fm
    };
 
-   using enums::fromString;
-   using enums::toString;
-   using enums::operator>>;
-   using enums::operator<<;
-
    /**
     *  @brief Return whether or not a string is a valid energy unit
     *
@@ -32,28 +25,25 @@ namespace units {
     */
    inline bool isLengthUnit(const std::string &string)
    {
-      return isSymbol<units::Length>(string);
+      return isSymbol<Length>(string);
    }
-
-} // namespace units
-
 
 /**
  *  @brief Template specialisation to convert Length to/from strings
  */
 template<>
-struct Map<units::Length>
+struct Map<Length>
 {
-   static inline const std::map<units::Length,std::string> values {
-      { units::Length::m, "m" },
-      { units::Length::cm, "cm" },
-      { units::Length::fm, "fm" }
+   static inline const std::map<Length,std::string> values {
+      { Length::m, "m" },
+      { Length::cm, "cm" },
+      { Length::fm, "fm" }
    };
 
-   static inline const std::map<std::string,units::Length> symbols {
-      { "m", units::Length::m },
-      { "cm", units::Length::cm },
-      { "fm", units::Length::fm }
+   static inline const std::map<std::string,Length> symbols {
+      { "m", Length::m },
+      { "cm", Length::cm },
+      { "fm", Length::fm }
    };
 };
 

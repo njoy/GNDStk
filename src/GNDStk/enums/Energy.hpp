@@ -4,8 +4,6 @@
 
 namespace enums {
 
-namespace units {
-
    /**
     *  @class
     *  @brief Enumeration class giving acceptable units for energy
@@ -17,11 +15,6 @@ namespace units {
       MeV
    };
 
-   using enums::fromString;
-   using enums::toString;
-   using enums::operator>>;
-   using enums::operator<<;
-
    /**
     *  @brief Return whether or not a string is a valid energy unit
     *
@@ -31,26 +24,23 @@ namespace units {
     */
    inline bool isEnergyUnit(const std::string &string)
    {
-      return isSymbol<units::Energy>(string);
+      return isSymbol<Energy>(string);
    }
-
-} // namespace units
-
 
 /**
  *  @brief Template specialisation to convert Energy to/from strings
  */
 template<>
-struct Map<units::Energy>
+struct Map<Energy>
 {
-   static inline const std::map<units::Energy,std::string> values {
-      { units::Energy::eV, "eV" },
-      { units::Energy::MeV, "MeV" }
+   static inline const std::map<Energy,std::string> values {
+      { Energy::eV, "eV" },
+      { Energy::MeV, "MeV" }
    };
 
-   static inline const std::map<std::string,units::Energy> symbols {
-      { "eV", units::Energy::eV },
-      { "MeV", units::Energy::MeV }
+   static inline const std::map<std::string,Energy> symbols {
+      { "eV", Energy::eV },
+      { "MeV", Energy::MeV }
    };
 };
 

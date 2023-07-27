@@ -7,7 +7,7 @@
 
 // convenience typedefs
 using namespace njoy::GNDStk;
-using Energy = enums::units::Energy;
+using Energy = enums::Energy;
 
 SCENARIO( "Energy" ) {
 
@@ -17,8 +17,8 @@ SCENARIO( "Energy" ) {
 
       THEN( "no exception is thrown and the correct string is returned" ) {
 
-        CHECK( "eV" == enums::units::toString( Energy::eV ) );
-        CHECK( "MeV" == enums::units::toString( Energy::MeV ) );
+        CHECK( "eV" == enums::toString( Energy::eV ) );
+        CHECK( "MeV" == enums::toString( Energy::MeV ) );
       } // THEN
     } // WHEN
 
@@ -26,13 +26,13 @@ SCENARIO( "Energy" ) {
 
       THEN( "no exception is thrown when the symbol is registered" ) {
 
-        CHECK( Energy::eV == enums::units::fromString< Energy >( "eV" ) );
-        CHECK( Energy::MeV == enums::units::fromString< Energy >( "MeV" ) );
+        CHECK( Energy::eV == enums::fromString< Energy >( "eV" ) );
+        CHECK( Energy::MeV == enums::fromString< Energy >( "MeV" ) );
       } // THEN
 
       THEN( "an exception is thrown when the symbol is not registered" ) {
 
-        CHECK_THROWS( enums::units::fromString< Energy >( "unregistered" ) );
+        CHECK_THROWS( enums::fromString< Energy >( "unregistered" ) );
       } // THEN
     } // WHEN
 
@@ -81,9 +81,9 @@ SCENARIO( "Energy" ) {
 
       THEN( "registered units return true, unregistered units return false" ) {
 
-        CHECK( true == enums::units::isEnergyUnit( "eV" ) );
-        CHECK( true == enums::units::isEnergyUnit( "MeV" ) );
-        CHECK( false == enums::units::isEnergyUnit( "unregistered" ) );
+        CHECK( true == enums::isEnergyUnit( "eV" ) );
+        CHECK( true == enums::isEnergyUnit( "MeV" ) );
+        CHECK( false == enums::isEnergyUnit( "unregistered" ) );
       } // THEN
     } // WHEN
   } // GIVEN
