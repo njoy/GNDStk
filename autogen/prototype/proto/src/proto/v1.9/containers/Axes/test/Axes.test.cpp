@@ -242,7 +242,7 @@ void verifyChunk( const Axes& component ) {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   decltype(auto) axis_iii0 = std::get< Axis >(
-     component.axis_grid[label("radius")]);
+     component.axis_grid[meta::label("radius")]);
 
   CHECK( std::nullopt != axis_iii0.index() );
   CHECK( std::nullopt != axis_iii0.label() );
@@ -253,7 +253,7 @@ void verifyChunk( const Axes& component ) {
   CHECK( "fm" == axis_iii0.unit().value() );
 
   decltype(auto) axis_iii1 = std::get< Axis >(
-     component.axis_grid[label("energy_in")]);
+     component.axis_grid[meta::label("energy_in")]);
 
   CHECK( std::nullopt != axis_iii1.index() );
   CHECK( std::nullopt != axis_iii1.label() );
@@ -299,11 +299,11 @@ void verifyChunk( const Axes& component ) {
   // using the label based axis getter
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-  CHECK(component.axis(has(label("radius"))));
-  CHECK(component.axis.has(label("radius")));
-  CHECK(component.axis_grid.has(label));
-  CHECK(component.axis_grid.has(label("radius")));
-  decltype(auto) axis_v0 = component.axis[label("radius")];
+  CHECK(component.axis(has(meta::label("radius"))));
+  CHECK(component.axis.has(meta::label("radius")));
+  CHECK(component.axis_grid.has(meta::label));
+  CHECK(component.axis_grid.has(meta::label("radius")));
+  decltype(auto) axis_v0 = component.axis[meta::label("radius")];
 
   CHECK( std::nullopt != axis_v0.index() );
   CHECK( std::nullopt != axis_v0.label() );
@@ -313,11 +313,11 @@ void verifyChunk( const Axes& component ) {
   CHECK( "radius" == axis_v0.label().value() );
   CHECK( "fm" == axis_v0.unit().value() );
 
-  CHECK(component.axis(has(label("energy_in"))));
-  CHECK(component.axis.has(label("energy_in")));
-  CHECK(component.axis_grid.has(label));
-  CHECK(component.axis_grid.has(label("energy_in")));
-  decltype(auto) axis_v1 = component.axis[label("energy_in")];
+  CHECK(component.axis(has(meta::label("energy_in"))));
+  CHECK(component.axis.has(meta::label("energy_in")));
+  CHECK(component.axis_grid.has(meta::label));
+  CHECK(component.axis_grid.has(meta::label("energy_in")));
+  decltype(auto) axis_v1 = component.axis[meta::label("energy_in")];
 
   CHECK( std::nullopt != axis_v1.index() );
   CHECK( std::nullopt != axis_v1.label() );

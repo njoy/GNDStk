@@ -40,7 +40,7 @@ std::string many(
          detail::expect(is,':',context);
          if (thisLiteral)
             text += '"' + key + "\":";
-         vec.push_back({key,value()});
+         vec.push_back(ELEMENT(key,value()));
          vptr = &vec.back().second;
       }
 

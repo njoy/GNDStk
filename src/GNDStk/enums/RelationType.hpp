@@ -1,147 +1,142 @@
-#ifndef NJOY_GNDSTK_RELATIONTYPE
-#define NJOY_GNDSTK_RELATIONTYPE
+
+#ifndef NJOY_GNDSTK_ENUMS_RELATIONTYPE
+#define NJOY_GNDSTK_ENUMS_RELATIONTYPE
 
 namespace enums {
 
-  /**
-   *  @class
-   *  @brief Enumeration class for interpolation qualifier values
-   */
-  enum class RelationType {
+   /**
+    *  @class
+    *  @brief Enumeration class for interpolation qualifier values
+    */
+   enum class RelationType {
+      IsCitedBy = 1,
+      Cites,
+      IsSupplementTo,
+      IsSupplementedBy,
+      IsContinuedBy,
+      Continues,
+      Describes,
+      IsDescribedBy,
+      HasMetadata,
+      IsMetadataFor,
+      HasVersion,
+      IsVersionOf,
+      IsNewVersionOf,
+      IsPreviousVersionOf,
+      IsPartOf,
+      HasPart,
+      IsPublishedIn,
+      IsReferencedBy,
+      References,
+      IsDocumentedBy,
+      Documents,
+      IsCompiledBy,
+      Compiles,
+      IsVariantFormOf,
+      IsOriginalFormOf,
+      IsIdenticalTo,
+      IsReviewedBy,
+      Reviews,
+      IsDerivedFrom,
+      IsSourceOf,
+      IsRequiredBy,
+      Requires,
+      Obsoletes,
+      IsObsoletedBy
+   };
 
-    IsCitedBy = 1,
-    Cites,
-    IsSupplementTo,
-    IsSupplementedBy,
-    IsContinuedBy,
-    Continues,
-    Describes,
-    IsDescribedBy,
-    HasMetadata,
-    IsMetadataFor,
-    HasVersion,
-    IsVersionOf,
-    IsNewVersionOf,
-    IsPreviousVersionOf,
-    IsPartOf,
-    HasPart,
-    IsPublishedIn,
-    IsReferencedBy,
-    References,
-    IsDocumentedBy,
-    Documents,
-    IsCompiledBy,
-    Compiles,
-    IsVariantFormOf,
-    IsOriginalFormOf,
-    IsIdenticalTo,
-    IsReviewedBy,
-    Reviews,
-    IsDerivedFrom,
-    IsSourceOf,
-    IsRequiredBy,
-    Requires,
-    Obsoletes,
-    IsObsoletedBy
-  };
+   /**
+    *  @brief Return whether or not a string is a valid relation type
+    *
+    *  @param[in] string    the string to be verified
+    *
+    *  @return true/false
+    */
+   inline bool isRelationType(const std::string &string)
+   {
+      return isSymbol<RelationType>(string);
+   }
 
-  /**
-   *  @brief Return whether or not a string is a valid relation type
-   *
-   *  @param[in] string    the string to be verified
-   *
-   *  @return true/false
-   */
-  inline bool isRelationType( const std::string& string ) {
+   /**
+    *  @brief Template specialisation to convert RelationType to/from strings
+    */
+   template<>
+   struct Map<RelationType>
+   {
+      static inline const std::map<RelationType,std::string> values {
+         { RelationType::IsCitedBy, "IsCitedBy" },
+         { RelationType::Cites, "Cites" },
+         { RelationType::IsSupplementTo, "IsSupplementTo" },
+         { RelationType::IsSupplementedBy, "IsSupplementedBy" },
+         { RelationType::IsContinuedBy, "IsContinuedBy" },
+         { RelationType::Continues, "Continues" },
+         { RelationType::Describes, "Describes" },
+         { RelationType::IsDescribedBy, "IsDescribedBy" },
+         { RelationType::HasMetadata, "HasMetadata" },
+         { RelationType::IsMetadataFor, "IsMetadataFor" },
+         { RelationType::HasVersion, "HasVersion" },
+         { RelationType::IsVersionOf, "IsVersionOf" },
+         { RelationType::IsNewVersionOf, "IsNewVersionOf" },
+         { RelationType::IsPreviousVersionOf, "IsPreviousVersionOf" },
+         { RelationType::IsPartOf, "IsPartOf" },
+         { RelationType::HasPart, "HasPart" },
+         { RelationType::IsPublishedIn, "IsPublishedIn" },
+         { RelationType::IsReferencedBy, "IsReferencedBy" },
+         { RelationType::References, "References" },
+         { RelationType::IsDocumentedBy, "IsDocumentedBy" },
+         { RelationType::Documents, "Documents" },
+         { RelationType::IsCompiledBy, "IsCompiledBy" },
+         { RelationType::Compiles, "Compiles" },
+         { RelationType::IsVariantFormOf, "IsVariantFormOf" },
+         { RelationType::IsOriginalFormOf, "IsOriginalFormOf" },
+         { RelationType::IsIdenticalTo, "IsIdenticalTo" },
+         { RelationType::IsReviewedBy, "IsReviewedBy" },
+         { RelationType::Reviews, "Reviews" },
+         { RelationType::IsDerivedFrom, "IsDerivedFrom" },
+         { RelationType::IsSourceOf, "IsSourceOf" },
+         { RelationType::IsRequiredBy, "IsRequiredBy" },
+         { RelationType::Requires, "Requires" },
+         { RelationType::Obsoletes, "Obsoletes" },
+         { RelationType::IsObsoletedBy, "IsObsoletedBy" }
+      };
 
-    return isSymbol< RelationType >( string );
-  }
-
-  /**
-   *  @brief Template specialisation to convert RelationType to/from strings
-   */
-  template <>
-  class Map< GNDStk::enums::RelationType > {
-  public:
-
-    static inline const std::map< GNDStk::enums::RelationType,
-                                  const std::string > values{
-
-      { GNDStk::enums::RelationType::IsCitedBy, "IsCitedBy" },
-      { GNDStk::enums::RelationType::Cites, "Cites" },
-      { GNDStk::enums::RelationType::IsSupplementTo, "IsSupplementTo" },
-      { GNDStk::enums::RelationType::IsSupplementedBy, "IsSupplementedBy" },
-      { GNDStk::enums::RelationType::IsContinuedBy, "IsContinuedBy" },
-      { GNDStk::enums::RelationType::Continues, "Continues" },
-      { GNDStk::enums::RelationType::Describes, "Describes" },
-      { GNDStk::enums::RelationType::IsDescribedBy, "IsDescribedBy" },
-      { GNDStk::enums::RelationType::HasMetadata, "HasMetadata" },
-      { GNDStk::enums::RelationType::IsMetadataFor, "IsMetadataFor" },
-      { GNDStk::enums::RelationType::HasVersion, "HasVersion" },
-      { GNDStk::enums::RelationType::IsVersionOf, "IsVersionOf" },
-      { GNDStk::enums::RelationType::IsNewVersionOf, "IsNewVersionOf" },
-      { GNDStk::enums::RelationType::IsPreviousVersionOf, "IsPreviousVersionOf" },
-      { GNDStk::enums::RelationType::IsPartOf, "IsPartOf" },
-      { GNDStk::enums::RelationType::HasPart, "HasPart" },
-      { GNDStk::enums::RelationType::IsPublishedIn, "IsPublishedIn" },
-      { GNDStk::enums::RelationType::IsReferencedBy, "IsReferencedBy" },
-      { GNDStk::enums::RelationType::References, "References" },
-      { GNDStk::enums::RelationType::IsDocumentedBy, "IsDocumentedBy" },
-      { GNDStk::enums::RelationType::Documents, "Documents" },
-      { GNDStk::enums::RelationType::IsCompiledBy, "IsCompiledBy" },
-      { GNDStk::enums::RelationType::Compiles, "Compiles" },
-      { GNDStk::enums::RelationType::IsVariantFormOf, "IsVariantFormOf" },
-      { GNDStk::enums::RelationType::IsOriginalFormOf, "IsOriginalFormOf" },
-      { GNDStk::enums::RelationType::IsIdenticalTo, "IsIdenticalTo" },
-      { GNDStk::enums::RelationType::IsReviewedBy, "IsReviewedBy" },
-      { GNDStk::enums::RelationType::Reviews, "Reviews" },
-      { GNDStk::enums::RelationType::IsDerivedFrom, "IsDerivedFrom" },
-      { GNDStk::enums::RelationType::IsSourceOf, "IsSourceOf" },
-      { GNDStk::enums::RelationType::IsRequiredBy, "IsRequiredBy" },
-      { GNDStk::enums::RelationType::Requires, "Requires" },
-      { GNDStk::enums::RelationType::Obsoletes, "Obsoletes" },
-      { GNDStk::enums::RelationType::IsObsoletedBy, "IsObsoletedBy" }
-    };
-
-    static inline const std::map< const std::string,
-                                  GNDStk::enums::RelationType > symbols{
-
-      { "IsCitedBy", GNDStk::enums::RelationType::IsCitedBy },
-      { "Cites", GNDStk::enums::RelationType::Cites },
-      { "IsSupplementTo", GNDStk::enums::RelationType::IsSupplementTo },
-      { "IsSupplementedBy", GNDStk::enums::RelationType::IsSupplementedBy },
-      { "IsContinuedBy", GNDStk::enums::RelationType::IsContinuedBy },
-      { "Continues", GNDStk::enums::RelationType::Continues },
-      { "Describes", GNDStk::enums::RelationType::Describes },
-      { "IsDescribedBy", GNDStk::enums::RelationType::IsDescribedBy },
-      { "HasMetadata", GNDStk::enums::RelationType::HasMetadata },
-      { "IsMetadataFor", GNDStk::enums::RelationType::IsMetadataFor },
-      { "HasVersion", GNDStk::enums::RelationType::HasVersion },
-      { "IsVersionOf", GNDStk::enums::RelationType::IsVersionOf },
-      { "IsNewVersionOf", GNDStk::enums::RelationType::IsNewVersionOf },
-      { "IsPreviousVersionOf", GNDStk::enums::RelationType::IsPreviousVersionOf },
-      { "IsPartOf", GNDStk::enums::RelationType::IsPartOf },
-      { "HasPart", GNDStk::enums::RelationType::HasPart },
-      { "IsPublishedIn", GNDStk::enums::RelationType::IsPublishedIn },
-      { "IsReferencedBy", GNDStk::enums::RelationType::IsReferencedBy },
-      { "References", GNDStk::enums::RelationType::References },
-      { "IsDocumentedBy", GNDStk::enums::RelationType::IsDocumentedBy },
-      { "Documents", GNDStk::enums::RelationType::Documents },
-      { "IsCompiledBy", GNDStk::enums::RelationType::IsCompiledBy },
-      { "Compiles", GNDStk::enums::RelationType::Compiles },
-      { "IsVariantFormOf", GNDStk::enums::RelationType::IsVariantFormOf },
-      { "IsOriginalFormOf", GNDStk::enums::RelationType::IsOriginalFormOf },
-      { "IsIdenticalTo", GNDStk::enums::RelationType::IsIdenticalTo },
-      { "IsReviewedBy", GNDStk::enums::RelationType::IsReviewedBy },
-      { "Reviews", GNDStk::enums::RelationType::Reviews },
-      { "IsDerivedFrom", GNDStk::enums::RelationType::IsDerivedFrom },
-      { "IsSourceOf", GNDStk::enums::RelationType::IsSourceOf },
-      { "IsRequiredBy", GNDStk::enums::RelationType::IsRequiredBy },
-      { "Requires", GNDStk::enums::RelationType::Requires },
-      { "Obsoletes", GNDStk::enums::RelationType::Obsoletes },
-      { "IsObsoletedBy", GNDStk::enums::RelationType::IsObsoletedBy }
-    };
-  };
+      static inline const std::map<std::string,RelationType> symbols {
+         { "IsCitedBy", RelationType::IsCitedBy },
+         { "Cites", RelationType::Cites },
+         { "IsSupplementTo", RelationType::IsSupplementTo },
+         { "IsSupplementedBy", RelationType::IsSupplementedBy },
+         { "IsContinuedBy", RelationType::IsContinuedBy },
+         { "Continues", RelationType::Continues },
+         { "Describes", RelationType::Describes },
+         { "IsDescribedBy", RelationType::IsDescribedBy },
+         { "HasMetadata", RelationType::HasMetadata },
+         { "IsMetadataFor", RelationType::IsMetadataFor },
+         { "HasVersion", RelationType::HasVersion },
+         { "IsVersionOf", RelationType::IsVersionOf },
+         { "IsNewVersionOf", RelationType::IsNewVersionOf },
+         { "IsPreviousVersionOf", RelationType::IsPreviousVersionOf },
+         { "IsPartOf", RelationType::IsPartOf },
+         { "HasPart", RelationType::HasPart },
+         { "IsPublishedIn", RelationType::IsPublishedIn },
+         { "IsReferencedBy", RelationType::IsReferencedBy },
+         { "References", RelationType::References },
+         { "IsDocumentedBy", RelationType::IsDocumentedBy },
+         { "Documents", RelationType::Documents },
+         { "IsCompiledBy", RelationType::IsCompiledBy },
+         { "Compiles", RelationType::Compiles },
+         { "IsVariantFormOf", RelationType::IsVariantFormOf },
+         { "IsOriginalFormOf", RelationType::IsOriginalFormOf },
+         { "IsIdenticalTo", RelationType::IsIdenticalTo },
+         { "IsReviewedBy", RelationType::IsReviewedBy },
+         { "Reviews", RelationType::Reviews },
+         { "IsDerivedFrom", RelationType::IsDerivedFrom },
+         { "IsSourceOf", RelationType::IsSourceOf },
+         { "IsRequiredBy", RelationType::IsRequiredBy },
+         { "Requires", RelationType::Requires },
+         { "Obsoletes", RelationType::Obsoletes },
+         { "IsObsoletedBy", RelationType::IsObsoletedBy }
+      };
+   };
 
 } // namespace enums
 

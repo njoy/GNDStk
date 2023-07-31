@@ -1,6 +1,6 @@
 
-#ifndef NJOY_GNDSTK_ENUMS_ENUMERATION
-#define NJOY_GNDSTK_ENUMS_ENUMERATION
+#ifndef NJOY_GNDSTK_ENUMS
+#define NJOY_GNDSTK_ENUMS
 
 namespace enums {
 
@@ -8,8 +8,8 @@ namespace enums {
  *  @brief Forward declaration of the templated enumeration Map used to convert
  *         enumeration values to/from string
  */
-template < typename Enumeration >
-class Map {};
+template<class ENUM>
+struct Map { };
 
 /**
  *  @brief Return whether or not a string is a symbol for an enumeration
@@ -18,12 +18,10 @@ class Map {};
  *
  *  @return true/false
  */
-template < typename Enumeration,
-           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
-bool isSymbol( const std::string& symbol ) {
-
-  return Map< Enumeration >::symbols.find( symbol )
-           != Map< Enumeration >::symbols.end();
+template<class ENUM, class = std::enable_if_t<std::is_enum_v<ENUM>>>
+bool isSymbol(const std::string &symbol)
+{
+   return Map<ENUM>::symbols.find(symbol) != Map<ENUM>::symbols.end();
 }
 
 /**
@@ -33,18 +31,15 @@ bool isSymbol( const std::string& symbol ) {
  *
  *  @return A string symbol representing the enumeration value
  */
-template < typename Enumeration,
-           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
-const std::string& toString( const Enumeration& value ) {
-
-  auto found = Map< Enumeration >::values.find( value );
-  if ( found == Map< Enumeration >::values.end() ) {
-
-    log::error( "An enumeration value for {} has no registered symbol",
-                typeid( Enumeration ).name() );
-    throw std::exception();
-  }
-  return found->second;
+template<class ENUM, class = std::enable_if_t<std::is_enum_v<ENUM>>>
+const std::string &toString(const ENUM &value)
+{
+   const auto found = Map<ENUM>::values.find(value);
+   if (found != Map<ENUM>::values.end())
+      return found->second;
+   log::error("An enumeration value for {} has no registered symbol",
+              typeid(ENUM).name());
+   throw std::exception();
 }
 
 /**
@@ -54,18 +49,15 @@ const std::string& toString( const Enumeration& value ) {
  *
  *  @return An enumeration value derived from the string symbol
  */
-template < typename Enumeration,
-           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
-const Enumeration& fromString( const std::string& symbol ) {
-
-  auto found = Map< Enumeration >::symbols.find( symbol );
-  if ( found == Map< Enumeration >::symbols.end() ) {
-
-    log::error( "An enumeration symbol for {} has no registered value: \"{}\"",
-                typeid( Enumeration ).name(), symbol );
-    throw std::exception();
-  }
-  return found->second;
+template<class ENUM, class = std::enable_if_t<std::is_enum_v<ENUM>>>
+const ENUM &fromString(const std::string &symbol)
+{
+   const auto found = Map<ENUM>::symbols.find(symbol);
+   if (found != Map<ENUM>::symbols.end())
+      return found->second;
+   log::error("An enumeration symbol for {} has no registered value: \"{}\"",
+              typeid(ENUM).name(), symbol);
+   throw std::exception();
 }
 
 /**
@@ -77,32 +69,26 @@ const Enumeration& fromString( const std::string& symbol ) {
  *  @return the input stream (position is unchanged and failbit is set if no
  *          enumeration value could be read)
  */
-template < typename Enumeration,
-           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
-std::istream &operator>>( std::istream& in, Enumeration& value ) {
+template<class ENUM, class = std::enable_if_t<std::is_enum_v<ENUM>>>
+std::istream &operator>>(std::istream &in, ENUM &value)
+{
+   const auto position = in.tellg();
+   std::string symbol;
 
-  auto position = in.tellg();
-  std::string symbol;
-  in >> symbol;
-  if ( in.fail() ) {
-
-    in.clear();
-    in.seekg( position );
-    in.setstate( std::ios::failbit );
-  }
-  else {
-
-    try {
-
-      value = fromString< Enumeration >( symbol );
-    }
-    catch ( std::exception& ) {
-
-      in.seekg( position );
-      in.setstate( std::ios::failbit );
-    }
-  }
-  return in;
+   in >> symbol;
+   if (in.fail()) {
+      in.clear();
+      in.seekg(position);
+      in.setstate(std::ios::failbit);
+   } else {
+      try {
+         value = fromString<ENUM>(symbol);
+      } catch (...) {
+         in.seekg(position);
+         in.setstate(std::ios::failbit);
+      }
+   }
+   return in;
 }
 
 /**
@@ -113,11 +99,10 @@ std::istream &operator>>( std::istream& in, Enumeration& value ) {
  *
  *  @return the output stream
  */
-template < typename Enumeration,
-           typename = std::enable_if_t< std::is_enum_v< Enumeration > > >
-std::ostream& operator<<( std::ostream& out, const Enumeration& value ) {
-
-  return out << toString( value );
+template<class ENUM, class = std::enable_if_t<std::is_enum_v<ENUM>>>
+std::ostream &operator<<(std::ostream &out, const ENUM &value)
+{
+   return out << toString(value);
 }
 
 } // namespace enums
