@@ -35,7 +35,7 @@ jobs:
     - name: mkdir bin
       run: mkdir bin
     - name: cmake
-      run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -DCMAKE_CXX_COMPILER_FLAGS="-DGNDSTK_DISABLE_HDF5" ..
+      run: cmake -DPYTHON_EXECUTABLE=$(which python3) -D CMAKE_CXX_COMPILER=`which ${{matrix.cxx}}` -D CMAKE_BUILD_TYPE=${{matrix.build_type}} -DCMAKE_CXX_COMPILER_FLAGS="-DNJOY_GNDSTK_DISABLE_HDF5" ..
       working-directory: ./bin
     - name: make
       run: make -j2
