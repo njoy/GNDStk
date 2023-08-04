@@ -1,6 +1,6 @@
 
-#include "gnds/v2.0.hpp"
-using namespace gnds;
+#include "GNDS/v2.0.hpp"
+using namespace GNDS;
 using namespace v2_0;
 
 // Run this code with any or all GNDS 2.0 files as command-line arguments
