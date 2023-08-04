@@ -13,6 +13,7 @@
 // namespace aliases
 namespace py = pybind11;
 
+namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
@@ -234,3 +235,4 @@ void wrapMultiplicitySum(py::module &module)
 
 } // namespace python_general
 } // namespace python_v2_0
+} // namespace python_GNDS

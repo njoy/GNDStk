@@ -3592,41 +3592,43 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out();
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
-   out();
    out("namespace py = pybind11;");
    out();
-   out("// @ interface", specs.Version);
+   out("// project @", specs.Project);
+   out("// version @", specs.Version);
+   out("namespace python_@ {", specs.Project);
    out("namespace python_@ {", specs.VersionUnderscore);
 
    out();
-   out("// @ declarations", per.nsname);
-   out("namespace python_@ {", per.nsname);
+   out(1,"// namespace @: class wrapper declarations", per.nsname);
+   out(1,"namespace python_@ {", per.nsname);
    for (const auto &cl : specs.ClassDependenciesSorted)
       if (cl.theClass.nsname == per.nsname)
-         out(1,"void wrap@(py::module &);", cl.theClass.clname);
-   out("} // namespace python_@", per.nsname);
+         out(2,"void wrap@(py::module &);", cl.theClass.clname);
+   out(1,"} // namespace python_@", per.nsname);
 
    out();
-   out("// wrapper for @", per.nsname);
-   out("void wrap@(py::module &module)", capital(per.nsname));
-   out("{");
-   out(1,"// create the @ submodule", per.nsname);
-   out(1,"py::module submodule = module.def_submodule(");
-   out(2,"\"@\",", per.nsname);
+   out(1,"// namespace @: wrapper", per.nsname);
+   out(1,"void wrap@(py::module &module)", capital(per.nsname));
+   out(1,"{");
+   out(2,"// @", per.nsname);
+   out(2,"py::module submodule = module.def_submodule(");
+   out(3,"\"@\",", per.nsname);
    if (specs.Project == "GNDStk")
-      out(2,"\"GNDS @ @\"", specs.Version, per.nsname); // "GNDS", not "GNDStk"
+      out(3,"\"GNDS @ @\"", specs.Version, per.nsname); // "GNDS", not "GNDStk"
    else
-      out(2,"\"@ @ @\"", specs.Project, specs.Version, per.nsname);
-   out(1,");");
+      out(3,"\"@ @ @\"", specs.Project, specs.Version, per.nsname);
+   out(2,");");
 
    out();
-   out(1,"// wrap @ components", per.nsname);
+   out(2,"// @ classes", per.nsname);
    for (const auto &cl : specs.ClassDependenciesSorted)
       if (cl.theClass.nsname == per.nsname)
-         out(1,"python_@::wrap@(submodule);", per.nsname, cl.theClass.clname);
-   out("};");
+         out(2,"python_@::wrap@(submodule);", per.nsname, cl.theClass.clname);
+   out(1,"};");
    out();
    out("} // namespace python_@", specs.VersionUnderscore);
+   out("} // namespace python_@", specs.Project);
 } // filePythonNamespace
 
 
@@ -3677,6 +3679,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out("namespace py = pybind11;");
 
    out();
+   out("namespace python_@ {", specs.Project);
    out("namespace python_@ {", specs.VersionUnderscore);
    out("namespace python_@ {", nsname);
 
@@ -3984,6 +3987,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out();
    out("} // namespace python_@", nsname);
    out("} // namespace python_@", specs.VersionUnderscore);
+   out("} // namespace python_@", specs.Project);
 } // filePythonClass
 
 

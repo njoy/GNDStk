@@ -85,7 +85,7 @@ pybind11_add_module(
     python/src/enums/InterpolationQualifier.python.cpp
     python/src/enums/Parity.python.cpp
     python/src/enums/RelationType.python.cpp
-    python/src/v2.0/GNDS.python.cpp
+    standards/GNDS-v2.0/GNDS/python/src/v2.0.python.cpp
     standards/GNDS-v2.0/GNDS/python/src/v2.0/g3d/Starts.python.cpp
     standards/GNDS-v2.0/GNDS/python/src/v2.0/g3d/Lengths.python.cpp
     standards/GNDS-v2.0/GNDS/python/src/v2.0/g3d/Array.python.cpp

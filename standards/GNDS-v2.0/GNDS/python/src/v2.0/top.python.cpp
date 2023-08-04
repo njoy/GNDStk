@@ -4,34 +4,36 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-
 namespace py = pybind11;
 
-// v2.0 interface
+// project GNDS
+// version v2.0
+namespace python_GNDS {
 namespace python_v2_0 {
 
-// top declarations
-namespace python_top {
-   void wrapFissionFragmentData(py::module &);
-   void wrapPoPs(py::module &);
-   void wrapReactionSuite(py::module &);
-   void wrapCovarianceSuite(py::module &);
-} // namespace python_top
+   // namespace top: class wrapper declarations
+   namespace python_top {
+      void wrapFissionFragmentData(py::module &);
+      void wrapPoPs(py::module &);
+      void wrapReactionSuite(py::module &);
+      void wrapCovarianceSuite(py::module &);
+   } // namespace python_top
 
-// wrapper for top
-void wrapTop(py::module &module)
-{
-   // create the top submodule
-   py::module submodule = module.def_submodule(
-      "top",
-      "GNDS v2.0 top"
-   );
+   // namespace top: wrapper
+   void wrapTop(py::module &module)
+   {
+      // top
+      py::module submodule = module.def_submodule(
+         "top",
+         "GNDS v2.0 top"
+      );
 
-   // wrap top components
-   python_top::wrapFissionFragmentData(submodule);
-   python_top::wrapPoPs(submodule);
-   python_top::wrapReactionSuite(submodule);
-   python_top::wrapCovarianceSuite(submodule);
-};
+      // top classes
+      python_top::wrapFissionFragmentData(submodule);
+      python_top::wrapPoPs(submodule);
+      python_top::wrapReactionSuite(submodule);
+      python_top::wrapCovarianceSuite(submodule);
+   };
 
 } // namespace python_v2_0
+} // namespace python_GNDS

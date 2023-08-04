@@ -20,13 +20,13 @@
 #include "enums/RelationType.python.cpp"
 
 // v2.0
-#include "v2.0/GNDS.python.cpp"
+#include "v2.0.python.cpp"
 
 // v2.0 constituent parts
-// Note: different v2.0/ than above
 #include "v2.0/g3d/Starts.python.cpp"
 #include "v2.0/g3d/Lengths.python.cpp"
 #include "v2.0/g3d/Array.python.cpp"
+
 #include "v2.0/general/Sums.python.cpp"
 #include "v2.0/general/SelfScatteringKernel.python.cpp"
 #include "v2.0/general/Values.python.cpp"
@@ -270,6 +270,7 @@
 #include "v2.0/general/Function1ds.python.cpp"
 #include "v2.0/general/GaugeBosons.python.cpp"
 #include "v2.0/general/ResonancesWithBackground.python.cpp"
+
 #include "v2.0/reduced/Polynomial1d.python.cpp"
 #include "v2.0/reduced/Product.python.cpp"
 #include "v2.0/reduced/Distribution.python.cpp"
@@ -279,11 +280,14 @@
 #include "v2.0/reduced/Double.python.cpp"
 #include "v2.0/reduced/OutputChannel.python.cpp"
 #include "v2.0/reduced/Function1ds.python.cpp"
+
 #include "v2.0/g2d/Array.python.cpp"
+
 #include "v2.0/top/FissionFragmentData.python.cpp"
 #include "v2.0/top/ReactionSuite.python.cpp"
 #include "v2.0/top/PoPs.python.cpp"
 #include "v2.0/top/CovarianceSuite.python.cpp"
+
 #include "v2.0/g3d.python.cpp"
 #include "v2.0/general.python.cpp"
 #include "v2.0/top.python.cpp"

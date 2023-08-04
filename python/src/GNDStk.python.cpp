@@ -74,8 +74,8 @@ namespace python_core {
 // v2.0 interface declarations
 // -----------------------------------------------------------------------------
 
-namespace python_v2_0 {
-   void wrapGNDS( python::module& );
+namespace python_GNDS {
+   void wrapV2_0( python::module& );
 }
 
 
@@ -263,7 +263,7 @@ PYBIND11_MODULE(GNDStk,module)
    python_core::wrapBoundaryCondition(module);
 
    // v2.0 components (in the v2_0 module, created in this function)
-   python_v2_0::wrapGNDS(module);
+   python_GNDS::wrapV2_0(module);
 
    // Submodules
    submodule_settings(module);
