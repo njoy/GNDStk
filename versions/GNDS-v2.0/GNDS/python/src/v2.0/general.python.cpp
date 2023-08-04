@@ -511,7 +511,7 @@ namespace python_v2_0 {
       python_general::wrapParameterCovariance(submodule);
       python_general::wrapAverageParameterCovariance(submodule);
       python_general::wrapParameterCovariances(submodule);
-   };
+   }
 
 } // namespace python_v2_0
 } // namespace python_GNDS

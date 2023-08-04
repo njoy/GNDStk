@@ -33,7 +33,7 @@ namespace python_v2_0 {
       python_top::wrapPoPs(submodule);
       python_top::wrapReactionSuite(submodule);
       python_top::wrapCovarianceSuite(submodule);
-   };
+   }
 
 } // namespace python_v2_0
 } // namespace python_GNDS

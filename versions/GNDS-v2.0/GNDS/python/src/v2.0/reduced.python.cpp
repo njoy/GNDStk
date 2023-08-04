@@ -43,7 +43,7 @@ namespace python_v2_0 {
       python_reduced::wrapProducts(submodule);
       python_reduced::wrapOutputChannel(submodule);
       python_reduced::wrapNuclides(submodule);
-   };
+   }
 
 } // namespace python_v2_0
 } // namespace python_GNDS

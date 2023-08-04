@@ -31,7 +31,7 @@ namespace python_v2_0 {
       python_g3d::wrapStarts(submodule);
       python_g3d::wrapLengths(submodule);
       python_g3d::wrapArray(submodule);
-   };
+   }
 
 } // namespace python_v2_0
 } // namespace python_GNDS

@@ -211,6 +211,7 @@ struct InfoSpecs {
    std::string VersionUnderscore;
 
    // Directory-prefixed names
+   std::string cppPython;  // cpp file for this version's Python interface
    std::string hppVersion; // hpp file for this version
    std::string hppKey;     // hpp file for this version's Meta and Child keys
    std::string hVersion;   // header file for both C and C++
@@ -2059,6 +2060,10 @@ void commandLine(
    // file, so we won't create it. But I'll leave this in as a placeholder.
    specs.cVersion = cppbase + specs.Version + ".cpp";
 
+   // For the python interface
+   const std::string pybase = specs.Path + "/" + specs.Project + "/python/src/";
+   specs.cppPython = pybase + specs.Version + ".python.cpp";
+
    // Changes?
    if (jmain.contains(changes))
       readChangesFile(jmain[changes].get<json::string>(),specs);
@@ -2167,6 +2172,7 @@ void preprocessClass(
 
    // For this namespace:
    //    The cpp file for Python
+   // ns.first -> a PerNamespace
    auto ns = specs.namespace2data.insert(std::make_pair(nsname,PerNamespace{}));
    ns.first->second.cppPython = nsdirpy + ".python.cpp";
    ns.first->second.nsname = nsname;
@@ -2175,6 +2181,7 @@ void preprocessClass(
    //    The cpp file for Python
    //    The hpp file for GNDStk
    //    The C/C++ header, and the C++ backend for the C interface
+   // cl.first -> a PerClass
    auto cl = specs.class2data.insert(
       std::make_pair(NamespaceAndClass{nsname,clname}, PerClass{}));
    assert(cl.second); // should have been inserted - not there already
@@ -3583,6 +3590,52 @@ void fileCInterface(
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
+// filePythonProject
+// -----------------------------------------------------------------------------
+
+void filePythonProject(const InfoSpecs &specs)
+{
+   writer out(specs.cppPython);
+   out();
+   out("#include <pybind11/pybind11.h>");
+   out("#include <pybind11/stl.h>");
+   out("namespace py = pybind11;");
+   out();
+   out("// project @", specs.Project);
+   out("namespace python_@ {", specs.Project);
+
+   out();
+   out(1,"// version @: namespace wrapper declarations", specs.Version);
+   out(1,"namespace python_@ {", specs.VersionUnderscore);
+   for (const std::pair<std::string,PerNamespace> &ns : specs.namespace2data)
+      out(2,"void wrap@(py::module &);", capital(ns.second.nsname));
+   out(1,"} // namespace python_@", specs.VersionUnderscore);
+
+   out();
+   out(1,"// version @: wrapper", specs.Version);
+   out(1,"void wrap@(py::module &module)", capital(specs.VersionUnderscore));
+   out(1,"{");
+   out(2,"// @", specs.Version);
+   out(2,"py::module submodule = module.def_submodule(");
+   out(3,"\"@\",", specs.VersionUnderscore);
+   if (specs.Project == "GNDStk")
+      out(3,"\"GNDS @\"", specs.Version); // "GNDS", not "GNDStk"
+   else
+      out(3,"\"@ @\"", specs.Project, specs.Version);
+   out(2,");");
+
+   out();
+   out(2,"// @ namespaces", specs.Version);
+   for (const std::pair<std::string,PerNamespace> &ns : specs.namespace2data)
+      out(2,"python_@::wrap@(submodule);",
+          specs.VersionUnderscore, capital(ns.second.nsname));
+   out(1,"}");
+   out();
+   out("} // namespace python_@", specs.Project);
+} // filePythonProject
+
+
+// -----------------------------------------------------------------------------
 // filePythonNamespace
 // -----------------------------------------------------------------------------
 
@@ -3625,7 +3678,7 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    for (const auto &cl : specs.ClassDependenciesSorted)
       if (cl.theClass.nsname == per.nsname)
          out(2,"python_@::wrap@(submodule);", per.nsname, cl.theClass.clname);
-   out(1,"};");
+   out(1,"}");
    out();
    out("} // namespace python_@", specs.VersionUnderscore);
    out("} // namespace python_@", specs.Project);
@@ -4360,6 +4413,7 @@ int main(const int argc, const char *const *const argv)
    // Create Python cpp file for each namespace
    // Create Python cpp file for each namespace::class
    action("Writing Code: Python Interface");
+   filePythonProject(specs);
    for (const auto &obj : specs.namespace2data)
       filePythonNamespace(specs, obj.second);
    for (const auto &obj : specs.class2data)

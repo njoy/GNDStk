@@ -27,7 +27,7 @@ namespace python_v2_0 {
 
       // g2d classes
       python_g2d::wrapArray(submodule);
-   };
+   }
 
 } // namespace python_v2_0
 } // namespace python_GNDS
