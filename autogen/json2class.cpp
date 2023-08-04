@@ -1101,7 +1101,7 @@ const std::map<std::string,std::pair<std::string,std::string>> nameMap =
    { "quotedText"         , { "std::string"        , "strings"     } },
    { "tdText"             , { "std::string"        , "strings"     } },
 
-   // Our versions of the above.
+   // We allow these as well.
    { "int"                , { "int"                , "ints"        } },
    { "unsigned"           , { "unsigned"           , "uints"       } },
    { "double"             , { "double"             , "doubles"     } },
