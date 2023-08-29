@@ -3,6 +3,7 @@
 
 #include "catch.hpp"
 #include "proto/v1.9/containers/XYs1d.hpp"
+using namespace GNDS::v2_0::enums;
 
 // other includes
 
@@ -151,7 +152,7 @@ void verifyChunk( const XYs1d& component ) {
   CHECK( std::nullopt == component.outerDomainValue() );
   CHECK( std::nullopt != component.axes() );
 
-  CHECK( enums::Interpolation::linlin == component.interpolation() );
+  CHECK( Interpolation::linlin == component.interpolation() );
 
   // axes data
   decltype(auto) axis0 =

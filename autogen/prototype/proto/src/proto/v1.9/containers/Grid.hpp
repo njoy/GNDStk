@@ -5,6 +5,9 @@
 #ifndef PROTO_V1_9_CONTAINERS_GRID
 #define PROTO_V1_9_CONTAINERS_GRID
 
+#include "GNDS/v2.0/enums/Interpolation.hpp"
+#include "GNDS/v2.0/enums/GridStyle.hpp"
+
 #include "proto/v1.9/containers/Values.hpp"
 #include "proto/v1.9/containers/Link.hpp"
 
@@ -46,11 +49,11 @@ class Grid :
          // metadata
          std::optional<int>{}
             / Meta<>("index") |
-         Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
+         Defaulted<GNDS::v2_0::enums::Interpolation>{GNDS::v2_0::enums::Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<std::string>{}
             / Meta<>("label") |
-         std::optional<enums::GridStyle>{}
+         std::optional<GNDS::v2_0::enums::GridStyle>{}
             / Meta<>("style") |
          std::optional<std::string>{}
             / Meta<>("unit") |
@@ -103,7 +106,7 @@ public:
 
    // defaults
    static inline const struct Defaults {
-      static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
+      static inline const GNDS::v2_0::enums::Interpolation interpolation = GNDS::v2_0::enums::Interpolation::linlin;
    } defaults;
 
    // ------------------------
@@ -116,11 +119,11 @@ public:
    // metadata
    Field<std::optional<int>>
       index{this};
-   Field<Defaulted<enums::Interpolation>>
+   Field<Defaulted<GNDS::v2_0::enums::Interpolation>>
       interpolation{this,defaults.interpolation};
    Field<std::optional<std::string>>
       label{this};
-   Field<std::optional<enums::GridStyle>>
+   Field<std::optional<GNDS::v2_0::enums::GridStyle>>
       style{this};
    Field<std::optional<std::string>>
       unit{this};
@@ -159,11 +162,11 @@ public:
    explicit Grid(
       const wrapper<std::optional<int>>
          &index,
-      const wrapper<std::optional<enums::Interpolation>>
+      const wrapper<std::optional<GNDS::v2_0::enums::Interpolation>>
          &interpolation = {},
       const wrapper<std::optional<std::string>>
          &label = {},
-      const wrapper<std::optional<enums::GridStyle>>
+      const wrapper<std::optional<GNDS::v2_0::enums::GridStyle>>
          &style = {},
       const wrapper<std::optional<std::string>>
          &unit = {},

@@ -34,7 +34,7 @@ include( cmake/GNDStk_dependencies.cmake )
 # GNDStk: library
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-include_directories( src/ )
+include_directories( src/ versions/GNDS-v2.0/GNDS/src/ )
 
 add_library( GNDStk INTERFACE )
 target_include_directories( GNDStk INTERFACE src/ simple-json/src/ )
@@ -59,12 +59,14 @@ target_link_libraries(
 set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# GNDStk: python bindings
+# GNDStk: python bindings, files compiled separately ("old" system)
+# make GNDStk.python.old
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 include_directories(
     python/src/
     autogen/prototype/proto/src/
+    versions/GNDS-v2.0
     versions/GNDS-v2.0/GNDS/src
     versions/GNDS-v2.0/GNDS/python/src
     )
@@ -72,20 +74,27 @@ include_directories(
 pybind11_add_module(
     GNDStk.python.old
     EXCLUDE_FROM_ALL
+
     python/src/GNDStk.python.cpp
     python/src/core/Node.python.cpp
-    python/src/enums/BoundaryCondition.python.cpp
-    python/src/enums/ContributorType.python.cpp
-    python/src/enums/DateType.python.cpp
-    python/src/enums/DecayType.python.cpp
-    python/src/enums/Frame.python.cpp
-    python/src/enums/GridStyle.python.cpp
-    python/src/enums/HashAlgorithm.python.cpp
-    python/src/enums/Interaction.python.cpp
-    python/src/enums/Interpolation.python.cpp
-    python/src/enums/InterpolationQualifier.python.cpp
-    python/src/enums/Parity.python.cpp
-    python/src/enums/RelationType.python.cpp
+
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/BoundaryCondition.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/ContributorType.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/DateType.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/DecayType.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Encoding.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Energy.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Frame.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/GridStyle.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/HashAlgorithm.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Interaction.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Interpolation.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/InterpolationQualifier.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Length.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/Parity.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/RelationType.python.cpp
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0/enums/StorageOrder.python.cpp
+
     versions/GNDS-v2.0/GNDS/python/src/v2.0.python.cpp
     versions/GNDS-v2.0/GNDS/python/src/v2.0/g3d/Starts.python.cpp
     versions/GNDS-v2.0/GNDS/python/src/v2.0/g3d/Lengths.python.cpp
@@ -359,6 +368,11 @@ target_compile_options(GNDStk.python.old PRIVATE "-fvisibility=hidden" )
 set_target_properties( GNDStk.python.old PROPERTIES OUTPUT_NAME GNDStk )
 set_target_properties( GNDStk.python.old PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
 set_target_properties( GNDStk.python.old PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# GNDStk: python bindings, files compiled together (faster than above)
+# make GNDStk.python
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 pybind11_add_module(
     GNDStk.python

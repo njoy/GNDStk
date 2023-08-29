@@ -1,32 +1,52 @@
 
-// together: node, enumerations, and v2.0
+// -----------------------------------------------------------------------------
+// core
+// -----------------------------------------------------------------------------
+
+// core
 #include "GNDStk.python.cpp"
 
 // node
 #include "core/Node.python.cpp"
+
+
+// -----------------------------------------------------------------------------
+// v2.0
+// -----------------------------------------------------------------------------
+
+// v2.0
+#include "v2.0.python.cpp"
 
 // enumerations
 #include "enums/BoundaryCondition.python.cpp"
 #include "enums/ContributorType.python.cpp"
 #include "enums/DateType.python.cpp"
 #include "enums/DecayType.python.cpp"
+#include "enums/Encoding.python.cpp"
+#include "enums/Energy.python.cpp"
 #include "enums/Frame.python.cpp"
 #include "enums/GridStyle.python.cpp"
 #include "enums/HashAlgorithm.python.cpp"
 #include "enums/Interaction.python.cpp"
 #include "enums/Interpolation.python.cpp"
 #include "enums/InterpolationQualifier.python.cpp"
+#include "enums/Length.python.cpp"
 #include "enums/Parity.python.cpp"
 #include "enums/RelationType.python.cpp"
+#include "enums/StorageOrder.python.cpp"
 
-// v2.0
-#include "v2.0.python.cpp"
+// namespace g2d
+#include "v2.0/g2d.python.cpp"
+#include "v2.0/g2d/Array.python.cpp"
 
-// v2.0 constituent parts
+// namespace g3d
+#include "v2.0/g3d.python.cpp"
 #include "v2.0/g3d/Starts.python.cpp"
 #include "v2.0/g3d/Lengths.python.cpp"
 #include "v2.0/g3d/Array.python.cpp"
 
+// namespace general
+#include "v2.0/general.python.cpp"
 #include "v2.0/general/Sums.python.cpp"
 #include "v2.0/general/SelfScatteringKernel.python.cpp"
 #include "v2.0/general/Values.python.cpp"
@@ -271,6 +291,8 @@
 #include "v2.0/general/GaugeBosons.python.cpp"
 #include "v2.0/general/ResonancesWithBackground.python.cpp"
 
+// namespace reduced
+#include "v2.0/reduced.python.cpp"
 #include "v2.0/reduced/Polynomial1d.python.cpp"
 #include "v2.0/reduced/Product.python.cpp"
 #include "v2.0/reduced/Distribution.python.cpp"
@@ -281,15 +303,9 @@
 #include "v2.0/reduced/OutputChannel.python.cpp"
 #include "v2.0/reduced/Function1ds.python.cpp"
 
-#include "v2.0/g2d/Array.python.cpp"
-
+// namespace top
+#include "v2.0/top.python.cpp"
 #include "v2.0/top/FissionFragmentData.python.cpp"
 #include "v2.0/top/ReactionSuite.python.cpp"
 #include "v2.0/top/PoPs.python.cpp"
 #include "v2.0/top/CovarianceSuite.python.cpp"
-
-#include "v2.0/g3d.python.cpp"
-#include "v2.0/general.python.cpp"
-#include "v2.0/top.python.cpp"
-#include "v2.0/reduced.python.cpp"
-#include "v2.0/g2d.python.cpp"

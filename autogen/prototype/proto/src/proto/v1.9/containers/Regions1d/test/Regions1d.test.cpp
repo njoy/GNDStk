@@ -3,6 +3,7 @@
 
 #include "catch.hpp"
 #include "proto/v1.9/containers/Regions1d.hpp"
+using namespace GNDS::v2_0::enums;
 
 // other includes
 
@@ -197,7 +198,7 @@ void verifyChunk( const Regions1d& component ) {
   CHECK( std::nullopt == xys1d0.label() );
   CHECK( std::nullopt == xys1d0.outerDomainValue() );
   CHECK( std::nullopt == xys1d0.axes() );
-  CHECK( enums::Interpolation::linlin == xys1d0.interpolation() );
+  CHECK( Interpolation::linlin == xys1d0.interpolation() );
   CHECK( 4 == xys1d0.values().length() );
   CHECK( 0 == xys1d0.values().start() );
   CHECK( "Float64" == xys1d0.values().valueType().value() );
@@ -213,7 +214,7 @@ void verifyChunk( const Regions1d& component ) {
   CHECK( std::nullopt == xys1d1.label() );
   CHECK( std::nullopt == xys1d1.outerDomainValue() );
   CHECK( std::nullopt == xys1d1.axes() );
-  CHECK( enums::Interpolation::linlin == xys1d1.interpolation() );
+  CHECK( Interpolation::linlin == xys1d1.interpolation() );
   CHECK( 4 == xys1d1.values().length() );
   CHECK( 0 == xys1d1.values().start() );
   CHECK( "Float64" == xys1d1.values().valueType().value() );

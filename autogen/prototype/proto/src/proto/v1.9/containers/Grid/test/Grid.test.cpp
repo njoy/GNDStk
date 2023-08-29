@@ -3,6 +3,7 @@
 
 #include "catch.hpp"
 #include "proto/v1.9/containers/Grid.hpp"
+using namespace GNDS::v2_0::enums;
 
 // other includes
 
@@ -31,7 +32,7 @@ SCENARIO( "Grid" ) {
       unsigned index = 2;
       std::string label = "row_energy_bounds";
       std::string unit = "eV";
-      enums::GridStyle style = enums::GridStyle::boundaries;
+      GridStyle style = GridStyle::boundaries;
       std::vector< double > values = { 1e-5, 2e7 };
 
       THEN ( "Various getters work as expected" ) {
@@ -134,7 +135,7 @@ SCENARIO( "Grid" ) {
       unsigned index = 1;
       std::string label = "column_energy_bounds";
       std::string unit = "eV";
-      enums::GridStyle style = enums::GridStyle::link;
+      GridStyle style = GridStyle::link;
       std::string href = "../../grid[@index='2']/values";
 
       Grid chunk( index, std::nullopt, label, style, unit,
@@ -252,12 +253,12 @@ void verifyChunk( const Grid& component ) {
   CHECK( 2 == component.index().value() );
   CHECK( "row_energy_bounds" == component.label().value() );
   CHECK( "eV" == component.unit().value() );
-  CHECK( enums::GridStyle::boundaries == component.style().value() );
+  CHECK( GridStyle::boundaries == component.style().value() );
 
   CHECK( 2 == component.index() );
   CHECK( "row_energy_bounds" == component.label() );
   CHECK( "eV" == component.unit() );
-  CHECK( enums::GridStyle::boundaries == component.style() );
+  CHECK( GridStyle::boundaries == component.style() );
 
   decltype(auto) values = std::get< Values >( component.link_values() );
   CHECK( 2 == values.length() );
@@ -289,12 +290,12 @@ void verifyChunkWithLink( const Grid& component ) {
   CHECK( 1 == component.index().value() );
   CHECK( "column_energy_bounds" == component.label().value() );
   CHECK( "eV" == component.unit().value() );
-  CHECK( enums::GridStyle::link == component.style().value() );
+  CHECK( GridStyle::link == component.style().value() );
 
   CHECK( 1 == component.index() );
   CHECK( "column_energy_bounds" == component.label() );
   CHECK( "eV" == component.unit() );
-  CHECK( enums::GridStyle::link == component.style() );
+  CHECK( GridStyle::link == component.style() );
 
   decltype(auto) link = std::get< Link >( component.link_values() );
   CHECK( "../../grid[@index='2']/values" == link.href() );

@@ -5,6 +5,24 @@
 #ifndef GNDS_V2_0
 #define GNDS_V2_0
 
+// zzz MUST AUTOGENERATE THE FOLLOWING!
+#include "GNDS/v2.0/enums/BoundaryCondition.hpp"
+#include "GNDS/v2.0/enums/ContributorType.hpp"
+#include "GNDS/v2.0/enums/DateType.hpp"
+#include "GNDS/v2.0/enums/DecayType.hpp"
+#include "GNDS/v2.0/enums/Encoding.hpp"
+#include "GNDS/v2.0/enums/Energy.hpp"
+#include "GNDS/v2.0/enums/Frame.hpp"
+#include "GNDS/v2.0/enums/GridStyle.hpp"
+#include "GNDS/v2.0/enums/HashAlgorithm.hpp"
+#include "GNDS/v2.0/enums/Interaction.hpp"
+#include "GNDS/v2.0/enums/Interpolation.hpp"
+#include "GNDS/v2.0/enums/InterpolationQualifier.hpp"
+#include "GNDS/v2.0/enums/Length.hpp"
+#include "GNDS/v2.0/enums/Parity.hpp"
+#include "GNDS/v2.0/enums/RelationType.hpp"
+#include "GNDS/v2.0/enums/StorageOrder.hpp"
+
 #include "GNDS/v2.0/general/Add.hpp"
 #include "GNDS/v2.0/general/Alias.hpp"
 #include "GNDS/v2.0/general/Aliases.hpp"

@@ -80,7 +80,7 @@ namespace GNDStk {
 // Basic
 #include "GNDStk/utility.hpp"
 #include "GNDStk/precision.hpp"
-#include "GNDStk/enums.hpp"
+#include "GNDStk/enumeration.hpp"
 
 // External-library wrappers
 #include "GNDStk/XML.hpp"

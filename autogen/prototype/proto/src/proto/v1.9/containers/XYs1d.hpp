@@ -5,6 +5,8 @@
 #ifndef PROTO_V1_9_CONTAINERS_XYS1D
 #define PROTO_V1_9_CONTAINERS_XYS1D
 
+#include "GNDS/v2.0/enums/Interpolation.hpp"
+
 #include "proto/v1.9/containers/Axes.hpp"
 #include "proto/v1.9/containers/Values.hpp"
 
@@ -41,7 +43,7 @@ class XYs1d :
          // metadata
          std::optional<int>{}
             / Meta<>("index") |
-         Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
+         Defaulted<GNDS::v2_0::enums::Interpolation>{GNDS::v2_0::enums::Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<std::string>{}
             / Meta<>("label") |
@@ -98,7 +100,7 @@ public:
 
    // defaults
    static inline const struct Defaults {
-      static inline const enums::Interpolation interpolation = enums::Interpolation::linlin;
+      static inline const GNDS::v2_0::enums::Interpolation interpolation = GNDS::v2_0::enums::Interpolation::linlin;
    } defaults;
 
    // ------------------------
@@ -111,7 +113,7 @@ public:
    // metadata
    Field<std::optional<int>>
       index{this};
-   Field<Defaulted<enums::Interpolation>>
+   Field<Defaulted<GNDS::v2_0::enums::Interpolation>>
       interpolation{this,defaults.interpolation};
    Field<std::optional<std::string>>
       label{this};
@@ -152,7 +154,7 @@ public:
    explicit XYs1d(
       const wrapper<std::optional<int>>
          &index,
-      const wrapper<std::optional<enums::Interpolation>>
+      const wrapper<std::optional<GNDS::v2_0::enums::Interpolation>>
          &interpolation = {},
       const wrapper<std::optional<std::string>>
          &label = {},

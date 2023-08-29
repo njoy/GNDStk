@@ -1,4 +1,9 @@
 
+// To get some enums we'll need.
+// fixme Eventually, we should have these locally; so, not dependent on "v2.0".
+#include "GNDS/v2.0.hpp"
+using namespace GNDS::v2_0::enums;
+
 namespace GNDStk {
 namespace proto {
 
@@ -531,11 +536,11 @@ class Grid : public Component<Grid> {
          // metadata
          std::optional<int>{}
             / Meta<>("index") |
-         Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
+         Defaulted<Interpolation>{Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<std::string>{}
             / Meta<>("label") |
-         std::optional<enums::GridStyle>{}
+         std::optional<GridStyle>{}
             / Meta<>("style") |
          std::optional<std::string>{}
             / Meta<>("unit") |
@@ -581,8 +586,7 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation
-         { enums::Interpolation::linlin };
+      const Interpolation interpolation { Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -592,10 +596,9 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation
-         { enums::Interpolation::linlin };
+      Defaulted<Interpolation> interpolation { Interpolation::linlin };
       std::optional<std::string> label;
-      std::optional<enums::GridStyle> style;
+      std::optional<GridStyle> style;
       std::optional<std::string> unit;
 
       // children
@@ -666,9 +669,9 @@ public:
     { index() = obj; return *this; }
 
    // interpolation(value)
-   auto &interpolation(const Defaulted<enums::Interpolation> &obj)
+   auto &interpolation(const Defaulted<Interpolation> &obj)
     { interpolation() = obj; return *this; }
-   auto &interpolation(const enums::Interpolation &obj)
+   auto &interpolation(const Interpolation &obj)
     { interpolation() = obj; return *this; }
 
    // label(value)
@@ -676,7 +679,7 @@ public:
     { label() = obj; return *this; }
 
    // style(value)
-   auto &style(const std::optional<enums::GridStyle> &obj)
+   auto &style(const std::optional<GridStyle> &obj)
     { style() = obj; return *this; }
 
    // unit(value)
@@ -764,9 +767,9 @@ public:
    // from fields
    explicit Grid(
       const std::optional<int> &index,
-      const Defaulted<enums::Interpolation> &interpolation,
+      const Defaulted<Interpolation> &interpolation,
       const std::optional<std::string> &label,
-      const std::optional<enums::GridStyle> &style,
+      const std::optional<GridStyle> &style,
       const std::optional<std::string> &unit,
       const LINK_VALUES &link_values
    ) :
@@ -794,9 +797,9 @@ public:
    // from fields, with T replacing Defaulted<T>
    explicit Grid(
       const std::optional<int> &index,
-      const enums::Interpolation &interpolation,
+      const Interpolation &interpolation,
       const std::optional<std::string> &label,
-      const std::optional<enums::GridStyle> &style,
+      const std::optional<GridStyle> &style,
       const std::optional<std::string> &unit,
       const LINK_VALUES &link_values
    ) :
@@ -811,11 +814,9 @@ public:
       },
       Content{
          index,
-         interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>
-                 { enums::Interpolation::linlin }
-            : Defaulted<enums::Interpolation>
-                 { enums::Interpolation::linlin,interpolation },
+         interpolation == Interpolation::linlin
+            ? Defaulted<Interpolation> { Interpolation::linlin }
+            : Defaulted<Interpolation> { Interpolation::linlin,interpolation },
          label,
          style,
          unit,
@@ -1345,7 +1346,7 @@ class XYs1d : public Component<XYs1d> {
          // metadata
          std::optional<int>{}
             / Meta<>("index") |
-         Defaulted<enums::Interpolation>{enums::Interpolation::linlin}
+         Defaulted<Interpolation>{Interpolation::linlin}
             / Meta<>("interpolation") |
          std::optional<std::string>{}
             / Meta<>("label") |
@@ -1395,8 +1396,7 @@ public:
    // ------------------------
 
    static const struct {
-      const enums::Interpolation interpolation
-         { enums::Interpolation::linlin };
+      const Interpolation interpolation { Interpolation::linlin };
    } defaults;
 
    // ------------------------
@@ -1406,8 +1406,7 @@ public:
    struct {
       // metadata
       std::optional<int> index;
-      Defaulted<enums::Interpolation> interpolation
-         { enums::Interpolation::linlin };
+      Defaulted<Interpolation> interpolation { Interpolation::linlin };
       std::optional<std::string> label;
       std::optional<double> outerDomainValue;
 
@@ -1468,9 +1467,9 @@ public:
     { index() = obj; return *this; }
 
    // interpolation(value)
-   auto &interpolation(const Defaulted<enums::Interpolation> &obj)
+   auto &interpolation(const Defaulted<Interpolation> &obj)
     { interpolation() = obj; return *this; }
-   auto &interpolation(const enums::Interpolation &obj)
+   auto &interpolation(const Interpolation &obj)
     { interpolation() = obj; return *this; }
 
    // label(value)
@@ -1558,7 +1557,7 @@ public:
    // from fields
    explicit XYs1d(
       const std::optional<int> &index,
-      const Defaulted<enums::Interpolation> &interpolation,
+      const Defaulted<Interpolation> &interpolation,
       const std::optional<std::string> &label,
       const std::optional<double> &outerDomainValue,
       const std::optional<proto::Axes> &axes,
@@ -1588,7 +1587,7 @@ public:
    // from fields, with T replacing Defaulted<T>
    explicit XYs1d(
       const std::optional<int> &index,
-      const enums::Interpolation &interpolation,
+      const Interpolation &interpolation,
       const std::optional<std::string> &label,
       const std::optional<double> &outerDomainValue,
       const std::optional<proto::Axes> &axes,
@@ -1605,11 +1604,9 @@ public:
       },
       Content{
          index,
-         interpolation == enums::Interpolation::linlin
-            ? Defaulted<enums::Interpolation>
-                 { enums::Interpolation::linlin }
-            : Defaulted<enums::Interpolation>
-                 { enums::Interpolation::linlin,interpolation },
+         interpolation == Interpolation::linlin
+            ? Defaulted<Interpolation> { Interpolation::linlin }
+            : Defaulted<Interpolation> { Interpolation::linlin,interpolation },
          label,
          outerDomainValue,
          axes,
@@ -2572,11 +2569,11 @@ class ReactionSuite : public Component<ReactionSuite> {
             / Meta<>("evaluation") |
          std::string{}
             / Meta<>("format") |
-         std::optional<enums::Interaction>{}
+         std::optional<Interaction>{}
             / Meta<>("interaction") |
          std::string{}
             / Meta<>("projectile") |
-         enums::Frame{}
+         Frame{}
             / Meta<>("projectileFrame") |
          std::string{}
             / Meta<>("target") |
@@ -2634,9 +2631,9 @@ public:
       // metadata
       std::string evaluation;
       std::string format;
-      std::optional<enums::Interaction> interaction;
+      std::optional<Interaction> interaction;
       std::string projectile;
-      enums::Frame projectileFrame;
+      Frame projectileFrame;
       std::string target;
 
       // children
@@ -2705,7 +2702,7 @@ public:
     { format() = obj; return *this; }
 
    // interaction(value)
-   auto &interaction(const std::optional<enums::Interaction> &obj)
+   auto &interaction(const std::optional<Interaction> &obj)
     { interaction() = obj; return *this; }
 
    // projectile(value)
@@ -2713,7 +2710,7 @@ public:
     { projectile() = obj; return *this; }
 
    // projectileFrame(value)
-   auto &projectileFrame(const enums::Frame &obj)
+   auto &projectileFrame(const Frame &obj)
     { projectileFrame() = obj; return *this; }
 
    // target(value)
@@ -2798,9 +2795,9 @@ public:
    explicit ReactionSuite(
       const std::string &evaluation,
       const std::string &format,
-      const std::optional<enums::Interaction> &interaction,
+      const std::optional<Interaction> &interaction,
       const std::string &projectile,
-      const enums::Frame &projectileFrame,
+      const Frame &projectileFrame,
       const std::string &target,
       const std::optional<proto::Reactions> &reactions
    ) :
