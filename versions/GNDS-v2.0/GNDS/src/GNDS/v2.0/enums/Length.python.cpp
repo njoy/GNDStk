@@ -5,6 +5,7 @@
 
 // local includes
 #include "GNDStk.hpp"
+#include "GNDS/v2.0.hpp"
 
 // namespace aliases
 namespace python = pybind11;
@@ -32,7 +33,7 @@ void wrapLength( python::module& module ) {
   // wrap the component
   component
   .value( "m", Component::m )
-  .value( "cm", Component::cm );
+  .value( "cm", Component::cm )
   .value( "fm", Component::fm );
 }
 

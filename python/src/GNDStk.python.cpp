@@ -53,27 +53,7 @@ class.def_property_static( \
 // -----------------------------------------------------------------------------
 
 namespace python_core {
-   void wrapNode( python::module& );
-
-   /*
-   zzz probably remove
-   void wrapBoundaryCondition( python::module& );
-   void wrapContributorType( python::module& );
-   void wrapDateType( python::module& );
-   void wrapDecayType( python::module& );
-   void wrapEncoding( python::module& );
-   void wrapEnergy( python::module& );
-   void wrapFrame( python::module& );
-   void wrapGridStyle( python::module& );
-   void wrapHashAlgorithm( python::module& );
-   void wrapInteraction( python::module& );
-   void wrapInterpolation( python::module& );
-   void wrapInterpolationQualifier( python::module& );
-   void wrapLength( python::module& );
-   void wrapParity( python::module& );
-   void wrapRelationType( python::module& );
-   void wrapStorageOrder( python::module& );
-   */
+   void wrapNode(python::module &);
 }
 
 
@@ -82,7 +62,7 @@ namespace python_core {
 // -----------------------------------------------------------------------------
 
 namespace python_GNDS {
-   void wrapV2_0( python::module& );
+   void wrapV2_0(python::module &);
 }
 
 
@@ -254,27 +234,6 @@ PYBIND11_MODULE(GNDStk,module)
 
    // wrap core components (in the core module)
    python_core::wrapNode(core);
-
-   /*
-   zzz probably remove
-   // enumerations (in the GNDStk module)
-   python_core::wrapBoundaryCondition(module);
-   python_core::wrapContributorType(module);
-   python_core::wrapDateType(module);
-   python_core::wrapDecayType(module);
-   python_core::wrapEncoding(module);
-   python_core::wrapEnergy(module);
-   python_core::wrapFrame(module);
-   python_core::wrapGridStyle(module);
-   python_core::wrapHashAlgorithm(module);
-   python_core::wrapInteraction(module);
-   python_core::wrapInterpolation(module);
-   python_core::wrapInterpolationQualifier(module);
-   python_core::wrapLength(module);
-   python_core::wrapParity(module);
-   python_core::wrapRelationType(module);
-   python_core::wrapStorageOrder(module);
-   */
 
    // v2.0 components (in the v2_0 module, created in this function)
    python_GNDS::wrapV2_0(module);

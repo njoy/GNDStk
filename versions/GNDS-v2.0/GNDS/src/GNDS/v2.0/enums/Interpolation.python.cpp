@@ -5,6 +5,7 @@
 
 // local includes
 #include "GNDStk.hpp"
+#include "GNDS/v2.0.hpp"
 
 // namespace aliases
 namespace python = pybind11;

@@ -1,38 +1,38 @@
 
-########################################################################
+# ------------------------------------------------------------------------------
 # Preamble
-########################################################################
+# ------------------------------------------------------------------------------
 
 cmake_minimum_required( VERSION 3.14 )
 project( GNDStk LANGUAGES CXX )
 
 
-########################################################################
+# ------------------------------------------------------------------------------
 # Project-wide setup
-########################################################################
+# ------------------------------------------------------------------------------
 
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED YES )
 
 option( GNDStk_unit_tests
     "Compile the GNDStk unit tests and integrate with ctest" ON
-    )
+)
 
 
-########################################################################
+# ------------------------------------------------------------------------------
 # Dependencies
-########################################################################
+# ------------------------------------------------------------------------------
 
 include( cmake/GNDStk_dependencies.cmake )
 
 
-########################################################################
+# ------------------------------------------------------------------------------
 # Project targets
-########################################################################
+# ------------------------------------------------------------------------------
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ------------------------
 # GNDStk: library
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ------------------------
 
 include_directories( src/ versions/GNDS-v2.0/GNDS/src/ )
 
@@ -44,24 +44,24 @@ target_link_libraries(
     INTERFACE catch-adapter
     INTERFACE pugixml-adapter
     INTERFACE HighFive
-    )
+)
 
 add_executable(
     json2class.exe
     EXCLUDE_FROM_ALL
     autogen/json2class.cpp
-    )
+)
 target_link_libraries(
     json2class.exe
     PRIVATE GNDStk
-    )
+)
 
 set_target_properties( pugixml-adapter PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# GNDStk: python bindings, files compiled separately ("old" system)
-# make GNDStk.python.old
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ------------------------
+# GNDStk: python bindings
+# Include directories
+# ------------------------
 
 include_directories(
     python/src/
@@ -69,7 +69,14 @@ include_directories(
     versions/GNDS-v2.0
     versions/GNDS-v2.0/GNDS/src
     versions/GNDS-v2.0/GNDS/python/src
-    )
+    versions/GNDS-v2.0/GNDS/src/GNDS/v2.0
+)
+
+# ------------------------
+# GNDStk: python bindings
+# Files compiled separately ("old" system)
+# make GNDStk.python.old
+# ------------------------
 
 pybind11_add_module(
     GNDStk.python.old
@@ -361,7 +368,7 @@ pybind11_add_module(
     versions/GNDS-v2.0/GNDS/python/src/v2.0/top.python.cpp
     versions/GNDS-v2.0/GNDS/python/src/v2.0/reduced.python.cpp
     versions/GNDS-v2.0/GNDS/python/src/v2.0/g2d.python.cpp
-    )
+)
 
 target_link_libraries( GNDStk.python.old PRIVATE GNDStk )
 target_compile_options(GNDStk.python.old PRIVATE "-fvisibility=hidden" )
@@ -369,16 +376,17 @@ set_target_properties( GNDStk.python.old PROPERTIES OUTPUT_NAME GNDStk )
 set_target_properties( GNDStk.python.old PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
 set_target_properties( GNDStk.python.old PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# GNDStk: python bindings, files compiled together (faster than above)
+# ------------------------
+# GNDStk: python bindings
+# Files compiled together (this is faster than compiling them separately)
 # make GNDStk.python
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# ------------------------
 
 pybind11_add_module(
     GNDStk.python
     EXCLUDE_FROM_ALL
     python/src/all.python.cpp
-    )
+)
 
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
 target_compile_options(GNDStk.python PRIVATE "-fvisibility=hidden" )
@@ -386,9 +394,10 @@ set_target_properties( GNDStk.python PROPERTIES OUTPUT_NAME GNDStk )
 set_target_properties( GNDStk.python PROPERTIES COMPILE_DEFINITIONS "PYBIND11" )
 set_target_properties( GNDStk.python PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
-#######################################################################
+
+# ------------------------------------------------------------------------------
 # Top-level Only
-#######################################################################
+# ------------------------------------------------------------------------------
 
 if( CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR )
     # unit testing
