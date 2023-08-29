@@ -206,11 +206,13 @@ struct InfoSpecs {
    std::string JSONDir;
    std::string Version;
    std::vector<std::string> JSONFiles;
+   std::vector<std::pair<std::string,std::vector<std::string>>> Enumerators;
 
    // Version, but with '_'s in place of '.'s
    std::string VersionUnderscore;
 
    // Directory-prefixed names
+   std::string allPython;  // cpp file for this version's all.python.cpp file
    std::string cppPython;  // cpp file for this version's Python interface
    std::string hppVersion; // hpp file for this version
    std::string hppKey;     // hpp file for this version's Meta and Child keys
@@ -2014,6 +2016,7 @@ void commandLine(
    static const std::string version = "Version";
    static const std::string input   = "JSONDir";
    static const std::string files   = "JSONFiles";
+   static const std::string enums   = "Enumerators";
    static const std::string changes = "Changes";
 
    // Need "Version"
@@ -2029,10 +2032,19 @@ void commandLine(
    }
 
    // Extract information from the command line JSON file...
+
    // ...these are optional:
    specs.Path    = jmain.contains(path   ) ? jmain[path   ].get<json::string>() : ".";
    specs.Project = jmain.contains(project) ? jmain[project].get<json::string>() : "GNDStk";
    specs.JSONDir = jmain.contains(input  ) ? jmain[input  ].get<json::string>() : ".";
+   if (jmain.contains(enums))
+      for (const auto &e : jmain[enums].get<json::object>().items()) {
+         specs.Enumerators.push_back(
+            std::make_pair(e.first,std::vector<std::string>()));
+         for (const auto &sym : e.second.get<json::array>())
+            specs.Enumerators.back().second.push_back(sym.get<json::string>());
+      }
+
    // ...these are required:
    specs.Version = jmain[version].get<json::string>();
    for (const auto &str : jmain[files].get<json::array>())
@@ -2062,6 +2074,7 @@ void commandLine(
 
    // For the python interface
    const std::string pybase = specs.Path + "/" + specs.Project + "/python/src/";
+   specs.allPython = pybase + "all.python.cpp";
    specs.cppPython = pybase + specs.Version + ".python.cpp";
 
    // Changes?
@@ -2392,11 +2405,19 @@ void fileGNDStkVersion(const InfoSpecs &specs)
 
    {
       writer out(specs.hppVersion);
+
       out();
       out("#ifndef @_@",
           allcaps(specs.Project), allcaps(specs.VersionUnderscore));
       out("#define @_@",
           allcaps(specs.Project), allcaps(specs.VersionUnderscore));
+
+      if (specs.Enumerators.size()) {
+         out();
+         for (const auto &e : specs.Enumerators)
+            out("#include \"@/@/enums/@.hpp\"",
+                specs.Project, specs.Version, e.first);
+      }
 
       std::string nsname_last = "";
       for (const auto &c : specs.class2data) {
@@ -3590,39 +3611,123 @@ void fileCInterface(
 // -----------------------------------------------------------------------------
 
 // -----------------------------------------------------------------------------
-// filePythonProject
+// filePythonAll
 // -----------------------------------------------------------------------------
 
-void filePythonProject(const InfoSpecs &specs)
+void filePythonAll(const InfoSpecs &specs)
+{
+   writer out(specs.allPython);
+
+   // ------------------------
+   // core
+   // ------------------------
+
+   // comment
+   out();
+   out(largeComment);
+   out("// core");
+   out(largeComment);
+
+   // includes
+   out();
+   out("// core");
+   out("#include \"GNDStk.python.cpp\"");
+   out();
+   out("// node");
+   out("#include \"core/Node.python.cpp\"");
+   out();
+
+   // ------------------------
+   // version
+   // ------------------------
+
+   // comment
+   out();
+   out(largeComment);
+   out("// @", specs.Version);
+   out(largeComment);
+
+   // version
+   out();
+   out("// @", specs.Version);
+   out("#include \"@.python.cpp\"", specs.Version);
+
+   // enumerations
+   if (specs.Enumerators.size()) {
+      out();
+      out("// enumerations");
+      for (const auto &e : specs.Enumerators)
+         out("#include \"enums/@.python.cpp\"", e.first);
+   }
+
+   // each namespace and its classes
+   for (const std::pair<std::string,PerNamespace> &ns : specs.namespace2data) {
+      out();
+      out("// namespace @", ns.second.nsname);
+      out("#include \"@/@.python.cpp\"", specs.Version, ns.second.nsname);
+      for (const auto &c : specs.class2data) {
+         const std::string nsname = c.first.nsname;
+         const std::string clname = c.first.clname;
+         if (nsname == ns.second.nsname)
+            out("#include \"@/@/@.python.cpp\"", specs.Version, nsname, clname);
+      }
+   }
+} // filePythonAll
+
+
+// -----------------------------------------------------------------------------
+// filePythonVersion
+// -----------------------------------------------------------------------------
+
+void filePythonVersion(const InfoSpecs &specs)
 {
    writer out(specs.cppPython);
    out();
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
-   out("namespace py = pybind11;");
+   out("namespace python = pybind11;");
    out();
    out("// project @", specs.Project);
    out("namespace python_@ {", specs.Project);
+
+   if (specs.Enumerators.size()) {
+      out();
+      out(1,"// version @: enum wrapper declarations", specs.Version);
+      out(1,"namespace python_@ {", specs.VersionUnderscore);
+      out(1,"namespace python_enums {");
+      for (const auto &e : specs.Enumerators)
+         out(2,"void wrap@(python::module &);", e.first);
+      out(1,"} // namespace python_enums");
+      out(1,"} // namespace python_@", specs.VersionUnderscore);
+   }
 
    out();
    out(1,"// version @: namespace wrapper declarations", specs.Version);
    out(1,"namespace python_@ {", specs.VersionUnderscore);
    for (const std::pair<std::string,PerNamespace> &ns : specs.namespace2data)
-      out(2,"void wrap@(py::module &);", capital(ns.second.nsname));
+      out(2,"void wrap@(python::module &);", capital(ns.second.nsname));
    out(1,"} // namespace python_@", specs.VersionUnderscore);
 
    out();
    out(1,"// version @: wrapper", specs.Version);
-   out(1,"void wrap@(py::module &module)", capital(specs.VersionUnderscore));
+   out(1,"void wrap@(python::module &module)", capital(specs.VersionUnderscore));
    out(1,"{");
    out(2,"// @", specs.Version);
-   out(2,"py::module submodule = module.def_submodule(");
+   out(2,"python::module submodule = module.def_submodule(");
    out(3,"\"@\",", specs.VersionUnderscore);
    if (specs.Project == "GNDStk")
       out(3,"\"GNDS @\"", specs.Version); // "GNDS", not "GNDStk"
    else
       out(3,"\"@ @\"", specs.Project, specs.Version);
    out(2,");");
+
+   if (specs.Enumerators.size()) {
+      out();
+      out(2,"// @ enumerations", specs.Version);
+      for (const auto &e : specs.Enumerators)
+         out(2,"python_@::python_enums::wrap@(submodule);",
+             specs.VersionUnderscore, e.first);
+   }
 
    out();
    out(2,"// @ namespaces", specs.Version);
@@ -3632,7 +3737,7 @@ void filePythonProject(const InfoSpecs &specs)
    out(1,"}");
    out();
    out("} // namespace python_@", specs.Project);
-} // filePythonProject
+} // filePythonVersion
 
 
 // -----------------------------------------------------------------------------
@@ -4413,7 +4518,8 @@ int main(const int argc, const char *const *const argv)
    // Create Python cpp file for each namespace
    // Create Python cpp file for each namespace::class
    action("Writing Code: Python Interface");
-   filePythonProject(specs);
+   filePythonAll(specs);
+   filePythonVersion(specs);
    for (const auto &obj : specs.namespace2data)
       filePythonNamespace(specs, obj.second);
    for (const auto &obj : specs.class2data)

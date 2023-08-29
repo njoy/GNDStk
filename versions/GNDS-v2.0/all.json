@@ -12,5 +12,24 @@
         "g3d.json"
     ],
 
+    "Enumerators": {
+        "BoundaryCondition": [ ],
+        "ContributorType": [ ],
+        "DateType": [ ],
+        "DecayType": [ ],
+        "Encoding": [ ],
+        "Energy": [ ],
+        "Frame": [ ],
+        "GridStyle": [ ],
+        "HashAlgorithm": [ ],
+        "Interaction": [ ],
+        "Interpolation": [ ],
+        "InterpolationQualifier": [ ],
+        "Length": [ ],
+        "Parity": [ ],
+        "RelationType": [ ],
+        "StorageOrder": [ ]
+    },
+
     "Changes": "changes.json"
 }

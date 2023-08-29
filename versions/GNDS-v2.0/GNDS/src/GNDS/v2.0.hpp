@@ -5,7 +5,6 @@
 #ifndef GNDS_V2_0
 #define GNDS_V2_0
 
-// zzz MUST AUTOGENERATE THE FOLLOWING!
 #include "GNDS/v2.0/enums/BoundaryCondition.hpp"
 #include "GNDS/v2.0/enums/ContributorType.hpp"
 #include "GNDS/v2.0/enums/DateType.hpp"

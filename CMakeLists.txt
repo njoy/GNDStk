@@ -385,7 +385,7 @@ set_target_properties( GNDStk.python.old PROPERTIES POSITION_INDEPENDENT_CODE ON
 pybind11_add_module(
     GNDStk.python
     EXCLUDE_FROM_ALL
-    python/src/all.python.cpp
+    versions/GNDS-v2.0/GNDS/python/src/all.python.cpp
 )
 
 target_link_libraries( GNDStk.python PRIVATE GNDStk )
