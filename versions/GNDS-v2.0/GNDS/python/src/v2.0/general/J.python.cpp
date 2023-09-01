@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/J.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::J
-void wrapJ(py::module &module)
+void wrapJ(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapJ(py::module &module)
    using cppCLASS = general::J;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "J",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const general::LevelSpacing &,
          const general::Widths &
       >(),
-      py::arg("label"),
-      py::arg("value"),
-      py::arg("level_spacing"),
-      py::arg("widths"),
+      pybind11::arg("label"),
+      pybind11::arg("value"),
+      pybind11::arg("level_spacing"),
+      pybind11::arg("widths"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

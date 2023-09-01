@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/NuclearAmplitudeExpansion.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::NuclearAmplitudeExpansion
-void wrapNuclearAmplitudeExpansion(py::module &module)
+void wrapNuclearAmplitudeExpansion(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapNuclearAmplitudeExpansion(py::module &module)
    using cppCLASS = general::NuclearAmplitudeExpansion;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "NuclearAmplitudeExpansion",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::NuclearTerm &,
          const general::RealInterferenceTerm &,
          const general::ImaginaryInterferenceTerm &
       >(),
-      py::arg("nuclear_term"),
-      py::arg("real_interference_term"),
-      py::arg("imaginary_interference_term"),
+      pybind11::arg("nuclear_term"),
+      pybind11::arg("real_interference_term"),
+      pybind11::arg("imaginary_interference_term"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

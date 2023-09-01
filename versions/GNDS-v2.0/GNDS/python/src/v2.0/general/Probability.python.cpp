@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Probability.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Probability
-void wrapProbability(py::module &module)
+void wrapProbability(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapProbability(py::module &module)
    using cppCLASS = general::Probability;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Probability",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::Double &
       >(),
-      py::arg("double"),
+      pybind11::arg("double"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

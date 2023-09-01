@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Decay.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Decay
-void wrapDecay(py::module &module)
+void wrapDecay(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapDecay(py::module &module)
    using cppCLASS = general::Decay;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Decay",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const int &,
          const std::optional<std::string> &,
          const std::optional<bool> &,
          const std::optional<general::Products> &
       >(),
-      py::arg("index"),
-      py::arg("mode") = std::nullopt,
-      py::arg("complete") = std::nullopt,
-      py::arg("products") = std::nullopt,
+      pybind11::arg("index"),
+      pybind11::arg("mode") = std::nullopt,
+      pybind11::arg("complete") = std::nullopt,
+      pybind11::arg("products") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Axis.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Axis
-void wrapAxis(py::module &module)
+void wrapAxis(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapAxis(py::module &module)
    using cppCLASS = general::Axis;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Axis",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const int &,
          const std::string &,
          const std::string &
       >(),
-      py::arg("index"),
-      py::arg("label"),
-      py::arg("unit"),
+      pybind11::arg("index"),
+      pybind11::arg("label"),
+      pybind11::arg("unit"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

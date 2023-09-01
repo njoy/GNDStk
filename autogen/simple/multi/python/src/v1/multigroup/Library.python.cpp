@@ -10,14 +10,11 @@
 #include "multi/v1/multigroup/Library.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1 {
 namespace python_multigroup {
 
 // wrapper for multigroup::Library
-void wrapLibrary(py::module &module)
+void wrapLibrary(pybind11::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
@@ -26,19 +23,19 @@ void wrapLibrary(py::module &module)
    using cppCLASS = multigroup::Library;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Library",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::vector<multigroup::Element> &
       >(),
-      py::arg("name"),
-      py::arg("element"),
+      pybind11::arg("name"),
+      pybind11::arg("element"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

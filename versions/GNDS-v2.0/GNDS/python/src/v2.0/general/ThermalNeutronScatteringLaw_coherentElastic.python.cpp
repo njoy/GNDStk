@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ThermalNeutronScatteringLaw_coherentElastic.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ThermalNeutronScatteringLaw_coherentElastic
-void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &module)
+void wrapThermalNeutronScatteringLaw_coherentElastic(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapThermalNeutronScatteringLaw_coherentElastic(py::module &module)
    using cppCLASS = general::ThermalNeutronScatteringLaw_coherentElastic;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ThermalNeutronScatteringLaw_coherentElastic",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
          const general::S_table &
       >(),
-      py::arg("label"),
-      py::arg("pid"),
-      py::arg("product_frame"),
-      py::arg("s_table"),
+      pybind11::arg("label"),
+      pybind11::arg("pid"),
+      pybind11::arg("product_frame"),
+      pybind11::arg("s_table"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

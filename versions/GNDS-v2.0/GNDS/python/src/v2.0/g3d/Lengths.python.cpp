@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/g3d/Lengths.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_g3d {
 
 // wrapper for g3d::Lengths
-void wrapLengths(py::module &module)
+void wrapLengths(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,28 +24,28 @@ void wrapLengths(py::module &module)
    using cppCLASS = g3d::Lengths;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Lengths",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &
       >(),
-      py::arg("value_type"),
-      py::arg("label"),
+      pybind11::arg("value_type"),
+      pybind11::arg("label"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 
    // constructor: from vector
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<int> &
       >(),
-      py::arg("ints"),
+      pybind11::arg("ints"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

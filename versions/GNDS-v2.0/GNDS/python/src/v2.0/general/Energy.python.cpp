@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Energy.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Energy
-void wrapEnergy(py::module &module)
+void wrapEnergy(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapEnergy(py::module &module)
    using cppCLASS = general::Energy;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Energy",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<double> &,
          const std::optional<std::string> &,
          const std::optional<general::Double> &,
@@ -49,19 +46,19 @@ void wrapEnergy(py::module &module)
          const std::optional<general::SimpleMaxwellianFission> &,
          const std::optional<general::MadlandNix> &
       >(),
-      py::arg("value") = std::nullopt,
-      py::arg("unit") = std::nullopt,
-      py::arg("double") = std::nullopt,
-      py::arg("uncertainty") = std::nullopt,
-      py::arg("nbody_phase_space") = std::nullopt,
-      py::arg("primary_gamma") = std::nullopt,
-      py::arg("discrete_gamma") = std::nullopt,
-      py::arg("xys2d") = std::nullopt,
-      py::arg("general_evaporation") = std::nullopt,
-      py::arg("evaporation") = std::nullopt,
-      py::arg("weighted_functionals") = std::nullopt,
-      py::arg("simple_maxwellian_fission") = std::nullopt,
-      py::arg("madland_nix") = std::nullopt,
+      pybind11::arg("value") = std::nullopt,
+      pybind11::arg("unit") = std::nullopt,
+      pybind11::arg("double") = std::nullopt,
+      pybind11::arg("uncertainty") = std::nullopt,
+      pybind11::arg("nbody_phase_space") = std::nullopt,
+      pybind11::arg("primary_gamma") = std::nullopt,
+      pybind11::arg("discrete_gamma") = std::nullopt,
+      pybind11::arg("xys2d") = std::nullopt,
+      pybind11::arg("general_evaporation") = std::nullopt,
+      pybind11::arg("evaporation") = std::nullopt,
+      pybind11::arg("weighted_functionals") = std::nullopt,
+      pybind11::arg("simple_maxwellian_fission") = std::nullopt,
+      pybind11::arg("madland_nix") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

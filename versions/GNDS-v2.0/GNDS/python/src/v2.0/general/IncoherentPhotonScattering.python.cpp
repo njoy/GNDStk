@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/IncoherentPhotonScattering.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::IncoherentPhotonScattering
-void wrapIncoherentPhotonScattering(py::module &module)
+void wrapIncoherentPhotonScattering(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapIncoherentPhotonScattering(py::module &module)
    using cppCLASS = general::IncoherentPhotonScattering;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "IncoherentPhotonScattering",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<std::string> &,
          const std::optional<std::string> &,
          const std::optional<std::string> &,
          const std::optional<general::ScatteringFactor> &
       >(),
-      py::arg("label"),
-      py::arg("href") = std::nullopt,
-      py::arg("pid") = std::nullopt,
-      py::arg("product_frame") = std::nullopt,
-      py::arg("scattering_factor") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("pid") = std::nullopt,
+      pybind11::arg("product_frame") = std::nullopt,
+      pybind11::arg("scattering_factor") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

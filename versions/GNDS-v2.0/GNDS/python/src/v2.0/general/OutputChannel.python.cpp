@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/OutputChannel.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::OutputChannel
-void wrapOutputChannel(py::module &module)
+void wrapOutputChannel(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapOutputChannel(py::module &module)
    using cppCLASS = general::OutputChannel;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "OutputChannel",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<std::string> &,
          const general::Q &,
          const std::optional<general::Products> &,
          const std::optional<top::FissionFragmentData> &
       >(),
-      py::arg("genre"),
-      py::arg("process") = std::nullopt,
-      py::arg("q"),
-      py::arg("products") = std::nullopt,
-      py::arg("fission_fragment_data") = std::nullopt,
+      pybind11::arg("genre"),
+      pybind11::arg("process") = std::nullopt,
+      pybind11::arg("q"),
+      pybind11::arg("products") = std::nullopt,
+      pybind11::arg("fission_fragment_data") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

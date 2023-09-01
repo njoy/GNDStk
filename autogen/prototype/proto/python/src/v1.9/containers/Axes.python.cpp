@@ -10,14 +10,11 @@
 #include "proto/v1.9/containers/Axes.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_containers {
 
 // wrapper for containers::Axes
-void wrapAxes(py::module &module)
+void wrapAxes(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -30,19 +27,19 @@ void wrapAxes(py::module &module)
    >;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Axes",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::vector<axis_grid_t> &
       >(),
-      py::arg("href") = std::nullopt,
-      py::arg("axis_grid"),
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("axis_grid"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

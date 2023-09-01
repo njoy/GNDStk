@@ -1,10 +1,9 @@
+
 # standard imports
 import unittest
 
-# third party imports
-
 # local imports
-from GNDStk import BoundaryCondition
+from GNDStk.v2_0 import BoundaryCondition
 
 class Test_GNDStk_BoundaryCondition( unittest.TestCase ) :
     """Unit test for the BoundaryCondition enumerator."""

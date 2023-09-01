@@ -3685,7 +3685,6 @@ void filePythonVersion(const InfoSpecs &specs)
    out();
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
-   out("namespace python = pybind11;");
    out();
    out("// project @", specs.Project);
    out("namespace python_@ {", specs.Project);
@@ -3696,7 +3695,7 @@ void filePythonVersion(const InfoSpecs &specs)
       out(1,"namespace python_@ {", specs.VersionUnderscore);
       out(1,"namespace python_enums {");
       for (const auto &e : specs.Enumerators)
-         out(2,"void wrap@(python::module &);", e.first);
+         out(2,"void wrap@(pybind11::module &);", e.first);
       out(1,"} // namespace python_enums");
       out(1,"} // namespace python_@", specs.VersionUnderscore);
    }
@@ -3705,15 +3704,15 @@ void filePythonVersion(const InfoSpecs &specs)
    out(1,"// version @: namespace wrapper declarations", specs.Version);
    out(1,"namespace python_@ {", specs.VersionUnderscore);
    for (const std::pair<std::string,PerNamespace> &ns : specs.namespace2data)
-      out(2,"void wrap@(python::module &);", capital(ns.second.nsname));
+      out(2,"void wrap@(pybind11::module &);", capital(ns.second.nsname));
    out(1,"} // namespace python_@", specs.VersionUnderscore);
 
    out();
    out(1,"// version @: wrapper", specs.Version);
-   out(1,"void wrap@(python::module &module)", capital(specs.VersionUnderscore));
+   out(1,"void wrap@(pybind11::module &module)", capital(specs.VersionUnderscore));
    out(1,"{");
    out(2,"// @", specs.Version);
-   out(2,"python::module submodule = module.def_submodule(");
+   out(2,"pybind11::module submodule = module.def_submodule(");
    out(3,"\"@\",", specs.VersionUnderscore);
    if (specs.Project == "GNDStk")
       out(3,"\"GNDS @\"", specs.Version); // "GNDS", not "GNDStk"
@@ -3750,7 +3749,6 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out();
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
-   out("namespace py = pybind11;");
    out();
    out("// project @", specs.Project);
    out("// version @", specs.Version);
@@ -3762,15 +3760,15 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
    out(1,"namespace python_@ {", per.nsname);
    for (const auto &cl : specs.ClassDependenciesSorted)
       if (cl.theClass.nsname == per.nsname)
-         out(2,"void wrap@(py::module &);", cl.theClass.clname);
+         out(2,"void wrap@(pybind11::module &);", cl.theClass.clname);
    out(1,"} // namespace python_@", per.nsname);
 
    out();
    out(1,"// namespace @: wrapper", per.nsname);
-   out(1,"void wrap@(py::module &module)", capital(per.nsname));
+   out(1,"void wrap@(pybind11::module &module)", capital(per.nsname));
    out(1,"{");
    out(2,"// @", per.nsname);
-   out(2,"py::module submodule = module.def_submodule(");
+   out(2,"pybind11::module submodule = module.def_submodule(");
    out(3,"\"@\",", per.nsname);
    if (specs.Project == "GNDStk")
       out(3,"\"GNDS @ @\"", specs.Version, per.nsname); // "GNDS", not "GNDStk"
@@ -3833,17 +3831,13 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out("#include \"definitions.hpp\"");
 
    out();
-   out("// namespace aliases");
-   out("namespace py = pybind11;");
-
-   out();
    out("namespace python_@ {", specs.Project);
    out("namespace python_@ {", specs.VersionUnderscore);
    out("namespace python_@ {", nsname);
 
    out();
    out("// wrapper for @::@", nsname, clname);
-   out("void wrap@(py::module &module)", clname);
+   out("void wrap@(pybind11::module &module)", clname);
    out("{");
    const std::string prefix = specs.Project == "GNDStk" ? "njoy::" : "";
    out(1,"using namespace @@;",
@@ -3866,13 +3860,13 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
    out();
    out(1,"// create the Python object");
-   out(1,"py::class_<cppCLASS> object(");
+   out(1,"pybind11::class_<cppCLASS> object(");
    out(2,"module, \"@\",", clname);
    out(2,"cppCLASS::component_t::documentation().data()");
    out(1,");");
 
    // ------------------------
-   // py::init<...>
+   // pybind11::init<...>
    // for construction from
    // metadata and children
    // ------------------------
@@ -3883,7 +3877,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out();
    out(1,"// constructor: from fields");
    out(1,"object.def(");
-   out(2,"py::init<");
+   out(2,"pybind11::init<");
    {
       // init<> arguments
       for (const auto &m : per.metadata)
@@ -3898,21 +3892,21 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
    out(2,">(),");
 
    for (const auto &m : per.metadata)
-      out(2,"py::arg(\"@\")@,",
+      out(2,"pybind11::arg(\"@\")@,",
           namePython(m.name),
           m.isOptional || m.isDefaulted ? " = std::nullopt" : "");
    for (const auto &c : per.children)
-      out(2,"py::arg(\"@\")@,",
+      out(2,"pybind11::arg(\"@\")@,",
           namePython(c.name),
           c.isOptional ? " = std::nullopt" : "");
    for (const auto &v : per.variants)
-      out(2,"py::arg(\"@\"),",
+      out(2,"pybind11::arg(\"@\"),",
           namePython(v.name));
    out(2,"cppCLASS::component_t::documentation(\"constructor\").data()");
    out(1,");"); // object.def(
 
    // ------------------------
-   // py::init<...>
+   // pybind11::init<...>
    // for construction from
    // vector
    // ------------------------
@@ -3922,10 +3916,10 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
       out();
       out(1,"// constructor: from vector");
       out(1,"object.def(");
-      out(2,"py::init<");
+      out(2,"pybind11::init<");
       out(3,"const std::vector<@> &", dataTypeName.first);
       out(2,">(),");
-      out(2,"py::arg(\"@\"),", dataTypeName.second);
+      out(2,"pybind11::arg(\"@\"),", dataTypeName.second);
       out(2,"cppCLASS::component_t::documentation(\"constructor\").data()");
       out(1,");"); // object.def(
    }

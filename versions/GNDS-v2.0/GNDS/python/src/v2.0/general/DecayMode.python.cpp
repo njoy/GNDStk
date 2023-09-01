@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/DecayMode.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::DecayMode
-void wrapDecayMode(py::module &module)
+void wrapDecayMode(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapDecayMode(py::module &module)
    using cppCLASS = general::DecayMode;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "DecayMode",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<std::string> &,
          const general::Probability &,
@@ -43,13 +40,13 @@ void wrapDecayMode(py::module &module)
          const std::optional<general::Q> &,
          const std::optional<general::Spectra> &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("mode") = std::nullopt,
-      py::arg("probability"),
-      py::arg("decay_path"),
-      py::arg("photon_emission_probabilities") = std::nullopt,
-      py::arg("q") = std::nullopt,
-      py::arg("spectra") = std::nullopt,
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("mode") = std::nullopt,
+      pybind11::arg("probability"),
+      pybind11::arg("decay_path"),
+      pybind11::arg("photon_emission_probabilities") = std::nullopt,
+      pybind11::arg("q") = std::nullopt,
+      pybind11::arg("spectra") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

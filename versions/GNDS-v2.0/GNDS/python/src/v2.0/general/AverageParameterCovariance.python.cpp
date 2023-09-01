@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/AverageParameterCovariance.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::AverageParameterCovariance
-void wrapAverageParameterCovariance(py::module &module)
+void wrapAverageParameterCovariance(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapAverageParameterCovariance(py::module &module)
    using cppCLASS = general::AverageParameterCovariance;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "AverageParameterCovariance",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<bool> &,
          const general::CovarianceMatrix &,
          const general::RowData &,
          const std::optional<general::ColumnData> &
       >(),
-      py::arg("label"),
-      py::arg("cross_term") = std::nullopt,
-      py::arg("covariance_matrix"),
-      py::arg("row_data"),
-      py::arg("column_data") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("cross_term") = std::nullopt,
+      pybind11::arg("covariance_matrix"),
+      pybind11::arg("row_data"),
+      pybind11::arg("column_data") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

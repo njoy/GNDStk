@@ -10,14 +10,11 @@
 #include "proto/v1.9/transport/CrossSection.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_transport {
 
 // wrapper for transport::CrossSection
-void wrapCrossSection(py::module &module)
+void wrapCrossSection(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -30,17 +27,17 @@ void wrapCrossSection(py::module &module)
    >;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "CrossSection",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<XYs1d_regions1d_t> &
       >(),
-      py::arg("xys1d_regions1d"),
+      pybind11::arg("xys1d_regions1d"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

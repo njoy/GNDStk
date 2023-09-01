@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Nuclide.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Nuclide
-void wrapNuclide(py::module &module)
+void wrapNuclide(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapNuclide(py::module &module)
    using cppCLASS = general::Nuclide;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Nuclide",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<general::Mass> &,
          const general::Charge &,
@@ -42,12 +39,12 @@ void wrapNuclide(py::module &module)
          const std::optional<general::DecayData> &,
          const std::optional<top::FissionFragmentData> &
       >(),
-      py::arg("id"),
-      py::arg("mass") = std::nullopt,
-      py::arg("charge"),
-      py::arg("nucleus"),
-      py::arg("decay_data") = std::nullopt,
-      py::arg("fission_fragment_data") = std::nullopt,
+      pybind11::arg("id"),
+      pybind11::arg("mass") = std::nullopt,
+      pybind11::arg("charge"),
+      pybind11::arg("nucleus"),
+      pybind11::arg("decay_data") = std::nullopt,
+      pybind11::arg("fission_fragment_data") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

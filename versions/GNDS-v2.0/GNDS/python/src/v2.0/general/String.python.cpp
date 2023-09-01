@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/String.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::String
-void wrapString(py::module &module)
+void wrapString(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapString(py::module &module)
    using cppCLASS = general::String;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "String",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &
       >(),
-      py::arg("label"),
-      py::arg("value"),
-      py::arg("unit"),
+      pybind11::arg("label"),
+      pybind11::arg("value"),
+      pybind11::arg("unit"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

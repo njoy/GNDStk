@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Regions1d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Regions1d
-void wrapRegions1d(py::module &module)
+void wrapRegions1d(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapRegions1d(py::module &module)
    using cppCLASS = general::Regions1d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Regions1d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<double> &,
          const std::optional<general::Axes> &,
          const std::optional<general::Uncertainty> &,
          const reduced::Function1ds &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("outer_domain_value") = std::nullopt,
-      py::arg("axes") = std::nullopt,
-      py::arg("uncertainty") = std::nullopt,
-      py::arg("function1ds"),
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("outer_domain_value") = std::nullopt,
+      pybind11::arg("axes") = std::nullopt,
+      pybind11::arg("uncertainty") = std::nullopt,
+      pybind11::arg("function1ds"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

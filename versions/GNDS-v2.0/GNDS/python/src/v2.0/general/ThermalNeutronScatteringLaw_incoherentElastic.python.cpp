@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ThermalNeutronScatteringLaw_incoherentElastic.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ThermalNeutronScatteringLaw_incoherentElastic
-void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
+void wrapThermalNeutronScatteringLaw_incoherentElastic(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapThermalNeutronScatteringLaw_incoherentElastic(py::module &module)
    using cppCLASS = general::ThermalNeutronScatteringLaw_incoherentElastic;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ThermalNeutronScatteringLaw_incoherentElastic",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
          const general::BoundAtomCrossSection &,
          const general::DebyeWallerIntegral &
       >(),
-      py::arg("label"),
-      py::arg("pid"),
-      py::arg("product_frame"),
-      py::arg("bound_atom_cross_section"),
-      py::arg("debye_waller_integral"),
+      pybind11::arg("label"),
+      pybind11::arg("pid"),
+      pybind11::arg("product_frame"),
+      pybind11::arg("bound_atom_cross_section"),
+      pybind11::arg("debye_waller_integral"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

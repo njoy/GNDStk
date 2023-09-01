@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Isotope.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Isotope
-void wrapIsotope(py::module &module)
+void wrapIsotope(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapIsotope(py::module &module)
    using cppCLASS = general::Isotope;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Isotope",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const general::Nuclides &
       >(),
-      py::arg("symbol"),
-      py::arg("a"),
-      py::arg("nuclides"),
+      pybind11::arg("symbol"),
+      pybind11::arg("a"),
+      pybind11::arg("nuclides"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

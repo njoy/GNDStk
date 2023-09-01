@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/reduced/Function1ds.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_reduced {
 
 // wrapper for reduced::Function1ds
-void wrapFunction1ds(py::module &module)
+void wrapFunction1ds(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapFunction1ds(py::module &module)
    using cppCLASS = reduced::Function1ds;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Function1ds",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<general::Legendre> &,
          const std::optional<std::vector<general::XYs1d>> &
       >(),
-      py::arg("legendre"),
-      py::arg("xys1d") = std::nullopt,
+      pybind11::arg("legendre"),
+      pybind11::arg("xys1d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ShortRangeSelfScalingVariance.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ShortRangeSelfScalingVariance
-void wrapShortRangeSelfScalingVariance(py::module &module)
+void wrapShortRangeSelfScalingVariance(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapShortRangeSelfScalingVariance(py::module &module)
    using cppCLASS = general::ShortRangeSelfScalingVariance;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ShortRangeSelfScalingVariance",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
          const general::Gridded2d &
       >(),
-      py::arg("label"),
-      py::arg("type"),
-      py::arg("dependence_on_processed_group_width"),
-      py::arg("gridded2d"),
+      pybind11::arg("label"),
+      pybind11::arg("type"),
+      pybind11::arg("dependence_on_processed_group_width"),
+      pybind11::arg("gridded2d"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

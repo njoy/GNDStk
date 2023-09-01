@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Regions2d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Regions2d
-void wrapRegions2d(py::module &module)
+void wrapRegions2d(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapRegions2d(py::module &module)
    using cppCLASS = general::Regions2d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Regions2d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::Axes &,
          const general::Function2ds &,
          const std::optional<general::Uncertainty> &
       >(),
-      py::arg("axes"),
-      py::arg("function2ds"),
-      py::arg("uncertainty") = std::nullopt,
+      pybind11::arg("axes"),
+      pybind11::arg("function2ds"),
+      pybind11::arg("uncertainty") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

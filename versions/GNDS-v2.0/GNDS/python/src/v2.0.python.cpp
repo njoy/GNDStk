@@ -4,7 +4,6 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-namespace python = pybind11;
 
 // project GNDS
 namespace python_GNDS {
@@ -12,39 +11,39 @@ namespace python_GNDS {
    // version v2.0: enum wrapper declarations
    namespace python_v2_0 {
    namespace python_enums {
-      void wrapBoundaryCondition(python::module &);
-      void wrapContributorType(python::module &);
-      void wrapDateType(python::module &);
-      void wrapDecayType(python::module &);
-      void wrapEncoding(python::module &);
-      void wrapEnergy(python::module &);
-      void wrapFrame(python::module &);
-      void wrapGridStyle(python::module &);
-      void wrapHashAlgorithm(python::module &);
-      void wrapInteraction(python::module &);
-      void wrapInterpolation(python::module &);
-      void wrapInterpolationQualifier(python::module &);
-      void wrapLength(python::module &);
-      void wrapParity(python::module &);
-      void wrapRelationType(python::module &);
-      void wrapStorageOrder(python::module &);
+      void wrapBoundaryCondition(pybind11::module &);
+      void wrapContributorType(pybind11::module &);
+      void wrapDateType(pybind11::module &);
+      void wrapDecayType(pybind11::module &);
+      void wrapEncoding(pybind11::module &);
+      void wrapEnergy(pybind11::module &);
+      void wrapFrame(pybind11::module &);
+      void wrapGridStyle(pybind11::module &);
+      void wrapHashAlgorithm(pybind11::module &);
+      void wrapInteraction(pybind11::module &);
+      void wrapInterpolation(pybind11::module &);
+      void wrapInterpolationQualifier(pybind11::module &);
+      void wrapLength(pybind11::module &);
+      void wrapParity(pybind11::module &);
+      void wrapRelationType(pybind11::module &);
+      void wrapStorageOrder(pybind11::module &);
    } // namespace python_enums
    } // namespace python_v2_0
 
    // version v2.0: namespace wrapper declarations
    namespace python_v2_0 {
-      void wrapG2d(python::module &);
-      void wrapG3d(python::module &);
-      void wrapGeneral(python::module &);
-      void wrapReduced(python::module &);
-      void wrapTop(python::module &);
+      void wrapG2d(pybind11::module &);
+      void wrapG3d(pybind11::module &);
+      void wrapGeneral(pybind11::module &);
+      void wrapReduced(pybind11::module &);
+      void wrapTop(pybind11::module &);
    } // namespace python_v2_0
 
    // version v2.0: wrapper
-   void wrapV2_0(python::module &module)
+   void wrapV2_0(pybind11::module &module)
    {
       // v2.0
-      python::module submodule = module.def_submodule(
+      pybind11::module submodule = module.def_submodule(
          "v2_0",
          "GNDS v2.0"
       );

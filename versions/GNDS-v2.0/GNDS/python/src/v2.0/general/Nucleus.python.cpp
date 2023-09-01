@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Nucleus.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Nucleus
-void wrapNucleus(py::module &module)
+void wrapNucleus(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapNucleus(py::module &module)
    using cppCLASS = general::Nucleus;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Nucleus",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const std::optional<general::Mass> &,
@@ -45,15 +42,15 @@ void wrapNucleus(py::module &module)
          const general::Energy &,
          const std::optional<general::DecayData> &
       >(),
-      py::arg("id"),
-      py::arg("index"),
-      py::arg("mass") = std::nullopt,
-      py::arg("spin") = std::nullopt,
-      py::arg("parity") = std::nullopt,
-      py::arg("charge"),
-      py::arg("halflife") = std::nullopt,
-      py::arg("energy"),
-      py::arg("decay_data") = std::nullopt,
+      pybind11::arg("id"),
+      pybind11::arg("index"),
+      pybind11::arg("mass") = std::nullopt,
+      pybind11::arg("spin") = std::nullopt,
+      pybind11::arg("parity") = std::nullopt,
+      pybind11::arg("charge"),
+      pybind11::arg("halflife") = std::nullopt,
+      pybind11::arg("energy"),
+      pybind11::arg("decay_data") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

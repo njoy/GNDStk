@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ProductYield.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ProductYield
-void wrapProductYield(py::module &module)
+void wrapProductYield(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapProductYield(py::module &module)
    using cppCLASS = general::ProductYield;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ProductYield",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<reduced::Nuclides> &,
          const general::ElapsedTimes &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("nuclides") = std::nullopt,
-      py::arg("elapsed_times"),
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("nuclides") = std::nullopt,
+      pybind11::arg("elapsed_times"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Values.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Values
-void wrapValues(py::module &module)
+void wrapValues(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,24 +24,24 @@ void wrapValues(py::module &module)
    using cppCLASS = general::Values;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Values",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
       >(),
       cppCLASS::component_t::documentation("constructor").data()
    );
 
    // constructor: from vector
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<double> &
       >(),
-      py::arg("doubles"),
+      pybind11::arg("doubles"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

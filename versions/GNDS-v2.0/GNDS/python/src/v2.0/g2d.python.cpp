@@ -4,7 +4,6 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-namespace py = pybind11;
 
 // project GNDS
 // version v2.0
@@ -13,14 +12,14 @@ namespace python_v2_0 {
 
    // namespace g2d: class wrapper declarations
    namespace python_g2d {
-      void wrapArray(py::module &);
+      void wrapArray(pybind11::module &);
    } // namespace python_g2d
 
    // namespace g2d: wrapper
-   void wrapG2d(py::module &module)
+   void wrapG2d(pybind11::module &module)
    {
       // g2d
-      py::module submodule = module.def_submodule(
+      pybind11::module submodule = module.def_submodule(
          "g2d",
          "GNDS v2.0 g2d"
       );

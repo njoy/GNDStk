@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Distribution.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Distribution
-void wrapDistribution(py::module &module)
+void wrapDistribution(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapDistribution(py::module &module)
    using cppCLASS = general::Distribution;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Distribution",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::ThermalNeutronScatteringLaw> &,
          const std::optional<general::Uncorrelated> &,
          const std::optional<general::Unspecified> &,
@@ -47,17 +44,17 @@ void wrapDistribution(py::module &module)
          const std::optional<general::CoherentPhotonScattering> &,
          const std::optional<general::IncoherentPhotonScattering> &
       >(),
-      py::arg("thermal_neutron_scattering_law") = std::nullopt,
-      py::arg("uncorrelated") = std::nullopt,
-      py::arg("unspecified") = std::nullopt,
-      py::arg("branching3d") = std::nullopt,
-      py::arg("angular_two_body") = std::nullopt,
-      py::arg("energy_angular") = std::nullopt,
-      py::arg("kalbach_mann") = std::nullopt,
-      py::arg("angular_energy") = std::nullopt,
-      py::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
-      py::arg("coherent_photon_scattering") = std::nullopt,
-      py::arg("incoherent_photon_scattering") = std::nullopt,
+      pybind11::arg("thermal_neutron_scattering_law") = std::nullopt,
+      pybind11::arg("uncorrelated") = std::nullopt,
+      pybind11::arg("unspecified") = std::nullopt,
+      pybind11::arg("branching3d") = std::nullopt,
+      pybind11::arg("angular_two_body") = std::nullopt,
+      pybind11::arg("energy_angular") = std::nullopt,
+      pybind11::arg("kalbach_mann") = std::nullopt,
+      pybind11::arg("angular_energy") = std::nullopt,
+      pybind11::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
+      pybind11::arg("coherent_photon_scattering") = std::nullopt,
+      pybind11::arg("incoherent_photon_scattering") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

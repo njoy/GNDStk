@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Covariance.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Covariance
-void wrapCovariance(py::module &module)
+void wrapCovariance(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapCovariance(py::module &module)
    using cppCLASS = general::Covariance;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Covariance",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<std::string> &,
          const std::optional<general::Array> &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("href") = std::nullopt,
-      py::arg("array") = std::nullopt,
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("array") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

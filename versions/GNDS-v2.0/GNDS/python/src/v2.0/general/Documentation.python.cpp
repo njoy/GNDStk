@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Documentation.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Documentation
-void wrapDocumentation(py::module &module)
+void wrapDocumentation(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapDocumentation(py::module &module)
    using cppCLASS = general::Documentation;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Documentation",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::Authors &,
          const general::Dates &,
          const general::Title &,
          const general::Body &,
          const std::optional<general::EndfCompatible> &
       >(),
-      py::arg("authors"),
-      py::arg("dates"),
-      py::arg("title"),
-      py::arg("body"),
-      py::arg("endf_compatible") = std::nullopt,
+      pybind11::arg("authors"),
+      pybind11::arg("dates"),
+      pybind11::arg("title"),
+      pybind11::arg("body"),
+      pybind11::arg("endf_compatible") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Date.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Date
-void wrapDate(py::module &module)
+void wrapDate(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapDate(py::module &module)
    using cppCLASS = general::Date;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Date",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &
       >(),
-      py::arg("value"),
-      py::arg("date_type"),
+      pybind11::arg("value"),
+      pybind11::arg("date_type"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

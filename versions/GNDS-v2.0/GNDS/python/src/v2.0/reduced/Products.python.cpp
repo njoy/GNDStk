@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/reduced/Products.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_reduced {
 
 // wrapper for reduced::Products
-void wrapProducts(py::module &module)
+void wrapProducts(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapProducts(py::module &module)
    using cppCLASS = reduced::Products;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Products",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<reduced::Product> &
       >(),
-      py::arg("product"),
+      pybind11::arg("product"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

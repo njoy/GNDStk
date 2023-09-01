@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/top/ReactionSuite.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_top {
 
 // wrapper for top::ReactionSuite
-void wrapReactionSuite(py::module &module)
+void wrapReactionSuite(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapReactionSuite(py::module &module)
    using cppCLASS = top::ReactionSuite;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ReactionSuite",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -53,23 +50,23 @@ void wrapReactionSuite(py::module &module)
          const std::optional<general::OrphanProducts> &,
          const std::optional<general::IncompleteReactions> &
       >(),
-      py::arg("projectile"),
-      py::arg("target"),
-      py::arg("evaluation"),
-      py::arg("format"),
-      py::arg("projectile_frame"),
-      py::arg("interaction"),
-      py::arg("styles"),
-      py::arg("po_ps"),
-      py::arg("reactions"),
-      py::arg("application_data") = std::nullopt,
-      py::arg("external_files") = std::nullopt,
-      py::arg("resonances") = std::nullopt,
-      py::arg("sums") = std::nullopt,
-      py::arg("productions") = std::nullopt,
-      py::arg("fission_components") = std::nullopt,
-      py::arg("orphan_products") = std::nullopt,
-      py::arg("incomplete_reactions") = std::nullopt,
+      pybind11::arg("projectile"),
+      pybind11::arg("target"),
+      pybind11::arg("evaluation"),
+      pybind11::arg("format"),
+      pybind11::arg("projectile_frame"),
+      pybind11::arg("interaction"),
+      pybind11::arg("styles"),
+      pybind11::arg("po_ps"),
+      pybind11::arg("reactions"),
+      pybind11::arg("application_data") = std::nullopt,
+      pybind11::arg("external_files") = std::nullopt,
+      pybind11::arg("resonances") = std::nullopt,
+      pybind11::arg("sums") = std::nullopt,
+      pybind11::arg("productions") = std::nullopt,
+      pybind11::arg("fission_components") = std::nullopt,
+      pybind11::arg("orphan_products") = std::nullopt,
+      pybind11::arg("incomplete_reactions") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -11,9 +11,6 @@
 // local includes
 #include "GNDStk.hpp"
 
-// namespace aliases
-namespace python = pybind11;
-
 
 // -----------------------------------------------------------------------------
 // macros
@@ -23,11 +20,11 @@ namespace python = pybind11;
 #define NJOY_GNDSTK_PROPERTY(class,pyname,cppvar) \
 class.def_property_static( \
    #pyname, \
-   [](python::object) \
+   [](pybind11::object) \
    { \
       return cppvar; \
    }, \
-   [](python::object, const std::decay_t<decltype(cppvar)> &value) \
+   [](pybind11::object, const std::decay_t<decltype(cppvar)> &value) \
    { \
       cppvar = value; \
    } \
@@ -37,11 +34,11 @@ class.def_property_static( \
 #define NJOY_GNDSTK_COLOR(class,pyname,cppvar) \
 class.def_property_static( \
    #pyname, \
-   [](python::object) \
+   [](pybind11::object) \
    { \
       return cppvar; \
    }, \
-   [](python::object, const std::array<int,3> &rgb) \
+   [](pybind11::object, const std::array<int,3> &rgb) \
    { \
       cppvar = njoy::GNDStk::color::makeColor(rgb[0],rgb[1],rgb[2]); \
    } \
@@ -53,7 +50,7 @@ class.def_property_static( \
 // -----------------------------------------------------------------------------
 
 namespace python_core {
-   void wrapNode(python::module &);
+   void wrapNode(pybind11::module &);
 }
 
 
@@ -62,7 +59,7 @@ namespace python_core {
 // -----------------------------------------------------------------------------
 
 namespace python_GNDS {
-   void wrapV2_0(python::module &);
+   void wrapV2_0(pybind11::module &);
 }
 
 
@@ -70,9 +67,9 @@ namespace python_GNDS {
 // Submodule: settings
 // -----------------------------------------------------------------------------
 
-void submodule_settings(python::module &gnds)
+void submodule_settings(pybind11::module &gnds)
 {
-   python::module settings = gnds.def_submodule(
+   pybind11::module settings = gnds.def_submodule(
       "settings",
       "Global behavioral settings"
    );
@@ -83,7 +80,7 @@ void submodule_settings(python::module &gnds)
    // ------------------------
 
    struct Read { };
-   python::class_<Read> read(settings,"read");
+   pybind11::class_<Read> read(settings,"read");
 
    NJOY_GNDSTK_PROPERTY(read, threads, njoy::GNDStk::threads);
 
@@ -93,7 +90,7 @@ void submodule_settings(python::module &gnds)
    // ------------------------
 
    struct Write { };
-   python::class_<Write> write(settings,"write");
+   pybind11::class_<Write> write(settings,"write");
 
    NJOY_GNDSTK_PROPERTY(write, comments, njoy::GNDStk::comments);
    NJOY_GNDSTK_PROPERTY(write, indent,   njoy::GNDStk::indent  );
@@ -109,7 +106,7 @@ void submodule_settings(python::module &gnds)
    // ------------------------
 
    struct Report { };
-   python::class_<Report> report(settings,"report");
+   pybind11::class_<Report> report(settings,"report");
 
    NJOY_GNDSTK_PROPERTY(report, notes,    njoy::GNDStk::notes);
    NJOY_GNDSTK_PROPERTY(report, warnings, njoy::GNDStk::warnings);
@@ -122,7 +119,7 @@ void submodule_settings(python::module &gnds)
    // ------------------------
 
    struct Sort { };
-   python::class_<Sort> sort(settings,"sort");
+   pybind11::class_<Sort> sort(settings,"sort");
 
    NJOY_GNDSTK_PROPERTY(sort, fields, njoy::GNDStk::sort);
 }
@@ -132,9 +129,9 @@ void submodule_settings(python::module &gnds)
 // Submodule: colors
 // -----------------------------------------------------------------------------
 
-void submodule_colors(python::module &gnds)
+void submodule_colors(pybind11::module &gnds)
 {
-   python::module colors = gnds.def_submodule(
+   pybind11::module colors = gnds.def_submodule(
       "colors",
       "Colors for diagnostics and printing"
    );
@@ -145,7 +142,7 @@ void submodule_colors(python::module &gnds)
    // ------------------------
 
    struct Required { };
-   python::class_<Required> required(colors,"required");
+   pybind11::class_<Required> required(colors,"required");
 
    NJOY_GNDSTK_COLOR(required, field,   njoy::GNDStk::color::field);
    NJOY_GNDSTK_COLOR(required, vector,  njoy::GNDStk::color::vector);
@@ -159,7 +156,7 @@ void submodule_colors(python::module &gnds)
    // ------------------------
 
    struct Optional { };
-   python::class_<Optional> optional(colors,"optional");
+   pybind11::class_<Optional> optional(colors,"optional");
 
    NJOY_GNDSTK_COLOR(optional, field,  njoy::GNDStk::color::optional::field);
    NJOY_GNDSTK_COLOR(optional, vector, njoy::GNDStk::color::optional::vector);
@@ -172,7 +169,7 @@ void submodule_colors(python::module &gnds)
    // ------------------------
 
    struct Data { };
-   python::class_<Data> data(colors,"data");
+   pybind11::class_<Data> data(colors,"data");
 
    NJOY_GNDSTK_COLOR(data, string, njoy::GNDStk::color::data::string);
    NJOY_GNDSTK_COLOR(data, vector, njoy::GNDStk::color::data::vector);
@@ -183,11 +180,11 @@ void submodule_colors(python::module &gnds)
 // Submodule: format
 // -----------------------------------------------------------------------------
 
-void submodule_format(python::module &gnds)
+void submodule_format(pybind11::module &gnds)
 {
    // todo
    /*
-   python::module format = gnds.def_submodule(
+   pybind11::module format = gnds.def_submodule(
       "format",
       "Properties related to input/output (mostly output) formatting,\n"
       "in particular (but not exclusively) for floating-point numbers"
@@ -199,7 +196,7 @@ void submodule_format(python::module &gnds)
    // ------------------------
 
    struct Todo { };
-   python::class_<Todo> todo(format,"todo");
+   pybind11::class_<Todo> todo(format,"todo");
 
    NJOY_GNDSTK_COLOR(todo, field,   njoy::GNDStk::color::field);
    NJOY_GNDSTK_COLOR(todo, vector,  njoy::GNDStk::color::vector);
@@ -227,7 +224,7 @@ PYBIND11_MODULE(GNDStk,module)
    // Submodule: core
    // ------------------------
 
-   python::module core = module.def_submodule(
+   pybind11::module core = module.def_submodule(
       "core",
       "core - GNDStk core interface components"
    );

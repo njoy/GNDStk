@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Configuration.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Configuration
-void wrapConfiguration(py::module &module)
+void wrapConfiguration(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapConfiguration(py::module &module)
    using cppCLASS = general::Configuration;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Configuration",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const double &,
          const general::BindingEnergy &,
          const std::vector<general::DecayData> &
       >(),
-      py::arg("subshell"),
-      py::arg("electron_number"),
-      py::arg("binding_energy"),
-      py::arg("decay_data"),
+      pybind11::arg("subshell"),
+      pybind11::arg("electron_number"),
+      pybind11::arg("binding_energy"),
+      pybind11::arg("decay_data"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

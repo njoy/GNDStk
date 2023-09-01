@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ApplicationData.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ApplicationData
-void wrapApplicationData(py::module &module)
+void wrapApplicationData(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapApplicationData(py::module &module)
    using cppCLASS = general::ApplicationData;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ApplicationData",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::Institution &
       >(),
-      py::arg("institution"),
+      pybind11::arg("institution"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

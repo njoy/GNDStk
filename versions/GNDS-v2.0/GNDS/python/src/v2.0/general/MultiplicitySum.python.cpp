@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/MultiplicitySum.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::MultiplicitySum
-void wrapMultiplicitySum(py::module &module)
+void wrapMultiplicitySum(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapMultiplicitySum(py::module &module)
    using cppCLASS = general::MultiplicitySum;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "MultiplicitySum",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const general::Multiplicity &,
          const general::Summands &
       >(),
-      py::arg("label"),
-      py::arg("endf_mt"),
-      py::arg("multiplicity"),
-      py::arg("summands"),
+      pybind11::arg("label"),
+      pybind11::arg("endf_mt"),
+      pybind11::arg("multiplicity"),
+      pybind11::arg("summands"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

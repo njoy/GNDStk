@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Summand.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Summand
-void wrapSummand(py::module &module)
+void wrapSummand(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapSummand(py::module &module)
    using cppCLASS = general::Summand;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Summand",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<std::string> &,
          const std::optional<std::string> &
       >(),
-      py::arg("endf_mfmt") = std::nullopt,
-      py::arg("coefficient") = std::nullopt,
-      py::arg("href") = std::nullopt,
+      pybind11::arg("endf_mfmt") = std::nullopt,
+      pybind11::arg("coefficient") = std::nullopt,
+      pybind11::arg("href") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

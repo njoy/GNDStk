@@ -4,7 +4,6 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-namespace py = pybind11;
 
 // project GNDS
 // version v2.0
@@ -13,22 +12,22 @@ namespace python_v2_0 {
 
    // namespace reduced: class wrapper declarations
    namespace python_reduced {
-      void wrapDouble(py::module &);
-      void wrapPolynomial1d(py::module &);
-      void wrapFunction1ds(py::module &);
-      void wrapCrossSection(py::module &);
-      void wrapDistribution(py::module &);
-      void wrapProduct(py::module &);
-      void wrapProducts(py::module &);
-      void wrapOutputChannel(py::module &);
-      void wrapNuclides(py::module &);
+      void wrapDouble(pybind11::module &);
+      void wrapPolynomial1d(pybind11::module &);
+      void wrapFunction1ds(pybind11::module &);
+      void wrapCrossSection(pybind11::module &);
+      void wrapDistribution(pybind11::module &);
+      void wrapProduct(pybind11::module &);
+      void wrapProducts(pybind11::module &);
+      void wrapOutputChannel(pybind11::module &);
+      void wrapNuclides(pybind11::module &);
    } // namespace python_reduced
 
    // namespace reduced: wrapper
-   void wrapReduced(py::module &module)
+   void wrapReduced(pybind11::module &module)
    {
       // reduced
-      py::module submodule = module.def_submodule(
+      pybind11::module submodule = module.def_submodule(
          "reduced",
          "GNDS v2.0 reduced"
       );

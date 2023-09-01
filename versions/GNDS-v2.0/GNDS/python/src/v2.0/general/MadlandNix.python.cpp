@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/MadlandNix.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::MadlandNix
-void wrapMadlandNix(py::module &module)
+void wrapMadlandNix(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapMadlandNix(py::module &module)
    using cppCLASS = general::MadlandNix;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "MadlandNix",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::EFL &,
          const general::EFH &,
          const general::T_M &
       >(),
-      py::arg("efl"),
-      py::arg("efh"),
-      py::arg("t_m"),
+      pybind11::arg("efl"),
+      pybind11::arg("efh"),
+      pybind11::arg("t_m"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/FormFactor.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::FormFactor
-void wrapFormFactor(py::module &module)
+void wrapFormFactor(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapFormFactor(py::module &module)
    using cppCLASS = general::FormFactor;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "FormFactor",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::XYs1d &
       >(),
-      py::arg("xys1d"),
+      pybind11::arg("xys1d"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

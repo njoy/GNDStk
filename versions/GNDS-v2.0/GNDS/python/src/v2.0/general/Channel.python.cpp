@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Channel.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Channel
-void wrapChannel(py::module &module)
+void wrapChannel(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapChannel(py::module &module)
    using cppCLASS = general::Channel;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Channel",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const int &,
@@ -43,13 +40,13 @@ void wrapChannel(py::module &module)
          const std::optional<general::ScatteringRadius> &,
          const std::optional<general::HardSphereRadius> &
       >(),
-      py::arg("label"),
-      py::arg("resonance_reaction"),
-      py::arg("l"),
-      py::arg("channel_spin"),
-      py::arg("column_index"),
-      py::arg("scattering_radius") = std::nullopt,
-      py::arg("hard_sphere_radius") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("resonance_reaction"),
+      pybind11::arg("l"),
+      pybind11::arg("channel_spin"),
+      pybind11::arg("column_index"),
+      pybind11::arg("scattering_radius") = std::nullopt,
+      pybind11::arg("hard_sphere_radius") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Slice.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Slice
-void wrapSlice(py::module &module)
+void wrapSlice(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapSlice(py::module &module)
    using cppCLASS = general::Slice;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Slice",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const int &,
          const std::optional<int> &,
          const std::optional<double> &,
          const std::optional<double> &,
          const std::optional<std::string> &
       >(),
-      py::arg("dimension"),
-      py::arg("domain_value") = std::nullopt,
-      py::arg("domain_min") = std::nullopt,
-      py::arg("domain_max") = std::nullopt,
-      py::arg("domain_unit") = std::nullopt,
+      pybind11::arg("dimension"),
+      pybind11::arg("domain_value") = std::nullopt,
+      pybind11::arg("domain_min") = std::nullopt,
+      pybind11::arg("domain_max") = std::nullopt,
+      pybind11::arg("domain_unit") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

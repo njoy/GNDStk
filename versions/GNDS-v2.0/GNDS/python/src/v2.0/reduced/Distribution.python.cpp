@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/reduced/Distribution.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_reduced {
 
 // wrapper for reduced::Distribution
-void wrapDistribution(py::module &module)
+void wrapDistribution(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapDistribution(py::module &module)
    using cppCLASS = reduced::Distribution;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Distribution",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::ThermalNeutronScatteringLaw> &,
          const std::optional<general::Uncorrelated> &,
          const std::optional<general::Unspecified> &,
          const std::optional<general::XYs2d> &,
          const std::optional<general::Branching3d> &
       >(),
-      py::arg("thermal_neutron_scattering_law") = std::nullopt,
-      py::arg("uncorrelated") = std::nullopt,
-      py::arg("unspecified") = std::nullopt,
-      py::arg("xys2d") = std::nullopt,
-      py::arg("branching3d") = std::nullopt,
+      pybind11::arg("thermal_neutron_scattering_law") = std::nullopt,
+      pybind11::arg("uncorrelated") = std::nullopt,
+      pybind11::arg("unspecified") = std::nullopt,
+      pybind11::arg("xys2d") = std::nullopt,
+      pybind11::arg("branching3d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

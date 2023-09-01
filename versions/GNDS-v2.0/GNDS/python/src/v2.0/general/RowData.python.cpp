@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/RowData.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::RowData
-void wrapRowData(py::module &module)
+void wrapRowData(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapRowData(py::module &module)
    using cppCLASS = general::RowData;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "RowData",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<int> &,
          const std::string &,
          const std::optional<general::Slices> &
       >(),
-      py::arg("endf_mfmt") = std::nullopt,
-      py::arg("dimension") = std::nullopt,
-      py::arg("href"),
-      py::arg("slices") = std::nullopt,
+      pybind11::arg("endf_mfmt") = std::nullopt,
+      pybind11::arg("dimension") = std::nullopt,
+      pybind11::arg("href"),
+      pybind11::arg("slices") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

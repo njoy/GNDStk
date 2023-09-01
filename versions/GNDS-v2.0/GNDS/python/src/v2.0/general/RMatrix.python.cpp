@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/RMatrix.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::RMatrix
-void wrapRMatrix(py::module &module)
+void wrapRMatrix(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapRMatrix(py::module &module)
    using cppCLASS = general::RMatrix;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "RMatrix",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -44,14 +41,14 @@ void wrapRMatrix(py::module &module)
          const general::ResonanceReactions &,
          const general::SpinGroups &
       >(),
-      py::arg("label"),
-      py::arg("approximation"),
-      py::arg("boundary_condition"),
-      py::arg("calculate_channel_radius") = std::nullopt,
-      py::arg("supports_angular_reconstruction") = std::nullopt,
-      py::arg("po_ps") = std::nullopt,
-      py::arg("resonance_reactions"),
-      py::arg("spin_groups"),
+      pybind11::arg("label"),
+      pybind11::arg("approximation"),
+      pybind11::arg("boundary_condition"),
+      pybind11::arg("calculate_channel_radius") = std::nullopt,
+      pybind11::arg("supports_angular_reconstruction") = std::nullopt,
+      pybind11::arg("po_ps") = std::nullopt,
+      pybind11::arg("resonance_reactions"),
+      pybind11::arg("spin_groups"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

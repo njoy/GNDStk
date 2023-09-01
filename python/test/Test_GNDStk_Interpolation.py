@@ -1,10 +1,9 @@
+
 # standard imports
 import unittest
 
-# third party imports
-
 # local imports
-from GNDStk import Interpolation
+from GNDStk.v2_0 import Interpolation
 
 class Test_GNDStk_Interpolation( unittest.TestCase ) :
     """Unit test for the Interpolation enumerator."""

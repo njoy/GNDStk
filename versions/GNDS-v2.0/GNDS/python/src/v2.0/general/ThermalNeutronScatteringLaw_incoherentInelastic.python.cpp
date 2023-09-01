@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ThermalNeutronScatteringLaw_incoherentInelastic.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ThermalNeutronScatteringLaw_incoherentInelastic
-void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
+void wrapThermalNeutronScatteringLaw_incoherentInelastic(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
    using cppCLASS = general::ThermalNeutronScatteringLaw_incoherentInelastic;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ThermalNeutronScatteringLaw_incoherentInelastic",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -42,12 +39,12 @@ void wrapThermalNeutronScatteringLaw_incoherentInelastic(py::module &module)
          const std::optional<bool> &,
          const general::ScatteringAtoms &
       >(),
-      py::arg("label"),
-      py::arg("pid"),
-      py::arg("product_frame"),
-      py::arg("primary_scatterer"),
-      py::arg("calculated_at_thermal") = std::nullopt,
-      py::arg("scattering_atoms"),
+      pybind11::arg("label"),
+      pybind11::arg("pid"),
+      pybind11::arg("product_frame"),
+      pybind11::arg("primary_scatterer"),
+      pybind11::arg("calculated_at_thermal") = std::nullopt,
+      pybind11::arg("scattering_atoms"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

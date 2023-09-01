@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Aliases.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Aliases
-void wrapAliases(py::module &module)
+void wrapAliases(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapAliases(py::module &module)
    using cppCLASS = general::Aliases;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Aliases",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::vector<general::Alias>> &,
          const std::optional<std::vector<general::MetaStable>> &
       >(),
-      py::arg("alias") = std::nullopt,
-      py::arg("meta_stable") = std::nullopt,
+      pybind11::arg("alias") = std::nullopt,
+      pybind11::arg("meta_stable") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Product.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Product
-void wrapProduct(py::module &module)
+void wrapProduct(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapProduct(py::module &module)
    using cppCLASS = general::Product;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Product",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::optional<general::Multiplicity> &,
@@ -42,12 +39,12 @@ void wrapProduct(py::module &module)
          const std::optional<reduced::OutputChannel> &,
          const std::optional<general::AverageProductEnergy> &
       >(),
-      py::arg("label"),
-      py::arg("pid"),
-      py::arg("multiplicity") = std::nullopt,
-      py::arg("distribution") = std::nullopt,
-      py::arg("output_channel") = std::nullopt,
-      py::arg("average_product_energy") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("pid"),
+      pybind11::arg("multiplicity") = std::nullopt,
+      pybind11::arg("distribution") = std::nullopt,
+      pybind11::arg("output_channel") = std::nullopt,
+      pybind11::arg("average_product_energy") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,14 +10,11 @@
 #include "proto/v1.9/containers/XYs1d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_containers {
 
 // wrapper for containers::XYs1d
-void wrapXYs1d(py::module &module)
+void wrapXYs1d(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -26,14 +23,14 @@ void wrapXYs1d(py::module &module)
    using cppCLASS = containers::XYs1d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "XYs1d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<int> &,
          const std::optional<enums::Interpolation> &,
          const std::optional<std::string> &,
@@ -41,12 +38,12 @@ void wrapXYs1d(py::module &module)
          const std::optional<containers::Axes> &,
          const containers::Values &
       >(),
-      py::arg("index") = std::nullopt,
-      py::arg("interpolation") = std::nullopt,
-      py::arg("label") = std::nullopt,
-      py::arg("outer_domain_value") = std::nullopt,
-      py::arg("axes") = std::nullopt,
-      py::arg("values"),
+      pybind11::arg("index") = std::nullopt,
+      pybind11::arg("interpolation") = std::nullopt,
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("outer_domain_value") = std::nullopt,
+      pybind11::arg("axes") = std::nullopt,
+      pybind11::arg("values"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

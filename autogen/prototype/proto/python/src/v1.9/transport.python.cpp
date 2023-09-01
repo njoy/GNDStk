@@ -5,24 +5,22 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace py = pybind11;
-
 // v1.9 interface
 namespace python_v1_9 {
 
 // transport declarations
 namespace python_transport {
-   void wrapCrossSection(py::module &);
-   void wrapReaction(py::module &);
-   void wrapReactions(py::module &);
-   void wrapReactionSuite(py::module &);
+   void wrapCrossSection(pybind11::module &);
+   void wrapReaction(pybind11::module &);
+   void wrapReactions(pybind11::module &);
+   void wrapReactionSuite(pybind11::module &);
 } // namespace python_transport
 
 // wrapper for transport
-void wrapTransport(py::module &module)
+void wrapTransport(pybind11::module &module)
 {
    // create the transport submodule
-   py::module submodule = module.def_submodule(
+   pybind11::module submodule = module.def_submodule(
       "transport",
       "proto v1.9 transport"
    );

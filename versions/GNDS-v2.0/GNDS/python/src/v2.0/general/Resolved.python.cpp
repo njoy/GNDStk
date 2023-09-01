@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Resolved.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Resolved
-void wrapResolved(py::module &module)
+void wrapResolved(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapResolved(py::module &module)
    using cppCLASS = general::Resolved;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Resolved",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const double &,
          const double &,
          const std::string &,
          const std::optional<general::BreitWigner> &,
          const std::optional<general::RMatrix> &
       >(),
-      py::arg("domain_min"),
-      py::arg("domain_max"),
-      py::arg("domain_unit"),
-      py::arg("breit_wigner") = std::nullopt,
-      py::arg("rmatrix") = std::nullopt,
+      pybind11::arg("domain_min"),
+      pybind11::arg("domain_max"),
+      pybind11::arg("domain_unit"),
+      pybind11::arg("breit_wigner") = std::nullopt,
+      pybind11::arg("rmatrix") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

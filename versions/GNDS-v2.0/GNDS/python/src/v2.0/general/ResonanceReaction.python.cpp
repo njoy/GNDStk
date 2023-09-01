@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ResonanceReaction.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ResonanceReaction
-void wrapResonanceReaction(py::module &module)
+void wrapResonanceReaction(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapResonanceReaction(py::module &module)
    using cppCLASS = general::ResonanceReaction;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ResonanceReaction",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<std::string> &,
          const std::optional<bool> &,
@@ -43,13 +40,13 @@ void wrapResonanceReaction(py::module &module)
          const std::optional<general::Q> &,
          const std::optional<general::ScatteringRadius> &
       >(),
-      py::arg("label"),
-      py::arg("ejectile") = std::nullopt,
-      py::arg("eliminated") = std::nullopt,
-      py::arg("link"),
-      py::arg("hard_sphere_radius") = std::nullopt,
-      py::arg("q") = std::nullopt,
-      py::arg("scattering_radius") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("ejectile") = std::nullopt,
+      pybind11::arg("eliminated") = std::nullopt,
+      pybind11::arg("link"),
+      pybind11::arg("hard_sphere_radius") = std::nullopt,
+      pybind11::arg("q") = std::nullopt,
+      pybind11::arg("scattering_radius") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

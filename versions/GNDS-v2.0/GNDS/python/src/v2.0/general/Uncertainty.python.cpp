@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Uncertainty.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Uncertainty
-void wrapUncertainty(py::module &module)
+void wrapUncertainty(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapUncertainty(py::module &module)
    using cppCLASS = general::Uncertainty;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Uncertainty",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::Covariance> &,
          const std::optional<general::Standard> &,
          const std::optional<general::ListOfCovariances> &,
          const std::optional<reduced::Polynomial1d> &
       >(),
-      py::arg("covariance") = std::nullopt,
-      py::arg("standard") = std::nullopt,
-      py::arg("list_of_covariances") = std::nullopt,
-      py::arg("polynomial1d") = std::nullopt,
+      pybind11::arg("covariance") = std::nullopt,
+      pybind11::arg("standard") = std::nullopt,
+      pybind11::arg("list_of_covariances") = std::nullopt,
+      pybind11::arg("polynomial1d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

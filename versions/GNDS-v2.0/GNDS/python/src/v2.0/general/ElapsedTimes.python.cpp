@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ElapsedTimes.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ElapsedTimes
-void wrapElapsedTimes(py::module &module)
+void wrapElapsedTimes(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapElapsedTimes(py::module &module)
    using cppCLASS = general::ElapsedTimes;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ElapsedTimes",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<general::ElapsedTime> &
       >(),
-      py::arg("elapsed_time"),
+      pybind11::arg("elapsed_time"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

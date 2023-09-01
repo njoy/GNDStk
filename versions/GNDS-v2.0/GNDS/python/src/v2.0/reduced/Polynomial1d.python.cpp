@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/reduced/Polynomial1d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_reduced {
 
 // wrapper for reduced::Polynomial1d
-void wrapPolynomial1d(py::module &module)
+void wrapPolynomial1d(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapPolynomial1d(py::module &module)
    using cppCLASS = reduced::Polynomial1d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Polynomial1d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const double &,
          const double &,
          const general::Axes &,
          const general::Values &
       >(),
-      py::arg("domain_min"),
-      py::arg("domain_max"),
-      py::arg("axes"),
-      py::arg("values"),
+      pybind11::arg("domain_min"),
+      pybind11::arg("domain_max"),
+      pybind11::arg("axes"),
+      pybind11::arg("values"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

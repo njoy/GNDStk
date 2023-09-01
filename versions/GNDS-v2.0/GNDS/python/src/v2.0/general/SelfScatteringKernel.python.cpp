@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/SelfScatteringKernel.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::SelfScatteringKernel
-void wrapSelfScatteringKernel(py::module &module)
+void wrapSelfScatteringKernel(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapSelfScatteringKernel(py::module &module)
    using cppCLASS = general::SelfScatteringKernel;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "SelfScatteringKernel",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<bool> &,
          const std::optional<general::Gridded3d> &,
          const std::optional<general::SCTApproximation> &,
          const std::optional<general::FreeGasApproximation> &
       >(),
-      py::arg("symmetric") = std::nullopt,
-      py::arg("gridded3d") = std::nullopt,
-      py::arg("sctapproximation") = std::nullopt,
-      py::arg("free_gas_approximation") = std::nullopt,
+      pybind11::arg("symmetric") = std::nullopt,
+      pybind11::arg("gridded3d") = std::nullopt,
+      pybind11::arg("sctapproximation") = std::nullopt,
+      pybind11::arg("free_gas_approximation") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

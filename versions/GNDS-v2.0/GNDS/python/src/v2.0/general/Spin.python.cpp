@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Spin.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Spin
-void wrapSpin(py::module &module)
+void wrapSpin(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapSpin(py::module &module)
    using cppCLASS = general::Spin;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Spin",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::Fraction &
       >(),
-      py::arg("fraction"),
+      pybind11::arg("fraction"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

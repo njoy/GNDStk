@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/CoherentPhotonScattering.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::CoherentPhotonScattering
-void wrapCoherentPhotonScattering(py::module &module)
+void wrapCoherentPhotonScattering(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapCoherentPhotonScattering(py::module &module)
    using cppCLASS = general::CoherentPhotonScattering;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "CoherentPhotonScattering",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<std::string> &,
          const std::optional<std::string> &,
@@ -43,13 +40,13 @@ void wrapCoherentPhotonScattering(py::module &module)
          const std::optional<general::RealAnomalousFactor> &,
          const std::optional<general::ImaginaryAnomalousFactor> &
       >(),
-      py::arg("label"),
-      py::arg("href") = std::nullopt,
-      py::arg("pid") = std::nullopt,
-      py::arg("product_frame") = std::nullopt,
-      py::arg("form_factor") = std::nullopt,
-      py::arg("real_anomalous_factor") = std::nullopt,
-      py::arg("imaginary_anomalous_factor") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("pid") = std::nullopt,
+      pybind11::arg("product_frame") = std::nullopt,
+      pybind11::arg("form_factor") = std::nullopt,
+      pybind11::arg("real_anomalous_factor") = std::nullopt,
+      pybind11::arg("imaginary_anomalous_factor") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

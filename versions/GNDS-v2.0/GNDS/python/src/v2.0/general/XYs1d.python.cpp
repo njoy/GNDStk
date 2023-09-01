@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/XYs1d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::XYs1d
-void wrapXYs1d(py::module &module)
+void wrapXYs1d(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapXYs1d(py::module &module)
    using cppCLASS = general::XYs1d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "XYs1d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<int> &,
          const std::optional<std::string> &,
@@ -43,13 +40,13 @@ void wrapXYs1d(py::module &module)
          const general::Values &,
          const std::optional<general::Uncertainty> &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("index") = std::nullopt,
-      py::arg("interpolation") = std::nullopt,
-      py::arg("outer_domain_value") = std::nullopt,
-      py::arg("axes") = std::nullopt,
-      py::arg("values"),
-      py::arg("uncertainty") = std::nullopt,
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("index") = std::nullopt,
+      pybind11::arg("interpolation") = std::nullopt,
+      pybind11::arg("outer_domain_value") = std::nullopt,
+      pybind11::arg("axes") = std::nullopt,
+      pybind11::arg("values"),
+      pybind11::arg("uncertainty") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

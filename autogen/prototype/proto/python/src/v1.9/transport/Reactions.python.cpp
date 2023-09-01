@@ -10,14 +10,11 @@
 #include "proto/v1.9/transport/Reactions.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_transport {
 
 // wrapper for transport::Reactions
-void wrapReactions(py::module &module)
+void wrapReactions(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -26,17 +23,17 @@ void wrapReactions(py::module &module)
    using cppCLASS = transport::Reactions;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Reactions",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<transport::Reaction> &
       >(),
-      py::arg("reaction"),
+      pybind11::arg("reaction"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

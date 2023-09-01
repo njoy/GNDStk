@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/E_critical.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::E_critical
-void wrapE_critical(py::module &module)
+void wrapE_critical(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapE_critical(py::module &module)
    using cppCLASS = general::E_critical;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "E_critical",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const double &,
          const std::string &
       >(),
-      py::arg("value"),
-      py::arg("unit"),
+      pybind11::arg("value"),
+      pybind11::arg("unit"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

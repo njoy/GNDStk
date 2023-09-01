@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/BreitWigner.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::BreitWigner
-void wrapBreitWigner(py::module &module)
+void wrapBreitWigner(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapBreitWigner(py::module &module)
    using cppCLASS = general::BreitWigner;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "BreitWigner",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::optional<bool> &,
@@ -42,12 +39,12 @@ void wrapBreitWigner(py::module &module)
          const std::optional<top::PoPs> &,
          const std::optional<general::ScatteringRadius> &
       >(),
-      py::arg("label"),
-      py::arg("approximation"),
-      py::arg("calculate_channel_radius") = std::nullopt,
-      py::arg("resonance_parameters"),
-      py::arg("po_ps") = std::nullopt,
-      py::arg("scattering_radius") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("approximation"),
+      pybind11::arg("calculate_channel_radius") = std::nullopt,
+      pybind11::arg("resonance_parameters"),
+      pybind11::arg("po_ps") = std::nullopt,
+      pybind11::arg("scattering_radius") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

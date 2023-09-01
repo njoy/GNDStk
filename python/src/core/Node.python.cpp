@@ -6,19 +6,16 @@
 // local includes
 #include "GNDStk.hpp"
 
-// namespace aliases
-namespace python = pybind11;
-
 namespace python_core {
 
-void wrapNode(python::module &module)
+void wrapNode(pybind11::module &module)
 {
    // type aliases
    using Component = njoy::GNDStk::Node;
    using RefConstComponent = std::reference_wrapper< const Component >;
 
    // create the core component
-   python::class_< Component > component(
+   pybind11::class_< Component > component(
       module,
       "Node",
       "GNDS core node"
@@ -28,7 +25,7 @@ void wrapNode(python::module &module)
    component
       // add the default Node constructor to the python class
       .def(
-         python::init<>(),
+         pybind11::init<>(),
          "Initialise an empty node\n\n"
          "Arguments:\n"
          "    self   the node"
@@ -36,8 +33,8 @@ void wrapNode(python::module &module)
 
       // add the Node constructor using a string argument to the python class
       .def(
-         python::init<const std::string &>(),
-         python::arg("name"),
+         pybind11::init<const std::string &>(),
+         pybind11::arg("name"),
          "Initialise the node with its name\n\n"
          "Arguments:\n"
          "    self   the node\n"
@@ -46,8 +43,8 @@ void wrapNode(python::module &module)
 
       // add the copy constructor to the python class
       .def(
-         python::init<const Component &>(),
-         python::arg("name"),
+         pybind11::init<const Component &>(),
+         pybind11::arg("name"),
          "Initialise the node with a copy of a node\n\n"
          "Arguments:\n"
          "    self   the node\n"
@@ -91,7 +88,7 @@ void wrapNode(python::module &module)
          {
             return self.add(name,value);
          },
-         python::arg("name"), python::arg("value"),
+         pybind11::arg("name"), pybind11::arg("value"),
          "Add the name,value pair as metadata to the node.\n\n"
          "Arguments:\n"
          "    name    the name of the metadata\n"
@@ -107,7 +104,7 @@ void wrapNode(python::module &module)
          {
             return self.add(name,value);
          },
-         python::arg("name"), python::arg("value"),
+         pybind11::arg("name"), pybind11::arg("value"),
          "Add the name,value pair as metadata to the node.\n\n"
          "Arguments:\n"
          "    name    the name of the metadata\n"
@@ -123,7 +120,7 @@ void wrapNode(python::module &module)
          {
             return self.add(name,value);
          },
-         python::arg("name"), python::arg("value"),
+         pybind11::arg("name"), pybind11::arg("value"),
          "Add the name,value pair as metadata to the node.\n\n"
          "Arguments:\n"
          "    name    the name of the metadata\n"

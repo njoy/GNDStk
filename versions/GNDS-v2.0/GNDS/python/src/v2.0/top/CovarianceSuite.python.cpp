@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/top/CovarianceSuite.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_top {
 
 // wrapper for top::CovarianceSuite
-void wrapCovarianceSuite(py::module &module)
+void wrapCovarianceSuite(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapCovarianceSuite(py::module &module)
    using cppCLASS = top::CovarianceSuite;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "CovarianceSuite",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -45,15 +42,15 @@ void wrapCovarianceSuite(py::module &module)
          const std::optional<general::CovarianceSections> &,
          const std::optional<general::ParameterCovariances> &
       >(),
-      py::arg("projectile"),
-      py::arg("target"),
-      py::arg("evaluation"),
-      py::arg("interaction"),
-      py::arg("format"),
-      py::arg("external_files") = std::nullopt,
-      py::arg("styles"),
-      py::arg("covariance_sections") = std::nullopt,
-      py::arg("parameter_covariances") = std::nullopt,
+      pybind11::arg("projectile"),
+      pybind11::arg("target"),
+      pybind11::arg("evaluation"),
+      pybind11::arg("interaction"),
+      pybind11::arg("format"),
+      pybind11::arg("external_files") = std::nullopt,
+      pybind11::arg("styles"),
+      pybind11::arg("covariance_sections") = std::nullopt,
+      pybind11::arg("parameter_covariances") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

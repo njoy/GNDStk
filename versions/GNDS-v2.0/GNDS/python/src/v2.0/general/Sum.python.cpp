@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Sum.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Sum
-void wrapSum(py::module &module)
+void wrapSum(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapSum(py::module &module)
    using cppCLASS = general::Sum;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Sum",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<double> &,
          const std::optional<double> &,
          const std::optional<std::string> &,
          const std::vector<general::Summand> &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("domain_min") = std::nullopt,
-      py::arg("domain_max") = std::nullopt,
-      py::arg("domain_unit") = std::nullopt,
-      py::arg("summand"),
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("domain_min") = std::nullopt,
+      pybind11::arg("domain_max") = std::nullopt,
+      pybind11::arg("domain_unit") = std::nullopt,
+      pybind11::arg("summand"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

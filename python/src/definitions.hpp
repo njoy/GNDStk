@@ -9,9 +9,6 @@
 // other includes
 #include "GNDStk.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 /**
  *  @brief Add standard definitions for classes derived from GNDStk::Component.
  *
@@ -28,7 +25,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
 
    // constructor: default
    object.def(
-      py::init<>(),
+      pybind11::init<>(),
       "Initialise the object with its default contents.\n\n"
       "Arguments:\n"
       "    self    The object."
@@ -36,8 +33,8 @@ void addStandardComponentDefinitions(pyCLASS &object)
 
    // constructor: copy
    object.def(
-      py::init<const cppCLASS &>(),
-      py::arg("from"),
+      pybind11::init<const cppCLASS &>(),
+      pybind11::arg("from"),
       "Initialise the object with another instance.\n\n"
       "Arguments:\n"
       "    self    The object.\n"
@@ -75,7 +72,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       {
          self << string;
       },
-      py::arg("string"),
+      pybind11::arg("string"),
       "Read the object from an XML, JSON, or HDF5 string.\n"
       "An exception is raised if something fails during the read.\n\n"
       "Arguments:\n"
@@ -107,7 +104,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       {
          self.write(filename,"xml");
       },
-      py::arg("file"),
+      pybind11::arg("file"),
       "Write the object to an XML file.\n\n"
       "Arguments:\n"
       "    self    The object.\n"
@@ -140,7 +137,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       {
          self.write(filename,"json");
       },
-      py::arg("file"),
+      pybind11::arg("file"),
       "Write the object to a JSON file.\n\n"
       "Arguments:\n"
       "    self    The object.\n"
@@ -174,7 +171,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       {
          self.write(filename,"hdf5");
       },
-      py::arg("file"),
+      pybind11::arg("file"),
       "Write the object to an HDF5 file.\n\n"
       "Arguments:\n"
       "    self    The object.\n"
@@ -277,7 +274,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       {
          self.read(filename);
       },
-      py::arg("file"),
+      pybind11::arg("file"),
       "Read the object from a file. "
       "The file's type will be determined from its contents.\n\n"
       "Arguments:\n"
@@ -292,7 +289,7 @@ void addStandardComponentDefinitions(pyCLASS &object)
       {
          self.write(filename);
       },
-      py::arg("file"),
+      pybind11::arg("file"),
       "Write the object to a file. "
       "The file's type will be determined from its extension.\n\n"
       "Arguments:\n"

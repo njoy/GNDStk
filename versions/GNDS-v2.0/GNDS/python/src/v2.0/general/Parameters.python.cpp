@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Parameters.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Parameters
-void wrapParameters(py::module &module)
+void wrapParameters(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapParameters(py::module &module)
    using cppCLASS = general::Parameters;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Parameters",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<general::ParameterLink> &
       >(),
-      py::arg("parameter_link"),
+      pybind11::arg("parameter_link"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/DecayModes.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::DecayModes
-void wrapDecayModes(py::module &module)
+void wrapDecayModes(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapDecayModes(py::module &module)
    using cppCLASS = general::DecayModes;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "DecayModes",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<general::DecayMode> &
       >(),
-      py::arg("decay_mode"),
+      pybind11::arg("decay_mode"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

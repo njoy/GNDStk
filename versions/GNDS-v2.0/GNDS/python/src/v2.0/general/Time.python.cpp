@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Time.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Time
-void wrapTime(py::module &module)
+void wrapTime(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapTime(py::module &module)
    using cppCLASS = general::Time;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Time",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::Double> &,
          const std::optional<general::String> &
       >(),
-      py::arg("double") = std::nullopt,
-      py::arg("string") = std::nullopt,
+      pybind11::arg("double") = std::nullopt,
+      pybind11::arg("string") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

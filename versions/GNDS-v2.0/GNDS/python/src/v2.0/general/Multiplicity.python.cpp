@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Multiplicity.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Multiplicity
-void wrapMultiplicity(py::module &module)
+void wrapMultiplicity(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapMultiplicity(py::module &module)
    using cppCLASS = general::Multiplicity;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Multiplicity",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::Constant1d> &,
          const std::optional<general::XYs1d> &,
          const std::optional<general::Regions1d> &,
@@ -44,14 +41,14 @@ void wrapMultiplicity(py::module &module)
          const std::optional<general::Branching3d> &,
          const std::optional<general::Unspecified> &
       >(),
-      py::arg("constant1d") = std::nullopt,
-      py::arg("xys1d") = std::nullopt,
-      py::arg("regions1d") = std::nullopt,
-      py::arg("polynomial1d") = std::nullopt,
-      py::arg("reference") = std::nullopt,
-      py::arg("branching1d") = std::nullopt,
-      py::arg("branching3d") = std::nullopt,
-      py::arg("unspecified") = std::nullopt,
+      pybind11::arg("constant1d") = std::nullopt,
+      pybind11::arg("xys1d") = std::nullopt,
+      pybind11::arg("regions1d") = std::nullopt,
+      pybind11::arg("polynomial1d") = std::nullopt,
+      pybind11::arg("reference") = std::nullopt,
+      pybind11::arg("branching1d") = std::nullopt,
+      pybind11::arg("branching3d") = std::nullopt,
+      pybind11::arg("unspecified") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

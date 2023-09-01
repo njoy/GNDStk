@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/GaugeBoson.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::GaugeBoson
-void wrapGaugeBoson(py::module &module)
+void wrapGaugeBoson(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapGaugeBoson(py::module &module)
    using cppCLASS = general::GaugeBoson;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "GaugeBoson",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const general::Mass &,
          const general::Spin &,
@@ -42,12 +39,12 @@ void wrapGaugeBoson(py::module &module)
          const general::Charge &,
          const general::Halflife &
       >(),
-      py::arg("id"),
-      py::arg("mass"),
-      py::arg("spin"),
-      py::arg("parity"),
-      py::arg("charge"),
-      py::arg("halflife"),
+      pybind11::arg("id"),
+      pybind11::arg("mass"),
+      pybind11::arg("spin"),
+      pybind11::arg("parity"),
+      pybind11::arg("charge"),
+      pybind11::arg("halflife"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

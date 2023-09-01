@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/CoulombPlusNuclearElastic.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::CoulombPlusNuclearElastic
-void wrapCoulombPlusNuclearElastic(py::module &module)
+void wrapCoulombPlusNuclearElastic(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
    using cppCLASS = general::CoulombPlusNuclearElastic;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "CoulombPlusNuclearElastic",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<std::string> &,
          const std::optional<std::string> &,
@@ -44,14 +41,14 @@ void wrapCoulombPlusNuclearElastic(py::module &module)
          const std::optional<general::NuclearAmplitudeExpansion> &,
          const std::optional<general::NuclearPlusInterference> &
       >(),
-      py::arg("label"),
-      py::arg("href") = std::nullopt,
-      py::arg("pid") = std::nullopt,
-      py::arg("product_frame") = std::nullopt,
-      py::arg("identical_particles") = std::nullopt,
-      py::arg("rutherford_scattering") = std::nullopt,
-      py::arg("nuclear_amplitude_expansion") = std::nullopt,
-      py::arg("nuclear_plus_interference") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("pid") = std::nullopt,
+      pybind11::arg("product_frame") = std::nullopt,
+      pybind11::arg("identical_particles") = std::nullopt,
+      pybind11::arg("rutherford_scattering") = std::nullopt,
+      pybind11::arg("nuclear_amplitude_expansion") = std::nullopt,
+      pybind11::arg("nuclear_plus_interference") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

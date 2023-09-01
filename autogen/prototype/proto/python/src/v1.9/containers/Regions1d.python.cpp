@@ -10,14 +10,11 @@
 #include "proto/v1.9/containers/Regions1d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_containers {
 
 // wrapper for containers::Regions1d
-void wrapRegions1d(py::module &module)
+void wrapRegions1d(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -26,23 +23,23 @@ void wrapRegions1d(py::module &module)
    using cppCLASS = containers::Regions1d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Regions1d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<double> &,
          const std::optional<containers::Axes> &,
          const std::vector<containers::XYs1d> &
       >(),
-      py::arg("label") = std::nullopt,
-      py::arg("outer_domain_value") = std::nullopt,
-      py::arg("axes") = std::nullopt,
-      py::arg("xys1d"),
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("outer_domain_value") = std::nullopt,
+      pybind11::arg("axes") = std::nullopt,
+      pybind11::arg("xys1d"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/GeneralEvaporation.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::GeneralEvaporation
-void wrapGeneralEvaporation(py::module &module)
+void wrapGeneralEvaporation(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapGeneralEvaporation(py::module &module)
    using cppCLASS = general::GeneralEvaporation;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "GeneralEvaporation",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::U &,
          const general::Theta &,
          const general::G &
       >(),
-      py::arg("u"),
-      py::arg("theta"),
-      py::arg("g"),
+      pybind11::arg("u"),
+      pybind11::arg("theta"),
+      pybind11::arg("g"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

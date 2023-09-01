@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Angular.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Angular
-void wrapAngular(py::module &module)
+void wrapAngular(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapAngular(py::module &module)
    using cppCLASS = general::Angular;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Angular",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::Isotropic2d> &,
          const std::optional<general::XYs2d> &
       >(),
-      py::arg("isotropic2d") = std::nullopt,
-      py::arg("xys2d") = std::nullopt,
+      pybind11::arg("isotropic2d") = std::nullopt,
+      pybind11::arg("xys2d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

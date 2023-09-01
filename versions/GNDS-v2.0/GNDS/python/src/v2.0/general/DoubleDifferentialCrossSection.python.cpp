@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/DoubleDifferentialCrossSection.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::DoubleDifferentialCrossSection
-void wrapDoubleDifferentialCrossSection(py::module &module)
+void wrapDoubleDifferentialCrossSection(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
    using cppCLASS = general::DoubleDifferentialCrossSection;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "DoubleDifferentialCrossSection",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::CoulombPlusNuclearElastic> &,
          const std::optional<general::CoherentPhotonScattering> &,
          const std::optional<general::IncoherentPhotonScattering> &,
@@ -42,12 +39,12 @@ void wrapDoubleDifferentialCrossSection(py::module &module)
          const std::optional<general::ThermalNeutronScatteringLaw_incoherentElastic> &,
          const std::optional<general::ThermalNeutronScatteringLaw_incoherentInelastic> &
       >(),
-      py::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
-      py::arg("coherent_photon_scattering") = std::nullopt,
-      py::arg("incoherent_photon_scattering") = std::nullopt,
-      py::arg("thermal_neutron_scattering_law_coherent_elastic") = std::nullopt,
-      py::arg("thermal_neutron_scattering_law_incoherent_elastic") = std::nullopt,
-      py::arg("thermal_neutron_scattering_law_incoherent_inelastic") = std::nullopt,
+      pybind11::arg("coulomb_plus_nuclear_elastic") = std::nullopt,
+      pybind11::arg("coherent_photon_scattering") = std::nullopt,
+      pybind11::arg("incoherent_photon_scattering") = std::nullopt,
+      pybind11::arg("thermal_neutron_scattering_law_coherent_elastic") = std::nullopt,
+      pybind11::arg("thermal_neutron_scattering_law_incoherent_elastic") = std::nullopt,
+      pybind11::arg("thermal_neutron_scattering_law_incoherent_inelastic") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

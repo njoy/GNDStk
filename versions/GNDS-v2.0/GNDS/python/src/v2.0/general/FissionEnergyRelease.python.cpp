@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/FissionEnergyRelease.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::FissionEnergyRelease
-void wrapFissionEnergyRelease(py::module &module)
+void wrapFissionEnergyRelease(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapFissionEnergyRelease(py::module &module)
    using cppCLASS = general::FissionEnergyRelease;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "FissionEnergyRelease",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const general::PromptProductKE &,
          const general::PromptNeutronKE &,
@@ -46,16 +43,16 @@ void wrapFissionEnergyRelease(py::module &module)
          const general::NonNeutrinoEnergy &,
          const general::TotalEnergy &
       >(),
-      py::arg("label"),
-      py::arg("prompt_product_ke"),
-      py::arg("prompt_neutron_ke"),
-      py::arg("delayed_neutron_ke"),
-      py::arg("prompt_gamma_energy"),
-      py::arg("delayed_gamma_energy"),
-      py::arg("delayed_beta_energy"),
-      py::arg("neutrino_energy"),
-      py::arg("non_neutrino_energy"),
-      py::arg("total_energy"),
+      pybind11::arg("label"),
+      pybind11::arg("prompt_product_ke"),
+      pybind11::arg("prompt_neutron_ke"),
+      pybind11::arg("delayed_neutron_ke"),
+      pybind11::arg("prompt_gamma_energy"),
+      pybind11::arg("delayed_gamma_energy"),
+      pybind11::arg("delayed_beta_energy"),
+      pybind11::arg("neutrino_energy"),
+      pybind11::arg("non_neutrino_energy"),
+      pybind11::arg("total_energy"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

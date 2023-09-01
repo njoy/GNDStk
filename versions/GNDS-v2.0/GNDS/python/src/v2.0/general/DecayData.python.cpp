@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/DecayData.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::DecayData
-void wrapDecayData(py::module &module)
+void wrapDecayData(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapDecayData(py::module &module)
    using cppCLASS = general::DecayData;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "DecayData",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const general::DecayModes &,
          const std::optional<general::AverageEnergies> &
       >(),
-      py::arg("decay_modes"),
-      py::arg("average_energies") = std::nullopt,
+      pybind11::arg("decay_modes"),
+      pybind11::arg("average_energies") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

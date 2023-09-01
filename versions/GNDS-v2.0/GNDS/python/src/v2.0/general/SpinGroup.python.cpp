@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/SpinGroup.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::SpinGroup
-void wrapSpinGroup(py::module &module)
+void wrapSpinGroup(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapSpinGroup(py::module &module)
    using cppCLASS = general::SpinGroup;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "SpinGroup",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const int &,
          const general::Channels &,
          const general::ResonanceParameters &
       >(),
-      py::arg("label"),
-      py::arg("spin"),
-      py::arg("parity"),
-      py::arg("channels"),
-      py::arg("resonance_parameters"),
+      pybind11::arg("label"),
+      pybind11::arg("spin"),
+      pybind11::arg("parity"),
+      pybind11::arg("channels"),
+      pybind11::arg("resonance_parameters"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

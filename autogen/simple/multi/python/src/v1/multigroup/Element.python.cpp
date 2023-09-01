@@ -10,14 +10,11 @@
 #include "multi/v1/multigroup/Element.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1 {
 namespace python_multigroup {
 
 // wrapper for multigroup::Element
-void wrapElement(py::module &module)
+void wrapElement(pybind11::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
@@ -26,23 +23,23 @@ void wrapElement(py::module &module)
    using cppCLASS = multigroup::Element;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Element",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const int &,
          const std::vector<multigroup::Isotope> &,
          const std::optional<multigroup::Foobar> &
       >(),
-      py::arg("symbol") = std::nullopt,
-      py::arg("atomic_number"),
-      py::arg("isotope"),
-      py::arg("foobar") = std::nullopt,
+      pybind11::arg("symbol") = std::nullopt,
+      pybind11::arg("atomic_number"),
+      pybind11::arg("isotope"),
+      pybind11::arg("foobar") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

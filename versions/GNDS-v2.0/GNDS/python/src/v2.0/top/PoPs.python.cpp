@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/top/PoPs.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_top {
 
 // wrapper for top::PoPs
-void wrapPoPs(py::module &module)
+void wrapPoPs(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapPoPs(py::module &module)
    using cppCLASS = top::PoPs;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "PoPs",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -46,16 +43,16 @@ void wrapPoPs(py::module &module)
          const std::optional<general::GaugeBosons> &,
          const std::optional<general::Leptons> &
       >(),
-      py::arg("name"),
-      py::arg("version"),
-      py::arg("format"),
-      py::arg("aliases") = std::nullopt,
-      py::arg("baryons") = std::nullopt,
-      py::arg("chemical_elements") = std::nullopt,
-      py::arg("styles") = std::nullopt,
-      py::arg("unorthodoxes") = std::nullopt,
-      py::arg("gauge_bosons") = std::nullopt,
-      py::arg("leptons") = std::nullopt,
+      pybind11::arg("name"),
+      pybind11::arg("version"),
+      pybind11::arg("format"),
+      pybind11::arg("aliases") = std::nullopt,
+      pybind11::arg("baryons") = std::nullopt,
+      pybind11::arg("chemical_elements") = std::nullopt,
+      pybind11::arg("styles") = std::nullopt,
+      pybind11::arg("unorthodoxes") = std::nullopt,
+      pybind11::arg("gauge_bosons") = std::nullopt,
+      pybind11::arg("leptons") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

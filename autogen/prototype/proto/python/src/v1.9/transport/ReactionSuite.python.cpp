@@ -10,14 +10,11 @@
 #include "proto/v1.9/transport/ReactionSuite.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_transport {
 
 // wrapper for transport::ReactionSuite
-void wrapReactionSuite(py::module &module)
+void wrapReactionSuite(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -26,14 +23,14 @@ void wrapReactionSuite(py::module &module)
    using cppCLASS = transport::ReactionSuite;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ReactionSuite",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -42,13 +39,13 @@ void wrapReactionSuite(py::module &module)
          const std::optional<enums::Interaction> &,
          const std::optional<transport::Reactions> &
       >(),
-      py::arg("evaluation"),
-      py::arg("format"),
-      py::arg("projectile"),
-      py::arg("projectile_frame"),
-      py::arg("target"),
-      py::arg("interaction") = std::nullopt,
-      py::arg("reactions") = std::nullopt,
+      pybind11::arg("evaluation"),
+      pybind11::arg("format"),
+      pybind11::arg("projectile"),
+      pybind11::arg("projectile_frame"),
+      pybind11::arg("target"),
+      pybind11::arg("interaction") = std::nullopt,
+      pybind11::arg("reactions") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

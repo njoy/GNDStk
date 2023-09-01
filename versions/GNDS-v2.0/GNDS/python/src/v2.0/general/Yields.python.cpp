@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Yields.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Yields
-void wrapYields(py::module &module)
+void wrapYields(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapYields(py::module &module)
    using cppCLASS = general::Yields;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Yields",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const reduced::Nuclides &,
          const general::Values &,
          const general::Uncertainty &
       >(),
-      py::arg("nuclides"),
-      py::arg("values"),
-      py::arg("uncertainty"),
+      pybind11::arg("nuclides"),
+      pybind11::arg("values"),
+      pybind11::arg("uncertainty"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

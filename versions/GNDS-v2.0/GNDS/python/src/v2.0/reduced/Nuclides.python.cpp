@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/reduced/Nuclides.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_reduced {
 
 // wrapper for reduced::Nuclides
-void wrapNuclides(py::module &module)
+void wrapNuclides(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,26 +24,26 @@ void wrapNuclides(py::module &module)
    using cppCLASS = reduced::Nuclides;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Nuclides",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &
       >(),
-      py::arg("href") = std::nullopt,
+      pybind11::arg("href") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 
    // constructor: from vector
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<std::string> &
       >(),
-      py::arg("strings"),
+      pybind11::arg("strings"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

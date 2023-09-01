@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Unorthodox.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Unorthodox
-void wrapUnorthodox(py::module &module)
+void wrapUnorthodox(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapUnorthodox(py::module &module)
    using cppCLASS = general::Unorthodox;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Unorthodox",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const general::Mass &
       >(),
-      py::arg("id"),
-      py::arg("mass"),
+      pybind11::arg("id"),
+      pybind11::arg("mass"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Uncorrelated.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Uncorrelated
-void wrapUncorrelated(py::module &module)
+void wrapUncorrelated(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapUncorrelated(py::module &module)
    using cppCLASS = general::Uncorrelated;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Uncorrelated",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const general::Angular &,
          const general::Energy &
       >(),
-      py::arg("label"),
-      py::arg("product_frame"),
-      py::arg("angular"),
-      py::arg("energy"),
+      pybind11::arg("label"),
+      pybind11::arg("product_frame"),
+      pybind11::arg("angular"),
+      pybind11::arg("energy"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

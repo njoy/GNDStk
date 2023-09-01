@@ -10,14 +10,11 @@
 #include "proto/v1.9/containers/Values.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_containers {
 
 // wrapper for containers::Values
-void wrapValues(py::module &module)
+void wrapValues(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -26,48 +23,48 @@ void wrapValues(py::module &module)
    using cppCLASS = containers::Values;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Values",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<int> &,
          const std::optional<int> &
       >(),
-      py::arg("value_type") = std::nullopt,
-      py::arg("start") = std::nullopt,
-      py::arg("length") = std::nullopt,
+      pybind11::arg("value_type") = std::nullopt,
+      pybind11::arg("start") = std::nullopt,
+      pybind11::arg("length") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 
    // constructor: from vector
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<int> &
       >(),
-      py::arg("ints"),
+      pybind11::arg("ints"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 
    // constructor: from vector
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<double> &
       >(),
-      py::arg("doubles"),
+      pybind11::arg("doubles"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 
    // constructor: from vector
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<std::string> &
       >(),
-      py::arg("strings"),
+      pybind11::arg("strings"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

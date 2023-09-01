@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Link.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Link
-void wrapLink(py::module &module)
+void wrapLink(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapLink(py::module &module)
    using cppCLASS = general::Link;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Link",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &
       >(),
-      py::arg("href"),
+      pybind11::arg("href"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

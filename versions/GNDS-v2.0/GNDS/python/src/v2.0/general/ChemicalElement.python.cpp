@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ChemicalElement.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ChemicalElement
-void wrapChemicalElement(py::module &module)
+void wrapChemicalElement(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,25 +24,25 @@ void wrapChemicalElement(py::module &module)
    using cppCLASS = general::ChemicalElement;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ChemicalElement",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const std::string &,
          const std::optional<general::Atomic> &,
          const std::optional<general::Isotopes> &
       >(),
-      py::arg("symbol"),
-      py::arg("z"),
-      py::arg("name"),
-      py::arg("atomic") = std::nullopt,
-      py::arg("isotopes") = std::nullopt,
+      pybind11::arg("symbol"),
+      pybind11::arg("z"),
+      pybind11::arg("name"),
+      pybind11::arg("atomic") = std::nullopt,
+      pybind11::arg("isotopes") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

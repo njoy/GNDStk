@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/XYs3d.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::XYs3d
-void wrapXYs3d(py::module &module)
+void wrapXYs3d(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapXYs3d(py::module &module)
    using cppCLASS = general::XYs3d;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "XYs3d",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<general::Axes> &,
          const std::vector<general::Function2ds> &
       >(),
-      py::arg("interpolation_qualifier") = std::nullopt,
-      py::arg("axes") = std::nullopt,
-      py::arg("function2ds"),
+      pybind11::arg("interpolation_qualifier") = std::nullopt,
+      pybind11::arg("axes") = std::nullopt,
+      pybind11::arg("function2ds"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

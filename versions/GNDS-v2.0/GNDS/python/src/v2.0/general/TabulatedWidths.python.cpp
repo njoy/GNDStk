@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/TabulatedWidths.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::TabulatedWidths
-void wrapTabulatedWidths(py::module &module)
+void wrapTabulatedWidths(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapTabulatedWidths(py::module &module)
    using cppCLASS = general::TabulatedWidths;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "TabulatedWidths",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::optional<bool> &,
@@ -43,13 +40,13 @@ void wrapTabulatedWidths(py::module &module)
          const std::optional<top::PoPs> &,
          const std::optional<general::ScatteringRadius> &
       >(),
-      py::arg("label"),
-      py::arg("approximation"),
-      py::arg("use_for_self_shielding_only") = std::nullopt,
-      py::arg("resonance_reactions"),
-      py::arg("ls"),
-      py::arg("po_ps") = std::nullopt,
-      py::arg("scattering_radius") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("approximation"),
+      pybind11::arg("use_for_self_shielding_only") = std::nullopt,
+      pybind11::arg("resonance_reactions"),
+      pybind11::arg("ls"),
+      pybind11::arg("po_ps") = std::nullopt,
+      pybind11::arg("scattering_radius") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

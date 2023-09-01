@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Grid.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Grid
-void wrapGrid(py::module &module)
+void wrapGrid(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapGrid(py::module &module)
    using cppCLASS = general::Grid;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Grid",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const int &,
          const std::string &,
          const std::string &,
@@ -43,13 +40,13 @@ void wrapGrid(py::module &module)
          const std::optional<general::Link> &,
          const std::optional<general::Values> &
       >(),
-      py::arg("index"),
-      py::arg("label"),
-      py::arg("unit"),
-      py::arg("style"),
-      py::arg("interpolation") = std::nullopt,
-      py::arg("link") = std::nullopt,
-      py::arg("values") = std::nullopt,
+      pybind11::arg("index"),
+      pybind11::arg("label"),
+      pybind11::arg("unit"),
+      pybind11::arg("style"),
+      pybind11::arg("interpolation") = std::nullopt,
+      pybind11::arg("link") = std::nullopt,
+      pybind11::arg("values") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

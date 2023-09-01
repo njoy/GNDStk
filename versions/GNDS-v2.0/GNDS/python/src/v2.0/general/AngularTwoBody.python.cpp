@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/AngularTwoBody.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::AngularTwoBody
-void wrapAngularTwoBody(py::module &module)
+void wrapAngularTwoBody(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapAngularTwoBody(py::module &module)
    using cppCLASS = general::AngularTwoBody;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "AngularTwoBody",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::optional<general::XYs2d> &,
@@ -42,12 +39,12 @@ void wrapAngularTwoBody(py::module &module)
          const std::optional<general::Recoil> &,
          const std::optional<general::Isotropic2d> &
       >(),
-      py::arg("label"),
-      py::arg("product_frame"),
-      py::arg("xys2d") = std::nullopt,
-      py::arg("regions2d") = std::nullopt,
-      py::arg("recoil") = std::nullopt,
-      py::arg("isotropic2d") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("product_frame"),
+      pybind11::arg("xys2d") = std::nullopt,
+      pybind11::arg("regions2d") = std::nullopt,
+      pybind11::arg("recoil") = std::nullopt,
+      pybind11::arg("isotropic2d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

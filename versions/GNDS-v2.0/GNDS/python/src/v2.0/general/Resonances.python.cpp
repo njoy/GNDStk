@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Resonances.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Resonances
-void wrapResonances(py::module &module)
+void wrapResonances(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapResonances(py::module &module)
    using cppCLASS = general::Resonances;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Resonances",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<general::ScatteringRadius> &,
          const std::optional<general::Resolved> &,
          const std::optional<general::Unresolved> &
       >(),
-      py::arg("href") = std::nullopt,
-      py::arg("scattering_radius") = std::nullopt,
-      py::arg("resolved") = std::nullopt,
-      py::arg("unresolved") = std::nullopt,
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("scattering_radius") = std::nullopt,
+      pybind11::arg("resolved") = std::nullopt,
+      pybind11::arg("unresolved") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

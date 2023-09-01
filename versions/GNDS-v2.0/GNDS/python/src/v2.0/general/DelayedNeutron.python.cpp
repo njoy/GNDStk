@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/DelayedNeutron.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::DelayedNeutron
-void wrapDelayedNeutron(py::module &module)
+void wrapDelayedNeutron(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapDelayedNeutron(py::module &module)
    using cppCLASS = general::DelayedNeutron;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "DelayedNeutron",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const general::Rate &,
          const reduced::Product &
       >(),
-      py::arg("label"),
-      py::arg("rate"),
-      py::arg("product"),
+      pybind11::arg("label"),
+      pybind11::arg("rate"),
+      pybind11::arg("product"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

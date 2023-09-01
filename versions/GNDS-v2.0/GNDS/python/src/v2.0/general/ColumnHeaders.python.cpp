@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ColumnHeaders.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ColumnHeaders
-void wrapColumnHeaders(py::module &module)
+void wrapColumnHeaders(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,17 +24,17 @@ void wrapColumnHeaders(py::module &module)
    using cppCLASS = general::ColumnHeaders;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ColumnHeaders",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::vector<general::Column> &
       >(),
-      py::arg("column"),
+      pybind11::arg("column"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

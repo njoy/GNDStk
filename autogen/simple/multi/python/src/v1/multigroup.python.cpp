@@ -5,25 +5,23 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 
-namespace py = pybind11;
-
 // v1 interface
 namespace python_v1 {
 
 // multigroup declarations
 namespace python_multigroup {
-   void wrapIsotope(py::module &);
-   void wrapFoobar(py::module &);
-   void wrapElement(py::module &);
-   void wrapLibrary(py::module &);
-   void wrapMultigroup(py::module &);
+   void wrapIsotope(pybind11::module &);
+   void wrapFoobar(pybind11::module &);
+   void wrapElement(pybind11::module &);
+   void wrapLibrary(pybind11::module &);
+   void wrapMultigroup(pybind11::module &);
 } // namespace python_multigroup
 
 // wrapper for multigroup
-void wrapMultigroup(py::module &module)
+void wrapMultigroup(pybind11::module &module)
 {
    // create the multigroup submodule
-   py::module submodule = module.def_submodule(
+   pybind11::module submodule = module.def_submodule(
       "multigroup",
       "multi v1 multigroup"
    );

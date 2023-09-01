@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Production.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Production
-void wrapProduction(py::module &module)
+void wrapProduction(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapProduction(py::module &module)
    using cppCLASS = general::Production;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Production",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const general::CrossSection &,
          const general::OutputChannel &
       >(),
-      py::arg("label"),
-      py::arg("endf_mt"),
-      py::arg("cross_section"),
-      py::arg("output_channel"),
+      pybind11::arg("label"),
+      pybind11::arg("endf_mt"),
+      pybind11::arg("cross_section"),
+      pybind11::arg("output_channel"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

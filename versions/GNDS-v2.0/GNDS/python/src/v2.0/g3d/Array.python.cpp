@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/g3d/Array.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_g3d {
 
 // wrapper for g3d::Array
-void wrapArray(py::module &module)
+void wrapArray(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapArray(py::module &module)
    using cppCLASS = g3d::Array;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Array",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::optional<std::string> &,
          const std::optional<std::string> &,
@@ -42,12 +39,12 @@ void wrapArray(py::module &module)
          const std::optional<g3d::Lengths> &,
          const general::Values &
       >(),
-      py::arg("shape"),
-      py::arg("compression") = std::nullopt,
-      py::arg("symmetry") = std::nullopt,
-      py::arg("starts") = std::nullopt,
-      py::arg("lengths") = std::nullopt,
-      py::arg("values"),
+      pybind11::arg("shape"),
+      pybind11::arg("compression") = std::nullopt,
+      pybind11::arg("symmetry") = std::nullopt,
+      pybind11::arg("starts") = std::nullopt,
+      pybind11::arg("lengths") = std::nullopt,
+      pybind11::arg("values"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Width.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Width
-void wrapWidth(py::module &module)
+void wrapWidth(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapWidth(py::module &module)
    using cppCLASS = general::Width;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Width",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const int &,
@@ -42,12 +39,12 @@ void wrapWidth(py::module &module)
          const std::optional<general::Constant1d> &,
          const std::optional<general::Regions1d> &
       >(),
-      py::arg("label"),
-      py::arg("resonance_reaction"),
-      py::arg("degrees_of_freedom"),
-      py::arg("xys1d") = std::nullopt,
-      py::arg("constant1d") = std::nullopt,
-      py::arg("regions1d") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("resonance_reaction"),
+      pybind11::arg("degrees_of_freedom"),
+      pybind11::arg("xys1d") = std::nullopt,
+      pybind11::arg("constant1d") = std::nullopt,
+      pybind11::arg("regions1d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

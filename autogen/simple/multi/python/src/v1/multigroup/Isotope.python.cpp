@@ -10,14 +10,11 @@
 #include "multi/v1/multigroup/Isotope.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1 {
 namespace python_multigroup {
 
 // wrapper for multigroup::Isotope
-void wrapIsotope(py::module &module)
+void wrapIsotope(pybind11::module &module)
 {
    using namespace multi;
    using namespace multi::v1;
@@ -26,17 +23,17 @@ void wrapIsotope(py::module &module)
    using cppCLASS = multigroup::Isotope;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Isotope",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const int &
       >(),
-      py::arg("mass_number"),
+      pybind11::arg("mass_number"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ScatteringAtom.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ScatteringAtom
-void wrapScatteringAtom(py::module &module)
+void wrapScatteringAtom(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapScatteringAtom(py::module &module)
    using cppCLASS = general::ScatteringAtom;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ScatteringAtom",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const int &,
          const std::optional<bool> &,
@@ -45,15 +42,15 @@ void wrapScatteringAtom(py::module &module)
          const general::SelfScatteringKernel &,
          const std::optional<general::T_effective> &
       >(),
-      py::arg("pid"),
-      py::arg("number_per_molecule"),
-      py::arg("primary_scatterer") = std::nullopt,
-      py::arg("mass"),
-      py::arg("e_critical") = std::nullopt,
-      py::arg("e_max"),
-      py::arg("bound_atom_cross_section"),
-      py::arg("self_scattering_kernel"),
-      py::arg("t_effective") = std::nullopt,
+      pybind11::arg("pid"),
+      pybind11::arg("number_per_molecule"),
+      pybind11::arg("primary_scatterer") = std::nullopt,
+      pybind11::arg("mass"),
+      pybind11::arg("e_critical") = std::nullopt,
+      pybind11::arg("e_max"),
+      pybind11::arg("bound_atom_cross_section"),
+      pybind11::arg("self_scattering_kernel"),
+      pybind11::arg("t_effective") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

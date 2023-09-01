@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ExternalFile.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ExternalFile
-void wrapExternalFile(py::module &module)
+void wrapExternalFile(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapExternalFile(py::module &module)
    using cppCLASS = general::ExternalFile;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ExternalFile",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::optional<std::string> &,
          const std::optional<std::string> &
       >(),
-      py::arg("label"),
-      py::arg("path"),
-      py::arg("checksum") = std::nullopt,
-      py::arg("algorithm") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("path"),
+      pybind11::arg("checksum") = std::nullopt,
+      pybind11::arg("algorithm") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

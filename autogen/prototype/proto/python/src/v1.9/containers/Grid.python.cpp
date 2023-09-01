@@ -10,14 +10,11 @@
 #include "proto/v1.9/containers/Grid.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_containers {
 
 // wrapper for containers::Grid
-void wrapGrid(py::module &module)
+void wrapGrid(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -30,14 +27,14 @@ void wrapGrid(py::module &module)
    >;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Grid",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<int> &,
          const std::optional<enums::Interpolation> &,
          const std::optional<std::string> &,
@@ -45,12 +42,12 @@ void wrapGrid(py::module &module)
          const std::optional<std::string> &,
          const link_values_t &
       >(),
-      py::arg("index") = std::nullopt,
-      py::arg("interpolation") = std::nullopt,
-      py::arg("label") = std::nullopt,
-      py::arg("style") = std::nullopt,
-      py::arg("unit") = std::nullopt,
-      py::arg("link_values"),
+      pybind11::arg("index") = std::nullopt,
+      pybind11::arg("interpolation") = std::nullopt,
+      pybind11::arg("label") = std::nullopt,
+      pybind11::arg("style") = std::nullopt,
+      pybind11::arg("unit") = std::nullopt,
+      pybind11::arg("link_values"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

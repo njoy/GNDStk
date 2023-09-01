@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ScatteringRadius.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ScatteringRadius
-void wrapScatteringRadius(py::module &module)
+void wrapScatteringRadius(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,19 +24,19 @@ void wrapScatteringRadius(py::module &module)
    using cppCLASS = general::ScatteringRadius;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ScatteringRadius",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::Constant1d> &,
          const std::optional<general::XYs1d> &
       >(),
-      py::arg("constant1d") = std::nullopt,
-      py::arg("xys1d") = std::nullopt,
+      pybind11::arg("constant1d") = std::nullopt,
+      pybind11::arg("xys1d") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

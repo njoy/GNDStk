@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Mixed.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Mixed
-void wrapMixed(py::module &module)
+void wrapMixed(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,23 +24,23 @@ void wrapMixed(py::module &module)
    using cppCLASS = general::Mixed;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Mixed",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::vector<general::CovarianceMatrix> &,
          const std::optional<std::vector<general::Sum>> &,
          const std::optional<general::ShortRangeSelfScalingVariance> &
       >(),
-      py::arg("label"),
-      py::arg("covariance_matrix"),
-      py::arg("sum") = std::nullopt,
-      py::arg("short_range_self_scaling_variance") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("covariance_matrix"),
+      pybind11::arg("sum") = std::nullopt,
+      pybind11::arg("short_range_self_scaling_variance") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

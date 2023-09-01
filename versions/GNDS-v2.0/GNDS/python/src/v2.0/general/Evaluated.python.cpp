@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/Evaluated.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::Evaluated
-void wrapEvaluated(py::module &module)
+void wrapEvaluated(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,14 +24,14 @@ void wrapEvaluated(py::module &module)
    using cppCLASS = general::Evaluated;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Evaluated",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const std::string &,
@@ -43,13 +40,13 @@ void wrapEvaluated(py::module &module)
          const std::optional<general::Temperature> &,
          const std::optional<general::ProjectileEnergyDomain> &
       >(),
-      py::arg("label"),
-      py::arg("date"),
-      py::arg("library"),
-      py::arg("version"),
-      py::arg("documentation"),
-      py::arg("temperature") = std::nullopt,
-      py::arg("projectile_energy_domain") = std::nullopt,
+      pybind11::arg("label"),
+      pybind11::arg("date"),
+      pybind11::arg("library"),
+      pybind11::arg("version"),
+      pybind11::arg("documentation"),
+      pybind11::arg("temperature") = std::nullopt,
+      pybind11::arg("projectile_energy_domain") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

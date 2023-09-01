@@ -10,14 +10,11 @@
 #include "proto/v1.9/containers/Link.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_v1_9 {
 namespace python_containers {
 
 // wrapper for containers::Link
-void wrapLink(py::module &module)
+void wrapLink(pybind11::module &module)
 {
    using namespace proto;
    using namespace proto::v1_9;
@@ -26,17 +23,17 @@ void wrapLink(py::module &module)
    using cppCLASS = containers::Link;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "Link",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &
       >(),
-      py::arg("href"),
+      pybind11::arg("href"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

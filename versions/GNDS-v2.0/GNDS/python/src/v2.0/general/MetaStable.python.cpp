@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/MetaStable.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::MetaStable
-void wrapMetaStable(py::module &module)
+void wrapMetaStable(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapMetaStable(py::module &module)
    using cppCLASS = general::MetaStable;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "MetaStable",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::string &,
          const std::string &,
          const int &
       >(),
-      py::arg("id"),
-      py::arg("pid"),
-      py::arg("meta_stable_index"),
+      pybind11::arg("id"),
+      pybind11::arg("pid"),
+      pybind11::arg("meta_stable_index"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 

@@ -7,14 +7,11 @@
 #include "GNDStk.hpp"
 #include "GNDS/v2.0.hpp"
 
-// namespace aliases
-namespace python = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_enums {
 
-void wrapInterpolation( python::module& module ) {
+void wrapInterpolation( pybind11::module& module ) {
 
   // type aliases
   using Component = GNDS::v2_0::enums::Interpolation;
@@ -22,12 +19,12 @@ void wrapInterpolation( python::module& module ) {
   // wrap views created by this component
 
   // create the component
-  python::enum_< Component > component(
+  pybind11::enum_< Component > component(
 
     module,
     "Interpolation",
     "Enumeration class giving acceptable interpolation values",
-    python::arithmetic()
+    pybind11::arithmetic()
   );
 
   // wrap the component

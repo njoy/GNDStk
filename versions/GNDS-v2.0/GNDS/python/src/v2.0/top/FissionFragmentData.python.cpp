@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/top/FissionFragmentData.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_top {
 
 // wrapper for top::FissionFragmentData
-void wrapFissionFragmentData(py::module &module)
+void wrapFissionFragmentData(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapFissionFragmentData(py::module &module)
    using cppCLASS = top::FissionFragmentData;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "FissionFragmentData",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<general::ProductYields> &,
          const std::optional<general::DelayedNeutrons> &,
          const std::optional<general::FissionEnergyReleases> &
       >(),
-      py::arg("product_yields") = std::nullopt,
-      py::arg("delayed_neutrons") = std::nullopt,
-      py::arg("fission_energy_releases") = std::nullopt,
+      pybind11::arg("product_yields") = std::nullopt,
+      pybind11::arg("delayed_neutrons") = std::nullopt,
+      pybind11::arg("fission_energy_releases") = std::nullopt,
       cppCLASS::component_t::documentation("constructor").data()
    );
 

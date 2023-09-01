@@ -10,15 +10,12 @@
 #include "GNDS/v2.0/general/ENDFconversionFlags.hpp"
 #include "definitions.hpp"
 
-// namespace aliases
-namespace py = pybind11;
-
 namespace python_GNDS {
 namespace python_v2_0 {
 namespace python_general {
 
 // wrapper for general::ENDFconversionFlags
-void wrapENDFconversionFlags(py::module &module)
+void wrapENDFconversionFlags(pybind11::module &module)
 {
    using namespace GNDS;
    using namespace GNDS::v2_0;
@@ -27,21 +24,21 @@ void wrapENDFconversionFlags(py::module &module)
    using cppCLASS = general::ENDFconversionFlags;
 
    // create the Python object
-   py::class_<cppCLASS> object(
+   pybind11::class_<cppCLASS> object(
       module, "ENDFconversionFlags",
       cppCLASS::component_t::documentation().data()
    );
 
    // constructor: from fields
    object.def(
-      py::init<
+      pybind11::init<
          const std::optional<std::string> &,
          const std::optional<std::string> &,
          const std::vector<general::Conversion> &
       >(),
-      py::arg("flags") = std::nullopt,
-      py::arg("href") = std::nullopt,
-      py::arg("conversion"),
+      pybind11::arg("flags") = std::nullopt,
+      pybind11::arg("href") = std::nullopt,
+      pybind11::arg("conversion"),
       cppCLASS::component_t::documentation("constructor").data()
    );
 
