@@ -58,6 +58,16 @@ namespace python_core {
 // v2.0 interface declarations
 // -----------------------------------------------------------------------------
 
+// fixme
+// I think something is conceptually backwards here. Rather than GNDStk's Python
+// bindings wrapping (and thus essentially containing) GNDS 2.0's, we should
+// probably have GNDS 2.0's python bindings wrap GNDStk's. With this current
+// scheme, if we use the GNDStk Code Generator to make code for some totally
+// different library (unrelated to GNDS proper), then containing GNDStk's python
+// bindings in that library's python bindings is probably the right thing to do
+// (after all, GNDStk forms the basis of the library's functionality), but we'd
+// pick up "GNDS 2.0" in the process - which would be a bit odd, for some other
+// library than GNDS 2.0.
 namespace python_GNDS {
    void wrapV2_0(pybind11::module &);
 }
