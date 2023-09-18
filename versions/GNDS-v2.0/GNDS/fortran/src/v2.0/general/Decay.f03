@@ -45,7 +45,7 @@ function DecayCreateConst( &
    integer(c_int), value, intent(in) :: index
    integer(c_size_t), intent(in), value :: modeSize
    character(c_char), intent(in) :: mode(modeSize)
-   unknownType, value, intent(in) :: complete
+   integer(c_bool), value, intent(in) :: complete
    type(c_ptr), value :: products
    type(c_ptr) :: handle
 end function DecayCreateConst
@@ -65,7 +65,7 @@ function DecayCreate( &
    integer(c_int), value, intent(in) :: index
    integer(c_size_t), intent(in), value :: modeSize
    character(c_char), intent(in) :: mode(modeSize)
-   unknownType, value, intent(in) :: complete
+   integer(c_bool), value, intent(in) :: complete
    type(c_ptr), value :: products
    type(c_ptr) :: handle
 end function DecayCreate
@@ -239,7 +239,7 @@ function DecayCompleteGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: complete
+   integer(c_bool) :: complete
 end function DecayCompleteGet
 
 !! Set

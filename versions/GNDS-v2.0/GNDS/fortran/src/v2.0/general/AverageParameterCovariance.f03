@@ -45,7 +45,7 @@ function AverageParameterCovarianceCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   unknownType, value, intent(in) :: crossTerm
+   integer(c_bool), value, intent(in) :: crossTerm
    type(c_ptr), value :: covarianceMatrix
    type(c_ptr), value :: rowData
    type(c_ptr), value :: columnData
@@ -67,7 +67,7 @@ function AverageParameterCovarianceCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   unknownType, value, intent(in) :: crossTerm
+   integer(c_bool), value, intent(in) :: crossTerm
    type(c_ptr), value :: covarianceMatrix
    type(c_ptr), value :: rowData
    type(c_ptr), value :: columnData
@@ -208,7 +208,7 @@ function AverageParameterCovarianceCrossTermGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: crossTerm
+   integer(c_bool) :: crossTerm
 end function AverageParameterCovarianceCrossTermGet
 
 !! Set

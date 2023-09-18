@@ -316,7 +316,7 @@ function ScatteringAtomsScatteringAtomHasByPrimaryScatterer(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    integer(c_int) :: has
 end function ScatteringAtomsScatteringAtomHasByPrimaryScatterer
 
@@ -327,7 +327,7 @@ function ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function ScatteringAtomsScatteringAtomGetByPrimaryScattererConst
 
@@ -338,7 +338,7 @@ function ScatteringAtomsScatteringAtomGetByPrimaryScatterer(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function ScatteringAtomsScatteringAtomGetByPrimaryScatterer
 
@@ -348,7 +348,7 @@ subroutine ScatteringAtomsScatteringAtomSetByPrimaryScatterer(handle, meta, fiel
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomsScatteringAtomSetByPrimaryScatterer
 

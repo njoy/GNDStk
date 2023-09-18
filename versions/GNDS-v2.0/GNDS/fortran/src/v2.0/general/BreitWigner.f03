@@ -49,7 +49,7 @@ function BreitWignerCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: approximationSize
    character(c_char), intent(in) :: approximation(approximationSize)
-   unknownType, value, intent(in) :: calculateChannelRadius
+   integer(c_bool), value, intent(in) :: calculateChannelRadius
    type(c_ptr), value :: resonanceParameters
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: scatteringRadius
@@ -75,7 +75,7 @@ function BreitWignerCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: approximationSize
    character(c_char), intent(in) :: approximation(approximationSize)
-   unknownType, value, intent(in) :: calculateChannelRadius
+   integer(c_bool), value, intent(in) :: calculateChannelRadius
    type(c_ptr), value :: resonanceParameters
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: scatteringRadius
@@ -251,7 +251,7 @@ function BreitWignerCalculateChannelRadiusGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: calculateChannelRadius
+   integer(c_bool) :: calculateChannelRadius
 end function BreitWignerCalculateChannelRadiusGet
 
 !! Set

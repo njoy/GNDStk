@@ -400,7 +400,7 @@ function ParameterCovariancesAverageParameterCovarianceHasByCrossTerm(handle, me
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    integer(c_int) :: has
 end function ParameterCovariancesAverageParameterCovarianceHasByCrossTerm
 
@@ -411,7 +411,7 @@ function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(handl
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 
@@ -422,7 +422,7 @@ function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(handle, me
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm
 
@@ -432,7 +432,7 @@ subroutine ParameterCovariancesAverageParameterCovarianceSetByCrossTerm(handle, 
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType, value, intent(in) :: meta
+   integer(c_bool), value, intent(in) :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParameterCovariancesAverageParameterCovarianceSetByCrossTerm
 

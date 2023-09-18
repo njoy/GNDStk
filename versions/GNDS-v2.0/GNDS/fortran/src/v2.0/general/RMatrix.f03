@@ -54,8 +54,8 @@ function RMatrixCreateConst( &
    character(c_char), intent(in) :: approximation(approximationSize)
    integer(c_size_t), intent(in), value :: boundaryConditionSize
    character(c_char), intent(in) :: boundaryCondition(boundaryConditionSize)
-   unknownType, value, intent(in) :: calculateChannelRadius
-   unknownType, value, intent(in) :: supportsAngularReconstruction
+   integer(c_bool), value, intent(in) :: calculateChannelRadius
+   integer(c_bool), value, intent(in) :: supportsAngularReconstruction
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: resonanceReactions
    type(c_ptr), value :: spinGroups
@@ -86,8 +86,8 @@ function RMatrixCreate( &
    character(c_char), intent(in) :: approximation(approximationSize)
    integer(c_size_t), intent(in), value :: boundaryConditionSize
    character(c_char), intent(in) :: boundaryCondition(boundaryConditionSize)
-   unknownType, value, intent(in) :: calculateChannelRadius
-   unknownType, value, intent(in) :: supportsAngularReconstruction
+   integer(c_bool), value, intent(in) :: calculateChannelRadius
+   integer(c_bool), value, intent(in) :: supportsAngularReconstruction
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: resonanceReactions
    type(c_ptr), value :: spinGroups
@@ -298,7 +298,7 @@ function RMatrixCalculateChannelRadiusGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: calculateChannelRadius
+   integer(c_bool) :: calculateChannelRadius
 end function RMatrixCalculateChannelRadiusGet
 
 !! Set
@@ -333,7 +333,7 @@ function RMatrixSupportsAngularReconstructionGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: supportsAngularReconstruction
+   integer(c_bool) :: supportsAngularReconstruction
 end function RMatrixSupportsAngularReconstructionGet
 
 !! Set

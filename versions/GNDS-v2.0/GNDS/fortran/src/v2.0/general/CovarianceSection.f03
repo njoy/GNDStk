@@ -47,7 +47,7 @@ function CovarianceSectionCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   unknownType, value, intent(in) :: crossTerm
+   integer(c_bool), value, intent(in) :: crossTerm
    type(c_ptr), value :: rowData
    type(c_ptr), value :: columnData
    type(c_ptr), value :: covarianceMatrix
@@ -73,7 +73,7 @@ function CovarianceSectionCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   unknownType, value, intent(in) :: crossTerm
+   integer(c_bool), value, intent(in) :: crossTerm
    type(c_ptr), value :: rowData
    type(c_ptr), value :: columnData
    type(c_ptr), value :: covarianceMatrix
@@ -216,7 +216,7 @@ function CovarianceSectionCrossTermGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: crossTerm
+   integer(c_bool) :: crossTerm
 end function CovarianceSectionCrossTermGet
 
 !! Set

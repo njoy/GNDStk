@@ -18,20 +18,33 @@ std::string fname(const std::string &name)
 
 // ftype
 // Get metadata type, for the Fortran interface
+// todo Needs to work more broadly
 std::string ftype(const InfoMetadata &m)
 {
-   // todo Needs to work more broadly
+   // string
    if (m.type == "std::string")
       return "type(c_ptr)";
+
+   // bool
+   if (m.type == "bool")
+      return "integer(c_bool)";
+
+   // integral
    if (m.type == "int")
       return "integer(c_int)";
    if (m.type == "unsigned")
       return "integer(c_unsigned)"; // todo But no unsigned in Fortran???
+
+   // floating-point
    if (m.type == "float")
       return "real(c_float)";
    if (m.type == "double")
       return "real(c_double)";
-   assert(false); // fixme
+   if (m.type == "long double")
+      return "real(c_long_double)";
+
+   // fixme
+   return "unknownType";
 }
 
 

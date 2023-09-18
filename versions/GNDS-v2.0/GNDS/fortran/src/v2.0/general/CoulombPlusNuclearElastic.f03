@@ -57,7 +57,7 @@ function CoulombPlusNuclearElasticCreateConst( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   unknownType, value, intent(in) :: identicalParticles
+   integer(c_bool), value, intent(in) :: identicalParticles
    type(c_ptr), value :: RutherfordScattering
    type(c_ptr), value :: nuclearAmplitudeExpansion
    type(c_ptr), value :: nuclearPlusInterference
@@ -91,7 +91,7 @@ function CoulombPlusNuclearElasticCreate( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   unknownType, value, intent(in) :: identicalParticles
+   integer(c_bool), value, intent(in) :: identicalParticles
    type(c_ptr), value :: RutherfordScattering
    type(c_ptr), value :: nuclearAmplitudeExpansion
    type(c_ptr), value :: nuclearPlusInterference
@@ -337,7 +337,7 @@ function CoulombPlusNuclearElasticIdenticalParticlesGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   unknownType :: identicalParticles
+   integer(c_bool) :: identicalParticles
 end function CoulombPlusNuclearElasticIdenticalParticlesGet
 
 !! Set
