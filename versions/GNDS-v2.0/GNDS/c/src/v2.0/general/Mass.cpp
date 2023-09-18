@@ -227,7 +227,7 @@ MassDoubleGetConst(ConstHandle2ConstMass self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 MassDoubleGet(ConstHandle2Mass self)
 {

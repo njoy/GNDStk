@@ -168,7 +168,7 @@ ResonancesScatteringRadiusHas(ConstHandle2ConstResonances self);
 extern_c Handle2ConstScatteringRadius
 ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ScatteringRadius
 ResonancesScatteringRadiusGet(ConstHandle2Resonances self);
 
@@ -189,7 +189,7 @@ ResonancesResolvedHas(ConstHandle2ConstResonances self);
 extern_c Handle2ConstResolved
 ResonancesResolvedGetConst(ConstHandle2ConstResonances self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Resolved
 ResonancesResolvedGet(ConstHandle2Resonances self);
 
@@ -210,7 +210,7 @@ ResonancesUnresolvedHas(ConstHandle2ConstResonances self);
 extern_c Handle2ConstUnresolved
 ResonancesUnresolvedGetConst(ConstHandle2ConstResonances self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Unresolved
 ResonancesUnresolvedGet(ConstHandle2Resonances self);
 

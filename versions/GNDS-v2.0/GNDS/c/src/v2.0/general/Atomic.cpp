@@ -157,7 +157,7 @@ AtomicConfigurationsGetConst(ConstHandle2ConstAtomic self)
       (CLASSNAME, CLASSNAME+"ConfigurationsGetConst", self, extract::configurations);
 }
 
-// Get, non-const
+// Get
 Handle2Configurations
 AtomicConfigurationsGet(ConstHandle2Atomic self)
 {

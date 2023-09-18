@@ -261,7 +261,7 @@ SpectrumDiscreteGetConst(ConstHandle2ConstSpectrum self, const size_t index_)
       (CLASSNAME, CLASSNAME+"DiscreteGetConst", self, extract::discrete, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Discrete
 SpectrumDiscreteGet(ConstHandle2Spectrum self, const size_t index_)
 {
@@ -302,7 +302,7 @@ SpectrumDiscreteGetByTypeConst(
        self, extract::discrete, meta::type, type);
 }
 
-// Get, by type, non-const
+// Get, by type
 Handle2Discrete
 SpectrumDiscreteGetByType(
    ConstHandle2Spectrum self,
@@ -346,7 +346,7 @@ SpectrumContinuumGetConst(ConstHandle2ConstSpectrum self)
       (CLASSNAME, CLASSNAME+"ContinuumGetConst", self, extract::continuum);
 }
 
-// Get, non-const
+// Get
 Handle2Continuum
 SpectrumContinuumGet(ConstHandle2Spectrum self)
 {

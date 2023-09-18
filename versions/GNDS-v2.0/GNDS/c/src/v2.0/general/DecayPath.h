@@ -154,7 +154,7 @@ DecayPathDecayAdd(ConstHandle2DecayPath self, ConstHandle2ConstDecay decay);
 extern_c Handle2ConstDecay
 DecayPathDecayGetConst(ConstHandle2ConstDecayPath self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Decay
 DecayPathDecayGet(ConstHandle2DecayPath self, const size_t index_);
 
@@ -180,7 +180,7 @@ DecayPathDecayGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index, non-const
+// +++ Get, by index
 extern_c Handle2Decay
 DecayPathDecayGetByIndex(
    ConstHandle2DecayPath self,
@@ -209,7 +209,7 @@ DecayPathDecayGetByModeConst(
    const char *const mode
 );
 
-// +++ Get, by mode, non-const
+// +++ Get, by mode
 extern_c Handle2Decay
 DecayPathDecayGetByMode(
    ConstHandle2DecayPath self,
@@ -238,7 +238,7 @@ DecayPathDecayGetByCompleteConst(
    const bool complete
 );
 
-// +++ Get, by complete, non-const
+// +++ Get, by complete
 extern_c Handle2Decay
 DecayPathDecayGetByComplete(
    ConstHandle2DecayPath self,

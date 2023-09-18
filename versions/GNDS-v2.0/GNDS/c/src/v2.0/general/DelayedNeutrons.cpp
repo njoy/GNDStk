@@ -185,7 +185,7 @@ DelayedNeutronsDelayedNeutronGetConst(ConstHandle2ConstDelayedNeutrons self, con
       (CLASSNAME, CLASSNAME+"DelayedNeutronGetConst", self, extract::delayedNeutron, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGet(ConstHandle2DelayedNeutrons self, const size_t index_)
 {
@@ -226,7 +226,7 @@ DelayedNeutronsDelayedNeutronGetByLabelConst(
        self, extract::delayedNeutron, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGetByLabel(
    ConstHandle2DelayedNeutrons self,

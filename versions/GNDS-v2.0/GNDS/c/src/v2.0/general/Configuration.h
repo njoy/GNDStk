@@ -185,7 +185,7 @@ ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration self);
 extern_c Handle2ConstBindingEnergy
 ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2BindingEnergy
 ConfigurationBindingEnergyGet(ConstHandle2Configuration self);
 
@@ -218,7 +218,7 @@ ConfigurationDecayDataAdd(ConstHandle2Configuration self, ConstHandle2ConstDecay
 extern_c Handle2ConstDecayData
 ConfigurationDecayDataGetConst(ConstHandle2ConstConfiguration self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2DecayData
 ConfigurationDecayDataGet(ConstHandle2Configuration self, const size_t index_);
 

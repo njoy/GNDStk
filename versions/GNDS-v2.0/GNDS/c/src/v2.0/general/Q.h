@@ -145,7 +145,7 @@ QDoubleHas(ConstHandle2ConstQ self);
 extern_c Handle2ConstDouble
 QDoubleGetConst(ConstHandle2ConstQ self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 QDoubleGet(ConstHandle2Q self);
 
@@ -166,7 +166,7 @@ QConstant1dHas(ConstHandle2ConstQ self);
 extern_c Handle2ConstConstant1d
 QConstant1dGetConst(ConstHandle2ConstQ self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Constant1d
 QConstant1dGet(ConstHandle2Q self);
 

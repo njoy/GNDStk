@@ -154,7 +154,7 @@ ReactionsReactionAdd(ConstHandle2Reactions self, ConstHandle2ConstReaction react
 extern_c Handle2ConstReaction
 ReactionsReactionGetConst(ConstHandle2ConstReactions self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Reaction
 ReactionsReactionGet(ConstHandle2Reactions self, const size_t index_);
 
@@ -180,7 +180,7 @@ ReactionsReactionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Reaction
 ReactionsReactionGetByLabel(
    ConstHandle2Reactions self,
@@ -209,7 +209,7 @@ ReactionsReactionGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT, non-const
+// +++ Get, by ENDF_MT
 extern_c Handle2Reaction
 ReactionsReactionGetByENDFMT(
    ConstHandle2Reactions self,
@@ -238,7 +238,7 @@ ReactionsReactionGetByFissionGenreConst(
    const char *const fissionGenre
 );
 
-// +++ Get, by fissionGenre, non-const
+// +++ Get, by fissionGenre
 extern_c Handle2Reaction
 ReactionsReactionGetByFissionGenre(
    ConstHandle2Reactions self,

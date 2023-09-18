@@ -195,7 +195,7 @@ Function1dsLegendreGetConst(ConstHandle2ConstFunction1ds self, const size_t inde
       (CLASSNAME, CLASSNAME+"LegendreGetConst", self, extract::Legendre, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Legendre
 Function1dsLegendreGet(ConstHandle2Function1ds self, const size_t index_)
 {
@@ -236,7 +236,7 @@ Function1dsLegendreGetByOuterDomainValueConst(
        self, extract::Legendre, meta::outerDomainValue, outerDomainValue);
 }
 
-// Get, by outerDomainValue, non-const
+// Get, by outerDomainValue
 Handle2Legendre
 Function1dsLegendreGetByOuterDomainValue(
    ConstHandle2Function1ds self,
@@ -304,7 +304,7 @@ Function1dsXYs1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2XYs1d
 Function1dsXYs1dGet(ConstHandle2Function1ds self, const size_t index_)
 {
@@ -345,7 +345,7 @@ Function1dsXYs1dGetByLabelConst(
        self, extract::XYs1d, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2XYs1d
 Function1dsXYs1dGetByLabel(
    ConstHandle2Function1ds self,
@@ -390,7 +390,7 @@ Function1dsXYs1dGetByIndexConst(
        self, extract::XYs1d, meta::index, index);
 }
 
-// Get, by index, non-const
+// Get, by index
 Handle2XYs1d
 Function1dsXYs1dGetByIndex(
    ConstHandle2Function1ds self,
@@ -435,7 +435,7 @@ Function1dsXYs1dGetByInterpolationConst(
        self, extract::XYs1d, meta::interpolation, interpolation);
 }
 
-// Get, by interpolation, non-const
+// Get, by interpolation
 Handle2XYs1d
 Function1dsXYs1dGetByInterpolation(
    ConstHandle2Function1ds self,
@@ -480,7 +480,7 @@ Function1dsXYs1dGetByOuterDomainValueConst(
        self, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
 }
 
-// Get, by outerDomainValue, non-const
+// Get, by outerDomainValue
 Handle2XYs1d
 Function1dsXYs1dGetByOuterDomainValue(
    ConstHandle2Function1ds self,

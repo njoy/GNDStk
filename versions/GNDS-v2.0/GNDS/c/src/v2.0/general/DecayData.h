@@ -145,7 +145,7 @@ DecayDataDecayModesHas(ConstHandle2ConstDecayData self);
 extern_c Handle2ConstDecayModes
 DecayDataDecayModesGetConst(ConstHandle2ConstDecayData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DecayModes
 DecayDataDecayModesGet(ConstHandle2DecayData self);
 
@@ -166,7 +166,7 @@ DecayDataAverageEnergiesHas(ConstHandle2ConstDecayData self);
 extern_c Handle2ConstAverageEnergies
 DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2AverageEnergies
 DecayDataAverageEnergiesGet(ConstHandle2DecayData self);
 

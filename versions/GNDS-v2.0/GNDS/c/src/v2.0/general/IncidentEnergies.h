@@ -154,7 +154,7 @@ IncidentEnergiesIncidentEnergyAdd(ConstHandle2IncidentEnergies self, ConstHandle
 extern_c Handle2ConstIncidentEnergy
 IncidentEnergiesIncidentEnergyGetConst(ConstHandle2ConstIncidentEnergies self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGet(ConstHandle2IncidentEnergies self, const size_t index_);
 
@@ -180,7 +180,7 @@ IncidentEnergiesIncidentEnergyGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGetByLabel(
    ConstHandle2IncidentEnergies self,

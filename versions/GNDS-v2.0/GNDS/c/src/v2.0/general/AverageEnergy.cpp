@@ -262,7 +262,7 @@ AverageEnergyUncertaintyGetConst(ConstHandle2ConstAverageEnergy self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 AverageEnergyUncertaintyGet(ConstHandle2AverageEnergy self)
 {

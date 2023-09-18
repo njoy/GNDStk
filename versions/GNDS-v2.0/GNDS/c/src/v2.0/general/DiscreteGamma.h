@@ -202,7 +202,7 @@ DiscreteGammaAxesHas(ConstHandle2ConstDiscreteGamma self);
 extern_c Handle2ConstAxes
 DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Axes
 DiscreteGammaAxesGet(ConstHandle2DiscreteGamma self);
 

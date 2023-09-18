@@ -185,7 +185,7 @@ ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms self, con
       (CLASSNAME, CLASSNAME+"ScatteringAtomGetConst", self, extract::scatteringAtom, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ScatteringAtomsScatteringAtomGetByPidConst(
        self, extract::scatteringAtom, meta::pid, pid);
 }
 
-// Get, by pid, non-const
+// Get, by pid
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPid(
    ConstHandle2ScatteringAtoms self,
@@ -271,7 +271,7 @@ ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(
        self, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule);
 }
 
-// Get, by numberPerMolecule, non-const
+// Get, by numberPerMolecule
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMolecule(
    ConstHandle2ScatteringAtoms self,
@@ -316,7 +316,7 @@ ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(
        self, extract::scatteringAtom, meta::primaryScatterer, primaryScatterer);
 }
 
-// Get, by primaryScatterer, non-const
+// Get, by primaryScatterer
 Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScatterer(
    ConstHandle2ScatteringAtoms self,

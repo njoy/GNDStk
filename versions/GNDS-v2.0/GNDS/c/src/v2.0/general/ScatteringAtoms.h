@@ -154,7 +154,7 @@ ScatteringAtomsScatteringAtomAdd(ConstHandle2ScatteringAtoms self, ConstHandle2C
 extern_c Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms self, const size_t index_);
 
@@ -180,7 +180,7 @@ ScatteringAtomsScatteringAtomGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid, non-const
+// +++ Get, by pid
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPid(
    ConstHandle2ScatteringAtoms self,
@@ -209,7 +209,7 @@ ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(
    const int numberPerMolecule
 );
 
-// +++ Get, by numberPerMolecule, non-const
+// +++ Get, by numberPerMolecule
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMolecule(
    ConstHandle2ScatteringAtoms self,
@@ -238,7 +238,7 @@ ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(
    const bool primaryScatterer
 );
 
-// +++ Get, by primaryScatterer, non-const
+// +++ Get, by primaryScatterer
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScatterer(
    ConstHandle2ScatteringAtoms self,

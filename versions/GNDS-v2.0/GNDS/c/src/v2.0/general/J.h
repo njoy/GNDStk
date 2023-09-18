@@ -185,7 +185,7 @@ JLevelSpacingHas(ConstHandle2ConstJ self);
 extern_c Handle2ConstLevelSpacing
 JLevelSpacingGetConst(ConstHandle2ConstJ self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2LevelSpacing
 JLevelSpacingGet(ConstHandle2J self);
 
@@ -206,7 +206,7 @@ JWidthsHas(ConstHandle2ConstJ self);
 extern_c Handle2ConstWidths
 JWidthsGetConst(ConstHandle2ConstJ self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Widths
 JWidthsGet(ConstHandle2J self);
 

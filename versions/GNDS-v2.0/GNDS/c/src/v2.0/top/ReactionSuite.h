@@ -292,7 +292,7 @@ ReactionSuiteStylesHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstStyles
 ReactionSuiteStylesGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Styles
 ReactionSuiteStylesGet(ConstHandle2ReactionSuite self);
 
@@ -313,7 +313,7 @@ ReactionSuitePoPsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstPoPs
 ReactionSuitePoPsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2PoPs
 ReactionSuitePoPsGet(ConstHandle2ReactionSuite self);
 
@@ -334,7 +334,7 @@ ReactionSuiteReactionsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstReactions
 ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Reactions
 ReactionSuiteReactionsGet(ConstHandle2ReactionSuite self);
 
@@ -355,7 +355,7 @@ ReactionSuiteApplicationDataHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstApplicationData
 ReactionSuiteApplicationDataGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ApplicationData
 ReactionSuiteApplicationDataGet(ConstHandle2ReactionSuite self);
 
@@ -376,7 +376,7 @@ ReactionSuiteExternalFilesHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstExternalFiles
 ReactionSuiteExternalFilesGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ExternalFiles
 ReactionSuiteExternalFilesGet(ConstHandle2ReactionSuite self);
 
@@ -397,7 +397,7 @@ ReactionSuiteResonancesHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstResonances
 ReactionSuiteResonancesGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Resonances
 ReactionSuiteResonancesGet(ConstHandle2ReactionSuite self);
 
@@ -418,7 +418,7 @@ ReactionSuiteSumsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstSums
 ReactionSuiteSumsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Sums
 ReactionSuiteSumsGet(ConstHandle2ReactionSuite self);
 
@@ -439,7 +439,7 @@ ReactionSuiteProductionsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstProductions
 ReactionSuiteProductionsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Productions
 ReactionSuiteProductionsGet(ConstHandle2ReactionSuite self);
 
@@ -460,7 +460,7 @@ ReactionSuiteFissionComponentsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstFissionComponents
 ReactionSuiteFissionComponentsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2FissionComponents
 ReactionSuiteFissionComponentsGet(ConstHandle2ReactionSuite self);
 
@@ -481,7 +481,7 @@ ReactionSuiteOrphanProductsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstOrphanProducts
 ReactionSuiteOrphanProductsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2OrphanProducts
 ReactionSuiteOrphanProductsGet(ConstHandle2ReactionSuite self);
 
@@ -502,7 +502,7 @@ ReactionSuiteIncompleteReactionsHas(ConstHandle2ConstReactionSuite self);
 extern_c Handle2ConstIncompleteReactions
 ReactionSuiteIncompleteReactionsGetConst(ConstHandle2ConstReactionSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2IncompleteReactions
 ReactionSuiteIncompleteReactionsGet(ConstHandle2ReactionSuite self);
 

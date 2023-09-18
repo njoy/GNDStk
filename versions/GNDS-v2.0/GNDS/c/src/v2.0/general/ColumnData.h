@@ -182,7 +182,7 @@ ColumnDataSlicesHas(ConstHandle2ConstColumnData self);
 extern_c Handle2ConstSlices
 ColumnDataSlicesGetConst(ConstHandle2ConstColumnData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Slices
 ColumnDataSlicesGet(ConstHandle2ColumnData self);
 

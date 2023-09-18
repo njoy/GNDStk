@@ -233,7 +233,7 @@ UncorrelatedAngularGetConst(ConstHandle2ConstUncorrelated self)
       (CLASSNAME, CLASSNAME+"AngularGetConst", self, extract::angular);
 }
 
-// Get, non-const
+// Get
 Handle2Angular
 UncorrelatedAngularGet(ConstHandle2Uncorrelated self)
 {
@@ -270,7 +270,7 @@ UncorrelatedEnergyGetConst(ConstHandle2ConstUncorrelated self)
       (CLASSNAME, CLASSNAME+"EnergyGetConst", self, extract::energy);
 }
 
-// Get, non-const
+// Get
 Handle2Energy
 UncorrelatedEnergyGet(ConstHandle2Uncorrelated self)
 {

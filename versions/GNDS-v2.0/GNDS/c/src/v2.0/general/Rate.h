@@ -142,7 +142,7 @@ RateDoubleHas(ConstHandle2ConstRate self);
 extern_c Handle2ConstDouble
 RateDoubleGetConst(ConstHandle2ConstRate self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 RateDoubleGet(ConstHandle2Rate self);
 

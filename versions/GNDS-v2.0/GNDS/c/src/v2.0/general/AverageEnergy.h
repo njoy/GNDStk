@@ -202,7 +202,7 @@ AverageEnergyUncertaintyHas(ConstHandle2ConstAverageEnergy self);
 extern_c Handle2ConstUncertainty
 AverageEnergyUncertaintyGetConst(ConstHandle2ConstAverageEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 AverageEnergyUncertaintyGet(ConstHandle2AverageEnergy self);
 

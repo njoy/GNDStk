@@ -268,7 +268,7 @@ SpinGroupChannelsGetConst(ConstHandle2ConstSpinGroup self)
       (CLASSNAME, CLASSNAME+"ChannelsGetConst", self, extract::channels);
 }
 
-// Get, non-const
+// Get
 Handle2Channels
 SpinGroupChannelsGet(ConstHandle2SpinGroup self)
 {
@@ -305,7 +305,7 @@ SpinGroupResonanceParametersGetConst(ConstHandle2ConstSpinGroup self)
       (CLASSNAME, CLASSNAME+"ResonanceParametersGetConst", self, extract::resonanceParameters);
 }
 
-// Get, non-const
+// Get
 Handle2ResonanceParameters
 SpinGroupResonanceParametersGet(ConstHandle2SpinGroup self)
 {

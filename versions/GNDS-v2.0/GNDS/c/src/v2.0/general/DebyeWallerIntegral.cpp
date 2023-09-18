@@ -157,7 +157,7 @@ DebyeWallerIntegralXYs1dGetConst(ConstHandle2ConstDebyeWallerIntegral self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 DebyeWallerIntegralXYs1dGet(ConstHandle2DebyeWallerIntegral self)
 {

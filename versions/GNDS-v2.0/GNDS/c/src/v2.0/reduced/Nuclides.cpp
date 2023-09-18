@@ -181,7 +181,7 @@ NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides self)
       (CLASSNAME, CLASSNAME+"Std::stringsGetArrayConst", self);
 }
 
-// Get pointer to existing values, non-const
+// Get pointer to existing values
 std::string *
 NuclidesStd::stringsGetArray(ConstHandle2Nuclides self)
 {

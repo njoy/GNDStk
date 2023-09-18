@@ -154,7 +154,7 @@ CrossSectionSumsCrossSectionSumAdd(ConstHandle2CrossSectionSums self, ConstHandl
 extern_c Handle2ConstCrossSectionSum
 CrossSectionSumsCrossSectionSumGetConst(ConstHandle2ConstCrossSectionSums self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGet(ConstHandle2CrossSectionSums self, const size_t index_);
 
@@ -180,7 +180,7 @@ CrossSectionSumsCrossSectionSumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByLabel(
    ConstHandle2CrossSectionSums self,
@@ -209,7 +209,7 @@ CrossSectionSumsCrossSectionSumGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT, non-const
+// +++ Get, by ENDF_MT
 extern_c Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByENDFMT(
    ConstHandle2CrossSectionSums self,

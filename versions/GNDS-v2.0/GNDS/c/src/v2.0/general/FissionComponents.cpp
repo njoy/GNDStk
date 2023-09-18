@@ -185,7 +185,7 @@ FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents sel
       (CLASSNAME, CLASSNAME+"FissionComponentGetConst", self, extract::fissionComponent, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2FissionComponent
 FissionComponentsFissionComponentGet(ConstHandle2FissionComponents self, const size_t index_)
 {
@@ -226,7 +226,7 @@ FissionComponentsFissionComponentGetByLabelConst(
        self, extract::fissionComponent, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2FissionComponent
 FissionComponentsFissionComponentGetByLabel(
    ConstHandle2FissionComponents self,
@@ -271,7 +271,7 @@ FissionComponentsFissionComponentGetByENDFMTConst(
        self, extract::fissionComponent, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT, non-const
+// Get, by ENDF_MT
 Handle2FissionComponent
 FissionComponentsFissionComponentGetByENDFMT(
    ConstHandle2FissionComponents self,
@@ -316,7 +316,7 @@ FissionComponentsFissionComponentGetByFissionGenreConst(
        self, extract::fissionComponent, meta::fissionGenre, fissionGenre);
 }
 
-// Get, by fissionGenre, non-const
+// Get, by fissionGenre
 Handle2FissionComponent
 FissionComponentsFissionComponentGetByFissionGenre(
    ConstHandle2FissionComponents self,

@@ -297,7 +297,7 @@ Constant1dAxesGetConst(ConstHandle2ConstConstant1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 Constant1dAxesGet(ConstHandle2Constant1d self)
 {

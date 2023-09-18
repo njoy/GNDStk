@@ -157,7 +157,7 @@ NonNeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNonNeutrinoEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 NonNeutrinoEnergyPolynomial1dGet(ConstHandle2NonNeutrinoEnergy self)
 {

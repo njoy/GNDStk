@@ -163,7 +163,7 @@ ResolvedRegionXYs1dGetConst(ConstHandle2ConstResolvedRegion self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 ResolvedRegionXYs1dGet(ConstHandle2ResolvedRegion self)
 {
@@ -200,7 +200,7 @@ ResolvedRegionRegions1dGetConst(ConstHandle2ConstResolvedRegion self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions1d
 ResolvedRegionRegions1dGet(ConstHandle2ResolvedRegion self)
 {

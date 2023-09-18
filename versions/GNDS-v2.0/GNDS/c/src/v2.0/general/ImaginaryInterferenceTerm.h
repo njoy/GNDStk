@@ -145,7 +145,7 @@ ImaginaryInterferenceTermRegions2dHas(ConstHandle2ConstImaginaryInterferenceTerm
 extern_c Handle2ConstRegions2d
 ImaginaryInterferenceTermRegions2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions2d
 ImaginaryInterferenceTermRegions2dGet(ConstHandle2ImaginaryInterferenceTerm self);
 
@@ -166,7 +166,7 @@ ImaginaryInterferenceTermXYs2dHas(ConstHandle2ConstImaginaryInterferenceTerm sel
 extern_c Handle2ConstXYs2d
 ImaginaryInterferenceTermXYs2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs2d
 ImaginaryInterferenceTermXYs2dGet(ConstHandle2ImaginaryInterferenceTerm self);
 

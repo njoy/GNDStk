@@ -262,7 +262,7 @@ DecayProductsGetConst(ConstHandle2ConstDecay self)
       (CLASSNAME, CLASSNAME+"ProductsGetConst", self, extract::products);
 }
 
-// Get, non-const
+// Get
 Handle2Products
 DecayProductsGet(ConstHandle2Decay self)
 {

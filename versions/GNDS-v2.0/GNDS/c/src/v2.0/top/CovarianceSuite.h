@@ -251,7 +251,7 @@ CovarianceSuiteExternalFilesHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstExternalFiles
 CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ExternalFiles
 CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite self);
 
@@ -272,7 +272,7 @@ CovarianceSuiteStylesHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstStyles
 CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Styles
 CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite self);
 
@@ -293,7 +293,7 @@ CovarianceSuiteCovarianceSectionsHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstCovarianceSections
 CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CovarianceSections
 CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite self);
 
@@ -314,7 +314,7 @@ CovarianceSuiteParameterCovariancesHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstParameterCovariances
 CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ParameterCovariances
 CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite self);
 

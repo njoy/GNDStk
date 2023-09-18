@@ -185,7 +185,7 @@ ProductsProductGetConst(ConstHandle2ConstProducts self, const size_t index_)
       (CLASSNAME, CLASSNAME+"ProductGetConst", self, extract::product, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Product
 ProductsProductGet(ConstHandle2Products self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ProductsProductGetByLabelConst(
        self, extract::product, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Product
 ProductsProductGetByLabel(
    ConstHandle2Products self,
@@ -271,7 +271,7 @@ ProductsProductGetByPidConst(
        self, extract::product, meta::pid, pid);
 }
 
-// Get, by pid, non-const
+// Get, by pid
 Handle2Product
 ProductsProductGetByPid(
    ConstHandle2Products self,

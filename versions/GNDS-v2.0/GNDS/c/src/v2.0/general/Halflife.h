@@ -145,7 +145,7 @@ HalflifeStringHas(ConstHandle2ConstHalflife self);
 extern_c Handle2ConstString
 HalflifeStringGetConst(ConstHandle2ConstHalflife self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2String
 HalflifeStringGet(ConstHandle2Halflife self);
 
@@ -166,7 +166,7 @@ HalflifeDoubleHas(ConstHandle2ConstHalflife self);
 extern_c Handle2ConstDouble
 HalflifeDoubleGetConst(ConstHandle2ConstHalflife self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 HalflifeDoubleGet(ConstHandle2Halflife self);
 

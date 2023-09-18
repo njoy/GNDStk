@@ -188,7 +188,7 @@ AverageParameterCovarianceCovarianceMatrixHas(ConstHandle2ConstAverageParameterC
 extern_c Handle2ConstCovarianceMatrix
 AverageParameterCovarianceCovarianceMatrixGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CovarianceMatrix
 AverageParameterCovarianceCovarianceMatrixGet(ConstHandle2AverageParameterCovariance self);
 
@@ -209,7 +209,7 @@ AverageParameterCovarianceRowDataHas(ConstHandle2ConstAverageParameterCovariance
 extern_c Handle2ConstRowData
 AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2RowData
 AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance self);
 
@@ -230,7 +230,7 @@ AverageParameterCovarianceColumnDataHas(ConstHandle2ConstAverageParameterCovaria
 extern_c Handle2ConstColumnData
 AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ColumnData
 AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance self);
 

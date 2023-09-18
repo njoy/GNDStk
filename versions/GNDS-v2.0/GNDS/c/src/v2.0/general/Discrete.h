@@ -171,7 +171,7 @@ DiscreteIntensityHas(ConstHandle2ConstDiscrete self);
 extern_c Handle2ConstIntensity
 DiscreteIntensityGetConst(ConstHandle2ConstDiscrete self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Intensity
 DiscreteIntensityGet(ConstHandle2Discrete self);
 
@@ -192,7 +192,7 @@ DiscreteEnergyHas(ConstHandle2ConstDiscrete self);
 extern_c Handle2ConstEnergy
 DiscreteEnergyGetConst(ConstHandle2ConstDiscrete self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Energy
 DiscreteEnergyGet(ConstHandle2Discrete self);
 
@@ -213,7 +213,7 @@ DiscreteInternalConversionCoefficientsHas(ConstHandle2ConstDiscrete self);
 extern_c Handle2ConstInternalConversionCoefficients
 DiscreteInternalConversionCoefficientsGetConst(ConstHandle2ConstDiscrete self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2InternalConversionCoefficients
 DiscreteInternalConversionCoefficientsGet(ConstHandle2Discrete self);
 
@@ -234,7 +234,7 @@ DiscretePositronEmissionIntensityHas(ConstHandle2ConstDiscrete self);
 extern_c Handle2ConstPositronEmissionIntensity
 DiscretePositronEmissionIntensityGetConst(ConstHandle2ConstDiscrete self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2PositronEmissionIntensity
 DiscretePositronEmissionIntensityGet(ConstHandle2Discrete self);
 

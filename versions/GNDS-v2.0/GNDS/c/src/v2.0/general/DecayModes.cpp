@@ -185,7 +185,7 @@ DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes self, const size_t index
       (CLASSNAME, CLASSNAME+"DecayModeGetConst", self, extract::decayMode, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2DecayMode
 DecayModesDecayModeGet(ConstHandle2DecayModes self, const size_t index_)
 {
@@ -226,7 +226,7 @@ DecayModesDecayModeGetByLabelConst(
        self, extract::decayMode, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2DecayMode
 DecayModesDecayModeGetByLabel(
    ConstHandle2DecayModes self,
@@ -271,7 +271,7 @@ DecayModesDecayModeGetByModeConst(
        self, extract::decayMode, meta::mode, mode);
 }
 
-// Get, by mode, non-const
+// Get, by mode
 Handle2DecayMode
 DecayModesDecayModeGetByMode(
    ConstHandle2DecayModes self,

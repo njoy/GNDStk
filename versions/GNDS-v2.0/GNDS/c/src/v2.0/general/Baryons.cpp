@@ -185,7 +185,7 @@ BaryonsBaryonGetConst(ConstHandle2ConstBaryons self, const size_t index_)
       (CLASSNAME, CLASSNAME+"BaryonGetConst", self, extract::baryon, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Baryon
 BaryonsBaryonGet(ConstHandle2Baryons self, const size_t index_)
 {
@@ -226,7 +226,7 @@ BaryonsBaryonGetByIdConst(
        self, extract::baryon, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2Baryon
 BaryonsBaryonGetById(
    ConstHandle2Baryons self,

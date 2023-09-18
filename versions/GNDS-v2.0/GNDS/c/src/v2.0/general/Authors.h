@@ -154,7 +154,7 @@ AuthorsAuthorAdd(ConstHandle2Authors self, ConstHandle2ConstAuthor author);
 extern_c Handle2ConstAuthor
 AuthorsAuthorGetConst(ConstHandle2ConstAuthors self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Author
 AuthorsAuthorGet(ConstHandle2Authors self, const size_t index_);
 
@@ -180,7 +180,7 @@ AuthorsAuthorGetByNameConst(
    const char *const name
 );
 
-// +++ Get, by name, non-const
+// +++ Get, by name
 extern_c Handle2Author
 AuthorsAuthorGetByName(
    ConstHandle2Authors self,

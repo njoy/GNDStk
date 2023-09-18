@@ -142,7 +142,7 @@ GXYs1dHas(ConstHandle2ConstG self);
 extern_c Handle2ConstXYs1d
 GXYs1dGetConst(ConstHandle2ConstG self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 GXYs1dGet(ConstHandle2G self);
 

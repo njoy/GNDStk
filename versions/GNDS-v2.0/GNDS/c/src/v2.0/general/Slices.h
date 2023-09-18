@@ -154,7 +154,7 @@ SlicesSliceAdd(ConstHandle2Slices self, ConstHandle2ConstSlice slice);
 extern_c Handle2ConstSlice
 SlicesSliceGetConst(ConstHandle2ConstSlices self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Slice
 SlicesSliceGet(ConstHandle2Slices self, const size_t index_);
 
@@ -180,7 +180,7 @@ SlicesSliceGetByDimensionConst(
    const int dimension
 );
 
-// +++ Get, by dimension, non-const
+// +++ Get, by dimension
 extern_c Handle2Slice
 SlicesSliceGetByDimension(
    ConstHandle2Slices self,
@@ -209,7 +209,7 @@ SlicesSliceGetByDomainValueConst(
    const int domainValue
 );
 
-// +++ Get, by domainValue, non-const
+// +++ Get, by domainValue
 extern_c Handle2Slice
 SlicesSliceGetByDomainValue(
    ConstHandle2Slices self,
@@ -238,7 +238,7 @@ SlicesSliceGetByDomainMinConst(
    const double domainMin
 );
 
-// +++ Get, by domainMin, non-const
+// +++ Get, by domainMin
 extern_c Handle2Slice
 SlicesSliceGetByDomainMin(
    ConstHandle2Slices self,
@@ -267,7 +267,7 @@ SlicesSliceGetByDomainMaxConst(
    const double domainMax
 );
 
-// +++ Get, by domainMax, non-const
+// +++ Get, by domainMax
 extern_c Handle2Slice
 SlicesSliceGetByDomainMax(
    ConstHandle2Slices self,
@@ -296,7 +296,7 @@ SlicesSliceGetByDomainUnitConst(
    const char *const domainUnit
 );
 
-// +++ Get, by domainUnit, non-const
+// +++ Get, by domainUnit
 extern_c Handle2Slice
 SlicesSliceGetByDomainUnit(
    ConstHandle2Slices self,

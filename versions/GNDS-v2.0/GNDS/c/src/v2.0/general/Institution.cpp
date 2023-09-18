@@ -192,7 +192,7 @@ InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution self)
       (CLASSNAME, CLASSNAME+"ENDFconversionFlagsGetConst", self, extract::ENDFconversionFlags);
 }
 
-// Get, non-const
+// Get
 Handle2ENDFconversionFlags
 InstitutionENDFconversionFlagsGet(ConstHandle2Institution self)
 {

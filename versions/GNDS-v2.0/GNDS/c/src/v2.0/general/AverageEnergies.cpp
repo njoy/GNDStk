@@ -185,7 +185,7 @@ AverageEnergiesAverageEnergyGetConst(ConstHandle2ConstAverageEnergies self, cons
       (CLASSNAME, CLASSNAME+"AverageEnergyGetConst", self, extract::averageEnergy, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2AverageEnergy
 AverageEnergiesAverageEnergyGet(ConstHandle2AverageEnergies self, const size_t index_)
 {
@@ -226,7 +226,7 @@ AverageEnergiesAverageEnergyGetByLabelConst(
        self, extract::averageEnergy, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByLabel(
    ConstHandle2AverageEnergies self,
@@ -271,7 +271,7 @@ AverageEnergiesAverageEnergyGetByValueConst(
        self, extract::averageEnergy, meta::value, value);
 }
 
-// Get, by value, non-const
+// Get, by value
 Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByValue(
    ConstHandle2AverageEnergies self,
@@ -316,7 +316,7 @@ AverageEnergiesAverageEnergyGetByUnitConst(
        self, extract::averageEnergy, meta::unit, unit);
 }
 
-// Get, by unit, non-const
+// Get, by unit
 Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByUnit(
    ConstHandle2AverageEnergies self,

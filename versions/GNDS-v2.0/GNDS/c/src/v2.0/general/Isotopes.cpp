@@ -185,7 +185,7 @@ IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes self, const size_t index_)
       (CLASSNAME, CLASSNAME+"IsotopeGetConst", self, extract::isotope, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Isotope
 IsotopesIsotopeGet(ConstHandle2Isotopes self, const size_t index_)
 {
@@ -226,7 +226,7 @@ IsotopesIsotopeGetBySymbolConst(
        self, extract::isotope, meta::symbol, symbol);
 }
 
-// Get, by symbol, non-const
+// Get, by symbol
 Handle2Isotope
 IsotopesIsotopeGetBySymbol(
    ConstHandle2Isotopes self,
@@ -271,7 +271,7 @@ IsotopesIsotopeGetByAConst(
        self, extract::isotope, meta::A, A);
 }
 
-// Get, by A, non-const
+// Get, by A
 Handle2Isotope
 IsotopesIsotopeGetByA(
    ConstHandle2Isotopes self,

@@ -154,7 +154,7 @@ BaryonsBaryonAdd(ConstHandle2Baryons self, ConstHandle2ConstBaryon baryon);
 extern_c Handle2ConstBaryon
 BaryonsBaryonGetConst(ConstHandle2ConstBaryons self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Baryon
 BaryonsBaryonGet(ConstHandle2Baryons self, const size_t index_);
 
@@ -180,7 +180,7 @@ BaryonsBaryonGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id, non-const
+// +++ Get, by id
 extern_c Handle2Baryon
 BaryonsBaryonGetById(
    ConstHandle2Baryons self,

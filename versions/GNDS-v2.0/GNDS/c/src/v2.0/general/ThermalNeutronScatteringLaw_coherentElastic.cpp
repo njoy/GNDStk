@@ -262,7 +262,7 @@ ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(ConstHandle2ConstTher
       (CLASSNAME, CLASSNAME+"S_tableGetConst", self, extract::S_table);
 }
 
-// Get, non-const
+// Get
 Handle2S_table
 ThermalNeutronScatteringLaw_coherentElasticS_tableGet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self)
 {

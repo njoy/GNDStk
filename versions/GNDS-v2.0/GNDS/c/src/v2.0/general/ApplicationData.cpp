@@ -157,7 +157,7 @@ ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData self)
       (CLASSNAME, CLASSNAME+"InstitutionGetConst", self, extract::institution);
 }
 
-// Get, non-const
+// Get
 Handle2Institution
 ApplicationDataInstitutionGet(ConstHandle2ApplicationData self)
 {

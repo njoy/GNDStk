@@ -185,7 +185,7 @@ SpectraSpectrumGetConst(ConstHandle2ConstSpectra self, const size_t index_)
       (CLASSNAME, CLASSNAME+"SpectrumGetConst", self, extract::spectrum, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Spectrum
 SpectraSpectrumGet(ConstHandle2Spectra self, const size_t index_)
 {
@@ -226,7 +226,7 @@ SpectraSpectrumGetByLabelConst(
        self, extract::spectrum, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Spectrum
 SpectraSpectrumGetByLabel(
    ConstHandle2Spectra self,
@@ -271,7 +271,7 @@ SpectraSpectrumGetByPidConst(
        self, extract::spectrum, meta::pid, pid);
 }
 
-// Get, by pid, non-const
+// Get, by pid
 Handle2Spectrum
 SpectraSpectrumGetByPid(
    ConstHandle2Spectra self,

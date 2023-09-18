@@ -185,7 +185,7 @@ LeptonsLeptonGetConst(ConstHandle2ConstLeptons self, const size_t index_)
       (CLASSNAME, CLASSNAME+"LeptonGetConst", self, extract::lepton, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Lepton
 LeptonsLeptonGet(ConstHandle2Leptons self, const size_t index_)
 {
@@ -226,7 +226,7 @@ LeptonsLeptonGetByIdConst(
        self, extract::lepton, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2Lepton
 LeptonsLeptonGetById(
    ConstHandle2Leptons self,
@@ -271,7 +271,7 @@ LeptonsLeptonGetByGenerationConst(
        self, extract::lepton, meta::generation, generation);
 }
 
-// Get, by generation, non-const
+// Get, by generation
 Handle2Lepton
 LeptonsLeptonGetByGeneration(
    ConstHandle2Leptons self,

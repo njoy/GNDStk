@@ -168,7 +168,7 @@ SelfScatteringKernelGridded3dHas(ConstHandle2ConstSelfScatteringKernel self);
 extern_c Handle2ConstGridded3d
 SelfScatteringKernelGridded3dGetConst(ConstHandle2ConstSelfScatteringKernel self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Gridded3d
 SelfScatteringKernelGridded3dGet(ConstHandle2SelfScatteringKernel self);
 
@@ -189,7 +189,7 @@ SelfScatteringKernelSCTApproximationHas(ConstHandle2ConstSelfScatteringKernel se
 extern_c Handle2ConstSCTApproximation
 SelfScatteringKernelSCTApproximationGetConst(ConstHandle2ConstSelfScatteringKernel self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2SCTApproximation
 SelfScatteringKernelSCTApproximationGet(ConstHandle2SelfScatteringKernel self);
 
@@ -210,7 +210,7 @@ SelfScatteringKernelFreeGasApproximationHas(ConstHandle2ConstSelfScatteringKerne
 extern_c Handle2ConstFreeGasApproximation
 SelfScatteringKernelFreeGasApproximationGetConst(ConstHandle2ConstSelfScatteringKernel self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2FreeGasApproximation
 SelfScatteringKernelFreeGasApproximationGet(ConstHandle2SelfScatteringKernel self);
 

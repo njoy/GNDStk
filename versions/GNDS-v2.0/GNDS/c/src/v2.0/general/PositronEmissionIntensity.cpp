@@ -192,7 +192,7 @@ PositronEmissionIntensityUncertaintyGetConst(ConstHandle2ConstPositronEmissionIn
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 PositronEmissionIntensityUncertaintyGet(ConstHandle2PositronEmissionIntensity self)
 {

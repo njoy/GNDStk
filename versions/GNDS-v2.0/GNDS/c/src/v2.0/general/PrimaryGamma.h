@@ -202,7 +202,7 @@ PrimaryGammaAxesHas(ConstHandle2ConstPrimaryGamma self);
 extern_c Handle2ConstAxes
 PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Axes
 PrimaryGammaAxesGet(ConstHandle2PrimaryGamma self);
 

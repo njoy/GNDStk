@@ -169,7 +169,7 @@ YieldsNuclidesGetConst(ConstHandle2ConstYields self)
       (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
-// Get, non-const
+// Get
 Handle2Nuclides
 YieldsNuclidesGet(ConstHandle2Yields self)
 {
@@ -206,7 +206,7 @@ YieldsValuesGetConst(ConstHandle2ConstYields self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 YieldsValuesGet(ConstHandle2Yields self)
 {
@@ -243,7 +243,7 @@ YieldsUncertaintyGetConst(ConstHandle2ConstYields self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 YieldsUncertaintyGet(ConstHandle2Yields self)
 {

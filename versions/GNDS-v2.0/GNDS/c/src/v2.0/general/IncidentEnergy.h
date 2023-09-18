@@ -165,7 +165,7 @@ IncidentEnergyEnergyHas(ConstHandle2ConstIncidentEnergy self);
 extern_c Handle2ConstEnergy
 IncidentEnergyEnergyGetConst(ConstHandle2ConstIncidentEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Energy
 IncidentEnergyEnergyGet(ConstHandle2IncidentEnergy self);
 
@@ -186,7 +186,7 @@ IncidentEnergyYieldsHas(ConstHandle2ConstIncidentEnergy self);
 extern_c Handle2ConstYields
 IncidentEnergyYieldsGetConst(ConstHandle2ConstIncidentEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Yields
 IncidentEnergyYieldsGet(ConstHandle2IncidentEnergy self);
 

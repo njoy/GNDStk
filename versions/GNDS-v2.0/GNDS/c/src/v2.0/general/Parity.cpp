@@ -157,7 +157,7 @@ ParityIntegerGetConst(ConstHandle2ConstParity self)
       (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer);
 }
 
-// Get, non-const
+// Get
 Handle2Integer
 ParityIntegerGet(ConstHandle2Parity self)
 {

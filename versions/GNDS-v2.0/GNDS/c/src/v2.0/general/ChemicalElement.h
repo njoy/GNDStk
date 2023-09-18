@@ -205,7 +205,7 @@ ChemicalElementAtomicHas(ConstHandle2ConstChemicalElement self);
 extern_c Handle2ConstAtomic
 ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Atomic
 ChemicalElementAtomicGet(ConstHandle2ChemicalElement self);
 
@@ -226,7 +226,7 @@ ChemicalElementIsotopesHas(ConstHandle2ConstChemicalElement self);
 extern_c Handle2ConstIsotopes
 ChemicalElementIsotopesGetConst(ConstHandle2ConstChemicalElement self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Isotopes
 ChemicalElementIsotopesGet(ConstHandle2ChemicalElement self);
 

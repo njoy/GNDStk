@@ -155,7 +155,7 @@ NuclidesStd::stringsSet(ConstHandle2Nuclides self, const size_t index, const std
 extern_c const std::string *
 NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides self);
 
-// +++ Get pointer to existing values, non-const
+// +++ Get pointer to existing values
 extern_c std::string *
 NuclidesStd::stringsGetArray(ConstHandle2Nuclides self);
 

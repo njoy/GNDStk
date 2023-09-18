@@ -192,7 +192,7 @@ LegendreValuesGetConst(ConstHandle2ConstLegendre self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 LegendreValuesGet(ConstHandle2Legendre self)
 {

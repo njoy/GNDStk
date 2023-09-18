@@ -182,7 +182,7 @@ IsotopeNuclidesHas(ConstHandle2ConstIsotope self);
 extern_c Handle2ConstNuclides
 IsotopeNuclidesGetConst(ConstHandle2ConstIsotope self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Nuclides
 IsotopeNuclidesGet(ConstHandle2Isotope self);
 

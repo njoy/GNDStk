@@ -165,7 +165,7 @@ DelayedNeutronRateHas(ConstHandle2ConstDelayedNeutron self);
 extern_c Handle2ConstRate
 DelayedNeutronRateGetConst(ConstHandle2ConstDelayedNeutron self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Rate
 DelayedNeutronRateGet(ConstHandle2DelayedNeutron self);
 
@@ -186,7 +186,7 @@ DelayedNeutronProductHas(ConstHandle2ConstDelayedNeutron self);
 extern_c Handle2ConstProduct
 DelayedNeutronProductGetConst(ConstHandle2ConstDelayedNeutron self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Product
 DelayedNeutronProductGet(ConstHandle2DelayedNeutron self);
 

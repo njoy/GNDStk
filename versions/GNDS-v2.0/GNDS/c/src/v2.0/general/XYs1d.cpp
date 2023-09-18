@@ -309,7 +309,7 @@ XYs1dAxesGetConst(ConstHandle2ConstXYs1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 XYs1dAxesGet(ConstHandle2XYs1d self)
 {
@@ -346,7 +346,7 @@ XYs1dValuesGetConst(ConstHandle2ConstXYs1d self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 XYs1dValuesGet(ConstHandle2XYs1d self)
 {
@@ -383,7 +383,7 @@ XYs1dUncertaintyGetConst(ConstHandle2ConstXYs1d self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 XYs1dUncertaintyGet(ConstHandle2XYs1d self)
 {

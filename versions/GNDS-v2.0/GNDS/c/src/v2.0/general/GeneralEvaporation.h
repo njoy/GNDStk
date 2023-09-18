@@ -148,7 +148,7 @@ GeneralEvaporationUHas(ConstHandle2ConstGeneralEvaporation self);
 extern_c Handle2ConstU
 GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2U
 GeneralEvaporationUGet(ConstHandle2GeneralEvaporation self);
 
@@ -169,7 +169,7 @@ GeneralEvaporationThetaHas(ConstHandle2ConstGeneralEvaporation self);
 extern_c Handle2ConstTheta
 GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Theta
 GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation self);
 
@@ -190,7 +190,7 @@ GeneralEvaporationGHas(ConstHandle2ConstGeneralEvaporation self);
 extern_c Handle2ConstG
 GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2G
 GeneralEvaporationGGet(ConstHandle2GeneralEvaporation self);
 

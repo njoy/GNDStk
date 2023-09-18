@@ -145,7 +145,7 @@ LevelSpacingXYs1dHas(ConstHandle2ConstLevelSpacing self);
 extern_c Handle2ConstXYs1d
 LevelSpacingXYs1dGetConst(ConstHandle2ConstLevelSpacing self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 LevelSpacingXYs1dGet(ConstHandle2LevelSpacing self);
 
@@ -166,7 +166,7 @@ LevelSpacingConstant1dHas(ConstHandle2ConstLevelSpacing self);
 extern_c Handle2ConstConstant1d
 LevelSpacingConstant1dGetConst(ConstHandle2ConstLevelSpacing self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Constant1d
 LevelSpacingConstant1dGet(ConstHandle2LevelSpacing self);
 

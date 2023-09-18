@@ -157,7 +157,7 @@ ChargeIntegerGetConst(ConstHandle2ConstCharge self)
       (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer);
 }
 
-// Get, non-const
+// Get
 Handle2Integer
 ChargeIntegerGet(ConstHandle2Charge self)
 {

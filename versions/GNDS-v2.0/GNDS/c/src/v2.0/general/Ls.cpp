@@ -185,7 +185,7 @@ LsLGetConst(ConstHandle2ConstLs self, const size_t index_)
       (CLASSNAME, CLASSNAME+"LGetConst", self, extract::L, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2L
 LsLGet(ConstHandle2Ls self, const size_t index_)
 {
@@ -226,7 +226,7 @@ LsLGetByLabelConst(
        self, extract::L, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2L
 LsLGetByLabel(
    ConstHandle2Ls self,
@@ -271,7 +271,7 @@ LsLGetByValueConst(
        self, extract::L, meta::value, value);
 }
 
-// Get, by value, non-const
+// Get, by value
 Handle2L
 LsLGetByValue(
    ConstHandle2Ls self,

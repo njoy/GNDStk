@@ -163,7 +163,7 @@ DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE self)
 {
@@ -200,7 +200,7 @@ DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE self)
 {

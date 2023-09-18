@@ -148,7 +148,7 @@ YieldsNuclidesHas(ConstHandle2ConstYields self);
 extern_c Handle2ConstNuclides
 YieldsNuclidesGetConst(ConstHandle2ConstYields self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Nuclides
 YieldsNuclidesGet(ConstHandle2Yields self);
 
@@ -169,7 +169,7 @@ YieldsValuesHas(ConstHandle2ConstYields self);
 extern_c Handle2ConstValues
 YieldsValuesGetConst(ConstHandle2ConstYields self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Values
 YieldsValuesGet(ConstHandle2Yields self);
 
@@ -190,7 +190,7 @@ YieldsUncertaintyHas(ConstHandle2ConstYields self);
 extern_c Handle2ConstUncertainty
 YieldsUncertaintyGetConst(ConstHandle2ConstYields self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 YieldsUncertaintyGet(ConstHandle2Yields self);
 

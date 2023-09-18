@@ -157,7 +157,7 @@ RXYs2dGetConst(ConstHandle2ConstR self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 RXYs2dGet(ConstHandle2R self)
 {

@@ -154,7 +154,7 @@ UnorthodoxesUnorthodoxAdd(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorth
 extern_c Handle2ConstUnorthodox
 UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Unorthodox
 UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes self, const size_t index_);
 
@@ -180,7 +180,7 @@ UnorthodoxesUnorthodoxGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id, non-const
+// +++ Get, by id
 extern_c Handle2Unorthodox
 UnorthodoxesUnorthodoxGetById(
    ConstHandle2Unorthodoxes self,

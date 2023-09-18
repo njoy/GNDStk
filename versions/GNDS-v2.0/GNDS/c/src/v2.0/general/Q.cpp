@@ -163,7 +163,7 @@ QDoubleGetConst(ConstHandle2ConstQ self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 QDoubleGet(ConstHandle2Q self)
 {
@@ -200,7 +200,7 @@ QConstant1dGetConst(ConstHandle2ConstQ self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get, non-const
+// Get
 Handle2Constant1d
 QConstant1dGet(ConstHandle2Q self)
 {

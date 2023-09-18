@@ -142,7 +142,7 @@ ApplicationDataInstitutionHas(ConstHandle2ConstApplicationData self);
 extern_c Handle2ConstInstitution
 ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Institution
 ApplicationDataInstitutionGet(ConstHandle2ApplicationData self);
 

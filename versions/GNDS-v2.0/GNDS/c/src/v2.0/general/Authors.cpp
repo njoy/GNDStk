@@ -185,7 +185,7 @@ AuthorsAuthorGetConst(ConstHandle2ConstAuthors self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AuthorGetConst", self, extract::author, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Author
 AuthorsAuthorGet(ConstHandle2Authors self, const size_t index_)
 {
@@ -226,7 +226,7 @@ AuthorsAuthorGetByNameConst(
        self, extract::author, meta::name, name);
 }
 
-// Get, by name, non-const
+// Get, by name
 Handle2Author
 AuthorsAuthorGetByName(
    ConstHandle2Authors self,

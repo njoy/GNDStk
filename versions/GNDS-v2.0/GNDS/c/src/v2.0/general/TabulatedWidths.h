@@ -211,7 +211,7 @@ TabulatedWidthsResonanceReactionsHas(ConstHandle2ConstTabulatedWidths self);
 extern_c Handle2ConstResonanceReactions
 TabulatedWidthsResonanceReactionsGetConst(ConstHandle2ConstTabulatedWidths self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ResonanceReactions
 TabulatedWidthsResonanceReactionsGet(ConstHandle2TabulatedWidths self);
 
@@ -232,7 +232,7 @@ TabulatedWidthsLsHas(ConstHandle2ConstTabulatedWidths self);
 extern_c Handle2ConstLs
 TabulatedWidthsLsGetConst(ConstHandle2ConstTabulatedWidths self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Ls
 TabulatedWidthsLsGet(ConstHandle2TabulatedWidths self);
 
@@ -253,7 +253,7 @@ TabulatedWidthsPoPsHas(ConstHandle2ConstTabulatedWidths self);
 extern_c Handle2ConstPoPs
 TabulatedWidthsPoPsGetConst(ConstHandle2ConstTabulatedWidths self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2PoPs
 TabulatedWidthsPoPsGet(ConstHandle2TabulatedWidths self);
 
@@ -274,7 +274,7 @@ TabulatedWidthsScatteringRadiusHas(ConstHandle2ConstTabulatedWidths self);
 extern_c Handle2ConstScatteringRadius
 TabulatedWidthsScatteringRadiusGetConst(ConstHandle2ConstTabulatedWidths self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ScatteringRadius
 TabulatedWidthsScatteringRadiusGet(ConstHandle2TabulatedWidths self);
 

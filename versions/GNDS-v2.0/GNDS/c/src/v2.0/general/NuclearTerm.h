@@ -145,7 +145,7 @@ NuclearTermRegions2dHas(ConstHandle2ConstNuclearTerm self);
 extern_c Handle2ConstRegions2d
 NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions2d
 NuclearTermRegions2dGet(ConstHandle2NuclearTerm self);
 
@@ -166,7 +166,7 @@ NuclearTermXYs2dHas(ConstHandle2ConstNuclearTerm self);
 extern_c Handle2ConstXYs2d
 NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs2d
 NuclearTermXYs2dGet(ConstHandle2NuclearTerm self);
 

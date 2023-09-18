@@ -205,7 +205,7 @@ ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionHas(ConstHandl
 extern_c Handle2ConstBoundAtomCrossSection
 ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2BoundAtomCrossSection
 ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self);
 
@@ -226,7 +226,7 @@ ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralHas(ConstHandle2
 extern_c Handle2ConstDebyeWallerIntegral
 ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DebyeWallerIntegral
 ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self);
 

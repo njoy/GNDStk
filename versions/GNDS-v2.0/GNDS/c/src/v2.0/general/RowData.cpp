@@ -262,7 +262,7 @@ RowDataSlicesGetConst(ConstHandle2ConstRowData self)
       (CLASSNAME, CLASSNAME+"SlicesGetConst", self, extract::slices);
 }
 
-// Get, non-const
+// Get
 Handle2Slices
 RowDataSlicesGet(ConstHandle2RowData self)
 {

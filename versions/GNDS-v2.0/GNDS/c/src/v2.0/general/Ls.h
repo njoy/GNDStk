@@ -154,7 +154,7 @@ LsLAdd(ConstHandle2Ls self, ConstHandle2ConstL L);
 extern_c Handle2ConstL
 LsLGetConst(ConstHandle2ConstLs self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2L
 LsLGet(ConstHandle2Ls self, const size_t index_);
 
@@ -180,7 +180,7 @@ LsLGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2L
 LsLGetByLabel(
    ConstHandle2Ls self,
@@ -209,7 +209,7 @@ LsLGetByValueConst(
    const int value
 );
 
-// +++ Get, by value, non-const
+// +++ Get, by value
 extern_c Handle2L
 LsLGetByValue(
    ConstHandle2Ls self,

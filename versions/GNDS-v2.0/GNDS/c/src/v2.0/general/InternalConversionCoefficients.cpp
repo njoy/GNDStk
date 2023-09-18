@@ -185,7 +185,7 @@ InternalConversionCoefficientsShellGetConst(ConstHandle2ConstInternalConversionC
       (CLASSNAME, CLASSNAME+"ShellGetConst", self, extract::shell, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Shell
 InternalConversionCoefficientsShellGet(ConstHandle2InternalConversionCoefficients self, const size_t index_)
 {
@@ -226,7 +226,7 @@ InternalConversionCoefficientsShellGetByLabelConst(
        self, extract::shell, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Shell
 InternalConversionCoefficientsShellGetByLabel(
    ConstHandle2InternalConversionCoefficients self,
@@ -271,7 +271,7 @@ InternalConversionCoefficientsShellGetByValueConst(
        self, extract::shell, meta::value, value);
 }
 
-// Get, by value, non-const
+// Get, by value
 Handle2Shell
 InternalConversionCoefficientsShellGetByValue(
    ConstHandle2InternalConversionCoefficients self,

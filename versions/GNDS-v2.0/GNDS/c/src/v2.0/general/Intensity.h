@@ -162,7 +162,7 @@ IntensityUncertaintyHas(ConstHandle2ConstIntensity self);
 extern_c Handle2ConstUncertainty
 IntensityUncertaintyGetConst(ConstHandle2ConstIntensity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 IntensityUncertaintyGet(ConstHandle2Intensity self);
 

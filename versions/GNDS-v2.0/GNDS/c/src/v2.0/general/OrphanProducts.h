@@ -154,7 +154,7 @@ OrphanProductsOrphanProductAdd(ConstHandle2OrphanProducts self, ConstHandle2Cons
 extern_c Handle2ConstOrphanProduct
 OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts self, const size_t index_);
 
@@ -180,7 +180,7 @@ OrphanProductsOrphanProductGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGetByLabel(
    ConstHandle2OrphanProducts self,
@@ -209,7 +209,7 @@ OrphanProductsOrphanProductGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT, non-const
+// +++ Get, by ENDF_MT
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGetByENDFMT(
    ConstHandle2OrphanProducts self,

@@ -154,7 +154,7 @@ LeptonsLeptonAdd(ConstHandle2Leptons self, ConstHandle2ConstLepton lepton);
 extern_c Handle2ConstLepton
 LeptonsLeptonGetConst(ConstHandle2ConstLeptons self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Lepton
 LeptonsLeptonGet(ConstHandle2Leptons self, const size_t index_);
 
@@ -180,7 +180,7 @@ LeptonsLeptonGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id, non-const
+// +++ Get, by id
 extern_c Handle2Lepton
 LeptonsLeptonGetById(
    ConstHandle2Leptons self,
@@ -209,7 +209,7 @@ LeptonsLeptonGetByGenerationConst(
    const char *const generation
 );
 
-// +++ Get, by generation, non-const
+// +++ Get, by generation
 extern_c Handle2Lepton
 LeptonsLeptonGetByGeneration(
    ConstHandle2Leptons self,

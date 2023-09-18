@@ -251,7 +251,7 @@ CovarianceSectionRowDataGetConst(ConstHandle2ConstCovarianceSection self)
       (CLASSNAME, CLASSNAME+"RowDataGetConst", self, extract::rowData);
 }
 
-// Get, non-const
+// Get
 Handle2RowData
 CovarianceSectionRowDataGet(ConstHandle2CovarianceSection self)
 {
@@ -288,7 +288,7 @@ CovarianceSectionColumnDataGetConst(ConstHandle2ConstCovarianceSection self)
       (CLASSNAME, CLASSNAME+"ColumnDataGetConst", self, extract::columnData);
 }
 
-// Get, non-const
+// Get
 Handle2ColumnData
 CovarianceSectionColumnDataGet(ConstHandle2CovarianceSection self)
 {
@@ -325,7 +325,7 @@ CovarianceSectionCovarianceMatrixGetConst(ConstHandle2ConstCovarianceSection sel
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetConst", self, extract::covarianceMatrix);
 }
 
-// Get, non-const
+// Get
 Handle2CovarianceMatrix
 CovarianceSectionCovarianceMatrixGet(ConstHandle2CovarianceSection self)
 {
@@ -362,7 +362,7 @@ CovarianceSectionMixedGetConst(ConstHandle2ConstCovarianceSection self)
       (CLASSNAME, CLASSNAME+"MixedGetConst", self, extract::mixed);
 }
 
-// Get, non-const
+// Get
 Handle2Mixed
 CovarianceSectionMixedGet(ConstHandle2CovarianceSection self)
 {
@@ -399,7 +399,7 @@ CovarianceSectionSumGetConst(ConstHandle2ConstCovarianceSection self)
       (CLASSNAME, CLASSNAME+"SumGetConst", self, extract::sum);
 }
 
-// Get, non-const
+// Get
 Handle2Sum
 CovarianceSectionSumGet(ConstHandle2CovarianceSection self)
 {

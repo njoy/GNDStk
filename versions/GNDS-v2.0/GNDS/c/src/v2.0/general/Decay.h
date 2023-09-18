@@ -202,7 +202,7 @@ DecayProductsHas(ConstHandle2ConstDecay self);
 extern_c Handle2ConstProducts
 DecayProductsGetConst(ConstHandle2ConstDecay self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Products
 DecayProductsGet(ConstHandle2Decay self);
 

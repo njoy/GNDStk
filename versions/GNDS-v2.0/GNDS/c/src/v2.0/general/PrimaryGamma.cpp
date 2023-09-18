@@ -262,7 +262,7 @@ PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 PrimaryGammaAxesGet(ConstHandle2PrimaryGamma self)
 {

@@ -239,7 +239,7 @@ CrossSectionSumSummandsGetConst(ConstHandle2ConstCrossSectionSum self)
       (CLASSNAME, CLASSNAME+"SummandsGetConst", self, extract::summands);
 }
 
-// Get, non-const
+// Get
 Handle2Summands
 CrossSectionSumSummandsGet(ConstHandle2CrossSectionSum self)
 {
@@ -276,7 +276,7 @@ CrossSectionSumQGetConst(ConstHandle2ConstCrossSectionSum self)
       (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
-// Get, non-const
+// Get
 Handle2Q
 CrossSectionSumQGet(ConstHandle2CrossSectionSum self)
 {
@@ -313,7 +313,7 @@ CrossSectionSumCrossSectionGetConst(ConstHandle2ConstCrossSectionSum self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSection
 CrossSectionSumCrossSectionGet(ConstHandle2CrossSectionSum self)
 {

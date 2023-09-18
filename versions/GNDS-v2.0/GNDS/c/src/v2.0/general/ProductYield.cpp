@@ -198,7 +198,7 @@ ProductYieldNuclidesGetConst(ConstHandle2ConstProductYield self)
       (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
-// Get, non-const
+// Get
 Handle2Nuclides
 ProductYieldNuclidesGet(ConstHandle2ProductYield self)
 {
@@ -235,7 +235,7 @@ ProductYieldElapsedTimesGetConst(ConstHandle2ConstProductYield self)
       (CLASSNAME, CLASSNAME+"ElapsedTimesGetConst", self, extract::elapsedTimes);
 }
 
-// Get, non-const
+// Get
 Handle2ElapsedTimes
 ProductYieldElapsedTimesGet(ConstHandle2ProductYield self)
 {

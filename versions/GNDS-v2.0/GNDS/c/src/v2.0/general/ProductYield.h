@@ -165,7 +165,7 @@ ProductYieldNuclidesHas(ConstHandle2ConstProductYield self);
 extern_c Handle2ConstNuclides
 ProductYieldNuclidesGetConst(ConstHandle2ConstProductYield self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Nuclides
 ProductYieldNuclidesGet(ConstHandle2ProductYield self);
 
@@ -186,7 +186,7 @@ ProductYieldElapsedTimesHas(ConstHandle2ConstProductYield self);
 extern_c Handle2ConstElapsedTimes
 ProductYieldElapsedTimesGetConst(ConstHandle2ConstProductYield self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ElapsedTimes
 ProductYieldElapsedTimesGet(ConstHandle2ProductYield self);
 

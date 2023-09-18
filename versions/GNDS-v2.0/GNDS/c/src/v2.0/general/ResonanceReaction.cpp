@@ -280,7 +280,7 @@ ResonanceReactionLinkGetConst(ConstHandle2ConstResonanceReaction self)
       (CLASSNAME, CLASSNAME+"LinkGetConst", self, extract::link);
 }
 
-// Get, non-const
+// Get
 Handle2Link
 ResonanceReactionLinkGet(ConstHandle2ResonanceReaction self)
 {
@@ -317,7 +317,7 @@ ResonanceReactionHardSphereRadiusGetConst(ConstHandle2ConstResonanceReaction sel
       (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", self, extract::hardSphereRadius);
 }
 
-// Get, non-const
+// Get
 Handle2HardSphereRadius
 ResonanceReactionHardSphereRadiusGet(ConstHandle2ResonanceReaction self)
 {
@@ -354,7 +354,7 @@ ResonanceReactionQGetConst(ConstHandle2ConstResonanceReaction self)
       (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
-// Get, non-const
+// Get
 Handle2Q
 ResonanceReactionQGet(ConstHandle2ResonanceReaction self)
 {
@@ -391,7 +391,7 @@ ResonanceReactionScatteringRadiusGetConst(ConstHandle2ConstResonanceReaction sel
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringRadius
 ResonanceReactionScatteringRadiusGet(ConstHandle2ResonanceReaction self)
 {

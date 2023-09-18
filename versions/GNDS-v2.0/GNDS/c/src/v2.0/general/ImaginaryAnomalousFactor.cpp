@@ -157,7 +157,7 @@ ImaginaryAnomalousFactorXYs1dGetConst(ConstHandle2ConstImaginaryAnomalousFactor 
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 ImaginaryAnomalousFactorXYs1dGet(ConstHandle2ImaginaryAnomalousFactor self)
 {

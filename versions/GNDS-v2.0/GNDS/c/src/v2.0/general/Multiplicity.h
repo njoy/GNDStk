@@ -163,7 +163,7 @@ MultiplicityConstant1dHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstConstant1d
 MultiplicityConstant1dGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Constant1d
 MultiplicityConstant1dGet(ConstHandle2Multiplicity self);
 
@@ -184,7 +184,7 @@ MultiplicityXYs1dHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstXYs1d
 MultiplicityXYs1dGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 MultiplicityXYs1dGet(ConstHandle2Multiplicity self);
 
@@ -205,7 +205,7 @@ MultiplicityRegions1dHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstRegions1d
 MultiplicityRegions1dGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 MultiplicityRegions1dGet(ConstHandle2Multiplicity self);
 
@@ -226,7 +226,7 @@ MultiplicityPolynomial1dHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstPolynomial1d
 MultiplicityPolynomial1dGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 MultiplicityPolynomial1dGet(ConstHandle2Multiplicity self);
 
@@ -247,7 +247,7 @@ MultiplicityReferenceHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstReference
 MultiplicityReferenceGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Reference
 MultiplicityReferenceGet(ConstHandle2Multiplicity self);
 
@@ -268,7 +268,7 @@ MultiplicityBranching1dHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstBranching1d
 MultiplicityBranching1dGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Branching1d
 MultiplicityBranching1dGet(ConstHandle2Multiplicity self);
 
@@ -289,7 +289,7 @@ MultiplicityBranching3dHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstBranching3d
 MultiplicityBranching3dGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Branching3d
 MultiplicityBranching3dGet(ConstHandle2Multiplicity self);
 
@@ -310,7 +310,7 @@ MultiplicityUnspecifiedHas(ConstHandle2ConstMultiplicity self);
 extern_c Handle2ConstUnspecified
 MultiplicityUnspecifiedGetConst(ConstHandle2ConstMultiplicity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Unspecified
 MultiplicityUnspecifiedGet(ConstHandle2Multiplicity self);
 

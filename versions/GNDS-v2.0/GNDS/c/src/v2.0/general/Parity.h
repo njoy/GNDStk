@@ -142,7 +142,7 @@ ParityIntegerHas(ConstHandle2ConstParity self);
 extern_c Handle2ConstInteger
 ParityIntegerGetConst(ConstHandle2ConstParity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Integer
 ParityIntegerGet(ConstHandle2Parity self);
 

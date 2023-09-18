@@ -142,7 +142,7 @@ ResonanceParametersTableHas(ConstHandle2ConstResonanceParameters self);
 extern_c Handle2ConstTable
 ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Table
 ResonanceParametersTableGet(ConstHandle2ResonanceParameters self);
 

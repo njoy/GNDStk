@@ -142,7 +142,7 @@ DelayedGammaEnergyPolynomial1dHas(ConstHandle2ConstDelayedGammaEnergy self);
 extern_c Handle2ConstPolynomial1d
 DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy self);
 

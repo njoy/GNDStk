@@ -185,7 +185,7 @@ UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes self, const size_t 
       (CLASSNAME, CLASSNAME+"UnorthodoxGetConst", self, extract::unorthodox, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Unorthodox
 UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes self, const size_t index_)
 {
@@ -226,7 +226,7 @@ UnorthodoxesUnorthodoxGetByIdConst(
        self, extract::unorthodox, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2Unorthodox
 UnorthodoxesUnorthodoxGetById(
    ConstHandle2Unorthodoxes self,

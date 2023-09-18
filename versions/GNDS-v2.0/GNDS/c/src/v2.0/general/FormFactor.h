@@ -142,7 +142,7 @@ FormFactorXYs1dHas(ConstHandle2ConstFormFactor self);
 extern_c Handle2ConstXYs1d
 FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 FormFactorXYs1dGet(ConstHandle2FormFactor self);
 

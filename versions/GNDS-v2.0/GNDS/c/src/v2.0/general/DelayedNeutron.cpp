@@ -198,7 +198,7 @@ DelayedNeutronRateGetConst(ConstHandle2ConstDelayedNeutron self)
       (CLASSNAME, CLASSNAME+"RateGetConst", self, extract::rate);
 }
 
-// Get, non-const
+// Get
 Handle2Rate
 DelayedNeutronRateGet(ConstHandle2DelayedNeutron self)
 {
@@ -235,7 +235,7 @@ DelayedNeutronProductGetConst(ConstHandle2ConstDelayedNeutron self)
       (CLASSNAME, CLASSNAME+"ProductGetConst", self, extract::product);
 }
 
-// Get, non-const
+// Get
 Handle2Product
 DelayedNeutronProductGet(ConstHandle2DelayedNeutron self)
 {

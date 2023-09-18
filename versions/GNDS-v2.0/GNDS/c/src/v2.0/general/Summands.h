@@ -154,7 +154,7 @@ SummandsAddAdd(ConstHandle2Summands self, ConstHandle2ConstAdd add);
 extern_c Handle2ConstAdd
 SummandsAddGetConst(ConstHandle2ConstSummands self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Add
 SummandsAddGet(ConstHandle2Summands self, const size_t index_);
 
@@ -180,7 +180,7 @@ SummandsAddGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href, non-const
+// +++ Get, by href
 extern_c Handle2Add
 SummandsAddGetByHref(
    ConstHandle2Summands self,

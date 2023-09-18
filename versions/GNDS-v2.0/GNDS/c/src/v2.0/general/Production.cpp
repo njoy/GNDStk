@@ -233,7 +233,7 @@ ProductionCrossSectionGetConst(ConstHandle2ConstProduction self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSection
 ProductionCrossSectionGet(ConstHandle2Production self)
 {
@@ -270,7 +270,7 @@ ProductionOutputChannelGetConst(ConstHandle2ConstProduction self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get, non-const
+// Get
 Handle2OutputChannel
 ProductionOutputChannelGet(ConstHandle2Production self)
 {

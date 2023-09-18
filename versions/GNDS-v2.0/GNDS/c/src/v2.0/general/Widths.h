@@ -154,7 +154,7 @@ WidthsWidthAdd(ConstHandle2Widths self, ConstHandle2ConstWidth width);
 extern_c Handle2ConstWidth
 WidthsWidthGetConst(ConstHandle2ConstWidths self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Width
 WidthsWidthGet(ConstHandle2Widths self, const size_t index_);
 
@@ -180,7 +180,7 @@ WidthsWidthGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Width
 WidthsWidthGetByLabel(
    ConstHandle2Widths self,
@@ -209,7 +209,7 @@ WidthsWidthGetByResonanceReactionConst(
    const char *const resonanceReaction
 );
 
-// +++ Get, by resonanceReaction, non-const
+// +++ Get, by resonanceReaction
 extern_c Handle2Width
 WidthsWidthGetByResonanceReaction(
    ConstHandle2Widths self,
@@ -238,7 +238,7 @@ WidthsWidthGetByDegreesOfFreedomConst(
    const int degreesOfFreedom
 );
 
-// +++ Get, by degreesOfFreedom, non-const
+// +++ Get, by degreesOfFreedom
 extern_c Handle2Width
 WidthsWidthGetByDegreesOfFreedom(
    ConstHandle2Widths self,

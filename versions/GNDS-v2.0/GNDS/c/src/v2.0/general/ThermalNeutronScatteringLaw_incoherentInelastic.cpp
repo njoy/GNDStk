@@ -332,7 +332,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(ConstHand
       (CLASSNAME, CLASSNAME+"ScatteringAtomsGetConst", self, extract::scatteringAtoms);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringAtoms
 ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self)
 {

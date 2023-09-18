@@ -350,7 +350,7 @@ CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite self)
       (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", self, extract::externalFiles);
 }
 
-// Get, non-const
+// Get
 Handle2ExternalFiles
 CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite self)
 {
@@ -387,7 +387,7 @@ CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite self)
       (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
-// Get, non-const
+// Get
 Handle2Styles
 CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite self)
 {
@@ -424,7 +424,7 @@ CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite self)
       (CLASSNAME, CLASSNAME+"CovarianceSectionsGetConst", self, extract::covarianceSections);
 }
 
-// Get, non-const
+// Get
 Handle2CovarianceSections
 CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite self)
 {
@@ -461,7 +461,7 @@ CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite sel
       (CLASSNAME, CLASSNAME+"ParameterCovariancesGetConst", self, extract::parameterCovariances);
 }
 
-// Get, non-const
+// Get
 Handle2ParameterCovariances
 CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite self)
 {

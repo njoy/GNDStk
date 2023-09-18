@@ -163,7 +163,7 @@ ThetaXYs1dGetConst(ConstHandle2ConstTheta self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 ThetaXYs1dGet(ConstHandle2Theta self)
 {
@@ -200,7 +200,7 @@ ThetaRegions1dGetConst(ConstHandle2ConstTheta self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions1d
 ThetaRegions1dGet(ConstHandle2Theta self)
 {

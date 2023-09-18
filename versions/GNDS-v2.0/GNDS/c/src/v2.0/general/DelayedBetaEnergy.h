@@ -142,7 +142,7 @@ DelayedBetaEnergyPolynomial1dHas(ConstHandle2ConstDelayedBetaEnergy self);
 extern_c Handle2ConstPolynomial1d
 DelayedBetaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedBetaEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 DelayedBetaEnergyPolynomial1dGet(ConstHandle2DelayedBetaEnergy self);
 

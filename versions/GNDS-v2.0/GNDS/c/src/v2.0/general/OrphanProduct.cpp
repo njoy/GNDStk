@@ -233,7 +233,7 @@ OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSection
 OrphanProductCrossSectionGet(ConstHandle2OrphanProduct self)
 {
@@ -270,7 +270,7 @@ OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get, non-const
+// Get
 Handle2OutputChannel
 OrphanProductOutputChannelGet(ConstHandle2OrphanProduct self)
 {

@@ -142,7 +142,7 @@ ContinuumXYs1dHas(ConstHandle2ConstContinuum self);
 extern_c Handle2ConstXYs1d
 ContinuumXYs1dGetConst(ConstHandle2ConstContinuum self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 ContinuumXYs1dGet(ConstHandle2Continuum self);
 

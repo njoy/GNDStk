@@ -154,7 +154,7 @@ ConfigurationsConfigurationAdd(ConstHandle2Configurations self, ConstHandle2Cons
 extern_c Handle2ConstConfiguration
 ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Configuration
 ConfigurationsConfigurationGet(ConstHandle2Configurations self, const size_t index_);
 
@@ -180,7 +180,7 @@ ConfigurationsConfigurationGetBySubshellConst(
    const char *const subshell
 );
 
-// +++ Get, by subshell, non-const
+// +++ Get, by subshell
 extern_c Handle2Configuration
 ConfigurationsConfigurationGetBySubshell(
    ConstHandle2Configurations self,
@@ -209,7 +209,7 @@ ConfigurationsConfigurationGetByElectronNumberConst(
    const double electronNumber
 );
 
-// +++ Get, by electronNumber, non-const
+// +++ Get, by electronNumber
 extern_c Handle2Configuration
 ConfigurationsConfigurationGetByElectronNumber(
    ConstHandle2Configurations self,

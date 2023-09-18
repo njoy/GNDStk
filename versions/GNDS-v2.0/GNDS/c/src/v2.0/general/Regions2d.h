@@ -148,7 +148,7 @@ Regions2dAxesHas(ConstHandle2ConstRegions2d self);
 extern_c Handle2ConstAxes
 Regions2dAxesGetConst(ConstHandle2ConstRegions2d self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Axes
 Regions2dAxesGet(ConstHandle2Regions2d self);
 
@@ -169,7 +169,7 @@ Regions2dFunction2dsHas(ConstHandle2ConstRegions2d self);
 extern_c Handle2ConstFunction2ds
 Regions2dFunction2dsGetConst(ConstHandle2ConstRegions2d self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Function2ds
 Regions2dFunction2dsGet(ConstHandle2Regions2d self);
 
@@ -190,7 +190,7 @@ Regions2dUncertaintyHas(ConstHandle2ConstRegions2d self);
 extern_c Handle2ConstUncertainty
 Regions2dUncertaintyGetConst(ConstHandle2ConstRegions2d self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 Regions2dUncertaintyGet(ConstHandle2Regions2d self);
 

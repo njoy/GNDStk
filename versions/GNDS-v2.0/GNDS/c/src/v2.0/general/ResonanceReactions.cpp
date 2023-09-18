@@ -185,7 +185,7 @@ ResonanceReactionsResonanceReactionGetConst(ConstHandle2ConstResonanceReactions 
       (CLASSNAME, CLASSNAME+"ResonanceReactionGetConst", self, extract::resonanceReaction, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGet(ConstHandle2ResonanceReactions self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ResonanceReactionsResonanceReactionGetByLabelConst(
        self, extract::resonanceReaction, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByLabel(
    ConstHandle2ResonanceReactions self,
@@ -271,7 +271,7 @@ ResonanceReactionsResonanceReactionGetByEjectileConst(
        self, extract::resonanceReaction, meta::ejectile, ejectile);
 }
 
-// Get, by ejectile, non-const
+// Get, by ejectile
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEjectile(
    ConstHandle2ResonanceReactions self,
@@ -316,7 +316,7 @@ ResonanceReactionsResonanceReactionGetByEliminatedConst(
        self, extract::resonanceReaction, meta::eliminated, eliminated);
 }
 
-// Get, by eliminated, non-const
+// Get, by eliminated
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEliminated(
    ConstHandle2ResonanceReactions self,

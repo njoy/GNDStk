@@ -195,7 +195,7 @@ ParameterCovariancesParameterCovarianceGetConst(ConstHandle2ConstParameterCovari
       (CLASSNAME, CLASSNAME+"ParameterCovarianceGetConst", self, extract::parameterCovariance, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_)
 {
@@ -236,7 +236,7 @@ ParameterCovariancesParameterCovarianceGetByLabelConst(
        self, extract::parameterCovariance, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -304,7 +304,7 @@ ParameterCovariancesAverageParameterCovarianceGetConst(ConstHandle2ConstParamete
       (CLASSNAME, CLASSNAME+"AverageParameterCovarianceGetConst", self, extract::averageParameterCovariance, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_)
 {
@@ -345,7 +345,7 @@ ParameterCovariancesAverageParameterCovarianceGetByLabelConst(
        self, extract::averageParameterCovariance, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -390,7 +390,7 @@ ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(
        self, extract::averageParameterCovariance, meta::crossTerm, crossTerm);
 }
 
-// Get, by crossTerm, non-const
+// Get, by crossTerm
 Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(
    ConstHandle2ParameterCovariances self,

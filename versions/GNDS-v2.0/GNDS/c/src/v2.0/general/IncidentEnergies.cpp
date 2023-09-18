@@ -185,7 +185,7 @@ IncidentEnergiesIncidentEnergyGetConst(ConstHandle2ConstIncidentEnergies self, c
       (CLASSNAME, CLASSNAME+"IncidentEnergyGetConst", self, extract::incidentEnergy, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGet(ConstHandle2IncidentEnergies self, const size_t index_)
 {
@@ -226,7 +226,7 @@ IncidentEnergiesIncidentEnergyGetByLabelConst(
        self, extract::incidentEnergy, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGetByLabel(
    ConstHandle2IncidentEnergies self,

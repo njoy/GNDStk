@@ -168,7 +168,7 @@ ElapsedTimeTimeHas(ConstHandle2ConstElapsedTime self);
 extern_c Handle2ConstTime
 ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Time
 ElapsedTimeTimeGet(ConstHandle2ElapsedTime self);
 
@@ -189,7 +189,7 @@ ElapsedTimeYieldsHas(ConstHandle2ConstElapsedTime self);
 extern_c Handle2ConstYields
 ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Yields
 ElapsedTimeYieldsGet(ConstHandle2ElapsedTime self);
 
@@ -210,7 +210,7 @@ ElapsedTimeIncidentEnergiesHas(ConstHandle2ConstElapsedTime self);
 extern_c Handle2ConstIncidentEnergies
 ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2IncidentEnergies
 ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime self);
 

@@ -169,7 +169,7 @@ MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix self)
       (CLASSNAME, CLASSNAME+"EFLGetConst", self, extract::EFL);
 }
 
-// Get, non-const
+// Get
 Handle2EFL
 MadlandNixEFLGet(ConstHandle2MadlandNix self)
 {
@@ -206,7 +206,7 @@ MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix self)
       (CLASSNAME, CLASSNAME+"EFHGetConst", self, extract::EFH);
 }
 
-// Get, non-const
+// Get
 Handle2EFH
 MadlandNixEFHGet(ConstHandle2MadlandNix self)
 {
@@ -243,7 +243,7 @@ MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix self)
       (CLASSNAME, CLASSNAME+"T_MGetConst", self, extract::T_M);
 }
 
-// Get, non-const
+// Get
 Handle2T_M
 MadlandNixT_MGet(ConstHandle2MadlandNix self)
 {

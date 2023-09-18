@@ -145,7 +145,7 @@ Gridded2dAxesHas(ConstHandle2ConstGridded2d self);
 extern_c Handle2ConstAxes
 Gridded2dAxesGetConst(ConstHandle2ConstGridded2d self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Axes
 Gridded2dAxesGet(ConstHandle2Gridded2d self);
 
@@ -166,7 +166,7 @@ Gridded2dArrayHas(ConstHandle2ConstGridded2d self);
 extern_c Handle2ConstArray
 Gridded2dArrayGetConst(ConstHandle2ConstGridded2d self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Array
 Gridded2dArrayGet(ConstHandle2Gridded2d self);
 

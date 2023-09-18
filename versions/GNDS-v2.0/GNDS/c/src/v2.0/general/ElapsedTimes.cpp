@@ -185,7 +185,7 @@ ElapsedTimesElapsedTimeGetConst(ConstHandle2ConstElapsedTimes self, const size_t
       (CLASSNAME, CLASSNAME+"ElapsedTimeGetConst", self, extract::elapsedTime, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ElapsedTime
 ElapsedTimesElapsedTimeGet(ConstHandle2ElapsedTimes self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ElapsedTimesElapsedTimeGetByLabelConst(
        self, extract::elapsedTime, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2ElapsedTime
 ElapsedTimesElapsedTimeGetByLabel(
    ConstHandle2ElapsedTimes self,

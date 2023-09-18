@@ -202,7 +202,7 @@ ThermalNeutronScatteringLaw_coherentElasticS_tableHas(ConstHandle2ConstThermalNe
 extern_c Handle2ConstS_table
 ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2S_table
 ThermalNeutronScatteringLaw_coherentElasticS_tableGet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self);
 

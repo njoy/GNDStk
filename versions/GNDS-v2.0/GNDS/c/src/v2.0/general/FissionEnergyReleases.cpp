@@ -185,7 +185,7 @@ FissionEnergyReleasesFissionEnergyReleaseGetConst(ConstHandle2ConstFissionEnergy
       (CLASSNAME, CLASSNAME+"FissionEnergyReleaseGetConst", self, extract::fissionEnergyRelease, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGet(ConstHandle2FissionEnergyReleases self, const size_t index_)
 {
@@ -226,7 +226,7 @@ FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst(
        self, extract::fissionEnergyRelease, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetByLabel(
    ConstHandle2FissionEnergyReleases self,

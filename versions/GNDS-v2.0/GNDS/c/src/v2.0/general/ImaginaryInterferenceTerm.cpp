@@ -163,7 +163,7 @@ ImaginaryInterferenceTermRegions2dGetConst(ConstHandle2ConstImaginaryInterferenc
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions2d
 ImaginaryInterferenceTermRegions2dGet(ConstHandle2ImaginaryInterferenceTerm self)
 {
@@ -200,7 +200,7 @@ ImaginaryInterferenceTermXYs2dGetConst(ConstHandle2ConstImaginaryInterferenceTer
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 ImaginaryInterferenceTermXYs2dGet(ConstHandle2ImaginaryInterferenceTerm self)
 {

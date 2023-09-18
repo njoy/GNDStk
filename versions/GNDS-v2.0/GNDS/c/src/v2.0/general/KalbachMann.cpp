@@ -233,7 +233,7 @@ KalbachMannFGetConst(ConstHandle2ConstKalbachMann self)
       (CLASSNAME, CLASSNAME+"FGetConst", self, extract::f);
 }
 
-// Get, non-const
+// Get
 Handle2F
 KalbachMannFGet(ConstHandle2KalbachMann self)
 {
@@ -270,7 +270,7 @@ KalbachMannRGetConst(ConstHandle2ConstKalbachMann self)
       (CLASSNAME, CLASSNAME+"RGetConst", self, extract::r);
 }
 
-// Get, non-const
+// Get
 Handle2R
 KalbachMannRGet(ConstHandle2KalbachMann self)
 {

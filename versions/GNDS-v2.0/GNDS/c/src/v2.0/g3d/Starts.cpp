@@ -186,7 +186,7 @@ StartsIntsGetArrayConst(ConstHandle2ConstStarts self)
       (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
-// Get pointer to existing values, non-const
+// Get pointer to existing values
 int *
 StartsIntsGetArray(ConstHandle2Starts self)
 {

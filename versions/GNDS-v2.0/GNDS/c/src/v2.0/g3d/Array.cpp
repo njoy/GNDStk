@@ -274,7 +274,7 @@ ArrayStartsGetConst(ConstHandle2ConstArray self)
       (CLASSNAME, CLASSNAME+"StartsGetConst", self, extract::starts);
 }
 
-// Get, non-const
+// Get
 Handle2Starts
 ArrayStartsGet(ConstHandle2Array self)
 {
@@ -311,7 +311,7 @@ ArrayLengthsGetConst(ConstHandle2ConstArray self)
       (CLASSNAME, CLASSNAME+"LengthsGetConst", self, extract::lengths);
 }
 
-// Get, non-const
+// Get
 Handle2Lengths
 ArrayLengthsGet(ConstHandle2Array self)
 {
@@ -348,7 +348,7 @@ ArrayValuesGetConst(ConstHandle2ConstArray self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 ArrayValuesGet(ConstHandle2Array self)
 {

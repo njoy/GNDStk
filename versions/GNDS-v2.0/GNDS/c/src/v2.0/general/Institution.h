@@ -162,7 +162,7 @@ InstitutionENDFconversionFlagsHas(ConstHandle2ConstInstitution self);
 extern_c Handle2ConstENDFconversionFlags
 InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ENDFconversionFlags
 InstitutionENDFconversionFlagsGet(ConstHandle2Institution self);
 

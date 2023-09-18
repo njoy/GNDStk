@@ -175,7 +175,7 @@ UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"CovarianceGetConst", self, extract::covariance);
 }
 
-// Get, non-const
+// Get
 Handle2Covariance
 UncertaintyCovarianceGet(ConstHandle2Uncertainty self)
 {
@@ -212,7 +212,7 @@ UncertaintyStandardGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"StandardGetConst", self, extract::standard);
 }
 
-// Get, non-const
+// Get
 Handle2Standard
 UncertaintyStandardGet(ConstHandle2Uncertainty self)
 {
@@ -249,7 +249,7 @@ UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"ListOfCovariancesGetConst", self, extract::listOfCovariances);
 }
 
-// Get, non-const
+// Get
 Handle2ListOfCovariances
 UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty self)
 {
@@ -286,7 +286,7 @@ UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 UncertaintyPolynomial1dGet(ConstHandle2Uncertainty self)
 {

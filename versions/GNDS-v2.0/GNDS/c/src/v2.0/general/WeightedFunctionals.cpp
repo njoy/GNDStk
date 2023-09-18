@@ -185,7 +185,7 @@ WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals self, c
       (CLASSNAME, CLASSNAME+"WeightedGetConst", self, extract::weighted, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Weighted
 WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals self, const size_t index_)
 {

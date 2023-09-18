@@ -262,7 +262,7 @@ UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved self)
       (CLASSNAME, CLASSNAME+"TabulatedWidthsGetConst", self, extract::tabulatedWidths);
 }
 
-// Get, non-const
+// Get
 Handle2TabulatedWidths
 UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved self)
 {

@@ -202,7 +202,7 @@ RowDataSlicesHas(ConstHandle2ConstRowData self);
 extern_c Handle2ConstSlices
 RowDataSlicesGetConst(ConstHandle2ConstRowData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Slices
 RowDataSlicesGet(ConstHandle2RowData self);
 

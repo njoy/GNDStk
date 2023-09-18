@@ -154,7 +154,7 @@ Function2dsXYs2dAdd(ConstHandle2Function2ds self, ConstHandle2ConstXYs2d XYs2d);
 extern_c Handle2ConstXYs2d
 Function2dsXYs2dGetConst(ConstHandle2ConstFunction2ds self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2XYs2d
 Function2dsXYs2dGet(ConstHandle2Function2ds self, const size_t index_);
 
@@ -180,7 +180,7 @@ Function2dsXYs2dGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index, non-const
+// +++ Get, by index
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByIndex(
    ConstHandle2Function2ds self,
@@ -209,7 +209,7 @@ Function2dsXYs2dGetByInterpolationConst(
    const char *const interpolation
 );
 
-// +++ Get, by interpolation, non-const
+// +++ Get, by interpolation
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByInterpolation(
    ConstHandle2Function2ds self,
@@ -238,7 +238,7 @@ Function2dsXYs2dGetByInterpolationQualifierConst(
    const char *const interpolationQualifier
 );
 
-// +++ Get, by interpolationQualifier, non-const
+// +++ Get, by interpolationQualifier
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByInterpolationQualifier(
    ConstHandle2Function2ds self,
@@ -267,7 +267,7 @@ Function2dsXYs2dGetByOuterDomainValueConst(
    const double outerDomainValue
 );
 
-// +++ Get, by outerDomainValue, non-const
+// +++ Get, by outerDomainValue
 extern_c Handle2XYs2d
 Function2dsXYs2dGetByOuterDomainValue(
    ConstHandle2Function2ds self,

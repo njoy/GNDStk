@@ -182,7 +182,7 @@ ShellUncertaintyHas(ConstHandle2ConstShell self);
 extern_c Handle2ConstUncertainty
 ShellUncertaintyGetConst(ConstHandle2ConstShell self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 ShellUncertaintyGet(ConstHandle2Shell self);
 

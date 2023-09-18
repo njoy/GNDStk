@@ -154,7 +154,7 @@ GaugeBosonsGaugeBosonAdd(ConstHandle2GaugeBosons self, ConstHandle2ConstGaugeBos
 extern_c Handle2ConstGaugeBoson
 GaugeBosonsGaugeBosonGetConst(ConstHandle2ConstGaugeBosons self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2GaugeBoson
 GaugeBosonsGaugeBosonGet(ConstHandle2GaugeBosons self, const size_t index_);
 
@@ -180,7 +180,7 @@ GaugeBosonsGaugeBosonGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id, non-const
+// +++ Get, by id
 extern_c Handle2GaugeBoson
 GaugeBosonsGaugeBosonGetById(
    ConstHandle2GaugeBosons self,

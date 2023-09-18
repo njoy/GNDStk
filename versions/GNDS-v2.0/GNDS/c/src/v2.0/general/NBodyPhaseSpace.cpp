@@ -192,7 +192,7 @@ NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get, non-const
+// Get
 Handle2Mass
 NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace self)
 {

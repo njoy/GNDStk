@@ -157,7 +157,7 @@ ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor self)
 {

@@ -154,7 +154,7 @@ CovarianceSectionsCovarianceSectionAdd(ConstHandle2CovarianceSections self, Cons
 extern_c Handle2ConstCovarianceSection
 CovarianceSectionsCovarianceSectionGetConst(ConstHandle2ConstCovarianceSections self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGet(ConstHandle2CovarianceSections self, const size_t index_);
 
@@ -180,7 +180,7 @@ CovarianceSectionsCovarianceSectionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByLabel(
    ConstHandle2CovarianceSections self,
@@ -209,7 +209,7 @@ CovarianceSectionsCovarianceSectionGetByCrossTermConst(
    const bool crossTerm
 );
 
-// +++ Get, by crossTerm, non-const
+// +++ Get, by crossTerm
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByCrossTerm(
    ConstHandle2CovarianceSections self,

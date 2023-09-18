@@ -145,7 +145,7 @@ PromptNeutronKEPolynomial1dHas(ConstHandle2ConstPromptNeutronKE self);
 extern_c Handle2ConstPolynomial1d
 PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE self);
 
@@ -166,7 +166,7 @@ PromptNeutronKEXYs1dHas(ConstHandle2ConstPromptNeutronKE self);
 extern_c Handle2ConstXYs1d
 PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE self);
 

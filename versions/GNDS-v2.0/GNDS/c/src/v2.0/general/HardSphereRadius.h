@@ -142,7 +142,7 @@ HardSphereRadiusConstant1dHas(ConstHandle2ConstHardSphereRadius self);
 extern_c Handle2ConstConstant1d
 HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Constant1d
 HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius self);
 

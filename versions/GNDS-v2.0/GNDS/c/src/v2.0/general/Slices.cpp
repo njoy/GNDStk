@@ -185,7 +185,7 @@ SlicesSliceGetConst(ConstHandle2ConstSlices self, const size_t index_)
       (CLASSNAME, CLASSNAME+"SliceGetConst", self, extract::slice, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Slice
 SlicesSliceGet(ConstHandle2Slices self, const size_t index_)
 {
@@ -226,7 +226,7 @@ SlicesSliceGetByDimensionConst(
        self, extract::slice, meta::dimension, dimension);
 }
 
-// Get, by dimension, non-const
+// Get, by dimension
 Handle2Slice
 SlicesSliceGetByDimension(
    ConstHandle2Slices self,
@@ -271,7 +271,7 @@ SlicesSliceGetByDomainValueConst(
        self, extract::slice, meta::domainValue, domainValue);
 }
 
-// Get, by domainValue, non-const
+// Get, by domainValue
 Handle2Slice
 SlicesSliceGetByDomainValue(
    ConstHandle2Slices self,
@@ -316,7 +316,7 @@ SlicesSliceGetByDomainMinConst(
        self, extract::slice, meta::domainMin, domainMin);
 }
 
-// Get, by domainMin, non-const
+// Get, by domainMin
 Handle2Slice
 SlicesSliceGetByDomainMin(
    ConstHandle2Slices self,
@@ -361,7 +361,7 @@ SlicesSliceGetByDomainMaxConst(
        self, extract::slice, meta::domainMax, domainMax);
 }
 
-// Get, by domainMax, non-const
+// Get, by domainMax
 Handle2Slice
 SlicesSliceGetByDomainMax(
    ConstHandle2Slices self,
@@ -406,7 +406,7 @@ SlicesSliceGetByDomainUnitConst(
        self, extract::slice, meta::domainUnit, domainUnit);
 }
 
-// Get, by domainUnit, non-const
+// Get, by domainUnit
 Handle2Slice
 SlicesSliceGetByDomainUnit(
    ConstHandle2Slices self,

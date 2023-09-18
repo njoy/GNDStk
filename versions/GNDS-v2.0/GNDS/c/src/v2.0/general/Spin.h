@@ -142,7 +142,7 @@ SpinFractionHas(ConstHandle2ConstSpin self);
 extern_c Handle2ConstFraction
 SpinFractionGetConst(ConstHandle2ConstSpin self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Fraction
 SpinFractionGet(ConstHandle2Spin self);
 

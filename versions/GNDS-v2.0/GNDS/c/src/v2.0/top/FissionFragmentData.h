@@ -148,7 +148,7 @@ FissionFragmentDataProductYieldsHas(ConstHandle2ConstFissionFragmentData self);
 extern_c Handle2ConstProductYields
 FissionFragmentDataProductYieldsGetConst(ConstHandle2ConstFissionFragmentData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ProductYields
 FissionFragmentDataProductYieldsGet(ConstHandle2FissionFragmentData self);
 
@@ -169,7 +169,7 @@ FissionFragmentDataDelayedNeutronsHas(ConstHandle2ConstFissionFragmentData self)
 extern_c Handle2ConstDelayedNeutrons
 FissionFragmentDataDelayedNeutronsGetConst(ConstHandle2ConstFissionFragmentData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DelayedNeutrons
 FissionFragmentDataDelayedNeutronsGet(ConstHandle2FissionFragmentData self);
 
@@ -190,7 +190,7 @@ FissionFragmentDataFissionEnergyReleasesHas(ConstHandle2ConstFissionFragmentData
 extern_c Handle2ConstFissionEnergyReleases
 FissionFragmentDataFissionEnergyReleasesGetConst(ConstHandle2ConstFissionFragmentData self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2FissionEnergyReleases
 FissionFragmentDataFissionEnergyReleasesGet(ConstHandle2FissionFragmentData self);
 

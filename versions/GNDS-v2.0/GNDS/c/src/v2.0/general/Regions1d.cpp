@@ -239,7 +239,7 @@ Regions1dAxesGetConst(ConstHandle2ConstRegions1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 Regions1dAxesGet(ConstHandle2Regions1d self)
 {
@@ -276,7 +276,7 @@ Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 Regions1dUncertaintyGet(ConstHandle2Regions1d self)
 {
@@ -313,7 +313,7 @@ Regions1dFunction1dsGetConst(ConstHandle2ConstRegions1d self)
       (CLASSNAME, CLASSNAME+"Function1dsGetConst", self, extract::function1ds);
 }
 
-// Get, non-const
+// Get
 Handle2Function1ds
 Regions1dFunction1dsGet(ConstHandle2Regions1d self)
 {

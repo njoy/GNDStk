@@ -154,7 +154,7 @@ ChannelsChannelAdd(ConstHandle2Channels self, ConstHandle2ConstChannel channel);
 extern_c Handle2ConstChannel
 ChannelsChannelGetConst(ConstHandle2ConstChannels self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Channel
 ChannelsChannelGet(ConstHandle2Channels self, const size_t index_);
 
@@ -180,7 +180,7 @@ ChannelsChannelGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Channel
 ChannelsChannelGetByLabel(
    ConstHandle2Channels self,
@@ -209,7 +209,7 @@ ChannelsChannelGetByResonanceReactionConst(
    const char *const resonanceReaction
 );
 
-// +++ Get, by resonanceReaction, non-const
+// +++ Get, by resonanceReaction
 extern_c Handle2Channel
 ChannelsChannelGetByResonanceReaction(
    ConstHandle2Channels self,
@@ -238,7 +238,7 @@ ChannelsChannelGetByLConst(
    const int L
 );
 
-// +++ Get, by L, non-const
+// +++ Get, by L
 extern_c Handle2Channel
 ChannelsChannelGetByL(
    ConstHandle2Channels self,
@@ -267,7 +267,7 @@ ChannelsChannelGetByChannelSpinConst(
    const int channelSpin
 );
 
-// +++ Get, by channelSpin, non-const
+// +++ Get, by channelSpin
 extern_c Handle2Channel
 ChannelsChannelGetByChannelSpin(
    ConstHandle2Channels self,
@@ -296,7 +296,7 @@ ChannelsChannelGetByColumnIndexConst(
    const int columnIndex
 );
 
-// +++ Get, by columnIndex, non-const
+// +++ Get, by columnIndex
 extern_c Handle2Channel
 ChannelsChannelGetByColumnIndex(
    ConstHandle2Channels self,

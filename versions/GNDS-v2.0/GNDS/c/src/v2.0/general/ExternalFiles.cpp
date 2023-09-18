@@ -185,7 +185,7 @@ ExternalFilesExternalFileGetConst(ConstHandle2ConstExternalFiles self, const siz
       (CLASSNAME, CLASSNAME+"ExternalFileGetConst", self, extract::externalFile, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ExternalFile
 ExternalFilesExternalFileGet(ConstHandle2ExternalFiles self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ExternalFilesExternalFileGetByLabelConst(
        self, extract::externalFile, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2ExternalFile
 ExternalFilesExternalFileGetByLabel(
    ConstHandle2ExternalFiles self,
@@ -271,7 +271,7 @@ ExternalFilesExternalFileGetByPathConst(
        self, extract::externalFile, meta::path, path);
 }
 
-// Get, by path, non-const
+// Get, by path
 Handle2ExternalFile
 ExternalFilesExternalFileGetByPath(
    ConstHandle2ExternalFiles self,
@@ -316,7 +316,7 @@ ExternalFilesExternalFileGetByChecksumConst(
        self, extract::externalFile, meta::checksum, checksum);
 }
 
-// Get, by checksum, non-const
+// Get, by checksum
 Handle2ExternalFile
 ExternalFilesExternalFileGetByChecksum(
    ConstHandle2ExternalFiles self,
@@ -361,7 +361,7 @@ ExternalFilesExternalFileGetByAlgorithmConst(
        self, extract::externalFile, meta::algorithm, algorithm);
 }
 
-// Get, by algorithm, non-const
+// Get, by algorithm
 Handle2ExternalFile
 ExternalFilesExternalFileGetByAlgorithm(
    ConstHandle2ExternalFiles self,

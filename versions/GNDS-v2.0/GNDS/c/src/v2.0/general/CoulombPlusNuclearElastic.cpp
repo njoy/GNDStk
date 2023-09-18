@@ -344,7 +344,7 @@ CoulombPlusNuclearElasticRutherfordScatteringGetConst(ConstHandle2ConstCoulombPl
       (CLASSNAME, CLASSNAME+"RutherfordScatteringGetConst", self, extract::RutherfordScattering);
 }
 
-// Get, non-const
+// Get
 Handle2RutherfordScattering
 CoulombPlusNuclearElasticRutherfordScatteringGet(ConstHandle2CoulombPlusNuclearElastic self)
 {
@@ -381,7 +381,7 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(ConstHandle2ConstCoul
       (CLASSNAME, CLASSNAME+"NuclearAmplitudeExpansionGetConst", self, extract::nuclearAmplitudeExpansion);
 }
 
-// Get, non-const
+// Get
 Handle2NuclearAmplitudeExpansion
 CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuclearElastic self)
 {
@@ -418,7 +418,7 @@ CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(ConstHandle2ConstCoulom
       (CLASSNAME, CLASSNAME+"NuclearPlusInterferenceGetConst", self, extract::nuclearPlusInterference);
 }
 
-// Get, non-const
+// Get
 Handle2NuclearPlusInterference
 CoulombPlusNuclearElasticNuclearPlusInterferenceGet(ConstHandle2CoulombPlusNuclearElastic self)
 {

@@ -163,7 +163,7 @@ ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get, non-const
+// Get
 Handle2Constant1d
 ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius self)
 {
@@ -200,7 +200,7 @@ ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius self)
 {

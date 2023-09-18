@@ -185,7 +185,7 @@ ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders self, const size_t in
       (CLASSNAME, CLASSNAME+"ColumnGetConst", self, extract::column, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Column
 ColumnHeadersColumnGet(ConstHandle2ColumnHeaders self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ColumnHeadersColumnGetByIndexConst(
        self, extract::column, meta::index, index);
 }
 
-// Get, by index, non-const
+// Get, by index
 Handle2Column
 ColumnHeadersColumnGetByIndex(
    ConstHandle2ColumnHeaders self,
@@ -271,7 +271,7 @@ ColumnHeadersColumnGetByNameConst(
        self, extract::column, meta::name, name);
 }
 
-// Get, by name, non-const
+// Get, by name
 Handle2Column
 ColumnHeadersColumnGetByName(
    ConstHandle2ColumnHeaders self,
@@ -316,7 +316,7 @@ ColumnHeadersColumnGetByUnitConst(
        self, extract::column, meta::unit, unit);
 }
 
-// Get, by unit, non-const
+// Get, by unit
 Handle2Column
 ColumnHeadersColumnGetByUnit(
    ConstHandle2ColumnHeaders self,

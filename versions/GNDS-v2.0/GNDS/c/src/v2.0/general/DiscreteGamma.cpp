@@ -262,7 +262,7 @@ DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 DiscreteGammaAxesGet(ConstHandle2DiscreteGamma self)
 {

@@ -202,7 +202,7 @@ CovarianceMatrixGridded2dHas(ConstHandle2ConstCovarianceMatrix self);
 extern_c Handle2ConstGridded2d
 CovarianceMatrixGridded2dGetConst(ConstHandle2ConstCovarianceMatrix self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Gridded2d
 CovarianceMatrixGridded2dGet(ConstHandle2CovarianceMatrix self);
 

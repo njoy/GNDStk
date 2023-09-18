@@ -145,7 +145,7 @@ FastRegionXYs1dHas(ConstHandle2ConstFastRegion self);
 extern_c Handle2ConstXYs1d
 FastRegionXYs1dGetConst(ConstHandle2ConstFastRegion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 FastRegionXYs1dGet(ConstHandle2FastRegion self);
 
@@ -166,7 +166,7 @@ FastRegionRegions1dHas(ConstHandle2ConstFastRegion self);
 extern_c Handle2ConstRegions1d
 FastRegionRegions1dGetConst(ConstHandle2ConstFastRegion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 FastRegionRegions1dGet(ConstHandle2FastRegion self);
 

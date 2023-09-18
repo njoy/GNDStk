@@ -274,7 +274,7 @@ Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 Polynomial1dAxesGet(ConstHandle2Polynomial1d self)
 {
@@ -311,7 +311,7 @@ Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 Polynomial1dValuesGet(ConstHandle2Polynomial1d self)
 {
@@ -348,7 +348,7 @@ Polynomial1dUncertaintyGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 Polynomial1dUncertaintyGet(ConstHandle2Polynomial1d self)
 {

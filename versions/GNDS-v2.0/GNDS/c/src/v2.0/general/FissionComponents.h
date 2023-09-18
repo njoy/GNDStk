@@ -154,7 +154,7 @@ FissionComponentsFissionComponentAdd(ConstHandle2FissionComponents self, ConstHa
 extern_c Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGet(ConstHandle2FissionComponents self, const size_t index_);
 
@@ -180,7 +180,7 @@ FissionComponentsFissionComponentGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByLabel(
    ConstHandle2FissionComponents self,
@@ -209,7 +209,7 @@ FissionComponentsFissionComponentGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT, non-const
+// +++ Get, by ENDF_MT
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByENDFMT(
    ConstHandle2FissionComponents self,
@@ -238,7 +238,7 @@ FissionComponentsFissionComponentGetByFissionGenreConst(
    const char *const fissionGenre
 );
 
-// +++ Get, by fissionGenre, non-const
+// +++ Get, by fissionGenre
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByFissionGenre(
    ConstHandle2FissionComponents self,

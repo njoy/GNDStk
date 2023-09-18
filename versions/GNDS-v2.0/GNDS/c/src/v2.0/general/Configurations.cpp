@@ -185,7 +185,7 @@ ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations self, const 
       (CLASSNAME, CLASSNAME+"ConfigurationGetConst", self, extract::configuration, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Configuration
 ConfigurationsConfigurationGet(ConstHandle2Configurations self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ConfigurationsConfigurationGetBySubshellConst(
        self, extract::configuration, meta::subshell, subshell);
 }
 
-// Get, by subshell, non-const
+// Get, by subshell
 Handle2Configuration
 ConfigurationsConfigurationGetBySubshell(
    ConstHandle2Configurations self,
@@ -271,7 +271,7 @@ ConfigurationsConfigurationGetByElectronNumberConst(
        self, extract::configuration, meta::electronNumber, electronNumber);
 }
 
-// Get, by electronNumber, non-const
+// Get, by electronNumber
 Handle2Configuration
 ConfigurationsConfigurationGetByElectronNumber(
    ConstHandle2Configurations self,

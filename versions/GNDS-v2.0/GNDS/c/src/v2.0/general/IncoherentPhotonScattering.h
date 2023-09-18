@@ -222,7 +222,7 @@ IncoherentPhotonScatteringScatteringFactorHas(ConstHandle2ConstIncoherentPhotonS
 extern_c Handle2ConstScatteringFactor
 IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPhotonScattering self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ScatteringFactor
 IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering self);
 

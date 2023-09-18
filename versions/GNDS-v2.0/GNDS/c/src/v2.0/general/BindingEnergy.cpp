@@ -157,7 +157,7 @@ BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 BindingEnergyDoubleGet(ConstHandle2BindingEnergy self)
 {

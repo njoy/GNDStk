@@ -148,7 +148,7 @@ BackgroundResolvedRegionHas(ConstHandle2ConstBackground self);
 extern_c Handle2ConstResolvedRegion
 BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ResolvedRegion
 BackgroundResolvedRegionGet(ConstHandle2Background self);
 
@@ -169,7 +169,7 @@ BackgroundFastRegionHas(ConstHandle2ConstBackground self);
 extern_c Handle2ConstFastRegion
 BackgroundFastRegionGetConst(ConstHandle2ConstBackground self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2FastRegion
 BackgroundFastRegionGet(ConstHandle2Background self);
 
@@ -190,7 +190,7 @@ BackgroundUnresolvedRegionHas(ConstHandle2ConstBackground self);
 extern_c Handle2ConstUnresolvedRegion
 BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2UnresolvedRegion
 BackgroundUnresolvedRegionGet(ConstHandle2Background self);
 

@@ -142,7 +142,7 @@ T_MXYs1dHas(ConstHandle2ConstT_M self);
 extern_c Handle2ConstXYs1d
 T_MXYs1dGetConst(ConstHandle2ConstT_M self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 T_MXYs1dGet(ConstHandle2T_M self);
 

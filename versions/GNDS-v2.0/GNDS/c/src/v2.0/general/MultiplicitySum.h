@@ -185,7 +185,7 @@ MultiplicitySumMultiplicityHas(ConstHandle2ConstMultiplicitySum self);
 extern_c Handle2ConstMultiplicity
 MultiplicitySumMultiplicityGetConst(ConstHandle2ConstMultiplicitySum self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Multiplicity
 MultiplicitySumMultiplicityGet(ConstHandle2MultiplicitySum self);
 
@@ -206,7 +206,7 @@ MultiplicitySumSummandsHas(ConstHandle2ConstMultiplicitySum self);
 extern_c Handle2ConstSummands
 MultiplicitySumSummandsGetConst(ConstHandle2ConstMultiplicitySum self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Summands
 MultiplicitySumSummandsGet(ConstHandle2MultiplicitySum self);
 

@@ -185,7 +185,7 @@ UncorrelatedAngularHas(ConstHandle2ConstUncorrelated self);
 extern_c Handle2ConstAngular
 UncorrelatedAngularGetConst(ConstHandle2ConstUncorrelated self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Angular
 UncorrelatedAngularGet(ConstHandle2Uncorrelated self);
 
@@ -206,7 +206,7 @@ UncorrelatedEnergyHas(ConstHandle2ConstUncorrelated self);
 extern_c Handle2ConstEnergy
 UncorrelatedEnergyGetConst(ConstHandle2ConstUncorrelated self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Energy
 UncorrelatedEnergyGet(ConstHandle2Uncorrelated self);
 

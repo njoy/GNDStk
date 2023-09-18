@@ -185,7 +185,7 @@ ProductionsProductionGetConst(ConstHandle2ConstProductions self, const size_t in
       (CLASSNAME, CLASSNAME+"ProductionGetConst", self, extract::production, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Production
 ProductionsProductionGet(ConstHandle2Productions self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ProductionsProductionGetByLabelConst(
        self, extract::production, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Production
 ProductionsProductionGetByLabel(
    ConstHandle2Productions self,
@@ -271,7 +271,7 @@ ProductionsProductionGetByENDFMTConst(
        self, extract::production, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT, non-const
+// Get, by ENDF_MT
 Handle2Production
 ProductionsProductionGetByENDFMT(
    ConstHandle2Productions self,

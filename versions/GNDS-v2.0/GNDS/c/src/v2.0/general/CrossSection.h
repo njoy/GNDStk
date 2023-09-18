@@ -157,7 +157,7 @@ CrossSectionXYs1dHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstXYs1d
 CrossSectionXYs1dGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 CrossSectionXYs1dGet(ConstHandle2CrossSection self);
 
@@ -178,7 +178,7 @@ CrossSectionRegions1dHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstRegions1d
 CrossSectionRegions1dGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 CrossSectionRegions1dGet(ConstHandle2CrossSection self);
 
@@ -199,7 +199,7 @@ CrossSectionReferenceHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstReference
 CrossSectionReferenceGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Reference
 CrossSectionReferenceGet(ConstHandle2CrossSection self);
 
@@ -220,7 +220,7 @@ CrossSectionResonancesWithBackgroundHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstResonancesWithBackground
 CrossSectionResonancesWithBackgroundGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ResonancesWithBackground
 CrossSectionResonancesWithBackgroundGet(ConstHandle2CrossSection self);
 
@@ -241,7 +241,7 @@ CrossSectionCoulombPlusNuclearElasticHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstCoulombPlusNuclearElastic
 CrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CoulombPlusNuclearElastic
 CrossSectionCoulombPlusNuclearElasticGet(ConstHandle2CrossSection self);
 
@@ -262,7 +262,7 @@ CrossSectionThermalNeutronScatteringLaw1dHas(ConstHandle2ConstCrossSection self)
 extern_c Handle2ConstThermalNeutronScatteringLaw1d
 CrossSectionThermalNeutronScatteringLaw1dGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ThermalNeutronScatteringLaw1d
 CrossSectionThermalNeutronScatteringLaw1dGet(ConstHandle2CrossSection self);
 

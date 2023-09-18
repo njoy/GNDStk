@@ -202,7 +202,7 @@ DoubleUncertaintyHas(ConstHandle2ConstDouble self);
 extern_c Handle2ConstUncertainty
 DoubleUncertaintyGetConst(ConstHandle2ConstDouble self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 DoubleUncertaintyGet(ConstHandle2Double self);
 

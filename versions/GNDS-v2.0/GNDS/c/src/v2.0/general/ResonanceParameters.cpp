@@ -157,7 +157,7 @@ ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters self)
       (CLASSNAME, CLASSNAME+"TableGetConst", self, extract::table);
 }
 
-// Get, non-const
+// Get
 Handle2Table
 ResonanceParametersTableGet(ConstHandle2ResonanceParameters self)
 {

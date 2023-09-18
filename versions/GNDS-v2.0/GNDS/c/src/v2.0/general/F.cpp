@@ -157,7 +157,7 @@ FXYs2dGetConst(ConstHandle2ConstF self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 FXYs2dGet(ConstHandle2F self)
 {

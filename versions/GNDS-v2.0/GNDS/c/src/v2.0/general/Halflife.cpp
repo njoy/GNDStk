@@ -163,7 +163,7 @@ HalflifeStringGetConst(ConstHandle2ConstHalflife self)
       (CLASSNAME, CLASSNAME+"StringGetConst", self, extract::string);
 }
 
-// Get, non-const
+// Get
 Handle2String
 HalflifeStringGet(ConstHandle2Halflife self)
 {
@@ -200,7 +200,7 @@ HalflifeDoubleGetConst(ConstHandle2ConstHalflife self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 HalflifeDoubleGet(ConstHandle2Halflife self)
 {

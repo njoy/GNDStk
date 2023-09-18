@@ -204,7 +204,7 @@ ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances self)
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringRadius
 ResonancesScatteringRadiusGet(ConstHandle2Resonances self)
 {
@@ -241,7 +241,7 @@ ResonancesResolvedGetConst(ConstHandle2ConstResonances self)
       (CLASSNAME, CLASSNAME+"ResolvedGetConst", self, extract::resolved);
 }
 
-// Get, non-const
+// Get
 Handle2Resolved
 ResonancesResolvedGet(ConstHandle2Resonances self)
 {
@@ -278,7 +278,7 @@ ResonancesUnresolvedGetConst(ConstHandle2ConstResonances self)
       (CLASSNAME, CLASSNAME+"UnresolvedGetConst", self, extract::unresolved);
 }
 
-// Get, non-const
+// Get
 Handle2Unresolved
 ResonancesUnresolvedGet(ConstHandle2Resonances self)
 {

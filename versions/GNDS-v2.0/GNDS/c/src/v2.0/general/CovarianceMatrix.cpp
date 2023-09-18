@@ -262,7 +262,7 @@ CovarianceMatrixGridded2dGetConst(ConstHandle2ConstCovarianceMatrix self)
       (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
-// Get, non-const
+// Get
 Handle2Gridded2d
 CovarianceMatrixGridded2dGet(ConstHandle2CovarianceMatrix self)
 {

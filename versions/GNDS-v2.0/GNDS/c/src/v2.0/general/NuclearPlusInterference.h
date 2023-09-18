@@ -165,7 +165,7 @@ NuclearPlusInterferenceCrossSectionHas(ConstHandle2ConstNuclearPlusInterference 
 extern_c Handle2ConstCrossSection
 NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterference self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSection
 NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference self);
 
@@ -186,7 +186,7 @@ NuclearPlusInterferenceDistributionHas(ConstHandle2ConstNuclearPlusInterference 
 extern_c Handle2ConstDistribution
 NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterference self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Distribution
 NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference self);
 

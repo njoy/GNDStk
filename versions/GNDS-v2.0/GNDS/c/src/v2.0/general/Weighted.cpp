@@ -163,7 +163,7 @@ WeightedXYs1dGetConst(ConstHandle2ConstWeighted self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 WeightedXYs1dGet(ConstHandle2Weighted self)
 {
@@ -200,7 +200,7 @@ WeightedEvaporationGetConst(ConstHandle2ConstWeighted self)
       (CLASSNAME, CLASSNAME+"EvaporationGetConst", self, extract::evaporation);
 }
 
-// Get, non-const
+// Get
 Handle2Evaporation
 WeightedEvaporationGet(ConstHandle2Weighted self)
 {

@@ -163,7 +163,7 @@ StylesEvaluatedGetConst(ConstHandle2ConstStyles self)
       (CLASSNAME, CLASSNAME+"EvaluatedGetConst", self, extract::evaluated);
 }
 
-// Get, non-const
+// Get
 Handle2Evaluated
 StylesEvaluatedGet(ConstHandle2Styles self)
 {
@@ -200,7 +200,7 @@ StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles self)
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetConst", self, extract::crossSectionReconstructed);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGet(ConstHandle2Styles self)
 {

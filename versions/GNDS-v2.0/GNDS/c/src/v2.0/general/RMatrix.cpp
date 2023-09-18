@@ -344,7 +344,7 @@ RMatrixPoPsGetConst(ConstHandle2ConstRMatrix self)
       (CLASSNAME, CLASSNAME+"PoPsGetConst", self, extract::PoPs);
 }
 
-// Get, non-const
+// Get
 Handle2PoPs
 RMatrixPoPsGet(ConstHandle2RMatrix self)
 {
@@ -381,7 +381,7 @@ RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix self)
       (CLASSNAME, CLASSNAME+"ResonanceReactionsGetConst", self, extract::resonanceReactions);
 }
 
-// Get, non-const
+// Get
 Handle2ResonanceReactions
 RMatrixResonanceReactionsGet(ConstHandle2RMatrix self)
 {
@@ -418,7 +418,7 @@ RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix self)
       (CLASSNAME, CLASSNAME+"SpinGroupsGetConst", self, extract::spinGroups);
 }
 
-// Get, non-const
+// Get
 Handle2SpinGroups
 RMatrixSpinGroupsGet(ConstHandle2RMatrix self)
 {

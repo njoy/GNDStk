@@ -199,7 +199,7 @@ MultiplicityConstant1dGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get, non-const
+// Get
 Handle2Constant1d
 MultiplicityConstant1dGet(ConstHandle2Multiplicity self)
 {
@@ -236,7 +236,7 @@ MultiplicityXYs1dGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 MultiplicityXYs1dGet(ConstHandle2Multiplicity self)
 {
@@ -273,7 +273,7 @@ MultiplicityRegions1dGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions1d
 MultiplicityRegions1dGet(ConstHandle2Multiplicity self)
 {
@@ -310,7 +310,7 @@ MultiplicityPolynomial1dGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 MultiplicityPolynomial1dGet(ConstHandle2Multiplicity self)
 {
@@ -347,7 +347,7 @@ MultiplicityReferenceGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"ReferenceGetConst", self, extract::reference);
 }
 
-// Get, non-const
+// Get
 Handle2Reference
 MultiplicityReferenceGet(ConstHandle2Multiplicity self)
 {
@@ -384,7 +384,7 @@ MultiplicityBranching1dGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"Branching1dGetConst", self, extract::branching1d);
 }
 
-// Get, non-const
+// Get
 Handle2Branching1d
 MultiplicityBranching1dGet(ConstHandle2Multiplicity self)
 {
@@ -421,7 +421,7 @@ MultiplicityBranching3dGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"Branching3dGetConst", self, extract::branching3d);
 }
 
-// Get, non-const
+// Get
 Handle2Branching3d
 MultiplicityBranching3dGet(ConstHandle2Multiplicity self)
 {
@@ -458,7 +458,7 @@ MultiplicityUnspecifiedGetConst(ConstHandle2ConstMultiplicity self)
       (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", self, extract::unspecified);
 }
 
-// Get, non-const
+// Get
 Handle2Unspecified
 MultiplicityUnspecifiedGet(ConstHandle2Multiplicity self)
 {

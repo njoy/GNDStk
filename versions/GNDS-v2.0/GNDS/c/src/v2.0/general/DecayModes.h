@@ -154,7 +154,7 @@ DecayModesDecayModeAdd(ConstHandle2DecayModes self, ConstHandle2ConstDecayMode d
 extern_c Handle2ConstDecayMode
 DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2DecayMode
 DecayModesDecayModeGet(ConstHandle2DecayModes self, const size_t index_);
 
@@ -180,7 +180,7 @@ DecayModesDecayModeGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2DecayMode
 DecayModesDecayModeGetByLabel(
    ConstHandle2DecayModes self,
@@ -209,7 +209,7 @@ DecayModesDecayModeGetByModeConst(
    const char *const mode
 );
 
-// +++ Get, by mode, non-const
+// +++ Get, by mode
 extern_c Handle2DecayMode
 DecayModesDecayModeGetByMode(
    ConstHandle2DecayModes self,

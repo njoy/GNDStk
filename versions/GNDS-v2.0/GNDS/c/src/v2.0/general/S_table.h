@@ -142,7 +142,7 @@ S_tableGridded2dHas(ConstHandle2ConstS_table self);
 extern_c Handle2ConstGridded2d
 S_tableGridded2dGetConst(ConstHandle2ConstS_table self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Gridded2d
 S_tableGridded2dGet(ConstHandle2S_table self);
 

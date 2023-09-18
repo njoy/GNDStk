@@ -154,7 +154,7 @@ SpinGroupsSpinGroupAdd(ConstHandle2SpinGroups self, ConstHandle2ConstSpinGroup s
 extern_c Handle2ConstSpinGroup
 SpinGroupsSpinGroupGetConst(ConstHandle2ConstSpinGroups self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGet(ConstHandle2SpinGroups self, const size_t index_);
 
@@ -180,7 +180,7 @@ SpinGroupsSpinGroupGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGetByLabel(
    ConstHandle2SpinGroups self,
@@ -209,7 +209,7 @@ SpinGroupsSpinGroupGetBySpinConst(
    const int spin
 );
 
-// +++ Get, by spin, non-const
+// +++ Get, by spin
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGetBySpin(
    ConstHandle2SpinGroups self,
@@ -238,7 +238,7 @@ SpinGroupsSpinGroupGetByParityConst(
    const int parity
 );
 
-// +++ Get, by parity, non-const
+// +++ Get, by parity
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGetByParity(
    ConstHandle2SpinGroups self,

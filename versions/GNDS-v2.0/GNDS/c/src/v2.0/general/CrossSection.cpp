@@ -187,7 +187,7 @@ CrossSectionXYs1dGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 CrossSectionXYs1dGet(ConstHandle2CrossSection self)
 {
@@ -224,7 +224,7 @@ CrossSectionRegions1dGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions1d
 CrossSectionRegions1dGet(ConstHandle2CrossSection self)
 {
@@ -261,7 +261,7 @@ CrossSectionReferenceGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"ReferenceGetConst", self, extract::reference);
 }
 
-// Get, non-const
+// Get
 Handle2Reference
 CrossSectionReferenceGet(ConstHandle2CrossSection self)
 {
@@ -298,7 +298,7 @@ CrossSectionResonancesWithBackgroundGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"ResonancesWithBackgroundGetConst", self, extract::resonancesWithBackground);
 }
 
-// Get, non-const
+// Get
 Handle2ResonancesWithBackground
 CrossSectionResonancesWithBackgroundGet(ConstHandle2CrossSection self)
 {
@@ -335,7 +335,7 @@ CrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstCrossSection self
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGetConst", self, extract::CoulombPlusNuclearElastic);
 }
 
-// Get, non-const
+// Get
 Handle2CoulombPlusNuclearElastic
 CrossSectionCoulombPlusNuclearElasticGet(ConstHandle2CrossSection self)
 {
@@ -372,7 +372,7 @@ CrossSectionThermalNeutronScatteringLaw1dGetConst(ConstHandle2ConstCrossSection 
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw1dGetConst", self, extract::thermalNeutronScatteringLaw1d);
 }
 
-// Get, non-const
+// Get
 Handle2ThermalNeutronScatteringLaw1d
 CrossSectionThermalNeutronScatteringLaw1dGet(ConstHandle2CrossSection self)
 {

@@ -263,7 +263,7 @@ NucleusMassGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get, non-const
+// Get
 Handle2Mass
 NucleusMassGet(ConstHandle2Nucleus self)
 {
@@ -300,7 +300,7 @@ NucleusSpinGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
-// Get, non-const
+// Get
 Handle2Spin
 NucleusSpinGet(ConstHandle2Nucleus self)
 {
@@ -337,7 +337,7 @@ NucleusParityGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
-// Get, non-const
+// Get
 Handle2Parity
 NucleusParityGet(ConstHandle2Nucleus self)
 {
@@ -374,7 +374,7 @@ NucleusChargeGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
-// Get, non-const
+// Get
 Handle2Charge
 NucleusChargeGet(ConstHandle2Nucleus self)
 {
@@ -411,7 +411,7 @@ NucleusHalflifeGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
-// Get, non-const
+// Get
 Handle2Halflife
 NucleusHalflifeGet(ConstHandle2Nucleus self)
 {
@@ -448,7 +448,7 @@ NucleusEnergyGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"EnergyGetConst", self, extract::energy);
 }
 
-// Get, non-const
+// Get
 Handle2Energy
 NucleusEnergyGet(ConstHandle2Nucleus self)
 {
@@ -485,7 +485,7 @@ NucleusDecayDataGetConst(ConstHandle2ConstNucleus self)
       (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
-// Get, non-const
+// Get
 Handle2DecayData
 NucleusDecayDataGet(ConstHandle2Nucleus self)
 {

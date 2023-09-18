@@ -163,7 +163,7 @@ SumsCrossSectionSumsGetConst(ConstHandle2ConstSums self)
       (CLASSNAME, CLASSNAME+"CrossSectionSumsGetConst", self, extract::crossSectionSums);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSectionSums
 SumsCrossSectionSumsGet(ConstHandle2Sums self)
 {
@@ -200,7 +200,7 @@ SumsMultiplicitySumsGetConst(ConstHandle2ConstSums self)
       (CLASSNAME, CLASSNAME+"MultiplicitySumsGetConst", self, extract::multiplicitySums);
 }
 
-// Get, non-const
+// Get
 Handle2MultiplicitySums
 SumsMultiplicitySumsGet(ConstHandle2Sums self)
 {

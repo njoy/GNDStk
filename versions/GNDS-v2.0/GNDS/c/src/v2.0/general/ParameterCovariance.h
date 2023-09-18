@@ -165,7 +165,7 @@ ParameterCovarianceRowDataHas(ConstHandle2ConstParameterCovariance self);
 extern_c Handle2ConstRowData
 ParameterCovarianceRowDataGetConst(ConstHandle2ConstParameterCovariance self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2RowData
 ParameterCovarianceRowDataGet(ConstHandle2ParameterCovariance self);
 
@@ -186,7 +186,7 @@ ParameterCovarianceParameterCovarianceMatrixHas(ConstHandle2ConstParameterCovari
 extern_c Handle2ConstParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGetConst(ConstHandle2ConstParameterCovariance self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGet(ConstHandle2ParameterCovariance self);
 

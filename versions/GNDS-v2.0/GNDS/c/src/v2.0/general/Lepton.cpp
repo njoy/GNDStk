@@ -251,7 +251,7 @@ LeptonMassGetConst(ConstHandle2ConstLepton self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get, non-const
+// Get
 Handle2Mass
 LeptonMassGet(ConstHandle2Lepton self)
 {
@@ -288,7 +288,7 @@ LeptonSpinGetConst(ConstHandle2ConstLepton self)
       (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
-// Get, non-const
+// Get
 Handle2Spin
 LeptonSpinGet(ConstHandle2Lepton self)
 {
@@ -325,7 +325,7 @@ LeptonParityGetConst(ConstHandle2ConstLepton self)
       (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
-// Get, non-const
+// Get
 Handle2Parity
 LeptonParityGet(ConstHandle2Lepton self)
 {
@@ -362,7 +362,7 @@ LeptonChargeGetConst(ConstHandle2ConstLepton self)
       (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
-// Get, non-const
+// Get
 Handle2Charge
 LeptonChargeGet(ConstHandle2Lepton self)
 {
@@ -399,7 +399,7 @@ LeptonHalflifeGetConst(ConstHandle2ConstLepton self)
       (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
-// Get, non-const
+// Get
 Handle2Halflife
 LeptonHalflifeGet(ConstHandle2Lepton self)
 {

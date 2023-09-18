@@ -192,7 +192,7 @@ UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get, non-const
+// Get
 Handle2Mass
 UnorthodoxMassGet(ConstHandle2Unorthodox self)
 {

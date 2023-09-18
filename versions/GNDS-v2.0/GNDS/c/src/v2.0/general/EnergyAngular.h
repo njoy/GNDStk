@@ -182,7 +182,7 @@ EnergyAngularXYs3dHas(ConstHandle2ConstEnergyAngular self);
 extern_c Handle2ConstXYs3d
 EnergyAngularXYs3dGetConst(ConstHandle2ConstEnergyAngular self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs3d
 EnergyAngularXYs3dGet(ConstHandle2EnergyAngular self);
 

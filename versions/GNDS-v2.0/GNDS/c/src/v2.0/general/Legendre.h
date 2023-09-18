@@ -162,7 +162,7 @@ LegendreValuesHas(ConstHandle2ConstLegendre self);
 extern_c Handle2ConstValues
 LegendreValuesGetConst(ConstHandle2ConstLegendre self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Values
 LegendreValuesGet(ConstHandle2Legendre self);
 

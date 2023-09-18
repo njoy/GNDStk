@@ -194,7 +194,7 @@ DecayModeProbabilityHas(ConstHandle2ConstDecayMode self);
 extern_c Handle2ConstProbability
 DecayModeProbabilityGetConst(ConstHandle2ConstDecayMode self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Probability
 DecayModeProbabilityGet(ConstHandle2DecayMode self);
 
@@ -215,7 +215,7 @@ DecayModeDecayPathHas(ConstHandle2ConstDecayMode self);
 extern_c Handle2ConstDecayPath
 DecayModeDecayPathGetConst(ConstHandle2ConstDecayMode self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DecayPath
 DecayModeDecayPathGet(ConstHandle2DecayMode self);
 
@@ -236,7 +236,7 @@ DecayModePhotonEmissionProbabilitiesHas(ConstHandle2ConstDecayMode self);
 extern_c Handle2ConstPhotonEmissionProbabilities
 DecayModePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDecayMode self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2PhotonEmissionProbabilities
 DecayModePhotonEmissionProbabilitiesGet(ConstHandle2DecayMode self);
 
@@ -257,7 +257,7 @@ DecayModeQHas(ConstHandle2ConstDecayMode self);
 extern_c Handle2ConstQ
 DecayModeQGetConst(ConstHandle2ConstDecayMode self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Q
 DecayModeQGet(ConstHandle2DecayMode self);
 
@@ -278,7 +278,7 @@ DecayModeSpectraHas(ConstHandle2ConstDecayMode self);
 extern_c Handle2ConstSpectra
 DecayModeSpectraGetConst(ConstHandle2ConstDecayMode self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Spectra
 DecayModeSpectraGet(ConstHandle2DecayMode self);
 

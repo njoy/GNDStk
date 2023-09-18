@@ -142,7 +142,7 @@ ChargeIntegerHas(ConstHandle2ConstCharge self);
 extern_c Handle2ConstInteger
 ChargeIntegerGetConst(ConstHandle2ConstCharge self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Integer
 ChargeIntegerGet(ConstHandle2Charge self);
 

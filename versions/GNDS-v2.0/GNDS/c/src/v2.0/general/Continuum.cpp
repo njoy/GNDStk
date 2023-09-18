@@ -157,7 +157,7 @@ ContinuumXYs1dGetConst(ConstHandle2ConstContinuum self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 ContinuumXYs1dGet(ConstHandle2Continuum self)
 {

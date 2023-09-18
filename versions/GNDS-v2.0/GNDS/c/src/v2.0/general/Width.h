@@ -208,7 +208,7 @@ WidthXYs1dHas(ConstHandle2ConstWidth self);
 extern_c Handle2ConstXYs1d
 WidthXYs1dGetConst(ConstHandle2ConstWidth self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 WidthXYs1dGet(ConstHandle2Width self);
 
@@ -229,7 +229,7 @@ WidthConstant1dHas(ConstHandle2ConstWidth self);
 extern_c Handle2ConstConstant1d
 WidthConstant1dGetConst(ConstHandle2ConstWidth self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Constant1d
 WidthConstant1dGet(ConstHandle2Width self);
 
@@ -250,7 +250,7 @@ WidthRegions1dHas(ConstHandle2ConstWidth self);
 extern_c Handle2ConstRegions1d
 WidthRegions1dGetConst(ConstHandle2ConstWidth self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 WidthRegions1dGet(ConstHandle2Width self);
 

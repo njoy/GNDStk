@@ -195,7 +195,7 @@ AliasesAliasGetConst(ConstHandle2ConstAliases self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AliasGetConst", self, extract::alias, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Alias
 AliasesAliasGet(ConstHandle2Aliases self, const size_t index_)
 {
@@ -236,7 +236,7 @@ AliasesAliasGetByIdConst(
        self, extract::alias, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2Alias
 AliasesAliasGetById(
    ConstHandle2Aliases self,
@@ -281,7 +281,7 @@ AliasesAliasGetByPidConst(
        self, extract::alias, meta::pid, pid);
 }
 
-// Get, by pid, non-const
+// Get, by pid
 Handle2Alias
 AliasesAliasGetByPid(
    ConstHandle2Aliases self,
@@ -349,7 +349,7 @@ AliasesMetaStableGetConst(ConstHandle2ConstAliases self, const size_t index_)
       (CLASSNAME, CLASSNAME+"MetaStableGetConst", self, extract::metaStable, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2MetaStable
 AliasesMetaStableGet(ConstHandle2Aliases self, const size_t index_)
 {
@@ -390,7 +390,7 @@ AliasesMetaStableGetByIdConst(
        self, extract::metaStable, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2MetaStable
 AliasesMetaStableGetById(
    ConstHandle2Aliases self,
@@ -435,7 +435,7 @@ AliasesMetaStableGetByPidConst(
        self, extract::metaStable, meta::pid, pid);
 }
 
-// Get, by pid, non-const
+// Get, by pid
 Handle2MetaStable
 AliasesMetaStableGetByPid(
    ConstHandle2Aliases self,
@@ -480,7 +480,7 @@ AliasesMetaStableGetByMetaStableIndexConst(
        self, extract::metaStable, meta::metaStableIndex, metaStableIndex);
 }
 
-// Get, by metaStableIndex, non-const
+// Get, by metaStableIndex
 Handle2MetaStable
 AliasesMetaStableGetByMetaStableIndex(
    ConstHandle2Aliases self,

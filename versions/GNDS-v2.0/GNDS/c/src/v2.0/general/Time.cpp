@@ -163,7 +163,7 @@ TimeDoubleGetConst(ConstHandle2ConstTime self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 TimeDoubleGet(ConstHandle2Time self)
 {
@@ -200,7 +200,7 @@ TimeStringGetConst(ConstHandle2ConstTime self)
       (CLASSNAME, CLASSNAME+"StringGetConst", self, extract::string);
 }
 
-// Get, non-const
+// Get
 Handle2String
 TimeStringGet(ConstHandle2Time self)
 {

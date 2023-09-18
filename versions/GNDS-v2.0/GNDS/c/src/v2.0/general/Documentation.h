@@ -154,7 +154,7 @@ DocumentationAuthorsHas(ConstHandle2ConstDocumentation self);
 extern_c Handle2ConstAuthors
 DocumentationAuthorsGetConst(ConstHandle2ConstDocumentation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Authors
 DocumentationAuthorsGet(ConstHandle2Documentation self);
 
@@ -175,7 +175,7 @@ DocumentationDatesHas(ConstHandle2ConstDocumentation self);
 extern_c Handle2ConstDates
 DocumentationDatesGetConst(ConstHandle2ConstDocumentation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Dates
 DocumentationDatesGet(ConstHandle2Documentation self);
 
@@ -196,7 +196,7 @@ DocumentationTitleHas(ConstHandle2ConstDocumentation self);
 extern_c Handle2ConstTitle
 DocumentationTitleGetConst(ConstHandle2ConstDocumentation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Title
 DocumentationTitleGet(ConstHandle2Documentation self);
 
@@ -217,7 +217,7 @@ DocumentationBodyHas(ConstHandle2ConstDocumentation self);
 extern_c Handle2ConstBody
 DocumentationBodyGetConst(ConstHandle2ConstDocumentation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Body
 DocumentationBodyGet(ConstHandle2Documentation self);
 
@@ -238,7 +238,7 @@ DocumentationEndfCompatibleHas(ConstHandle2ConstDocumentation self);
 extern_c Handle2ConstEndfCompatible
 DocumentationEndfCompatibleGetConst(ConstHandle2ConstDocumentation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2EndfCompatible
 DocumentationEndfCompatibleGet(ConstHandle2Documentation self);
 

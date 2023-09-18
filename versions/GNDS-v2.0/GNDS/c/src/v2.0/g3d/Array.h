@@ -208,7 +208,7 @@ ArrayStartsHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstStarts
 ArrayStartsGetConst(ConstHandle2ConstArray self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Starts
 ArrayStartsGet(ConstHandle2Array self);
 
@@ -229,7 +229,7 @@ ArrayLengthsHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstLengths
 ArrayLengthsGetConst(ConstHandle2ConstArray self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Lengths
 ArrayLengthsGet(ConstHandle2Array self);
 
@@ -250,7 +250,7 @@ ArrayValuesHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstValues
 ArrayValuesGetConst(ConstHandle2ConstArray self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Values
 ArrayValuesGet(ConstHandle2Array self);
 

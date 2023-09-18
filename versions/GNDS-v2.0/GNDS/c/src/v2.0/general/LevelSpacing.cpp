@@ -163,7 +163,7 @@ LevelSpacingXYs1dGetConst(ConstHandle2ConstLevelSpacing self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 LevelSpacingXYs1dGet(ConstHandle2LevelSpacing self)
 {
@@ -200,7 +200,7 @@ LevelSpacingConstant1dGetConst(ConstHandle2ConstLevelSpacing self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get, non-const
+// Get
 Handle2Constant1d
 LevelSpacingConstant1dGet(ConstHandle2LevelSpacing self)
 {

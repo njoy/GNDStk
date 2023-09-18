@@ -268,7 +268,7 @@ ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGetConst(Const
       (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGetConst", self, extract::boundAtomCrossSection);
 }
 
-// Get, non-const
+// Get
 Handle2BoundAtomCrossSection
 ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self)
 {
@@ -305,7 +305,7 @@ ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGetConst(ConstHa
       (CLASSNAME, CLASSNAME+"DebyeWallerIntegralGetConst", self, extract::DebyeWallerIntegral);
 }
 
-// Get, non-const
+// Get
 Handle2DebyeWallerIntegral
 ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self)
 {

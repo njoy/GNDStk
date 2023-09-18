@@ -157,7 +157,7 @@ Function1dsLegendreAdd(ConstHandle2Function1ds self, ConstHandle2ConstLegendre L
 extern_c Handle2ConstLegendre
 Function1dsLegendreGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Legendre
 Function1dsLegendreGet(ConstHandle2Function1ds self, const size_t index_);
 
@@ -183,7 +183,7 @@ Function1dsLegendreGetByOuterDomainValueConst(
    const double outerDomainValue
 );
 
-// +++ Get, by outerDomainValue, non-const
+// +++ Get, by outerDomainValue
 extern_c Handle2Legendre
 Function1dsLegendreGetByOuterDomainValue(
    ConstHandle2Function1ds self,
@@ -223,7 +223,7 @@ Function1dsXYs1dAdd(ConstHandle2Function1ds self, ConstHandle2ConstXYs1d XYs1d);
 extern_c Handle2ConstXYs1d
 Function1dsXYs1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2XYs1d
 Function1dsXYs1dGet(ConstHandle2Function1ds self, const size_t index_);
 
@@ -249,7 +249,7 @@ Function1dsXYs1dGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByLabel(
    ConstHandle2Function1ds self,
@@ -278,7 +278,7 @@ Function1dsXYs1dGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index, non-const
+// +++ Get, by index
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByIndex(
    ConstHandle2Function1ds self,
@@ -307,7 +307,7 @@ Function1dsXYs1dGetByInterpolationConst(
    const char *const interpolation
 );
 
-// +++ Get, by interpolation, non-const
+// +++ Get, by interpolation
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByInterpolation(
    ConstHandle2Function1ds self,
@@ -336,7 +336,7 @@ Function1dsXYs1dGetByOuterDomainValueConst(
    const double outerDomainValue
 );
 
-// +++ Get, by outerDomainValue, non-const
+// +++ Get, by outerDomainValue
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByOuterDomainValue(
    ConstHandle2Function1ds self,

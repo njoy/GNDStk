@@ -142,7 +142,7 @@ StandardDoubleHas(ConstHandle2ConstStandard self);
 extern_c Handle2ConstDouble
 StandardDoubleGetConst(ConstHandle2ConstStandard self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 StandardDoubleGet(ConstHandle2Standard self);
 

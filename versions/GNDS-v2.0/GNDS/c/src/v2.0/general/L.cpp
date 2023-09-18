@@ -227,7 +227,7 @@ LJsGetConst(ConstHandle2ConstL self)
       (CLASSNAME, CLASSNAME+"JsGetConst", self, extract::Js);
 }
 
-// Get, non-const
+// Get
 Handle2Js
 LJsGet(ConstHandle2L self)
 {

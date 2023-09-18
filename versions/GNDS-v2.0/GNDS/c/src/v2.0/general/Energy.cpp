@@ -287,7 +287,7 @@ EnergyDoubleGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 EnergyDoubleGet(ConstHandle2Energy self)
 {
@@ -324,7 +324,7 @@ EnergyUncertaintyGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 EnergyUncertaintyGet(ConstHandle2Energy self)
 {
@@ -361,7 +361,7 @@ EnergyNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"NBodyPhaseSpaceGetConst", self, extract::NBodyPhaseSpace);
 }
 
-// Get, non-const
+// Get
 Handle2NBodyPhaseSpace
 EnergyNBodyPhaseSpaceGet(ConstHandle2Energy self)
 {
@@ -398,7 +398,7 @@ EnergyPrimaryGammaGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"PrimaryGammaGetConst", self, extract::primaryGamma);
 }
 
-// Get, non-const
+// Get
 Handle2PrimaryGamma
 EnergyPrimaryGammaGet(ConstHandle2Energy self)
 {
@@ -435,7 +435,7 @@ EnergyDiscreteGammaGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"DiscreteGammaGetConst", self, extract::discreteGamma);
 }
 
-// Get, non-const
+// Get
 Handle2DiscreteGamma
 EnergyDiscreteGammaGet(ConstHandle2Energy self)
 {
@@ -472,7 +472,7 @@ EnergyXYs2dGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 EnergyXYs2dGet(ConstHandle2Energy self)
 {
@@ -509,7 +509,7 @@ EnergyGeneralEvaporationGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"GeneralEvaporationGetConst", self, extract::generalEvaporation);
 }
 
-// Get, non-const
+// Get
 Handle2GeneralEvaporation
 EnergyGeneralEvaporationGet(ConstHandle2Energy self)
 {
@@ -546,7 +546,7 @@ EnergyEvaporationGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"EvaporationGetConst", self, extract::evaporation);
 }
 
-// Get, non-const
+// Get
 Handle2Evaporation
 EnergyEvaporationGet(ConstHandle2Energy self)
 {
@@ -583,7 +583,7 @@ EnergyWeightedFunctionalsGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"WeightedFunctionalsGetConst", self, extract::weightedFunctionals);
 }
 
-// Get, non-const
+// Get
 Handle2WeightedFunctionals
 EnergyWeightedFunctionalsGet(ConstHandle2Energy self)
 {
@@ -620,7 +620,7 @@ EnergySimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"SimpleMaxwellianFissionGetConst", self, extract::simpleMaxwellianFission);
 }
 
-// Get, non-const
+// Get
 Handle2SimpleMaxwellianFission
 EnergySimpleMaxwellianFissionGet(ConstHandle2Energy self)
 {
@@ -657,7 +657,7 @@ EnergyMadlandNixGetConst(ConstHandle2ConstEnergy self)
       (CLASSNAME, CLASSNAME+"MadlandNixGetConst", self, extract::MadlandNix);
 }
 
-// Get, non-const
+// Get
 Handle2MadlandNix
 EnergyMadlandNixGet(ConstHandle2Energy self)
 {

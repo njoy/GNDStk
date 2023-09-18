@@ -309,7 +309,7 @@ EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated self)
       (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
-// Get, non-const
+// Get
 Handle2Documentation
 EvaluatedDocumentationGet(ConstHandle2Evaluated self)
 {
@@ -346,7 +346,7 @@ EvaluatedTemperatureGetConst(ConstHandle2ConstEvaluated self)
       (CLASSNAME, CLASSNAME+"TemperatureGetConst", self, extract::temperature);
 }
 
-// Get, non-const
+// Get
 Handle2Temperature
 EvaluatedTemperatureGet(ConstHandle2Evaluated self)
 {
@@ -383,7 +383,7 @@ EvaluatedProjectileEnergyDomainGetConst(ConstHandle2ConstEvaluated self)
       (CLASSNAME, CLASSNAME+"ProjectileEnergyDomainGetConst", self, extract::projectileEnergyDomain);
 }
 
-// Get, non-const
+// Get
 Handle2ProjectileEnergyDomain
 EvaluatedProjectileEnergyDomainGet(ConstHandle2Evaluated self)
 {

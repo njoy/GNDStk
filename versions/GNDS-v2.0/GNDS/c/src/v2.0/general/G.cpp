@@ -157,7 +157,7 @@ GXYs1dGetConst(ConstHandle2ConstG self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 GXYs1dGet(ConstHandle2G self)
 {

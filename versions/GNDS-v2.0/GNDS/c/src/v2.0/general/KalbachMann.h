@@ -185,7 +185,7 @@ KalbachMannFHas(ConstHandle2ConstKalbachMann self);
 extern_c Handle2ConstF
 KalbachMannFGetConst(ConstHandle2ConstKalbachMann self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2F
 KalbachMannFGet(ConstHandle2KalbachMann self);
 
@@ -206,7 +206,7 @@ KalbachMannRHas(ConstHandle2ConstKalbachMann self);
 extern_c Handle2ConstR
 KalbachMannRGetConst(ConstHandle2ConstKalbachMann self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2R
 KalbachMannRGet(ConstHandle2KalbachMann self);
 

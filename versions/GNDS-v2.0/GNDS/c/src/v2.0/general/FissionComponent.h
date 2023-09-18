@@ -205,7 +205,7 @@ FissionComponentCrossSectionHas(ConstHandle2ConstFissionComponent self);
 extern_c Handle2ConstCrossSection
 FissionComponentCrossSectionGetConst(ConstHandle2ConstFissionComponent self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSection
 FissionComponentCrossSectionGet(ConstHandle2FissionComponent self);
 
@@ -226,7 +226,7 @@ FissionComponentOutputChannelHas(ConstHandle2ConstFissionComponent self);
 extern_c Handle2ConstOutputChannel
 FissionComponentOutputChannelGetConst(ConstHandle2ConstFissionComponent self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2OutputChannel
 FissionComponentOutputChannelGet(ConstHandle2FissionComponent self);
 

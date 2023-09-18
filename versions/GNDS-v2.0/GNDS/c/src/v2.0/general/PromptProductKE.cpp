@@ -163,7 +163,7 @@ PromptProductKEPolynomial1dGetConst(ConstHandle2ConstPromptProductKE self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 PromptProductKEPolynomial1dGet(ConstHandle2PromptProductKE self)
 {
@@ -200,7 +200,7 @@ PromptProductKEXYs1dGetConst(ConstHandle2ConstPromptProductKE self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 PromptProductKEXYs1dGet(ConstHandle2PromptProductKE self)
 {

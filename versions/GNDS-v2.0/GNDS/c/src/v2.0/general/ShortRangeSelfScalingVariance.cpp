@@ -262,7 +262,7 @@ ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfSc
       (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
-// Get, non-const
+// Get
 Handle2Gridded2d
 ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance self)
 {

@@ -157,7 +157,7 @@ LengthsIntsSet(ConstHandle2Lengths self, const size_t index, const int value);
 extern_c const int *
 LengthsIntsGetArrayConst(ConstHandle2ConstLengths self);
 
-// +++ Get pointer to existing values, non-const
+// +++ Get pointer to existing values
 extern_c int *
 LengthsIntsGetArray(ConstHandle2Lengths self);
 

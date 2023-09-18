@@ -142,7 +142,7 @@ PhotonEmissionProbabilitiesShellHas(ConstHandle2ConstPhotonEmissionProbabilities
 extern_c Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabilities self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Shell
 PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities self);
 

@@ -195,7 +195,7 @@ AxesAxisGetConst(ConstHandle2ConstAxes self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AxisGetConst", self, extract::axis, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Axis
 AxesAxisGet(ConstHandle2Axes self, const size_t index_)
 {
@@ -236,7 +236,7 @@ AxesAxisGetByIndexConst(
        self, extract::axis, meta::index, index);
 }
 
-// Get, by index, non-const
+// Get, by index
 Handle2Axis
 AxesAxisGetByIndex(
    ConstHandle2Axes self,
@@ -281,7 +281,7 @@ AxesAxisGetByLabelConst(
        self, extract::axis, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Axis
 AxesAxisGetByLabel(
    ConstHandle2Axes self,
@@ -326,7 +326,7 @@ AxesAxisGetByUnitConst(
        self, extract::axis, meta::unit, unit);
 }
 
-// Get, by unit, non-const
+// Get, by unit
 Handle2Axis
 AxesAxisGetByUnit(
    ConstHandle2Axes self,
@@ -394,7 +394,7 @@ AxesGridGetConst(ConstHandle2ConstAxes self, const size_t index_)
       (CLASSNAME, CLASSNAME+"GridGetConst", self, extract::grid, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Grid
 AxesGridGet(ConstHandle2Axes self, const size_t index_)
 {
@@ -435,7 +435,7 @@ AxesGridGetByIndexConst(
        self, extract::grid, meta::index, index);
 }
 
-// Get, by index, non-const
+// Get, by index
 Handle2Grid
 AxesGridGetByIndex(
    ConstHandle2Axes self,
@@ -480,7 +480,7 @@ AxesGridGetByLabelConst(
        self, extract::grid, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Grid
 AxesGridGetByLabel(
    ConstHandle2Axes self,
@@ -525,7 +525,7 @@ AxesGridGetByUnitConst(
        self, extract::grid, meta::unit, unit);
 }
 
-// Get, by unit, non-const
+// Get, by unit
 Handle2Grid
 AxesGridGetByUnit(
    ConstHandle2Axes self,
@@ -570,7 +570,7 @@ AxesGridGetByStyleConst(
        self, extract::grid, meta::style, style);
 }
 
-// Get, by style, non-const
+// Get, by style
 Handle2Grid
 AxesGridGetByStyle(
    ConstHandle2Axes self,
@@ -615,7 +615,7 @@ AxesGridGetByInterpolationConst(
        self, extract::grid, meta::interpolation, interpolation);
 }
 
-// Get, by interpolation, non-const
+// Get, by interpolation
 Handle2Grid
 AxesGridGetByInterpolation(
    ConstHandle2Axes self,

@@ -205,7 +205,7 @@ SpinGroupChannelsHas(ConstHandle2ConstSpinGroup self);
 extern_c Handle2ConstChannels
 SpinGroupChannelsGetConst(ConstHandle2ConstSpinGroup self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Channels
 SpinGroupChannelsGet(ConstHandle2SpinGroup self);
 
@@ -226,7 +226,7 @@ SpinGroupResonanceParametersHas(ConstHandle2ConstSpinGroup self);
 extern_c Handle2ConstResonanceParameters
 SpinGroupResonanceParametersGetConst(ConstHandle2ConstSpinGroup self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ResonanceParameters
 SpinGroupResonanceParametersGet(ConstHandle2SpinGroup self);
 

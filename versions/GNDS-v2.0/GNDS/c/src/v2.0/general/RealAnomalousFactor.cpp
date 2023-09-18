@@ -157,7 +157,7 @@ RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor self)
 {

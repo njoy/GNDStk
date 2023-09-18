@@ -204,7 +204,7 @@ ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime self)
       (CLASSNAME, CLASSNAME+"TimeGetConst", self, extract::time);
 }
 
-// Get, non-const
+// Get
 Handle2Time
 ElapsedTimeTimeGet(ConstHandle2ElapsedTime self)
 {
@@ -241,7 +241,7 @@ ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime self)
       (CLASSNAME, CLASSNAME+"YieldsGetConst", self, extract::yields);
 }
 
-// Get, non-const
+// Get
 Handle2Yields
 ElapsedTimeYieldsGet(ConstHandle2ElapsedTime self)
 {
@@ -278,7 +278,7 @@ ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime self)
       (CLASSNAME, CLASSNAME+"IncidentEnergiesGetConst", self, extract::incidentEnergies);
 }
 
-// Get, non-const
+// Get
 Handle2IncidentEnergies
 ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime self)
 {

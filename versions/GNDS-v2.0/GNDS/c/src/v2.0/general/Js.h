@@ -154,7 +154,7 @@ JsJAdd(ConstHandle2Js self, ConstHandle2ConstJ J);
 extern_c Handle2ConstJ
 JsJGetConst(ConstHandle2ConstJs self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2J
 JsJGet(ConstHandle2Js self, const size_t index_);
 
@@ -180,7 +180,7 @@ JsJGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2J
 JsJGetByLabel(
    ConstHandle2Js self,
@@ -209,7 +209,7 @@ JsJGetByValueConst(
    const int value
 );
 
-// +++ Get, by value, non-const
+// +++ Get, by value
 extern_c Handle2J
 JsJGetByValue(
    ConstHandle2Js self,

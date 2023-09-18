@@ -169,7 +169,7 @@ FissionFragmentDataProductYieldsGetConst(ConstHandle2ConstFissionFragmentData se
       (CLASSNAME, CLASSNAME+"ProductYieldsGetConst", self, extract::productYields);
 }
 
-// Get, non-const
+// Get
 Handle2ProductYields
 FissionFragmentDataProductYieldsGet(ConstHandle2FissionFragmentData self)
 {
@@ -206,7 +206,7 @@ FissionFragmentDataDelayedNeutronsGetConst(ConstHandle2ConstFissionFragmentData 
       (CLASSNAME, CLASSNAME+"DelayedNeutronsGetConst", self, extract::delayedNeutrons);
 }
 
-// Get, non-const
+// Get
 Handle2DelayedNeutrons
 FissionFragmentDataDelayedNeutronsGet(ConstHandle2FissionFragmentData self)
 {
@@ -243,7 +243,7 @@ FissionFragmentDataFissionEnergyReleasesGetConst(ConstHandle2ConstFissionFragmen
       (CLASSNAME, CLASSNAME+"FissionEnergyReleasesGetConst", self, extract::fissionEnergyReleases);
 }
 
-// Get, non-const
+// Get
 Handle2FissionEnergyReleases
 FissionFragmentDataFissionEnergyReleasesGet(ConstHandle2FissionFragmentData self)
 {

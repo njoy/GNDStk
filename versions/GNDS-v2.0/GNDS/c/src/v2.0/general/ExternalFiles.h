@@ -154,7 +154,7 @@ ExternalFilesExternalFileAdd(ConstHandle2ExternalFiles self, ConstHandle2ConstEx
 extern_c Handle2ConstExternalFile
 ExternalFilesExternalFileGetConst(ConstHandle2ConstExternalFiles self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGet(ConstHandle2ExternalFiles self, const size_t index_);
 
@@ -180,7 +180,7 @@ ExternalFilesExternalFileGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByLabel(
    ConstHandle2ExternalFiles self,
@@ -209,7 +209,7 @@ ExternalFilesExternalFileGetByPathConst(
    const char *const path
 );
 
-// +++ Get, by path, non-const
+// +++ Get, by path
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByPath(
    ConstHandle2ExternalFiles self,
@@ -238,7 +238,7 @@ ExternalFilesExternalFileGetByChecksumConst(
    const char *const checksum
 );
 
-// +++ Get, by checksum, non-const
+// +++ Get, by checksum
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByChecksum(
    ConstHandle2ExternalFiles self,
@@ -267,7 +267,7 @@ ExternalFilesExternalFileGetByAlgorithmConst(
    const char *const algorithm
 );
 
-// +++ Get, by algorithm, non-const
+// +++ Get, by algorithm
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByAlgorithm(
    ConstHandle2ExternalFiles self,

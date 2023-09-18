@@ -227,7 +227,7 @@ IsotopeNuclidesGetConst(ConstHandle2ConstIsotope self)
       (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
-// Get, non-const
+// Get
 Handle2Nuclides
 IsotopeNuclidesGet(ConstHandle2Isotope self)
 {

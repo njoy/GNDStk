@@ -185,7 +185,7 @@ DatesDateGetConst(ConstHandle2ConstDates self, const size_t index_)
       (CLASSNAME, CLASSNAME+"DateGetConst", self, extract::date, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Date
 DatesDateGet(ConstHandle2Dates self, const size_t index_)
 {
@@ -226,7 +226,7 @@ DatesDateGetByValueConst(
        self, extract::date, meta::value, value);
 }
 
-// Get, by value, non-const
+// Get, by value
 Handle2Date
 DatesDateGetByValue(
    ConstHandle2Dates self,
@@ -271,7 +271,7 @@ DatesDateGetByDateTypeConst(
        self, extract::date, meta::dateType, dateType);
 }
 
-// Get, by dateType, non-const
+// Get, by dateType
 Handle2Date
 DatesDateGetByDateType(
    ConstHandle2Dates self,

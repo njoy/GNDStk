@@ -227,7 +227,7 @@ ArrayValuesGetConst(ConstHandle2ConstArray self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 ArrayValuesGet(ConstHandle2Array self)
 {

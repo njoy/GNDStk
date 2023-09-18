@@ -200,7 +200,7 @@ NucleusMassHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstMass
 NucleusMassGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 NucleusMassGet(ConstHandle2Nucleus self);
 
@@ -221,7 +221,7 @@ NucleusSpinHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstSpin
 NucleusSpinGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Spin
 NucleusSpinGet(ConstHandle2Nucleus self);
 
@@ -242,7 +242,7 @@ NucleusParityHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstParity
 NucleusParityGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Parity
 NucleusParityGet(ConstHandle2Nucleus self);
 
@@ -263,7 +263,7 @@ NucleusChargeHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstCharge
 NucleusChargeGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Charge
 NucleusChargeGet(ConstHandle2Nucleus self);
 
@@ -284,7 +284,7 @@ NucleusHalflifeHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstHalflife
 NucleusHalflifeGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Halflife
 NucleusHalflifeGet(ConstHandle2Nucleus self);
 
@@ -305,7 +305,7 @@ NucleusEnergyHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstEnergy
 NucleusEnergyGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Energy
 NucleusEnergyGet(ConstHandle2Nucleus self);
 
@@ -326,7 +326,7 @@ NucleusDecayDataHas(ConstHandle2ConstNucleus self);
 extern_c Handle2ConstDecayData
 NucleusDecayDataGetConst(ConstHandle2ConstNucleus self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DecayData
 NucleusDecayDataGet(ConstHandle2Nucleus self);
 

@@ -163,7 +163,7 @@ RealInterferenceTermRegions2dGetConst(ConstHandle2ConstRealInterferenceTerm self
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions2d
 RealInterferenceTermRegions2dGet(ConstHandle2RealInterferenceTerm self)
 {
@@ -200,7 +200,7 @@ RealInterferenceTermXYs2dGetConst(ConstHandle2ConstRealInterferenceTerm self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 RealInterferenceTermXYs2dGet(ConstHandle2RealInterferenceTerm self)
 {

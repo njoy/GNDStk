@@ -163,7 +163,7 @@ SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission self)
       (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
-// Get, non-const
+// Get
 Handle2U
 SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission self)
 {
@@ -200,7 +200,7 @@ SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission se
       (CLASSNAME, CLASSNAME+"ThetaGetConst", self, extract::theta);
 }
 
-// Get, non-const
+// Get
 Handle2Theta
 SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission self)
 {

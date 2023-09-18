@@ -145,7 +145,7 @@ DelayedNeutronKEPolynomial1dHas(ConstHandle2ConstDelayedNeutronKE self);
 extern_c Handle2ConstPolynomial1d
 DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE self);
 
@@ -166,7 +166,7 @@ DelayedNeutronKEXYs1dHas(ConstHandle2ConstDelayedNeutronKE self);
 extern_c Handle2ConstXYs1d
 DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE self);
 

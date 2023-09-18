@@ -191,7 +191,7 @@ ProductMultiplicityHas(ConstHandle2ConstProduct self);
 extern_c Handle2ConstMultiplicity
 ProductMultiplicityGetConst(ConstHandle2ConstProduct self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Multiplicity
 ProductMultiplicityGet(ConstHandle2Product self);
 
@@ -212,7 +212,7 @@ ProductDistributionHas(ConstHandle2ConstProduct self);
 extern_c Handle2ConstDistribution
 ProductDistributionGetConst(ConstHandle2ConstProduct self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Distribution
 ProductDistributionGet(ConstHandle2Product self);
 
@@ -233,7 +233,7 @@ ProductOutputChannelHas(ConstHandle2ConstProduct self);
 extern_c Handle2ConstOutputChannel
 ProductOutputChannelGetConst(ConstHandle2ConstProduct self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2OutputChannel
 ProductOutputChannelGet(ConstHandle2Product self);
 
@@ -254,7 +254,7 @@ ProductAverageProductEnergyHas(ConstHandle2ConstProduct self);
 extern_c Handle2ConstAverageProductEnergy
 ProductAverageProductEnergyGetConst(ConstHandle2ConstProduct self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2AverageProductEnergy
 ProductAverageProductEnergyGet(ConstHandle2Product self);
 

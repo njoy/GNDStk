@@ -202,7 +202,7 @@ ArrayValuesHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstValues
 ArrayValuesGetConst(ConstHandle2ConstArray self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Values
 ArrayValuesGet(ConstHandle2Array self);
 

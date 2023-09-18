@@ -185,7 +185,7 @@ ProductionCrossSectionHas(ConstHandle2ConstProduction self);
 extern_c Handle2ConstCrossSection
 ProductionCrossSectionGetConst(ConstHandle2ConstProduction self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSection
 ProductionCrossSectionGet(ConstHandle2Production self);
 
@@ -206,7 +206,7 @@ ProductionOutputChannelHas(ConstHandle2ConstProduction self);
 extern_c Handle2ConstOutputChannel
 ProductionOutputChannelGetConst(ConstHandle2ConstProduction self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2OutputChannel
 ProductionOutputChannelGet(ConstHandle2Production self);
 

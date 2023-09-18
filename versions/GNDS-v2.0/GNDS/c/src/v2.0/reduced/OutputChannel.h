@@ -185,7 +185,7 @@ OutputChannelQHas(ConstHandle2ConstOutputChannel self);
 extern_c Handle2ConstQ
 OutputChannelQGetConst(ConstHandle2ConstOutputChannel self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Q
 OutputChannelQGet(ConstHandle2OutputChannel self);
 
@@ -206,7 +206,7 @@ OutputChannelProductsHas(ConstHandle2ConstOutputChannel self);
 extern_c Handle2ConstProducts
 OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Products
 OutputChannelProductsGet(ConstHandle2OutputChannel self);
 

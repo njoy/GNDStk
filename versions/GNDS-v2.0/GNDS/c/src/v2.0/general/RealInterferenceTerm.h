@@ -145,7 +145,7 @@ RealInterferenceTermRegions2dHas(ConstHandle2ConstRealInterferenceTerm self);
 extern_c Handle2ConstRegions2d
 RealInterferenceTermRegions2dGetConst(ConstHandle2ConstRealInterferenceTerm self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions2d
 RealInterferenceTermRegions2dGet(ConstHandle2RealInterferenceTerm self);
 
@@ -166,7 +166,7 @@ RealInterferenceTermXYs2dHas(ConstHandle2ConstRealInterferenceTerm self);
 extern_c Handle2ConstXYs2d
 RealInterferenceTermXYs2dGetConst(ConstHandle2ConstRealInterferenceTerm self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs2d
 RealInterferenceTermXYs2dGet(ConstHandle2RealInterferenceTerm self);
 

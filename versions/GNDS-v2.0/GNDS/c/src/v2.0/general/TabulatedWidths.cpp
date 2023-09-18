@@ -280,7 +280,7 @@ TabulatedWidthsResonanceReactionsGetConst(ConstHandle2ConstTabulatedWidths self)
       (CLASSNAME, CLASSNAME+"ResonanceReactionsGetConst", self, extract::resonanceReactions);
 }
 
-// Get, non-const
+// Get
 Handle2ResonanceReactions
 TabulatedWidthsResonanceReactionsGet(ConstHandle2TabulatedWidths self)
 {
@@ -317,7 +317,7 @@ TabulatedWidthsLsGetConst(ConstHandle2ConstTabulatedWidths self)
       (CLASSNAME, CLASSNAME+"LsGetConst", self, extract::Ls);
 }
 
-// Get, non-const
+// Get
 Handle2Ls
 TabulatedWidthsLsGet(ConstHandle2TabulatedWidths self)
 {
@@ -354,7 +354,7 @@ TabulatedWidthsPoPsGetConst(ConstHandle2ConstTabulatedWidths self)
       (CLASSNAME, CLASSNAME+"PoPsGetConst", self, extract::PoPs);
 }
 
-// Get, non-const
+// Get
 Handle2PoPs
 TabulatedWidthsPoPsGet(ConstHandle2TabulatedWidths self)
 {
@@ -391,7 +391,7 @@ TabulatedWidthsScatteringRadiusGetConst(ConstHandle2ConstTabulatedWidths self)
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringRadius
 TabulatedWidthsScatteringRadiusGet(ConstHandle2TabulatedWidths self)
 {

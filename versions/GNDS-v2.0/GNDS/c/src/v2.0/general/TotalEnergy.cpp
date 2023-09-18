@@ -157,7 +157,7 @@ TotalEnergyPolynomial1dGetConst(ConstHandle2ConstTotalEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 TotalEnergyPolynomial1dGet(ConstHandle2TotalEnergy self)
 {

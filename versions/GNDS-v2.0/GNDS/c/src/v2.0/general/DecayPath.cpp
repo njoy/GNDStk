@@ -185,7 +185,7 @@ DecayPathDecayGetConst(ConstHandle2ConstDecayPath self, const size_t index_)
       (CLASSNAME, CLASSNAME+"DecayGetConst", self, extract::decay, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Decay
 DecayPathDecayGet(ConstHandle2DecayPath self, const size_t index_)
 {
@@ -226,7 +226,7 @@ DecayPathDecayGetByIndexConst(
        self, extract::decay, meta::index, index);
 }
 
-// Get, by index, non-const
+// Get, by index
 Handle2Decay
 DecayPathDecayGetByIndex(
    ConstHandle2DecayPath self,
@@ -271,7 +271,7 @@ DecayPathDecayGetByModeConst(
        self, extract::decay, meta::mode, mode);
 }
 
-// Get, by mode, non-const
+// Get, by mode
 Handle2Decay
 DecayPathDecayGetByMode(
    ConstHandle2DecayPath self,
@@ -316,7 +316,7 @@ DecayPathDecayGetByCompleteConst(
        self, extract::decay, meta::complete, complete);
 }
 
-// Get, by complete, non-const
+// Get, by complete
 Handle2Decay
 DecayPathDecayGetByComplete(
    ConstHandle2DecayPath self,

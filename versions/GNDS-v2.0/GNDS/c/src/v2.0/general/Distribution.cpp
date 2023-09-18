@@ -217,7 +217,7 @@ DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution se
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGetConst", self, extract::thermalNeutronScatteringLaw);
 }
 
-// Get, non-const
+// Get
 Handle2ThermalNeutronScatteringLaw
 DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution self)
 {
@@ -254,7 +254,7 @@ DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"UncorrelatedGetConst", self, extract::uncorrelated);
 }
 
-// Get, non-const
+// Get
 Handle2Uncorrelated
 DistributionUncorrelatedGet(ConstHandle2Distribution self)
 {
@@ -291,7 +291,7 @@ DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", self, extract::unspecified);
 }
 
-// Get, non-const
+// Get
 Handle2Unspecified
 DistributionUnspecifiedGet(ConstHandle2Distribution self)
 {
@@ -328,7 +328,7 @@ DistributionBranching3dGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"Branching3dGetConst", self, extract::branching3d);
 }
 
-// Get, non-const
+// Get
 Handle2Branching3d
 DistributionBranching3dGet(ConstHandle2Distribution self)
 {
@@ -365,7 +365,7 @@ DistributionAngularTwoBodyGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"AngularTwoBodyGetConst", self, extract::angularTwoBody);
 }
 
-// Get, non-const
+// Get
 Handle2AngularTwoBody
 DistributionAngularTwoBodyGet(ConstHandle2Distribution self)
 {
@@ -402,7 +402,7 @@ DistributionEnergyAngularGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"EnergyAngularGetConst", self, extract::energyAngular);
 }
 
-// Get, non-const
+// Get
 Handle2EnergyAngular
 DistributionEnergyAngularGet(ConstHandle2Distribution self)
 {
@@ -439,7 +439,7 @@ DistributionKalbachMannGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"KalbachMannGetConst", self, extract::KalbachMann);
 }
 
-// Get, non-const
+// Get
 Handle2KalbachMann
 DistributionKalbachMannGet(ConstHandle2Distribution self)
 {
@@ -476,7 +476,7 @@ DistributionAngularEnergyGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"AngularEnergyGetConst", self, extract::angularEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2AngularEnergy
 DistributionAngularEnergyGet(ConstHandle2Distribution self)
 {
@@ -513,7 +513,7 @@ DistributionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstDistribution self
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGetConst", self, extract::CoulombPlusNuclearElastic);
 }
 
-// Get, non-const
+// Get
 Handle2CoulombPlusNuclearElastic
 DistributionCoulombPlusNuclearElasticGet(ConstHandle2Distribution self)
 {
@@ -550,7 +550,7 @@ DistributionCoherentPhotonScatteringGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringGetConst", self, extract::coherentPhotonScattering);
 }
 
-// Get, non-const
+// Get
 Handle2CoherentPhotonScattering
 DistributionCoherentPhotonScatteringGet(ConstHandle2Distribution self)
 {
@@ -587,7 +587,7 @@ DistributionIncoherentPhotonScatteringGetConst(ConstHandle2ConstDistribution sel
       (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringGetConst", self, extract::incoherentPhotonScattering);
 }
 
-// Get, non-const
+// Get
 Handle2IncoherentPhotonScattering
 DistributionIncoherentPhotonScatteringGet(ConstHandle2Distribution self)
 {

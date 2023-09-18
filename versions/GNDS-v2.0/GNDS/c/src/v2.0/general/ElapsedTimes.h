@@ -154,7 +154,7 @@ ElapsedTimesElapsedTimeAdd(ConstHandle2ElapsedTimes self, ConstHandle2ConstElaps
 extern_c Handle2ConstElapsedTime
 ElapsedTimesElapsedTimeGetConst(ConstHandle2ConstElapsedTimes self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ElapsedTime
 ElapsedTimesElapsedTimeGet(ConstHandle2ElapsedTimes self, const size_t index_);
 
@@ -180,7 +180,7 @@ ElapsedTimesElapsedTimeGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2ElapsedTime
 ElapsedTimesElapsedTimeGetByLabel(
    ConstHandle2ElapsedTimes self,

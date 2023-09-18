@@ -142,7 +142,7 @@ RealAnomalousFactorXYs1dHas(ConstHandle2ConstRealAnomalousFactor self);
 extern_c Handle2ConstXYs1d
 RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor self);
 

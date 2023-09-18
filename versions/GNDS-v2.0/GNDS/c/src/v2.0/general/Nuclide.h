@@ -174,7 +174,7 @@ NuclideMassHas(ConstHandle2ConstNuclide self);
 extern_c Handle2ConstMass
 NuclideMassGetConst(ConstHandle2ConstNuclide self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 NuclideMassGet(ConstHandle2Nuclide self);
 
@@ -195,7 +195,7 @@ NuclideChargeHas(ConstHandle2ConstNuclide self);
 extern_c Handle2ConstCharge
 NuclideChargeGetConst(ConstHandle2ConstNuclide self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Charge
 NuclideChargeGet(ConstHandle2Nuclide self);
 
@@ -216,7 +216,7 @@ NuclideNucleusHas(ConstHandle2ConstNuclide self);
 extern_c Handle2ConstNucleus
 NuclideNucleusGetConst(ConstHandle2ConstNuclide self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Nucleus
 NuclideNucleusGet(ConstHandle2Nuclide self);
 
@@ -237,7 +237,7 @@ NuclideDecayDataHas(ConstHandle2ConstNuclide self);
 extern_c Handle2ConstDecayData
 NuclideDecayDataGetConst(ConstHandle2ConstNuclide self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DecayData
 NuclideDecayDataGet(ConstHandle2Nuclide self);
 
@@ -258,7 +258,7 @@ NuclideFissionFragmentDataHas(ConstHandle2ConstNuclide self);
 extern_c Handle2ConstFissionFragmentData
 NuclideFissionFragmentDataGetConst(ConstHandle2ConstNuclide self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2FissionFragmentData
 NuclideFissionFragmentDataGet(ConstHandle2Nuclide self);
 

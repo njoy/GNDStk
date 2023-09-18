@@ -157,7 +157,7 @@ DelayedBetaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedBetaEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 DelayedBetaEnergyPolynomial1dGet(ConstHandle2DelayedBetaEnergy self)
 {

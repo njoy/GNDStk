@@ -185,7 +185,7 @@ ChannelsChannelGetConst(ConstHandle2ConstChannels self, const size_t index_)
       (CLASSNAME, CLASSNAME+"ChannelGetConst", self, extract::channel, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Channel
 ChannelsChannelGet(ConstHandle2Channels self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ChannelsChannelGetByLabelConst(
        self, extract::channel, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Channel
 ChannelsChannelGetByLabel(
    ConstHandle2Channels self,
@@ -271,7 +271,7 @@ ChannelsChannelGetByResonanceReactionConst(
        self, extract::channel, meta::resonanceReaction, resonanceReaction);
 }
 
-// Get, by resonanceReaction, non-const
+// Get, by resonanceReaction
 Handle2Channel
 ChannelsChannelGetByResonanceReaction(
    ConstHandle2Channels self,
@@ -316,7 +316,7 @@ ChannelsChannelGetByLConst(
        self, extract::channel, meta::L, L);
 }
 
-// Get, by L, non-const
+// Get, by L
 Handle2Channel
 ChannelsChannelGetByL(
    ConstHandle2Channels self,
@@ -361,7 +361,7 @@ ChannelsChannelGetByChannelSpinConst(
        self, extract::channel, meta::channelSpin, channelSpin);
 }
 
-// Get, by channelSpin, non-const
+// Get, by channelSpin
 Handle2Channel
 ChannelsChannelGetByChannelSpin(
    ConstHandle2Channels self,
@@ -406,7 +406,7 @@ ChannelsChannelGetByColumnIndexConst(
        self, extract::channel, meta::columnIndex, columnIndex);
 }
 
-// Get, by columnIndex, non-const
+// Get, by columnIndex
 Handle2Channel
 ChannelsChannelGetByColumnIndex(
    ConstHandle2Channels self,

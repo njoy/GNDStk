@@ -185,7 +185,7 @@ ChemicalElementsChemicalElementGetConst(ConstHandle2ConstChemicalElements self, 
       (CLASSNAME, CLASSNAME+"ChemicalElementGetConst", self, extract::chemicalElement, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGet(ConstHandle2ChemicalElements self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ChemicalElementsChemicalElementGetBySymbolConst(
        self, extract::chemicalElement, meta::symbol, symbol);
 }
 
-// Get, by symbol, non-const
+// Get, by symbol
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetBySymbol(
    ConstHandle2ChemicalElements self,
@@ -271,7 +271,7 @@ ChemicalElementsChemicalElementGetByZConst(
        self, extract::chemicalElement, meta::Z, Z);
 }
 
-// Get, by Z, non-const
+// Get, by Z
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByZ(
    ConstHandle2ChemicalElements self,
@@ -316,7 +316,7 @@ ChemicalElementsChemicalElementGetByNameConst(
        self, extract::chemicalElement, meta::name, name);
 }
 
-// Get, by name, non-const
+// Get, by name
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByName(
    ConstHandle2ChemicalElements self,

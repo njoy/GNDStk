@@ -142,7 +142,7 @@ AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy self);
 extern_c Handle2ConstXYs1d
 AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy self);
 

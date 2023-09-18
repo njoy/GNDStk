@@ -198,7 +198,7 @@ IncidentEnergyEnergyGetConst(ConstHandle2ConstIncidentEnergy self)
       (CLASSNAME, CLASSNAME+"EnergyGetConst", self, extract::energy);
 }
 
-// Get, non-const
+// Get
 Handle2Energy
 IncidentEnergyEnergyGet(ConstHandle2IncidentEnergy self)
 {
@@ -235,7 +235,7 @@ IncidentEnergyYieldsGetConst(ConstHandle2ConstIncidentEnergy self)
       (CLASSNAME, CLASSNAME+"YieldsGetConst", self, extract::yields);
 }
 
-// Get, non-const
+// Get
 Handle2Yields
 IncidentEnergyYieldsGet(ConstHandle2IncidentEnergy self)
 {

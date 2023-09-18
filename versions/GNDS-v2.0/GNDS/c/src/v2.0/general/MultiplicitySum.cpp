@@ -233,7 +233,7 @@ MultiplicitySumMultiplicityGetConst(ConstHandle2ConstMultiplicitySum self)
       (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
-// Get, non-const
+// Get
 Handle2Multiplicity
 MultiplicitySumMultiplicityGet(ConstHandle2MultiplicitySum self)
 {
@@ -270,7 +270,7 @@ MultiplicitySumSummandsGetConst(ConstHandle2ConstMultiplicitySum self)
       (CLASSNAME, CLASSNAME+"SummandsGetConst", self, extract::summands);
 }
 
-// Get, non-const
+// Get
 Handle2Summands
 MultiplicitySumSummandsGet(ConstHandle2MultiplicitySum self)
 {

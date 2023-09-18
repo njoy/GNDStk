@@ -185,7 +185,7 @@ SummandsAddGetConst(ConstHandle2ConstSummands self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AddGetConst", self, extract::add, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Add
 SummandsAddGet(ConstHandle2Summands self, const size_t index_)
 {
@@ -226,7 +226,7 @@ SummandsAddGetByHrefConst(
        self, extract::add, meta::href, href);
 }
 
-// Get, by href, non-const
+// Get, by href
 Handle2Add
 SummandsAddGetByHref(
    ConstHandle2Summands self,

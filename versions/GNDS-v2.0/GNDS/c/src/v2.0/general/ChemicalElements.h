@@ -154,7 +154,7 @@ ChemicalElementsChemicalElementAdd(ConstHandle2ChemicalElements self, ConstHandl
 extern_c Handle2ConstChemicalElement
 ChemicalElementsChemicalElementGetConst(ConstHandle2ConstChemicalElements self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ChemicalElement
 ChemicalElementsChemicalElementGet(ConstHandle2ChemicalElements self, const size_t index_);
 
@@ -180,7 +180,7 @@ ChemicalElementsChemicalElementGetBySymbolConst(
    const char *const symbol
 );
 
-// +++ Get, by symbol, non-const
+// +++ Get, by symbol
 extern_c Handle2ChemicalElement
 ChemicalElementsChemicalElementGetBySymbol(
    ConstHandle2ChemicalElements self,
@@ -209,7 +209,7 @@ ChemicalElementsChemicalElementGetByZConst(
    const int Z
 );
 
-// +++ Get, by Z, non-const
+// +++ Get, by Z
 extern_c Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByZ(
    ConstHandle2ChemicalElements self,
@@ -238,7 +238,7 @@ ChemicalElementsChemicalElementGetByNameConst(
    const char *const name
 );
 
-// +++ Get, by name, non-const
+// +++ Get, by name
 extern_c Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByName(
    ConstHandle2ChemicalElements self,

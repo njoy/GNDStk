@@ -268,7 +268,7 @@ FissionComponentCrossSectionGetConst(ConstHandle2ConstFissionComponent self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSection
 FissionComponentCrossSectionGet(ConstHandle2FissionComponent self)
 {
@@ -305,7 +305,7 @@ FissionComponentOutputChannelGetConst(ConstHandle2ConstFissionComponent self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get, non-const
+// Get
 Handle2OutputChannel
 FissionComponentOutputChannelGet(ConstHandle2FissionComponent self)
 {

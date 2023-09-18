@@ -145,7 +145,7 @@ StylesEvaluatedHas(ConstHandle2ConstStyles self);
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetConst(ConstHandle2ConstStyles self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Evaluated
 StylesEvaluatedGet(ConstHandle2Styles self);
 
@@ -166,7 +166,7 @@ StylesCrossSectionReconstructedHas(ConstHandle2ConstStyles self);
 extern_c Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGet(ConstHandle2Styles self);
 

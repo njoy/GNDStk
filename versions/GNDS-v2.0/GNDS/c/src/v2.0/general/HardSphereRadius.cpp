@@ -157,7 +157,7 @@ HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get, non-const
+// Get
 Handle2Constant1d
 HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius self)
 {

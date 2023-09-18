@@ -185,7 +185,7 @@ OrphanProductCrossSectionHas(ConstHandle2ConstOrphanProduct self);
 extern_c Handle2ConstCrossSection
 OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSection
 OrphanProductCrossSectionGet(ConstHandle2OrphanProduct self);
 
@@ -206,7 +206,7 @@ OrphanProductOutputChannelHas(ConstHandle2ConstOrphanProduct self);
 extern_c Handle2ConstOutputChannel
 OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2OutputChannel
 OrphanProductOutputChannelGet(ConstHandle2OrphanProduct self);
 

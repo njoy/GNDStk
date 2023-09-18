@@ -154,7 +154,7 @@ ProductsProductAdd(ConstHandle2Products self, ConstHandle2ConstProduct product);
 extern_c Handle2ConstProduct
 ProductsProductGetConst(ConstHandle2ConstProducts self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Product
 ProductsProductGet(ConstHandle2Products self, const size_t index_);
 
@@ -180,7 +180,7 @@ ProductsProductGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Product
 ProductsProductGetByLabel(
    ConstHandle2Products self,
@@ -209,7 +209,7 @@ ProductsProductGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid, non-const
+// +++ Get, by pid
 extern_c Handle2Product
 ProductsProductGetByPid(
    ConstHandle2Products self,

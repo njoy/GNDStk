@@ -154,7 +154,7 @@ SpectraSpectrumAdd(ConstHandle2Spectra self, ConstHandle2ConstSpectrum spectrum)
 extern_c Handle2ConstSpectrum
 SpectraSpectrumGetConst(ConstHandle2ConstSpectra self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Spectrum
 SpectraSpectrumGet(ConstHandle2Spectra self, const size_t index_);
 
@@ -180,7 +180,7 @@ SpectraSpectrumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Spectrum
 SpectraSpectrumGetByLabel(
    ConstHandle2Spectra self,
@@ -209,7 +209,7 @@ SpectraSpectrumGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid, non-const
+// +++ Get, by pid
 extern_c Handle2Spectrum
 SpectraSpectrumGetByPid(
    ConstHandle2Spectra self,

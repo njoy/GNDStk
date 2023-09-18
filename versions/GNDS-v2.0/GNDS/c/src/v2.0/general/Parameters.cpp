@@ -185,7 +185,7 @@ ParametersParameterLinkGetConst(ConstHandle2ConstParameters self, const size_t i
       (CLASSNAME, CLASSNAME+"ParameterLinkGetConst", self, extract::parameterLink, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2ParameterLink
 ParametersParameterLinkGet(ConstHandle2Parameters self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ParametersParameterLinkGetByLabelConst(
        self, extract::parameterLink, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2ParameterLink
 ParametersParameterLinkGetByLabel(
    ConstHandle2Parameters self,
@@ -271,7 +271,7 @@ ParametersParameterLinkGetByHrefConst(
        self, extract::parameterLink, meta::href, href);
 }
 
-// Get, by href, non-const
+// Get, by href
 Handle2ParameterLink
 ParametersParameterLinkGetByHref(
    ConstHandle2Parameters self,
@@ -316,7 +316,7 @@ ParametersParameterLinkGetByNParametersConst(
        self, extract::parameterLink, meta::nParameters, nParameters);
 }
 
-// Get, by nParameters, non-const
+// Get, by nParameters
 Handle2ParameterLink
 ParametersParameterLinkGetByNParameters(
    ConstHandle2Parameters self,
@@ -361,7 +361,7 @@ ParametersParameterLinkGetByMatrixStartIndexConst(
        self, extract::parameterLink, meta::matrixStartIndex, matrixStartIndex);
 }
 
-// Get, by matrixStartIndex, non-const
+// Get, by matrixStartIndex
 Handle2ParameterLink
 ParametersParameterLinkGetByMatrixStartIndex(
    ConstHandle2Parameters self,

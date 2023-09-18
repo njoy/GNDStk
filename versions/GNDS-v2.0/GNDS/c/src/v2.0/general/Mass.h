@@ -182,7 +182,7 @@ MassDoubleHas(ConstHandle2ConstMass self);
 extern_c Handle2ConstDouble
 MassDoubleGetConst(ConstHandle2ConstMass self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 MassDoubleGet(ConstHandle2Mass self);
 

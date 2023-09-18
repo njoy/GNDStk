@@ -154,7 +154,7 @@ ProductionsProductionAdd(ConstHandle2Productions self, ConstHandle2ConstProducti
 extern_c Handle2ConstProduction
 ProductionsProductionGetConst(ConstHandle2ConstProductions self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Production
 ProductionsProductionGet(ConstHandle2Productions self, const size_t index_);
 
@@ -180,7 +180,7 @@ ProductionsProductionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Production
 ProductionsProductionGetByLabel(
    ConstHandle2Productions self,
@@ -209,7 +209,7 @@ ProductionsProductionGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT, non-const
+// +++ Get, by ENDF_MT
 extern_c Handle2Production
 ProductionsProductionGetByENDFMT(
    ConstHandle2Productions self,

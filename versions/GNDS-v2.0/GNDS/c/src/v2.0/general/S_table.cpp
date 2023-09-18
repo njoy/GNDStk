@@ -157,7 +157,7 @@ S_tableGridded2dGetConst(ConstHandle2ConstS_table self)
       (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
-// Get, non-const
+// Get
 Handle2Gridded2d
 S_tableGridded2dGet(ConstHandle2S_table self)
 {

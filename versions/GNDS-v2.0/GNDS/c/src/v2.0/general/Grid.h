@@ -245,7 +245,7 @@ GridLinkHas(ConstHandle2ConstGrid self);
 extern_c Handle2ConstLink
 GridLinkGetConst(ConstHandle2ConstGrid self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Link
 GridLinkGet(ConstHandle2Grid self);
 
@@ -266,7 +266,7 @@ GridValuesHas(ConstHandle2ConstGrid self);
 extern_c Handle2ConstValues
 GridValuesGetConst(ConstHandle2ConstGrid self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Values
 GridValuesGet(ConstHandle2Grid self);
 

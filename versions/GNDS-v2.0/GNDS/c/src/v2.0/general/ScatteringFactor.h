@@ -142,7 +142,7 @@ ScatteringFactorXYs1dHas(ConstHandle2ConstScatteringFactor self);
 extern_c Handle2ConstXYs1d
 ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor self);
 

@@ -240,7 +240,7 @@ FissionEnergyReleasePromptProductKEGetConst(ConstHandle2ConstFissionEnergyReleas
       (CLASSNAME, CLASSNAME+"PromptProductKEGetConst", self, extract::promptProductKE);
 }
 
-// Get, non-const
+// Get
 Handle2PromptProductKE
 FissionEnergyReleasePromptProductKEGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -277,7 +277,7 @@ FissionEnergyReleasePromptNeutronKEGetConst(ConstHandle2ConstFissionEnergyReleas
       (CLASSNAME, CLASSNAME+"PromptNeutronKEGetConst", self, extract::promptNeutronKE);
 }
 
-// Get, non-const
+// Get
 Handle2PromptNeutronKE
 FissionEnergyReleasePromptNeutronKEGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -314,7 +314,7 @@ FissionEnergyReleaseDelayedNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelea
       (CLASSNAME, CLASSNAME+"DelayedNeutronKEGetConst", self, extract::delayedNeutronKE);
 }
 
-// Get, non-const
+// Get
 Handle2DelayedNeutronKE
 FissionEnergyReleaseDelayedNeutronKEGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -351,7 +351,7 @@ FissionEnergyReleasePromptGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRele
       (CLASSNAME, CLASSNAME+"PromptGammaEnergyGetConst", self, extract::promptGammaEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2PromptGammaEnergy
 FissionEnergyReleasePromptGammaEnergyGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -388,7 +388,7 @@ FissionEnergyReleaseDelayedGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRel
       (CLASSNAME, CLASSNAME+"DelayedGammaEnergyGetConst", self, extract::delayedGammaEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2DelayedGammaEnergy
 FissionEnergyReleaseDelayedGammaEnergyGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -425,7 +425,7 @@ FissionEnergyReleaseDelayedBetaEnergyGetConst(ConstHandle2ConstFissionEnergyRele
       (CLASSNAME, CLASSNAME+"DelayedBetaEnergyGetConst", self, extract::delayedBetaEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2DelayedBetaEnergy
 FissionEnergyReleaseDelayedBetaEnergyGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -462,7 +462,7 @@ FissionEnergyReleaseNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease
       (CLASSNAME, CLASSNAME+"NeutrinoEnergyGetConst", self, extract::neutrinoEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2NeutrinoEnergy
 FissionEnergyReleaseNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -499,7 +499,7 @@ FissionEnergyReleaseNonNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRele
       (CLASSNAME, CLASSNAME+"NonNeutrinoEnergyGetConst", self, extract::nonNeutrinoEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2NonNeutrinoEnergy
 FissionEnergyReleaseNonNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease self)
 {
@@ -536,7 +536,7 @@ FissionEnergyReleaseTotalEnergyGetConst(ConstHandle2ConstFissionEnergyRelease se
       (CLASSNAME, CLASSNAME+"TotalEnergyGetConst", self, extract::totalEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2TotalEnergy
 FissionEnergyReleaseTotalEnergyGet(ConstHandle2FissionEnergyRelease self)
 {

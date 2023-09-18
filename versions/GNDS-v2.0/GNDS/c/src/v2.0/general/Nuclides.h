@@ -154,7 +154,7 @@ NuclidesNuclideAdd(ConstHandle2Nuclides self, ConstHandle2ConstNuclide nuclide);
 extern_c Handle2ConstNuclide
 NuclidesNuclideGetConst(ConstHandle2ConstNuclides self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Nuclide
 NuclidesNuclideGet(ConstHandle2Nuclides self, const size_t index_);
 
@@ -180,7 +180,7 @@ NuclidesNuclideGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id, non-const
+// +++ Get, by id
 extern_c Handle2Nuclide
 NuclidesNuclideGetById(
    ConstHandle2Nuclides self,

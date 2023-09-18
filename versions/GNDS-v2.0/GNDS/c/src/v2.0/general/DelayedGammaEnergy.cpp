@@ -157,7 +157,7 @@ DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get, non-const
+// Get
 Handle2Polynomial1d
 DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy self)
 {

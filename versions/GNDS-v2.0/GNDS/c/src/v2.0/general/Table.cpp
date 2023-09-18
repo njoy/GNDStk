@@ -233,7 +233,7 @@ TableColumnHeadersGetConst(ConstHandle2ConstTable self)
       (CLASSNAME, CLASSNAME+"ColumnHeadersGetConst", self, extract::columnHeaders);
 }
 
-// Get, non-const
+// Get
 Handle2ColumnHeaders
 TableColumnHeadersGet(ConstHandle2Table self)
 {
@@ -270,7 +270,7 @@ TableDataGetConst(ConstHandle2ConstTable self)
       (CLASSNAME, CLASSNAME+"DataGetConst", self, extract::data);
 }
 
-// Get, non-const
+// Get
 Handle2Data
 TableDataGet(ConstHandle2Table self)
 {

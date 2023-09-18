@@ -233,7 +233,7 @@ JLevelSpacingGetConst(ConstHandle2ConstJ self)
       (CLASSNAME, CLASSNAME+"LevelSpacingGetConst", self, extract::levelSpacing);
 }
 
-// Get, non-const
+// Get
 Handle2LevelSpacing
 JLevelSpacingGet(ConstHandle2J self)
 {
@@ -270,7 +270,7 @@ JWidthsGetConst(ConstHandle2ConstJ self)
       (CLASSNAME, CLASSNAME+"WidthsGetConst", self, extract::widths);
 }
 
-// Get, non-const
+// Get
 Handle2Widths
 JWidthsGet(ConstHandle2J self)
 {

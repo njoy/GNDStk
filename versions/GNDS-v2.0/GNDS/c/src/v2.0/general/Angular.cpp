@@ -163,7 +163,7 @@ AngularIsotropic2dGetConst(ConstHandle2ConstAngular self)
       (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", self, extract::isotropic2d);
 }
 
-// Get, non-const
+// Get
 Handle2Isotropic2d
 AngularIsotropic2dGet(ConstHandle2Angular self)
 {
@@ -200,7 +200,7 @@ AngularXYs2dGetConst(ConstHandle2ConstAngular self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 AngularXYs2dGet(ConstHandle2Angular self)
 {

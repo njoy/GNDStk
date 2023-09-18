@@ -185,7 +185,7 @@ NuclidesNuclideGetConst(ConstHandle2ConstNuclides self, const size_t index_)
       (CLASSNAME, CLASSNAME+"NuclideGetConst", self, extract::nuclide, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Nuclide
 NuclidesNuclideGet(ConstHandle2Nuclides self, const size_t index_)
 {
@@ -226,7 +226,7 @@ NuclidesNuclideGetByIdConst(
        self, extract::nuclide, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2Nuclide
 NuclidesNuclideGetById(
    ConstHandle2Nuclides self,

@@ -205,7 +205,7 @@ ResolvedBreitWignerHas(ConstHandle2ConstResolved self);
 extern_c Handle2ConstBreitWigner
 ResolvedBreitWignerGetConst(ConstHandle2ConstResolved self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2BreitWigner
 ResolvedBreitWignerGet(ConstHandle2Resolved self);
 
@@ -226,7 +226,7 @@ ResolvedRMatrixHas(ConstHandle2ConstResolved self);
 extern_c Handle2ConstRMatrix
 ResolvedRMatrixGetConst(ConstHandle2ConstResolved self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2RMatrix
 ResolvedRMatrixGet(ConstHandle2Resolved self);
 

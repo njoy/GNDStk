@@ -239,7 +239,7 @@ OutputChannelQGetConst(ConstHandle2ConstOutputChannel self)
       (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
-// Get, non-const
+// Get
 Handle2Q
 OutputChannelQGet(ConstHandle2OutputChannel self)
 {
@@ -276,7 +276,7 @@ OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel self)
       (CLASSNAME, CLASSNAME+"ProductsGetConst", self, extract::products);
 }
 
-// Get, non-const
+// Get
 Handle2Products
 OutputChannelProductsGet(ConstHandle2OutputChannel self)
 {
@@ -313,7 +313,7 @@ OutputChannelFissionFragmentDataGetConst(ConstHandle2ConstOutputChannel self)
       (CLASSNAME, CLASSNAME+"FissionFragmentDataGetConst", self, extract::fissionFragmentData);
 }
 
-// Get, non-const
+// Get
 Handle2FissionFragmentData
 OutputChannelFissionFragmentDataGet(ConstHandle2OutputChannel self)
 {

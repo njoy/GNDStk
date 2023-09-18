@@ -216,7 +216,7 @@ NuclideMassGetConst(ConstHandle2ConstNuclide self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get, non-const
+// Get
 Handle2Mass
 NuclideMassGet(ConstHandle2Nuclide self)
 {
@@ -253,7 +253,7 @@ NuclideChargeGetConst(ConstHandle2ConstNuclide self)
       (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
-// Get, non-const
+// Get
 Handle2Charge
 NuclideChargeGet(ConstHandle2Nuclide self)
 {
@@ -290,7 +290,7 @@ NuclideNucleusGetConst(ConstHandle2ConstNuclide self)
       (CLASSNAME, CLASSNAME+"NucleusGetConst", self, extract::nucleus);
 }
 
-// Get, non-const
+// Get
 Handle2Nucleus
 NuclideNucleusGet(ConstHandle2Nuclide self)
 {
@@ -327,7 +327,7 @@ NuclideDecayDataGetConst(ConstHandle2ConstNuclide self)
       (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
-// Get, non-const
+// Get
 Handle2DecayData
 NuclideDecayDataGet(ConstHandle2Nuclide self)
 {
@@ -364,7 +364,7 @@ NuclideFissionFragmentDataGetConst(ConstHandle2ConstNuclide self)
       (CLASSNAME, CLASSNAME+"FissionFragmentDataGetConst", self, extract::fissionFragmentData);
 }
 
-// Get, non-const
+// Get
 Handle2FissionFragmentData
 NuclideFissionFragmentDataGet(ConstHandle2Nuclide self)
 {

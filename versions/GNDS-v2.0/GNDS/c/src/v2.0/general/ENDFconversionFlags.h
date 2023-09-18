@@ -194,7 +194,7 @@ ENDFconversionFlagsConversionAdd(ConstHandle2ENDFconversionFlags self, ConstHand
 extern_c Handle2ConstConversion
 ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags self, const size_t index_);
 
@@ -220,7 +220,7 @@ ENDFconversionFlagsConversionGetByFlagsConst(
    const char *const flags
 );
 
-// +++ Get, by flags, non-const
+// +++ Get, by flags
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGetByFlags(
    ConstHandle2ENDFconversionFlags self,
@@ -249,7 +249,7 @@ ENDFconversionFlagsConversionGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href, non-const
+// +++ Get, by href
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGetByHref(
    ConstHandle2ENDFconversionFlags self,

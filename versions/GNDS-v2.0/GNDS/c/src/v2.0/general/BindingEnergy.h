@@ -142,7 +142,7 @@ BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy self);
 extern_c Handle2ConstDouble
 BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 BindingEnergyDoubleGet(ConstHandle2BindingEnergy self);
 

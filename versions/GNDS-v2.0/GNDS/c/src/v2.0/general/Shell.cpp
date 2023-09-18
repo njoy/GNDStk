@@ -227,7 +227,7 @@ ShellUncertaintyGetConst(ConstHandle2ConstShell self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 ShellUncertaintyGet(ConstHandle2Shell self)
 {

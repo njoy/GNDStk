@@ -191,7 +191,7 @@ AngularTwoBodyXYs2dHas(ConstHandle2ConstAngularTwoBody self);
 extern_c Handle2ConstXYs2d
 AngularTwoBodyXYs2dGetConst(ConstHandle2ConstAngularTwoBody self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs2d
 AngularTwoBodyXYs2dGet(ConstHandle2AngularTwoBody self);
 
@@ -212,7 +212,7 @@ AngularTwoBodyRegions2dHas(ConstHandle2ConstAngularTwoBody self);
 extern_c Handle2ConstRegions2d
 AngularTwoBodyRegions2dGetConst(ConstHandle2ConstAngularTwoBody self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions2d
 AngularTwoBodyRegions2dGet(ConstHandle2AngularTwoBody self);
 
@@ -233,7 +233,7 @@ AngularTwoBodyRecoilHas(ConstHandle2ConstAngularTwoBody self);
 extern_c Handle2ConstRecoil
 AngularTwoBodyRecoilGetConst(ConstHandle2ConstAngularTwoBody self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Recoil
 AngularTwoBodyRecoilGet(ConstHandle2AngularTwoBody self);
 
@@ -254,7 +254,7 @@ AngularTwoBodyIsotropic2dHas(ConstHandle2ConstAngularTwoBody self);
 extern_c Handle2ConstIsotropic2d
 AngularTwoBodyIsotropic2dGetConst(ConstHandle2ConstAngularTwoBody self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Isotropic2d
 AngularTwoBodyIsotropic2dGet(ConstHandle2AngularTwoBody self);
 

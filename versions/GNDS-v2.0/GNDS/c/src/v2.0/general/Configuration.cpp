@@ -237,7 +237,7 @@ ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration self)
       (CLASSNAME, CLASSNAME+"BindingEnergyGetConst", self, extract::bindingEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2BindingEnergy
 ConfigurationBindingEnergyGet(ConstHandle2Configuration self)
 {
@@ -298,7 +298,7 @@ ConfigurationDecayDataGetConst(ConstHandle2ConstConfiguration self, const size_t
       (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2DecayData
 ConfigurationDecayDataGet(ConstHandle2Configuration self, const size_t index_)
 {

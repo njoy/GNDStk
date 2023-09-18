@@ -234,7 +234,7 @@ SumSummandAdd(ConstHandle2Sum self, ConstHandle2ConstSummand summand);
 extern_c Handle2ConstSummand
 SumSummandGetConst(ConstHandle2ConstSum self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Summand
 SumSummandGet(ConstHandle2Sum self, const size_t index_);
 
@@ -260,7 +260,7 @@ SumSummandGetByENDFMFMTConst(
    const char *const ENDF_MFMT
 );
 
-// +++ Get, by ENDF_MFMT, non-const
+// +++ Get, by ENDF_MFMT
 extern_c Handle2Summand
 SumSummandGetByENDFMFMT(
    ConstHandle2Sum self,
@@ -289,7 +289,7 @@ SumSummandGetByCoefficientConst(
    const char *const coefficient
 );
 
-// +++ Get, by coefficient, non-const
+// +++ Get, by coefficient
 extern_c Handle2Summand
 SumSummandGetByCoefficient(
    ConstHandle2Sum self,
@@ -318,7 +318,7 @@ SumSummandGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href, non-const
+// +++ Get, by href
 extern_c Handle2Summand
 SumSummandGetByHref(
    ConstHandle2Sum self,

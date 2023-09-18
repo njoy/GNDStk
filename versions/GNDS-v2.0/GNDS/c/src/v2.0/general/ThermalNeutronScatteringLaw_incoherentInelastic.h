@@ -242,7 +242,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsHas(ConstHandle2Co
 extern_c Handle2ConstScatteringAtoms
 ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ScatteringAtoms
 ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self);
 

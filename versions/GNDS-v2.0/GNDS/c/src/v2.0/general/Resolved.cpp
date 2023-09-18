@@ -268,7 +268,7 @@ ResolvedBreitWignerGetConst(ConstHandle2ConstResolved self)
       (CLASSNAME, CLASSNAME+"BreitWignerGetConst", self, extract::BreitWigner);
 }
 
-// Get, non-const
+// Get
 Handle2BreitWigner
 ResolvedBreitWignerGet(ConstHandle2Resolved self)
 {
@@ -305,7 +305,7 @@ ResolvedRMatrixGetConst(ConstHandle2ConstResolved self)
       (CLASSNAME, CLASSNAME+"RMatrixGetConst", self, extract::RMatrix);
 }
 
-// Get, non-const
+// Get
 Handle2RMatrix
 ResolvedRMatrixGet(ConstHandle2Resolved self)
 {

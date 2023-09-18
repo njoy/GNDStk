@@ -157,7 +157,7 @@ ProbabilityDoubleGetConst(ConstHandle2ConstProbability self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 ProbabilityDoubleGet(ConstHandle2Probability self)
 {

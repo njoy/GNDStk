@@ -157,7 +157,7 @@ AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy self)
 {

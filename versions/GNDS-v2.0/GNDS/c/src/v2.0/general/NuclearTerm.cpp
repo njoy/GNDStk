@@ -163,7 +163,7 @@ NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm self)
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions2d
 NuclearTermRegions2dGet(ConstHandle2NuclearTerm self)
 {
@@ -200,7 +200,7 @@ NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs2d
 NuclearTermXYs2dGet(ConstHandle2NuclearTerm self)
 {

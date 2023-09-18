@@ -222,7 +222,7 @@ Constant1dAxesHas(ConstHandle2ConstConstant1d self);
 extern_c Handle2ConstAxes
 Constant1dAxesGetConst(ConstHandle2ConstConstant1d self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Axes
 Constant1dAxesGet(ConstHandle2Constant1d self);
 

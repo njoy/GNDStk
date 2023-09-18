@@ -233,7 +233,7 @@ ProductMultiplicityGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
-// Get, non-const
+// Get
 Handle2Multiplicity
 ProductMultiplicityGet(ConstHandle2Product self)
 {
@@ -270,7 +270,7 @@ ProductDistributionGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
-// Get, non-const
+// Get
 Handle2Distribution
 ProductDistributionGet(ConstHandle2Product self)
 {

@@ -157,7 +157,7 @@ ParameterCovariancesParameterCovarianceAdd(ConstHandle2ParameterCovariances self
 extern_c Handle2ConstParameterCovariance
 ParameterCovariancesParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_);
 
@@ -183,7 +183,7 @@ ParameterCovariancesParameterCovarianceGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -223,7 +223,7 @@ ParameterCovariancesAverageParameterCovarianceAdd(ConstHandle2ParameterCovarianc
 extern_c Handle2ConstAverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_);
 
@@ -249,7 +249,7 @@ ParameterCovariancesAverageParameterCovarianceGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -278,7 +278,7 @@ ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(
    const bool crossTerm
 );
 
-// +++ Get, by crossTerm, non-const
+// +++ Get, by crossTerm
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(
    ConstHandle2ParameterCovariances self,

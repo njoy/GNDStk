@@ -154,7 +154,7 @@ IsotopesIsotopeAdd(ConstHandle2Isotopes self, ConstHandle2ConstIsotope isotope);
 extern_c Handle2ConstIsotope
 IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Isotope
 IsotopesIsotopeGet(ConstHandle2Isotopes self, const size_t index_);
 
@@ -180,7 +180,7 @@ IsotopesIsotopeGetBySymbolConst(
    const char *const symbol
 );
 
-// +++ Get, by symbol, non-const
+// +++ Get, by symbol
 extern_c Handle2Isotope
 IsotopesIsotopeGetBySymbol(
    ConstHandle2Isotopes self,
@@ -209,7 +209,7 @@ IsotopesIsotopeGetByAConst(
    const int A
 );
 
-// +++ Get, by A, non-const
+// +++ Get, by A
 extern_c Handle2Isotope
 IsotopesIsotopeGetByA(
    ConstHandle2Isotopes self,

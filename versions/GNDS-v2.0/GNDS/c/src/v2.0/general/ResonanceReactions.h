@@ -154,7 +154,7 @@ ResonanceReactionsResonanceReactionAdd(ConstHandle2ResonanceReactions self, Cons
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionsResonanceReactionGetConst(ConstHandle2ConstResonanceReactions self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGet(ConstHandle2ResonanceReactions self, const size_t index_);
 
@@ -180,7 +180,7 @@ ResonanceReactionsResonanceReactionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByLabel(
    ConstHandle2ResonanceReactions self,
@@ -209,7 +209,7 @@ ResonanceReactionsResonanceReactionGetByEjectileConst(
    const char *const ejectile
 );
 
-// +++ Get, by ejectile, non-const
+// +++ Get, by ejectile
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEjectile(
    ConstHandle2ResonanceReactions self,
@@ -238,7 +238,7 @@ ResonanceReactionsResonanceReactionGetByEliminatedConst(
    const bool eliminated
 );
 
-// +++ Get, by eliminated, non-const
+// +++ Get, by eliminated
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEliminated(
    ConstHandle2ResonanceReactions self,

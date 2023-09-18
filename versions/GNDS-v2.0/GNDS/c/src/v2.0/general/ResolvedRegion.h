@@ -145,7 +145,7 @@ ResolvedRegionXYs1dHas(ConstHandle2ConstResolvedRegion self);
 extern_c Handle2ConstXYs1d
 ResolvedRegionXYs1dGetConst(ConstHandle2ConstResolvedRegion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 ResolvedRegionXYs1dGet(ConstHandle2ResolvedRegion self);
 
@@ -166,7 +166,7 @@ ResolvedRegionRegions1dHas(ConstHandle2ConstResolvedRegion self);
 extern_c Handle2ConstRegions1d
 ResolvedRegionRegions1dGetConst(ConstHandle2ConstResolvedRegion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 ResolvedRegionRegions1dGet(ConstHandle2ResolvedRegion self);
 

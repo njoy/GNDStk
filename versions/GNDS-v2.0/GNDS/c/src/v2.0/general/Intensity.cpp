@@ -192,7 +192,7 @@ IntensityUncertaintyGetConst(ConstHandle2ConstIntensity self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 IntensityUncertaintyGet(ConstHandle2Intensity self)
 {

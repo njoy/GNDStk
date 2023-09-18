@@ -157,7 +157,7 @@ PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabil
       (CLASSNAME, CLASSNAME+"ShellGetConst", self, extract::shell);
 }
 
-// Get, non-const
+// Get
 Handle2Shell
 PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities self)
 {

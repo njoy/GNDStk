@@ -142,7 +142,7 @@ TotalEnergyPolynomial1dHas(ConstHandle2ConstTotalEnergy self);
 extern_c Handle2ConstPolynomial1d
 TotalEnergyPolynomial1dGetConst(ConstHandle2ConstTotalEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 TotalEnergyPolynomial1dGet(ConstHandle2TotalEnergy self);
 

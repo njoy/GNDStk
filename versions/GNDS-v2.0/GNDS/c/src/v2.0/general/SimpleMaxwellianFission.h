@@ -145,7 +145,7 @@ SimpleMaxwellianFissionUHas(ConstHandle2ConstSimpleMaxwellianFission self);
 extern_c Handle2ConstU
 SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2U
 SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission self);
 
@@ -166,7 +166,7 @@ SimpleMaxwellianFissionThetaHas(ConstHandle2ConstSimpleMaxwellianFission self);
 extern_c Handle2ConstTheta
 SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Theta
 SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission self);
 

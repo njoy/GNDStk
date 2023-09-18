@@ -208,7 +208,7 @@ ReactionCrossSectionHas(ConstHandle2ConstReaction self);
 extern_c Handle2ConstCrossSection
 ReactionCrossSectionGetConst(ConstHandle2ConstReaction self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSection
 ReactionCrossSectionGet(ConstHandle2Reaction self);
 
@@ -229,7 +229,7 @@ ReactionOutputChannelHas(ConstHandle2ConstReaction self);
 extern_c Handle2ConstOutputChannel
 ReactionOutputChannelGetConst(ConstHandle2ConstReaction self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2OutputChannel
 ReactionOutputChannelGet(ConstHandle2Reaction self);
 
@@ -250,7 +250,7 @@ ReactionDoubleDifferentialCrossSectionHas(ConstHandle2ConstReaction self);
 extern_c Handle2ConstDoubleDifferentialCrossSection
 ReactionDoubleDifferentialCrossSectionGetConst(ConstHandle2ConstReaction self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2DoubleDifferentialCrossSection
 ReactionDoubleDifferentialCrossSectionGet(ConstHandle2Reaction self);
 

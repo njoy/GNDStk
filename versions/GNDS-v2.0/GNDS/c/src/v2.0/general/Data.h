@@ -151,7 +151,7 @@ DataDoublesSet(ConstHandle2Data self, const size_t index, const double value);
 extern_c const double *
 DataDoublesGetArrayConst(ConstHandle2ConstData self);
 
-// +++ Get pointer to existing values, non-const
+// +++ Get pointer to existing values
 extern_c double *
 DataDoublesGetArray(ConstHandle2Data self);
 

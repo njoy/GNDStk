@@ -154,7 +154,7 @@ ColumnHeadersColumnAdd(ConstHandle2ColumnHeaders self, ConstHandle2ConstColumn c
 extern_c Handle2ConstColumn
 ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Column
 ColumnHeadersColumnGet(ConstHandle2ColumnHeaders self, const size_t index_);
 
@@ -180,7 +180,7 @@ ColumnHeadersColumnGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index, non-const
+// +++ Get, by index
 extern_c Handle2Column
 ColumnHeadersColumnGetByIndex(
    ConstHandle2ColumnHeaders self,
@@ -209,7 +209,7 @@ ColumnHeadersColumnGetByNameConst(
    const char *const name
 );
 
-// +++ Get, by name, non-const
+// +++ Get, by name
 extern_c Handle2Column
 ColumnHeadersColumnGetByName(
    ConstHandle2ColumnHeaders self,
@@ -238,7 +238,7 @@ ColumnHeadersColumnGetByUnitConst(
    const char *const unit
 );
 
-// +++ Get, by unit, non-const
+// +++ Get, by unit
 extern_c Handle2Column
 ColumnHeadersColumnGetByUnit(
    ConstHandle2ColumnHeaders self,

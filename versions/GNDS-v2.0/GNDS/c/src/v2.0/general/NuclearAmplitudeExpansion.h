@@ -148,7 +148,7 @@ NuclearAmplitudeExpansionNuclearTermHas(ConstHandle2ConstNuclearAmplitudeExpansi
 extern_c Handle2ConstNuclearTerm
 NuclearAmplitudeExpansionNuclearTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2NuclearTerm
 NuclearAmplitudeExpansionNuclearTermGet(ConstHandle2NuclearAmplitudeExpansion self);
 
@@ -169,7 +169,7 @@ NuclearAmplitudeExpansionRealInterferenceTermHas(ConstHandle2ConstNuclearAmplitu
 extern_c Handle2ConstRealInterferenceTerm
 NuclearAmplitudeExpansionRealInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2RealInterferenceTerm
 NuclearAmplitudeExpansionRealInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self);
 
@@ -190,7 +190,7 @@ NuclearAmplitudeExpansionImaginaryInterferenceTermHas(ConstHandle2ConstNuclearAm
 extern_c Handle2ConstImaginaryInterferenceTerm
 NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(ConstHandle2ConstNuclearAmplitudeExpansion self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ImaginaryInterferenceTerm
 NuclearAmplitudeExpansionImaginaryInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self);
 

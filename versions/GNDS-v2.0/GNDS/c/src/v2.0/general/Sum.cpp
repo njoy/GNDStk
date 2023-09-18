@@ -325,7 +325,7 @@ SumSummandGetConst(ConstHandle2ConstSum self, const size_t index_)
       (CLASSNAME, CLASSNAME+"SummandGetConst", self, extract::summand, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Summand
 SumSummandGet(ConstHandle2Sum self, const size_t index_)
 {
@@ -366,7 +366,7 @@ SumSummandGetByENDFMFMTConst(
        self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
 }
 
-// Get, by ENDF_MFMT, non-const
+// Get, by ENDF_MFMT
 Handle2Summand
 SumSummandGetByENDFMFMT(
    ConstHandle2Sum self,
@@ -411,7 +411,7 @@ SumSummandGetByCoefficientConst(
        self, extract::summand, meta::coefficient, coefficient);
 }
 
-// Get, by coefficient, non-const
+// Get, by coefficient
 Handle2Summand
 SumSummandGetByCoefficient(
    ConstHandle2Sum self,
@@ -456,7 +456,7 @@ SumSummandGetByHrefConst(
        self, extract::summand, meta::href, href);
 }
 
-// Get, by href, non-const
+// Get, by href
 Handle2Summand
 SumSummandGetByHref(
    ConstHandle2Sum self,

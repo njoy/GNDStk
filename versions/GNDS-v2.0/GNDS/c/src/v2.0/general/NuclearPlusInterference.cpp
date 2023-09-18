@@ -198,7 +198,7 @@ NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterfer
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get, non-const
+// Get
 Handle2CrossSection
 NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference self)
 {
@@ -235,7 +235,7 @@ NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterfer
       (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
-// Get, non-const
+// Get
 Handle2Distribution
 NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference self)
 {

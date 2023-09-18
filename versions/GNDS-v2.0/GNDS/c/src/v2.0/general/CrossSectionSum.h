@@ -188,7 +188,7 @@ CrossSectionSumSummandsHas(ConstHandle2ConstCrossSectionSum self);
 extern_c Handle2ConstSummands
 CrossSectionSumSummandsGetConst(ConstHandle2ConstCrossSectionSum self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Summands
 CrossSectionSumSummandsGet(ConstHandle2CrossSectionSum self);
 
@@ -209,7 +209,7 @@ CrossSectionSumQHas(ConstHandle2ConstCrossSectionSum self);
 extern_c Handle2ConstQ
 CrossSectionSumQGetConst(ConstHandle2ConstCrossSectionSum self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Q
 CrossSectionSumQGet(ConstHandle2CrossSectionSum self);
 
@@ -230,7 +230,7 @@ CrossSectionSumCrossSectionHas(ConstHandle2ConstCrossSectionSum self);
 extern_c Handle2ConstCrossSection
 CrossSectionSumCrossSectionGetConst(ConstHandle2ConstCrossSectionSum self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2CrossSection
 CrossSectionSumCrossSectionGet(ConstHandle2CrossSectionSum self);
 

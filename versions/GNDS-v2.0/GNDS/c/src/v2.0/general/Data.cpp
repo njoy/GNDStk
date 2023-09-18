@@ -173,7 +173,7 @@ DataDoublesGetArrayConst(ConstHandle2ConstData self)
       (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
-// Get pointer to existing values, non-const
+// Get pointer to existing values
 double *
 DataDoublesGetArray(ConstHandle2Data self)
 {

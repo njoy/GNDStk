@@ -154,7 +154,7 @@ MultiplicitySumsMultiplicitySumAdd(ConstHandle2MultiplicitySums self, ConstHandl
 extern_c Handle2ConstMultiplicitySum
 MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums self, const size_t index_);
 
@@ -180,7 +180,7 @@ MultiplicitySumsMultiplicitySumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabel(
    ConstHandle2MultiplicitySums self,
@@ -209,7 +209,7 @@ MultiplicitySumsMultiplicitySumGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT, non-const
+// +++ Get, by ENDF_MT
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMT(
    ConstHandle2MultiplicitySums self,

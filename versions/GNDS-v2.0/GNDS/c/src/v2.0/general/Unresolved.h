@@ -202,7 +202,7 @@ UnresolvedTabulatedWidthsHas(ConstHandle2ConstUnresolved self);
 extern_c Handle2ConstTabulatedWidths
 UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2TabulatedWidths
 UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved self);
 

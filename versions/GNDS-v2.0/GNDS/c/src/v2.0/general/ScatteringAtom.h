@@ -217,7 +217,7 @@ ScatteringAtomMassHas(ConstHandle2ConstScatteringAtom self);
 extern_c Handle2ConstMass
 ScatteringAtomMassGetConst(ConstHandle2ConstScatteringAtom self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 ScatteringAtomMassGet(ConstHandle2ScatteringAtom self);
 
@@ -238,7 +238,7 @@ ScatteringAtomE_criticalHas(ConstHandle2ConstScatteringAtom self);
 extern_c Handle2ConstE_critical
 ScatteringAtomE_criticalGetConst(ConstHandle2ConstScatteringAtom self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2E_critical
 ScatteringAtomE_criticalGet(ConstHandle2ScatteringAtom self);
 
@@ -259,7 +259,7 @@ ScatteringAtomE_maxHas(ConstHandle2ConstScatteringAtom self);
 extern_c Handle2ConstE_max
 ScatteringAtomE_maxGetConst(ConstHandle2ConstScatteringAtom self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2E_max
 ScatteringAtomE_maxGet(ConstHandle2ScatteringAtom self);
 
@@ -280,7 +280,7 @@ ScatteringAtomBoundAtomCrossSectionHas(ConstHandle2ConstScatteringAtom self);
 extern_c Handle2ConstBoundAtomCrossSection
 ScatteringAtomBoundAtomCrossSectionGetConst(ConstHandle2ConstScatteringAtom self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2BoundAtomCrossSection
 ScatteringAtomBoundAtomCrossSectionGet(ConstHandle2ScatteringAtom self);
 
@@ -301,7 +301,7 @@ ScatteringAtomSelfScatteringKernelHas(ConstHandle2ConstScatteringAtom self);
 extern_c Handle2ConstSelfScatteringKernel
 ScatteringAtomSelfScatteringKernelGetConst(ConstHandle2ConstScatteringAtom self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2SelfScatteringKernel
 ScatteringAtomSelfScatteringKernelGet(ConstHandle2ScatteringAtom self);
 
@@ -322,7 +322,7 @@ ScatteringAtomT_effectiveHas(ConstHandle2ConstScatteringAtom self);
 extern_c Handle2ConstT_effective
 ScatteringAtomT_effectiveGetConst(ConstHandle2ConstScatteringAtom self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2T_effective
 ScatteringAtomT_effectiveGet(ConstHandle2ScatteringAtom self);
 

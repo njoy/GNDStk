@@ -185,7 +185,7 @@ JsJGetConst(ConstHandle2ConstJs self, const size_t index_)
       (CLASSNAME, CLASSNAME+"JGetConst", self, extract::J, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2J
 JsJGet(ConstHandle2Js self, const size_t index_)
 {
@@ -226,7 +226,7 @@ JsJGetByLabelConst(
        self, extract::J, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2J
 JsJGetByLabel(
    ConstHandle2Js self,
@@ -271,7 +271,7 @@ JsJGetByValueConst(
        self, extract::J, meta::value, value);
 }
 
-// Get, by value, non-const
+// Get, by value
 Handle2J
 JsJGetByValue(
    ConstHandle2Js self,

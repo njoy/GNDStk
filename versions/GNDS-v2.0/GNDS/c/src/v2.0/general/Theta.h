@@ -145,7 +145,7 @@ ThetaXYs1dHas(ConstHandle2ConstTheta self);
 extern_c Handle2ConstXYs1d
 ThetaXYs1dGetConst(ConstHandle2ConstTheta self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 ThetaXYs1dGet(ConstHandle2Theta self);
 
@@ -166,7 +166,7 @@ ThetaRegions1dHas(ConstHandle2ConstTheta self);
 extern_c Handle2ConstRegions1d
 ThetaRegions1dGetConst(ConstHandle2ConstTheta self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 ThetaRegions1dGet(ConstHandle2Theta self);
 

@@ -154,7 +154,7 @@ DatesDateAdd(ConstHandle2Dates self, ConstHandle2ConstDate date);
 extern_c Handle2ConstDate
 DatesDateGetConst(ConstHandle2ConstDates self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Date
 DatesDateGet(ConstHandle2Dates self, const size_t index_);
 
@@ -180,7 +180,7 @@ DatesDateGetByValueConst(
    const char *const value
 );
 
-// +++ Get, by value, non-const
+// +++ Get, by value
 extern_c Handle2Date
 DatesDateGetByValue(
    ConstHandle2Dates self,
@@ -209,7 +209,7 @@ DatesDateGetByDateTypeConst(
    const char *const dateType
 );
 
-// +++ Get, by dateType, non-const
+// +++ Get, by dateType
 extern_c Handle2Date
 DatesDateGetByDateType(
    ConstHandle2Dates self,

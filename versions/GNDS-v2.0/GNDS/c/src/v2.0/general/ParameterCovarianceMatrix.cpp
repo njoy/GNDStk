@@ -233,7 +233,7 @@ ParameterCovarianceMatrixArrayGetConst(ConstHandle2ConstParameterCovarianceMatri
       (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
-// Get, non-const
+// Get
 Handle2Array
 ParameterCovarianceMatrixArrayGet(ConstHandle2ParameterCovarianceMatrix self)
 {
@@ -270,7 +270,7 @@ ParameterCovarianceMatrixParametersGetConst(ConstHandle2ConstParameterCovariance
       (CLASSNAME, CLASSNAME+"ParametersGetConst", self, extract::parameters);
 }
 
-// Get, non-const
+// Get
 Handle2Parameters
 ParameterCovarianceMatrixParametersGet(ConstHandle2ParameterCovarianceMatrix self)
 {

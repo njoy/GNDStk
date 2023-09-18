@@ -227,7 +227,7 @@ ColumnDataSlicesGetConst(ConstHandle2ConstColumnData self)
       (CLASSNAME, CLASSNAME+"SlicesGetConst", self, extract::slices);
 }
 
-// Get, non-const
+// Get
 Handle2Slices
 ColumnDataSlicesGet(ConstHandle2ColumnData self)
 {

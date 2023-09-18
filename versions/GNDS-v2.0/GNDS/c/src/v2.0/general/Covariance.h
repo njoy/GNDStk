@@ -182,7 +182,7 @@ CovarianceArrayHas(ConstHandle2ConstCovariance self);
 extern_c Handle2ConstArray
 CovarianceArrayGetConst(ConstHandle2ConstCovariance self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Array
 CovarianceArrayGet(ConstHandle2Covariance self);
 

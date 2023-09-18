@@ -157,7 +157,7 @@ RateDoubleGetConst(ConstHandle2ConstRate self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 RateDoubleGet(ConstHandle2Rate self)
 {

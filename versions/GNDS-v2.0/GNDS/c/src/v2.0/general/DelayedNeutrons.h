@@ -154,7 +154,7 @@ DelayedNeutronsDelayedNeutronAdd(ConstHandle2DelayedNeutrons self, ConstHandle2C
 extern_c Handle2ConstDelayedNeutron
 DelayedNeutronsDelayedNeutronGetConst(ConstHandle2ConstDelayedNeutrons self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGet(ConstHandle2DelayedNeutrons self, const size_t index_);
 
@@ -180,7 +180,7 @@ DelayedNeutronsDelayedNeutronGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGetByLabel(
    ConstHandle2DelayedNeutrons self,

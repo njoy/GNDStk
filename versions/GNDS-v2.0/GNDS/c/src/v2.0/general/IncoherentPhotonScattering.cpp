@@ -297,7 +297,7 @@ IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPh
       (CLASSNAME, CLASSNAME+"ScatteringFactorGetConst", self, extract::scatteringFactor);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringFactor
 IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering self)
 {

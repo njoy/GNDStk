@@ -245,7 +245,7 @@ ProductMultiplicityGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
-// Get, non-const
+// Get
 Handle2Multiplicity
 ProductMultiplicityGet(ConstHandle2Product self)
 {
@@ -282,7 +282,7 @@ ProductDistributionGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
-// Get, non-const
+// Get
 Handle2Distribution
 ProductDistributionGet(ConstHandle2Product self)
 {
@@ -319,7 +319,7 @@ ProductOutputChannelGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get, non-const
+// Get
 Handle2OutputChannel
 ProductOutputChannelGet(ConstHandle2Product self)
 {
@@ -356,7 +356,7 @@ ProductAverageProductEnergyGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"AverageProductEnergyGetConst", self, extract::averageProductEnergy);
 }
 
-// Get, non-const
+// Get
 Handle2AverageProductEnergy
 ProductAverageProductEnergyGet(ConstHandle2Product self)
 {

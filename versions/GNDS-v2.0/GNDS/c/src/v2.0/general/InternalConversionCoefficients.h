@@ -154,7 +154,7 @@ InternalConversionCoefficientsShellAdd(ConstHandle2InternalConversionCoefficient
 extern_c Handle2ConstShell
 InternalConversionCoefficientsShellGetConst(ConstHandle2ConstInternalConversionCoefficients self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGet(ConstHandle2InternalConversionCoefficients self, const size_t index_);
 
@@ -180,7 +180,7 @@ InternalConversionCoefficientsShellGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGetByLabel(
    ConstHandle2InternalConversionCoefficients self,
@@ -209,7 +209,7 @@ InternalConversionCoefficientsShellGetByValueConst(
    const double value
 );
 
-// +++ Get, by value, non-const
+// +++ Get, by value
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGetByValue(
    ConstHandle2InternalConversionCoefficients self,

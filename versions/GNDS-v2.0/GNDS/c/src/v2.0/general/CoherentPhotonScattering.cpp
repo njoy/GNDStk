@@ -309,7 +309,7 @@ CoherentPhotonScatteringFormFactorGetConst(ConstHandle2ConstCoherentPhotonScatte
       (CLASSNAME, CLASSNAME+"FormFactorGetConst", self, extract::formFactor);
 }
 
-// Get, non-const
+// Get
 Handle2FormFactor
 CoherentPhotonScatteringFormFactorGet(ConstHandle2CoherentPhotonScattering self)
 {
@@ -346,7 +346,7 @@ CoherentPhotonScatteringRealAnomalousFactorGetConst(ConstHandle2ConstCoherentPho
       (CLASSNAME, CLASSNAME+"RealAnomalousFactorGetConst", self, extract::realAnomalousFactor);
 }
 
-// Get, non-const
+// Get
 Handle2RealAnomalousFactor
 CoherentPhotonScatteringRealAnomalousFactorGet(ConstHandle2CoherentPhotonScattering self)
 {
@@ -383,7 +383,7 @@ CoherentPhotonScatteringImaginaryAnomalousFactorGetConst(ConstHandle2ConstCohere
       (CLASSNAME, CLASSNAME+"ImaginaryAnomalousFactorGetConst", self, extract::imaginaryAnomalousFactor);
 }
 
-// Get, non-const
+// Get
 Handle2ImaginaryAnomalousFactor
 CoherentPhotonScatteringImaginaryAnomalousFactorGet(ConstHandle2CoherentPhotonScattering self)
 {

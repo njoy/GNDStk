@@ -185,7 +185,7 @@ MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums self, 
       (CLASSNAME, CLASSNAME+"MultiplicitySumGetConst", self, extract::multiplicitySum, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums self, const size_t index_)
 {
@@ -226,7 +226,7 @@ MultiplicitySumsMultiplicitySumGetByLabelConst(
        self, extract::multiplicitySum, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabel(
    ConstHandle2MultiplicitySums self,
@@ -271,7 +271,7 @@ MultiplicitySumsMultiplicitySumGetByENDFMTConst(
        self, extract::multiplicitySum, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT, non-const
+// Get, by ENDF_MT
 Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMT(
    ConstHandle2MultiplicitySums self,

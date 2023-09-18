@@ -145,7 +145,7 @@ WeightedXYs1dHas(ConstHandle2ConstWeighted self);
 extern_c Handle2ConstXYs1d
 WeightedXYs1dGetConst(ConstHandle2ConstWeighted self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 WeightedXYs1dGet(ConstHandle2Weighted self);
 
@@ -166,7 +166,7 @@ WeightedEvaporationHas(ConstHandle2ConstWeighted self);
 extern_c Handle2ConstEvaporation
 WeightedEvaporationGetConst(ConstHandle2ConstWeighted self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Evaporation
 WeightedEvaporationGet(ConstHandle2Weighted self);
 

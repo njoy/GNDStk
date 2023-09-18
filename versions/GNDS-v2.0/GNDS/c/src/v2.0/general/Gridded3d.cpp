@@ -163,7 +163,7 @@ Gridded3dAxesGetConst(ConstHandle2ConstGridded3d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 Gridded3dAxesGet(ConstHandle2Gridded3d self)
 {
@@ -200,7 +200,7 @@ Gridded3dArrayGetConst(ConstHandle2ConstGridded3d self)
       (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
-// Get, non-const
+// Get
 Handle2Array
 Gridded3dArrayGet(ConstHandle2Gridded3d self)
 {

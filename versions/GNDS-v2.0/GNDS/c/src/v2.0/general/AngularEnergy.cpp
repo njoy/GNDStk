@@ -227,7 +227,7 @@ AngularEnergyXYs3dGetConst(ConstHandle2ConstAngularEnergy self)
       (CLASSNAME, CLASSNAME+"XYs3dGetConst", self, extract::XYs3d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs3d
 AngularEnergyXYs3dGet(ConstHandle2AngularEnergy self)
 {

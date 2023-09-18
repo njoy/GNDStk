@@ -204,7 +204,7 @@ SelfScatteringKernelGridded3dGetConst(ConstHandle2ConstSelfScatteringKernel self
       (CLASSNAME, CLASSNAME+"Gridded3dGetConst", self, extract::gridded3d);
 }
 
-// Get, non-const
+// Get
 Handle2Gridded3d
 SelfScatteringKernelGridded3dGet(ConstHandle2SelfScatteringKernel self)
 {
@@ -241,7 +241,7 @@ SelfScatteringKernelSCTApproximationGetConst(ConstHandle2ConstSelfScatteringKern
       (CLASSNAME, CLASSNAME+"SCTApproximationGetConst", self, extract::SCTApproximation);
 }
 
-// Get, non-const
+// Get
 Handle2SCTApproximation
 SelfScatteringKernelSCTApproximationGet(ConstHandle2SelfScatteringKernel self)
 {
@@ -278,7 +278,7 @@ SelfScatteringKernelFreeGasApproximationGetConst(ConstHandle2ConstSelfScattering
       (CLASSNAME, CLASSNAME+"FreeGasApproximationGetConst", self, extract::freeGasApproximation);
 }
 
-// Get, non-const
+// Get
 Handle2FreeGasApproximation
 SelfScatteringKernelFreeGasApproximationGet(ConstHandle2SelfScatteringKernel self)
 {

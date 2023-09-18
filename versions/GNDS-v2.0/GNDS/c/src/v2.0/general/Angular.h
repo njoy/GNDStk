@@ -145,7 +145,7 @@ AngularIsotropic2dHas(ConstHandle2ConstAngular self);
 extern_c Handle2ConstIsotropic2d
 AngularIsotropic2dGetConst(ConstHandle2ConstAngular self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Isotropic2d
 AngularIsotropic2dGet(ConstHandle2Angular self);
 
@@ -166,7 +166,7 @@ AngularXYs2dHas(ConstHandle2ConstAngular self);
 extern_c Handle2ConstXYs2d
 AngularXYs2dGetConst(ConstHandle2ConstAngular self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs2d
 AngularXYs2dGet(ConstHandle2Angular self);
 

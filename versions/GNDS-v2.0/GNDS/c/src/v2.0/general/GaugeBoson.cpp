@@ -216,7 +216,7 @@ GaugeBosonMassGetConst(ConstHandle2ConstGaugeBoson self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get, non-const
+// Get
 Handle2Mass
 GaugeBosonMassGet(ConstHandle2GaugeBoson self)
 {
@@ -253,7 +253,7 @@ GaugeBosonSpinGetConst(ConstHandle2ConstGaugeBoson self)
       (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
-// Get, non-const
+// Get
 Handle2Spin
 GaugeBosonSpinGet(ConstHandle2GaugeBoson self)
 {
@@ -290,7 +290,7 @@ GaugeBosonParityGetConst(ConstHandle2ConstGaugeBoson self)
       (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
-// Get, non-const
+// Get
 Handle2Parity
 GaugeBosonParityGet(ConstHandle2GaugeBoson self)
 {
@@ -327,7 +327,7 @@ GaugeBosonChargeGetConst(ConstHandle2ConstGaugeBoson self)
       (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
-// Get, non-const
+// Get
 Handle2Charge
 GaugeBosonChargeGet(ConstHandle2GaugeBoson self)
 {
@@ -364,7 +364,7 @@ GaugeBosonHalflifeGetConst(ConstHandle2ConstGaugeBoson self)
       (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
-// Get, non-const
+// Get
 Handle2Halflife
 GaugeBosonHalflifeGet(ConstHandle2GaugeBoson self)
 {

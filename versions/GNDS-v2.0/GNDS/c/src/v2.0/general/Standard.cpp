@@ -157,7 +157,7 @@ StandardDoubleGetConst(ConstHandle2ConstStandard self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get, non-const
+// Get
 Handle2Double
 StandardDoubleGet(ConstHandle2Standard self)
 {

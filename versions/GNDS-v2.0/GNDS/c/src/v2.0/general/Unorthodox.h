@@ -162,7 +162,7 @@ UnorthodoxMassHas(ConstHandle2ConstUnorthodox self);
 extern_c Handle2ConstMass
 UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 UnorthodoxMassGet(ConstHandle2Unorthodox self);
 

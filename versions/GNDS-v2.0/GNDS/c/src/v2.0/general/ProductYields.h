@@ -154,7 +154,7 @@ ProductYieldsProductYieldAdd(ConstHandle2ProductYields self, ConstHandle2ConstPr
 extern_c Handle2ConstProductYield
 ProductYieldsProductYieldGetConst(ConstHandle2ConstProductYields self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2ProductYield
 ProductYieldsProductYieldGet(ConstHandle2ProductYields self, const size_t index_);
 
@@ -180,7 +180,7 @@ ProductYieldsProductYieldGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2ProductYield
 ProductYieldsProductYieldGetByLabel(
    ConstHandle2ProductYields self,

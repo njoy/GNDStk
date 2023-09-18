@@ -274,7 +274,7 @@ BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner self)
       (CLASSNAME, CLASSNAME+"ResonanceParametersGetConst", self, extract::resonanceParameters);
 }
 
-// Get, non-const
+// Get
 Handle2ResonanceParameters
 BreitWignerResonanceParametersGet(ConstHandle2BreitWigner self)
 {
@@ -311,7 +311,7 @@ BreitWignerPoPsGetConst(ConstHandle2ConstBreitWigner self)
       (CLASSNAME, CLASSNAME+"PoPsGetConst", self, extract::PoPs);
 }
 
-// Get, non-const
+// Get
 Handle2PoPs
 BreitWignerPoPsGet(ConstHandle2BreitWigner self)
 {
@@ -348,7 +348,7 @@ BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner self)
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringRadius
 BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner self)
 {

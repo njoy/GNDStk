@@ -154,7 +154,7 @@ FissionEnergyReleasesFissionEnergyReleaseAdd(ConstHandle2FissionEnergyReleases s
 extern_c Handle2ConstFissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetConst(ConstHandle2ConstFissionEnergyReleases self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGet(ConstHandle2FissionEnergyReleases self, const size_t index_);
 
@@ -180,7 +180,7 @@ FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetByLabel(
    ConstHandle2FissionEnergyReleases self,

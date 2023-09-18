@@ -145,7 +145,7 @@ PromptProductKEPolynomial1dHas(ConstHandle2ConstPromptProductKE self);
 extern_c Handle2ConstPolynomial1d
 PromptProductKEPolynomial1dGetConst(ConstHandle2ConstPromptProductKE self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 PromptProductKEPolynomial1dGet(ConstHandle2PromptProductKE self);
 
@@ -166,7 +166,7 @@ PromptProductKEXYs1dHas(ConstHandle2ConstPromptProductKE self);
 extern_c Handle2ConstXYs1d
 PromptProductKEXYs1dGetConst(ConstHandle2ConstPromptProductKE self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 PromptProductKEXYs1dGet(ConstHandle2PromptProductKE self);
 

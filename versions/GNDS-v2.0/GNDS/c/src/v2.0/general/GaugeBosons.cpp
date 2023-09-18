@@ -185,7 +185,7 @@ GaugeBosonsGaugeBosonGetConst(ConstHandle2ConstGaugeBosons self, const size_t in
       (CLASSNAME, CLASSNAME+"GaugeBosonGetConst", self, extract::gaugeBoson, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2GaugeBoson
 GaugeBosonsGaugeBosonGet(ConstHandle2GaugeBosons self, const size_t index_)
 {
@@ -226,7 +226,7 @@ GaugeBosonsGaugeBosonGetByIdConst(
        self, extract::gaugeBoson, meta::id, id);
 }
 
-// Get, by id, non-const
+// Get, by id
 Handle2GaugeBoson
 GaugeBosonsGaugeBosonGetById(
    ConstHandle2GaugeBosons self,

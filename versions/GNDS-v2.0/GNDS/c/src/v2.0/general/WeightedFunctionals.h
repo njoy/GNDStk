@@ -154,7 +154,7 @@ WeightedFunctionalsWeightedAdd(ConstHandle2WeightedFunctionals self, ConstHandle
 extern_c Handle2ConstWeighted
 WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Weighted
 WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals self, const size_t index_);
 

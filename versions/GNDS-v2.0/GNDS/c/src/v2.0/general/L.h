@@ -182,7 +182,7 @@ LJsHas(ConstHandle2ConstL self);
 extern_c Handle2ConstJs
 LJsGetConst(ConstHandle2ConstL self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Js
 LJsGet(ConstHandle2L self);
 

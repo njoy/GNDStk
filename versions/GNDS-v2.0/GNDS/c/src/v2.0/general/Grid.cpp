@@ -338,7 +338,7 @@ GridLinkGetConst(ConstHandle2ConstGrid self)
       (CLASSNAME, CLASSNAME+"LinkGetConst", self, extract::link);
 }
 
-// Get, non-const
+// Get
 Handle2Link
 GridLinkGet(ConstHandle2Grid self)
 {
@@ -375,7 +375,7 @@ GridValuesGetConst(ConstHandle2ConstGrid self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 GridValuesGet(ConstHandle2Grid self)
 {

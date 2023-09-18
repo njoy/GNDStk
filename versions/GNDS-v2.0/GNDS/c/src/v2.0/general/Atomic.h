@@ -142,7 +142,7 @@ AtomicConfigurationsHas(ConstHandle2ConstAtomic self);
 extern_c Handle2ConstConfigurations
 AtomicConfigurationsGetConst(ConstHandle2ConstAtomic self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Configurations
 AtomicConfigurationsGet(ConstHandle2Atomic self);
 

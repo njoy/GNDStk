@@ -145,7 +145,7 @@ ScatteringRadiusConstant1dHas(ConstHandle2ConstScatteringRadius self);
 extern_c Handle2ConstConstant1d
 ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Constant1d
 ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius self);
 
@@ -166,7 +166,7 @@ ScatteringRadiusXYs1dHas(ConstHandle2ConstScatteringRadius self);
 extern_c Handle2ConstXYs1d
 ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius self);
 

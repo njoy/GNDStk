@@ -194,7 +194,7 @@ LeptonMassHas(ConstHandle2ConstLepton self);
 extern_c Handle2ConstMass
 LeptonMassGetConst(ConstHandle2ConstLepton self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 LeptonMassGet(ConstHandle2Lepton self);
 
@@ -215,7 +215,7 @@ LeptonSpinHas(ConstHandle2ConstLepton self);
 extern_c Handle2ConstSpin
 LeptonSpinGetConst(ConstHandle2ConstLepton self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Spin
 LeptonSpinGet(ConstHandle2Lepton self);
 
@@ -236,7 +236,7 @@ LeptonParityHas(ConstHandle2ConstLepton self);
 extern_c Handle2ConstParity
 LeptonParityGetConst(ConstHandle2ConstLepton self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Parity
 LeptonParityGet(ConstHandle2Lepton self);
 
@@ -257,7 +257,7 @@ LeptonChargeHas(ConstHandle2ConstLepton self);
 extern_c Handle2ConstCharge
 LeptonChargeGetConst(ConstHandle2ConstLepton self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Charge
 LeptonChargeGet(ConstHandle2Lepton self);
 
@@ -278,7 +278,7 @@ LeptonHalflifeHas(ConstHandle2ConstLepton self);
 extern_c Handle2ConstHalflife
 LeptonHalflifeGetConst(ConstHandle2ConstLepton self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Halflife
 LeptonHalflifeGet(ConstHandle2Lepton self);
 

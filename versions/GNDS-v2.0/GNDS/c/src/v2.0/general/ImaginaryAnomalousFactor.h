@@ -142,7 +142,7 @@ ImaginaryAnomalousFactorXYs1dHas(ConstHandle2ConstImaginaryAnomalousFactor self)
 extern_c Handle2ConstXYs1d
 ImaginaryAnomalousFactorXYs1dGetConst(ConstHandle2ConstImaginaryAnomalousFactor self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 ImaginaryAnomalousFactorXYs1dGet(ConstHandle2ImaginaryAnomalousFactor self);
 

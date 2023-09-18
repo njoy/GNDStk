@@ -142,7 +142,7 @@ DebyeWallerIntegralXYs1dHas(ConstHandle2ConstDebyeWallerIntegral self);
 extern_c Handle2ConstXYs1d
 DebyeWallerIntegralXYs1dGetConst(ConstHandle2ConstDebyeWallerIntegral self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 DebyeWallerIntegralXYs1dGet(ConstHandle2DebyeWallerIntegral self);
 

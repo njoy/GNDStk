@@ -154,7 +154,7 @@ AverageEnergiesAverageEnergyAdd(ConstHandle2AverageEnergies self, ConstHandle2Co
 extern_c Handle2ConstAverageEnergy
 AverageEnergiesAverageEnergyGetConst(ConstHandle2ConstAverageEnergies self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGet(ConstHandle2AverageEnergies self, const size_t index_);
 
@@ -180,7 +180,7 @@ AverageEnergiesAverageEnergyGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByLabel(
    ConstHandle2AverageEnergies self,
@@ -209,7 +209,7 @@ AverageEnergiesAverageEnergyGetByValueConst(
    const double value
 );
 
-// +++ Get, by value, non-const
+// +++ Get, by value
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByValue(
    ConstHandle2AverageEnergies self,
@@ -238,7 +238,7 @@ AverageEnergiesAverageEnergyGetByUnitConst(
    const char *const unit
 );
 
-// +++ Get, by unit, non-const
+// +++ Get, by unit
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByUnit(
    ConstHandle2AverageEnergies self,

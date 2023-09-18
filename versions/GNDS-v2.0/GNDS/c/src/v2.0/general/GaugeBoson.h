@@ -174,7 +174,7 @@ GaugeBosonMassHas(ConstHandle2ConstGaugeBoson self);
 extern_c Handle2ConstMass
 GaugeBosonMassGetConst(ConstHandle2ConstGaugeBoson self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 GaugeBosonMassGet(ConstHandle2GaugeBoson self);
 
@@ -195,7 +195,7 @@ GaugeBosonSpinHas(ConstHandle2ConstGaugeBoson self);
 extern_c Handle2ConstSpin
 GaugeBosonSpinGetConst(ConstHandle2ConstGaugeBoson self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Spin
 GaugeBosonSpinGet(ConstHandle2GaugeBoson self);
 
@@ -216,7 +216,7 @@ GaugeBosonParityHas(ConstHandle2ConstGaugeBoson self);
 extern_c Handle2ConstParity
 GaugeBosonParityGetConst(ConstHandle2ConstGaugeBoson self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Parity
 GaugeBosonParityGet(ConstHandle2GaugeBoson self);
 
@@ -237,7 +237,7 @@ GaugeBosonChargeHas(ConstHandle2ConstGaugeBoson self);
 extern_c Handle2ConstCharge
 GaugeBosonChargeGetConst(ConstHandle2ConstGaugeBoson self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Charge
 GaugeBosonChargeGet(ConstHandle2GaugeBoson self);
 
@@ -258,7 +258,7 @@ GaugeBosonHalflifeHas(ConstHandle2ConstGaugeBoson self);
 extern_c Handle2ConstHalflife
 GaugeBosonHalflifeGetConst(ConstHandle2ConstGaugeBoson self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Halflife
 GaugeBosonHalflifeGet(ConstHandle2GaugeBoson self);
 

@@ -268,7 +268,7 @@ ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement self)
       (CLASSNAME, CLASSNAME+"AtomicGetConst", self, extract::atomic);
 }
 
-// Get, non-const
+// Get
 Handle2Atomic
 ChemicalElementAtomicGet(ConstHandle2ChemicalElement self)
 {
@@ -305,7 +305,7 @@ ChemicalElementIsotopesGetConst(ConstHandle2ConstChemicalElement self)
       (CLASSNAME, CLASSNAME+"IsotopesGetConst", self, extract::isotopes);
 }
 
-// Get, non-const
+// Get
 Handle2Isotopes
 ChemicalElementIsotopesGet(ConstHandle2ChemicalElement self)
 {

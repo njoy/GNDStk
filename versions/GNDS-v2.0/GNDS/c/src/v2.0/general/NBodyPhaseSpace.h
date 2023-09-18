@@ -162,7 +162,7 @@ NBodyPhaseSpaceMassHas(ConstHandle2ConstNBodyPhaseSpace self);
 extern_c Handle2ConstMass
 NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Mass
 NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace self);
 

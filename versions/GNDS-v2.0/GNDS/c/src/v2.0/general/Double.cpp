@@ -262,7 +262,7 @@ DoubleUncertaintyGetConst(ConstHandle2ConstDouble self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get, non-const
+// Get
 Handle2Uncertainty
 DoubleUncertaintyGet(ConstHandle2Double self)
 {

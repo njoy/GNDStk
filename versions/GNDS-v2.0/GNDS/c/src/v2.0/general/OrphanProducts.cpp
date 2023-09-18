@@ -185,7 +185,7 @@ OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts self, const 
       (CLASSNAME, CLASSNAME+"OrphanProductGetConst", self, extract::orphanProduct, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2OrphanProduct
 OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts self, const size_t index_)
 {
@@ -226,7 +226,7 @@ OrphanProductsOrphanProductGetByLabelConst(
        self, extract::orphanProduct, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2OrphanProduct
 OrphanProductsOrphanProductGetByLabel(
    ConstHandle2OrphanProducts self,
@@ -271,7 +271,7 @@ OrphanProductsOrphanProductGetByENDFMTConst(
        self, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT, non-const
+// Get, by ENDF_MT
 Handle2OrphanProduct
 OrphanProductsOrphanProductGetByENDFMT(
    ConstHandle2OrphanProducts self,

@@ -162,7 +162,7 @@ PositronEmissionIntensityUncertaintyHas(ConstHandle2ConstPositronEmissionIntensi
 extern_c Handle2ConstUncertainty
 PositronEmissionIntensityUncertaintyGetConst(ConstHandle2ConstPositronEmissionIntensity self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Uncertainty
 PositronEmissionIntensityUncertaintyGet(ConstHandle2PositronEmissionIntensity self);
 

@@ -142,7 +142,7 @@ NonNeutrinoEnergyPolynomial1dHas(ConstHandle2ConstNonNeutrinoEnergy self);
 extern_c Handle2ConstPolynomial1d
 NonNeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNonNeutrinoEnergy self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Polynomial1d
 NonNeutrinoEnergyPolynomial1dGet(ConstHandle2NonNeutrinoEnergy self);
 

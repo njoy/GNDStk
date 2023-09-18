@@ -157,7 +157,7 @@ StartsIntsSet(ConstHandle2Starts self, const size_t index, const int value);
 extern_c const int *
 StartsIntsGetArrayConst(ConstHandle2ConstStarts self);
 
-// +++ Get pointer to existing values, non-const
+// +++ Get pointer to existing values
 extern_c int *
 StartsIntsGetArray(ConstHandle2Starts self);
 

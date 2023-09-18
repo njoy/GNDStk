@@ -157,7 +157,7 @@ AxesAxisAdd(ConstHandle2Axes self, ConstHandle2ConstAxis axis);
 extern_c Handle2ConstAxis
 AxesAxisGetConst(ConstHandle2ConstAxes self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Axis
 AxesAxisGet(ConstHandle2Axes self, const size_t index_);
 
@@ -183,7 +183,7 @@ AxesAxisGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index, non-const
+// +++ Get, by index
 extern_c Handle2Axis
 AxesAxisGetByIndex(
    ConstHandle2Axes self,
@@ -212,7 +212,7 @@ AxesAxisGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Axis
 AxesAxisGetByLabel(
    ConstHandle2Axes self,
@@ -241,7 +241,7 @@ AxesAxisGetByUnitConst(
    const char *const unit
 );
 
-// +++ Get, by unit, non-const
+// +++ Get, by unit
 extern_c Handle2Axis
 AxesAxisGetByUnit(
    ConstHandle2Axes self,
@@ -281,7 +281,7 @@ AxesGridAdd(ConstHandle2Axes self, ConstHandle2ConstGrid grid);
 extern_c Handle2ConstGrid
 AxesGridGetConst(ConstHandle2ConstAxes self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Grid
 AxesGridGet(ConstHandle2Axes self, const size_t index_);
 
@@ -307,7 +307,7 @@ AxesGridGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index, non-const
+// +++ Get, by index
 extern_c Handle2Grid
 AxesGridGetByIndex(
    ConstHandle2Axes self,
@@ -336,7 +336,7 @@ AxesGridGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Grid
 AxesGridGetByLabel(
    ConstHandle2Axes self,
@@ -365,7 +365,7 @@ AxesGridGetByUnitConst(
    const char *const unit
 );
 
-// +++ Get, by unit, non-const
+// +++ Get, by unit
 extern_c Handle2Grid
 AxesGridGetByUnit(
    ConstHandle2Axes self,
@@ -394,7 +394,7 @@ AxesGridGetByStyleConst(
    const char *const style
 );
 
-// +++ Get, by style, non-const
+// +++ Get, by style
 extern_c Handle2Grid
 AxesGridGetByStyle(
    ConstHandle2Axes self,
@@ -423,7 +423,7 @@ AxesGridGetByInterpolationConst(
    const char *const interpolation
 );
 
-// +++ Get, by interpolation, non-const
+// +++ Get, by interpolation
 extern_c Handle2Grid
 AxesGridGetByInterpolation(
    ConstHandle2Axes self,

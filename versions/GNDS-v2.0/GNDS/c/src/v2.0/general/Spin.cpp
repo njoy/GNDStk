@@ -157,7 +157,7 @@ SpinFractionGetConst(ConstHandle2ConstSpin self)
       (CLASSNAME, CLASSNAME+"FractionGetConst", self, extract::fraction);
 }
 
-// Get, non-const
+// Get
 Handle2Fraction
 SpinFractionGet(ConstHandle2Spin self)
 {

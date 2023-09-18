@@ -154,7 +154,7 @@ ListOfCovariancesCovarianceAdd(ConstHandle2ListOfCovariances self, ConstHandle2C
 extern_c Handle2ConstCovariance
 ListOfCovariancesCovarianceGetConst(ConstHandle2ConstListOfCovariances self, const size_t index_);
 
-// +++ Get, by index \in [0,size), non-const
+// +++ Get, by index \in [0,size)
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGet(ConstHandle2ListOfCovariances self, const size_t index_);
 
@@ -180,7 +180,7 @@ ListOfCovariancesCovarianceGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label, non-const
+// +++ Get, by label
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGetByLabel(
    ConstHandle2ListOfCovariances self,
@@ -209,7 +209,7 @@ ListOfCovariancesCovarianceGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href, non-const
+// +++ Get, by href
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGetByHref(
    ConstHandle2ListOfCovariances self,

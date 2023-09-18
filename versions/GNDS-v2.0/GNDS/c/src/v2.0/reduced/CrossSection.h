@@ -148,7 +148,7 @@ CrossSectionXYs1dHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstXYs1d
 CrossSectionXYs1dGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2XYs1d
 CrossSectionXYs1dGet(ConstHandle2CrossSection self);
 
@@ -169,7 +169,7 @@ CrossSectionRegions1dHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstRegions1d
 CrossSectionRegions1dGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Regions1d
 CrossSectionRegions1dGet(ConstHandle2CrossSection self);
 
@@ -190,7 +190,7 @@ CrossSectionReferenceHas(ConstHandle2ConstCrossSection self);
 extern_c Handle2ConstReference
 CrossSectionReferenceGetConst(ConstHandle2ConstCrossSection self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Reference
 CrossSectionReferenceGet(ConstHandle2CrossSection self);
 

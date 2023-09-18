@@ -185,7 +185,7 @@ IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions self, c
       (CLASSNAME, CLASSNAME+"ReactionGetConst", self, extract::reaction, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Reaction
 IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions self, const size_t index_)
 {
@@ -226,7 +226,7 @@ IncompleteReactionsReactionGetByLabelConst(
        self, extract::reaction, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Reaction
 IncompleteReactionsReactionGetByLabel(
    ConstHandle2IncompleteReactions self,
@@ -271,7 +271,7 @@ IncompleteReactionsReactionGetByENDFMTConst(
        self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT, non-const
+// Get, by ENDF_MT
 Handle2Reaction
 IncompleteReactionsReactionGetByENDFMT(
    ConstHandle2IncompleteReactions self,
@@ -316,7 +316,7 @@ IncompleteReactionsReactionGetByFissionGenreConst(
        self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
-// Get, by fissionGenre, non-const
+// Get, by fissionGenre
 Handle2Reaction
 IncompleteReactionsReactionGetByFissionGenre(
    ConstHandle2IncompleteReactions self,

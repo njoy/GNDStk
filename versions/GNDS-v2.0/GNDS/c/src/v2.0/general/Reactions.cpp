@@ -185,7 +185,7 @@ ReactionsReactionGetConst(ConstHandle2ConstReactions self, const size_t index_)
       (CLASSNAME, CLASSNAME+"ReactionGetConst", self, extract::reaction, index_);
 }
 
-// Get, by index \in [0,size), non-const
+// Get, by index \in [0,size)
 Handle2Reaction
 ReactionsReactionGet(ConstHandle2Reactions self, const size_t index_)
 {
@@ -226,7 +226,7 @@ ReactionsReactionGetByLabelConst(
        self, extract::reaction, meta::label, label);
 }
 
-// Get, by label, non-const
+// Get, by label
 Handle2Reaction
 ReactionsReactionGetByLabel(
    ConstHandle2Reactions self,
@@ -271,7 +271,7 @@ ReactionsReactionGetByENDFMTConst(
        self, extract::reaction, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT, non-const
+// Get, by ENDF_MT
 Handle2Reaction
 ReactionsReactionGetByENDFMT(
    ConstHandle2Reactions self,
@@ -316,7 +316,7 @@ ReactionsReactionGetByFissionGenreConst(
        self, extract::reaction, meta::fissionGenre, fissionGenre);
 }
 
-// Get, by fissionGenre, non-const
+// Get, by fissionGenre
 Handle2Reaction
 ReactionsReactionGetByFissionGenre(
    ConstHandle2Reactions self,

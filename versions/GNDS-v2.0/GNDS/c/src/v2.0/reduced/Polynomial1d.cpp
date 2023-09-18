@@ -233,7 +233,7 @@ Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get, non-const
+// Get
 Handle2Axes
 Polynomial1dAxesGet(ConstHandle2Polynomial1d self)
 {
@@ -270,7 +270,7 @@ Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get, non-const
+// Get
 Handle2Values
 Polynomial1dValuesGet(ConstHandle2Polynomial1d self)
 {

@@ -163,7 +163,7 @@ FastRegionXYs1dGetConst(ConstHandle2ConstFastRegion self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get, non-const
+// Get
 Handle2XYs1d
 FastRegionXYs1dGet(ConstHandle2FastRegion self)
 {
@@ -200,7 +200,7 @@ FastRegionRegions1dGetConst(ConstHandle2ConstFastRegion self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get, non-const
+// Get
 Handle2Regions1d
 FastRegionRegions1dGet(ConstHandle2FastRegion self)
 {

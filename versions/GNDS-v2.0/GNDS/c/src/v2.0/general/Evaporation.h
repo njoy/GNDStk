@@ -145,7 +145,7 @@ EvaporationUHas(ConstHandle2ConstEvaporation self);
 extern_c Handle2ConstU
 EvaporationUGetConst(ConstHandle2ConstEvaporation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2U
 EvaporationUGet(ConstHandle2Evaporation self);
 
@@ -166,7 +166,7 @@ EvaporationThetaHas(ConstHandle2ConstEvaporation self);
 extern_c Handle2ConstTheta
 EvaporationThetaGetConst(ConstHandle2ConstEvaporation self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Theta
 EvaporationThetaGet(ConstHandle2Evaporation self);
 

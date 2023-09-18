@@ -145,7 +145,7 @@ TimeDoubleHas(ConstHandle2ConstTime self);
 extern_c Handle2ConstDouble
 TimeDoubleGetConst(ConstHandle2ConstTime self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Double
 TimeDoubleGet(ConstHandle2Time self);
 
@@ -166,7 +166,7 @@ TimeStringHas(ConstHandle2ConstTime self);
 extern_c Handle2ConstString
 TimeStringGetConst(ConstHandle2ConstTime self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2String
 TimeStringGet(ConstHandle2Time self);
 

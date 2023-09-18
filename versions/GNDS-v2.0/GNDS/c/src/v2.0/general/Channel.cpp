@@ -338,7 +338,7 @@ ChannelScatteringRadiusGetConst(ConstHandle2ConstChannel self)
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get, non-const
+// Get
 Handle2ScatteringRadius
 ChannelScatteringRadiusGet(ConstHandle2Channel self)
 {
@@ -375,7 +375,7 @@ ChannelHardSphereRadiusGetConst(ConstHandle2ConstChannel self)
       (CLASSNAME, CLASSNAME+"HardSphereRadiusGetConst", self, extract::hardSphereRadius);
 }
 
-// Get, non-const
+// Get
 Handle2HardSphereRadius
 ChannelHardSphereRadiusGet(ConstHandle2Channel self)
 {

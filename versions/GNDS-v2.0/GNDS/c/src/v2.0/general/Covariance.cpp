@@ -227,7 +227,7 @@ CovarianceArrayGetConst(ConstHandle2ConstCovariance self)
       (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
-// Get, non-const
+// Get
 Handle2Array
 CovarianceArrayGet(ConstHandle2Covariance self)
 {

@@ -185,7 +185,7 @@ TableColumnHeadersHas(ConstHandle2ConstTable self);
 extern_c Handle2ConstColumnHeaders
 TableColumnHeadersGetConst(ConstHandle2ConstTable self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2ColumnHeaders
 TableColumnHeadersGet(ConstHandle2Table self);
 
@@ -206,7 +206,7 @@ TableDataHas(ConstHandle2ConstTable self);
 extern_c Handle2ConstData
 TableDataGetConst(ConstHandle2ConstTable self);
 
-// +++ Get, non-const
+// +++ Get
 extern_c Handle2Data
 TableDataGet(ConstHandle2Table self);
 
