@@ -216,8 +216,10 @@ struct InfoSpecs {
    std::map<std::string,PerNamespace> namespace2data;
 
    // Map from namespace::class to information about the class
-   static inline const auto compare =
-      [](const auto &a, const auto &b)
+   static inline const std::function<
+      bool(const NamespaceAndClass &a, const NamespaceAndClass &b)
+   > compare =
+      [](const NamespaceAndClass &a, const NamespaceAndClass &b)
       {
          // In the event that we display entries in the map, we prefer putting
          // everything in alphabetical order based primarily on the class name,

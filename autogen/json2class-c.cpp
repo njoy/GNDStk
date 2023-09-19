@@ -376,7 +376,9 @@ void fileCInterfaceVector(
    //    Class: "Foobar" (class type; for brevity)
    //    Types: "Doubles"
    const std::string Class = per.clname;
-   const std::string Types = capital(type) + 's';
+   const std::string Types = type == "std::string"
+      ? "Strings"
+      : capital(type) + 's';
 
    // clear
    PPP(hdr,src,"Clear");
