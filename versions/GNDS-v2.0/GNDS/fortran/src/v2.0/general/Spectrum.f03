@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function SpectrumDefaultConst() &
-      bind(C, name='SpectrumDefaultConst') &
-      result(handle)
+      bind(C, name='SpectrumDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectrumDefaultConst
 end function SpectrumDefaultConst
 
 !! Create, default
 function SpectrumDefault() &
-      bind(C, name='SpectrumDefault') &
-      result(handle)
+      bind(C, name='SpectrumDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectrumDefault
 end function SpectrumDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function SpectrumCreateConst( &
    labelSize, &
    pidSize &
 ) &
-      bind(C, name='SpectrumCreateConst') &
-      result(handle)
+      bind(C, name='SpectrumCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -50,7 +47,7 @@ function SpectrumCreateConst( &
    integer(c_size_t), value :: discreteSize
    type(c_ptr) :: discrete(discreteSize)
    type(c_ptr), value :: continuum
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectrumCreateConst
 end function SpectrumCreateConst
 
 !! Create, general
@@ -62,8 +59,7 @@ function SpectrumCreate( &
    labelSize, &
    pidSize &
 ) &
-      bind(C, name='SpectrumCreate') &
-      result(handle)
+      bind(C, name='SpectrumCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -73,7 +69,7 @@ function SpectrumCreate( &
    integer(c_size_t), value :: discreteSize
    type(c_ptr) :: discrete(discreteSize)
    type(c_ptr), value :: continuum
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectrumCreate
 end function SpectrumCreate
 
 !! Assign
@@ -101,56 +97,51 @@ end subroutine SpectrumDelete
 
 !! Read from file
 function SpectrumRead(handle, filename, filenameSize) &
-      bind(C, name='SpectrumRead') &
-      result(success)
+      bind(C, name='SpectrumRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SpectrumRead
 end function SpectrumRead
 
 !! Write to file
 function SpectrumWrite(handle, filename, filenameSize) &
-      bind(C, name='SpectrumWrite') &
-      result(success)
+      bind(C, name='SpectrumWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SpectrumWrite
 end function SpectrumWrite
 
 !! Print to standard output, in our prettyprinting format
 function SpectrumPrint(handle) &
-      bind(C, name='SpectrumPrint') &
-      result(success)
+      bind(C, name='SpectrumPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SpectrumPrint
 end function SpectrumPrint
 
 !! Print to standard output, as XML
 function SpectrumPrintXML(handle) &
-      bind(C, name='SpectrumPrintXML') &
-      result(success)
+      bind(C, name='SpectrumPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SpectrumPrintXML
 end function SpectrumPrintXML
 
 !! Print to standard output, as JSON
 function SpectrumPrintJSON(handle) &
-      bind(C, name='SpectrumPrintJSON') &
-      result(success)
+      bind(C, name='SpectrumPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SpectrumPrintJSON
 end function SpectrumPrintJSON
 
 
@@ -160,22 +151,20 @@ end function SpectrumPrintJSON
 
 !! Has
 function SpectrumLabelHas(handle) &
-      bind(C, name='SpectrumLabelHas') &
-      result(has)
+      bind(C, name='SpectrumLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SpectrumLabelHas
 end function SpectrumLabelHas
 
 !! Get
 function SpectrumLabelGet(handle) &
-      bind(C, name='SpectrumLabelGet') &
-      result(label)
+      bind(C, name='SpectrumLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: SpectrumLabelGet
 end function SpectrumLabelGet
 
 !! Set
@@ -195,22 +184,20 @@ end subroutine SpectrumLabelSet
 
 !! Has
 function SpectrumPidHas(handle) &
-      bind(C, name='SpectrumPidHas') &
-      result(has)
+      bind(C, name='SpectrumPidHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SpectrumPidHas
 end function SpectrumPidHas
 
 !! Get
 function SpectrumPidGet(handle) &
-      bind(C, name='SpectrumPidGet') &
-      result(pid)
+      bind(C, name='SpectrumPidGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: pid
+   type(c_ptr) :: SpectrumPidGet
 end function SpectrumPidGet
 
 !! Set
@@ -230,12 +217,11 @@ end subroutine SpectrumPidSet
 
 !! Has
 function SpectrumDiscreteHas(handle) &
-      bind(C, name='SpectrumDiscreteHas') &
-      result(has)
+      bind(C, name='SpectrumDiscreteHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SpectrumDiscreteHas
 end function SpectrumDiscreteHas
 
 !! Clear
@@ -248,12 +234,11 @@ end subroutine SpectrumDiscreteClear
 
 !! Size
 function SpectrumDiscreteSize(handle) &
-      bind(C, name='SpectrumDiscreteSize') &
-      result(vectorSize)
+      bind(C, name='SpectrumDiscreteSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: SpectrumDiscreteSize
 end function SpectrumDiscreteSize
 
 !! Add
@@ -267,24 +252,22 @@ end subroutine SpectrumDiscreteAdd
 
 !! Get, by index \in [0,size), const
 function SpectrumDiscreteGetConst(handle, index) &
-      bind(C, name='SpectrumDiscreteGetConst') &
-      result(resultHandle)
+      bind(C, name='SpectrumDiscreteGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectrumDiscreteGetConst
 end function SpectrumDiscreteGetConst
 
 !! Get, by index \in [0,size)
 function SpectrumDiscreteGet(handle, index) &
-      bind(C, name='SpectrumDiscreteGet') &
-      result(resultHandle)
+      bind(C, name='SpectrumDiscreteGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectrumDiscreteGet
 end function SpectrumDiscreteGet
 
 !! Set, by index \in [0,size)
@@ -303,38 +286,35 @@ end subroutine SpectrumDiscreteSet
 
 !! Has, by type
 function SpectrumDiscreteHasByType(handle, meta, metaSize) &
-      bind(C, name='SpectrumDiscreteHasByType') &
-      result(has)
+      bind(C, name='SpectrumDiscreteHasByType')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: SpectrumDiscreteHasByType
 end function SpectrumDiscreteHasByType
 
 !! Get, by type, const
 function SpectrumDiscreteGetByTypeConst(handle, meta, metaSize) &
-      bind(C, name='SpectrumDiscreteGetByTypeConst') &
-      result(resultHandle)
+      bind(C, name='SpectrumDiscreteGetByTypeConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectrumDiscreteGetByTypeConst
 end function SpectrumDiscreteGetByTypeConst
 
 !! Get, by type
 function SpectrumDiscreteGetByType(handle, meta, metaSize) &
-      bind(C, name='SpectrumDiscreteGetByType') &
-      result(resultHandle)
+      bind(C, name='SpectrumDiscreteGetByType')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectrumDiscreteGetByType
 end function SpectrumDiscreteGetByType
 
 !! Set, by type
@@ -355,32 +335,29 @@ end subroutine SpectrumDiscreteSetByType
 
 !! Has
 function SpectrumContinuumHas(handle) &
-      bind(C, name='SpectrumContinuumHas') &
-      result(has)
+      bind(C, name='SpectrumContinuumHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SpectrumContinuumHas
 end function SpectrumContinuumHas
 
 !! Get, const
 function SpectrumContinuumGetConst(handle) &
-      bind(C, name='SpectrumContinuumGetConst') &
-      result(resultHandle)
+      bind(C, name='SpectrumContinuumGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectrumContinuumGetConst
 end function SpectrumContinuumGetConst
 
 !! Get
 function SpectrumContinuumGet(handle) &
-      bind(C, name='SpectrumContinuumGet') &
-      result(resultHandle)
+      bind(C, name='SpectrumContinuumGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectrumContinuumGet
 end function SpectrumContinuumGet
 
 !! Set

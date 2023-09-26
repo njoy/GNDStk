@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function FissionFragmentDataDefaultConst() &
-      bind(C, name='FissionFragmentDataDefaultConst') &
-      result(handle)
+      bind(C, name='FissionFragmentDataDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionFragmentDataDefaultConst
 end function FissionFragmentDataDefaultConst
 
 !! Create, default
 function FissionFragmentDataDefault() &
-      bind(C, name='FissionFragmentDataDefault') &
-      result(handle)
+      bind(C, name='FissionFragmentDataDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionFragmentDataDefault
 end function FissionFragmentDataDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function FissionFragmentDataCreateConst( &
    delayedNeutrons, &
    fissionEnergyReleases &
 ) &
-      bind(C, name='FissionFragmentDataCreateConst') &
-      result(handle)
+      bind(C, name='FissionFragmentDataCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: productYields
    type(c_ptr), value :: delayedNeutrons
    type(c_ptr), value :: fissionEnergyReleases
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionFragmentDataCreateConst
 end function FissionFragmentDataCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function FissionFragmentDataCreate( &
    delayedNeutrons, &
    fissionEnergyReleases &
 ) &
-      bind(C, name='FissionFragmentDataCreate') &
-      result(handle)
+      bind(C, name='FissionFragmentDataCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: productYields
    type(c_ptr), value :: delayedNeutrons
    type(c_ptr), value :: fissionEnergyReleases
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionFragmentDataCreate
 end function FissionFragmentDataCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine FissionFragmentDataDelete
 
 !! Read from file
 function FissionFragmentDataRead(handle, filename, filenameSize) &
-      bind(C, name='FissionFragmentDataRead') &
-      result(success)
+      bind(C, name='FissionFragmentDataRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FissionFragmentDataRead
 end function FissionFragmentDataRead
 
 !! Write to file
 function FissionFragmentDataWrite(handle, filename, filenameSize) &
-      bind(C, name='FissionFragmentDataWrite') &
-      result(success)
+      bind(C, name='FissionFragmentDataWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FissionFragmentDataWrite
 end function FissionFragmentDataWrite
 
 !! Print to standard output, in our prettyprinting format
 function FissionFragmentDataPrint(handle) &
-      bind(C, name='FissionFragmentDataPrint') &
-      result(success)
+      bind(C, name='FissionFragmentDataPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FissionFragmentDataPrint
 end function FissionFragmentDataPrint
 
 !! Print to standard output, as XML
 function FissionFragmentDataPrintXML(handle) &
-      bind(C, name='FissionFragmentDataPrintXML') &
-      result(success)
+      bind(C, name='FissionFragmentDataPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FissionFragmentDataPrintXML
 end function FissionFragmentDataPrintXML
 
 !! Print to standard output, as JSON
 function FissionFragmentDataPrintJSON(handle) &
-      bind(C, name='FissionFragmentDataPrintJSON') &
-      result(success)
+      bind(C, name='FissionFragmentDataPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FissionFragmentDataPrintJSON
 end function FissionFragmentDataPrintJSON
 
 
@@ -146,32 +137,29 @@ end function FissionFragmentDataPrintJSON
 
 !! Has
 function FissionFragmentDataProductYieldsHas(handle) &
-      bind(C, name='FissionFragmentDataProductYieldsHas') &
-      result(has)
+      bind(C, name='FissionFragmentDataProductYieldsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FissionFragmentDataProductYieldsHas
 end function FissionFragmentDataProductYieldsHas
 
 !! Get, const
 function FissionFragmentDataProductYieldsGetConst(handle) &
-      bind(C, name='FissionFragmentDataProductYieldsGetConst') &
-      result(resultHandle)
+      bind(C, name='FissionFragmentDataProductYieldsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionFragmentDataProductYieldsGetConst
 end function FissionFragmentDataProductYieldsGetConst
 
 !! Get
 function FissionFragmentDataProductYieldsGet(handle) &
-      bind(C, name='FissionFragmentDataProductYieldsGet') &
-      result(resultHandle)
+      bind(C, name='FissionFragmentDataProductYieldsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionFragmentDataProductYieldsGet
 end function FissionFragmentDataProductYieldsGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine FissionFragmentDataProductYieldsSet
 
 !! Has
 function FissionFragmentDataDelayedNeutronsHas(handle) &
-      bind(C, name='FissionFragmentDataDelayedNeutronsHas') &
-      result(has)
+      bind(C, name='FissionFragmentDataDelayedNeutronsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FissionFragmentDataDelayedNeutronsHas
 end function FissionFragmentDataDelayedNeutronsHas
 
 !! Get, const
 function FissionFragmentDataDelayedNeutronsGetConst(handle) &
-      bind(C, name='FissionFragmentDataDelayedNeutronsGetConst') &
-      result(resultHandle)
+      bind(C, name='FissionFragmentDataDelayedNeutronsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionFragmentDataDelayedNeutronsGetConst
 end function FissionFragmentDataDelayedNeutronsGetConst
 
 !! Get
 function FissionFragmentDataDelayedNeutronsGet(handle) &
-      bind(C, name='FissionFragmentDataDelayedNeutronsGet') &
-      result(resultHandle)
+      bind(C, name='FissionFragmentDataDelayedNeutronsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionFragmentDataDelayedNeutronsGet
 end function FissionFragmentDataDelayedNeutronsGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine FissionFragmentDataDelayedNeutronsSet
 
 !! Has
 function FissionFragmentDataFissionEnergyReleasesHas(handle) &
-      bind(C, name='FissionFragmentDataFissionEnergyReleasesHas') &
-      result(has)
+      bind(C, name='FissionFragmentDataFissionEnergyReleasesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FissionFragmentDataFissionEnergyReleasesHas
 end function FissionFragmentDataFissionEnergyReleasesHas
 
 !! Get, const
 function FissionFragmentDataFissionEnergyReleasesGetConst(handle) &
-      bind(C, name='FissionFragmentDataFissionEnergyReleasesGetConst') &
-      result(resultHandle)
+      bind(C, name='FissionFragmentDataFissionEnergyReleasesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionFragmentDataFissionEnergyReleasesGetConst
 end function FissionFragmentDataFissionEnergyReleasesGetConst
 
 !! Get
 function FissionFragmentDataFissionEnergyReleasesGet(handle) &
-      bind(C, name='FissionFragmentDataFissionEnergyReleasesGet') &
-      result(resultHandle)
+      bind(C, name='FissionFragmentDataFissionEnergyReleasesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionFragmentDataFissionEnergyReleasesGet
 end function FissionFragmentDataFissionEnergyReleasesGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function NuclearAmplitudeExpansionDefaultConst() &
-      bind(C, name='NuclearAmplitudeExpansionDefaultConst') &
-      result(handle)
+      bind(C, name='NuclearAmplitudeExpansionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearAmplitudeExpansionDefaultConst
 end function NuclearAmplitudeExpansionDefaultConst
 
 !! Create, default
 function NuclearAmplitudeExpansionDefault() &
-      bind(C, name='NuclearAmplitudeExpansionDefault') &
-      result(handle)
+      bind(C, name='NuclearAmplitudeExpansionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearAmplitudeExpansionDefault
 end function NuclearAmplitudeExpansionDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function NuclearAmplitudeExpansionCreateConst( &
    realInterferenceTerm, &
    imaginaryInterferenceTerm &
 ) &
-      bind(C, name='NuclearAmplitudeExpansionCreateConst') &
-      result(handle)
+      bind(C, name='NuclearAmplitudeExpansionCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: nuclearTerm
    type(c_ptr), value :: realInterferenceTerm
    type(c_ptr), value :: imaginaryInterferenceTerm
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearAmplitudeExpansionCreateConst
 end function NuclearAmplitudeExpansionCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function NuclearAmplitudeExpansionCreate( &
    realInterferenceTerm, &
    imaginaryInterferenceTerm &
 ) &
-      bind(C, name='NuclearAmplitudeExpansionCreate') &
-      result(handle)
+      bind(C, name='NuclearAmplitudeExpansionCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: nuclearTerm
    type(c_ptr), value :: realInterferenceTerm
    type(c_ptr), value :: imaginaryInterferenceTerm
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearAmplitudeExpansionCreate
 end function NuclearAmplitudeExpansionCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine NuclearAmplitudeExpansionDelete
 
 !! Read from file
 function NuclearAmplitudeExpansionRead(handle, filename, filenameSize) &
-      bind(C, name='NuclearAmplitudeExpansionRead') &
-      result(success)
+      bind(C, name='NuclearAmplitudeExpansionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclearAmplitudeExpansionRead
 end function NuclearAmplitudeExpansionRead
 
 !! Write to file
 function NuclearAmplitudeExpansionWrite(handle, filename, filenameSize) &
-      bind(C, name='NuclearAmplitudeExpansionWrite') &
-      result(success)
+      bind(C, name='NuclearAmplitudeExpansionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclearAmplitudeExpansionWrite
 end function NuclearAmplitudeExpansionWrite
 
 !! Print to standard output, in our prettyprinting format
 function NuclearAmplitudeExpansionPrint(handle) &
-      bind(C, name='NuclearAmplitudeExpansionPrint') &
-      result(success)
+      bind(C, name='NuclearAmplitudeExpansionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearAmplitudeExpansionPrint
 end function NuclearAmplitudeExpansionPrint
 
 !! Print to standard output, as XML
 function NuclearAmplitudeExpansionPrintXML(handle) &
-      bind(C, name='NuclearAmplitudeExpansionPrintXML') &
-      result(success)
+      bind(C, name='NuclearAmplitudeExpansionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearAmplitudeExpansionPrintXML
 end function NuclearAmplitudeExpansionPrintXML
 
 !! Print to standard output, as JSON
 function NuclearAmplitudeExpansionPrintJSON(handle) &
-      bind(C, name='NuclearAmplitudeExpansionPrintJSON') &
-      result(success)
+      bind(C, name='NuclearAmplitudeExpansionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearAmplitudeExpansionPrintJSON
 end function NuclearAmplitudeExpansionPrintJSON
 
 
@@ -146,32 +137,29 @@ end function NuclearAmplitudeExpansionPrintJSON
 
 !! Has
 function NuclearAmplitudeExpansionNuclearTermHas(handle) &
-      bind(C, name='NuclearAmplitudeExpansionNuclearTermHas') &
-      result(has)
+      bind(C, name='NuclearAmplitudeExpansionNuclearTermHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearAmplitudeExpansionNuclearTermHas
 end function NuclearAmplitudeExpansionNuclearTermHas
 
 !! Get, const
 function NuclearAmplitudeExpansionNuclearTermGetConst(handle) &
-      bind(C, name='NuclearAmplitudeExpansionNuclearTermGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearAmplitudeExpansionNuclearTermGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearAmplitudeExpansionNuclearTermGetConst
 end function NuclearAmplitudeExpansionNuclearTermGetConst
 
 !! Get
 function NuclearAmplitudeExpansionNuclearTermGet(handle) &
-      bind(C, name='NuclearAmplitudeExpansionNuclearTermGet') &
-      result(resultHandle)
+      bind(C, name='NuclearAmplitudeExpansionNuclearTermGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearAmplitudeExpansionNuclearTermGet
 end function NuclearAmplitudeExpansionNuclearTermGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine NuclearAmplitudeExpansionNuclearTermSet
 
 !! Has
 function NuclearAmplitudeExpansionRealInterferenceTermHas(handle) &
-      bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermHas') &
-      result(has)
+      bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearAmplitudeExpansionRealInterferenceTermHas
 end function NuclearAmplitudeExpansionRealInterferenceTermHas
 
 !! Get, const
 function NuclearAmplitudeExpansionRealInterferenceTermGetConst(handle) &
-      bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearAmplitudeExpansionRealInterferenceTermGetConst
 end function NuclearAmplitudeExpansionRealInterferenceTermGetConst
 
 !! Get
 function NuclearAmplitudeExpansionRealInterferenceTermGet(handle) &
-      bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermGet') &
-      result(resultHandle)
+      bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearAmplitudeExpansionRealInterferenceTermGet
 end function NuclearAmplitudeExpansionRealInterferenceTermGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine NuclearAmplitudeExpansionRealInterferenceTermSet
 
 !! Has
 function NuclearAmplitudeExpansionImaginaryInterferenceTermHas(handle) &
-      bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermHas') &
-      result(has)
+      bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearAmplitudeExpansionImaginaryInterferenceTermHas
 end function NuclearAmplitudeExpansionImaginaryInterferenceTermHas
 
 !! Get, const
 function NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(handle) &
-      bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst
 end function NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst
 
 !! Get
 function NuclearAmplitudeExpansionImaginaryInterferenceTermGet(handle) &
-      bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermGet') &
-      result(resultHandle)
+      bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearAmplitudeExpansionImaginaryInterferenceTermGet
 end function NuclearAmplitudeExpansionImaginaryInterferenceTermGet
 
 !! Set

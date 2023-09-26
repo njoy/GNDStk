@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AliasesDefaultConst() &
-      bind(C, name='AliasesDefaultConst') &
-      result(handle)
+      bind(C, name='AliasesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasesDefaultConst
 end function AliasesDefaultConst
 
 !! Create, default
 function AliasesDefault() &
-      bind(C, name='AliasesDefault') &
-      result(handle)
+      bind(C, name='AliasesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasesDefault
 end function AliasesDefault
 
 !! Create, general, const
@@ -35,15 +33,14 @@ function AliasesCreateConst( &
    alias, aliasSize, &
    metaStable, metaStableSize &
 ) &
-      bind(C, name='AliasesCreateConst') &
-      result(handle)
+      bind(C, name='AliasesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: aliasSize
    type(c_ptr) :: alias(aliasSize)
    integer(c_size_t), value :: metaStableSize
    type(c_ptr) :: metaStable(metaStableSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasesCreateConst
 end function AliasesCreateConst
 
 !! Create, general
@@ -51,15 +48,14 @@ function AliasesCreate( &
    alias, aliasSize, &
    metaStable, metaStableSize &
 ) &
-      bind(C, name='AliasesCreate') &
-      result(handle)
+      bind(C, name='AliasesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: aliasSize
    type(c_ptr) :: alias(aliasSize)
    integer(c_size_t), value :: metaStableSize
    type(c_ptr) :: metaStable(metaStableSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasesCreate
 end function AliasesCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine AliasesDelete
 
 !! Read from file
 function AliasesRead(handle, filename, filenameSize) &
-      bind(C, name='AliasesRead') &
-      result(success)
+      bind(C, name='AliasesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AliasesRead
 end function AliasesRead
 
 !! Write to file
 function AliasesWrite(handle, filename, filenameSize) &
-      bind(C, name='AliasesWrite') &
-      result(success)
+      bind(C, name='AliasesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AliasesWrite
 end function AliasesWrite
 
 !! Print to standard output, in our prettyprinting format
 function AliasesPrint(handle) &
-      bind(C, name='AliasesPrint') &
-      result(success)
+      bind(C, name='AliasesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AliasesPrint
 end function AliasesPrint
 
 !! Print to standard output, as XML
 function AliasesPrintXML(handle) &
-      bind(C, name='AliasesPrintXML') &
-      result(success)
+      bind(C, name='AliasesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AliasesPrintXML
 end function AliasesPrintXML
 
 !! Print to standard output, as JSON
 function AliasesPrintJSON(handle) &
-      bind(C, name='AliasesPrintJSON') &
-      result(success)
+      bind(C, name='AliasesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AliasesPrintJSON
 end function AliasesPrintJSON
 
 
@@ -146,12 +137,11 @@ end function AliasesPrintJSON
 
 !! Has
 function AliasesAliasHas(handle) &
-      bind(C, name='AliasesAliasHas') &
-      result(has)
+      bind(C, name='AliasesAliasHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AliasesAliasHas
 end function AliasesAliasHas
 
 !! Clear
@@ -164,12 +154,11 @@ end subroutine AliasesAliasClear
 
 !! Size
 function AliasesAliasSize(handle) &
-      bind(C, name='AliasesAliasSize') &
-      result(vectorSize)
+      bind(C, name='AliasesAliasSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: AliasesAliasSize
 end function AliasesAliasSize
 
 !! Add
@@ -183,24 +172,22 @@ end subroutine AliasesAliasAdd
 
 !! Get, by index \in [0,size), const
 function AliasesAliasGetConst(handle, index) &
-      bind(C, name='AliasesAliasGetConst') &
-      result(resultHandle)
+      bind(C, name='AliasesAliasGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesAliasGetConst
 end function AliasesAliasGetConst
 
 !! Get, by index \in [0,size)
 function AliasesAliasGet(handle, index) &
-      bind(C, name='AliasesAliasGet') &
-      result(resultHandle)
+      bind(C, name='AliasesAliasGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesAliasGet
 end function AliasesAliasGet
 
 !! Set, by index \in [0,size)
@@ -219,38 +206,35 @@ end subroutine AliasesAliasSet
 
 !! Has, by id
 function AliasesAliasHasById(handle, meta, metaSize) &
-      bind(C, name='AliasesAliasHasById') &
-      result(has)
+      bind(C, name='AliasesAliasHasById')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AliasesAliasHasById
 end function AliasesAliasHasById
 
 !! Get, by id, const
 function AliasesAliasGetByIdConst(handle, meta, metaSize) &
-      bind(C, name='AliasesAliasGetByIdConst') &
-      result(resultHandle)
+      bind(C, name='AliasesAliasGetByIdConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesAliasGetByIdConst
 end function AliasesAliasGetByIdConst
 
 !! Get, by id
 function AliasesAliasGetById(handle, meta, metaSize) &
-      bind(C, name='AliasesAliasGetById') &
-      result(resultHandle)
+      bind(C, name='AliasesAliasGetById')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesAliasGetById
 end function AliasesAliasGetById
 
 !! Set, by id
@@ -270,38 +254,35 @@ end subroutine AliasesAliasSetById
 
 !! Has, by pid
 function AliasesAliasHasByPid(handle, meta, metaSize) &
-      bind(C, name='AliasesAliasHasByPid') &
-      result(has)
+      bind(C, name='AliasesAliasHasByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AliasesAliasHasByPid
 end function AliasesAliasHasByPid
 
 !! Get, by pid, const
 function AliasesAliasGetByPidConst(handle, meta, metaSize) &
-      bind(C, name='AliasesAliasGetByPidConst') &
-      result(resultHandle)
+      bind(C, name='AliasesAliasGetByPidConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesAliasGetByPidConst
 end function AliasesAliasGetByPidConst
 
 !! Get, by pid
 function AliasesAliasGetByPid(handle, meta, metaSize) &
-      bind(C, name='AliasesAliasGetByPid') &
-      result(resultHandle)
+      bind(C, name='AliasesAliasGetByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesAliasGetByPid
 end function AliasesAliasGetByPid
 
 !! Set, by pid
@@ -322,12 +303,11 @@ end subroutine AliasesAliasSetByPid
 
 !! Has
 function AliasesMetaStableHas(handle) &
-      bind(C, name='AliasesMetaStableHas') &
-      result(has)
+      bind(C, name='AliasesMetaStableHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AliasesMetaStableHas
 end function AliasesMetaStableHas
 
 !! Clear
@@ -340,12 +320,11 @@ end subroutine AliasesMetaStableClear
 
 !! Size
 function AliasesMetaStableSize(handle) &
-      bind(C, name='AliasesMetaStableSize') &
-      result(vectorSize)
+      bind(C, name='AliasesMetaStableSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: AliasesMetaStableSize
 end function AliasesMetaStableSize
 
 !! Add
@@ -359,24 +338,22 @@ end subroutine AliasesMetaStableAdd
 
 !! Get, by index \in [0,size), const
 function AliasesMetaStableGetConst(handle, index) &
-      bind(C, name='AliasesMetaStableGetConst') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetConst
 end function AliasesMetaStableGetConst
 
 !! Get, by index \in [0,size)
 function AliasesMetaStableGet(handle, index) &
-      bind(C, name='AliasesMetaStableGet') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGet
 end function AliasesMetaStableGet
 
 !! Set, by index \in [0,size)
@@ -395,38 +372,35 @@ end subroutine AliasesMetaStableSet
 
 !! Has, by id
 function AliasesMetaStableHasById(handle, meta, metaSize) &
-      bind(C, name='AliasesMetaStableHasById') &
-      result(has)
+      bind(C, name='AliasesMetaStableHasById')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AliasesMetaStableHasById
 end function AliasesMetaStableHasById
 
 !! Get, by id, const
 function AliasesMetaStableGetByIdConst(handle, meta, metaSize) &
-      bind(C, name='AliasesMetaStableGetByIdConst') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetByIdConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetByIdConst
 end function AliasesMetaStableGetByIdConst
 
 !! Get, by id
 function AliasesMetaStableGetById(handle, meta, metaSize) &
-      bind(C, name='AliasesMetaStableGetById') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetById')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetById
 end function AliasesMetaStableGetById
 
 !! Set, by id
@@ -446,38 +420,35 @@ end subroutine AliasesMetaStableSetById
 
 !! Has, by pid
 function AliasesMetaStableHasByPid(handle, meta, metaSize) &
-      bind(C, name='AliasesMetaStableHasByPid') &
-      result(has)
+      bind(C, name='AliasesMetaStableHasByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AliasesMetaStableHasByPid
 end function AliasesMetaStableHasByPid
 
 !! Get, by pid, const
 function AliasesMetaStableGetByPidConst(handle, meta, metaSize) &
-      bind(C, name='AliasesMetaStableGetByPidConst') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetByPidConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetByPidConst
 end function AliasesMetaStableGetByPidConst
 
 !! Get, by pid
 function AliasesMetaStableGetByPid(handle, meta, metaSize) &
-      bind(C, name='AliasesMetaStableGetByPid') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetByPid
 end function AliasesMetaStableGetByPid
 
 !! Set, by pid
@@ -497,35 +468,32 @@ end subroutine AliasesMetaStableSetByPid
 
 !! Has, by metaStableIndex
 function AliasesMetaStableHasByMetaStableIndex(handle, meta) &
-      bind(C, name='AliasesMetaStableHasByMetaStableIndex') &
-      result(has)
+      bind(C, name='AliasesMetaStableHasByMetaStableIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: AliasesMetaStableHasByMetaStableIndex
 end function AliasesMetaStableHasByMetaStableIndex
 
 !! Get, by metaStableIndex, const
 function AliasesMetaStableGetByMetaStableIndexConst(handle, meta) &
-      bind(C, name='AliasesMetaStableGetByMetaStableIndexConst') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetByMetaStableIndexConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetByMetaStableIndexConst
 end function AliasesMetaStableGetByMetaStableIndexConst
 
 !! Get, by metaStableIndex
 function AliasesMetaStableGetByMetaStableIndex(handle, meta) &
-      bind(C, name='AliasesMetaStableGetByMetaStableIndex') &
-      result(resultHandle)
+      bind(C, name='AliasesMetaStableGetByMetaStableIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AliasesMetaStableGetByMetaStableIndex
 end function AliasesMetaStableGetByMetaStableIndex
 
 !! Set, by metaStableIndex

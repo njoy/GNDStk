@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function SpectraDefaultConst() &
-      bind(C, name='SpectraDefaultConst') &
-      result(handle)
+      bind(C, name='SpectraDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectraDefaultConst
 end function SpectraDefaultConst
 
 !! Create, default
 function SpectraDefault() &
-      bind(C, name='SpectraDefault') &
-      result(handle)
+      bind(C, name='SpectraDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectraDefault
 end function SpectraDefault
 
 !! Create, general, const
 function SpectraCreateConst( &
    spectrum, spectrumSize &
 ) &
-      bind(C, name='SpectraCreateConst') &
-      result(handle)
+      bind(C, name='SpectraCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: spectrumSize
    type(c_ptr) :: spectrum(spectrumSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectraCreateConst
 end function SpectraCreateConst
 
 !! Create, general
 function SpectraCreate( &
    spectrum, spectrumSize &
 ) &
-      bind(C, name='SpectraCreate') &
-      result(handle)
+      bind(C, name='SpectraCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: spectrumSize
    type(c_ptr) :: spectrum(spectrumSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SpectraCreate
 end function SpectraCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine SpectraDelete
 
 !! Read from file
 function SpectraRead(handle, filename, filenameSize) &
-      bind(C, name='SpectraRead') &
-      result(success)
+      bind(C, name='SpectraRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SpectraRead
 end function SpectraRead
 
 !! Write to file
 function SpectraWrite(handle, filename, filenameSize) &
-      bind(C, name='SpectraWrite') &
-      result(success)
+      bind(C, name='SpectraWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SpectraWrite
 end function SpectraWrite
 
 !! Print to standard output, in our prettyprinting format
 function SpectraPrint(handle) &
-      bind(C, name='SpectraPrint') &
-      result(success)
+      bind(C, name='SpectraPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SpectraPrint
 end function SpectraPrint
 
 !! Print to standard output, as XML
 function SpectraPrintXML(handle) &
-      bind(C, name='SpectraPrintXML') &
-      result(success)
+      bind(C, name='SpectraPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SpectraPrintXML
 end function SpectraPrintXML
 
 !! Print to standard output, as JSON
 function SpectraPrintJSON(handle) &
-      bind(C, name='SpectraPrintJSON') &
-      result(success)
+      bind(C, name='SpectraPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SpectraPrintJSON
 end function SpectraPrintJSON
 
 
@@ -140,12 +131,11 @@ end function SpectraPrintJSON
 
 !! Has
 function SpectraSpectrumHas(handle) &
-      bind(C, name='SpectraSpectrumHas') &
-      result(has)
+      bind(C, name='SpectraSpectrumHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SpectraSpectrumHas
 end function SpectraSpectrumHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine SpectraSpectrumClear
 
 !! Size
 function SpectraSpectrumSize(handle) &
-      bind(C, name='SpectraSpectrumSize') &
-      result(vectorSize)
+      bind(C, name='SpectraSpectrumSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: SpectraSpectrumSize
 end function SpectraSpectrumSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine SpectraSpectrumAdd
 
 !! Get, by index \in [0,size), const
 function SpectraSpectrumGetConst(handle, index) &
-      bind(C, name='SpectraSpectrumGetConst') &
-      result(resultHandle)
+      bind(C, name='SpectraSpectrumGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectraSpectrumGetConst
 end function SpectraSpectrumGetConst
 
 !! Get, by index \in [0,size)
 function SpectraSpectrumGet(handle, index) &
-      bind(C, name='SpectraSpectrumGet') &
-      result(resultHandle)
+      bind(C, name='SpectraSpectrumGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectraSpectrumGet
 end function SpectraSpectrumGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine SpectraSpectrumSet
 
 !! Has, by label
 function SpectraSpectrumHasByLabel(handle, meta, metaSize) &
-      bind(C, name='SpectraSpectrumHasByLabel') &
-      result(has)
+      bind(C, name='SpectraSpectrumHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: SpectraSpectrumHasByLabel
 end function SpectraSpectrumHasByLabel
 
 !! Get, by label, const
 function SpectraSpectrumGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='SpectraSpectrumGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='SpectraSpectrumGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectraSpectrumGetByLabelConst
 end function SpectraSpectrumGetByLabelConst
 
 !! Get, by label
 function SpectraSpectrumGetByLabel(handle, meta, metaSize) &
-      bind(C, name='SpectraSpectrumGetByLabel') &
-      result(resultHandle)
+      bind(C, name='SpectraSpectrumGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectraSpectrumGetByLabel
 end function SpectraSpectrumGetByLabel
 
 !! Set, by label
@@ -264,38 +248,35 @@ end subroutine SpectraSpectrumSetByLabel
 
 !! Has, by pid
 function SpectraSpectrumHasByPid(handle, meta, metaSize) &
-      bind(C, name='SpectraSpectrumHasByPid') &
-      result(has)
+      bind(C, name='SpectraSpectrumHasByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: SpectraSpectrumHasByPid
 end function SpectraSpectrumHasByPid
 
 !! Get, by pid, const
 function SpectraSpectrumGetByPidConst(handle, meta, metaSize) &
-      bind(C, name='SpectraSpectrumGetByPidConst') &
-      result(resultHandle)
+      bind(C, name='SpectraSpectrumGetByPidConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectraSpectrumGetByPidConst
 end function SpectraSpectrumGetByPidConst
 
 !! Get, by pid
 function SpectraSpectrumGetByPid(handle, meta, metaSize) &
-      bind(C, name='SpectraSpectrumGetByPid') &
-      result(resultHandle)
+      bind(C, name='SpectraSpectrumGetByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SpectraSpectrumGetByPid
 end function SpectraSpectrumGetByPid
 
 !! Set, by pid

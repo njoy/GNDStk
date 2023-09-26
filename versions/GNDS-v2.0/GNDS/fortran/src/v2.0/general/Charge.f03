@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ChargeDefaultConst() &
-      bind(C, name='ChargeDefaultConst') &
-      result(handle)
+      bind(C, name='ChargeDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChargeDefaultConst
 end function ChargeDefaultConst
 
 !! Create, default
 function ChargeDefault() &
-      bind(C, name='ChargeDefault') &
-      result(handle)
+      bind(C, name='ChargeDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChargeDefault
 end function ChargeDefault
 
 !! Create, general, const
 function ChargeCreateConst( &
    integer &
 ) &
-      bind(C, name='ChargeCreateConst') &
-      result(handle)
+      bind(C, name='ChargeCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: integer
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChargeCreateConst
 end function ChargeCreateConst
 
 !! Create, general
 function ChargeCreate( &
    integer &
 ) &
-      bind(C, name='ChargeCreate') &
-      result(handle)
+      bind(C, name='ChargeCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: integer
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChargeCreate
 end function ChargeCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ChargeDelete
 
 !! Read from file
 function ChargeRead(handle, filename, filenameSize) &
-      bind(C, name='ChargeRead') &
-      result(success)
+      bind(C, name='ChargeRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ChargeRead
 end function ChargeRead
 
 !! Write to file
 function ChargeWrite(handle, filename, filenameSize) &
-      bind(C, name='ChargeWrite') &
-      result(success)
+      bind(C, name='ChargeWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ChargeWrite
 end function ChargeWrite
 
 !! Print to standard output, in our prettyprinting format
 function ChargePrint(handle) &
-      bind(C, name='ChargePrint') &
-      result(success)
+      bind(C, name='ChargePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChargePrint
 end function ChargePrint
 
 !! Print to standard output, as XML
 function ChargePrintXML(handle) &
-      bind(C, name='ChargePrintXML') &
-      result(success)
+      bind(C, name='ChargePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChargePrintXML
 end function ChargePrintXML
 
 !! Print to standard output, as JSON
 function ChargePrintJSON(handle) &
-      bind(C, name='ChargePrintJSON') &
-      result(success)
+      bind(C, name='ChargePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChargePrintJSON
 end function ChargePrintJSON
 
 
@@ -138,32 +129,29 @@ end function ChargePrintJSON
 
 !! Has
 function ChargeIntegerHas(handle) &
-      bind(C, name='ChargeIntegerHas') &
-      result(has)
+      bind(C, name='ChargeIntegerHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChargeIntegerHas
 end function ChargeIntegerHas
 
 !! Get, const
 function ChargeIntegerGetConst(handle) &
-      bind(C, name='ChargeIntegerGetConst') &
-      result(resultHandle)
+      bind(C, name='ChargeIntegerGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChargeIntegerGetConst
 end function ChargeIntegerGetConst
 
 !! Get
 function ChargeIntegerGet(handle) &
-      bind(C, name='ChargeIntegerGet') &
-      result(resultHandle)
+      bind(C, name='ChargeIntegerGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChargeIntegerGet
 end function ChargeIntegerGet
 
 !! Set

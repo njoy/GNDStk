@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function JDefaultConst() &
-      bind(C, name='JDefaultConst') &
-      result(handle)
+      bind(C, name='JDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: JDefaultConst
 end function JDefaultConst
 
 !! Create, default
 function JDefault() &
-      bind(C, name='JDefault') &
-      result(handle)
+      bind(C, name='JDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: JDefault
 end function JDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function JCreateConst( &
    widths, &
    labelSize &
 ) &
-      bind(C, name='JCreateConst') &
-      result(handle)
+      bind(C, name='JCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function JCreateConst( &
    integer(c_int), value, intent(in) :: value
    type(c_ptr), value :: levelSpacing
    type(c_ptr), value :: widths
-   type(c_ptr) :: handle
+   type(c_ptr) :: JCreateConst
 end function JCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function JCreate( &
    widths, &
    labelSize &
 ) &
-      bind(C, name='JCreate') &
-      result(handle)
+      bind(C, name='JCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function JCreate( &
    integer(c_int), value, intent(in) :: value
    type(c_ptr), value :: levelSpacing
    type(c_ptr), value :: widths
-   type(c_ptr) :: handle
+   type(c_ptr) :: JCreate
 end function JCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine JDelete
 
 !! Read from file
 function JRead(handle, filename, filenameSize) &
-      bind(C, name='JRead') &
-      result(success)
+      bind(C, name='JRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: JRead
 end function JRead
 
 !! Write to file
 function JWrite(handle, filename, filenameSize) &
-      bind(C, name='JWrite') &
-      result(success)
+      bind(C, name='JWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: JWrite
 end function JWrite
 
 !! Print to standard output, in our prettyprinting format
 function JPrint(handle) &
-      bind(C, name='JPrint') &
-      result(success)
+      bind(C, name='JPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: JPrint
 end function JPrint
 
 !! Print to standard output, as XML
 function JPrintXML(handle) &
-      bind(C, name='JPrintXML') &
-      result(success)
+      bind(C, name='JPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: JPrintXML
 end function JPrintXML
 
 !! Print to standard output, as JSON
 function JPrintJSON(handle) &
-      bind(C, name='JPrintJSON') &
-      result(success)
+      bind(C, name='JPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: JPrintJSON
 end function JPrintJSON
 
 
@@ -154,22 +145,20 @@ end function JPrintJSON
 
 !! Has
 function JLabelHas(handle) &
-      bind(C, name='JLabelHas') &
-      result(has)
+      bind(C, name='JLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: JLabelHas
 end function JLabelHas
 
 !! Get
 function JLabelGet(handle) &
-      bind(C, name='JLabelGet') &
-      result(label)
+      bind(C, name='JLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: JLabelGet
 end function JLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine JLabelSet
 
 !! Has
 function JValueHas(handle) &
-      bind(C, name='JValueHas') &
-      result(has)
+      bind(C, name='JValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: JValueHas
 end function JValueHas
 
 !! Get
 function JValueGet(handle) &
-      bind(C, name='JValueGet') &
-      result(value)
+      bind(C, name='JValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: value
+   integer(c_int) :: JValueGet
 end function JValueGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine JValueSet
 
 !! Has
 function JLevelSpacingHas(handle) &
-      bind(C, name='JLevelSpacingHas') &
-      result(has)
+      bind(C, name='JLevelSpacingHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: JLevelSpacingHas
 end function JLevelSpacingHas
 
 !! Get, const
 function JLevelSpacingGetConst(handle) &
-      bind(C, name='JLevelSpacingGetConst') &
-      result(resultHandle)
+      bind(C, name='JLevelSpacingGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JLevelSpacingGetConst
 end function JLevelSpacingGetConst
 
 !! Get
 function JLevelSpacingGet(handle) &
-      bind(C, name='JLevelSpacingGet') &
-      result(resultHandle)
+      bind(C, name='JLevelSpacingGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JLevelSpacingGet
 end function JLevelSpacingGet
 
 !! Set
@@ -268,32 +252,29 @@ end subroutine JLevelSpacingSet
 
 !! Has
 function JWidthsHas(handle) &
-      bind(C, name='JWidthsHas') &
-      result(has)
+      bind(C, name='JWidthsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: JWidthsHas
 end function JWidthsHas
 
 !! Get, const
 function JWidthsGetConst(handle) &
-      bind(C, name='JWidthsGetConst') &
-      result(resultHandle)
+      bind(C, name='JWidthsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JWidthsGetConst
 end function JWidthsGetConst
 
 !! Get
 function JWidthsGet(handle) &
-      bind(C, name='JWidthsGet') &
-      result(resultHandle)
+      bind(C, name='JWidthsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JWidthsGet
 end function JWidthsGet
 
 !! Set

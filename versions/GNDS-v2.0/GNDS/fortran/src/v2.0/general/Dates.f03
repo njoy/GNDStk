@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function DatesDefaultConst() &
-      bind(C, name='DatesDefaultConst') &
-      result(handle)
+      bind(C, name='DatesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DatesDefaultConst
 end function DatesDefaultConst
 
 !! Create, default
 function DatesDefault() &
-      bind(C, name='DatesDefault') &
-      result(handle)
+      bind(C, name='DatesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DatesDefault
 end function DatesDefault
 
 !! Create, general, const
 function DatesCreateConst( &
    date, dateSize &
 ) &
-      bind(C, name='DatesCreateConst') &
-      result(handle)
+      bind(C, name='DatesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: dateSize
    type(c_ptr) :: date(dateSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DatesCreateConst
 end function DatesCreateConst
 
 !! Create, general
 function DatesCreate( &
    date, dateSize &
 ) &
-      bind(C, name='DatesCreate') &
-      result(handle)
+      bind(C, name='DatesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: dateSize
    type(c_ptr) :: date(dateSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DatesCreate
 end function DatesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine DatesDelete
 
 !! Read from file
 function DatesRead(handle, filename, filenameSize) &
-      bind(C, name='DatesRead') &
-      result(success)
+      bind(C, name='DatesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DatesRead
 end function DatesRead
 
 !! Write to file
 function DatesWrite(handle, filename, filenameSize) &
-      bind(C, name='DatesWrite') &
-      result(success)
+      bind(C, name='DatesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DatesWrite
 end function DatesWrite
 
 !! Print to standard output, in our prettyprinting format
 function DatesPrint(handle) &
-      bind(C, name='DatesPrint') &
-      result(success)
+      bind(C, name='DatesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DatesPrint
 end function DatesPrint
 
 !! Print to standard output, as XML
 function DatesPrintXML(handle) &
-      bind(C, name='DatesPrintXML') &
-      result(success)
+      bind(C, name='DatesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DatesPrintXML
 end function DatesPrintXML
 
 !! Print to standard output, as JSON
 function DatesPrintJSON(handle) &
-      bind(C, name='DatesPrintJSON') &
-      result(success)
+      bind(C, name='DatesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DatesPrintJSON
 end function DatesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function DatesPrintJSON
 
 !! Has
 function DatesDateHas(handle) &
-      bind(C, name='DatesDateHas') &
-      result(has)
+      bind(C, name='DatesDateHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DatesDateHas
 end function DatesDateHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine DatesDateClear
 
 !! Size
 function DatesDateSize(handle) &
-      bind(C, name='DatesDateSize') &
-      result(vectorSize)
+      bind(C, name='DatesDateSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: DatesDateSize
 end function DatesDateSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine DatesDateAdd
 
 !! Get, by index \in [0,size), const
 function DatesDateGetConst(handle, index) &
-      bind(C, name='DatesDateGetConst') &
-      result(resultHandle)
+      bind(C, name='DatesDateGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DatesDateGetConst
 end function DatesDateGetConst
 
 !! Get, by index \in [0,size)
 function DatesDateGet(handle, index) &
-      bind(C, name='DatesDateGet') &
-      result(resultHandle)
+      bind(C, name='DatesDateGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DatesDateGet
 end function DatesDateGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine DatesDateSet
 
 !! Has, by value
 function DatesDateHasByValue(handle, meta, metaSize) &
-      bind(C, name='DatesDateHasByValue') &
-      result(has)
+      bind(C, name='DatesDateHasByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: DatesDateHasByValue
 end function DatesDateHasByValue
 
 !! Get, by value, const
 function DatesDateGetByValueConst(handle, meta, metaSize) &
-      bind(C, name='DatesDateGetByValueConst') &
-      result(resultHandle)
+      bind(C, name='DatesDateGetByValueConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DatesDateGetByValueConst
 end function DatesDateGetByValueConst
 
 !! Get, by value
 function DatesDateGetByValue(handle, meta, metaSize) &
-      bind(C, name='DatesDateGetByValue') &
-      result(resultHandle)
+      bind(C, name='DatesDateGetByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DatesDateGetByValue
 end function DatesDateGetByValue
 
 !! Set, by value
@@ -264,38 +248,35 @@ end subroutine DatesDateSetByValue
 
 !! Has, by dateType
 function DatesDateHasByDateType(handle, meta, metaSize) &
-      bind(C, name='DatesDateHasByDateType') &
-      result(has)
+      bind(C, name='DatesDateHasByDateType')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: DatesDateHasByDateType
 end function DatesDateHasByDateType
 
 !! Get, by dateType, const
 function DatesDateGetByDateTypeConst(handle, meta, metaSize) &
-      bind(C, name='DatesDateGetByDateTypeConst') &
-      result(resultHandle)
+      bind(C, name='DatesDateGetByDateTypeConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DatesDateGetByDateTypeConst
 end function DatesDateGetByDateTypeConst
 
 !! Get, by dateType
 function DatesDateGetByDateType(handle, meta, metaSize) &
-      bind(C, name='DatesDateGetByDateType') &
-      result(resultHandle)
+      bind(C, name='DatesDateGetByDateType')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DatesDateGetByDateType
 end function DatesDateGetByDateType
 
 !! Set, by dateType

@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function DecayModesDefaultConst() &
-      bind(C, name='DecayModesDefaultConst') &
-      result(handle)
+      bind(C, name='DecayModesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModesDefaultConst
 end function DecayModesDefaultConst
 
 !! Create, default
 function DecayModesDefault() &
-      bind(C, name='DecayModesDefault') &
-      result(handle)
+      bind(C, name='DecayModesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModesDefault
 end function DecayModesDefault
 
 !! Create, general, const
 function DecayModesCreateConst( &
    decayMode, decayModeSize &
 ) &
-      bind(C, name='DecayModesCreateConst') &
-      result(handle)
+      bind(C, name='DecayModesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: decayModeSize
    type(c_ptr) :: decayMode(decayModeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModesCreateConst
 end function DecayModesCreateConst
 
 !! Create, general
 function DecayModesCreate( &
    decayMode, decayModeSize &
 ) &
-      bind(C, name='DecayModesCreate') &
-      result(handle)
+      bind(C, name='DecayModesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: decayModeSize
    type(c_ptr) :: decayMode(decayModeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModesCreate
 end function DecayModesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine DecayModesDelete
 
 !! Read from file
 function DecayModesRead(handle, filename, filenameSize) &
-      bind(C, name='DecayModesRead') &
-      result(success)
+      bind(C, name='DecayModesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DecayModesRead
 end function DecayModesRead
 
 !! Write to file
 function DecayModesWrite(handle, filename, filenameSize) &
-      bind(C, name='DecayModesWrite') &
-      result(success)
+      bind(C, name='DecayModesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DecayModesWrite
 end function DecayModesWrite
 
 !! Print to standard output, in our prettyprinting format
 function DecayModesPrint(handle) &
-      bind(C, name='DecayModesPrint') &
-      result(success)
+      bind(C, name='DecayModesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayModesPrint
 end function DecayModesPrint
 
 !! Print to standard output, as XML
 function DecayModesPrintXML(handle) &
-      bind(C, name='DecayModesPrintXML') &
-      result(success)
+      bind(C, name='DecayModesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayModesPrintXML
 end function DecayModesPrintXML
 
 !! Print to standard output, as JSON
 function DecayModesPrintJSON(handle) &
-      bind(C, name='DecayModesPrintJSON') &
-      result(success)
+      bind(C, name='DecayModesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayModesPrintJSON
 end function DecayModesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function DecayModesPrintJSON
 
 !! Has
 function DecayModesDecayModeHas(handle) &
-      bind(C, name='DecayModesDecayModeHas') &
-      result(has)
+      bind(C, name='DecayModesDecayModeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModesDecayModeHas
 end function DecayModesDecayModeHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine DecayModesDecayModeClear
 
 !! Size
 function DecayModesDecayModeSize(handle) &
-      bind(C, name='DecayModesDecayModeSize') &
-      result(vectorSize)
+      bind(C, name='DecayModesDecayModeSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: DecayModesDecayModeSize
 end function DecayModesDecayModeSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine DecayModesDecayModeAdd
 
 !! Get, by index \in [0,size), const
 function DecayModesDecayModeGetConst(handle, index) &
-      bind(C, name='DecayModesDecayModeGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayModesDecayModeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModesDecayModeGetConst
 end function DecayModesDecayModeGetConst
 
 !! Get, by index \in [0,size)
 function DecayModesDecayModeGet(handle, index) &
-      bind(C, name='DecayModesDecayModeGet') &
-      result(resultHandle)
+      bind(C, name='DecayModesDecayModeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModesDecayModeGet
 end function DecayModesDecayModeGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine DecayModesDecayModeSet
 
 !! Has, by label
 function DecayModesDecayModeHasByLabel(handle, meta, metaSize) &
-      bind(C, name='DecayModesDecayModeHasByLabel') &
-      result(has)
+      bind(C, name='DecayModesDecayModeHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: DecayModesDecayModeHasByLabel
 end function DecayModesDecayModeHasByLabel
 
 !! Get, by label, const
 function DecayModesDecayModeGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='DecayModesDecayModeGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='DecayModesDecayModeGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModesDecayModeGetByLabelConst
 end function DecayModesDecayModeGetByLabelConst
 
 !! Get, by label
 function DecayModesDecayModeGetByLabel(handle, meta, metaSize) &
-      bind(C, name='DecayModesDecayModeGetByLabel') &
-      result(resultHandle)
+      bind(C, name='DecayModesDecayModeGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModesDecayModeGetByLabel
 end function DecayModesDecayModeGetByLabel
 
 !! Set, by label
@@ -264,38 +248,35 @@ end subroutine DecayModesDecayModeSetByLabel
 
 !! Has, by mode
 function DecayModesDecayModeHasByMode(handle, meta, metaSize) &
-      bind(C, name='DecayModesDecayModeHasByMode') &
-      result(has)
+      bind(C, name='DecayModesDecayModeHasByMode')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: DecayModesDecayModeHasByMode
 end function DecayModesDecayModeHasByMode
 
 !! Get, by mode, const
 function DecayModesDecayModeGetByModeConst(handle, meta, metaSize) &
-      bind(C, name='DecayModesDecayModeGetByModeConst') &
-      result(resultHandle)
+      bind(C, name='DecayModesDecayModeGetByModeConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModesDecayModeGetByModeConst
 end function DecayModesDecayModeGetByModeConst
 
 !! Get, by mode
 function DecayModesDecayModeGetByMode(handle, meta, metaSize) &
-      bind(C, name='DecayModesDecayModeGetByMode') &
-      result(resultHandle)
+      bind(C, name='DecayModesDecayModeGetByMode')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModesDecayModeGetByMode
 end function DecayModesDecayModeGetByMode
 
 !! Set, by mode

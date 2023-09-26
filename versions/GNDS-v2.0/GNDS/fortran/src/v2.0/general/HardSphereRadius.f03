@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function HardSphereRadiusDefaultConst() &
-      bind(C, name='HardSphereRadiusDefaultConst') &
-      result(handle)
+      bind(C, name='HardSphereRadiusDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: HardSphereRadiusDefaultConst
 end function HardSphereRadiusDefaultConst
 
 !! Create, default
 function HardSphereRadiusDefault() &
-      bind(C, name='HardSphereRadiusDefault') &
-      result(handle)
+      bind(C, name='HardSphereRadiusDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: HardSphereRadiusDefault
 end function HardSphereRadiusDefault
 
 !! Create, general, const
 function HardSphereRadiusCreateConst( &
    constant1d &
 ) &
-      bind(C, name='HardSphereRadiusCreateConst') &
-      result(handle)
+      bind(C, name='HardSphereRadiusCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: constant1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: HardSphereRadiusCreateConst
 end function HardSphereRadiusCreateConst
 
 !! Create, general
 function HardSphereRadiusCreate( &
    constant1d &
 ) &
-      bind(C, name='HardSphereRadiusCreate') &
-      result(handle)
+      bind(C, name='HardSphereRadiusCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: constant1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: HardSphereRadiusCreate
 end function HardSphereRadiusCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine HardSphereRadiusDelete
 
 !! Read from file
 function HardSphereRadiusRead(handle, filename, filenameSize) &
-      bind(C, name='HardSphereRadiusRead') &
-      result(success)
+      bind(C, name='HardSphereRadiusRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: HardSphereRadiusRead
 end function HardSphereRadiusRead
 
 !! Write to file
 function HardSphereRadiusWrite(handle, filename, filenameSize) &
-      bind(C, name='HardSphereRadiusWrite') &
-      result(success)
+      bind(C, name='HardSphereRadiusWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: HardSphereRadiusWrite
 end function HardSphereRadiusWrite
 
 !! Print to standard output, in our prettyprinting format
 function HardSphereRadiusPrint(handle) &
-      bind(C, name='HardSphereRadiusPrint') &
-      result(success)
+      bind(C, name='HardSphereRadiusPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: HardSphereRadiusPrint
 end function HardSphereRadiusPrint
 
 !! Print to standard output, as XML
 function HardSphereRadiusPrintXML(handle) &
-      bind(C, name='HardSphereRadiusPrintXML') &
-      result(success)
+      bind(C, name='HardSphereRadiusPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: HardSphereRadiusPrintXML
 end function HardSphereRadiusPrintXML
 
 !! Print to standard output, as JSON
 function HardSphereRadiusPrintJSON(handle) &
-      bind(C, name='HardSphereRadiusPrintJSON') &
-      result(success)
+      bind(C, name='HardSphereRadiusPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: HardSphereRadiusPrintJSON
 end function HardSphereRadiusPrintJSON
 
 
@@ -138,32 +129,29 @@ end function HardSphereRadiusPrintJSON
 
 !! Has
 function HardSphereRadiusConstant1dHas(handle) &
-      bind(C, name='HardSphereRadiusConstant1dHas') &
-      result(has)
+      bind(C, name='HardSphereRadiusConstant1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: HardSphereRadiusConstant1dHas
 end function HardSphereRadiusConstant1dHas
 
 !! Get, const
 function HardSphereRadiusConstant1dGetConst(handle) &
-      bind(C, name='HardSphereRadiusConstant1dGetConst') &
-      result(resultHandle)
+      bind(C, name='HardSphereRadiusConstant1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: HardSphereRadiusConstant1dGetConst
 end function HardSphereRadiusConstant1dGetConst
 
 !! Get
 function HardSphereRadiusConstant1dGet(handle) &
-      bind(C, name='HardSphereRadiusConstant1dGet') &
-      result(resultHandle)
+      bind(C, name='HardSphereRadiusConstant1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: HardSphereRadiusConstant1dGet
 end function HardSphereRadiusConstant1dGet
 
 !! Set

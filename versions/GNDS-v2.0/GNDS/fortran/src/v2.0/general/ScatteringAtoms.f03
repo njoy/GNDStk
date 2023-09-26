@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ScatteringAtomsDefaultConst() &
-      bind(C, name='ScatteringAtomsDefaultConst') &
-      result(handle)
+      bind(C, name='ScatteringAtomsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringAtomsDefaultConst
 end function ScatteringAtomsDefaultConst
 
 !! Create, default
 function ScatteringAtomsDefault() &
-      bind(C, name='ScatteringAtomsDefault') &
-      result(handle)
+      bind(C, name='ScatteringAtomsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringAtomsDefault
 end function ScatteringAtomsDefault
 
 !! Create, general, const
 function ScatteringAtomsCreateConst( &
    scatteringAtom, scatteringAtomSize &
 ) &
-      bind(C, name='ScatteringAtomsCreateConst') &
-      result(handle)
+      bind(C, name='ScatteringAtomsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: scatteringAtomSize
    type(c_ptr) :: scatteringAtom(scatteringAtomSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringAtomsCreateConst
 end function ScatteringAtomsCreateConst
 
 !! Create, general
 function ScatteringAtomsCreate( &
    scatteringAtom, scatteringAtomSize &
 ) &
-      bind(C, name='ScatteringAtomsCreate') &
-      result(handle)
+      bind(C, name='ScatteringAtomsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: scatteringAtomSize
    type(c_ptr) :: scatteringAtom(scatteringAtomSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringAtomsCreate
 end function ScatteringAtomsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ScatteringAtomsDelete
 
 !! Read from file
 function ScatteringAtomsRead(handle, filename, filenameSize) &
-      bind(C, name='ScatteringAtomsRead') &
-      result(success)
+      bind(C, name='ScatteringAtomsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringAtomsRead
 end function ScatteringAtomsRead
 
 !! Write to file
 function ScatteringAtomsWrite(handle, filename, filenameSize) &
-      bind(C, name='ScatteringAtomsWrite') &
-      result(success)
+      bind(C, name='ScatteringAtomsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringAtomsWrite
 end function ScatteringAtomsWrite
 
 !! Print to standard output, in our prettyprinting format
 function ScatteringAtomsPrint(handle) &
-      bind(C, name='ScatteringAtomsPrint') &
-      result(success)
+      bind(C, name='ScatteringAtomsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringAtomsPrint
 end function ScatteringAtomsPrint
 
 !! Print to standard output, as XML
 function ScatteringAtomsPrintXML(handle) &
-      bind(C, name='ScatteringAtomsPrintXML') &
-      result(success)
+      bind(C, name='ScatteringAtomsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringAtomsPrintXML
 end function ScatteringAtomsPrintXML
 
 !! Print to standard output, as JSON
 function ScatteringAtomsPrintJSON(handle) &
-      bind(C, name='ScatteringAtomsPrintJSON') &
-      result(success)
+      bind(C, name='ScatteringAtomsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringAtomsPrintJSON
 end function ScatteringAtomsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ScatteringAtomsPrintJSON
 
 !! Has
 function ScatteringAtomsScatteringAtomHas(handle) &
-      bind(C, name='ScatteringAtomsScatteringAtomHas') &
-      result(has)
+      bind(C, name='ScatteringAtomsScatteringAtomHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringAtomsScatteringAtomHas
 end function ScatteringAtomsScatteringAtomHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ScatteringAtomsScatteringAtomClear
 
 !! Size
 function ScatteringAtomsScatteringAtomSize(handle) &
-      bind(C, name='ScatteringAtomsScatteringAtomSize') &
-      result(vectorSize)
+      bind(C, name='ScatteringAtomsScatteringAtomSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ScatteringAtomsScatteringAtomSize
 end function ScatteringAtomsScatteringAtomSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ScatteringAtomsScatteringAtomAdd
 
 !! Get, by index \in [0,size), const
 function ScatteringAtomsScatteringAtomGetConst(handle, index) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetConst
 end function ScatteringAtomsScatteringAtomGetConst
 
 !! Get, by index \in [0,size)
 function ScatteringAtomsScatteringAtomGet(handle, index) &
-      bind(C, name='ScatteringAtomsScatteringAtomGet') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGet
 end function ScatteringAtomsScatteringAtomGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ScatteringAtomsScatteringAtomSet
 
 !! Has, by pid
 function ScatteringAtomsScatteringAtomHasByPid(handle, meta, metaSize) &
-      bind(C, name='ScatteringAtomsScatteringAtomHasByPid') &
-      result(has)
+      bind(C, name='ScatteringAtomsScatteringAtomHasByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringAtomsScatteringAtomHasByPid
 end function ScatteringAtomsScatteringAtomHasByPid
 
 !! Get, by pid, const
 function ScatteringAtomsScatteringAtomGetByPidConst(handle, meta, metaSize) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetByPidConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetByPidConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetByPidConst
 end function ScatteringAtomsScatteringAtomGetByPidConst
 
 !! Get, by pid
 function ScatteringAtomsScatteringAtomGetByPid(handle, meta, metaSize) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetByPid') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetByPid')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetByPid
 end function ScatteringAtomsScatteringAtomGetByPid
 
 !! Set, by pid
@@ -264,35 +248,32 @@ end subroutine ScatteringAtomsScatteringAtomSetByPid
 
 !! Has, by numberPerMolecule
 function ScatteringAtomsScatteringAtomHasByNumberPerMolecule(handle, meta) &
-      bind(C, name='ScatteringAtomsScatteringAtomHasByNumberPerMolecule') &
-      result(has)
+      bind(C, name='ScatteringAtomsScatteringAtomHasByNumberPerMolecule')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringAtomsScatteringAtomHasByNumberPerMolecule
 end function ScatteringAtomsScatteringAtomHasByNumberPerMolecule
 
 !! Get, by numberPerMolecule, const
 function ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(handle, meta) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst
 end function ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst
 
 !! Get, by numberPerMolecule
 function ScatteringAtomsScatteringAtomGetByNumberPerMolecule(handle, meta) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetByNumberPerMolecule') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetByNumberPerMolecule')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetByNumberPerMolecule
 end function ScatteringAtomsScatteringAtomGetByNumberPerMolecule
 
 !! Set, by numberPerMolecule
@@ -311,35 +292,32 @@ end subroutine ScatteringAtomsScatteringAtomSetByNumberPerMolecule
 
 !! Has, by primaryScatterer
 function ScatteringAtomsScatteringAtomHasByPrimaryScatterer(handle, meta) &
-      bind(C, name='ScatteringAtomsScatteringAtomHasByPrimaryScatterer') &
-      result(has)
+      bind(C, name='ScatteringAtomsScatteringAtomHasByPrimaryScatterer')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringAtomsScatteringAtomHasByPrimaryScatterer
 end function ScatteringAtomsScatteringAtomHasByPrimaryScatterer
 
 !! Get, by primaryScatterer, const
 function ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(handle, meta) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetByPrimaryScattererConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetByPrimaryScattererConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetByPrimaryScattererConst
 end function ScatteringAtomsScatteringAtomGetByPrimaryScattererConst
 
 !! Get, by primaryScatterer
 function ScatteringAtomsScatteringAtomGetByPrimaryScatterer(handle, meta) &
-      bind(C, name='ScatteringAtomsScatteringAtomGetByPrimaryScatterer') &
-      result(resultHandle)
+      bind(C, name='ScatteringAtomsScatteringAtomGetByPrimaryScatterer')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringAtomsScatteringAtomGetByPrimaryScatterer
 end function ScatteringAtomsScatteringAtomGetByPrimaryScatterer
 
 !! Set, by primaryScatterer

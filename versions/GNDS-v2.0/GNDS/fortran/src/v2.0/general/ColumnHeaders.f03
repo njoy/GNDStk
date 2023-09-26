@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ColumnHeadersDefaultConst() &
-      bind(C, name='ColumnHeadersDefaultConst') &
-      result(handle)
+      bind(C, name='ColumnHeadersDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnHeadersDefaultConst
 end function ColumnHeadersDefaultConst
 
 !! Create, default
 function ColumnHeadersDefault() &
-      bind(C, name='ColumnHeadersDefault') &
-      result(handle)
+      bind(C, name='ColumnHeadersDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnHeadersDefault
 end function ColumnHeadersDefault
 
 !! Create, general, const
 function ColumnHeadersCreateConst( &
    column, columnSize &
 ) &
-      bind(C, name='ColumnHeadersCreateConst') &
-      result(handle)
+      bind(C, name='ColumnHeadersCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: columnSize
    type(c_ptr) :: column(columnSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnHeadersCreateConst
 end function ColumnHeadersCreateConst
 
 !! Create, general
 function ColumnHeadersCreate( &
    column, columnSize &
 ) &
-      bind(C, name='ColumnHeadersCreate') &
-      result(handle)
+      bind(C, name='ColumnHeadersCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: columnSize
    type(c_ptr) :: column(columnSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnHeadersCreate
 end function ColumnHeadersCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ColumnHeadersDelete
 
 !! Read from file
 function ColumnHeadersRead(handle, filename, filenameSize) &
-      bind(C, name='ColumnHeadersRead') &
-      result(success)
+      bind(C, name='ColumnHeadersRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ColumnHeadersRead
 end function ColumnHeadersRead
 
 !! Write to file
 function ColumnHeadersWrite(handle, filename, filenameSize) &
-      bind(C, name='ColumnHeadersWrite') &
-      result(success)
+      bind(C, name='ColumnHeadersWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ColumnHeadersWrite
 end function ColumnHeadersWrite
 
 !! Print to standard output, in our prettyprinting format
 function ColumnHeadersPrint(handle) &
-      bind(C, name='ColumnHeadersPrint') &
-      result(success)
+      bind(C, name='ColumnHeadersPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnHeadersPrint
 end function ColumnHeadersPrint
 
 !! Print to standard output, as XML
 function ColumnHeadersPrintXML(handle) &
-      bind(C, name='ColumnHeadersPrintXML') &
-      result(success)
+      bind(C, name='ColumnHeadersPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnHeadersPrintXML
 end function ColumnHeadersPrintXML
 
 !! Print to standard output, as JSON
 function ColumnHeadersPrintJSON(handle) &
-      bind(C, name='ColumnHeadersPrintJSON') &
-      result(success)
+      bind(C, name='ColumnHeadersPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnHeadersPrintJSON
 end function ColumnHeadersPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ColumnHeadersPrintJSON
 
 !! Has
 function ColumnHeadersColumnHas(handle) &
-      bind(C, name='ColumnHeadersColumnHas') &
-      result(has)
+      bind(C, name='ColumnHeadersColumnHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnHeadersColumnHas
 end function ColumnHeadersColumnHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ColumnHeadersColumnClear
 
 !! Size
 function ColumnHeadersColumnSize(handle) &
-      bind(C, name='ColumnHeadersColumnSize') &
-      result(vectorSize)
+      bind(C, name='ColumnHeadersColumnSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ColumnHeadersColumnSize
 end function ColumnHeadersColumnSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ColumnHeadersColumnAdd
 
 !! Get, by index \in [0,size), const
 function ColumnHeadersColumnGetConst(handle, index) &
-      bind(C, name='ColumnHeadersColumnGetConst') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetConst
 end function ColumnHeadersColumnGetConst
 
 !! Get, by index \in [0,size)
 function ColumnHeadersColumnGet(handle, index) &
-      bind(C, name='ColumnHeadersColumnGet') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGet
 end function ColumnHeadersColumnGet
 
 !! Set, by index \in [0,size)
@@ -213,35 +200,32 @@ end subroutine ColumnHeadersColumnSet
 
 !! Has, by index
 function ColumnHeadersColumnHasByIndex(handle, meta) &
-      bind(C, name='ColumnHeadersColumnHasByIndex') &
-      result(has)
+      bind(C, name='ColumnHeadersColumnHasByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ColumnHeadersColumnHasByIndex
 end function ColumnHeadersColumnHasByIndex
 
 !! Get, by index, const
 function ColumnHeadersColumnGetByIndexConst(handle, meta) &
-      bind(C, name='ColumnHeadersColumnGetByIndexConst') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetByIndexConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetByIndexConst
 end function ColumnHeadersColumnGetByIndexConst
 
 !! Get, by index
 function ColumnHeadersColumnGetByIndex(handle, meta) &
-      bind(C, name='ColumnHeadersColumnGetByIndex') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetByIndex
 end function ColumnHeadersColumnGetByIndex
 
 !! Set, by index
@@ -260,38 +244,35 @@ end subroutine ColumnHeadersColumnSetByIndex
 
 !! Has, by name
 function ColumnHeadersColumnHasByName(handle, meta, metaSize) &
-      bind(C, name='ColumnHeadersColumnHasByName') &
-      result(has)
+      bind(C, name='ColumnHeadersColumnHasByName')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ColumnHeadersColumnHasByName
 end function ColumnHeadersColumnHasByName
 
 !! Get, by name, const
 function ColumnHeadersColumnGetByNameConst(handle, meta, metaSize) &
-      bind(C, name='ColumnHeadersColumnGetByNameConst') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetByNameConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetByNameConst
 end function ColumnHeadersColumnGetByNameConst
 
 !! Get, by name
 function ColumnHeadersColumnGetByName(handle, meta, metaSize) &
-      bind(C, name='ColumnHeadersColumnGetByName') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetByName')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetByName
 end function ColumnHeadersColumnGetByName
 
 !! Set, by name
@@ -311,38 +292,35 @@ end subroutine ColumnHeadersColumnSetByName
 
 !! Has, by unit
 function ColumnHeadersColumnHasByUnit(handle, meta, metaSize) &
-      bind(C, name='ColumnHeadersColumnHasByUnit') &
-      result(has)
+      bind(C, name='ColumnHeadersColumnHasByUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ColumnHeadersColumnHasByUnit
 end function ColumnHeadersColumnHasByUnit
 
 !! Get, by unit, const
 function ColumnHeadersColumnGetByUnitConst(handle, meta, metaSize) &
-      bind(C, name='ColumnHeadersColumnGetByUnitConst') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetByUnitConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetByUnitConst
 end function ColumnHeadersColumnGetByUnitConst
 
 !! Get, by unit
 function ColumnHeadersColumnGetByUnit(handle, meta, metaSize) &
-      bind(C, name='ColumnHeadersColumnGetByUnit') &
-      result(resultHandle)
+      bind(C, name='ColumnHeadersColumnGetByUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnHeadersColumnGetByUnit
 end function ColumnHeadersColumnGetByUnit
 
 !! Set, by unit

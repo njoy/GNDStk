@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function EndfCompatibleDefaultConst() &
-      bind(C, name='EndfCompatibleDefaultConst') &
-      result(handle)
+      bind(C, name='EndfCompatibleDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EndfCompatibleDefaultConst
 end function EndfCompatibleDefaultConst
 
 !! Create, default
 function EndfCompatibleDefault() &
-      bind(C, name='EndfCompatibleDefault') &
-      result(handle)
+      bind(C, name='EndfCompatibleDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EndfCompatibleDefault
 end function EndfCompatibleDefault
 
 !! Create, general, const
 function EndfCompatibleCreateConst( &
 ) &
-      bind(C, name='EndfCompatibleCreateConst') &
-      result(handle)
+      bind(C, name='EndfCompatibleCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EndfCompatibleCreateConst
 end function EndfCompatibleCreateConst
 
 !! Create, general
 function EndfCompatibleCreate( &
 ) &
-      bind(C, name='EndfCompatibleCreate') &
-      result(handle)
+      bind(C, name='EndfCompatibleCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EndfCompatibleCreate
 end function EndfCompatibleCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine EndfCompatibleDelete
 
 !! Read from file
 function EndfCompatibleRead(handle, filename, filenameSize) &
-      bind(C, name='EndfCompatibleRead') &
-      result(success)
+      bind(C, name='EndfCompatibleRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EndfCompatibleRead
 end function EndfCompatibleRead
 
 !! Write to file
 function EndfCompatibleWrite(handle, filename, filenameSize) &
-      bind(C, name='EndfCompatibleWrite') &
-      result(success)
+      bind(C, name='EndfCompatibleWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EndfCompatibleWrite
 end function EndfCompatibleWrite
 
 !! Print to standard output, in our prettyprinting format
 function EndfCompatiblePrint(handle) &
-      bind(C, name='EndfCompatiblePrint') &
-      result(success)
+      bind(C, name='EndfCompatiblePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EndfCompatiblePrint
 end function EndfCompatiblePrint
 
 !! Print to standard output, as XML
 function EndfCompatiblePrintXML(handle) &
-      bind(C, name='EndfCompatiblePrintXML') &
-      result(success)
+      bind(C, name='EndfCompatiblePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EndfCompatiblePrintXML
 end function EndfCompatiblePrintXML
 
 !! Print to standard output, as JSON
 function EndfCompatiblePrintJSON(handle) &
-      bind(C, name='EndfCompatiblePrintJSON') &
-      result(success)
+      bind(C, name='EndfCompatiblePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EndfCompatiblePrintJSON
 end function EndfCompatiblePrintJSON
 
 

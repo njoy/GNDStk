@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ReactionsDefaultConst() &
-      bind(C, name='ReactionsDefaultConst') &
-      result(handle)
+      bind(C, name='ReactionsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionsDefaultConst
 end function ReactionsDefaultConst
 
 !! Create, default
 function ReactionsDefault() &
-      bind(C, name='ReactionsDefault') &
-      result(handle)
+      bind(C, name='ReactionsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionsDefault
 end function ReactionsDefault
 
 !! Create, general, const
 function ReactionsCreateConst( &
    reaction, reactionSize &
 ) &
-      bind(C, name='ReactionsCreateConst') &
-      result(handle)
+      bind(C, name='ReactionsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: reactionSize
    type(c_ptr) :: reaction(reactionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionsCreateConst
 end function ReactionsCreateConst
 
 !! Create, general
 function ReactionsCreate( &
    reaction, reactionSize &
 ) &
-      bind(C, name='ReactionsCreate') &
-      result(handle)
+      bind(C, name='ReactionsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: reactionSize
    type(c_ptr) :: reaction(reactionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionsCreate
 end function ReactionsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ReactionsDelete
 
 !! Read from file
 function ReactionsRead(handle, filename, filenameSize) &
-      bind(C, name='ReactionsRead') &
-      result(success)
+      bind(C, name='ReactionsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReactionsRead
 end function ReactionsRead
 
 !! Write to file
 function ReactionsWrite(handle, filename, filenameSize) &
-      bind(C, name='ReactionsWrite') &
-      result(success)
+      bind(C, name='ReactionsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReactionsWrite
 end function ReactionsWrite
 
 !! Print to standard output, in our prettyprinting format
 function ReactionsPrint(handle) &
-      bind(C, name='ReactionsPrint') &
-      result(success)
+      bind(C, name='ReactionsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionsPrint
 end function ReactionsPrint
 
 !! Print to standard output, as XML
 function ReactionsPrintXML(handle) &
-      bind(C, name='ReactionsPrintXML') &
-      result(success)
+      bind(C, name='ReactionsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionsPrintXML
 end function ReactionsPrintXML
 
 !! Print to standard output, as JSON
 function ReactionsPrintJSON(handle) &
-      bind(C, name='ReactionsPrintJSON') &
-      result(success)
+      bind(C, name='ReactionsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionsPrintJSON
 end function ReactionsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ReactionsPrintJSON
 
 !! Has
 function ReactionsReactionHas(handle) &
-      bind(C, name='ReactionsReactionHas') &
-      result(has)
+      bind(C, name='ReactionsReactionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionsReactionHas
 end function ReactionsReactionHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ReactionsReactionClear
 
 !! Size
 function ReactionsReactionSize(handle) &
-      bind(C, name='ReactionsReactionSize') &
-      result(vectorSize)
+      bind(C, name='ReactionsReactionSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ReactionsReactionSize
 end function ReactionsReactionSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ReactionsReactionAdd
 
 !! Get, by index \in [0,size), const
 function ReactionsReactionGetConst(handle, index) &
-      bind(C, name='ReactionsReactionGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetConst
 end function ReactionsReactionGetConst
 
 !! Get, by index \in [0,size)
 function ReactionsReactionGet(handle, index) &
-      bind(C, name='ReactionsReactionGet') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGet
 end function ReactionsReactionGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ReactionsReactionSet
 
 !! Has, by label
 function ReactionsReactionHasByLabel(handle, meta, metaSize) &
-      bind(C, name='ReactionsReactionHasByLabel') &
-      result(has)
+      bind(C, name='ReactionsReactionHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ReactionsReactionHasByLabel
 end function ReactionsReactionHasByLabel
 
 !! Get, by label, const
 function ReactionsReactionGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='ReactionsReactionGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetByLabelConst
 end function ReactionsReactionGetByLabelConst
 
 !! Get, by label
 function ReactionsReactionGetByLabel(handle, meta, metaSize) &
-      bind(C, name='ReactionsReactionGetByLabel') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetByLabel
 end function ReactionsReactionGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine ReactionsReactionSetByLabel
 
 !! Has, by ENDF_MT
 function ReactionsReactionHasByENDFMT(handle, meta) &
-      bind(C, name='ReactionsReactionHasByENDFMT') &
-      result(has)
+      bind(C, name='ReactionsReactionHasByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ReactionsReactionHasByENDFMT
 end function ReactionsReactionHasByENDFMT
 
 !! Get, by ENDF_MT, const
 function ReactionsReactionGetByENDFMTConst(handle, meta) &
-      bind(C, name='ReactionsReactionGetByENDFMTConst') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetByENDFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetByENDFMTConst
 end function ReactionsReactionGetByENDFMTConst
 
 !! Get, by ENDF_MT
 function ReactionsReactionGetByENDFMT(handle, meta) &
-      bind(C, name='ReactionsReactionGetByENDFMT') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetByENDFMT
 end function ReactionsReactionGetByENDFMT
 
 !! Set, by ENDF_MT
@@ -311,38 +292,35 @@ end subroutine ReactionsReactionSetByENDFMT
 
 !! Has, by fissionGenre
 function ReactionsReactionHasByFissionGenre(handle, meta, metaSize) &
-      bind(C, name='ReactionsReactionHasByFissionGenre') &
-      result(has)
+      bind(C, name='ReactionsReactionHasByFissionGenre')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ReactionsReactionHasByFissionGenre
 end function ReactionsReactionHasByFissionGenre
 
 !! Get, by fissionGenre, const
 function ReactionsReactionGetByFissionGenreConst(handle, meta, metaSize) &
-      bind(C, name='ReactionsReactionGetByFissionGenreConst') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetByFissionGenreConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetByFissionGenreConst
 end function ReactionsReactionGetByFissionGenreConst
 
 !! Get, by fissionGenre
 function ReactionsReactionGetByFissionGenre(handle, meta, metaSize) &
-      bind(C, name='ReactionsReactionGetByFissionGenre') &
-      result(resultHandle)
+      bind(C, name='ReactionsReactionGetByFissionGenre')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionsReactionGetByFissionGenre
 end function ReactionsReactionGetByFissionGenre
 
 !! Set, by fissionGenre

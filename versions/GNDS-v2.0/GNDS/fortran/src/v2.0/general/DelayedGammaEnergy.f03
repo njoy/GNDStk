@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function DelayedGammaEnergyDefaultConst() &
-      bind(C, name='DelayedGammaEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='DelayedGammaEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedGammaEnergyDefaultConst
 end function DelayedGammaEnergyDefaultConst
 
 !! Create, default
 function DelayedGammaEnergyDefault() &
-      bind(C, name='DelayedGammaEnergyDefault') &
-      result(handle)
+      bind(C, name='DelayedGammaEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedGammaEnergyDefault
 end function DelayedGammaEnergyDefault
 
 !! Create, general, const
 function DelayedGammaEnergyCreateConst( &
    polynomial1d &
 ) &
-      bind(C, name='DelayedGammaEnergyCreateConst') &
-      result(handle)
+      bind(C, name='DelayedGammaEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedGammaEnergyCreateConst
 end function DelayedGammaEnergyCreateConst
 
 !! Create, general
 function DelayedGammaEnergyCreate( &
    polynomial1d &
 ) &
-      bind(C, name='DelayedGammaEnergyCreate') &
-      result(handle)
+      bind(C, name='DelayedGammaEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedGammaEnergyCreate
 end function DelayedGammaEnergyCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine DelayedGammaEnergyDelete
 
 !! Read from file
 function DelayedGammaEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='DelayedGammaEnergyRead') &
-      result(success)
+      bind(C, name='DelayedGammaEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DelayedGammaEnergyRead
 end function DelayedGammaEnergyRead
 
 !! Write to file
 function DelayedGammaEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='DelayedGammaEnergyWrite') &
-      result(success)
+      bind(C, name='DelayedGammaEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DelayedGammaEnergyWrite
 end function DelayedGammaEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function DelayedGammaEnergyPrint(handle) &
-      bind(C, name='DelayedGammaEnergyPrint') &
-      result(success)
+      bind(C, name='DelayedGammaEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedGammaEnergyPrint
 end function DelayedGammaEnergyPrint
 
 !! Print to standard output, as XML
 function DelayedGammaEnergyPrintXML(handle) &
-      bind(C, name='DelayedGammaEnergyPrintXML') &
-      result(success)
+      bind(C, name='DelayedGammaEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedGammaEnergyPrintXML
 end function DelayedGammaEnergyPrintXML
 
 !! Print to standard output, as JSON
 function DelayedGammaEnergyPrintJSON(handle) &
-      bind(C, name='DelayedGammaEnergyPrintJSON') &
-      result(success)
+      bind(C, name='DelayedGammaEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedGammaEnergyPrintJSON
 end function DelayedGammaEnergyPrintJSON
 
 
@@ -138,32 +129,29 @@ end function DelayedGammaEnergyPrintJSON
 
 !! Has
 function DelayedGammaEnergyPolynomial1dHas(handle) &
-      bind(C, name='DelayedGammaEnergyPolynomial1dHas') &
-      result(has)
+      bind(C, name='DelayedGammaEnergyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DelayedGammaEnergyPolynomial1dHas
 end function DelayedGammaEnergyPolynomial1dHas
 
 !! Get, const
 function DelayedGammaEnergyPolynomial1dGetConst(handle) &
-      bind(C, name='DelayedGammaEnergyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='DelayedGammaEnergyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedGammaEnergyPolynomial1dGetConst
 end function DelayedGammaEnergyPolynomial1dGetConst
 
 !! Get
 function DelayedGammaEnergyPolynomial1dGet(handle) &
-      bind(C, name='DelayedGammaEnergyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='DelayedGammaEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedGammaEnergyPolynomial1dGet
 end function DelayedGammaEnergyPolynomial1dGet
 
 !! Set

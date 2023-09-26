@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UnresolvedDefaultConst() &
-      bind(C, name='UnresolvedDefaultConst') &
-      result(handle)
+      bind(C, name='UnresolvedDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedDefaultConst
 end function UnresolvedDefaultConst
 
 !! Create, default
 function UnresolvedDefault() &
-      bind(C, name='UnresolvedDefault') &
-      result(handle)
+      bind(C, name='UnresolvedDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedDefault
 end function UnresolvedDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function UnresolvedCreateConst( &
    tabulatedWidths, &
    domainUnitSize &
 ) &
-      bind(C, name='UnresolvedCreateConst') &
-      result(handle)
+      bind(C, name='UnresolvedCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: domainMin
@@ -47,7 +44,7 @@ function UnresolvedCreateConst( &
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
    type(c_ptr), value :: tabulatedWidths
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedCreateConst
 end function UnresolvedCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function UnresolvedCreate( &
    tabulatedWidths, &
    domainUnitSize &
 ) &
-      bind(C, name='UnresolvedCreate') &
-      result(handle)
+      bind(C, name='UnresolvedCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: domainMin
@@ -67,7 +63,7 @@ function UnresolvedCreate( &
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
    type(c_ptr), value :: tabulatedWidths
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedCreate
 end function UnresolvedCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine UnresolvedDelete
 
 !! Read from file
 function UnresolvedRead(handle, filename, filenameSize) &
-      bind(C, name='UnresolvedRead') &
-      result(success)
+      bind(C, name='UnresolvedRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedRead
 end function UnresolvedRead
 
 !! Write to file
 function UnresolvedWrite(handle, filename, filenameSize) &
-      bind(C, name='UnresolvedWrite') &
-      result(success)
+      bind(C, name='UnresolvedWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedWrite
 end function UnresolvedWrite
 
 !! Print to standard output, in our prettyprinting format
 function UnresolvedPrint(handle) &
-      bind(C, name='UnresolvedPrint') &
-      result(success)
+      bind(C, name='UnresolvedPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedPrint
 end function UnresolvedPrint
 
 !! Print to standard output, as XML
 function UnresolvedPrintXML(handle) &
-      bind(C, name='UnresolvedPrintXML') &
-      result(success)
+      bind(C, name='UnresolvedPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedPrintXML
 end function UnresolvedPrintXML
 
 !! Print to standard output, as JSON
 function UnresolvedPrintJSON(handle) &
-      bind(C, name='UnresolvedPrintJSON') &
-      result(success)
+      bind(C, name='UnresolvedPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedPrintJSON
 end function UnresolvedPrintJSON
 
 
@@ -154,22 +145,20 @@ end function UnresolvedPrintJSON
 
 !! Has
 function UnresolvedDomainMinHas(handle) &
-      bind(C, name='UnresolvedDomainMinHas') &
-      result(has)
+      bind(C, name='UnresolvedDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnresolvedDomainMinHas
 end function UnresolvedDomainMinHas
 
 !! Get
 function UnresolvedDomainMinGet(handle) &
-      bind(C, name='UnresolvedDomainMinGet') &
-      result(domainMin)
+      bind(C, name='UnresolvedDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMin
+   real(c_double) :: UnresolvedDomainMinGet
 end function UnresolvedDomainMinGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine UnresolvedDomainMinSet
 
 !! Has
 function UnresolvedDomainMaxHas(handle) &
-      bind(C, name='UnresolvedDomainMaxHas') &
-      result(has)
+      bind(C, name='UnresolvedDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnresolvedDomainMaxHas
 end function UnresolvedDomainMaxHas
 
 !! Get
 function UnresolvedDomainMaxGet(handle) &
-      bind(C, name='UnresolvedDomainMaxGet') &
-      result(domainMax)
+      bind(C, name='UnresolvedDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMax
+   real(c_double) :: UnresolvedDomainMaxGet
 end function UnresolvedDomainMaxGet
 
 !! Set
@@ -224,22 +211,20 @@ end subroutine UnresolvedDomainMaxSet
 
 !! Has
 function UnresolvedDomainUnitHas(handle) &
-      bind(C, name='UnresolvedDomainUnitHas') &
-      result(has)
+      bind(C, name='UnresolvedDomainUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnresolvedDomainUnitHas
 end function UnresolvedDomainUnitHas
 
 !! Get
 function UnresolvedDomainUnitGet(handle) &
-      bind(C, name='UnresolvedDomainUnitGet') &
-      result(domainUnit)
+      bind(C, name='UnresolvedDomainUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: domainUnit
+   type(c_ptr) :: UnresolvedDomainUnitGet
 end function UnresolvedDomainUnitGet
 
 !! Set
@@ -259,32 +244,29 @@ end subroutine UnresolvedDomainUnitSet
 
 !! Has
 function UnresolvedTabulatedWidthsHas(handle) &
-      bind(C, name='UnresolvedTabulatedWidthsHas') &
-      result(has)
+      bind(C, name='UnresolvedTabulatedWidthsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnresolvedTabulatedWidthsHas
 end function UnresolvedTabulatedWidthsHas
 
 !! Get, const
 function UnresolvedTabulatedWidthsGetConst(handle) &
-      bind(C, name='UnresolvedTabulatedWidthsGetConst') &
-      result(resultHandle)
+      bind(C, name='UnresolvedTabulatedWidthsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnresolvedTabulatedWidthsGetConst
 end function UnresolvedTabulatedWidthsGetConst
 
 !! Get
 function UnresolvedTabulatedWidthsGet(handle) &
-      bind(C, name='UnresolvedTabulatedWidthsGet') &
-      result(resultHandle)
+      bind(C, name='UnresolvedTabulatedWidthsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnresolvedTabulatedWidthsGet
 end function UnresolvedTabulatedWidthsGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AngularTwoBodyDefaultConst() &
-      bind(C, name='AngularTwoBodyDefaultConst') &
-      result(handle)
+      bind(C, name='AngularTwoBodyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularTwoBodyDefaultConst
 end function AngularTwoBodyDefaultConst
 
 !! Create, default
 function AngularTwoBodyDefault() &
-      bind(C, name='AngularTwoBodyDefault') &
-      result(handle)
+      bind(C, name='AngularTwoBodyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularTwoBodyDefault
 end function AngularTwoBodyDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function AngularTwoBodyCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='AngularTwoBodyCreateConst') &
-      result(handle)
+      bind(C, name='AngularTwoBodyCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -53,7 +50,7 @@ function AngularTwoBodyCreateConst( &
    type(c_ptr), value :: regions2d
    type(c_ptr), value :: recoil
    type(c_ptr), value :: isotropic2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularTwoBodyCreateConst
 end function AngularTwoBodyCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function AngularTwoBodyCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='AngularTwoBodyCreate') &
-      result(handle)
+      bind(C, name='AngularTwoBodyCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -79,7 +75,7 @@ function AngularTwoBodyCreate( &
    type(c_ptr), value :: regions2d
    type(c_ptr), value :: recoil
    type(c_ptr), value :: isotropic2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularTwoBodyCreate
 end function AngularTwoBodyCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine AngularTwoBodyDelete
 
 !! Read from file
 function AngularTwoBodyRead(handle, filename, filenameSize) &
-      bind(C, name='AngularTwoBodyRead') &
-      result(success)
+      bind(C, name='AngularTwoBodyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AngularTwoBodyRead
 end function AngularTwoBodyRead
 
 !! Write to file
 function AngularTwoBodyWrite(handle, filename, filenameSize) &
-      bind(C, name='AngularTwoBodyWrite') &
-      result(success)
+      bind(C, name='AngularTwoBodyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AngularTwoBodyWrite
 end function AngularTwoBodyWrite
 
 !! Print to standard output, in our prettyprinting format
 function AngularTwoBodyPrint(handle) &
-      bind(C, name='AngularTwoBodyPrint') &
-      result(success)
+      bind(C, name='AngularTwoBodyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularTwoBodyPrint
 end function AngularTwoBodyPrint
 
 !! Print to standard output, as XML
 function AngularTwoBodyPrintXML(handle) &
-      bind(C, name='AngularTwoBodyPrintXML') &
-      result(success)
+      bind(C, name='AngularTwoBodyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularTwoBodyPrintXML
 end function AngularTwoBodyPrintXML
 
 !! Print to standard output, as JSON
 function AngularTwoBodyPrintJSON(handle) &
-      bind(C, name='AngularTwoBodyPrintJSON') &
-      result(success)
+      bind(C, name='AngularTwoBodyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularTwoBodyPrintJSON
 end function AngularTwoBodyPrintJSON
 
 
@@ -166,22 +157,20 @@ end function AngularTwoBodyPrintJSON
 
 !! Has
 function AngularTwoBodyLabelHas(handle) &
-      bind(C, name='AngularTwoBodyLabelHas') &
-      result(has)
+      bind(C, name='AngularTwoBodyLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularTwoBodyLabelHas
 end function AngularTwoBodyLabelHas
 
 !! Get
 function AngularTwoBodyLabelGet(handle) &
-      bind(C, name='AngularTwoBodyLabelGet') &
-      result(label)
+      bind(C, name='AngularTwoBodyLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: AngularTwoBodyLabelGet
 end function AngularTwoBodyLabelGet
 
 !! Set
@@ -201,22 +190,20 @@ end subroutine AngularTwoBodyLabelSet
 
 !! Has
 function AngularTwoBodyProductFrameHas(handle) &
-      bind(C, name='AngularTwoBodyProductFrameHas') &
-      result(has)
+      bind(C, name='AngularTwoBodyProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularTwoBodyProductFrameHas
 end function AngularTwoBodyProductFrameHas
 
 !! Get
 function AngularTwoBodyProductFrameGet(handle) &
-      bind(C, name='AngularTwoBodyProductFrameGet') &
-      result(productFrame)
+      bind(C, name='AngularTwoBodyProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: AngularTwoBodyProductFrameGet
 end function AngularTwoBodyProductFrameGet
 
 !! Set
@@ -236,32 +223,29 @@ end subroutine AngularTwoBodyProductFrameSet
 
 !! Has
 function AngularTwoBodyXYs2dHas(handle) &
-      bind(C, name='AngularTwoBodyXYs2dHas') &
-      result(has)
+      bind(C, name='AngularTwoBodyXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularTwoBodyXYs2dHas
 end function AngularTwoBodyXYs2dHas
 
 !! Get, const
 function AngularTwoBodyXYs2dGetConst(handle) &
-      bind(C, name='AngularTwoBodyXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyXYs2dGetConst
 end function AngularTwoBodyXYs2dGetConst
 
 !! Get
 function AngularTwoBodyXYs2dGet(handle) &
-      bind(C, name='AngularTwoBodyXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyXYs2dGet
 end function AngularTwoBodyXYs2dGet
 
 !! Set
@@ -280,32 +264,29 @@ end subroutine AngularTwoBodyXYs2dSet
 
 !! Has
 function AngularTwoBodyRegions2dHas(handle) &
-      bind(C, name='AngularTwoBodyRegions2dHas') &
-      result(has)
+      bind(C, name='AngularTwoBodyRegions2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularTwoBodyRegions2dHas
 end function AngularTwoBodyRegions2dHas
 
 !! Get, const
 function AngularTwoBodyRegions2dGetConst(handle) &
-      bind(C, name='AngularTwoBodyRegions2dGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyRegions2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyRegions2dGetConst
 end function AngularTwoBodyRegions2dGetConst
 
 !! Get
 function AngularTwoBodyRegions2dGet(handle) &
-      bind(C, name='AngularTwoBodyRegions2dGet') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyRegions2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyRegions2dGet
 end function AngularTwoBodyRegions2dGet
 
 !! Set
@@ -324,32 +305,29 @@ end subroutine AngularTwoBodyRegions2dSet
 
 !! Has
 function AngularTwoBodyRecoilHas(handle) &
-      bind(C, name='AngularTwoBodyRecoilHas') &
-      result(has)
+      bind(C, name='AngularTwoBodyRecoilHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularTwoBodyRecoilHas
 end function AngularTwoBodyRecoilHas
 
 !! Get, const
 function AngularTwoBodyRecoilGetConst(handle) &
-      bind(C, name='AngularTwoBodyRecoilGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyRecoilGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyRecoilGetConst
 end function AngularTwoBodyRecoilGetConst
 
 !! Get
 function AngularTwoBodyRecoilGet(handle) &
-      bind(C, name='AngularTwoBodyRecoilGet') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyRecoilGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyRecoilGet
 end function AngularTwoBodyRecoilGet
 
 !! Set
@@ -368,32 +346,29 @@ end subroutine AngularTwoBodyRecoilSet
 
 !! Has
 function AngularTwoBodyIsotropic2dHas(handle) &
-      bind(C, name='AngularTwoBodyIsotropic2dHas') &
-      result(has)
+      bind(C, name='AngularTwoBodyIsotropic2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularTwoBodyIsotropic2dHas
 end function AngularTwoBodyIsotropic2dHas
 
 !! Get, const
 function AngularTwoBodyIsotropic2dGetConst(handle) &
-      bind(C, name='AngularTwoBodyIsotropic2dGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyIsotropic2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyIsotropic2dGetConst
 end function AngularTwoBodyIsotropic2dGetConst
 
 !! Get
 function AngularTwoBodyIsotropic2dGet(handle) &
-      bind(C, name='AngularTwoBodyIsotropic2dGet') &
-      result(resultHandle)
+      bind(C, name='AngularTwoBodyIsotropic2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularTwoBodyIsotropic2dGet
 end function AngularTwoBodyIsotropic2dGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function QDefaultConst() &
-      bind(C, name='QDefaultConst') &
-      result(handle)
+      bind(C, name='QDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: QDefaultConst
 end function QDefaultConst
 
 !! Create, default
 function QDefault() &
-      bind(C, name='QDefault') &
-      result(handle)
+      bind(C, name='QDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: QDefault
 end function QDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function QCreateConst( &
    Double, &
    constant1d &
 ) &
-      bind(C, name='QCreateConst') &
-      result(handle)
+      bind(C, name='QCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
    type(c_ptr), value :: constant1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: QCreateConst
 end function QCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function QCreate( &
    Double, &
    constant1d &
 ) &
-      bind(C, name='QCreate') &
-      result(handle)
+      bind(C, name='QCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
    type(c_ptr), value :: constant1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: QCreate
 end function QCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine QDelete
 
 !! Read from file
 function QRead(handle, filename, filenameSize) &
-      bind(C, name='QRead') &
-      result(success)
+      bind(C, name='QRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: QRead
 end function QRead
 
 !! Write to file
 function QWrite(handle, filename, filenameSize) &
-      bind(C, name='QWrite') &
-      result(success)
+      bind(C, name='QWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: QWrite
 end function QWrite
 
 !! Print to standard output, in our prettyprinting format
 function QPrint(handle) &
-      bind(C, name='QPrint') &
-      result(success)
+      bind(C, name='QPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: QPrint
 end function QPrint
 
 !! Print to standard output, as XML
 function QPrintXML(handle) &
-      bind(C, name='QPrintXML') &
-      result(success)
+      bind(C, name='QPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: QPrintXML
 end function QPrintXML
 
 !! Print to standard output, as JSON
 function QPrintJSON(handle) &
-      bind(C, name='QPrintJSON') &
-      result(success)
+      bind(C, name='QPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: QPrintJSON
 end function QPrintJSON
 
 
@@ -142,32 +133,29 @@ end function QPrintJSON
 
 !! Has
 function QDoubleHas(handle) &
-      bind(C, name='QDoubleHas') &
-      result(has)
+      bind(C, name='QDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: QDoubleHas
 end function QDoubleHas
 
 !! Get, const
 function QDoubleGetConst(handle) &
-      bind(C, name='QDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='QDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: QDoubleGetConst
 end function QDoubleGetConst
 
 !! Get
 function QDoubleGet(handle) &
-      bind(C, name='QDoubleGet') &
-      result(resultHandle)
+      bind(C, name='QDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: QDoubleGet
 end function QDoubleGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine QDoubleSet
 
 !! Has
 function QConstant1dHas(handle) &
-      bind(C, name='QConstant1dHas') &
-      result(has)
+      bind(C, name='QConstant1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: QConstant1dHas
 end function QConstant1dHas
 
 !! Get, const
 function QConstant1dGetConst(handle) &
-      bind(C, name='QConstant1dGetConst') &
-      result(resultHandle)
+      bind(C, name='QConstant1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: QConstant1dGetConst
 end function QConstant1dGetConst
 
 !! Get
 function QConstant1dGet(handle) &
-      bind(C, name='QConstant1dGet') &
-      result(resultHandle)
+      bind(C, name='QConstant1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: QConstant1dGet
 end function QConstant1dGet
 
 !! Set

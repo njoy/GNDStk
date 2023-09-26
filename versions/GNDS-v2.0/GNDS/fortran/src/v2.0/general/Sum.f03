@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function SumDefaultConst() &
-      bind(C, name='SumDefaultConst') &
-      result(handle)
+      bind(C, name='SumDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SumDefaultConst
 end function SumDefaultConst
 
 !! Create, default
 function SumDefault() &
-      bind(C, name='SumDefault') &
-      result(handle)
+      bind(C, name='SumDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SumDefault
 end function SumDefault
 
 !! Create, general, const
@@ -40,8 +38,7 @@ function SumCreateConst( &
    labelSize, &
    domainUnitSize &
 ) &
-      bind(C, name='SumCreateConst') &
-      result(handle)
+      bind(C, name='SumCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -52,7 +49,7 @@ function SumCreateConst( &
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
    integer(c_size_t), value :: summandSize
    type(c_ptr) :: summand(summandSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SumCreateConst
 end function SumCreateConst
 
 !! Create, general
@@ -65,8 +62,7 @@ function SumCreate( &
    labelSize, &
    domainUnitSize &
 ) &
-      bind(C, name='SumCreate') &
-      result(handle)
+      bind(C, name='SumCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -77,7 +73,7 @@ function SumCreate( &
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
    integer(c_size_t), value :: summandSize
    type(c_ptr) :: summand(summandSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SumCreate
 end function SumCreate
 
 !! Assign
@@ -105,56 +101,51 @@ end subroutine SumDelete
 
 !! Read from file
 function SumRead(handle, filename, filenameSize) &
-      bind(C, name='SumRead') &
-      result(success)
+      bind(C, name='SumRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SumRead
 end function SumRead
 
 !! Write to file
 function SumWrite(handle, filename, filenameSize) &
-      bind(C, name='SumWrite') &
-      result(success)
+      bind(C, name='SumWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SumWrite
 end function SumWrite
 
 !! Print to standard output, in our prettyprinting format
 function SumPrint(handle) &
-      bind(C, name='SumPrint') &
-      result(success)
+      bind(C, name='SumPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SumPrint
 end function SumPrint
 
 !! Print to standard output, as XML
 function SumPrintXML(handle) &
-      bind(C, name='SumPrintXML') &
-      result(success)
+      bind(C, name='SumPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SumPrintXML
 end function SumPrintXML
 
 !! Print to standard output, as JSON
 function SumPrintJSON(handle) &
-      bind(C, name='SumPrintJSON') &
-      result(success)
+      bind(C, name='SumPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SumPrintJSON
 end function SumPrintJSON
 
 
@@ -164,22 +155,20 @@ end function SumPrintJSON
 
 !! Has
 function SumLabelHas(handle) &
-      bind(C, name='SumLabelHas') &
-      result(has)
+      bind(C, name='SumLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SumLabelHas
 end function SumLabelHas
 
 !! Get
 function SumLabelGet(handle) &
-      bind(C, name='SumLabelGet') &
-      result(label)
+      bind(C, name='SumLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: SumLabelGet
 end function SumLabelGet
 
 !! Set
@@ -199,22 +188,20 @@ end subroutine SumLabelSet
 
 !! Has
 function SumDomainMinHas(handle) &
-      bind(C, name='SumDomainMinHas') &
-      result(has)
+      bind(C, name='SumDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SumDomainMinHas
 end function SumDomainMinHas
 
 !! Get
 function SumDomainMinGet(handle) &
-      bind(C, name='SumDomainMinGet') &
-      result(domainMin)
+      bind(C, name='SumDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMin
+   real(c_double) :: SumDomainMinGet
 end function SumDomainMinGet
 
 !! Set
@@ -234,22 +221,20 @@ end subroutine SumDomainMinSet
 
 !! Has
 function SumDomainMaxHas(handle) &
-      bind(C, name='SumDomainMaxHas') &
-      result(has)
+      bind(C, name='SumDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SumDomainMaxHas
 end function SumDomainMaxHas
 
 !! Get
 function SumDomainMaxGet(handle) &
-      bind(C, name='SumDomainMaxGet') &
-      result(domainMax)
+      bind(C, name='SumDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMax
+   real(c_double) :: SumDomainMaxGet
 end function SumDomainMaxGet
 
 !! Set
@@ -269,22 +254,20 @@ end subroutine SumDomainMaxSet
 
 !! Has
 function SumDomainUnitHas(handle) &
-      bind(C, name='SumDomainUnitHas') &
-      result(has)
+      bind(C, name='SumDomainUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SumDomainUnitHas
 end function SumDomainUnitHas
 
 !! Get
 function SumDomainUnitGet(handle) &
-      bind(C, name='SumDomainUnitGet') &
-      result(domainUnit)
+      bind(C, name='SumDomainUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: domainUnit
+   type(c_ptr) :: SumDomainUnitGet
 end function SumDomainUnitGet
 
 !! Set
@@ -304,12 +287,11 @@ end subroutine SumDomainUnitSet
 
 !! Has
 function SumSummandHas(handle) &
-      bind(C, name='SumSummandHas') &
-      result(has)
+      bind(C, name='SumSummandHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SumSummandHas
 end function SumSummandHas
 
 !! Clear
@@ -322,12 +304,11 @@ end subroutine SumSummandClear
 
 !! Size
 function SumSummandSize(handle) &
-      bind(C, name='SumSummandSize') &
-      result(vectorSize)
+      bind(C, name='SumSummandSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: SumSummandSize
 end function SumSummandSize
 
 !! Add
@@ -341,24 +322,22 @@ end subroutine SumSummandAdd
 
 !! Get, by index \in [0,size), const
 function SumSummandGetConst(handle, index) &
-      bind(C, name='SumSummandGetConst') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetConst
 end function SumSummandGetConst
 
 !! Get, by index \in [0,size)
 function SumSummandGet(handle, index) &
-      bind(C, name='SumSummandGet') &
-      result(resultHandle)
+      bind(C, name='SumSummandGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGet
 end function SumSummandGet
 
 !! Set, by index \in [0,size)
@@ -377,38 +356,35 @@ end subroutine SumSummandSet
 
 !! Has, by ENDF_MFMT
 function SumSummandHasByENDFMFMT(handle, meta, metaSize) &
-      bind(C, name='SumSummandHasByENDFMFMT') &
-      result(has)
+      bind(C, name='SumSummandHasByENDFMFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: SumSummandHasByENDFMFMT
 end function SumSummandHasByENDFMFMT
 
 !! Get, by ENDF_MFMT, const
 function SumSummandGetByENDFMFMTConst(handle, meta, metaSize) &
-      bind(C, name='SumSummandGetByENDFMFMTConst') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetByENDFMFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetByENDFMFMTConst
 end function SumSummandGetByENDFMFMTConst
 
 !! Get, by ENDF_MFMT
 function SumSummandGetByENDFMFMT(handle, meta, metaSize) &
-      bind(C, name='SumSummandGetByENDFMFMT') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetByENDFMFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetByENDFMFMT
 end function SumSummandGetByENDFMFMT
 
 !! Set, by ENDF_MFMT
@@ -428,38 +404,35 @@ end subroutine SumSummandSetByENDFMFMT
 
 !! Has, by coefficient
 function SumSummandHasByCoefficient(handle, meta, metaSize) &
-      bind(C, name='SumSummandHasByCoefficient') &
-      result(has)
+      bind(C, name='SumSummandHasByCoefficient')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: SumSummandHasByCoefficient
 end function SumSummandHasByCoefficient
 
 !! Get, by coefficient, const
 function SumSummandGetByCoefficientConst(handle, meta, metaSize) &
-      bind(C, name='SumSummandGetByCoefficientConst') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetByCoefficientConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetByCoefficientConst
 end function SumSummandGetByCoefficientConst
 
 !! Get, by coefficient
 function SumSummandGetByCoefficient(handle, meta, metaSize) &
-      bind(C, name='SumSummandGetByCoefficient') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetByCoefficient')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetByCoefficient
 end function SumSummandGetByCoefficient
 
 !! Set, by coefficient
@@ -479,38 +452,35 @@ end subroutine SumSummandSetByCoefficient
 
 !! Has, by href
 function SumSummandHasByHref(handle, meta, metaSize) &
-      bind(C, name='SumSummandHasByHref') &
-      result(has)
+      bind(C, name='SumSummandHasByHref')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: SumSummandHasByHref
 end function SumSummandHasByHref
 
 !! Get, by href, const
 function SumSummandGetByHrefConst(handle, meta, metaSize) &
-      bind(C, name='SumSummandGetByHrefConst') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetByHrefConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetByHrefConst
 end function SumSummandGetByHrefConst
 
 !! Get, by href
 function SumSummandGetByHref(handle, meta, metaSize) &
-      bind(C, name='SumSummandGetByHref') &
-      result(resultHandle)
+      bind(C, name='SumSummandGetByHref')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SumSummandGetByHref
 end function SumSummandGetByHref
 
 !! Set, by href

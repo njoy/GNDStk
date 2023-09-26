@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AuthorDefaultConst() &
-      bind(C, name='AuthorDefaultConst') &
-      result(handle)
+      bind(C, name='AuthorDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorDefaultConst
 end function AuthorDefaultConst
 
 !! Create, default
 function AuthorDefault() &
-      bind(C, name='AuthorDefault') &
-      result(handle)
+      bind(C, name='AuthorDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorDefault
 end function AuthorDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function AuthorCreateConst( &
    name, &
    nameSize &
 ) &
-      bind(C, name='AuthorCreateConst') &
-      result(handle)
+      bind(C, name='AuthorCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: nameSize
    character(c_char), intent(in) :: name(nameSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorCreateConst
 end function AuthorCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function AuthorCreate( &
    name, &
    nameSize &
 ) &
-      bind(C, name='AuthorCreate') &
-      result(handle)
+      bind(C, name='AuthorCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: nameSize
    character(c_char), intent(in) :: name(nameSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorCreate
 end function AuthorCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine AuthorDelete
 
 !! Read from file
 function AuthorRead(handle, filename, filenameSize) &
-      bind(C, name='AuthorRead') &
-      result(success)
+      bind(C, name='AuthorRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AuthorRead
 end function AuthorRead
 
 !! Write to file
 function AuthorWrite(handle, filename, filenameSize) &
-      bind(C, name='AuthorWrite') &
-      result(success)
+      bind(C, name='AuthorWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AuthorWrite
 end function AuthorWrite
 
 !! Print to standard output, in our prettyprinting format
 function AuthorPrint(handle) &
-      bind(C, name='AuthorPrint') &
-      result(success)
+      bind(C, name='AuthorPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AuthorPrint
 end function AuthorPrint
 
 !! Print to standard output, as XML
 function AuthorPrintXML(handle) &
-      bind(C, name='AuthorPrintXML') &
-      result(success)
+      bind(C, name='AuthorPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AuthorPrintXML
 end function AuthorPrintXML
 
 !! Print to standard output, as JSON
 function AuthorPrintJSON(handle) &
-      bind(C, name='AuthorPrintJSON') &
-      result(success)
+      bind(C, name='AuthorPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AuthorPrintJSON
 end function AuthorPrintJSON
 
 
@@ -142,22 +133,20 @@ end function AuthorPrintJSON
 
 !! Has
 function AuthorNameHas(handle) &
-      bind(C, name='AuthorNameHas') &
-      result(has)
+      bind(C, name='AuthorNameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AuthorNameHas
 end function AuthorNameHas
 
 !! Get
 function AuthorNameGet(handle) &
-      bind(C, name='AuthorNameGet') &
-      result(name)
+      bind(C, name='AuthorNameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: name
+   type(c_ptr) :: AuthorNameGet
 end function AuthorNameGet
 
 !! Set

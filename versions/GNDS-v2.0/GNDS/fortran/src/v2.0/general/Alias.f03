@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AliasDefaultConst() &
-      bind(C, name='AliasDefaultConst') &
-      result(handle)
+      bind(C, name='AliasDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasDefaultConst
 end function AliasDefaultConst
 
 !! Create, default
 function AliasDefault() &
-      bind(C, name='AliasDefault') &
-      result(handle)
+      bind(C, name='AliasDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasDefault
 end function AliasDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function AliasCreateConst( &
    idSize, &
    pidSize &
 ) &
-      bind(C, name='AliasCreateConst') &
-      result(handle)
+      bind(C, name='AliasCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasCreateConst
 end function AliasCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function AliasCreate( &
    idSize, &
    pidSize &
 ) &
-      bind(C, name='AliasCreate') &
-      result(handle)
+      bind(C, name='AliasCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AliasCreate
 end function AliasCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine AliasDelete
 
 !! Read from file
 function AliasRead(handle, filename, filenameSize) &
-      bind(C, name='AliasRead') &
-      result(success)
+      bind(C, name='AliasRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AliasRead
 end function AliasRead
 
 !! Write to file
 function AliasWrite(handle, filename, filenameSize) &
-      bind(C, name='AliasWrite') &
-      result(success)
+      bind(C, name='AliasWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AliasWrite
 end function AliasWrite
 
 !! Print to standard output, in our prettyprinting format
 function AliasPrint(handle) &
-      bind(C, name='AliasPrint') &
-      result(success)
+      bind(C, name='AliasPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AliasPrint
 end function AliasPrint
 
 !! Print to standard output, as XML
 function AliasPrintXML(handle) &
-      bind(C, name='AliasPrintXML') &
-      result(success)
+      bind(C, name='AliasPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AliasPrintXML
 end function AliasPrintXML
 
 !! Print to standard output, as JSON
 function AliasPrintJSON(handle) &
-      bind(C, name='AliasPrintJSON') &
-      result(success)
+      bind(C, name='AliasPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AliasPrintJSON
 end function AliasPrintJSON
 
 
@@ -150,22 +141,20 @@ end function AliasPrintJSON
 
 !! Has
 function AliasIdHas(handle) &
-      bind(C, name='AliasIdHas') &
-      result(has)
+      bind(C, name='AliasIdHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AliasIdHas
 end function AliasIdHas
 
 !! Get
 function AliasIdGet(handle) &
-      bind(C, name='AliasIdGet') &
-      result(id)
+      bind(C, name='AliasIdGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: id
+   type(c_ptr) :: AliasIdGet
 end function AliasIdGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine AliasIdSet
 
 !! Has
 function AliasPidHas(handle) &
-      bind(C, name='AliasPidHas') &
-      result(has)
+      bind(C, name='AliasPidHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AliasPidHas
 end function AliasPidHas
 
 !! Get
 function AliasPidGet(handle) &
-      bind(C, name='AliasPidGet') &
-      result(pid)
+      bind(C, name='AliasPidGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: pid
+   type(c_ptr) :: AliasPidGet
 end function AliasPidGet
 
 !! Set

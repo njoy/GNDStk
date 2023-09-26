@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ArrayDefaultConst() &
-      bind(C, name='ArrayDefaultConst') &
-      result(handle)
+      bind(C, name='ArrayDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ArrayDefaultConst
 end function ArrayDefaultConst
 
 !! Create, default
 function ArrayDefault() &
-      bind(C, name='ArrayDefault') &
-      result(handle)
+      bind(C, name='ArrayDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ArrayDefault
 end function ArrayDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function ArrayCreateConst( &
    compressionSize, &
    symmetrySize &
 ) &
-      bind(C, name='ArrayCreateConst') &
-      result(handle)
+      bind(C, name='ArrayCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: shapeSize
@@ -55,7 +52,7 @@ function ArrayCreateConst( &
    type(c_ptr), value :: starts
    type(c_ptr), value :: lengths
    type(c_ptr), value :: values
-   type(c_ptr) :: handle
+   type(c_ptr) :: ArrayCreateConst
 end function ArrayCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function ArrayCreate( &
    compressionSize, &
    symmetrySize &
 ) &
-      bind(C, name='ArrayCreate') &
-      result(handle)
+      bind(C, name='ArrayCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: shapeSize
@@ -83,7 +79,7 @@ function ArrayCreate( &
    type(c_ptr), value :: starts
    type(c_ptr), value :: lengths
    type(c_ptr), value :: values
-   type(c_ptr) :: handle
+   type(c_ptr) :: ArrayCreate
 end function ArrayCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine ArrayDelete
 
 !! Read from file
 function ArrayRead(handle, filename, filenameSize) &
-      bind(C, name='ArrayRead') &
-      result(success)
+      bind(C, name='ArrayRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ArrayRead
 end function ArrayRead
 
 !! Write to file
 function ArrayWrite(handle, filename, filenameSize) &
-      bind(C, name='ArrayWrite') &
-      result(success)
+      bind(C, name='ArrayWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ArrayWrite
 end function ArrayWrite
 
 !! Print to standard output, in our prettyprinting format
 function ArrayPrint(handle) &
-      bind(C, name='ArrayPrint') &
-      result(success)
+      bind(C, name='ArrayPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ArrayPrint
 end function ArrayPrint
 
 !! Print to standard output, as XML
 function ArrayPrintXML(handle) &
-      bind(C, name='ArrayPrintXML') &
-      result(success)
+      bind(C, name='ArrayPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ArrayPrintXML
 end function ArrayPrintXML
 
 !! Print to standard output, as JSON
 function ArrayPrintJSON(handle) &
-      bind(C, name='ArrayPrintJSON') &
-      result(success)
+      bind(C, name='ArrayPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ArrayPrintJSON
 end function ArrayPrintJSON
 
 
@@ -170,22 +161,20 @@ end function ArrayPrintJSON
 
 !! Has
 function ArrayShapeHas(handle) &
-      bind(C, name='ArrayShapeHas') &
-      result(has)
+      bind(C, name='ArrayShapeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ArrayShapeHas
 end function ArrayShapeHas
 
 !! Get
 function ArrayShapeGet(handle) &
-      bind(C, name='ArrayShapeGet') &
-      result(shape)
+      bind(C, name='ArrayShapeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: shape
+   type(c_ptr) :: ArrayShapeGet
 end function ArrayShapeGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine ArrayShapeSet
 
 !! Has
 function ArrayCompressionHas(handle) &
-      bind(C, name='ArrayCompressionHas') &
-      result(has)
+      bind(C, name='ArrayCompressionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ArrayCompressionHas
 end function ArrayCompressionHas
 
 !! Get
 function ArrayCompressionGet(handle) &
-      bind(C, name='ArrayCompressionGet') &
-      result(compression)
+      bind(C, name='ArrayCompressionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: compression
+   type(c_ptr) :: ArrayCompressionGet
 end function ArrayCompressionGet
 
 !! Set
@@ -240,22 +227,20 @@ end subroutine ArrayCompressionSet
 
 !! Has
 function ArraySymmetryHas(handle) &
-      bind(C, name='ArraySymmetryHas') &
-      result(has)
+      bind(C, name='ArraySymmetryHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ArraySymmetryHas
 end function ArraySymmetryHas
 
 !! Get
 function ArraySymmetryGet(handle) &
-      bind(C, name='ArraySymmetryGet') &
-      result(symmetry)
+      bind(C, name='ArraySymmetryGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: symmetry
+   type(c_ptr) :: ArraySymmetryGet
 end function ArraySymmetryGet
 
 !! Set
@@ -275,32 +260,29 @@ end subroutine ArraySymmetrySet
 
 !! Has
 function ArrayStartsHas(handle) &
-      bind(C, name='ArrayStartsHas') &
-      result(has)
+      bind(C, name='ArrayStartsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ArrayStartsHas
 end function ArrayStartsHas
 
 !! Get, const
 function ArrayStartsGetConst(handle) &
-      bind(C, name='ArrayStartsGetConst') &
-      result(resultHandle)
+      bind(C, name='ArrayStartsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ArrayStartsGetConst
 end function ArrayStartsGetConst
 
 !! Get
 function ArrayStartsGet(handle) &
-      bind(C, name='ArrayStartsGet') &
-      result(resultHandle)
+      bind(C, name='ArrayStartsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ArrayStartsGet
 end function ArrayStartsGet
 
 !! Set
@@ -319,32 +301,29 @@ end subroutine ArrayStartsSet
 
 !! Has
 function ArrayLengthsHas(handle) &
-      bind(C, name='ArrayLengthsHas') &
-      result(has)
+      bind(C, name='ArrayLengthsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ArrayLengthsHas
 end function ArrayLengthsHas
 
 !! Get, const
 function ArrayLengthsGetConst(handle) &
-      bind(C, name='ArrayLengthsGetConst') &
-      result(resultHandle)
+      bind(C, name='ArrayLengthsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ArrayLengthsGetConst
 end function ArrayLengthsGetConst
 
 !! Get
 function ArrayLengthsGet(handle) &
-      bind(C, name='ArrayLengthsGet') &
-      result(resultHandle)
+      bind(C, name='ArrayLengthsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ArrayLengthsGet
 end function ArrayLengthsGet
 
 !! Set
@@ -363,32 +342,29 @@ end subroutine ArrayLengthsSet
 
 !! Has
 function ArrayValuesHas(handle) &
-      bind(C, name='ArrayValuesHas') &
-      result(has)
+      bind(C, name='ArrayValuesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ArrayValuesHas
 end function ArrayValuesHas
 
 !! Get, const
 function ArrayValuesGetConst(handle) &
-      bind(C, name='ArrayValuesGetConst') &
-      result(resultHandle)
+      bind(C, name='ArrayValuesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ArrayValuesGetConst
 end function ArrayValuesGetConst
 
 !! Get
 function ArrayValuesGet(handle) &
-      bind(C, name='ArrayValuesGet') &
-      result(resultHandle)
+      bind(C, name='ArrayValuesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ArrayValuesGet
 end function ArrayValuesGet
 
 !! Set

@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function TotalEnergyDefaultConst() &
-      bind(C, name='TotalEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='TotalEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TotalEnergyDefaultConst
 end function TotalEnergyDefaultConst
 
 !! Create, default
 function TotalEnergyDefault() &
-      bind(C, name='TotalEnergyDefault') &
-      result(handle)
+      bind(C, name='TotalEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TotalEnergyDefault
 end function TotalEnergyDefault
 
 !! Create, general, const
 function TotalEnergyCreateConst( &
    polynomial1d &
 ) &
-      bind(C, name='TotalEnergyCreateConst') &
-      result(handle)
+      bind(C, name='TotalEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: TotalEnergyCreateConst
 end function TotalEnergyCreateConst
 
 !! Create, general
 function TotalEnergyCreate( &
    polynomial1d &
 ) &
-      bind(C, name='TotalEnergyCreate') &
-      result(handle)
+      bind(C, name='TotalEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: TotalEnergyCreate
 end function TotalEnergyCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine TotalEnergyDelete
 
 !! Read from file
 function TotalEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='TotalEnergyRead') &
-      result(success)
+      bind(C, name='TotalEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TotalEnergyRead
 end function TotalEnergyRead
 
 !! Write to file
 function TotalEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='TotalEnergyWrite') &
-      result(success)
+      bind(C, name='TotalEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TotalEnergyWrite
 end function TotalEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function TotalEnergyPrint(handle) &
-      bind(C, name='TotalEnergyPrint') &
-      result(success)
+      bind(C, name='TotalEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TotalEnergyPrint
 end function TotalEnergyPrint
 
 !! Print to standard output, as XML
 function TotalEnergyPrintXML(handle) &
-      bind(C, name='TotalEnergyPrintXML') &
-      result(success)
+      bind(C, name='TotalEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TotalEnergyPrintXML
 end function TotalEnergyPrintXML
 
 !! Print to standard output, as JSON
 function TotalEnergyPrintJSON(handle) &
-      bind(C, name='TotalEnergyPrintJSON') &
-      result(success)
+      bind(C, name='TotalEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TotalEnergyPrintJSON
 end function TotalEnergyPrintJSON
 
 
@@ -138,32 +129,29 @@ end function TotalEnergyPrintJSON
 
 !! Has
 function TotalEnergyPolynomial1dHas(handle) &
-      bind(C, name='TotalEnergyPolynomial1dHas') &
-      result(has)
+      bind(C, name='TotalEnergyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TotalEnergyPolynomial1dHas
 end function TotalEnergyPolynomial1dHas
 
 !! Get, const
 function TotalEnergyPolynomial1dGetConst(handle) &
-      bind(C, name='TotalEnergyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='TotalEnergyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TotalEnergyPolynomial1dGetConst
 end function TotalEnergyPolynomial1dGetConst
 
 !! Get
 function TotalEnergyPolynomial1dGet(handle) &
-      bind(C, name='TotalEnergyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='TotalEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TotalEnergyPolynomial1dGet
 end function TotalEnergyPolynomial1dGet
 
 !! Set

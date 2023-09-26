@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ThermalNeutronScatteringLaw1dDefaultConst() &
-      bind(C, name='ThermalNeutronScatteringLaw1dDefaultConst') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw1dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw1dDefaultConst
 end function ThermalNeutronScatteringLaw1dDefaultConst
 
 !! Create, default
 function ThermalNeutronScatteringLaw1dDefault() &
-      bind(C, name='ThermalNeutronScatteringLaw1dDefault') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw1dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw1dDefault
 end function ThermalNeutronScatteringLaw1dDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ThermalNeutronScatteringLaw1dCreateConst( &
    labelSize, &
    hrefSize &
 ) &
-      bind(C, name='ThermalNeutronScatteringLaw1dCreateConst') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw1dCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw1dCreateConst
 end function ThermalNeutronScatteringLaw1dCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ThermalNeutronScatteringLaw1dCreate( &
    labelSize, &
    hrefSize &
 ) &
-      bind(C, name='ThermalNeutronScatteringLaw1dCreate') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw1dCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw1dCreate
 end function ThermalNeutronScatteringLaw1dCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ThermalNeutronScatteringLaw1dDelete
 
 !! Read from file
 function ThermalNeutronScatteringLaw1dRead(handle, filename, filenameSize) &
-      bind(C, name='ThermalNeutronScatteringLaw1dRead') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw1dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw1dRead
 end function ThermalNeutronScatteringLaw1dRead
 
 !! Write to file
 function ThermalNeutronScatteringLaw1dWrite(handle, filename, filenameSize) &
-      bind(C, name='ThermalNeutronScatteringLaw1dWrite') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw1dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw1dWrite
 end function ThermalNeutronScatteringLaw1dWrite
 
 !! Print to standard output, in our prettyprinting format
 function ThermalNeutronScatteringLaw1dPrint(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dPrint') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw1dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw1dPrint
 end function ThermalNeutronScatteringLaw1dPrint
 
 !! Print to standard output, as XML
 function ThermalNeutronScatteringLaw1dPrintXML(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dPrintXML') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw1dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw1dPrintXML
 end function ThermalNeutronScatteringLaw1dPrintXML
 
 !! Print to standard output, as JSON
 function ThermalNeutronScatteringLaw1dPrintJSON(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dPrintJSON') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw1dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw1dPrintJSON
 end function ThermalNeutronScatteringLaw1dPrintJSON
 
 
@@ -150,22 +141,20 @@ end function ThermalNeutronScatteringLaw1dPrintJSON
 
 !! Has
 function ThermalNeutronScatteringLaw1dLabelHas(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dLabelHas') &
-      result(has)
+      bind(C, name='ThermalNeutronScatteringLaw1dLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThermalNeutronScatteringLaw1dLabelHas
 end function ThermalNeutronScatteringLaw1dLabelHas
 
 !! Get
 function ThermalNeutronScatteringLaw1dLabelGet(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dLabelGet') &
-      result(label)
+      bind(C, name='ThermalNeutronScatteringLaw1dLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ThermalNeutronScatteringLaw1dLabelGet
 end function ThermalNeutronScatteringLaw1dLabelGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine ThermalNeutronScatteringLaw1dLabelSet
 
 !! Has
 function ThermalNeutronScatteringLaw1dHrefHas(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dHrefHas') &
-      result(has)
+      bind(C, name='ThermalNeutronScatteringLaw1dHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThermalNeutronScatteringLaw1dHrefHas
 end function ThermalNeutronScatteringLaw1dHrefHas
 
 !! Get
 function ThermalNeutronScatteringLaw1dHrefGet(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw1dHrefGet') &
-      result(href)
+      bind(C, name='ThermalNeutronScatteringLaw1dHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: ThermalNeutronScatteringLaw1dHrefGet
 end function ThermalNeutronScatteringLaw1dHrefGet
 
 !! Set

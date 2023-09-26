@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function PromptProductKEDefaultConst() &
-      bind(C, name='PromptProductKEDefaultConst') &
-      result(handle)
+      bind(C, name='PromptProductKEDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptProductKEDefaultConst
 end function PromptProductKEDefaultConst
 
 !! Create, default
 function PromptProductKEDefault() &
-      bind(C, name='PromptProductKEDefault') &
-      result(handle)
+      bind(C, name='PromptProductKEDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptProductKEDefault
 end function PromptProductKEDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function PromptProductKECreateConst( &
    polynomial1d, &
    XYs1d &
 ) &
-      bind(C, name='PromptProductKECreateConst') &
-      result(handle)
+      bind(C, name='PromptProductKECreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptProductKECreateConst
 end function PromptProductKECreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function PromptProductKECreate( &
    polynomial1d, &
    XYs1d &
 ) &
-      bind(C, name='PromptProductKECreate') &
-      result(handle)
+      bind(C, name='PromptProductKECreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptProductKECreate
 end function PromptProductKECreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine PromptProductKEDelete
 
 !! Read from file
 function PromptProductKERead(handle, filename, filenameSize) &
-      bind(C, name='PromptProductKERead') &
-      result(success)
+      bind(C, name='PromptProductKERead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PromptProductKERead
 end function PromptProductKERead
 
 !! Write to file
 function PromptProductKEWrite(handle, filename, filenameSize) &
-      bind(C, name='PromptProductKEWrite') &
-      result(success)
+      bind(C, name='PromptProductKEWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PromptProductKEWrite
 end function PromptProductKEWrite
 
 !! Print to standard output, in our prettyprinting format
 function PromptProductKEPrint(handle) &
-      bind(C, name='PromptProductKEPrint') &
-      result(success)
+      bind(C, name='PromptProductKEPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PromptProductKEPrint
 end function PromptProductKEPrint
 
 !! Print to standard output, as XML
 function PromptProductKEPrintXML(handle) &
-      bind(C, name='PromptProductKEPrintXML') &
-      result(success)
+      bind(C, name='PromptProductKEPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PromptProductKEPrintXML
 end function PromptProductKEPrintXML
 
 !! Print to standard output, as JSON
 function PromptProductKEPrintJSON(handle) &
-      bind(C, name='PromptProductKEPrintJSON') &
-      result(success)
+      bind(C, name='PromptProductKEPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PromptProductKEPrintJSON
 end function PromptProductKEPrintJSON
 
 
@@ -142,32 +133,29 @@ end function PromptProductKEPrintJSON
 
 !! Has
 function PromptProductKEPolynomial1dHas(handle) &
-      bind(C, name='PromptProductKEPolynomial1dHas') &
-      result(has)
+      bind(C, name='PromptProductKEPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PromptProductKEPolynomial1dHas
 end function PromptProductKEPolynomial1dHas
 
 !! Get, const
 function PromptProductKEPolynomial1dGetConst(handle) &
-      bind(C, name='PromptProductKEPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='PromptProductKEPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptProductKEPolynomial1dGetConst
 end function PromptProductKEPolynomial1dGetConst
 
 !! Get
 function PromptProductKEPolynomial1dGet(handle) &
-      bind(C, name='PromptProductKEPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='PromptProductKEPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptProductKEPolynomial1dGet
 end function PromptProductKEPolynomial1dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine PromptProductKEPolynomial1dSet
 
 !! Has
 function PromptProductKEXYs1dHas(handle) &
-      bind(C, name='PromptProductKEXYs1dHas') &
-      result(has)
+      bind(C, name='PromptProductKEXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PromptProductKEXYs1dHas
 end function PromptProductKEXYs1dHas
 
 !! Get, const
 function PromptProductKEXYs1dGetConst(handle) &
-      bind(C, name='PromptProductKEXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='PromptProductKEXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptProductKEXYs1dGetConst
 end function PromptProductKEXYs1dGetConst
 
 !! Get
 function PromptProductKEXYs1dGet(handle) &
-      bind(C, name='PromptProductKEXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='PromptProductKEXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptProductKEXYs1dGet
 end function PromptProductKEXYs1dGet
 
 !! Set

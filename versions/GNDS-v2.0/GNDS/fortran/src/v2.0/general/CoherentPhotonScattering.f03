@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CoherentPhotonScatteringDefaultConst() &
-      bind(C, name='CoherentPhotonScatteringDefaultConst') &
-      result(handle)
+      bind(C, name='CoherentPhotonScatteringDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoherentPhotonScatteringDefaultConst
 end function CoherentPhotonScatteringDefaultConst
 
 !! Create, default
 function CoherentPhotonScatteringDefault() &
-      bind(C, name='CoherentPhotonScatteringDefault') &
-      result(handle)
+      bind(C, name='CoherentPhotonScatteringDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoherentPhotonScatteringDefault
 end function CoherentPhotonScatteringDefault
 
 !! Create, general, const
@@ -44,8 +42,7 @@ function CoherentPhotonScatteringCreateConst( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='CoherentPhotonScatteringCreateConst') &
-      result(handle)
+      bind(C, name='CoherentPhotonScatteringCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -59,7 +56,7 @@ function CoherentPhotonScatteringCreateConst( &
    type(c_ptr), value :: formFactor
    type(c_ptr), value :: realAnomalousFactor
    type(c_ptr), value :: imaginaryAnomalousFactor
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoherentPhotonScatteringCreateConst
 end function CoherentPhotonScatteringCreateConst
 
 !! Create, general
@@ -76,8 +73,7 @@ function CoherentPhotonScatteringCreate( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='CoherentPhotonScatteringCreate') &
-      result(handle)
+      bind(C, name='CoherentPhotonScatteringCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -91,7 +87,7 @@ function CoherentPhotonScatteringCreate( &
    type(c_ptr), value :: formFactor
    type(c_ptr), value :: realAnomalousFactor
    type(c_ptr), value :: imaginaryAnomalousFactor
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoherentPhotonScatteringCreate
 end function CoherentPhotonScatteringCreate
 
 !! Assign
@@ -119,56 +115,51 @@ end subroutine CoherentPhotonScatteringDelete
 
 !! Read from file
 function CoherentPhotonScatteringRead(handle, filename, filenameSize) &
-      bind(C, name='CoherentPhotonScatteringRead') &
-      result(success)
+      bind(C, name='CoherentPhotonScatteringRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CoherentPhotonScatteringRead
 end function CoherentPhotonScatteringRead
 
 !! Write to file
 function CoherentPhotonScatteringWrite(handle, filename, filenameSize) &
-      bind(C, name='CoherentPhotonScatteringWrite') &
-      result(success)
+      bind(C, name='CoherentPhotonScatteringWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CoherentPhotonScatteringWrite
 end function CoherentPhotonScatteringWrite
 
 !! Print to standard output, in our prettyprinting format
 function CoherentPhotonScatteringPrint(handle) &
-      bind(C, name='CoherentPhotonScatteringPrint') &
-      result(success)
+      bind(C, name='CoherentPhotonScatteringPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CoherentPhotonScatteringPrint
 end function CoherentPhotonScatteringPrint
 
 !! Print to standard output, as XML
 function CoherentPhotonScatteringPrintXML(handle) &
-      bind(C, name='CoherentPhotonScatteringPrintXML') &
-      result(success)
+      bind(C, name='CoherentPhotonScatteringPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CoherentPhotonScatteringPrintXML
 end function CoherentPhotonScatteringPrintXML
 
 !! Print to standard output, as JSON
 function CoherentPhotonScatteringPrintJSON(handle) &
-      bind(C, name='CoherentPhotonScatteringPrintJSON') &
-      result(success)
+      bind(C, name='CoherentPhotonScatteringPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CoherentPhotonScatteringPrintJSON
 end function CoherentPhotonScatteringPrintJSON
 
 
@@ -178,22 +169,20 @@ end function CoherentPhotonScatteringPrintJSON
 
 !! Has
 function CoherentPhotonScatteringLabelHas(handle) &
-      bind(C, name='CoherentPhotonScatteringLabelHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringLabelHas
 end function CoherentPhotonScatteringLabelHas
 
 !! Get
 function CoherentPhotonScatteringLabelGet(handle) &
-      bind(C, name='CoherentPhotonScatteringLabelGet') &
-      result(label)
+      bind(C, name='CoherentPhotonScatteringLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: CoherentPhotonScatteringLabelGet
 end function CoherentPhotonScatteringLabelGet
 
 !! Set
@@ -213,22 +202,20 @@ end subroutine CoherentPhotonScatteringLabelSet
 
 !! Has
 function CoherentPhotonScatteringHrefHas(handle) &
-      bind(C, name='CoherentPhotonScatteringHrefHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringHrefHas
 end function CoherentPhotonScatteringHrefHas
 
 !! Get
 function CoherentPhotonScatteringHrefGet(handle) &
-      bind(C, name='CoherentPhotonScatteringHrefGet') &
-      result(href)
+      bind(C, name='CoherentPhotonScatteringHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: CoherentPhotonScatteringHrefGet
 end function CoherentPhotonScatteringHrefGet
 
 !! Set
@@ -248,22 +235,20 @@ end subroutine CoherentPhotonScatteringHrefSet
 
 !! Has
 function CoherentPhotonScatteringPidHas(handle) &
-      bind(C, name='CoherentPhotonScatteringPidHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringPidHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringPidHas
 end function CoherentPhotonScatteringPidHas
 
 !! Get
 function CoherentPhotonScatteringPidGet(handle) &
-      bind(C, name='CoherentPhotonScatteringPidGet') &
-      result(pid)
+      bind(C, name='CoherentPhotonScatteringPidGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: pid
+   type(c_ptr) :: CoherentPhotonScatteringPidGet
 end function CoherentPhotonScatteringPidGet
 
 !! Set
@@ -283,22 +268,20 @@ end subroutine CoherentPhotonScatteringPidSet
 
 !! Has
 function CoherentPhotonScatteringProductFrameHas(handle) &
-      bind(C, name='CoherentPhotonScatteringProductFrameHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringProductFrameHas
 end function CoherentPhotonScatteringProductFrameHas
 
 !! Get
 function CoherentPhotonScatteringProductFrameGet(handle) &
-      bind(C, name='CoherentPhotonScatteringProductFrameGet') &
-      result(productFrame)
+      bind(C, name='CoherentPhotonScatteringProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: CoherentPhotonScatteringProductFrameGet
 end function CoherentPhotonScatteringProductFrameGet
 
 !! Set
@@ -318,32 +301,29 @@ end subroutine CoherentPhotonScatteringProductFrameSet
 
 !! Has
 function CoherentPhotonScatteringFormFactorHas(handle) &
-      bind(C, name='CoherentPhotonScatteringFormFactorHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringFormFactorHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringFormFactorHas
 end function CoherentPhotonScatteringFormFactorHas
 
 !! Get, const
 function CoherentPhotonScatteringFormFactorGetConst(handle) &
-      bind(C, name='CoherentPhotonScatteringFormFactorGetConst') &
-      result(resultHandle)
+      bind(C, name='CoherentPhotonScatteringFormFactorGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoherentPhotonScatteringFormFactorGetConst
 end function CoherentPhotonScatteringFormFactorGetConst
 
 !! Get
 function CoherentPhotonScatteringFormFactorGet(handle) &
-      bind(C, name='CoherentPhotonScatteringFormFactorGet') &
-      result(resultHandle)
+      bind(C, name='CoherentPhotonScatteringFormFactorGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoherentPhotonScatteringFormFactorGet
 end function CoherentPhotonScatteringFormFactorGet
 
 !! Set
@@ -362,32 +342,29 @@ end subroutine CoherentPhotonScatteringFormFactorSet
 
 !! Has
 function CoherentPhotonScatteringRealAnomalousFactorHas(handle) &
-      bind(C, name='CoherentPhotonScatteringRealAnomalousFactorHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringRealAnomalousFactorHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringRealAnomalousFactorHas
 end function CoherentPhotonScatteringRealAnomalousFactorHas
 
 !! Get, const
 function CoherentPhotonScatteringRealAnomalousFactorGetConst(handle) &
-      bind(C, name='CoherentPhotonScatteringRealAnomalousFactorGetConst') &
-      result(resultHandle)
+      bind(C, name='CoherentPhotonScatteringRealAnomalousFactorGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoherentPhotonScatteringRealAnomalousFactorGetConst
 end function CoherentPhotonScatteringRealAnomalousFactorGetConst
 
 !! Get
 function CoherentPhotonScatteringRealAnomalousFactorGet(handle) &
-      bind(C, name='CoherentPhotonScatteringRealAnomalousFactorGet') &
-      result(resultHandle)
+      bind(C, name='CoherentPhotonScatteringRealAnomalousFactorGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoherentPhotonScatteringRealAnomalousFactorGet
 end function CoherentPhotonScatteringRealAnomalousFactorGet
 
 !! Set
@@ -406,32 +383,29 @@ end subroutine CoherentPhotonScatteringRealAnomalousFactorSet
 
 !! Has
 function CoherentPhotonScatteringImaginaryAnomalousFactorHas(handle) &
-      bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorHas') &
-      result(has)
+      bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoherentPhotonScatteringImaginaryAnomalousFactorHas
 end function CoherentPhotonScatteringImaginaryAnomalousFactorHas
 
 !! Get, const
 function CoherentPhotonScatteringImaginaryAnomalousFactorGetConst(handle) &
-      bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorGetConst') &
-      result(resultHandle)
+      bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoherentPhotonScatteringImaginaryAnomalousFactorGetConst
 end function CoherentPhotonScatteringImaginaryAnomalousFactorGetConst
 
 !! Get
 function CoherentPhotonScatteringImaginaryAnomalousFactorGet(handle) &
-      bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorGet') &
-      result(resultHandle)
+      bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoherentPhotonScatteringImaginaryAnomalousFactorGet
 end function CoherentPhotonScatteringImaginaryAnomalousFactorGet
 
 !! Set

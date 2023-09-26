@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function EnergyDefaultConst() &
-      bind(C, name='EnergyDefaultConst') &
-      result(handle)
+      bind(C, name='EnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyDefaultConst
 end function EnergyDefaultConst
 
 !! Create, default
 function EnergyDefault() &
-      bind(C, name='EnergyDefault') &
-      result(handle)
+      bind(C, name='EnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyDefault
 end function EnergyDefault
 
 !! Create, general, const
@@ -47,8 +45,7 @@ function EnergyCreateConst( &
    MadlandNix, &
    unitSize &
 ) &
-      bind(C, name='EnergyCreateConst') &
-      result(handle)
+      bind(C, name='EnergyCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
@@ -65,7 +62,7 @@ function EnergyCreateConst( &
    type(c_ptr), value :: weightedFunctionals
    type(c_ptr), value :: simpleMaxwellianFission
    type(c_ptr), value :: MadlandNix
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyCreateConst
 end function EnergyCreateConst
 
 !! Create, general
@@ -85,8 +82,7 @@ function EnergyCreate( &
    MadlandNix, &
    unitSize &
 ) &
-      bind(C, name='EnergyCreate') &
-      result(handle)
+      bind(C, name='EnergyCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
@@ -103,7 +99,7 @@ function EnergyCreate( &
    type(c_ptr), value :: weightedFunctionals
    type(c_ptr), value :: simpleMaxwellianFission
    type(c_ptr), value :: MadlandNix
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyCreate
 end function EnergyCreate
 
 !! Assign
@@ -131,56 +127,51 @@ end subroutine EnergyDelete
 
 !! Read from file
 function EnergyRead(handle, filename, filenameSize) &
-      bind(C, name='EnergyRead') &
-      result(success)
+      bind(C, name='EnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EnergyRead
 end function EnergyRead
 
 !! Write to file
 function EnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='EnergyWrite') &
-      result(success)
+      bind(C, name='EnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EnergyWrite
 end function EnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function EnergyPrint(handle) &
-      bind(C, name='EnergyPrint') &
-      result(success)
+      bind(C, name='EnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EnergyPrint
 end function EnergyPrint
 
 !! Print to standard output, as XML
 function EnergyPrintXML(handle) &
-      bind(C, name='EnergyPrintXML') &
-      result(success)
+      bind(C, name='EnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EnergyPrintXML
 end function EnergyPrintXML
 
 !! Print to standard output, as JSON
 function EnergyPrintJSON(handle) &
-      bind(C, name='EnergyPrintJSON') &
-      result(success)
+      bind(C, name='EnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EnergyPrintJSON
 end function EnergyPrintJSON
 
 
@@ -190,22 +181,20 @@ end function EnergyPrintJSON
 
 !! Has
 function EnergyValueHas(handle) &
-      bind(C, name='EnergyValueHas') &
-      result(has)
+      bind(C, name='EnergyValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyValueHas
 end function EnergyValueHas
 
 !! Get
 function EnergyValueGet(handle) &
-      bind(C, name='EnergyValueGet') &
-      result(value)
+      bind(C, name='EnergyValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: EnergyValueGet
 end function EnergyValueGet
 
 !! Set
@@ -225,22 +214,20 @@ end subroutine EnergyValueSet
 
 !! Has
 function EnergyUnitHas(handle) &
-      bind(C, name='EnergyUnitHas') &
-      result(has)
+      bind(C, name='EnergyUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyUnitHas
 end function EnergyUnitHas
 
 !! Get
 function EnergyUnitGet(handle) &
-      bind(C, name='EnergyUnitGet') &
-      result(unit)
+      bind(C, name='EnergyUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: EnergyUnitGet
 end function EnergyUnitGet
 
 !! Set
@@ -260,32 +247,29 @@ end subroutine EnergyUnitSet
 
 !! Has
 function EnergyDoubleHas(handle) &
-      bind(C, name='EnergyDoubleHas') &
-      result(has)
+      bind(C, name='EnergyDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyDoubleHas
 end function EnergyDoubleHas
 
 !! Get, const
 function EnergyDoubleGetConst(handle) &
-      bind(C, name='EnergyDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyDoubleGetConst
 end function EnergyDoubleGetConst
 
 !! Get
 function EnergyDoubleGet(handle) &
-      bind(C, name='EnergyDoubleGet') &
-      result(resultHandle)
+      bind(C, name='EnergyDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyDoubleGet
 end function EnergyDoubleGet
 
 !! Set
@@ -304,32 +288,29 @@ end subroutine EnergyDoubleSet
 
 !! Has
 function EnergyUncertaintyHas(handle) &
-      bind(C, name='EnergyUncertaintyHas') &
-      result(has)
+      bind(C, name='EnergyUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyUncertaintyHas
 end function EnergyUncertaintyHas
 
 !! Get, const
 function EnergyUncertaintyGetConst(handle) &
-      bind(C, name='EnergyUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyUncertaintyGetConst
 end function EnergyUncertaintyGetConst
 
 !! Get
 function EnergyUncertaintyGet(handle) &
-      bind(C, name='EnergyUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='EnergyUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyUncertaintyGet
 end function EnergyUncertaintyGet
 
 !! Set
@@ -348,32 +329,29 @@ end subroutine EnergyUncertaintySet
 
 !! Has
 function EnergyNBodyPhaseSpaceHas(handle) &
-      bind(C, name='EnergyNBodyPhaseSpaceHas') &
-      result(has)
+      bind(C, name='EnergyNBodyPhaseSpaceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyNBodyPhaseSpaceHas
 end function EnergyNBodyPhaseSpaceHas
 
 !! Get, const
 function EnergyNBodyPhaseSpaceGetConst(handle) &
-      bind(C, name='EnergyNBodyPhaseSpaceGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyNBodyPhaseSpaceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyNBodyPhaseSpaceGetConst
 end function EnergyNBodyPhaseSpaceGetConst
 
 !! Get
 function EnergyNBodyPhaseSpaceGet(handle) &
-      bind(C, name='EnergyNBodyPhaseSpaceGet') &
-      result(resultHandle)
+      bind(C, name='EnergyNBodyPhaseSpaceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyNBodyPhaseSpaceGet
 end function EnergyNBodyPhaseSpaceGet
 
 !! Set
@@ -392,32 +370,29 @@ end subroutine EnergyNBodyPhaseSpaceSet
 
 !! Has
 function EnergyPrimaryGammaHas(handle) &
-      bind(C, name='EnergyPrimaryGammaHas') &
-      result(has)
+      bind(C, name='EnergyPrimaryGammaHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyPrimaryGammaHas
 end function EnergyPrimaryGammaHas
 
 !! Get, const
 function EnergyPrimaryGammaGetConst(handle) &
-      bind(C, name='EnergyPrimaryGammaGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyPrimaryGammaGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyPrimaryGammaGetConst
 end function EnergyPrimaryGammaGetConst
 
 !! Get
 function EnergyPrimaryGammaGet(handle) &
-      bind(C, name='EnergyPrimaryGammaGet') &
-      result(resultHandle)
+      bind(C, name='EnergyPrimaryGammaGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyPrimaryGammaGet
 end function EnergyPrimaryGammaGet
 
 !! Set
@@ -436,32 +411,29 @@ end subroutine EnergyPrimaryGammaSet
 
 !! Has
 function EnergyDiscreteGammaHas(handle) &
-      bind(C, name='EnergyDiscreteGammaHas') &
-      result(has)
+      bind(C, name='EnergyDiscreteGammaHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyDiscreteGammaHas
 end function EnergyDiscreteGammaHas
 
 !! Get, const
 function EnergyDiscreteGammaGetConst(handle) &
-      bind(C, name='EnergyDiscreteGammaGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyDiscreteGammaGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyDiscreteGammaGetConst
 end function EnergyDiscreteGammaGetConst
 
 !! Get
 function EnergyDiscreteGammaGet(handle) &
-      bind(C, name='EnergyDiscreteGammaGet') &
-      result(resultHandle)
+      bind(C, name='EnergyDiscreteGammaGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyDiscreteGammaGet
 end function EnergyDiscreteGammaGet
 
 !! Set
@@ -480,32 +452,29 @@ end subroutine EnergyDiscreteGammaSet
 
 !! Has
 function EnergyXYs2dHas(handle) &
-      bind(C, name='EnergyXYs2dHas') &
-      result(has)
+      bind(C, name='EnergyXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyXYs2dHas
 end function EnergyXYs2dHas
 
 !! Get, const
 function EnergyXYs2dGetConst(handle) &
-      bind(C, name='EnergyXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyXYs2dGetConst
 end function EnergyXYs2dGetConst
 
 !! Get
 function EnergyXYs2dGet(handle) &
-      bind(C, name='EnergyXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='EnergyXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyXYs2dGet
 end function EnergyXYs2dGet
 
 !! Set
@@ -524,32 +493,29 @@ end subroutine EnergyXYs2dSet
 
 !! Has
 function EnergyGeneralEvaporationHas(handle) &
-      bind(C, name='EnergyGeneralEvaporationHas') &
-      result(has)
+      bind(C, name='EnergyGeneralEvaporationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyGeneralEvaporationHas
 end function EnergyGeneralEvaporationHas
 
 !! Get, const
 function EnergyGeneralEvaporationGetConst(handle) &
-      bind(C, name='EnergyGeneralEvaporationGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyGeneralEvaporationGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyGeneralEvaporationGetConst
 end function EnergyGeneralEvaporationGetConst
 
 !! Get
 function EnergyGeneralEvaporationGet(handle) &
-      bind(C, name='EnergyGeneralEvaporationGet') &
-      result(resultHandle)
+      bind(C, name='EnergyGeneralEvaporationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyGeneralEvaporationGet
 end function EnergyGeneralEvaporationGet
 
 !! Set
@@ -568,32 +534,29 @@ end subroutine EnergyGeneralEvaporationSet
 
 !! Has
 function EnergyEvaporationHas(handle) &
-      bind(C, name='EnergyEvaporationHas') &
-      result(has)
+      bind(C, name='EnergyEvaporationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyEvaporationHas
 end function EnergyEvaporationHas
 
 !! Get, const
 function EnergyEvaporationGetConst(handle) &
-      bind(C, name='EnergyEvaporationGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyEvaporationGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyEvaporationGetConst
 end function EnergyEvaporationGetConst
 
 !! Get
 function EnergyEvaporationGet(handle) &
-      bind(C, name='EnergyEvaporationGet') &
-      result(resultHandle)
+      bind(C, name='EnergyEvaporationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyEvaporationGet
 end function EnergyEvaporationGet
 
 !! Set
@@ -612,32 +575,29 @@ end subroutine EnergyEvaporationSet
 
 !! Has
 function EnergyWeightedFunctionalsHas(handle) &
-      bind(C, name='EnergyWeightedFunctionalsHas') &
-      result(has)
+      bind(C, name='EnergyWeightedFunctionalsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyWeightedFunctionalsHas
 end function EnergyWeightedFunctionalsHas
 
 !! Get, const
 function EnergyWeightedFunctionalsGetConst(handle) &
-      bind(C, name='EnergyWeightedFunctionalsGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyWeightedFunctionalsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyWeightedFunctionalsGetConst
 end function EnergyWeightedFunctionalsGetConst
 
 !! Get
 function EnergyWeightedFunctionalsGet(handle) &
-      bind(C, name='EnergyWeightedFunctionalsGet') &
-      result(resultHandle)
+      bind(C, name='EnergyWeightedFunctionalsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyWeightedFunctionalsGet
 end function EnergyWeightedFunctionalsGet
 
 !! Set
@@ -656,32 +616,29 @@ end subroutine EnergyWeightedFunctionalsSet
 
 !! Has
 function EnergySimpleMaxwellianFissionHas(handle) &
-      bind(C, name='EnergySimpleMaxwellianFissionHas') &
-      result(has)
+      bind(C, name='EnergySimpleMaxwellianFissionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergySimpleMaxwellianFissionHas
 end function EnergySimpleMaxwellianFissionHas
 
 !! Get, const
 function EnergySimpleMaxwellianFissionGetConst(handle) &
-      bind(C, name='EnergySimpleMaxwellianFissionGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergySimpleMaxwellianFissionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergySimpleMaxwellianFissionGetConst
 end function EnergySimpleMaxwellianFissionGetConst
 
 !! Get
 function EnergySimpleMaxwellianFissionGet(handle) &
-      bind(C, name='EnergySimpleMaxwellianFissionGet') &
-      result(resultHandle)
+      bind(C, name='EnergySimpleMaxwellianFissionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergySimpleMaxwellianFissionGet
 end function EnergySimpleMaxwellianFissionGet
 
 !! Set
@@ -700,32 +657,29 @@ end subroutine EnergySimpleMaxwellianFissionSet
 
 !! Has
 function EnergyMadlandNixHas(handle) &
-      bind(C, name='EnergyMadlandNixHas') &
-      result(has)
+      bind(C, name='EnergyMadlandNixHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyMadlandNixHas
 end function EnergyMadlandNixHas
 
 !! Get, const
 function EnergyMadlandNixGetConst(handle) &
-      bind(C, name='EnergyMadlandNixGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyMadlandNixGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyMadlandNixGetConst
 end function EnergyMadlandNixGetConst
 
 !! Get
 function EnergyMadlandNixGet(handle) &
-      bind(C, name='EnergyMadlandNixGet') &
-      result(resultHandle)
+      bind(C, name='EnergyMadlandNixGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyMadlandNixGet
 end function EnergyMadlandNixGet
 
 !! Set

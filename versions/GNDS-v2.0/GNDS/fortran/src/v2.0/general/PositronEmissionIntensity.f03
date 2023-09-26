@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function PositronEmissionIntensityDefaultConst() &
-      bind(C, name='PositronEmissionIntensityDefaultConst') &
-      result(handle)
+      bind(C, name='PositronEmissionIntensityDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PositronEmissionIntensityDefaultConst
 end function PositronEmissionIntensityDefaultConst
 
 !! Create, default
 function PositronEmissionIntensityDefault() &
-      bind(C, name='PositronEmissionIntensityDefault') &
-      result(handle)
+      bind(C, name='PositronEmissionIntensityDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PositronEmissionIntensityDefault
 end function PositronEmissionIntensityDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function PositronEmissionIntensityCreateConst( &
    value, &
    uncertainty &
 ) &
-      bind(C, name='PositronEmissionIntensityCreateConst') &
-      result(handle)
+      bind(C, name='PositronEmissionIntensityCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: PositronEmissionIntensityCreateConst
 end function PositronEmissionIntensityCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function PositronEmissionIntensityCreate( &
    value, &
    uncertainty &
 ) &
-      bind(C, name='PositronEmissionIntensityCreate') &
-      result(handle)
+      bind(C, name='PositronEmissionIntensityCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: PositronEmissionIntensityCreate
 end function PositronEmissionIntensityCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine PositronEmissionIntensityDelete
 
 !! Read from file
 function PositronEmissionIntensityRead(handle, filename, filenameSize) &
-      bind(C, name='PositronEmissionIntensityRead') &
-      result(success)
+      bind(C, name='PositronEmissionIntensityRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PositronEmissionIntensityRead
 end function PositronEmissionIntensityRead
 
 !! Write to file
 function PositronEmissionIntensityWrite(handle, filename, filenameSize) &
-      bind(C, name='PositronEmissionIntensityWrite') &
-      result(success)
+      bind(C, name='PositronEmissionIntensityWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PositronEmissionIntensityWrite
 end function PositronEmissionIntensityWrite
 
 !! Print to standard output, in our prettyprinting format
 function PositronEmissionIntensityPrint(handle) &
-      bind(C, name='PositronEmissionIntensityPrint') &
-      result(success)
+      bind(C, name='PositronEmissionIntensityPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PositronEmissionIntensityPrint
 end function PositronEmissionIntensityPrint
 
 !! Print to standard output, as XML
 function PositronEmissionIntensityPrintXML(handle) &
-      bind(C, name='PositronEmissionIntensityPrintXML') &
-      result(success)
+      bind(C, name='PositronEmissionIntensityPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PositronEmissionIntensityPrintXML
 end function PositronEmissionIntensityPrintXML
 
 !! Print to standard output, as JSON
 function PositronEmissionIntensityPrintJSON(handle) &
-      bind(C, name='PositronEmissionIntensityPrintJSON') &
-      result(success)
+      bind(C, name='PositronEmissionIntensityPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PositronEmissionIntensityPrintJSON
 end function PositronEmissionIntensityPrintJSON
 
 
@@ -142,22 +133,20 @@ end function PositronEmissionIntensityPrintJSON
 
 !! Has
 function PositronEmissionIntensityValueHas(handle) &
-      bind(C, name='PositronEmissionIntensityValueHas') &
-      result(has)
+      bind(C, name='PositronEmissionIntensityValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PositronEmissionIntensityValueHas
 end function PositronEmissionIntensityValueHas
 
 !! Get
 function PositronEmissionIntensityValueGet(handle) &
-      bind(C, name='PositronEmissionIntensityValueGet') &
-      result(value)
+      bind(C, name='PositronEmissionIntensityValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: PositronEmissionIntensityValueGet
 end function PositronEmissionIntensityValueGet
 
 !! Set
@@ -177,32 +166,29 @@ end subroutine PositronEmissionIntensityValueSet
 
 !! Has
 function PositronEmissionIntensityUncertaintyHas(handle) &
-      bind(C, name='PositronEmissionIntensityUncertaintyHas') &
-      result(has)
+      bind(C, name='PositronEmissionIntensityUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PositronEmissionIntensityUncertaintyHas
 end function PositronEmissionIntensityUncertaintyHas
 
 !! Get, const
 function PositronEmissionIntensityUncertaintyGetConst(handle) &
-      bind(C, name='PositronEmissionIntensityUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='PositronEmissionIntensityUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PositronEmissionIntensityUncertaintyGetConst
 end function PositronEmissionIntensityUncertaintyGetConst
 
 !! Get
 function PositronEmissionIntensityUncertaintyGet(handle) &
-      bind(C, name='PositronEmissionIntensityUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='PositronEmissionIntensityUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PositronEmissionIntensityUncertaintyGet
 end function PositronEmissionIntensityUncertaintyGet
 
 !! Set

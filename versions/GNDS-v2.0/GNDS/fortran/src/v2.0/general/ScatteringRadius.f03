@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ScatteringRadiusDefaultConst() &
-      bind(C, name='ScatteringRadiusDefaultConst') &
-      result(handle)
+      bind(C, name='ScatteringRadiusDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringRadiusDefaultConst
 end function ScatteringRadiusDefaultConst
 
 !! Create, default
 function ScatteringRadiusDefault() &
-      bind(C, name='ScatteringRadiusDefault') &
-      result(handle)
+      bind(C, name='ScatteringRadiusDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringRadiusDefault
 end function ScatteringRadiusDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function ScatteringRadiusCreateConst( &
    constant1d, &
    XYs1d &
 ) &
-      bind(C, name='ScatteringRadiusCreateConst') &
-      result(handle)
+      bind(C, name='ScatteringRadiusCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: constant1d
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringRadiusCreateConst
 end function ScatteringRadiusCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function ScatteringRadiusCreate( &
    constant1d, &
    XYs1d &
 ) &
-      bind(C, name='ScatteringRadiusCreate') &
-      result(handle)
+      bind(C, name='ScatteringRadiusCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: constant1d
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringRadiusCreate
 end function ScatteringRadiusCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine ScatteringRadiusDelete
 
 !! Read from file
 function ScatteringRadiusRead(handle, filename, filenameSize) &
-      bind(C, name='ScatteringRadiusRead') &
-      result(success)
+      bind(C, name='ScatteringRadiusRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringRadiusRead
 end function ScatteringRadiusRead
 
 !! Write to file
 function ScatteringRadiusWrite(handle, filename, filenameSize) &
-      bind(C, name='ScatteringRadiusWrite') &
-      result(success)
+      bind(C, name='ScatteringRadiusWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringRadiusWrite
 end function ScatteringRadiusWrite
 
 !! Print to standard output, in our prettyprinting format
 function ScatteringRadiusPrint(handle) &
-      bind(C, name='ScatteringRadiusPrint') &
-      result(success)
+      bind(C, name='ScatteringRadiusPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringRadiusPrint
 end function ScatteringRadiusPrint
 
 !! Print to standard output, as XML
 function ScatteringRadiusPrintXML(handle) &
-      bind(C, name='ScatteringRadiusPrintXML') &
-      result(success)
+      bind(C, name='ScatteringRadiusPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringRadiusPrintXML
 end function ScatteringRadiusPrintXML
 
 !! Print to standard output, as JSON
 function ScatteringRadiusPrintJSON(handle) &
-      bind(C, name='ScatteringRadiusPrintJSON') &
-      result(success)
+      bind(C, name='ScatteringRadiusPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringRadiusPrintJSON
 end function ScatteringRadiusPrintJSON
 
 
@@ -142,32 +133,29 @@ end function ScatteringRadiusPrintJSON
 
 !! Has
 function ScatteringRadiusConstant1dHas(handle) &
-      bind(C, name='ScatteringRadiusConstant1dHas') &
-      result(has)
+      bind(C, name='ScatteringRadiusConstant1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringRadiusConstant1dHas
 end function ScatteringRadiusConstant1dHas
 
 !! Get, const
 function ScatteringRadiusConstant1dGetConst(handle) &
-      bind(C, name='ScatteringRadiusConstant1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringRadiusConstant1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringRadiusConstant1dGetConst
 end function ScatteringRadiusConstant1dGetConst
 
 !! Get
 function ScatteringRadiusConstant1dGet(handle) &
-      bind(C, name='ScatteringRadiusConstant1dGet') &
-      result(resultHandle)
+      bind(C, name='ScatteringRadiusConstant1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringRadiusConstant1dGet
 end function ScatteringRadiusConstant1dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine ScatteringRadiusConstant1dSet
 
 !! Has
 function ScatteringRadiusXYs1dHas(handle) &
-      bind(C, name='ScatteringRadiusXYs1dHas') &
-      result(has)
+      bind(C, name='ScatteringRadiusXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringRadiusXYs1dHas
 end function ScatteringRadiusXYs1dHas
 
 !! Get, const
 function ScatteringRadiusXYs1dGetConst(handle) &
-      bind(C, name='ScatteringRadiusXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringRadiusXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringRadiusXYs1dGetConst
 end function ScatteringRadiusXYs1dGetConst
 
 !! Get
 function ScatteringRadiusXYs1dGet(handle) &
-      bind(C, name='ScatteringRadiusXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='ScatteringRadiusXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringRadiusXYs1dGet
 end function ScatteringRadiusXYs1dGet
 
 !! Set

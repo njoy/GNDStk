@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function OrphanProductDefaultConst() &
-      bind(C, name='OrphanProductDefaultConst') &
-      result(handle)
+      bind(C, name='OrphanProductDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductDefaultConst
 end function OrphanProductDefaultConst
 
 !! Create, default
 function OrphanProductDefault() &
-      bind(C, name='OrphanProductDefault') &
-      result(handle)
+      bind(C, name='OrphanProductDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductDefault
 end function OrphanProductDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function OrphanProductCreateConst( &
    outputChannel, &
    labelSize &
 ) &
-      bind(C, name='OrphanProductCreateConst') &
-      result(handle)
+      bind(C, name='OrphanProductCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function OrphanProductCreateConst( &
    integer(c_int), value, intent(in) :: ENDF_MT
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: outputChannel
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductCreateConst
 end function OrphanProductCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function OrphanProductCreate( &
    outputChannel, &
    labelSize &
 ) &
-      bind(C, name='OrphanProductCreate') &
-      result(handle)
+      bind(C, name='OrphanProductCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function OrphanProductCreate( &
    integer(c_int), value, intent(in) :: ENDF_MT
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: outputChannel
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductCreate
 end function OrphanProductCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine OrphanProductDelete
 
 !! Read from file
 function OrphanProductRead(handle, filename, filenameSize) &
-      bind(C, name='OrphanProductRead') &
-      result(success)
+      bind(C, name='OrphanProductRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductRead
 end function OrphanProductRead
 
 !! Write to file
 function OrphanProductWrite(handle, filename, filenameSize) &
-      bind(C, name='OrphanProductWrite') &
-      result(success)
+      bind(C, name='OrphanProductWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductWrite
 end function OrphanProductWrite
 
 !! Print to standard output, in our prettyprinting format
 function OrphanProductPrint(handle) &
-      bind(C, name='OrphanProductPrint') &
-      result(success)
+      bind(C, name='OrphanProductPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductPrint
 end function OrphanProductPrint
 
 !! Print to standard output, as XML
 function OrphanProductPrintXML(handle) &
-      bind(C, name='OrphanProductPrintXML') &
-      result(success)
+      bind(C, name='OrphanProductPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductPrintXML
 end function OrphanProductPrintXML
 
 !! Print to standard output, as JSON
 function OrphanProductPrintJSON(handle) &
-      bind(C, name='OrphanProductPrintJSON') &
-      result(success)
+      bind(C, name='OrphanProductPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductPrintJSON
 end function OrphanProductPrintJSON
 
 
@@ -154,22 +145,20 @@ end function OrphanProductPrintJSON
 
 !! Has
 function OrphanProductLabelHas(handle) &
-      bind(C, name='OrphanProductLabelHas') &
-      result(has)
+      bind(C, name='OrphanProductLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductLabelHas
 end function OrphanProductLabelHas
 
 !! Get
 function OrphanProductLabelGet(handle) &
-      bind(C, name='OrphanProductLabelGet') &
-      result(label)
+      bind(C, name='OrphanProductLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: OrphanProductLabelGet
 end function OrphanProductLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine OrphanProductLabelSet
 
 !! Has
 function OrphanProductENDFMTHas(handle) &
-      bind(C, name='OrphanProductENDFMTHas') &
-      result(has)
+      bind(C, name='OrphanProductENDFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductENDFMTHas
 end function OrphanProductENDFMTHas
 
 !! Get
 function OrphanProductENDFMTGet(handle) &
-      bind(C, name='OrphanProductENDFMTGet') &
-      result(ENDF_MT)
+      bind(C, name='OrphanProductENDFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: ENDF_MT
+   integer(c_int) :: OrphanProductENDFMTGet
 end function OrphanProductENDFMTGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine OrphanProductENDFMTSet
 
 !! Has
 function OrphanProductCrossSectionHas(handle) &
-      bind(C, name='OrphanProductCrossSectionHas') &
-      result(has)
+      bind(C, name='OrphanProductCrossSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductCrossSectionHas
 end function OrphanProductCrossSectionHas
 
 !! Get, const
 function OrphanProductCrossSectionGetConst(handle) &
-      bind(C, name='OrphanProductCrossSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='OrphanProductCrossSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductCrossSectionGetConst
 end function OrphanProductCrossSectionGetConst
 
 !! Get
 function OrphanProductCrossSectionGet(handle) &
-      bind(C, name='OrphanProductCrossSectionGet') &
-      result(resultHandle)
+      bind(C, name='OrphanProductCrossSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductCrossSectionGet
 end function OrphanProductCrossSectionGet
 
 !! Set
@@ -268,32 +252,29 @@ end subroutine OrphanProductCrossSectionSet
 
 !! Has
 function OrphanProductOutputChannelHas(handle) &
-      bind(C, name='OrphanProductOutputChannelHas') &
-      result(has)
+      bind(C, name='OrphanProductOutputChannelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductOutputChannelHas
 end function OrphanProductOutputChannelHas
 
 !! Get, const
 function OrphanProductOutputChannelGetConst(handle) &
-      bind(C, name='OrphanProductOutputChannelGetConst') &
-      result(resultHandle)
+      bind(C, name='OrphanProductOutputChannelGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductOutputChannelGetConst
 end function OrphanProductOutputChannelGetConst
 
 !! Get
 function OrphanProductOutputChannelGet(handle) &
-      bind(C, name='OrphanProductOutputChannelGet') &
-      result(resultHandle)
+      bind(C, name='OrphanProductOutputChannelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductOutputChannelGet
 end function OrphanProductOutputChannelGet
 
 !! Set

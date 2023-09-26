@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function IncoherentPhotonScatteringDefaultConst() &
-      bind(C, name='IncoherentPhotonScatteringDefaultConst') &
-      result(handle)
+      bind(C, name='IncoherentPhotonScatteringDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncoherentPhotonScatteringDefaultConst
 end function IncoherentPhotonScatteringDefaultConst
 
 !! Create, default
 function IncoherentPhotonScatteringDefault() &
-      bind(C, name='IncoherentPhotonScatteringDefault') &
-      result(handle)
+      bind(C, name='IncoherentPhotonScatteringDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncoherentPhotonScatteringDefault
 end function IncoherentPhotonScatteringDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function IncoherentPhotonScatteringCreateConst( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='IncoherentPhotonScatteringCreateConst') &
-      result(handle)
+      bind(C, name='IncoherentPhotonScatteringCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -55,7 +52,7 @@ function IncoherentPhotonScatteringCreateConst( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: scatteringFactor
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncoherentPhotonScatteringCreateConst
 end function IncoherentPhotonScatteringCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function IncoherentPhotonScatteringCreate( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='IncoherentPhotonScatteringCreate') &
-      result(handle)
+      bind(C, name='IncoherentPhotonScatteringCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -83,7 +79,7 @@ function IncoherentPhotonScatteringCreate( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: scatteringFactor
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncoherentPhotonScatteringCreate
 end function IncoherentPhotonScatteringCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine IncoherentPhotonScatteringDelete
 
 !! Read from file
 function IncoherentPhotonScatteringRead(handle, filename, filenameSize) &
-      bind(C, name='IncoherentPhotonScatteringRead') &
-      result(success)
+      bind(C, name='IncoherentPhotonScatteringRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IncoherentPhotonScatteringRead
 end function IncoherentPhotonScatteringRead
 
 !! Write to file
 function IncoherentPhotonScatteringWrite(handle, filename, filenameSize) &
-      bind(C, name='IncoherentPhotonScatteringWrite') &
-      result(success)
+      bind(C, name='IncoherentPhotonScatteringWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IncoherentPhotonScatteringWrite
 end function IncoherentPhotonScatteringWrite
 
 !! Print to standard output, in our prettyprinting format
 function IncoherentPhotonScatteringPrint(handle) &
-      bind(C, name='IncoherentPhotonScatteringPrint') &
-      result(success)
+      bind(C, name='IncoherentPhotonScatteringPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncoherentPhotonScatteringPrint
 end function IncoherentPhotonScatteringPrint
 
 !! Print to standard output, as XML
 function IncoherentPhotonScatteringPrintXML(handle) &
-      bind(C, name='IncoherentPhotonScatteringPrintXML') &
-      result(success)
+      bind(C, name='IncoherentPhotonScatteringPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncoherentPhotonScatteringPrintXML
 end function IncoherentPhotonScatteringPrintXML
 
 !! Print to standard output, as JSON
 function IncoherentPhotonScatteringPrintJSON(handle) &
-      bind(C, name='IncoherentPhotonScatteringPrintJSON') &
-      result(success)
+      bind(C, name='IncoherentPhotonScatteringPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncoherentPhotonScatteringPrintJSON
 end function IncoherentPhotonScatteringPrintJSON
 
 
@@ -170,22 +161,20 @@ end function IncoherentPhotonScatteringPrintJSON
 
 !! Has
 function IncoherentPhotonScatteringLabelHas(handle) &
-      bind(C, name='IncoherentPhotonScatteringLabelHas') &
-      result(has)
+      bind(C, name='IncoherentPhotonScatteringLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncoherentPhotonScatteringLabelHas
 end function IncoherentPhotonScatteringLabelHas
 
 !! Get
 function IncoherentPhotonScatteringLabelGet(handle) &
-      bind(C, name='IncoherentPhotonScatteringLabelGet') &
-      result(label)
+      bind(C, name='IncoherentPhotonScatteringLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: IncoherentPhotonScatteringLabelGet
 end function IncoherentPhotonScatteringLabelGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine IncoherentPhotonScatteringLabelSet
 
 !! Has
 function IncoherentPhotonScatteringHrefHas(handle) &
-      bind(C, name='IncoherentPhotonScatteringHrefHas') &
-      result(has)
+      bind(C, name='IncoherentPhotonScatteringHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncoherentPhotonScatteringHrefHas
 end function IncoherentPhotonScatteringHrefHas
 
 !! Get
 function IncoherentPhotonScatteringHrefGet(handle) &
-      bind(C, name='IncoherentPhotonScatteringHrefGet') &
-      result(href)
+      bind(C, name='IncoherentPhotonScatteringHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: IncoherentPhotonScatteringHrefGet
 end function IncoherentPhotonScatteringHrefGet
 
 !! Set
@@ -240,22 +227,20 @@ end subroutine IncoherentPhotonScatteringHrefSet
 
 !! Has
 function IncoherentPhotonScatteringPidHas(handle) &
-      bind(C, name='IncoherentPhotonScatteringPidHas') &
-      result(has)
+      bind(C, name='IncoherentPhotonScatteringPidHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncoherentPhotonScatteringPidHas
 end function IncoherentPhotonScatteringPidHas
 
 !! Get
 function IncoherentPhotonScatteringPidGet(handle) &
-      bind(C, name='IncoherentPhotonScatteringPidGet') &
-      result(pid)
+      bind(C, name='IncoherentPhotonScatteringPidGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: pid
+   type(c_ptr) :: IncoherentPhotonScatteringPidGet
 end function IncoherentPhotonScatteringPidGet
 
 !! Set
@@ -275,22 +260,20 @@ end subroutine IncoherentPhotonScatteringPidSet
 
 !! Has
 function IncoherentPhotonScatteringProductFrameHas(handle) &
-      bind(C, name='IncoherentPhotonScatteringProductFrameHas') &
-      result(has)
+      bind(C, name='IncoherentPhotonScatteringProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncoherentPhotonScatteringProductFrameHas
 end function IncoherentPhotonScatteringProductFrameHas
 
 !! Get
 function IncoherentPhotonScatteringProductFrameGet(handle) &
-      bind(C, name='IncoherentPhotonScatteringProductFrameGet') &
-      result(productFrame)
+      bind(C, name='IncoherentPhotonScatteringProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: IncoherentPhotonScatteringProductFrameGet
 end function IncoherentPhotonScatteringProductFrameGet
 
 !! Set
@@ -310,32 +293,29 @@ end subroutine IncoherentPhotonScatteringProductFrameSet
 
 !! Has
 function IncoherentPhotonScatteringScatteringFactorHas(handle) &
-      bind(C, name='IncoherentPhotonScatteringScatteringFactorHas') &
-      result(has)
+      bind(C, name='IncoherentPhotonScatteringScatteringFactorHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncoherentPhotonScatteringScatteringFactorHas
 end function IncoherentPhotonScatteringScatteringFactorHas
 
 !! Get, const
 function IncoherentPhotonScatteringScatteringFactorGetConst(handle) &
-      bind(C, name='IncoherentPhotonScatteringScatteringFactorGetConst') &
-      result(resultHandle)
+      bind(C, name='IncoherentPhotonScatteringScatteringFactorGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncoherentPhotonScatteringScatteringFactorGetConst
 end function IncoherentPhotonScatteringScatteringFactorGetConst
 
 !! Get
 function IncoherentPhotonScatteringScatteringFactorGet(handle) &
-      bind(C, name='IncoherentPhotonScatteringScatteringFactorGet') &
-      result(resultHandle)
+      bind(C, name='IncoherentPhotonScatteringScatteringFactorGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncoherentPhotonScatteringScatteringFactorGet
 end function IncoherentPhotonScatteringScatteringFactorGet
 
 !! Set

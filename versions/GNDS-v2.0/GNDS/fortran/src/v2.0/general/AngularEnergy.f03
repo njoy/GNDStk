@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AngularEnergyDefaultConst() &
-      bind(C, name='AngularEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='AngularEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularEnergyDefaultConst
 end function AngularEnergyDefaultConst
 
 !! Create, default
 function AngularEnergyDefault() &
-      bind(C, name='AngularEnergyDefault') &
-      result(handle)
+      bind(C, name='AngularEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularEnergyDefault
 end function AngularEnergyDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function AngularEnergyCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='AngularEnergyCreateConst') &
-      result(handle)
+      bind(C, name='AngularEnergyCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function AngularEnergyCreateConst( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: XYs3d
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularEnergyCreateConst
 end function AngularEnergyCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function AngularEnergyCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='AngularEnergyCreate') &
-      result(handle)
+      bind(C, name='AngularEnergyCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function AngularEnergyCreate( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: XYs3d
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularEnergyCreate
 end function AngularEnergyCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine AngularEnergyDelete
 
 !! Read from file
 function AngularEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='AngularEnergyRead') &
-      result(success)
+      bind(C, name='AngularEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AngularEnergyRead
 end function AngularEnergyRead
 
 !! Write to file
 function AngularEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='AngularEnergyWrite') &
-      result(success)
+      bind(C, name='AngularEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AngularEnergyWrite
 end function AngularEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function AngularEnergyPrint(handle) &
-      bind(C, name='AngularEnergyPrint') &
-      result(success)
+      bind(C, name='AngularEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularEnergyPrint
 end function AngularEnergyPrint
 
 !! Print to standard output, as XML
 function AngularEnergyPrintXML(handle) &
-      bind(C, name='AngularEnergyPrintXML') &
-      result(success)
+      bind(C, name='AngularEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularEnergyPrintXML
 end function AngularEnergyPrintXML
 
 !! Print to standard output, as JSON
 function AngularEnergyPrintJSON(handle) &
-      bind(C, name='AngularEnergyPrintJSON') &
-      result(success)
+      bind(C, name='AngularEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularEnergyPrintJSON
 end function AngularEnergyPrintJSON
 
 
@@ -154,22 +145,20 @@ end function AngularEnergyPrintJSON
 
 !! Has
 function AngularEnergyLabelHas(handle) &
-      bind(C, name='AngularEnergyLabelHas') &
-      result(has)
+      bind(C, name='AngularEnergyLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularEnergyLabelHas
 end function AngularEnergyLabelHas
 
 !! Get
 function AngularEnergyLabelGet(handle) &
-      bind(C, name='AngularEnergyLabelGet') &
-      result(label)
+      bind(C, name='AngularEnergyLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: AngularEnergyLabelGet
 end function AngularEnergyLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine AngularEnergyLabelSet
 
 !! Has
 function AngularEnergyProductFrameHas(handle) &
-      bind(C, name='AngularEnergyProductFrameHas') &
-      result(has)
+      bind(C, name='AngularEnergyProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularEnergyProductFrameHas
 end function AngularEnergyProductFrameHas
 
 !! Get
 function AngularEnergyProductFrameGet(handle) &
-      bind(C, name='AngularEnergyProductFrameGet') &
-      result(productFrame)
+      bind(C, name='AngularEnergyProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: AngularEnergyProductFrameGet
 end function AngularEnergyProductFrameGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine AngularEnergyProductFrameSet
 
 !! Has
 function AngularEnergyXYs3dHas(handle) &
-      bind(C, name='AngularEnergyXYs3dHas') &
-      result(has)
+      bind(C, name='AngularEnergyXYs3dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularEnergyXYs3dHas
 end function AngularEnergyXYs3dHas
 
 !! Get, const
 function AngularEnergyXYs3dGetConst(handle) &
-      bind(C, name='AngularEnergyXYs3dGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularEnergyXYs3dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularEnergyXYs3dGetConst
 end function AngularEnergyXYs3dGetConst
 
 !! Get
 function AngularEnergyXYs3dGet(handle) &
-      bind(C, name='AngularEnergyXYs3dGet') &
-      result(resultHandle)
+      bind(C, name='AngularEnergyXYs3dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularEnergyXYs3dGet
 end function AngularEnergyXYs3dGet
 
 !! Set

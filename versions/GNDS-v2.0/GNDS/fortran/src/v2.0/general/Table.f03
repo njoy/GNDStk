@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function TableDefaultConst() &
-      bind(C, name='TableDefaultConst') &
-      result(handle)
+      bind(C, name='TableDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TableDefaultConst
 end function TableDefaultConst
 
 !! Create, default
 function TableDefault() &
-      bind(C, name='TableDefault') &
-      result(handle)
+      bind(C, name='TableDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TableDefault
 end function TableDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function TableCreateConst( &
    columnHeaders, &
    data &
 ) &
-      bind(C, name='TableCreateConst') &
-      result(handle)
+      bind(C, name='TableCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: rows
    integer(c_int), value, intent(in) :: columns
    type(c_ptr), value :: columnHeaders
    type(c_ptr), value :: data
-   type(c_ptr) :: handle
+   type(c_ptr) :: TableCreateConst
 end function TableCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function TableCreate( &
    columnHeaders, &
    data &
 ) &
-      bind(C, name='TableCreate') &
-      result(handle)
+      bind(C, name='TableCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: rows
    integer(c_int), value, intent(in) :: columns
    type(c_ptr), value :: columnHeaders
    type(c_ptr), value :: data
-   type(c_ptr) :: handle
+   type(c_ptr) :: TableCreate
 end function TableCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine TableDelete
 
 !! Read from file
 function TableRead(handle, filename, filenameSize) &
-      bind(C, name='TableRead') &
-      result(success)
+      bind(C, name='TableRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TableRead
 end function TableRead
 
 !! Write to file
 function TableWrite(handle, filename, filenameSize) &
-      bind(C, name='TableWrite') &
-      result(success)
+      bind(C, name='TableWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TableWrite
 end function TableWrite
 
 !! Print to standard output, in our prettyprinting format
 function TablePrint(handle) &
-      bind(C, name='TablePrint') &
-      result(success)
+      bind(C, name='TablePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TablePrint
 end function TablePrint
 
 !! Print to standard output, as XML
 function TablePrintXML(handle) &
-      bind(C, name='TablePrintXML') &
-      result(success)
+      bind(C, name='TablePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TablePrintXML
 end function TablePrintXML
 
 !! Print to standard output, as JSON
 function TablePrintJSON(handle) &
-      bind(C, name='TablePrintJSON') &
-      result(success)
+      bind(C, name='TablePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TablePrintJSON
 end function TablePrintJSON
 
 
@@ -150,22 +141,20 @@ end function TablePrintJSON
 
 !! Has
 function TableRowsHas(handle) &
-      bind(C, name='TableRowsHas') &
-      result(has)
+      bind(C, name='TableRowsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TableRowsHas
 end function TableRowsHas
 
 !! Get
 function TableRowsGet(handle) &
-      bind(C, name='TableRowsGet') &
-      result(rows)
+      bind(C, name='TableRowsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: rows
+   integer(c_int) :: TableRowsGet
 end function TableRowsGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine TableRowsSet
 
 !! Has
 function TableColumnsHas(handle) &
-      bind(C, name='TableColumnsHas') &
-      result(has)
+      bind(C, name='TableColumnsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TableColumnsHas
 end function TableColumnsHas
 
 !! Get
 function TableColumnsGet(handle) &
-      bind(C, name='TableColumnsGet') &
-      result(columns)
+      bind(C, name='TableColumnsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: columns
+   integer(c_int) :: TableColumnsGet
 end function TableColumnsGet
 
 !! Set
@@ -220,32 +207,29 @@ end subroutine TableColumnsSet
 
 !! Has
 function TableColumnHeadersHas(handle) &
-      bind(C, name='TableColumnHeadersHas') &
-      result(has)
+      bind(C, name='TableColumnHeadersHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TableColumnHeadersHas
 end function TableColumnHeadersHas
 
 !! Get, const
 function TableColumnHeadersGetConst(handle) &
-      bind(C, name='TableColumnHeadersGetConst') &
-      result(resultHandle)
+      bind(C, name='TableColumnHeadersGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TableColumnHeadersGetConst
 end function TableColumnHeadersGetConst
 
 !! Get
 function TableColumnHeadersGet(handle) &
-      bind(C, name='TableColumnHeadersGet') &
-      result(resultHandle)
+      bind(C, name='TableColumnHeadersGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TableColumnHeadersGet
 end function TableColumnHeadersGet
 
 !! Set
@@ -264,32 +248,29 @@ end subroutine TableColumnHeadersSet
 
 !! Has
 function TableDataHas(handle) &
-      bind(C, name='TableDataHas') &
-      result(has)
+      bind(C, name='TableDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TableDataHas
 end function TableDataHas
 
 !! Get, const
 function TableDataGetConst(handle) &
-      bind(C, name='TableDataGetConst') &
-      result(resultHandle)
+      bind(C, name='TableDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TableDataGetConst
 end function TableDataGetConst
 
 !! Get
 function TableDataGet(handle) &
-      bind(C, name='TableDataGet') &
-      result(resultHandle)
+      bind(C, name='TableDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TableDataGet
 end function TableDataGet
 
 !! Set

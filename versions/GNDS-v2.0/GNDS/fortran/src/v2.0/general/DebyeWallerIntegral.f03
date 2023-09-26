@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function DebyeWallerIntegralDefaultConst() &
-      bind(C, name='DebyeWallerIntegralDefaultConst') &
-      result(handle)
+      bind(C, name='DebyeWallerIntegralDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DebyeWallerIntegralDefaultConst
 end function DebyeWallerIntegralDefaultConst
 
 !! Create, default
 function DebyeWallerIntegralDefault() &
-      bind(C, name='DebyeWallerIntegralDefault') &
-      result(handle)
+      bind(C, name='DebyeWallerIntegralDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DebyeWallerIntegralDefault
 end function DebyeWallerIntegralDefault
 
 !! Create, general, const
 function DebyeWallerIntegralCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='DebyeWallerIntegralCreateConst') &
-      result(handle)
+      bind(C, name='DebyeWallerIntegralCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: DebyeWallerIntegralCreateConst
 end function DebyeWallerIntegralCreateConst
 
 !! Create, general
 function DebyeWallerIntegralCreate( &
    XYs1d &
 ) &
-      bind(C, name='DebyeWallerIntegralCreate') &
-      result(handle)
+      bind(C, name='DebyeWallerIntegralCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: DebyeWallerIntegralCreate
 end function DebyeWallerIntegralCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine DebyeWallerIntegralDelete
 
 !! Read from file
 function DebyeWallerIntegralRead(handle, filename, filenameSize) &
-      bind(C, name='DebyeWallerIntegralRead') &
-      result(success)
+      bind(C, name='DebyeWallerIntegralRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DebyeWallerIntegralRead
 end function DebyeWallerIntegralRead
 
 !! Write to file
 function DebyeWallerIntegralWrite(handle, filename, filenameSize) &
-      bind(C, name='DebyeWallerIntegralWrite') &
-      result(success)
+      bind(C, name='DebyeWallerIntegralWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DebyeWallerIntegralWrite
 end function DebyeWallerIntegralWrite
 
 !! Print to standard output, in our prettyprinting format
 function DebyeWallerIntegralPrint(handle) &
-      bind(C, name='DebyeWallerIntegralPrint') &
-      result(success)
+      bind(C, name='DebyeWallerIntegralPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DebyeWallerIntegralPrint
 end function DebyeWallerIntegralPrint
 
 !! Print to standard output, as XML
 function DebyeWallerIntegralPrintXML(handle) &
-      bind(C, name='DebyeWallerIntegralPrintXML') &
-      result(success)
+      bind(C, name='DebyeWallerIntegralPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DebyeWallerIntegralPrintXML
 end function DebyeWallerIntegralPrintXML
 
 !! Print to standard output, as JSON
 function DebyeWallerIntegralPrintJSON(handle) &
-      bind(C, name='DebyeWallerIntegralPrintJSON') &
-      result(success)
+      bind(C, name='DebyeWallerIntegralPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DebyeWallerIntegralPrintJSON
 end function DebyeWallerIntegralPrintJSON
 
 
@@ -138,32 +129,29 @@ end function DebyeWallerIntegralPrintJSON
 
 !! Has
 function DebyeWallerIntegralXYs1dHas(handle) &
-      bind(C, name='DebyeWallerIntegralXYs1dHas') &
-      result(has)
+      bind(C, name='DebyeWallerIntegralXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DebyeWallerIntegralXYs1dHas
 end function DebyeWallerIntegralXYs1dHas
 
 !! Get, const
 function DebyeWallerIntegralXYs1dGetConst(handle) &
-      bind(C, name='DebyeWallerIntegralXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='DebyeWallerIntegralXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DebyeWallerIntegralXYs1dGetConst
 end function DebyeWallerIntegralXYs1dGetConst
 
 !! Get
 function DebyeWallerIntegralXYs1dGet(handle) &
-      bind(C, name='DebyeWallerIntegralXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='DebyeWallerIntegralXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DebyeWallerIntegralXYs1dGet
 end function DebyeWallerIntegralXYs1dGet
 
 !! Set

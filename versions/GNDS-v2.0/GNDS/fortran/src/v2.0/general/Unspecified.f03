@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UnspecifiedDefaultConst() &
-      bind(C, name='UnspecifiedDefaultConst') &
-      result(handle)
+      bind(C, name='UnspecifiedDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnspecifiedDefaultConst
 end function UnspecifiedDefaultConst
 
 !! Create, default
 function UnspecifiedDefault() &
-      bind(C, name='UnspecifiedDefault') &
-      result(handle)
+      bind(C, name='UnspecifiedDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnspecifiedDefault
 end function UnspecifiedDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function UnspecifiedCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='UnspecifiedCreateConst') &
-      result(handle)
+      bind(C, name='UnspecifiedCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnspecifiedCreateConst
 end function UnspecifiedCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function UnspecifiedCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='UnspecifiedCreate') &
-      result(handle)
+      bind(C, name='UnspecifiedCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnspecifiedCreate
 end function UnspecifiedCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine UnspecifiedDelete
 
 !! Read from file
 function UnspecifiedRead(handle, filename, filenameSize) &
-      bind(C, name='UnspecifiedRead') &
-      result(success)
+      bind(C, name='UnspecifiedRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnspecifiedRead
 end function UnspecifiedRead
 
 !! Write to file
 function UnspecifiedWrite(handle, filename, filenameSize) &
-      bind(C, name='UnspecifiedWrite') &
-      result(success)
+      bind(C, name='UnspecifiedWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnspecifiedWrite
 end function UnspecifiedWrite
 
 !! Print to standard output, in our prettyprinting format
 function UnspecifiedPrint(handle) &
-      bind(C, name='UnspecifiedPrint') &
-      result(success)
+      bind(C, name='UnspecifiedPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnspecifiedPrint
 end function UnspecifiedPrint
 
 !! Print to standard output, as XML
 function UnspecifiedPrintXML(handle) &
-      bind(C, name='UnspecifiedPrintXML') &
-      result(success)
+      bind(C, name='UnspecifiedPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnspecifiedPrintXML
 end function UnspecifiedPrintXML
 
 !! Print to standard output, as JSON
 function UnspecifiedPrintJSON(handle) &
-      bind(C, name='UnspecifiedPrintJSON') &
-      result(success)
+      bind(C, name='UnspecifiedPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnspecifiedPrintJSON
 end function UnspecifiedPrintJSON
 
 
@@ -150,22 +141,20 @@ end function UnspecifiedPrintJSON
 
 !! Has
 function UnspecifiedLabelHas(handle) &
-      bind(C, name='UnspecifiedLabelHas') &
-      result(has)
+      bind(C, name='UnspecifiedLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnspecifiedLabelHas
 end function UnspecifiedLabelHas
 
 !! Get
 function UnspecifiedLabelGet(handle) &
-      bind(C, name='UnspecifiedLabelGet') &
-      result(label)
+      bind(C, name='UnspecifiedLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: UnspecifiedLabelGet
 end function UnspecifiedLabelGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine UnspecifiedLabelSet
 
 !! Has
 function UnspecifiedProductFrameHas(handle) &
-      bind(C, name='UnspecifiedProductFrameHas') &
-      result(has)
+      bind(C, name='UnspecifiedProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnspecifiedProductFrameHas
 end function UnspecifiedProductFrameHas
 
 !! Get
 function UnspecifiedProductFrameGet(handle) &
-      bind(C, name='UnspecifiedProductFrameGet') &
-      result(productFrame)
+      bind(C, name='UnspecifiedProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: UnspecifiedProductFrameGet
 end function UnspecifiedProductFrameGet
 
 !! Set

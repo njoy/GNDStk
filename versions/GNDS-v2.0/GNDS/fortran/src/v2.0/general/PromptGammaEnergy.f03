@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function PromptGammaEnergyDefaultConst() &
-      bind(C, name='PromptGammaEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='PromptGammaEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptGammaEnergyDefaultConst
 end function PromptGammaEnergyDefaultConst
 
 !! Create, default
 function PromptGammaEnergyDefault() &
-      bind(C, name='PromptGammaEnergyDefault') &
-      result(handle)
+      bind(C, name='PromptGammaEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptGammaEnergyDefault
 end function PromptGammaEnergyDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function PromptGammaEnergyCreateConst( &
    polynomial1d, &
    XYs1d &
 ) &
-      bind(C, name='PromptGammaEnergyCreateConst') &
-      result(handle)
+      bind(C, name='PromptGammaEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptGammaEnergyCreateConst
 end function PromptGammaEnergyCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function PromptGammaEnergyCreate( &
    polynomial1d, &
    XYs1d &
 ) &
-      bind(C, name='PromptGammaEnergyCreate') &
-      result(handle)
+      bind(C, name='PromptGammaEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: PromptGammaEnergyCreate
 end function PromptGammaEnergyCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine PromptGammaEnergyDelete
 
 !! Read from file
 function PromptGammaEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='PromptGammaEnergyRead') &
-      result(success)
+      bind(C, name='PromptGammaEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PromptGammaEnergyRead
 end function PromptGammaEnergyRead
 
 !! Write to file
 function PromptGammaEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='PromptGammaEnergyWrite') &
-      result(success)
+      bind(C, name='PromptGammaEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PromptGammaEnergyWrite
 end function PromptGammaEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function PromptGammaEnergyPrint(handle) &
-      bind(C, name='PromptGammaEnergyPrint') &
-      result(success)
+      bind(C, name='PromptGammaEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PromptGammaEnergyPrint
 end function PromptGammaEnergyPrint
 
 !! Print to standard output, as XML
 function PromptGammaEnergyPrintXML(handle) &
-      bind(C, name='PromptGammaEnergyPrintXML') &
-      result(success)
+      bind(C, name='PromptGammaEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PromptGammaEnergyPrintXML
 end function PromptGammaEnergyPrintXML
 
 !! Print to standard output, as JSON
 function PromptGammaEnergyPrintJSON(handle) &
-      bind(C, name='PromptGammaEnergyPrintJSON') &
-      result(success)
+      bind(C, name='PromptGammaEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PromptGammaEnergyPrintJSON
 end function PromptGammaEnergyPrintJSON
 
 
@@ -142,32 +133,29 @@ end function PromptGammaEnergyPrintJSON
 
 !! Has
 function PromptGammaEnergyPolynomial1dHas(handle) &
-      bind(C, name='PromptGammaEnergyPolynomial1dHas') &
-      result(has)
+      bind(C, name='PromptGammaEnergyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PromptGammaEnergyPolynomial1dHas
 end function PromptGammaEnergyPolynomial1dHas
 
 !! Get, const
 function PromptGammaEnergyPolynomial1dGetConst(handle) &
-      bind(C, name='PromptGammaEnergyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='PromptGammaEnergyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptGammaEnergyPolynomial1dGetConst
 end function PromptGammaEnergyPolynomial1dGetConst
 
 !! Get
 function PromptGammaEnergyPolynomial1dGet(handle) &
-      bind(C, name='PromptGammaEnergyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='PromptGammaEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptGammaEnergyPolynomial1dGet
 end function PromptGammaEnergyPolynomial1dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine PromptGammaEnergyPolynomial1dSet
 
 !! Has
 function PromptGammaEnergyXYs1dHas(handle) &
-      bind(C, name='PromptGammaEnergyXYs1dHas') &
-      result(has)
+      bind(C, name='PromptGammaEnergyXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PromptGammaEnergyXYs1dHas
 end function PromptGammaEnergyXYs1dHas
 
 !! Get, const
 function PromptGammaEnergyXYs1dGetConst(handle) &
-      bind(C, name='PromptGammaEnergyXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='PromptGammaEnergyXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptGammaEnergyXYs1dGetConst
 end function PromptGammaEnergyXYs1dGetConst
 
 !! Get
 function PromptGammaEnergyXYs1dGet(handle) &
-      bind(C, name='PromptGammaEnergyXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='PromptGammaEnergyXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PromptGammaEnergyXYs1dGet
 end function PromptGammaEnergyXYs1dGet
 
 !! Set

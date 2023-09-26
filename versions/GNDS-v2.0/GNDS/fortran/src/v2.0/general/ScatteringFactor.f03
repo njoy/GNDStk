@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ScatteringFactorDefaultConst() &
-      bind(C, name='ScatteringFactorDefaultConst') &
-      result(handle)
+      bind(C, name='ScatteringFactorDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringFactorDefaultConst
 end function ScatteringFactorDefaultConst
 
 !! Create, default
 function ScatteringFactorDefault() &
-      bind(C, name='ScatteringFactorDefault') &
-      result(handle)
+      bind(C, name='ScatteringFactorDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringFactorDefault
 end function ScatteringFactorDefault
 
 !! Create, general, const
 function ScatteringFactorCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='ScatteringFactorCreateConst') &
-      result(handle)
+      bind(C, name='ScatteringFactorCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringFactorCreateConst
 end function ScatteringFactorCreateConst
 
 !! Create, general
 function ScatteringFactorCreate( &
    XYs1d &
 ) &
-      bind(C, name='ScatteringFactorCreate') &
-      result(handle)
+      bind(C, name='ScatteringFactorCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ScatteringFactorCreate
 end function ScatteringFactorCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ScatteringFactorDelete
 
 !! Read from file
 function ScatteringFactorRead(handle, filename, filenameSize) &
-      bind(C, name='ScatteringFactorRead') &
-      result(success)
+      bind(C, name='ScatteringFactorRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringFactorRead
 end function ScatteringFactorRead
 
 !! Write to file
 function ScatteringFactorWrite(handle, filename, filenameSize) &
-      bind(C, name='ScatteringFactorWrite') &
-      result(success)
+      bind(C, name='ScatteringFactorWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringFactorWrite
 end function ScatteringFactorWrite
 
 !! Print to standard output, in our prettyprinting format
 function ScatteringFactorPrint(handle) &
-      bind(C, name='ScatteringFactorPrint') &
-      result(success)
+      bind(C, name='ScatteringFactorPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringFactorPrint
 end function ScatteringFactorPrint
 
 !! Print to standard output, as XML
 function ScatteringFactorPrintXML(handle) &
-      bind(C, name='ScatteringFactorPrintXML') &
-      result(success)
+      bind(C, name='ScatteringFactorPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringFactorPrintXML
 end function ScatteringFactorPrintXML
 
 !! Print to standard output, as JSON
 function ScatteringFactorPrintJSON(handle) &
-      bind(C, name='ScatteringFactorPrintJSON') &
-      result(success)
+      bind(C, name='ScatteringFactorPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ScatteringFactorPrintJSON
 end function ScatteringFactorPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ScatteringFactorPrintJSON
 
 !! Has
 function ScatteringFactorXYs1dHas(handle) &
-      bind(C, name='ScatteringFactorXYs1dHas') &
-      result(has)
+      bind(C, name='ScatteringFactorXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ScatteringFactorXYs1dHas
 end function ScatteringFactorXYs1dHas
 
 !! Get, const
 function ScatteringFactorXYs1dGetConst(handle) &
-      bind(C, name='ScatteringFactorXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ScatteringFactorXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringFactorXYs1dGetConst
 end function ScatteringFactorXYs1dGetConst
 
 !! Get
 function ScatteringFactorXYs1dGet(handle) &
-      bind(C, name='ScatteringFactorXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='ScatteringFactorXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ScatteringFactorXYs1dGet
 end function ScatteringFactorXYs1dGet
 
 !! Set

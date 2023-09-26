@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function LeptonDefaultConst() &
-      bind(C, name='LeptonDefaultConst') &
-      result(handle)
+      bind(C, name='LeptonDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LeptonDefaultConst
 end function LeptonDefaultConst
 
 !! Create, default
 function LeptonDefault() &
-      bind(C, name='LeptonDefault') &
-      result(handle)
+      bind(C, name='LeptonDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LeptonDefault
 end function LeptonDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function LeptonCreateConst( &
    idSize, &
    generationSize &
 ) &
-      bind(C, name='LeptonCreateConst') &
-      result(handle)
+      bind(C, name='LeptonCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -55,7 +52,7 @@ function LeptonCreateConst( &
    type(c_ptr), value :: parity
    type(c_ptr), value :: charge
    type(c_ptr), value :: halflife
-   type(c_ptr) :: handle
+   type(c_ptr) :: LeptonCreateConst
 end function LeptonCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function LeptonCreate( &
    idSize, &
    generationSize &
 ) &
-      bind(C, name='LeptonCreate') &
-      result(handle)
+      bind(C, name='LeptonCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -83,7 +79,7 @@ function LeptonCreate( &
    type(c_ptr), value :: parity
    type(c_ptr), value :: charge
    type(c_ptr), value :: halflife
-   type(c_ptr) :: handle
+   type(c_ptr) :: LeptonCreate
 end function LeptonCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine LeptonDelete
 
 !! Read from file
 function LeptonRead(handle, filename, filenameSize) &
-      bind(C, name='LeptonRead') &
-      result(success)
+      bind(C, name='LeptonRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LeptonRead
 end function LeptonRead
 
 !! Write to file
 function LeptonWrite(handle, filename, filenameSize) &
-      bind(C, name='LeptonWrite') &
-      result(success)
+      bind(C, name='LeptonWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LeptonWrite
 end function LeptonWrite
 
 !! Print to standard output, in our prettyprinting format
 function LeptonPrint(handle) &
-      bind(C, name='LeptonPrint') &
-      result(success)
+      bind(C, name='LeptonPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LeptonPrint
 end function LeptonPrint
 
 !! Print to standard output, as XML
 function LeptonPrintXML(handle) &
-      bind(C, name='LeptonPrintXML') &
-      result(success)
+      bind(C, name='LeptonPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LeptonPrintXML
 end function LeptonPrintXML
 
 !! Print to standard output, as JSON
 function LeptonPrintJSON(handle) &
-      bind(C, name='LeptonPrintJSON') &
-      result(success)
+      bind(C, name='LeptonPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LeptonPrintJSON
 end function LeptonPrintJSON
 
 
@@ -170,22 +161,20 @@ end function LeptonPrintJSON
 
 !! Has
 function LeptonIdHas(handle) &
-      bind(C, name='LeptonIdHas') &
-      result(has)
+      bind(C, name='LeptonIdHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonIdHas
 end function LeptonIdHas
 
 !! Get
 function LeptonIdGet(handle) &
-      bind(C, name='LeptonIdGet') &
-      result(id)
+      bind(C, name='LeptonIdGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: id
+   type(c_ptr) :: LeptonIdGet
 end function LeptonIdGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine LeptonIdSet
 
 !! Has
 function LeptonGenerationHas(handle) &
-      bind(C, name='LeptonGenerationHas') &
-      result(has)
+      bind(C, name='LeptonGenerationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonGenerationHas
 end function LeptonGenerationHas
 
 !! Get
 function LeptonGenerationGet(handle) &
-      bind(C, name='LeptonGenerationGet') &
-      result(generation)
+      bind(C, name='LeptonGenerationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: generation
+   type(c_ptr) :: LeptonGenerationGet
 end function LeptonGenerationGet
 
 !! Set
@@ -240,32 +227,29 @@ end subroutine LeptonGenerationSet
 
 !! Has
 function LeptonMassHas(handle) &
-      bind(C, name='LeptonMassHas') &
-      result(has)
+      bind(C, name='LeptonMassHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonMassHas
 end function LeptonMassHas
 
 !! Get, const
 function LeptonMassGetConst(handle) &
-      bind(C, name='LeptonMassGetConst') &
-      result(resultHandle)
+      bind(C, name='LeptonMassGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonMassGetConst
 end function LeptonMassGetConst
 
 !! Get
 function LeptonMassGet(handle) &
-      bind(C, name='LeptonMassGet') &
-      result(resultHandle)
+      bind(C, name='LeptonMassGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonMassGet
 end function LeptonMassGet
 
 !! Set
@@ -284,32 +268,29 @@ end subroutine LeptonMassSet
 
 !! Has
 function LeptonSpinHas(handle) &
-      bind(C, name='LeptonSpinHas') &
-      result(has)
+      bind(C, name='LeptonSpinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonSpinHas
 end function LeptonSpinHas
 
 !! Get, const
 function LeptonSpinGetConst(handle) &
-      bind(C, name='LeptonSpinGetConst') &
-      result(resultHandle)
+      bind(C, name='LeptonSpinGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonSpinGetConst
 end function LeptonSpinGetConst
 
 !! Get
 function LeptonSpinGet(handle) &
-      bind(C, name='LeptonSpinGet') &
-      result(resultHandle)
+      bind(C, name='LeptonSpinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonSpinGet
 end function LeptonSpinGet
 
 !! Set
@@ -328,32 +309,29 @@ end subroutine LeptonSpinSet
 
 !! Has
 function LeptonParityHas(handle) &
-      bind(C, name='LeptonParityHas') &
-      result(has)
+      bind(C, name='LeptonParityHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonParityHas
 end function LeptonParityHas
 
 !! Get, const
 function LeptonParityGetConst(handle) &
-      bind(C, name='LeptonParityGetConst') &
-      result(resultHandle)
+      bind(C, name='LeptonParityGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonParityGetConst
 end function LeptonParityGetConst
 
 !! Get
 function LeptonParityGet(handle) &
-      bind(C, name='LeptonParityGet') &
-      result(resultHandle)
+      bind(C, name='LeptonParityGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonParityGet
 end function LeptonParityGet
 
 !! Set
@@ -372,32 +350,29 @@ end subroutine LeptonParitySet
 
 !! Has
 function LeptonChargeHas(handle) &
-      bind(C, name='LeptonChargeHas') &
-      result(has)
+      bind(C, name='LeptonChargeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonChargeHas
 end function LeptonChargeHas
 
 !! Get, const
 function LeptonChargeGetConst(handle) &
-      bind(C, name='LeptonChargeGetConst') &
-      result(resultHandle)
+      bind(C, name='LeptonChargeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonChargeGetConst
 end function LeptonChargeGetConst
 
 !! Get
 function LeptonChargeGet(handle) &
-      bind(C, name='LeptonChargeGet') &
-      result(resultHandle)
+      bind(C, name='LeptonChargeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonChargeGet
 end function LeptonChargeGet
 
 !! Set
@@ -416,32 +391,29 @@ end subroutine LeptonChargeSet
 
 !! Has
 function LeptonHalflifeHas(handle) &
-      bind(C, name='LeptonHalflifeHas') &
-      result(has)
+      bind(C, name='LeptonHalflifeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LeptonHalflifeHas
 end function LeptonHalflifeHas
 
 !! Get, const
 function LeptonHalflifeGetConst(handle) &
-      bind(C, name='LeptonHalflifeGetConst') &
-      result(resultHandle)
+      bind(C, name='LeptonHalflifeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonHalflifeGetConst
 end function LeptonHalflifeGetConst
 
 !! Get
 function LeptonHalflifeGet(handle) &
-      bind(C, name='LeptonHalflifeGet') &
-      result(resultHandle)
+      bind(C, name='LeptonHalflifeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LeptonHalflifeGet
 end function LeptonHalflifeGet
 
 !! Set

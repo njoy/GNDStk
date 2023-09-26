@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ExternalFileDefaultConst() &
-      bind(C, name='ExternalFileDefaultConst') &
-      result(handle)
+      bind(C, name='ExternalFileDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ExternalFileDefaultConst
 end function ExternalFileDefaultConst
 
 !! Create, default
 function ExternalFileDefault() &
-      bind(C, name='ExternalFileDefault') &
-      result(handle)
+      bind(C, name='ExternalFileDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ExternalFileDefault
 end function ExternalFileDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function ExternalFileCreateConst( &
    checksumSize, &
    algorithmSize &
 ) &
-      bind(C, name='ExternalFileCreateConst') &
-      result(handle)
+      bind(C, name='ExternalFileCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -53,7 +50,7 @@ function ExternalFileCreateConst( &
    character(c_char), intent(in) :: checksum(checksumSize)
    integer(c_size_t), intent(in), value :: algorithmSize
    character(c_char), intent(in) :: algorithm(algorithmSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ExternalFileCreateConst
 end function ExternalFileCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function ExternalFileCreate( &
    checksumSize, &
    algorithmSize &
 ) &
-      bind(C, name='ExternalFileCreate') &
-      result(handle)
+      bind(C, name='ExternalFileCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -79,7 +75,7 @@ function ExternalFileCreate( &
    character(c_char), intent(in) :: checksum(checksumSize)
    integer(c_size_t), intent(in), value :: algorithmSize
    character(c_char), intent(in) :: algorithm(algorithmSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ExternalFileCreate
 end function ExternalFileCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine ExternalFileDelete
 
 !! Read from file
 function ExternalFileRead(handle, filename, filenameSize) &
-      bind(C, name='ExternalFileRead') &
-      result(success)
+      bind(C, name='ExternalFileRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ExternalFileRead
 end function ExternalFileRead
 
 !! Write to file
 function ExternalFileWrite(handle, filename, filenameSize) &
-      bind(C, name='ExternalFileWrite') &
-      result(success)
+      bind(C, name='ExternalFileWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ExternalFileWrite
 end function ExternalFileWrite
 
 !! Print to standard output, in our prettyprinting format
 function ExternalFilePrint(handle) &
-      bind(C, name='ExternalFilePrint') &
-      result(success)
+      bind(C, name='ExternalFilePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ExternalFilePrint
 end function ExternalFilePrint
 
 !! Print to standard output, as XML
 function ExternalFilePrintXML(handle) &
-      bind(C, name='ExternalFilePrintXML') &
-      result(success)
+      bind(C, name='ExternalFilePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ExternalFilePrintXML
 end function ExternalFilePrintXML
 
 !! Print to standard output, as JSON
 function ExternalFilePrintJSON(handle) &
-      bind(C, name='ExternalFilePrintJSON') &
-      result(success)
+      bind(C, name='ExternalFilePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ExternalFilePrintJSON
 end function ExternalFilePrintJSON
 
 
@@ -166,22 +157,20 @@ end function ExternalFilePrintJSON
 
 !! Has
 function ExternalFileLabelHas(handle) &
-      bind(C, name='ExternalFileLabelHas') &
-      result(has)
+      bind(C, name='ExternalFileLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ExternalFileLabelHas
 end function ExternalFileLabelHas
 
 !! Get
 function ExternalFileLabelGet(handle) &
-      bind(C, name='ExternalFileLabelGet') &
-      result(label)
+      bind(C, name='ExternalFileLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ExternalFileLabelGet
 end function ExternalFileLabelGet
 
 !! Set
@@ -201,22 +190,20 @@ end subroutine ExternalFileLabelSet
 
 !! Has
 function ExternalFilePathHas(handle) &
-      bind(C, name='ExternalFilePathHas') &
-      result(has)
+      bind(C, name='ExternalFilePathHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ExternalFilePathHas
 end function ExternalFilePathHas
 
 !! Get
 function ExternalFilePathGet(handle) &
-      bind(C, name='ExternalFilePathGet') &
-      result(path)
+      bind(C, name='ExternalFilePathGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: path
+   type(c_ptr) :: ExternalFilePathGet
 end function ExternalFilePathGet
 
 !! Set
@@ -236,22 +223,20 @@ end subroutine ExternalFilePathSet
 
 !! Has
 function ExternalFileChecksumHas(handle) &
-      bind(C, name='ExternalFileChecksumHas') &
-      result(has)
+      bind(C, name='ExternalFileChecksumHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ExternalFileChecksumHas
 end function ExternalFileChecksumHas
 
 !! Get
 function ExternalFileChecksumGet(handle) &
-      bind(C, name='ExternalFileChecksumGet') &
-      result(checksum)
+      bind(C, name='ExternalFileChecksumGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: checksum
+   type(c_ptr) :: ExternalFileChecksumGet
 end function ExternalFileChecksumGet
 
 !! Set
@@ -271,22 +256,20 @@ end subroutine ExternalFileChecksumSet
 
 !! Has
 function ExternalFileAlgorithmHas(handle) &
-      bind(C, name='ExternalFileAlgorithmHas') &
-      result(has)
+      bind(C, name='ExternalFileAlgorithmHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ExternalFileAlgorithmHas
 end function ExternalFileAlgorithmHas
 
 !! Get
 function ExternalFileAlgorithmGet(handle) &
-      bind(C, name='ExternalFileAlgorithmGet') &
-      result(algorithm)
+      bind(C, name='ExternalFileAlgorithmGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: algorithm
+   type(c_ptr) :: ExternalFileAlgorithmGet
 end function ExternalFileAlgorithmGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function NBodyPhaseSpaceDefaultConst() &
-      bind(C, name='NBodyPhaseSpaceDefaultConst') &
-      result(handle)
+      bind(C, name='NBodyPhaseSpaceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NBodyPhaseSpaceDefaultConst
 end function NBodyPhaseSpaceDefaultConst
 
 !! Create, default
 function NBodyPhaseSpaceDefault() &
-      bind(C, name='NBodyPhaseSpaceDefault') &
-      result(handle)
+      bind(C, name='NBodyPhaseSpaceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NBodyPhaseSpaceDefault
 end function NBodyPhaseSpaceDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function NBodyPhaseSpaceCreateConst( &
    numberOfProducts, &
    mass &
 ) &
-      bind(C, name='NBodyPhaseSpaceCreateConst') &
-      result(handle)
+      bind(C, name='NBodyPhaseSpaceCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: numberOfProducts
    type(c_ptr), value :: mass
-   type(c_ptr) :: handle
+   type(c_ptr) :: NBodyPhaseSpaceCreateConst
 end function NBodyPhaseSpaceCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function NBodyPhaseSpaceCreate( &
    numberOfProducts, &
    mass &
 ) &
-      bind(C, name='NBodyPhaseSpaceCreate') &
-      result(handle)
+      bind(C, name='NBodyPhaseSpaceCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: numberOfProducts
    type(c_ptr), value :: mass
-   type(c_ptr) :: handle
+   type(c_ptr) :: NBodyPhaseSpaceCreate
 end function NBodyPhaseSpaceCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine NBodyPhaseSpaceDelete
 
 !! Read from file
 function NBodyPhaseSpaceRead(handle, filename, filenameSize) &
-      bind(C, name='NBodyPhaseSpaceRead') &
-      result(success)
+      bind(C, name='NBodyPhaseSpaceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NBodyPhaseSpaceRead
 end function NBodyPhaseSpaceRead
 
 !! Write to file
 function NBodyPhaseSpaceWrite(handle, filename, filenameSize) &
-      bind(C, name='NBodyPhaseSpaceWrite') &
-      result(success)
+      bind(C, name='NBodyPhaseSpaceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NBodyPhaseSpaceWrite
 end function NBodyPhaseSpaceWrite
 
 !! Print to standard output, in our prettyprinting format
 function NBodyPhaseSpacePrint(handle) &
-      bind(C, name='NBodyPhaseSpacePrint') &
-      result(success)
+      bind(C, name='NBodyPhaseSpacePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NBodyPhaseSpacePrint
 end function NBodyPhaseSpacePrint
 
 !! Print to standard output, as XML
 function NBodyPhaseSpacePrintXML(handle) &
-      bind(C, name='NBodyPhaseSpacePrintXML') &
-      result(success)
+      bind(C, name='NBodyPhaseSpacePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NBodyPhaseSpacePrintXML
 end function NBodyPhaseSpacePrintXML
 
 !! Print to standard output, as JSON
 function NBodyPhaseSpacePrintJSON(handle) &
-      bind(C, name='NBodyPhaseSpacePrintJSON') &
-      result(success)
+      bind(C, name='NBodyPhaseSpacePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NBodyPhaseSpacePrintJSON
 end function NBodyPhaseSpacePrintJSON
 
 
@@ -142,22 +133,20 @@ end function NBodyPhaseSpacePrintJSON
 
 !! Has
 function NBodyPhaseSpaceNumberOfProductsHas(handle) &
-      bind(C, name='NBodyPhaseSpaceNumberOfProductsHas') &
-      result(has)
+      bind(C, name='NBodyPhaseSpaceNumberOfProductsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NBodyPhaseSpaceNumberOfProductsHas
 end function NBodyPhaseSpaceNumberOfProductsHas
 
 !! Get
 function NBodyPhaseSpaceNumberOfProductsGet(handle) &
-      bind(C, name='NBodyPhaseSpaceNumberOfProductsGet') &
-      result(numberOfProducts)
+      bind(C, name='NBodyPhaseSpaceNumberOfProductsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: numberOfProducts
+   integer(c_int) :: NBodyPhaseSpaceNumberOfProductsGet
 end function NBodyPhaseSpaceNumberOfProductsGet
 
 !! Set
@@ -177,32 +166,29 @@ end subroutine NBodyPhaseSpaceNumberOfProductsSet
 
 !! Has
 function NBodyPhaseSpaceMassHas(handle) &
-      bind(C, name='NBodyPhaseSpaceMassHas') &
-      result(has)
+      bind(C, name='NBodyPhaseSpaceMassHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NBodyPhaseSpaceMassHas
 end function NBodyPhaseSpaceMassHas
 
 !! Get, const
 function NBodyPhaseSpaceMassGetConst(handle) &
-      bind(C, name='NBodyPhaseSpaceMassGetConst') &
-      result(resultHandle)
+      bind(C, name='NBodyPhaseSpaceMassGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NBodyPhaseSpaceMassGetConst
 end function NBodyPhaseSpaceMassGetConst
 
 !! Get
 function NBodyPhaseSpaceMassGet(handle) &
-      bind(C, name='NBodyPhaseSpaceMassGet') &
-      result(resultHandle)
+      bind(C, name='NBodyPhaseSpaceMassGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NBodyPhaseSpaceMassGet
 end function NBodyPhaseSpaceMassGet
 
 !! Set

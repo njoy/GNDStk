@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ChannelDefaultConst() &
-      bind(C, name='ChannelDefaultConst') &
-      result(handle)
+      bind(C, name='ChannelDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChannelDefaultConst
 end function ChannelDefaultConst
 
 !! Create, default
 function ChannelDefault() &
-      bind(C, name='ChannelDefault') &
-      result(handle)
+      bind(C, name='ChannelDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChannelDefault
 end function ChannelDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function ChannelCreateConst( &
    labelSize, &
    resonanceReactionSize &
 ) &
-      bind(C, name='ChannelCreateConst') &
-      result(handle)
+      bind(C, name='ChannelCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -55,7 +52,7 @@ function ChannelCreateConst( &
    integer(c_int), value, intent(in) :: columnIndex
    type(c_ptr), value :: scatteringRadius
    type(c_ptr), value :: hardSphereRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChannelCreateConst
 end function ChannelCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function ChannelCreate( &
    labelSize, &
    resonanceReactionSize &
 ) &
-      bind(C, name='ChannelCreate') &
-      result(handle)
+      bind(C, name='ChannelCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -83,7 +79,7 @@ function ChannelCreate( &
    integer(c_int), value, intent(in) :: columnIndex
    type(c_ptr), value :: scatteringRadius
    type(c_ptr), value :: hardSphereRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChannelCreate
 end function ChannelCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine ChannelDelete
 
 !! Read from file
 function ChannelRead(handle, filename, filenameSize) &
-      bind(C, name='ChannelRead') &
-      result(success)
+      bind(C, name='ChannelRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ChannelRead
 end function ChannelRead
 
 !! Write to file
 function ChannelWrite(handle, filename, filenameSize) &
-      bind(C, name='ChannelWrite') &
-      result(success)
+      bind(C, name='ChannelWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ChannelWrite
 end function ChannelWrite
 
 !! Print to standard output, in our prettyprinting format
 function ChannelPrint(handle) &
-      bind(C, name='ChannelPrint') &
-      result(success)
+      bind(C, name='ChannelPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChannelPrint
 end function ChannelPrint
 
 !! Print to standard output, as XML
 function ChannelPrintXML(handle) &
-      bind(C, name='ChannelPrintXML') &
-      result(success)
+      bind(C, name='ChannelPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChannelPrintXML
 end function ChannelPrintXML
 
 !! Print to standard output, as JSON
 function ChannelPrintJSON(handle) &
-      bind(C, name='ChannelPrintJSON') &
-      result(success)
+      bind(C, name='ChannelPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChannelPrintJSON
 end function ChannelPrintJSON
 
 
@@ -170,22 +161,20 @@ end function ChannelPrintJSON
 
 !! Has
 function ChannelLabelHas(handle) &
-      bind(C, name='ChannelLabelHas') &
-      result(has)
+      bind(C, name='ChannelLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelLabelHas
 end function ChannelLabelHas
 
 !! Get
 function ChannelLabelGet(handle) &
-      bind(C, name='ChannelLabelGet') &
-      result(label)
+      bind(C, name='ChannelLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ChannelLabelGet
 end function ChannelLabelGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine ChannelLabelSet
 
 !! Has
 function ChannelResonanceReactionHas(handle) &
-      bind(C, name='ChannelResonanceReactionHas') &
-      result(has)
+      bind(C, name='ChannelResonanceReactionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelResonanceReactionHas
 end function ChannelResonanceReactionHas
 
 !! Get
 function ChannelResonanceReactionGet(handle) &
-      bind(C, name='ChannelResonanceReactionGet') &
-      result(resonanceReaction)
+      bind(C, name='ChannelResonanceReactionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resonanceReaction
+   type(c_ptr) :: ChannelResonanceReactionGet
 end function ChannelResonanceReactionGet
 
 !! Set
@@ -240,22 +227,20 @@ end subroutine ChannelResonanceReactionSet
 
 !! Has
 function ChannelLHas(handle) &
-      bind(C, name='ChannelLHas') &
-      result(has)
+      bind(C, name='ChannelLHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelLHas
 end function ChannelLHas
 
 !! Get
 function ChannelLGet(handle) &
-      bind(C, name='ChannelLGet') &
-      result(L)
+      bind(C, name='ChannelLGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: L
+   integer(c_int) :: ChannelLGet
 end function ChannelLGet
 
 !! Set
@@ -275,22 +260,20 @@ end subroutine ChannelLSet
 
 !! Has
 function ChannelChannelSpinHas(handle) &
-      bind(C, name='ChannelChannelSpinHas') &
-      result(has)
+      bind(C, name='ChannelChannelSpinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelChannelSpinHas
 end function ChannelChannelSpinHas
 
 !! Get
 function ChannelChannelSpinGet(handle) &
-      bind(C, name='ChannelChannelSpinGet') &
-      result(channelSpin)
+      bind(C, name='ChannelChannelSpinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: channelSpin
+   integer(c_int) :: ChannelChannelSpinGet
 end function ChannelChannelSpinGet
 
 !! Set
@@ -310,22 +293,20 @@ end subroutine ChannelChannelSpinSet
 
 !! Has
 function ChannelColumnIndexHas(handle) &
-      bind(C, name='ChannelColumnIndexHas') &
-      result(has)
+      bind(C, name='ChannelColumnIndexHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelColumnIndexHas
 end function ChannelColumnIndexHas
 
 !! Get
 function ChannelColumnIndexGet(handle) &
-      bind(C, name='ChannelColumnIndexGet') &
-      result(columnIndex)
+      bind(C, name='ChannelColumnIndexGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: columnIndex
+   integer(c_int) :: ChannelColumnIndexGet
 end function ChannelColumnIndexGet
 
 !! Set
@@ -345,32 +326,29 @@ end subroutine ChannelColumnIndexSet
 
 !! Has
 function ChannelScatteringRadiusHas(handle) &
-      bind(C, name='ChannelScatteringRadiusHas') &
-      result(has)
+      bind(C, name='ChannelScatteringRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelScatteringRadiusHas
 end function ChannelScatteringRadiusHas
 
 !! Get, const
 function ChannelScatteringRadiusGetConst(handle) &
-      bind(C, name='ChannelScatteringRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='ChannelScatteringRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChannelScatteringRadiusGetConst
 end function ChannelScatteringRadiusGetConst
 
 !! Get
 function ChannelScatteringRadiusGet(handle) &
-      bind(C, name='ChannelScatteringRadiusGet') &
-      result(resultHandle)
+      bind(C, name='ChannelScatteringRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChannelScatteringRadiusGet
 end function ChannelScatteringRadiusGet
 
 !! Set
@@ -389,32 +367,29 @@ end subroutine ChannelScatteringRadiusSet
 
 !! Has
 function ChannelHardSphereRadiusHas(handle) &
-      bind(C, name='ChannelHardSphereRadiusHas') &
-      result(has)
+      bind(C, name='ChannelHardSphereRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChannelHardSphereRadiusHas
 end function ChannelHardSphereRadiusHas
 
 !! Get, const
 function ChannelHardSphereRadiusGetConst(handle) &
-      bind(C, name='ChannelHardSphereRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='ChannelHardSphereRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChannelHardSphereRadiusGetConst
 end function ChannelHardSphereRadiusGetConst
 
 !! Get
 function ChannelHardSphereRadiusGet(handle) &
-      bind(C, name='ChannelHardSphereRadiusGet') &
-      result(resultHandle)
+      bind(C, name='ChannelHardSphereRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChannelHardSphereRadiusGet
 end function ChannelHardSphereRadiusGet
 
 !! Set

@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function JsDefaultConst() &
-      bind(C, name='JsDefaultConst') &
-      result(handle)
+      bind(C, name='JsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: JsDefaultConst
 end function JsDefaultConst
 
 !! Create, default
 function JsDefault() &
-      bind(C, name='JsDefault') &
-      result(handle)
+      bind(C, name='JsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: JsDefault
 end function JsDefault
 
 !! Create, general, const
 function JsCreateConst( &
    J, JSize &
 ) &
-      bind(C, name='JsCreateConst') &
-      result(handle)
+      bind(C, name='JsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: JSize
    type(c_ptr) :: J(JSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: JsCreateConst
 end function JsCreateConst
 
 !! Create, general
 function JsCreate( &
    J, JSize &
 ) &
-      bind(C, name='JsCreate') &
-      result(handle)
+      bind(C, name='JsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: JSize
    type(c_ptr) :: J(JSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: JsCreate
 end function JsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine JsDelete
 
 !! Read from file
 function JsRead(handle, filename, filenameSize) &
-      bind(C, name='JsRead') &
-      result(success)
+      bind(C, name='JsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: JsRead
 end function JsRead
 
 !! Write to file
 function JsWrite(handle, filename, filenameSize) &
-      bind(C, name='JsWrite') &
-      result(success)
+      bind(C, name='JsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: JsWrite
 end function JsWrite
 
 !! Print to standard output, in our prettyprinting format
 function JsPrint(handle) &
-      bind(C, name='JsPrint') &
-      result(success)
+      bind(C, name='JsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: JsPrint
 end function JsPrint
 
 !! Print to standard output, as XML
 function JsPrintXML(handle) &
-      bind(C, name='JsPrintXML') &
-      result(success)
+      bind(C, name='JsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: JsPrintXML
 end function JsPrintXML
 
 !! Print to standard output, as JSON
 function JsPrintJSON(handle) &
-      bind(C, name='JsPrintJSON') &
-      result(success)
+      bind(C, name='JsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: JsPrintJSON
 end function JsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function JsPrintJSON
 
 !! Has
 function JsJHas(handle) &
-      bind(C, name='JsJHas') &
-      result(has)
+      bind(C, name='JsJHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: JsJHas
 end function JsJHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine JsJClear
 
 !! Size
 function JsJSize(handle) &
-      bind(C, name='JsJSize') &
-      result(vectorSize)
+      bind(C, name='JsJSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: JsJSize
 end function JsJSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine JsJAdd
 
 !! Get, by index \in [0,size), const
 function JsJGetConst(handle, index) &
-      bind(C, name='JsJGetConst') &
-      result(resultHandle)
+      bind(C, name='JsJGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JsJGetConst
 end function JsJGetConst
 
 !! Get, by index \in [0,size)
 function JsJGet(handle, index) &
-      bind(C, name='JsJGet') &
-      result(resultHandle)
+      bind(C, name='JsJGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JsJGet
 end function JsJGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine JsJSet
 
 !! Has, by label
 function JsJHasByLabel(handle, meta, metaSize) &
-      bind(C, name='JsJHasByLabel') &
-      result(has)
+      bind(C, name='JsJHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: JsJHasByLabel
 end function JsJHasByLabel
 
 !! Get, by label, const
 function JsJGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='JsJGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='JsJGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JsJGetByLabelConst
 end function JsJGetByLabelConst
 
 !! Get, by label
 function JsJGetByLabel(handle, meta, metaSize) &
-      bind(C, name='JsJGetByLabel') &
-      result(resultHandle)
+      bind(C, name='JsJGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JsJGetByLabel
 end function JsJGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine JsJSetByLabel
 
 !! Has, by value
 function JsJHasByValue(handle, meta) &
-      bind(C, name='JsJHasByValue') &
-      result(has)
+      bind(C, name='JsJHasByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: JsJHasByValue
 end function JsJHasByValue
 
 !! Get, by value, const
 function JsJGetByValueConst(handle, meta) &
-      bind(C, name='JsJGetByValueConst') &
-      result(resultHandle)
+      bind(C, name='JsJGetByValueConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JsJGetByValueConst
 end function JsJGetByValueConst
 
 !! Get, by value
 function JsJGetByValue(handle, meta) &
-      bind(C, name='JsJGetByValue') &
-      result(resultHandle)
+      bind(C, name='JsJGetByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: JsJGetByValue
 end function JsJGetByValue
 
 !! Set, by value

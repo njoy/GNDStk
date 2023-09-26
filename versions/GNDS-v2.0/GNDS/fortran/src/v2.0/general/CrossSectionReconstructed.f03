@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CrossSectionReconstructedDefaultConst() &
-      bind(C, name='CrossSectionReconstructedDefaultConst') &
-      result(handle)
+      bind(C, name='CrossSectionReconstructedDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionReconstructedDefaultConst
 end function CrossSectionReconstructedDefaultConst
 
 !! Create, default
 function CrossSectionReconstructedDefault() &
-      bind(C, name='CrossSectionReconstructedDefault') &
-      result(handle)
+      bind(C, name='CrossSectionReconstructedDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionReconstructedDefault
 end function CrossSectionReconstructedDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function CrossSectionReconstructedCreateConst( &
    derivedFromSize, &
    dateSize &
 ) &
-      bind(C, name='CrossSectionReconstructedCreateConst') &
-      result(handle)
+      bind(C, name='CrossSectionReconstructedCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function CrossSectionReconstructedCreateConst( &
    character(c_char), intent(in) :: derivedFrom(derivedFromSize)
    integer(c_size_t), intent(in), value :: dateSize
    character(c_char), intent(in) :: date(dateSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionReconstructedCreateConst
 end function CrossSectionReconstructedCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function CrossSectionReconstructedCreate( &
    derivedFromSize, &
    dateSize &
 ) &
-      bind(C, name='CrossSectionReconstructedCreate') &
-      result(handle)
+      bind(C, name='CrossSectionReconstructedCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function CrossSectionReconstructedCreate( &
    character(c_char), intent(in) :: derivedFrom(derivedFromSize)
    integer(c_size_t), intent(in), value :: dateSize
    character(c_char), intent(in) :: date(dateSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionReconstructedCreate
 end function CrossSectionReconstructedCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine CrossSectionReconstructedDelete
 
 !! Read from file
 function CrossSectionReconstructedRead(handle, filename, filenameSize) &
-      bind(C, name='CrossSectionReconstructedRead') &
-      result(success)
+      bind(C, name='CrossSectionReconstructedRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionReconstructedRead
 end function CrossSectionReconstructedRead
 
 !! Write to file
 function CrossSectionReconstructedWrite(handle, filename, filenameSize) &
-      bind(C, name='CrossSectionReconstructedWrite') &
-      result(success)
+      bind(C, name='CrossSectionReconstructedWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionReconstructedWrite
 end function CrossSectionReconstructedWrite
 
 !! Print to standard output, in our prettyprinting format
 function CrossSectionReconstructedPrint(handle) &
-      bind(C, name='CrossSectionReconstructedPrint') &
-      result(success)
+      bind(C, name='CrossSectionReconstructedPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionReconstructedPrint
 end function CrossSectionReconstructedPrint
 
 !! Print to standard output, as XML
 function CrossSectionReconstructedPrintXML(handle) &
-      bind(C, name='CrossSectionReconstructedPrintXML') &
-      result(success)
+      bind(C, name='CrossSectionReconstructedPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionReconstructedPrintXML
 end function CrossSectionReconstructedPrintXML
 
 !! Print to standard output, as JSON
 function CrossSectionReconstructedPrintJSON(handle) &
-      bind(C, name='CrossSectionReconstructedPrintJSON') &
-      result(success)
+      bind(C, name='CrossSectionReconstructedPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionReconstructedPrintJSON
 end function CrossSectionReconstructedPrintJSON
 
 
@@ -158,22 +149,20 @@ end function CrossSectionReconstructedPrintJSON
 
 !! Has
 function CrossSectionReconstructedLabelHas(handle) &
-      bind(C, name='CrossSectionReconstructedLabelHas') &
-      result(has)
+      bind(C, name='CrossSectionReconstructedLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionReconstructedLabelHas
 end function CrossSectionReconstructedLabelHas
 
 !! Get
 function CrossSectionReconstructedLabelGet(handle) &
-      bind(C, name='CrossSectionReconstructedLabelGet') &
-      result(label)
+      bind(C, name='CrossSectionReconstructedLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: CrossSectionReconstructedLabelGet
 end function CrossSectionReconstructedLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine CrossSectionReconstructedLabelSet
 
 !! Has
 function CrossSectionReconstructedDerivedFromHas(handle) &
-      bind(C, name='CrossSectionReconstructedDerivedFromHas') &
-      result(has)
+      bind(C, name='CrossSectionReconstructedDerivedFromHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionReconstructedDerivedFromHas
 end function CrossSectionReconstructedDerivedFromHas
 
 !! Get
 function CrossSectionReconstructedDerivedFromGet(handle) &
-      bind(C, name='CrossSectionReconstructedDerivedFromGet') &
-      result(derivedFrom)
+      bind(C, name='CrossSectionReconstructedDerivedFromGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: derivedFrom
+   type(c_ptr) :: CrossSectionReconstructedDerivedFromGet
 end function CrossSectionReconstructedDerivedFromGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine CrossSectionReconstructedDerivedFromSet
 
 !! Has
 function CrossSectionReconstructedDateHas(handle) &
-      bind(C, name='CrossSectionReconstructedDateHas') &
-      result(has)
+      bind(C, name='CrossSectionReconstructedDateHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionReconstructedDateHas
 end function CrossSectionReconstructedDateHas
 
 !! Get
 function CrossSectionReconstructedDateGet(handle) &
-      bind(C, name='CrossSectionReconstructedDateGet') &
-      result(date)
+      bind(C, name='CrossSectionReconstructedDateGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: date
+   type(c_ptr) :: CrossSectionReconstructedDateGet
 end function CrossSectionReconstructedDateGet
 
 !! Set

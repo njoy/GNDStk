@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function SummandDefaultConst() &
-      bind(C, name='SummandDefaultConst') &
-      result(handle)
+      bind(C, name='SummandDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SummandDefaultConst
 end function SummandDefaultConst
 
 !! Create, default
 function SummandDefault() &
-      bind(C, name='SummandDefault') &
-      result(handle)
+      bind(C, name='SummandDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SummandDefault
 end function SummandDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function SummandCreateConst( &
    coefficientSize, &
    hrefSize &
 ) &
-      bind(C, name='SummandCreateConst') &
-      result(handle)
+      bind(C, name='SummandCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
@@ -49,7 +46,7 @@ function SummandCreateConst( &
    character(c_char), intent(in) :: coefficient(coefficientSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SummandCreateConst
 end function SummandCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function SummandCreate( &
    coefficientSize, &
    hrefSize &
 ) &
-      bind(C, name='SummandCreate') &
-      result(handle)
+      bind(C, name='SummandCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
@@ -71,7 +67,7 @@ function SummandCreate( &
    character(c_char), intent(in) :: coefficient(coefficientSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SummandCreate
 end function SummandCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine SummandDelete
 
 !! Read from file
 function SummandRead(handle, filename, filenameSize) &
-      bind(C, name='SummandRead') &
-      result(success)
+      bind(C, name='SummandRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SummandRead
 end function SummandRead
 
 !! Write to file
 function SummandWrite(handle, filename, filenameSize) &
-      bind(C, name='SummandWrite') &
-      result(success)
+      bind(C, name='SummandWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SummandWrite
 end function SummandWrite
 
 !! Print to standard output, in our prettyprinting format
 function SummandPrint(handle) &
-      bind(C, name='SummandPrint') &
-      result(success)
+      bind(C, name='SummandPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SummandPrint
 end function SummandPrint
 
 !! Print to standard output, as XML
 function SummandPrintXML(handle) &
-      bind(C, name='SummandPrintXML') &
-      result(success)
+      bind(C, name='SummandPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SummandPrintXML
 end function SummandPrintXML
 
 !! Print to standard output, as JSON
 function SummandPrintJSON(handle) &
-      bind(C, name='SummandPrintJSON') &
-      result(success)
+      bind(C, name='SummandPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SummandPrintJSON
 end function SummandPrintJSON
 
 
@@ -158,22 +149,20 @@ end function SummandPrintJSON
 
 !! Has
 function SummandENDFMFMTHas(handle) &
-      bind(C, name='SummandENDFMFMTHas') &
-      result(has)
+      bind(C, name='SummandENDFMFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SummandENDFMFMTHas
 end function SummandENDFMFMTHas
 
 !! Get
 function SummandENDFMFMTGet(handle) &
-      bind(C, name='SummandENDFMFMTGet') &
-      result(ENDF_MFMT)
+      bind(C, name='SummandENDFMFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ENDF_MFMT
+   type(c_ptr) :: SummandENDFMFMTGet
 end function SummandENDFMFMTGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine SummandENDFMFMTSet
 
 !! Has
 function SummandCoefficientHas(handle) &
-      bind(C, name='SummandCoefficientHas') &
-      result(has)
+      bind(C, name='SummandCoefficientHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SummandCoefficientHas
 end function SummandCoefficientHas
 
 !! Get
 function SummandCoefficientGet(handle) &
-      bind(C, name='SummandCoefficientGet') &
-      result(coefficient)
+      bind(C, name='SummandCoefficientGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: coefficient
+   type(c_ptr) :: SummandCoefficientGet
 end function SummandCoefficientGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine SummandCoefficientSet
 
 !! Has
 function SummandHrefHas(handle) &
-      bind(C, name='SummandHrefHas') &
-      result(has)
+      bind(C, name='SummandHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SummandHrefHas
 end function SummandHrefHas
 
 !! Get
 function SummandHrefGet(handle) &
-      bind(C, name='SummandHrefGet') &
-      result(href)
+      bind(C, name='SummandHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: SummandHrefGet
 end function SummandHrefGet
 
 !! Set

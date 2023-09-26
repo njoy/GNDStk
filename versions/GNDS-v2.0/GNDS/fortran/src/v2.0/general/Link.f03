@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function LinkDefaultConst() &
-      bind(C, name='LinkDefaultConst') &
-      result(handle)
+      bind(C, name='LinkDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LinkDefaultConst
 end function LinkDefaultConst
 
 !! Create, default
 function LinkDefault() &
-      bind(C, name='LinkDefault') &
-      result(handle)
+      bind(C, name='LinkDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LinkDefault
 end function LinkDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function LinkCreateConst( &
    href, &
    hrefSize &
 ) &
-      bind(C, name='LinkCreateConst') &
-      result(handle)
+      bind(C, name='LinkCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: LinkCreateConst
 end function LinkCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function LinkCreate( &
    href, &
    hrefSize &
 ) &
-      bind(C, name='LinkCreate') &
-      result(handle)
+      bind(C, name='LinkCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: LinkCreate
 end function LinkCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine LinkDelete
 
 !! Read from file
 function LinkRead(handle, filename, filenameSize) &
-      bind(C, name='LinkRead') &
-      result(success)
+      bind(C, name='LinkRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LinkRead
 end function LinkRead
 
 !! Write to file
 function LinkWrite(handle, filename, filenameSize) &
-      bind(C, name='LinkWrite') &
-      result(success)
+      bind(C, name='LinkWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LinkWrite
 end function LinkWrite
 
 !! Print to standard output, in our prettyprinting format
 function LinkPrint(handle) &
-      bind(C, name='LinkPrint') &
-      result(success)
+      bind(C, name='LinkPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LinkPrint
 end function LinkPrint
 
 !! Print to standard output, as XML
 function LinkPrintXML(handle) &
-      bind(C, name='LinkPrintXML') &
-      result(success)
+      bind(C, name='LinkPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LinkPrintXML
 end function LinkPrintXML
 
 !! Print to standard output, as JSON
 function LinkPrintJSON(handle) &
-      bind(C, name='LinkPrintJSON') &
-      result(success)
+      bind(C, name='LinkPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LinkPrintJSON
 end function LinkPrintJSON
 
 
@@ -142,22 +133,20 @@ end function LinkPrintJSON
 
 !! Has
 function LinkHrefHas(handle) &
-      bind(C, name='LinkHrefHas') &
-      result(has)
+      bind(C, name='LinkHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LinkHrefHas
 end function LinkHrefHas
 
 !! Get
 function LinkHrefGet(handle) &
-      bind(C, name='LinkHrefGet') &
-      result(href)
+      bind(C, name='LinkHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: LinkHrefGet
 end function LinkHrefGet
 
 !! Set

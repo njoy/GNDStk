@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ColumnDataDefaultConst() &
-      bind(C, name='ColumnDataDefaultConst') &
-      result(handle)
+      bind(C, name='ColumnDataDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnDataDefaultConst
 end function ColumnDataDefaultConst
 
 !! Create, default
 function ColumnDataDefault() &
-      bind(C, name='ColumnDataDefault') &
-      result(handle)
+      bind(C, name='ColumnDataDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnDataDefault
 end function ColumnDataDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function ColumnDataCreateConst( &
    ENDF_MFMTSize, &
    hrefSize &
 ) &
-      bind(C, name='ColumnDataCreateConst') &
-      result(handle)
+      bind(C, name='ColumnDataCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
@@ -47,7 +44,7 @@ function ColumnDataCreateConst( &
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
    type(c_ptr), value :: slices
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnDataCreateConst
 end function ColumnDataCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function ColumnDataCreate( &
    ENDF_MFMTSize, &
    hrefSize &
 ) &
-      bind(C, name='ColumnDataCreate') &
-      result(handle)
+      bind(C, name='ColumnDataCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
@@ -67,7 +63,7 @@ function ColumnDataCreate( &
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
    type(c_ptr), value :: slices
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnDataCreate
 end function ColumnDataCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine ColumnDataDelete
 
 !! Read from file
 function ColumnDataRead(handle, filename, filenameSize) &
-      bind(C, name='ColumnDataRead') &
-      result(success)
+      bind(C, name='ColumnDataRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ColumnDataRead
 end function ColumnDataRead
 
 !! Write to file
 function ColumnDataWrite(handle, filename, filenameSize) &
-      bind(C, name='ColumnDataWrite') &
-      result(success)
+      bind(C, name='ColumnDataWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ColumnDataWrite
 end function ColumnDataWrite
 
 !! Print to standard output, in our prettyprinting format
 function ColumnDataPrint(handle) &
-      bind(C, name='ColumnDataPrint') &
-      result(success)
+      bind(C, name='ColumnDataPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnDataPrint
 end function ColumnDataPrint
 
 !! Print to standard output, as XML
 function ColumnDataPrintXML(handle) &
-      bind(C, name='ColumnDataPrintXML') &
-      result(success)
+      bind(C, name='ColumnDataPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnDataPrintXML
 end function ColumnDataPrintXML
 
 !! Print to standard output, as JSON
 function ColumnDataPrintJSON(handle) &
-      bind(C, name='ColumnDataPrintJSON') &
-      result(success)
+      bind(C, name='ColumnDataPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnDataPrintJSON
 end function ColumnDataPrintJSON
 
 
@@ -154,22 +145,20 @@ end function ColumnDataPrintJSON
 
 !! Has
 function ColumnDataENDFMFMTHas(handle) &
-      bind(C, name='ColumnDataENDFMFMTHas') &
-      result(has)
+      bind(C, name='ColumnDataENDFMFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnDataENDFMFMTHas
 end function ColumnDataENDFMFMTHas
 
 !! Get
 function ColumnDataENDFMFMTGet(handle) &
-      bind(C, name='ColumnDataENDFMFMTGet') &
-      result(ENDF_MFMT)
+      bind(C, name='ColumnDataENDFMFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ENDF_MFMT
+   type(c_ptr) :: ColumnDataENDFMFMTGet
 end function ColumnDataENDFMFMTGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine ColumnDataENDFMFMTSet
 
 !! Has
 function ColumnDataHrefHas(handle) &
-      bind(C, name='ColumnDataHrefHas') &
-      result(has)
+      bind(C, name='ColumnDataHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnDataHrefHas
 end function ColumnDataHrefHas
 
 !! Get
 function ColumnDataHrefGet(handle) &
-      bind(C, name='ColumnDataHrefGet') &
-      result(href)
+      bind(C, name='ColumnDataHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: ColumnDataHrefGet
 end function ColumnDataHrefGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine ColumnDataHrefSet
 
 !! Has
 function ColumnDataSlicesHas(handle) &
-      bind(C, name='ColumnDataSlicesHas') &
-      result(has)
+      bind(C, name='ColumnDataSlicesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnDataSlicesHas
 end function ColumnDataSlicesHas
 
 !! Get, const
 function ColumnDataSlicesGetConst(handle) &
-      bind(C, name='ColumnDataSlicesGetConst') &
-      result(resultHandle)
+      bind(C, name='ColumnDataSlicesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnDataSlicesGetConst
 end function ColumnDataSlicesGetConst
 
 !! Get
 function ColumnDataSlicesGet(handle) &
-      bind(C, name='ColumnDataSlicesGet') &
-      result(resultHandle)
+      bind(C, name='ColumnDataSlicesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ColumnDataSlicesGet
 end function ColumnDataSlicesGet
 
 !! Set

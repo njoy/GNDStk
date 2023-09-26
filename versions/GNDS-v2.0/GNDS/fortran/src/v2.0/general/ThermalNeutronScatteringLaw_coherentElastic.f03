@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ThermalNeutronScatteringLaw_coherentElasticDefaultConst() &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticDefaultConst') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticDefaultConst
 end function ThermalNeutronScatteringLaw_coherentElasticDefaultConst
 
 !! Create, default
 function ThermalNeutronScatteringLaw_coherentElasticDefault() &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticDefault') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticDefault
 end function ThermalNeutronScatteringLaw_coherentElasticDefault
 
 !! Create, general, const
@@ -40,8 +38,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreateConst( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticCreateConst') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -51,7 +48,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreateConst( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: S_table
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticCreateConst
 end function ThermalNeutronScatteringLaw_coherentElasticCreateConst
 
 !! Create, general
@@ -64,8 +61,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreate( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticCreate') &
-      result(handle)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -75,7 +71,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreate( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: S_table
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticCreate
 end function ThermalNeutronScatteringLaw_coherentElasticCreate
 
 !! Assign
@@ -103,56 +99,51 @@ end subroutine ThermalNeutronScatteringLaw_coherentElasticDelete
 
 !! Read from file
 function ThermalNeutronScatteringLaw_coherentElasticRead(handle, filename, filenameSize) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticRead') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticRead
 end function ThermalNeutronScatteringLaw_coherentElasticRead
 
 !! Write to file
 function ThermalNeutronScatteringLaw_coherentElasticWrite(handle, filename, filenameSize) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticWrite') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticWrite
 end function ThermalNeutronScatteringLaw_coherentElasticWrite
 
 !! Print to standard output, in our prettyprinting format
 function ThermalNeutronScatteringLaw_coherentElasticPrint(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPrint') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticPrint
 end function ThermalNeutronScatteringLaw_coherentElasticPrint
 
 !! Print to standard output, as XML
 function ThermalNeutronScatteringLaw_coherentElasticPrintXML(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPrintXML') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticPrintXML
 end function ThermalNeutronScatteringLaw_coherentElasticPrintXML
 
 !! Print to standard output, as JSON
 function ThermalNeutronScatteringLaw_coherentElasticPrintJSON(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPrintJSON') &
-      result(success)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticPrintJSON
 end function ThermalNeutronScatteringLaw_coherentElasticPrintJSON
 
 
@@ -162,22 +153,20 @@ end function ThermalNeutronScatteringLaw_coherentElasticPrintJSON
 
 !! Has
 function ThermalNeutronScatteringLaw_coherentElasticLabelHas(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticLabelHas') &
-      result(has)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticLabelHas
 end function ThermalNeutronScatteringLaw_coherentElasticLabelHas
 
 !! Get
 function ThermalNeutronScatteringLaw_coherentElasticLabelGet(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticLabelGet') &
-      result(label)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticLabelGet
 end function ThermalNeutronScatteringLaw_coherentElasticLabelGet
 
 !! Set
@@ -197,22 +186,20 @@ end subroutine ThermalNeutronScatteringLaw_coherentElasticLabelSet
 
 !! Has
 function ThermalNeutronScatteringLaw_coherentElasticPidHas(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPidHas') &
-      result(has)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPidHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticPidHas
 end function ThermalNeutronScatteringLaw_coherentElasticPidHas
 
 !! Get
 function ThermalNeutronScatteringLaw_coherentElasticPidGet(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPidGet') &
-      result(pid)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticPidGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: pid
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticPidGet
 end function ThermalNeutronScatteringLaw_coherentElasticPidGet
 
 !! Set
@@ -232,22 +219,20 @@ end subroutine ThermalNeutronScatteringLaw_coherentElasticPidSet
 
 !! Has
 function ThermalNeutronScatteringLaw_coherentElasticProductFrameHas(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticProductFrameHas') &
-      result(has)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticProductFrameHas
 end function ThermalNeutronScatteringLaw_coherentElasticProductFrameHas
 
 !! Get
 function ThermalNeutronScatteringLaw_coherentElasticProductFrameGet(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticProductFrameGet') &
-      result(productFrame)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticProductFrameGet
 end function ThermalNeutronScatteringLaw_coherentElasticProductFrameGet
 
 !! Set
@@ -267,32 +252,29 @@ end subroutine ThermalNeutronScatteringLaw_coherentElasticProductFrameSet
 
 !! Has
 function ThermalNeutronScatteringLaw_coherentElasticS_tableHas(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableHas') &
-      result(has)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticS_tableHas
 end function ThermalNeutronScatteringLaw_coherentElasticS_tableHas
 
 !! Get, const
 function ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst') &
-      result(resultHandle)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst
 end function ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst
 
 !! Get
 function ThermalNeutronScatteringLaw_coherentElasticS_tableGet(handle) &
-      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableGet') &
-      result(resultHandle)
+      bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticS_tableGet
 end function ThermalNeutronScatteringLaw_coherentElasticS_tableGet
 
 !! Set

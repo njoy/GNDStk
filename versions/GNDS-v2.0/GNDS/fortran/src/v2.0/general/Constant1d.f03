@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function Constant1dDefaultConst() &
-      bind(C, name='Constant1dDefaultConst') &
-      result(handle)
+      bind(C, name='Constant1dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Constant1dDefaultConst
 end function Constant1dDefaultConst
 
 !! Create, default
 function Constant1dDefault() &
-      bind(C, name='Constant1dDefault') &
-      result(handle)
+      bind(C, name='Constant1dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Constant1dDefault
 end function Constant1dDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function Constant1dCreateConst( &
    axes, &
    labelSize &
 ) &
-      bind(C, name='Constant1dCreateConst') &
-      result(handle)
+      bind(C, name='Constant1dCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function Constant1dCreateConst( &
    real(c_double), value, intent(in) :: domainMin
    real(c_double), value, intent(in) :: domainMax
    type(c_ptr), value :: axes
-   type(c_ptr) :: handle
+   type(c_ptr) :: Constant1dCreateConst
 end function Constant1dCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function Constant1dCreate( &
    axes, &
    labelSize &
 ) &
-      bind(C, name='Constant1dCreate') &
-      result(handle)
+      bind(C, name='Constant1dCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function Constant1dCreate( &
    real(c_double), value, intent(in) :: domainMin
    real(c_double), value, intent(in) :: domainMax
    type(c_ptr), value :: axes
-   type(c_ptr) :: handle
+   type(c_ptr) :: Constant1dCreate
 end function Constant1dCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine Constant1dDelete
 
 !! Read from file
 function Constant1dRead(handle, filename, filenameSize) &
-      bind(C, name='Constant1dRead') &
-      result(success)
+      bind(C, name='Constant1dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Constant1dRead
 end function Constant1dRead
 
 !! Write to file
 function Constant1dWrite(handle, filename, filenameSize) &
-      bind(C, name='Constant1dWrite') &
-      result(success)
+      bind(C, name='Constant1dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Constant1dWrite
 end function Constant1dWrite
 
 !! Print to standard output, in our prettyprinting format
 function Constant1dPrint(handle) &
-      bind(C, name='Constant1dPrint') &
-      result(success)
+      bind(C, name='Constant1dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Constant1dPrint
 end function Constant1dPrint
 
 !! Print to standard output, as XML
 function Constant1dPrintXML(handle) &
-      bind(C, name='Constant1dPrintXML') &
-      result(success)
+      bind(C, name='Constant1dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Constant1dPrintXML
 end function Constant1dPrintXML
 
 !! Print to standard output, as JSON
 function Constant1dPrintJSON(handle) &
-      bind(C, name='Constant1dPrintJSON') &
-      result(success)
+      bind(C, name='Constant1dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Constant1dPrintJSON
 end function Constant1dPrintJSON
 
 
@@ -158,22 +149,20 @@ end function Constant1dPrintJSON
 
 !! Has
 function Constant1dLabelHas(handle) &
-      bind(C, name='Constant1dLabelHas') &
-      result(has)
+      bind(C, name='Constant1dLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Constant1dLabelHas
 end function Constant1dLabelHas
 
 !! Get
 function Constant1dLabelGet(handle) &
-      bind(C, name='Constant1dLabelGet') &
-      result(label)
+      bind(C, name='Constant1dLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: Constant1dLabelGet
 end function Constant1dLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine Constant1dLabelSet
 
 !! Has
 function Constant1dValueHas(handle) &
-      bind(C, name='Constant1dValueHas') &
-      result(has)
+      bind(C, name='Constant1dValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Constant1dValueHas
 end function Constant1dValueHas
 
 !! Get
 function Constant1dValueGet(handle) &
-      bind(C, name='Constant1dValueGet') &
-      result(value)
+      bind(C, name='Constant1dValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: Constant1dValueGet
 end function Constant1dValueGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine Constant1dValueSet
 
 !! Has
 function Constant1dDomainMinHas(handle) &
-      bind(C, name='Constant1dDomainMinHas') &
-      result(has)
+      bind(C, name='Constant1dDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Constant1dDomainMinHas
 end function Constant1dDomainMinHas
 
 !! Get
 function Constant1dDomainMinGet(handle) &
-      bind(C, name='Constant1dDomainMinGet') &
-      result(domainMin)
+      bind(C, name='Constant1dDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMin
+   real(c_double) :: Constant1dDomainMinGet
 end function Constant1dDomainMinGet
 
 !! Set
@@ -263,22 +248,20 @@ end subroutine Constant1dDomainMinSet
 
 !! Has
 function Constant1dDomainMaxHas(handle) &
-      bind(C, name='Constant1dDomainMaxHas') &
-      result(has)
+      bind(C, name='Constant1dDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Constant1dDomainMaxHas
 end function Constant1dDomainMaxHas
 
 !! Get
 function Constant1dDomainMaxGet(handle) &
-      bind(C, name='Constant1dDomainMaxGet') &
-      result(domainMax)
+      bind(C, name='Constant1dDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMax
+   real(c_double) :: Constant1dDomainMaxGet
 end function Constant1dDomainMaxGet
 
 !! Set
@@ -298,32 +281,29 @@ end subroutine Constant1dDomainMaxSet
 
 !! Has
 function Constant1dAxesHas(handle) &
-      bind(C, name='Constant1dAxesHas') &
-      result(has)
+      bind(C, name='Constant1dAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Constant1dAxesHas
 end function Constant1dAxesHas
 
 !! Get, const
 function Constant1dAxesGetConst(handle) &
-      bind(C, name='Constant1dAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='Constant1dAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Constant1dAxesGetConst
 end function Constant1dAxesGetConst
 
 !! Get
 function Constant1dAxesGet(handle) &
-      bind(C, name='Constant1dAxesGet') &
-      result(resultHandle)
+      bind(C, name='Constant1dAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Constant1dAxesGet
 end function Constant1dAxesGet
 
 !! Set

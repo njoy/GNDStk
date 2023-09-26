@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AverageEnergyDefaultConst() &
-      bind(C, name='AverageEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='AverageEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AverageEnergyDefaultConst
 end function AverageEnergyDefaultConst
 
 !! Create, default
 function AverageEnergyDefault() &
-      bind(C, name='AverageEnergyDefault') &
-      result(handle)
+      bind(C, name='AverageEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AverageEnergyDefault
 end function AverageEnergyDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function AverageEnergyCreateConst( &
    labelSize, &
    unitSize &
 ) &
-      bind(C, name='AverageEnergyCreateConst') &
-      result(handle)
+      bind(C, name='AverageEnergyCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function AverageEnergyCreateConst( &
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: AverageEnergyCreateConst
 end function AverageEnergyCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function AverageEnergyCreate( &
    labelSize, &
    unitSize &
 ) &
-      bind(C, name='AverageEnergyCreate') &
-      result(handle)
+      bind(C, name='AverageEnergyCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function AverageEnergyCreate( &
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: AverageEnergyCreate
 end function AverageEnergyCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine AverageEnergyDelete
 
 !! Read from file
 function AverageEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='AverageEnergyRead') &
-      result(success)
+      bind(C, name='AverageEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AverageEnergyRead
 end function AverageEnergyRead
 
 !! Write to file
 function AverageEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='AverageEnergyWrite') &
-      result(success)
+      bind(C, name='AverageEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AverageEnergyWrite
 end function AverageEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function AverageEnergyPrint(handle) &
-      bind(C, name='AverageEnergyPrint') &
-      result(success)
+      bind(C, name='AverageEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AverageEnergyPrint
 end function AverageEnergyPrint
 
 !! Print to standard output, as XML
 function AverageEnergyPrintXML(handle) &
-      bind(C, name='AverageEnergyPrintXML') &
-      result(success)
+      bind(C, name='AverageEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AverageEnergyPrintXML
 end function AverageEnergyPrintXML
 
 !! Print to standard output, as JSON
 function AverageEnergyPrintJSON(handle) &
-      bind(C, name='AverageEnergyPrintJSON') &
-      result(success)
+      bind(C, name='AverageEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AverageEnergyPrintJSON
 end function AverageEnergyPrintJSON
 
 
@@ -158,22 +149,20 @@ end function AverageEnergyPrintJSON
 
 !! Has
 function AverageEnergyLabelHas(handle) &
-      bind(C, name='AverageEnergyLabelHas') &
-      result(has)
+      bind(C, name='AverageEnergyLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AverageEnergyLabelHas
 end function AverageEnergyLabelHas
 
 !! Get
 function AverageEnergyLabelGet(handle) &
-      bind(C, name='AverageEnergyLabelGet') &
-      result(label)
+      bind(C, name='AverageEnergyLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: AverageEnergyLabelGet
 end function AverageEnergyLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine AverageEnergyLabelSet
 
 !! Has
 function AverageEnergyValueHas(handle) &
-      bind(C, name='AverageEnergyValueHas') &
-      result(has)
+      bind(C, name='AverageEnergyValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AverageEnergyValueHas
 end function AverageEnergyValueHas
 
 !! Get
 function AverageEnergyValueGet(handle) &
-      bind(C, name='AverageEnergyValueGet') &
-      result(value)
+      bind(C, name='AverageEnergyValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: AverageEnergyValueGet
 end function AverageEnergyValueGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine AverageEnergyValueSet
 
 !! Has
 function AverageEnergyUnitHas(handle) &
-      bind(C, name='AverageEnergyUnitHas') &
-      result(has)
+      bind(C, name='AverageEnergyUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AverageEnergyUnitHas
 end function AverageEnergyUnitHas
 
 !! Get
 function AverageEnergyUnitGet(handle) &
-      bind(C, name='AverageEnergyUnitGet') &
-      result(unit)
+      bind(C, name='AverageEnergyUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: AverageEnergyUnitGet
 end function AverageEnergyUnitGet
 
 !! Set
@@ -263,32 +248,29 @@ end subroutine AverageEnergyUnitSet
 
 !! Has
 function AverageEnergyUncertaintyHas(handle) &
-      bind(C, name='AverageEnergyUncertaintyHas') &
-      result(has)
+      bind(C, name='AverageEnergyUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AverageEnergyUncertaintyHas
 end function AverageEnergyUncertaintyHas
 
 !! Get, const
 function AverageEnergyUncertaintyGetConst(handle) &
-      bind(C, name='AverageEnergyUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='AverageEnergyUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AverageEnergyUncertaintyGetConst
 end function AverageEnergyUncertaintyGetConst
 
 !! Get
 function AverageEnergyUncertaintyGet(handle) &
-      bind(C, name='AverageEnergyUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='AverageEnergyUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AverageEnergyUncertaintyGet
 end function AverageEnergyUncertaintyGet
 
 !! Set

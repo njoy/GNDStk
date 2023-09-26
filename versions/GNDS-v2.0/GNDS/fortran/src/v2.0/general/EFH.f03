@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function EFHDefaultConst() &
-      bind(C, name='EFHDefaultConst') &
-      result(handle)
+      bind(C, name='EFHDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFHDefaultConst
 end function EFHDefaultConst
 
 !! Create, default
 function EFHDefault() &
-      bind(C, name='EFHDefault') &
-      result(handle)
+      bind(C, name='EFHDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFHDefault
 end function EFHDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function EFHCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='EFHCreateConst') &
-      result(handle)
+      bind(C, name='EFHCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFHCreateConst
 end function EFHCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function EFHCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='EFHCreate') &
-      result(handle)
+      bind(C, name='EFHCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFHCreate
 end function EFHCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine EFHDelete
 
 !! Read from file
 function EFHRead(handle, filename, filenameSize) &
-      bind(C, name='EFHRead') &
-      result(success)
+      bind(C, name='EFHRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EFHRead
 end function EFHRead
 
 !! Write to file
 function EFHWrite(handle, filename, filenameSize) &
-      bind(C, name='EFHWrite') &
-      result(success)
+      bind(C, name='EFHWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EFHWrite
 end function EFHWrite
 
 !! Print to standard output, in our prettyprinting format
 function EFHPrint(handle) &
-      bind(C, name='EFHPrint') &
-      result(success)
+      bind(C, name='EFHPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EFHPrint
 end function EFHPrint
 
 !! Print to standard output, as XML
 function EFHPrintXML(handle) &
-      bind(C, name='EFHPrintXML') &
-      result(success)
+      bind(C, name='EFHPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EFHPrintXML
 end function EFHPrintXML
 
 !! Print to standard output, as JSON
 function EFHPrintJSON(handle) &
-      bind(C, name='EFHPrintJSON') &
-      result(success)
+      bind(C, name='EFHPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EFHPrintJSON
 end function EFHPrintJSON
 
 
@@ -146,22 +137,20 @@ end function EFHPrintJSON
 
 !! Has
 function EFHValueHas(handle) &
-      bind(C, name='EFHValueHas') &
-      result(has)
+      bind(C, name='EFHValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EFHValueHas
 end function EFHValueHas
 
 !! Get
 function EFHValueGet(handle) &
-      bind(C, name='EFHValueGet') &
-      result(value)
+      bind(C, name='EFHValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: EFHValueGet
 end function EFHValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine EFHValueSet
 
 !! Has
 function EFHUnitHas(handle) &
-      bind(C, name='EFHUnitHas') &
-      result(has)
+      bind(C, name='EFHUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EFHUnitHas
 end function EFHUnitHas
 
 !! Get
 function EFHUnitGet(handle) &
-      bind(C, name='EFHUnitGet') &
-      result(unit)
+      bind(C, name='EFHUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: EFHUnitGet
 end function EFHUnitGet
 
 !! Set

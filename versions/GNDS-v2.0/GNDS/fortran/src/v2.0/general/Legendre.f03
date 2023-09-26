@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function LegendreDefaultConst() &
-      bind(C, name='LegendreDefaultConst') &
-      result(handle)
+      bind(C, name='LegendreDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LegendreDefaultConst
 end function LegendreDefaultConst
 
 !! Create, default
 function LegendreDefault() &
-      bind(C, name='LegendreDefault') &
-      result(handle)
+      bind(C, name='LegendreDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LegendreDefault
 end function LegendreDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function LegendreCreateConst( &
    outerDomainValue, &
    values &
 ) &
-      bind(C, name='LegendreCreateConst') &
-      result(handle)
+      bind(C, name='LegendreCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: outerDomainValue
    type(c_ptr), value :: values
-   type(c_ptr) :: handle
+   type(c_ptr) :: LegendreCreateConst
 end function LegendreCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function LegendreCreate( &
    outerDomainValue, &
    values &
 ) &
-      bind(C, name='LegendreCreate') &
-      result(handle)
+      bind(C, name='LegendreCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: outerDomainValue
    type(c_ptr), value :: values
-   type(c_ptr) :: handle
+   type(c_ptr) :: LegendreCreate
 end function LegendreCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine LegendreDelete
 
 !! Read from file
 function LegendreRead(handle, filename, filenameSize) &
-      bind(C, name='LegendreRead') &
-      result(success)
+      bind(C, name='LegendreRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LegendreRead
 end function LegendreRead
 
 !! Write to file
 function LegendreWrite(handle, filename, filenameSize) &
-      bind(C, name='LegendreWrite') &
-      result(success)
+      bind(C, name='LegendreWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LegendreWrite
 end function LegendreWrite
 
 !! Print to standard output, in our prettyprinting format
 function LegendrePrint(handle) &
-      bind(C, name='LegendrePrint') &
-      result(success)
+      bind(C, name='LegendrePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LegendrePrint
 end function LegendrePrint
 
 !! Print to standard output, as XML
 function LegendrePrintXML(handle) &
-      bind(C, name='LegendrePrintXML') &
-      result(success)
+      bind(C, name='LegendrePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LegendrePrintXML
 end function LegendrePrintXML
 
 !! Print to standard output, as JSON
 function LegendrePrintJSON(handle) &
-      bind(C, name='LegendrePrintJSON') &
-      result(success)
+      bind(C, name='LegendrePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LegendrePrintJSON
 end function LegendrePrintJSON
 
 
@@ -142,22 +133,20 @@ end function LegendrePrintJSON
 
 !! Has
 function LegendreOuterDomainValueHas(handle) &
-      bind(C, name='LegendreOuterDomainValueHas') &
-      result(has)
+      bind(C, name='LegendreOuterDomainValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LegendreOuterDomainValueHas
 end function LegendreOuterDomainValueHas
 
 !! Get
 function LegendreOuterDomainValueGet(handle) &
-      bind(C, name='LegendreOuterDomainValueGet') &
-      result(outerDomainValue)
+      bind(C, name='LegendreOuterDomainValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: outerDomainValue
+   real(c_double) :: LegendreOuterDomainValueGet
 end function LegendreOuterDomainValueGet
 
 !! Set
@@ -177,32 +166,29 @@ end subroutine LegendreOuterDomainValueSet
 
 !! Has
 function LegendreValuesHas(handle) &
-      bind(C, name='LegendreValuesHas') &
-      result(has)
+      bind(C, name='LegendreValuesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LegendreValuesHas
 end function LegendreValuesHas
 
 !! Get, const
 function LegendreValuesGetConst(handle) &
-      bind(C, name='LegendreValuesGetConst') &
-      result(resultHandle)
+      bind(C, name='LegendreValuesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LegendreValuesGetConst
 end function LegendreValuesGetConst
 
 !! Get
 function LegendreValuesGet(handle) &
-      bind(C, name='LegendreValuesGet') &
-      result(resultHandle)
+      bind(C, name='LegendreValuesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LegendreValuesGet
 end function LegendreValuesGet
 
 !! Set

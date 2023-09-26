@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function MultiplicitySumsDefaultConst() &
-      bind(C, name='MultiplicitySumsDefaultConst') &
-      result(handle)
+      bind(C, name='MultiplicitySumsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicitySumsDefaultConst
 end function MultiplicitySumsDefaultConst
 
 !! Create, default
 function MultiplicitySumsDefault() &
-      bind(C, name='MultiplicitySumsDefault') &
-      result(handle)
+      bind(C, name='MultiplicitySumsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicitySumsDefault
 end function MultiplicitySumsDefault
 
 !! Create, general, const
 function MultiplicitySumsCreateConst( &
    multiplicitySum, multiplicitySumSize &
 ) &
-      bind(C, name='MultiplicitySumsCreateConst') &
-      result(handle)
+      bind(C, name='MultiplicitySumsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: multiplicitySumSize
    type(c_ptr) :: multiplicitySum(multiplicitySumSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicitySumsCreateConst
 end function MultiplicitySumsCreateConst
 
 !! Create, general
 function MultiplicitySumsCreate( &
    multiplicitySum, multiplicitySumSize &
 ) &
-      bind(C, name='MultiplicitySumsCreate') &
-      result(handle)
+      bind(C, name='MultiplicitySumsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: multiplicitySumSize
    type(c_ptr) :: multiplicitySum(multiplicitySumSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicitySumsCreate
 end function MultiplicitySumsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine MultiplicitySumsDelete
 
 !! Read from file
 function MultiplicitySumsRead(handle, filename, filenameSize) &
-      bind(C, name='MultiplicitySumsRead') &
-      result(success)
+      bind(C, name='MultiplicitySumsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicitySumsRead
 end function MultiplicitySumsRead
 
 !! Write to file
 function MultiplicitySumsWrite(handle, filename, filenameSize) &
-      bind(C, name='MultiplicitySumsWrite') &
-      result(success)
+      bind(C, name='MultiplicitySumsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicitySumsWrite
 end function MultiplicitySumsWrite
 
 !! Print to standard output, in our prettyprinting format
 function MultiplicitySumsPrint(handle) &
-      bind(C, name='MultiplicitySumsPrint') &
-      result(success)
+      bind(C, name='MultiplicitySumsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicitySumsPrint
 end function MultiplicitySumsPrint
 
 !! Print to standard output, as XML
 function MultiplicitySumsPrintXML(handle) &
-      bind(C, name='MultiplicitySumsPrintXML') &
-      result(success)
+      bind(C, name='MultiplicitySumsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicitySumsPrintXML
 end function MultiplicitySumsPrintXML
 
 !! Print to standard output, as JSON
 function MultiplicitySumsPrintJSON(handle) &
-      bind(C, name='MultiplicitySumsPrintJSON') &
-      result(success)
+      bind(C, name='MultiplicitySumsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicitySumsPrintJSON
 end function MultiplicitySumsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function MultiplicitySumsPrintJSON
 
 !! Has
 function MultiplicitySumsMultiplicitySumHas(handle) &
-      bind(C, name='MultiplicitySumsMultiplicitySumHas') &
-      result(has)
+      bind(C, name='MultiplicitySumsMultiplicitySumHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicitySumsMultiplicitySumHas
 end function MultiplicitySumsMultiplicitySumHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine MultiplicitySumsMultiplicitySumClear
 
 !! Size
 function MultiplicitySumsMultiplicitySumSize(handle) &
-      bind(C, name='MultiplicitySumsMultiplicitySumSize') &
-      result(vectorSize)
+      bind(C, name='MultiplicitySumsMultiplicitySumSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: MultiplicitySumsMultiplicitySumSize
 end function MultiplicitySumsMultiplicitySumSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine MultiplicitySumsMultiplicitySumAdd
 
 !! Get, by index \in [0,size), const
 function MultiplicitySumsMultiplicitySumGetConst(handle, index) &
-      bind(C, name='MultiplicitySumsMultiplicitySumGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicitySumsMultiplicitySumGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicitySumsMultiplicitySumGetConst
 end function MultiplicitySumsMultiplicitySumGetConst
 
 !! Get, by index \in [0,size)
 function MultiplicitySumsMultiplicitySumGet(handle, index) &
-      bind(C, name='MultiplicitySumsMultiplicitySumGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicitySumsMultiplicitySumGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicitySumsMultiplicitySumGet
 end function MultiplicitySumsMultiplicitySumGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine MultiplicitySumsMultiplicitySumSet
 
 !! Has, by label
 function MultiplicitySumsMultiplicitySumHasByLabel(handle, meta, metaSize) &
-      bind(C, name='MultiplicitySumsMultiplicitySumHasByLabel') &
-      result(has)
+      bind(C, name='MultiplicitySumsMultiplicitySumHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicitySumsMultiplicitySumHasByLabel
 end function MultiplicitySumsMultiplicitySumHasByLabel
 
 !! Get, by label, const
 function MultiplicitySumsMultiplicitySumGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='MultiplicitySumsMultiplicitySumGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicitySumsMultiplicitySumGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByLabelConst
 end function MultiplicitySumsMultiplicitySumGetByLabelConst
 
 !! Get, by label
 function MultiplicitySumsMultiplicitySumGetByLabel(handle, meta, metaSize) &
-      bind(C, name='MultiplicitySumsMultiplicitySumGetByLabel') &
-      result(resultHandle)
+      bind(C, name='MultiplicitySumsMultiplicitySumGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByLabel
 end function MultiplicitySumsMultiplicitySumGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine MultiplicitySumsMultiplicitySumSetByLabel
 
 !! Has, by ENDF_MT
 function MultiplicitySumsMultiplicitySumHasByENDFMT(handle, meta) &
-      bind(C, name='MultiplicitySumsMultiplicitySumHasByENDFMT') &
-      result(has)
+      bind(C, name='MultiplicitySumsMultiplicitySumHasByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicitySumsMultiplicitySumHasByENDFMT
 end function MultiplicitySumsMultiplicitySumHasByENDFMT
 
 !! Get, by ENDF_MT, const
 function MultiplicitySumsMultiplicitySumGetByENDFMTConst(handle, meta) &
-      bind(C, name='MultiplicitySumsMultiplicitySumGetByENDFMTConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicitySumsMultiplicitySumGetByENDFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByENDFMTConst
 end function MultiplicitySumsMultiplicitySumGetByENDFMTConst
 
 !! Get, by ENDF_MT
 function MultiplicitySumsMultiplicitySumGetByENDFMT(handle, meta) &
-      bind(C, name='MultiplicitySumsMultiplicitySumGetByENDFMT') &
-      result(resultHandle)
+      bind(C, name='MultiplicitySumsMultiplicitySumGetByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByENDFMT
 end function MultiplicitySumsMultiplicitySumGetByENDFMT
 
 !! Set, by ENDF_MT

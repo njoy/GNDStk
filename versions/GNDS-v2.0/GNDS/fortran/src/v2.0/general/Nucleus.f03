@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function NucleusDefaultConst() &
-      bind(C, name='NucleusDefaultConst') &
-      result(handle)
+      bind(C, name='NucleusDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NucleusDefaultConst
 end function NucleusDefaultConst
 
 !! Create, default
 function NucleusDefault() &
-      bind(C, name='NucleusDefault') &
-      result(handle)
+      bind(C, name='NucleusDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NucleusDefault
 end function NucleusDefault
 
 !! Create, general, const
@@ -43,8 +41,7 @@ function NucleusCreateConst( &
    decayData, &
    idSize &
 ) &
-      bind(C, name='NucleusCreateConst') &
-      result(handle)
+      bind(C, name='NucleusCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -57,7 +54,7 @@ function NucleusCreateConst( &
    type(c_ptr), value :: halflife
    type(c_ptr), value :: energy
    type(c_ptr), value :: decayData
-   type(c_ptr) :: handle
+   type(c_ptr) :: NucleusCreateConst
 end function NucleusCreateConst
 
 !! Create, general
@@ -73,8 +70,7 @@ function NucleusCreate( &
    decayData, &
    idSize &
 ) &
-      bind(C, name='NucleusCreate') &
-      result(handle)
+      bind(C, name='NucleusCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -87,7 +83,7 @@ function NucleusCreate( &
    type(c_ptr), value :: halflife
    type(c_ptr), value :: energy
    type(c_ptr), value :: decayData
-   type(c_ptr) :: handle
+   type(c_ptr) :: NucleusCreate
 end function NucleusCreate
 
 !! Assign
@@ -115,56 +111,51 @@ end subroutine NucleusDelete
 
 !! Read from file
 function NucleusRead(handle, filename, filenameSize) &
-      bind(C, name='NucleusRead') &
-      result(success)
+      bind(C, name='NucleusRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NucleusRead
 end function NucleusRead
 
 !! Write to file
 function NucleusWrite(handle, filename, filenameSize) &
-      bind(C, name='NucleusWrite') &
-      result(success)
+      bind(C, name='NucleusWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NucleusWrite
 end function NucleusWrite
 
 !! Print to standard output, in our prettyprinting format
 function NucleusPrint(handle) &
-      bind(C, name='NucleusPrint') &
-      result(success)
+      bind(C, name='NucleusPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NucleusPrint
 end function NucleusPrint
 
 !! Print to standard output, as XML
 function NucleusPrintXML(handle) &
-      bind(C, name='NucleusPrintXML') &
-      result(success)
+      bind(C, name='NucleusPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NucleusPrintXML
 end function NucleusPrintXML
 
 !! Print to standard output, as JSON
 function NucleusPrintJSON(handle) &
-      bind(C, name='NucleusPrintJSON') &
-      result(success)
+      bind(C, name='NucleusPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NucleusPrintJSON
 end function NucleusPrintJSON
 
 
@@ -174,22 +165,20 @@ end function NucleusPrintJSON
 
 !! Has
 function NucleusIdHas(handle) &
-      bind(C, name='NucleusIdHas') &
-      result(has)
+      bind(C, name='NucleusIdHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusIdHas
 end function NucleusIdHas
 
 !! Get
 function NucleusIdGet(handle) &
-      bind(C, name='NucleusIdGet') &
-      result(id)
+      bind(C, name='NucleusIdGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: id
+   type(c_ptr) :: NucleusIdGet
 end function NucleusIdGet
 
 !! Set
@@ -209,22 +198,20 @@ end subroutine NucleusIdSet
 
 !! Has
 function NucleusIndexHas(handle) &
-      bind(C, name='NucleusIndexHas') &
-      result(has)
+      bind(C, name='NucleusIndexHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusIndexHas
 end function NucleusIndexHas
 
 !! Get
 function NucleusIndexGet(handle) &
-      bind(C, name='NucleusIndexGet') &
-      result(index)
+      bind(C, name='NucleusIndexGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: index
+   integer(c_int) :: NucleusIndexGet
 end function NucleusIndexGet
 
 !! Set
@@ -244,32 +231,29 @@ end subroutine NucleusIndexSet
 
 !! Has
 function NucleusMassHas(handle) &
-      bind(C, name='NucleusMassHas') &
-      result(has)
+      bind(C, name='NucleusMassHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusMassHas
 end function NucleusMassHas
 
 !! Get, const
 function NucleusMassGetConst(handle) &
-      bind(C, name='NucleusMassGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusMassGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusMassGetConst
 end function NucleusMassGetConst
 
 !! Get
 function NucleusMassGet(handle) &
-      bind(C, name='NucleusMassGet') &
-      result(resultHandle)
+      bind(C, name='NucleusMassGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusMassGet
 end function NucleusMassGet
 
 !! Set
@@ -288,32 +272,29 @@ end subroutine NucleusMassSet
 
 !! Has
 function NucleusSpinHas(handle) &
-      bind(C, name='NucleusSpinHas') &
-      result(has)
+      bind(C, name='NucleusSpinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusSpinHas
 end function NucleusSpinHas
 
 !! Get, const
 function NucleusSpinGetConst(handle) &
-      bind(C, name='NucleusSpinGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusSpinGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusSpinGetConst
 end function NucleusSpinGetConst
 
 !! Get
 function NucleusSpinGet(handle) &
-      bind(C, name='NucleusSpinGet') &
-      result(resultHandle)
+      bind(C, name='NucleusSpinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusSpinGet
 end function NucleusSpinGet
 
 !! Set
@@ -332,32 +313,29 @@ end subroutine NucleusSpinSet
 
 !! Has
 function NucleusParityHas(handle) &
-      bind(C, name='NucleusParityHas') &
-      result(has)
+      bind(C, name='NucleusParityHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusParityHas
 end function NucleusParityHas
 
 !! Get, const
 function NucleusParityGetConst(handle) &
-      bind(C, name='NucleusParityGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusParityGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusParityGetConst
 end function NucleusParityGetConst
 
 !! Get
 function NucleusParityGet(handle) &
-      bind(C, name='NucleusParityGet') &
-      result(resultHandle)
+      bind(C, name='NucleusParityGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusParityGet
 end function NucleusParityGet
 
 !! Set
@@ -376,32 +354,29 @@ end subroutine NucleusParitySet
 
 !! Has
 function NucleusChargeHas(handle) &
-      bind(C, name='NucleusChargeHas') &
-      result(has)
+      bind(C, name='NucleusChargeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusChargeHas
 end function NucleusChargeHas
 
 !! Get, const
 function NucleusChargeGetConst(handle) &
-      bind(C, name='NucleusChargeGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusChargeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusChargeGetConst
 end function NucleusChargeGetConst
 
 !! Get
 function NucleusChargeGet(handle) &
-      bind(C, name='NucleusChargeGet') &
-      result(resultHandle)
+      bind(C, name='NucleusChargeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusChargeGet
 end function NucleusChargeGet
 
 !! Set
@@ -420,32 +395,29 @@ end subroutine NucleusChargeSet
 
 !! Has
 function NucleusHalflifeHas(handle) &
-      bind(C, name='NucleusHalflifeHas') &
-      result(has)
+      bind(C, name='NucleusHalflifeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusHalflifeHas
 end function NucleusHalflifeHas
 
 !! Get, const
 function NucleusHalflifeGetConst(handle) &
-      bind(C, name='NucleusHalflifeGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusHalflifeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusHalflifeGetConst
 end function NucleusHalflifeGetConst
 
 !! Get
 function NucleusHalflifeGet(handle) &
-      bind(C, name='NucleusHalflifeGet') &
-      result(resultHandle)
+      bind(C, name='NucleusHalflifeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusHalflifeGet
 end function NucleusHalflifeGet
 
 !! Set
@@ -464,32 +436,29 @@ end subroutine NucleusHalflifeSet
 
 !! Has
 function NucleusEnergyHas(handle) &
-      bind(C, name='NucleusEnergyHas') &
-      result(has)
+      bind(C, name='NucleusEnergyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusEnergyHas
 end function NucleusEnergyHas
 
 !! Get, const
 function NucleusEnergyGetConst(handle) &
-      bind(C, name='NucleusEnergyGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusEnergyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusEnergyGetConst
 end function NucleusEnergyGetConst
 
 !! Get
 function NucleusEnergyGet(handle) &
-      bind(C, name='NucleusEnergyGet') &
-      result(resultHandle)
+      bind(C, name='NucleusEnergyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusEnergyGet
 end function NucleusEnergyGet
 
 !! Set
@@ -508,32 +477,29 @@ end subroutine NucleusEnergySet
 
 !! Has
 function NucleusDecayDataHas(handle) &
-      bind(C, name='NucleusDecayDataHas') &
-      result(has)
+      bind(C, name='NucleusDecayDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NucleusDecayDataHas
 end function NucleusDecayDataHas
 
 !! Get, const
 function NucleusDecayDataGetConst(handle) &
-      bind(C, name='NucleusDecayDataGetConst') &
-      result(resultHandle)
+      bind(C, name='NucleusDecayDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusDecayDataGetConst
 end function NucleusDecayDataGetConst
 
 !! Get
 function NucleusDecayDataGet(handle) &
-      bind(C, name='NucleusDecayDataGet') &
-      result(resultHandle)
+      bind(C, name='NucleusDecayDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NucleusDecayDataGet
 end function NucleusDecayDataGet
 
 !! Set

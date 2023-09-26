@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function InstitutionDefaultConst() &
-      bind(C, name='InstitutionDefaultConst') &
-      result(handle)
+      bind(C, name='InstitutionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: InstitutionDefaultConst
 end function InstitutionDefaultConst
 
 !! Create, default
 function InstitutionDefault() &
-      bind(C, name='InstitutionDefault') &
-      result(handle)
+      bind(C, name='InstitutionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: InstitutionDefault
 end function InstitutionDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function InstitutionCreateConst( &
    ENDFconversionFlags, &
    labelSize &
 ) &
-      bind(C, name='InstitutionCreateConst') &
-      result(handle)
+      bind(C, name='InstitutionCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: ENDFconversionFlags
-   type(c_ptr) :: handle
+   type(c_ptr) :: InstitutionCreateConst
 end function InstitutionCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function InstitutionCreate( &
    ENDFconversionFlags, &
    labelSize &
 ) &
-      bind(C, name='InstitutionCreate') &
-      result(handle)
+      bind(C, name='InstitutionCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: ENDFconversionFlags
-   type(c_ptr) :: handle
+   type(c_ptr) :: InstitutionCreate
 end function InstitutionCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine InstitutionDelete
 
 !! Read from file
 function InstitutionRead(handle, filename, filenameSize) &
-      bind(C, name='InstitutionRead') &
-      result(success)
+      bind(C, name='InstitutionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: InstitutionRead
 end function InstitutionRead
 
 !! Write to file
 function InstitutionWrite(handle, filename, filenameSize) &
-      bind(C, name='InstitutionWrite') &
-      result(success)
+      bind(C, name='InstitutionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: InstitutionWrite
 end function InstitutionWrite
 
 !! Print to standard output, in our prettyprinting format
 function InstitutionPrint(handle) &
-      bind(C, name='InstitutionPrint') &
-      result(success)
+      bind(C, name='InstitutionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: InstitutionPrint
 end function InstitutionPrint
 
 !! Print to standard output, as XML
 function InstitutionPrintXML(handle) &
-      bind(C, name='InstitutionPrintXML') &
-      result(success)
+      bind(C, name='InstitutionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: InstitutionPrintXML
 end function InstitutionPrintXML
 
 !! Print to standard output, as JSON
 function InstitutionPrintJSON(handle) &
-      bind(C, name='InstitutionPrintJSON') &
-      result(success)
+      bind(C, name='InstitutionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: InstitutionPrintJSON
 end function InstitutionPrintJSON
 
 
@@ -146,22 +137,20 @@ end function InstitutionPrintJSON
 
 !! Has
 function InstitutionLabelHas(handle) &
-      bind(C, name='InstitutionLabelHas') &
-      result(has)
+      bind(C, name='InstitutionLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: InstitutionLabelHas
 end function InstitutionLabelHas
 
 !! Get
 function InstitutionLabelGet(handle) &
-      bind(C, name='InstitutionLabelGet') &
-      result(label)
+      bind(C, name='InstitutionLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: InstitutionLabelGet
 end function InstitutionLabelGet
 
 !! Set
@@ -181,32 +170,29 @@ end subroutine InstitutionLabelSet
 
 !! Has
 function InstitutionENDFconversionFlagsHas(handle) &
-      bind(C, name='InstitutionENDFconversionFlagsHas') &
-      result(has)
+      bind(C, name='InstitutionENDFconversionFlagsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: InstitutionENDFconversionFlagsHas
 end function InstitutionENDFconversionFlagsHas
 
 !! Get, const
 function InstitutionENDFconversionFlagsGetConst(handle) &
-      bind(C, name='InstitutionENDFconversionFlagsGetConst') &
-      result(resultHandle)
+      bind(C, name='InstitutionENDFconversionFlagsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InstitutionENDFconversionFlagsGetConst
 end function InstitutionENDFconversionFlagsGetConst
 
 !! Get
 function InstitutionENDFconversionFlagsGet(handle) &
-      bind(C, name='InstitutionENDFconversionFlagsGet') &
-      result(resultHandle)
+      bind(C, name='InstitutionENDFconversionFlagsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InstitutionENDFconversionFlagsGet
 end function InstitutionENDFconversionFlagsGet
 
 !! Set

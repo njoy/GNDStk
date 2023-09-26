@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function Regions2dDefaultConst() &
-      bind(C, name='Regions2dDefaultConst') &
-      result(handle)
+      bind(C, name='Regions2dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions2dDefaultConst
 end function Regions2dDefaultConst
 
 !! Create, default
 function Regions2dDefault() &
-      bind(C, name='Regions2dDefault') &
-      result(handle)
+      bind(C, name='Regions2dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions2dDefault
 end function Regions2dDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function Regions2dCreateConst( &
    function2ds, &
    uncertainty &
 ) &
-      bind(C, name='Regions2dCreateConst') &
-      result(handle)
+      bind(C, name='Regions2dCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: axes
    type(c_ptr), value :: function2ds
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions2dCreateConst
 end function Regions2dCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function Regions2dCreate( &
    function2ds, &
    uncertainty &
 ) &
-      bind(C, name='Regions2dCreate') &
-      result(handle)
+      bind(C, name='Regions2dCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: axes
    type(c_ptr), value :: function2ds
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions2dCreate
 end function Regions2dCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine Regions2dDelete
 
 !! Read from file
 function Regions2dRead(handle, filename, filenameSize) &
-      bind(C, name='Regions2dRead') &
-      result(success)
+      bind(C, name='Regions2dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Regions2dRead
 end function Regions2dRead
 
 !! Write to file
 function Regions2dWrite(handle, filename, filenameSize) &
-      bind(C, name='Regions2dWrite') &
-      result(success)
+      bind(C, name='Regions2dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Regions2dWrite
 end function Regions2dWrite
 
 !! Print to standard output, in our prettyprinting format
 function Regions2dPrint(handle) &
-      bind(C, name='Regions2dPrint') &
-      result(success)
+      bind(C, name='Regions2dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Regions2dPrint
 end function Regions2dPrint
 
 !! Print to standard output, as XML
 function Regions2dPrintXML(handle) &
-      bind(C, name='Regions2dPrintXML') &
-      result(success)
+      bind(C, name='Regions2dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Regions2dPrintXML
 end function Regions2dPrintXML
 
 !! Print to standard output, as JSON
 function Regions2dPrintJSON(handle) &
-      bind(C, name='Regions2dPrintJSON') &
-      result(success)
+      bind(C, name='Regions2dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Regions2dPrintJSON
 end function Regions2dPrintJSON
 
 
@@ -146,32 +137,29 @@ end function Regions2dPrintJSON
 
 !! Has
 function Regions2dAxesHas(handle) &
-      bind(C, name='Regions2dAxesHas') &
-      result(has)
+      bind(C, name='Regions2dAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions2dAxesHas
 end function Regions2dAxesHas
 
 !! Get, const
 function Regions2dAxesGetConst(handle) &
-      bind(C, name='Regions2dAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='Regions2dAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions2dAxesGetConst
 end function Regions2dAxesGetConst
 
 !! Get
 function Regions2dAxesGet(handle) &
-      bind(C, name='Regions2dAxesGet') &
-      result(resultHandle)
+      bind(C, name='Regions2dAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions2dAxesGet
 end function Regions2dAxesGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine Regions2dAxesSet
 
 !! Has
 function Regions2dFunction2dsHas(handle) &
-      bind(C, name='Regions2dFunction2dsHas') &
-      result(has)
+      bind(C, name='Regions2dFunction2dsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions2dFunction2dsHas
 end function Regions2dFunction2dsHas
 
 !! Get, const
 function Regions2dFunction2dsGetConst(handle) &
-      bind(C, name='Regions2dFunction2dsGetConst') &
-      result(resultHandle)
+      bind(C, name='Regions2dFunction2dsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions2dFunction2dsGetConst
 end function Regions2dFunction2dsGetConst
 
 !! Get
 function Regions2dFunction2dsGet(handle) &
-      bind(C, name='Regions2dFunction2dsGet') &
-      result(resultHandle)
+      bind(C, name='Regions2dFunction2dsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions2dFunction2dsGet
 end function Regions2dFunction2dsGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine Regions2dFunction2dsSet
 
 !! Has
 function Regions2dUncertaintyHas(handle) &
-      bind(C, name='Regions2dUncertaintyHas') &
-      result(has)
+      bind(C, name='Regions2dUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions2dUncertaintyHas
 end function Regions2dUncertaintyHas
 
 !! Get, const
 function Regions2dUncertaintyGetConst(handle) &
-      bind(C, name='Regions2dUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='Regions2dUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions2dUncertaintyGetConst
 end function Regions2dUncertaintyGetConst
 
 !! Get
 function Regions2dUncertaintyGet(handle) &
-      bind(C, name='Regions2dUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='Regions2dUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions2dUncertaintyGet
 end function Regions2dUncertaintyGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function GeneralEvaporationDefaultConst() &
-      bind(C, name='GeneralEvaporationDefaultConst') &
-      result(handle)
+      bind(C, name='GeneralEvaporationDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GeneralEvaporationDefaultConst
 end function GeneralEvaporationDefaultConst
 
 !! Create, default
 function GeneralEvaporationDefault() &
-      bind(C, name='GeneralEvaporationDefault') &
-      result(handle)
+      bind(C, name='GeneralEvaporationDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GeneralEvaporationDefault
 end function GeneralEvaporationDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function GeneralEvaporationCreateConst( &
    theta, &
    g &
 ) &
-      bind(C, name='GeneralEvaporationCreateConst') &
-      result(handle)
+      bind(C, name='GeneralEvaporationCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: U
    type(c_ptr), value :: theta
    type(c_ptr), value :: g
-   type(c_ptr) :: handle
+   type(c_ptr) :: GeneralEvaporationCreateConst
 end function GeneralEvaporationCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function GeneralEvaporationCreate( &
    theta, &
    g &
 ) &
-      bind(C, name='GeneralEvaporationCreate') &
-      result(handle)
+      bind(C, name='GeneralEvaporationCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: U
    type(c_ptr), value :: theta
    type(c_ptr), value :: g
-   type(c_ptr) :: handle
+   type(c_ptr) :: GeneralEvaporationCreate
 end function GeneralEvaporationCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine GeneralEvaporationDelete
 
 !! Read from file
 function GeneralEvaporationRead(handle, filename, filenameSize) &
-      bind(C, name='GeneralEvaporationRead') &
-      result(success)
+      bind(C, name='GeneralEvaporationRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GeneralEvaporationRead
 end function GeneralEvaporationRead
 
 !! Write to file
 function GeneralEvaporationWrite(handle, filename, filenameSize) &
-      bind(C, name='GeneralEvaporationWrite') &
-      result(success)
+      bind(C, name='GeneralEvaporationWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GeneralEvaporationWrite
 end function GeneralEvaporationWrite
 
 !! Print to standard output, in our prettyprinting format
 function GeneralEvaporationPrint(handle) &
-      bind(C, name='GeneralEvaporationPrint') &
-      result(success)
+      bind(C, name='GeneralEvaporationPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GeneralEvaporationPrint
 end function GeneralEvaporationPrint
 
 !! Print to standard output, as XML
 function GeneralEvaporationPrintXML(handle) &
-      bind(C, name='GeneralEvaporationPrintXML') &
-      result(success)
+      bind(C, name='GeneralEvaporationPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GeneralEvaporationPrintXML
 end function GeneralEvaporationPrintXML
 
 !! Print to standard output, as JSON
 function GeneralEvaporationPrintJSON(handle) &
-      bind(C, name='GeneralEvaporationPrintJSON') &
-      result(success)
+      bind(C, name='GeneralEvaporationPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GeneralEvaporationPrintJSON
 end function GeneralEvaporationPrintJSON
 
 
@@ -146,32 +137,29 @@ end function GeneralEvaporationPrintJSON
 
 !! Has
 function GeneralEvaporationUHas(handle) &
-      bind(C, name='GeneralEvaporationUHas') &
-      result(has)
+      bind(C, name='GeneralEvaporationUHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GeneralEvaporationUHas
 end function GeneralEvaporationUHas
 
 !! Get, const
 function GeneralEvaporationUGetConst(handle) &
-      bind(C, name='GeneralEvaporationUGetConst') &
-      result(resultHandle)
+      bind(C, name='GeneralEvaporationUGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GeneralEvaporationUGetConst
 end function GeneralEvaporationUGetConst
 
 !! Get
 function GeneralEvaporationUGet(handle) &
-      bind(C, name='GeneralEvaporationUGet') &
-      result(resultHandle)
+      bind(C, name='GeneralEvaporationUGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GeneralEvaporationUGet
 end function GeneralEvaporationUGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine GeneralEvaporationUSet
 
 !! Has
 function GeneralEvaporationThetaHas(handle) &
-      bind(C, name='GeneralEvaporationThetaHas') &
-      result(has)
+      bind(C, name='GeneralEvaporationThetaHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GeneralEvaporationThetaHas
 end function GeneralEvaporationThetaHas
 
 !! Get, const
 function GeneralEvaporationThetaGetConst(handle) &
-      bind(C, name='GeneralEvaporationThetaGetConst') &
-      result(resultHandle)
+      bind(C, name='GeneralEvaporationThetaGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GeneralEvaporationThetaGetConst
 end function GeneralEvaporationThetaGetConst
 
 !! Get
 function GeneralEvaporationThetaGet(handle) &
-      bind(C, name='GeneralEvaporationThetaGet') &
-      result(resultHandle)
+      bind(C, name='GeneralEvaporationThetaGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GeneralEvaporationThetaGet
 end function GeneralEvaporationThetaGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine GeneralEvaporationThetaSet
 
 !! Has
 function GeneralEvaporationGHas(handle) &
-      bind(C, name='GeneralEvaporationGHas') &
-      result(has)
+      bind(C, name='GeneralEvaporationGHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GeneralEvaporationGHas
 end function GeneralEvaporationGHas
 
 !! Get, const
 function GeneralEvaporationGGetConst(handle) &
-      bind(C, name='GeneralEvaporationGGetConst') &
-      result(resultHandle)
+      bind(C, name='GeneralEvaporationGGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GeneralEvaporationGGetConst
 end function GeneralEvaporationGGetConst
 
 !! Get
 function GeneralEvaporationGGet(handle) &
-      bind(C, name='GeneralEvaporationGGet') &
-      result(resultHandle)
+      bind(C, name='GeneralEvaporationGGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GeneralEvaporationGGet
 end function GeneralEvaporationGGet
 
 !! Set

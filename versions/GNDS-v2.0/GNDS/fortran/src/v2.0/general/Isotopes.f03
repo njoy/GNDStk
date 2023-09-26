@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function IsotopesDefaultConst() &
-      bind(C, name='IsotopesDefaultConst') &
-      result(handle)
+      bind(C, name='IsotopesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IsotopesDefaultConst
 end function IsotopesDefaultConst
 
 !! Create, default
 function IsotopesDefault() &
-      bind(C, name='IsotopesDefault') &
-      result(handle)
+      bind(C, name='IsotopesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IsotopesDefault
 end function IsotopesDefault
 
 !! Create, general, const
 function IsotopesCreateConst( &
    isotope, isotopeSize &
 ) &
-      bind(C, name='IsotopesCreateConst') &
-      result(handle)
+      bind(C, name='IsotopesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: isotopeSize
    type(c_ptr) :: isotope(isotopeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IsotopesCreateConst
 end function IsotopesCreateConst
 
 !! Create, general
 function IsotopesCreate( &
    isotope, isotopeSize &
 ) &
-      bind(C, name='IsotopesCreate') &
-      result(handle)
+      bind(C, name='IsotopesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: isotopeSize
    type(c_ptr) :: isotope(isotopeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IsotopesCreate
 end function IsotopesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine IsotopesDelete
 
 !! Read from file
 function IsotopesRead(handle, filename, filenameSize) &
-      bind(C, name='IsotopesRead') &
-      result(success)
+      bind(C, name='IsotopesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IsotopesRead
 end function IsotopesRead
 
 !! Write to file
 function IsotopesWrite(handle, filename, filenameSize) &
-      bind(C, name='IsotopesWrite') &
-      result(success)
+      bind(C, name='IsotopesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IsotopesWrite
 end function IsotopesWrite
 
 !! Print to standard output, in our prettyprinting format
 function IsotopesPrint(handle) &
-      bind(C, name='IsotopesPrint') &
-      result(success)
+      bind(C, name='IsotopesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IsotopesPrint
 end function IsotopesPrint
 
 !! Print to standard output, as XML
 function IsotopesPrintXML(handle) &
-      bind(C, name='IsotopesPrintXML') &
-      result(success)
+      bind(C, name='IsotopesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IsotopesPrintXML
 end function IsotopesPrintXML
 
 !! Print to standard output, as JSON
 function IsotopesPrintJSON(handle) &
-      bind(C, name='IsotopesPrintJSON') &
-      result(success)
+      bind(C, name='IsotopesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IsotopesPrintJSON
 end function IsotopesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function IsotopesPrintJSON
 
 !! Has
 function IsotopesIsotopeHas(handle) &
-      bind(C, name='IsotopesIsotopeHas') &
-      result(has)
+      bind(C, name='IsotopesIsotopeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IsotopesIsotopeHas
 end function IsotopesIsotopeHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine IsotopesIsotopeClear
 
 !! Size
 function IsotopesIsotopeSize(handle) &
-      bind(C, name='IsotopesIsotopeSize') &
-      result(vectorSize)
+      bind(C, name='IsotopesIsotopeSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: IsotopesIsotopeSize
 end function IsotopesIsotopeSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine IsotopesIsotopeAdd
 
 !! Get, by index \in [0,size), const
 function IsotopesIsotopeGetConst(handle, index) &
-      bind(C, name='IsotopesIsotopeGetConst') &
-      result(resultHandle)
+      bind(C, name='IsotopesIsotopeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IsotopesIsotopeGetConst
 end function IsotopesIsotopeGetConst
 
 !! Get, by index \in [0,size)
 function IsotopesIsotopeGet(handle, index) &
-      bind(C, name='IsotopesIsotopeGet') &
-      result(resultHandle)
+      bind(C, name='IsotopesIsotopeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IsotopesIsotopeGet
 end function IsotopesIsotopeGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine IsotopesIsotopeSet
 
 !! Has, by symbol
 function IsotopesIsotopeHasBySymbol(handle, meta, metaSize) &
-      bind(C, name='IsotopesIsotopeHasBySymbol') &
-      result(has)
+      bind(C, name='IsotopesIsotopeHasBySymbol')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: IsotopesIsotopeHasBySymbol
 end function IsotopesIsotopeHasBySymbol
 
 !! Get, by symbol, const
 function IsotopesIsotopeGetBySymbolConst(handle, meta, metaSize) &
-      bind(C, name='IsotopesIsotopeGetBySymbolConst') &
-      result(resultHandle)
+      bind(C, name='IsotopesIsotopeGetBySymbolConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IsotopesIsotopeGetBySymbolConst
 end function IsotopesIsotopeGetBySymbolConst
 
 !! Get, by symbol
 function IsotopesIsotopeGetBySymbol(handle, meta, metaSize) &
-      bind(C, name='IsotopesIsotopeGetBySymbol') &
-      result(resultHandle)
+      bind(C, name='IsotopesIsotopeGetBySymbol')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IsotopesIsotopeGetBySymbol
 end function IsotopesIsotopeGetBySymbol
 
 !! Set, by symbol
@@ -264,35 +248,32 @@ end subroutine IsotopesIsotopeSetBySymbol
 
 !! Has, by A
 function IsotopesIsotopeHasByA(handle, meta) &
-      bind(C, name='IsotopesIsotopeHasByA') &
-      result(has)
+      bind(C, name='IsotopesIsotopeHasByA')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: IsotopesIsotopeHasByA
 end function IsotopesIsotopeHasByA
 
 !! Get, by A, const
 function IsotopesIsotopeGetByAConst(handle, meta) &
-      bind(C, name='IsotopesIsotopeGetByAConst') &
-      result(resultHandle)
+      bind(C, name='IsotopesIsotopeGetByAConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IsotopesIsotopeGetByAConst
 end function IsotopesIsotopeGetByAConst
 
 !! Get, by A
 function IsotopesIsotopeGetByA(handle, meta) &
-      bind(C, name='IsotopesIsotopeGetByA') &
-      result(resultHandle)
+      bind(C, name='IsotopesIsotopeGetByA')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IsotopesIsotopeGetByA
 end function IsotopesIsotopeGetByA
 
 !! Set, by A

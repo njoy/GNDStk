@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function DoubleDefaultConst() &
-      bind(C, name='DoubleDefaultConst') &
-      result(handle)
+      bind(C, name='DoubleDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DoubleDefaultConst
 end function DoubleDefaultConst
 
 !! Create, default
 function DoubleDefault() &
-      bind(C, name='DoubleDefault') &
-      result(handle)
+      bind(C, name='DoubleDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DoubleDefault
 end function DoubleDefault
 
 !! Create, general, const
 function DoubleCreateConst( &
    value &
 ) &
-      bind(C, name='DoubleCreateConst') &
-      result(handle)
+      bind(C, name='DoubleCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
-   type(c_ptr) :: handle
+   type(c_ptr) :: DoubleCreateConst
 end function DoubleCreateConst
 
 !! Create, general
 function DoubleCreate( &
    value &
 ) &
-      bind(C, name='DoubleCreate') &
-      result(handle)
+      bind(C, name='DoubleCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
-   type(c_ptr) :: handle
+   type(c_ptr) :: DoubleCreate
 end function DoubleCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine DoubleDelete
 
 !! Read from file
 function DoubleRead(handle, filename, filenameSize) &
-      bind(C, name='DoubleRead') &
-      result(success)
+      bind(C, name='DoubleRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DoubleRead
 end function DoubleRead
 
 !! Write to file
 function DoubleWrite(handle, filename, filenameSize) &
-      bind(C, name='DoubleWrite') &
-      result(success)
+      bind(C, name='DoubleWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DoubleWrite
 end function DoubleWrite
 
 !! Print to standard output, in our prettyprinting format
 function DoublePrint(handle) &
-      bind(C, name='DoublePrint') &
-      result(success)
+      bind(C, name='DoublePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DoublePrint
 end function DoublePrint
 
 !! Print to standard output, as XML
 function DoublePrintXML(handle) &
-      bind(C, name='DoublePrintXML') &
-      result(success)
+      bind(C, name='DoublePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DoublePrintXML
 end function DoublePrintXML
 
 !! Print to standard output, as JSON
 function DoublePrintJSON(handle) &
-      bind(C, name='DoublePrintJSON') &
-      result(success)
+      bind(C, name='DoublePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DoublePrintJSON
 end function DoublePrintJSON
 
 
@@ -138,22 +129,20 @@ end function DoublePrintJSON
 
 !! Has
 function DoubleValueHas(handle) &
-      bind(C, name='DoubleValueHas') &
-      result(has)
+      bind(C, name='DoubleValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DoubleValueHas
 end function DoubleValueHas
 
 !! Get
 function DoubleValueGet(handle) &
-      bind(C, name='DoubleValueGet') &
-      result(value)
+      bind(C, name='DoubleValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: DoubleValueGet
 end function DoubleValueGet
 
 !! Set

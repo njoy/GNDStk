@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function GridDefaultConst() &
-      bind(C, name='GridDefaultConst') &
-      result(handle)
+      bind(C, name='GridDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GridDefaultConst
 end function GridDefaultConst
 
 !! Create, default
 function GridDefault() &
-      bind(C, name='GridDefault') &
-      result(handle)
+      bind(C, name='GridDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GridDefault
 end function GridDefault
 
 !! Create, general, const
@@ -44,8 +42,7 @@ function GridCreateConst( &
    styleSize, &
    interpolationSize &
 ) &
-      bind(C, name='GridCreateConst') &
-      result(handle)
+      bind(C, name='GridCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -59,7 +56,7 @@ function GridCreateConst( &
    character(c_char), intent(in) :: interpolation(interpolationSize)
    type(c_ptr), value :: link
    type(c_ptr), value :: values
-   type(c_ptr) :: handle
+   type(c_ptr) :: GridCreateConst
 end function GridCreateConst
 
 !! Create, general
@@ -76,8 +73,7 @@ function GridCreate( &
    styleSize, &
    interpolationSize &
 ) &
-      bind(C, name='GridCreate') &
-      result(handle)
+      bind(C, name='GridCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -91,7 +87,7 @@ function GridCreate( &
    character(c_char), intent(in) :: interpolation(interpolationSize)
    type(c_ptr), value :: link
    type(c_ptr), value :: values
-   type(c_ptr) :: handle
+   type(c_ptr) :: GridCreate
 end function GridCreate
 
 !! Assign
@@ -119,56 +115,51 @@ end subroutine GridDelete
 
 !! Read from file
 function GridRead(handle, filename, filenameSize) &
-      bind(C, name='GridRead') &
-      result(success)
+      bind(C, name='GridRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GridRead
 end function GridRead
 
 !! Write to file
 function GridWrite(handle, filename, filenameSize) &
-      bind(C, name='GridWrite') &
-      result(success)
+      bind(C, name='GridWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GridWrite
 end function GridWrite
 
 !! Print to standard output, in our prettyprinting format
 function GridPrint(handle) &
-      bind(C, name='GridPrint') &
-      result(success)
+      bind(C, name='GridPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GridPrint
 end function GridPrint
 
 !! Print to standard output, as XML
 function GridPrintXML(handle) &
-      bind(C, name='GridPrintXML') &
-      result(success)
+      bind(C, name='GridPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GridPrintXML
 end function GridPrintXML
 
 !! Print to standard output, as JSON
 function GridPrintJSON(handle) &
-      bind(C, name='GridPrintJSON') &
-      result(success)
+      bind(C, name='GridPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GridPrintJSON
 end function GridPrintJSON
 
 
@@ -178,22 +169,20 @@ end function GridPrintJSON
 
 !! Has
 function GridIndexHas(handle) &
-      bind(C, name='GridIndexHas') &
-      result(has)
+      bind(C, name='GridIndexHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridIndexHas
 end function GridIndexHas
 
 !! Get
 function GridIndexGet(handle) &
-      bind(C, name='GridIndexGet') &
-      result(index)
+      bind(C, name='GridIndexGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: index
+   integer(c_int) :: GridIndexGet
 end function GridIndexGet
 
 !! Set
@@ -213,22 +202,20 @@ end subroutine GridIndexSet
 
 !! Has
 function GridLabelHas(handle) &
-      bind(C, name='GridLabelHas') &
-      result(has)
+      bind(C, name='GridLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridLabelHas
 end function GridLabelHas
 
 !! Get
 function GridLabelGet(handle) &
-      bind(C, name='GridLabelGet') &
-      result(label)
+      bind(C, name='GridLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: GridLabelGet
 end function GridLabelGet
 
 !! Set
@@ -248,22 +235,20 @@ end subroutine GridLabelSet
 
 !! Has
 function GridUnitHas(handle) &
-      bind(C, name='GridUnitHas') &
-      result(has)
+      bind(C, name='GridUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridUnitHas
 end function GridUnitHas
 
 !! Get
 function GridUnitGet(handle) &
-      bind(C, name='GridUnitGet') &
-      result(unit)
+      bind(C, name='GridUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: GridUnitGet
 end function GridUnitGet
 
 !! Set
@@ -283,22 +268,20 @@ end subroutine GridUnitSet
 
 !! Has
 function GridStyleHas(handle) &
-      bind(C, name='GridStyleHas') &
-      result(has)
+      bind(C, name='GridStyleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridStyleHas
 end function GridStyleHas
 
 !! Get
 function GridStyleGet(handle) &
-      bind(C, name='GridStyleGet') &
-      result(style)
+      bind(C, name='GridStyleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: style
+   type(c_ptr) :: GridStyleGet
 end function GridStyleGet
 
 !! Set
@@ -318,22 +301,20 @@ end subroutine GridStyleSet
 
 !! Has
 function GridInterpolationHas(handle) &
-      bind(C, name='GridInterpolationHas') &
-      result(has)
+      bind(C, name='GridInterpolationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridInterpolationHas
 end function GridInterpolationHas
 
 !! Get
 function GridInterpolationGet(handle) &
-      bind(C, name='GridInterpolationGet') &
-      result(interpolation)
+      bind(C, name='GridInterpolationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: interpolation
+   type(c_ptr) :: GridInterpolationGet
 end function GridInterpolationGet
 
 !! Set
@@ -353,32 +334,29 @@ end subroutine GridInterpolationSet
 
 !! Has
 function GridLinkHas(handle) &
-      bind(C, name='GridLinkHas') &
-      result(has)
+      bind(C, name='GridLinkHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridLinkHas
 end function GridLinkHas
 
 !! Get, const
 function GridLinkGetConst(handle) &
-      bind(C, name='GridLinkGetConst') &
-      result(resultHandle)
+      bind(C, name='GridLinkGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GridLinkGetConst
 end function GridLinkGetConst
 
 !! Get
 function GridLinkGet(handle) &
-      bind(C, name='GridLinkGet') &
-      result(resultHandle)
+      bind(C, name='GridLinkGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GridLinkGet
 end function GridLinkGet
 
 !! Set
@@ -397,32 +375,29 @@ end subroutine GridLinkSet
 
 !! Has
 function GridValuesHas(handle) &
-      bind(C, name='GridValuesHas') &
-      result(has)
+      bind(C, name='GridValuesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GridValuesHas
 end function GridValuesHas
 
 !! Get, const
 function GridValuesGetConst(handle) &
-      bind(C, name='GridValuesGetConst') &
-      result(resultHandle)
+      bind(C, name='GridValuesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GridValuesGetConst
 end function GridValuesGetConst
 
 !! Get
 function GridValuesGet(handle) &
-      bind(C, name='GridValuesGet') &
-      result(resultHandle)
+      bind(C, name='GridValuesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GridValuesGet
 end function GridValuesGet
 
 !! Set

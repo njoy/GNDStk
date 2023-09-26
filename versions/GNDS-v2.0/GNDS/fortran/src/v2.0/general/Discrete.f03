@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DiscreteDefaultConst() &
-      bind(C, name='DiscreteDefaultConst') &
-      result(handle)
+      bind(C, name='DiscreteDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteDefaultConst
 end function DiscreteDefaultConst
 
 !! Create, default
 function DiscreteDefault() &
-      bind(C, name='DiscreteDefault') &
-      result(handle)
+      bind(C, name='DiscreteDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteDefault
 end function DiscreteDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function DiscreteCreateConst( &
    positronEmissionIntensity, &
    type1Size &
 ) &
-      bind(C, name='DiscreteCreateConst') &
-      result(handle)
+      bind(C, name='DiscreteCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: type1Size
@@ -49,7 +46,7 @@ function DiscreteCreateConst( &
    type(c_ptr), value :: energy
    type(c_ptr), value :: internalConversionCoefficients
    type(c_ptr), value :: positronEmissionIntensity
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteCreateConst
 end function DiscreteCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function DiscreteCreate( &
    positronEmissionIntensity, &
    type1Size &
 ) &
-      bind(C, name='DiscreteCreate') &
-      result(handle)
+      bind(C, name='DiscreteCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: type1Size
@@ -71,7 +67,7 @@ function DiscreteCreate( &
    type(c_ptr), value :: energy
    type(c_ptr), value :: internalConversionCoefficients
    type(c_ptr), value :: positronEmissionIntensity
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteCreate
 end function DiscreteCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine DiscreteDelete
 
 !! Read from file
 function DiscreteRead(handle, filename, filenameSize) &
-      bind(C, name='DiscreteRead') &
-      result(success)
+      bind(C, name='DiscreteRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteRead
 end function DiscreteRead
 
 !! Write to file
 function DiscreteWrite(handle, filename, filenameSize) &
-      bind(C, name='DiscreteWrite') &
-      result(success)
+      bind(C, name='DiscreteWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteWrite
 end function DiscreteWrite
 
 !! Print to standard output, in our prettyprinting format
 function DiscretePrint(handle) &
-      bind(C, name='DiscretePrint') &
-      result(success)
+      bind(C, name='DiscretePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DiscretePrint
 end function DiscretePrint
 
 !! Print to standard output, as XML
 function DiscretePrintXML(handle) &
-      bind(C, name='DiscretePrintXML') &
-      result(success)
+      bind(C, name='DiscretePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DiscretePrintXML
 end function DiscretePrintXML
 
 !! Print to standard output, as JSON
 function DiscretePrintJSON(handle) &
-      bind(C, name='DiscretePrintJSON') &
-      result(success)
+      bind(C, name='DiscretePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DiscretePrintJSON
 end function DiscretePrintJSON
 
 
@@ -158,22 +149,20 @@ end function DiscretePrintJSON
 
 !! Has
 function DiscreteTypeHas(handle) &
-      bind(C, name='DiscreteTypeHas') &
-      result(has)
+      bind(C, name='DiscreteTypeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteTypeHas
 end function DiscreteTypeHas
 
 !! Get
 function DiscreteTypeGet(handle) &
-      bind(C, name='DiscreteTypeGet') &
-      result(type1)
+      bind(C, name='DiscreteTypeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: type1
+   type(c_ptr) :: DiscreteTypeGet
 end function DiscreteTypeGet
 
 !! Set
@@ -193,32 +182,29 @@ end subroutine DiscreteTypeSet
 
 !! Has
 function DiscreteIntensityHas(handle) &
-      bind(C, name='DiscreteIntensityHas') &
-      result(has)
+      bind(C, name='DiscreteIntensityHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteIntensityHas
 end function DiscreteIntensityHas
 
 !! Get, const
 function DiscreteIntensityGetConst(handle) &
-      bind(C, name='DiscreteIntensityGetConst') &
-      result(resultHandle)
+      bind(C, name='DiscreteIntensityGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteIntensityGetConst
 end function DiscreteIntensityGetConst
 
 !! Get
 function DiscreteIntensityGet(handle) &
-      bind(C, name='DiscreteIntensityGet') &
-      result(resultHandle)
+      bind(C, name='DiscreteIntensityGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteIntensityGet
 end function DiscreteIntensityGet
 
 !! Set
@@ -237,32 +223,29 @@ end subroutine DiscreteIntensitySet
 
 !! Has
 function DiscreteEnergyHas(handle) &
-      bind(C, name='DiscreteEnergyHas') &
-      result(has)
+      bind(C, name='DiscreteEnergyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteEnergyHas
 end function DiscreteEnergyHas
 
 !! Get, const
 function DiscreteEnergyGetConst(handle) &
-      bind(C, name='DiscreteEnergyGetConst') &
-      result(resultHandle)
+      bind(C, name='DiscreteEnergyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteEnergyGetConst
 end function DiscreteEnergyGetConst
 
 !! Get
 function DiscreteEnergyGet(handle) &
-      bind(C, name='DiscreteEnergyGet') &
-      result(resultHandle)
+      bind(C, name='DiscreteEnergyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteEnergyGet
 end function DiscreteEnergyGet
 
 !! Set
@@ -281,32 +264,29 @@ end subroutine DiscreteEnergySet
 
 !! Has
 function DiscreteInternalConversionCoefficientsHas(handle) &
-      bind(C, name='DiscreteInternalConversionCoefficientsHas') &
-      result(has)
+      bind(C, name='DiscreteInternalConversionCoefficientsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteInternalConversionCoefficientsHas
 end function DiscreteInternalConversionCoefficientsHas
 
 !! Get, const
 function DiscreteInternalConversionCoefficientsGetConst(handle) &
-      bind(C, name='DiscreteInternalConversionCoefficientsGetConst') &
-      result(resultHandle)
+      bind(C, name='DiscreteInternalConversionCoefficientsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteInternalConversionCoefficientsGetConst
 end function DiscreteInternalConversionCoefficientsGetConst
 
 !! Get
 function DiscreteInternalConversionCoefficientsGet(handle) &
-      bind(C, name='DiscreteInternalConversionCoefficientsGet') &
-      result(resultHandle)
+      bind(C, name='DiscreteInternalConversionCoefficientsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteInternalConversionCoefficientsGet
 end function DiscreteInternalConversionCoefficientsGet
 
 !! Set
@@ -325,32 +305,29 @@ end subroutine DiscreteInternalConversionCoefficientsSet
 
 !! Has
 function DiscretePositronEmissionIntensityHas(handle) &
-      bind(C, name='DiscretePositronEmissionIntensityHas') &
-      result(has)
+      bind(C, name='DiscretePositronEmissionIntensityHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscretePositronEmissionIntensityHas
 end function DiscretePositronEmissionIntensityHas
 
 !! Get, const
 function DiscretePositronEmissionIntensityGetConst(handle) &
-      bind(C, name='DiscretePositronEmissionIntensityGetConst') &
-      result(resultHandle)
+      bind(C, name='DiscretePositronEmissionIntensityGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscretePositronEmissionIntensityGetConst
 end function DiscretePositronEmissionIntensityGetConst
 
 !! Get
 function DiscretePositronEmissionIntensityGet(handle) &
-      bind(C, name='DiscretePositronEmissionIntensityGet') &
-      result(resultHandle)
+      bind(C, name='DiscretePositronEmissionIntensityGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscretePositronEmissionIntensityGet
 end function DiscretePositronEmissionIntensityGet
 
 !! Set

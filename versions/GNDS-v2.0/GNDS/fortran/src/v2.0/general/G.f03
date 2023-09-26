@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function GDefaultConst() &
-      bind(C, name='GDefaultConst') &
-      result(handle)
+      bind(C, name='GDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GDefaultConst
 end function GDefaultConst
 
 !! Create, default
 function GDefault() &
-      bind(C, name='GDefault') &
-      result(handle)
+      bind(C, name='GDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GDefault
 end function GDefault
 
 !! Create, general, const
 function GCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='GCreateConst') &
-      result(handle)
+      bind(C, name='GCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: GCreateConst
 end function GCreateConst
 
 !! Create, general
 function GCreate( &
    XYs1d &
 ) &
-      bind(C, name='GCreate') &
-      result(handle)
+      bind(C, name='GCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: GCreate
 end function GCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine GDelete
 
 !! Read from file
 function GRead(handle, filename, filenameSize) &
-      bind(C, name='GRead') &
-      result(success)
+      bind(C, name='GRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GRead
 end function GRead
 
 !! Write to file
 function GWrite(handle, filename, filenameSize) &
-      bind(C, name='GWrite') &
-      result(success)
+      bind(C, name='GWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GWrite
 end function GWrite
 
 !! Print to standard output, in our prettyprinting format
 function GPrint(handle) &
-      bind(C, name='GPrint') &
-      result(success)
+      bind(C, name='GPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GPrint
 end function GPrint
 
 !! Print to standard output, as XML
 function GPrintXML(handle) &
-      bind(C, name='GPrintXML') &
-      result(success)
+      bind(C, name='GPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GPrintXML
 end function GPrintXML
 
 !! Print to standard output, as JSON
 function GPrintJSON(handle) &
-      bind(C, name='GPrintJSON') &
-      result(success)
+      bind(C, name='GPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GPrintJSON
 end function GPrintJSON
 
 
@@ -138,32 +129,29 @@ end function GPrintJSON
 
 !! Has
 function GXYs1dHas(handle) &
-      bind(C, name='GXYs1dHas') &
-      result(has)
+      bind(C, name='GXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GXYs1dHas
 end function GXYs1dHas
 
 !! Get, const
 function GXYs1dGetConst(handle) &
-      bind(C, name='GXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='GXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GXYs1dGetConst
 end function GXYs1dGetConst
 
 !! Get
 function GXYs1dGet(handle) &
-      bind(C, name='GXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='GXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GXYs1dGet
 end function GXYs1dGet
 
 !! Set

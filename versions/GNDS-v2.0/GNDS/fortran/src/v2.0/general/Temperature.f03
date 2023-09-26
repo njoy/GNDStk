@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function TemperatureDefaultConst() &
-      bind(C, name='TemperatureDefaultConst') &
-      result(handle)
+      bind(C, name='TemperatureDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TemperatureDefaultConst
 end function TemperatureDefaultConst
 
 !! Create, default
 function TemperatureDefault() &
-      bind(C, name='TemperatureDefault') &
-      result(handle)
+      bind(C, name='TemperatureDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TemperatureDefault
 end function TemperatureDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function TemperatureCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='TemperatureCreateConst') &
-      result(handle)
+      bind(C, name='TemperatureCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: TemperatureCreateConst
 end function TemperatureCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function TemperatureCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='TemperatureCreate') &
-      result(handle)
+      bind(C, name='TemperatureCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: TemperatureCreate
 end function TemperatureCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine TemperatureDelete
 
 !! Read from file
 function TemperatureRead(handle, filename, filenameSize) &
-      bind(C, name='TemperatureRead') &
-      result(success)
+      bind(C, name='TemperatureRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TemperatureRead
 end function TemperatureRead
 
 !! Write to file
 function TemperatureWrite(handle, filename, filenameSize) &
-      bind(C, name='TemperatureWrite') &
-      result(success)
+      bind(C, name='TemperatureWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TemperatureWrite
 end function TemperatureWrite
 
 !! Print to standard output, in our prettyprinting format
 function TemperaturePrint(handle) &
-      bind(C, name='TemperaturePrint') &
-      result(success)
+      bind(C, name='TemperaturePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TemperaturePrint
 end function TemperaturePrint
 
 !! Print to standard output, as XML
 function TemperaturePrintXML(handle) &
-      bind(C, name='TemperaturePrintXML') &
-      result(success)
+      bind(C, name='TemperaturePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TemperaturePrintXML
 end function TemperaturePrintXML
 
 !! Print to standard output, as JSON
 function TemperaturePrintJSON(handle) &
-      bind(C, name='TemperaturePrintJSON') &
-      result(success)
+      bind(C, name='TemperaturePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TemperaturePrintJSON
 end function TemperaturePrintJSON
 
 
@@ -146,22 +137,20 @@ end function TemperaturePrintJSON
 
 !! Has
 function TemperatureValueHas(handle) &
-      bind(C, name='TemperatureValueHas') &
-      result(has)
+      bind(C, name='TemperatureValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TemperatureValueHas
 end function TemperatureValueHas
 
 !! Get
 function TemperatureValueGet(handle) &
-      bind(C, name='TemperatureValueGet') &
-      result(value)
+      bind(C, name='TemperatureValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: TemperatureValueGet
 end function TemperatureValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine TemperatureValueSet
 
 !! Has
 function TemperatureUnitHas(handle) &
-      bind(C, name='TemperatureUnitHas') &
-      result(has)
+      bind(C, name='TemperatureUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TemperatureUnitHas
 end function TemperatureUnitHas
 
 !! Get
 function TemperatureUnitGet(handle) &
-      bind(C, name='TemperatureUnitGet') &
-      result(unit)
+      bind(C, name='TemperatureUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: TemperatureUnitGet
 end function TemperatureUnitGet
 
 !! Set

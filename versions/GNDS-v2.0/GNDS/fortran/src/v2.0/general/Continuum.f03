@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ContinuumDefaultConst() &
-      bind(C, name='ContinuumDefaultConst') &
-      result(handle)
+      bind(C, name='ContinuumDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ContinuumDefaultConst
 end function ContinuumDefaultConst
 
 !! Create, default
 function ContinuumDefault() &
-      bind(C, name='ContinuumDefault') &
-      result(handle)
+      bind(C, name='ContinuumDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ContinuumDefault
 end function ContinuumDefault
 
 !! Create, general, const
 function ContinuumCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='ContinuumCreateConst') &
-      result(handle)
+      bind(C, name='ContinuumCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ContinuumCreateConst
 end function ContinuumCreateConst
 
 !! Create, general
 function ContinuumCreate( &
    XYs1d &
 ) &
-      bind(C, name='ContinuumCreate') &
-      result(handle)
+      bind(C, name='ContinuumCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ContinuumCreate
 end function ContinuumCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ContinuumDelete
 
 !! Read from file
 function ContinuumRead(handle, filename, filenameSize) &
-      bind(C, name='ContinuumRead') &
-      result(success)
+      bind(C, name='ContinuumRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ContinuumRead
 end function ContinuumRead
 
 !! Write to file
 function ContinuumWrite(handle, filename, filenameSize) &
-      bind(C, name='ContinuumWrite') &
-      result(success)
+      bind(C, name='ContinuumWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ContinuumWrite
 end function ContinuumWrite
 
 !! Print to standard output, in our prettyprinting format
 function ContinuumPrint(handle) &
-      bind(C, name='ContinuumPrint') &
-      result(success)
+      bind(C, name='ContinuumPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ContinuumPrint
 end function ContinuumPrint
 
 !! Print to standard output, as XML
 function ContinuumPrintXML(handle) &
-      bind(C, name='ContinuumPrintXML') &
-      result(success)
+      bind(C, name='ContinuumPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ContinuumPrintXML
 end function ContinuumPrintXML
 
 !! Print to standard output, as JSON
 function ContinuumPrintJSON(handle) &
-      bind(C, name='ContinuumPrintJSON') &
-      result(success)
+      bind(C, name='ContinuumPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ContinuumPrintJSON
 end function ContinuumPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ContinuumPrintJSON
 
 !! Has
 function ContinuumXYs1dHas(handle) &
-      bind(C, name='ContinuumXYs1dHas') &
-      result(has)
+      bind(C, name='ContinuumXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ContinuumXYs1dHas
 end function ContinuumXYs1dHas
 
 !! Get, const
 function ContinuumXYs1dGetConst(handle) &
-      bind(C, name='ContinuumXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ContinuumXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ContinuumXYs1dGetConst
 end function ContinuumXYs1dGetConst
 
 !! Get
 function ContinuumXYs1dGet(handle) &
-      bind(C, name='ContinuumXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='ContinuumXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ContinuumXYs1dGet
 end function ContinuumXYs1dGet
 
 !! Set

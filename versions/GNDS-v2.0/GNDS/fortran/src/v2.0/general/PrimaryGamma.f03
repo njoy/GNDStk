@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function PrimaryGammaDefaultConst() &
-      bind(C, name='PrimaryGammaDefaultConst') &
-      result(handle)
+      bind(C, name='PrimaryGammaDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PrimaryGammaDefaultConst
 end function PrimaryGammaDefaultConst
 
 !! Create, default
 function PrimaryGammaDefault() &
-      bind(C, name='PrimaryGammaDefault') &
-      result(handle)
+      bind(C, name='PrimaryGammaDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PrimaryGammaDefault
 end function PrimaryGammaDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function PrimaryGammaCreateConst( &
    domainMax, &
    axes &
 ) &
-      bind(C, name='PrimaryGammaCreateConst') &
-      result(handle)
+      bind(C, name='PrimaryGammaCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    real(c_double), value, intent(in) :: domainMin
    real(c_double), value, intent(in) :: domainMax
    type(c_ptr), value :: axes
-   type(c_ptr) :: handle
+   type(c_ptr) :: PrimaryGammaCreateConst
 end function PrimaryGammaCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function PrimaryGammaCreate( &
    domainMax, &
    axes &
 ) &
-      bind(C, name='PrimaryGammaCreate') &
-      result(handle)
+      bind(C, name='PrimaryGammaCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    real(c_double), value, intent(in) :: domainMin
    real(c_double), value, intent(in) :: domainMax
    type(c_ptr), value :: axes
-   type(c_ptr) :: handle
+   type(c_ptr) :: PrimaryGammaCreate
 end function PrimaryGammaCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine PrimaryGammaDelete
 
 !! Read from file
 function PrimaryGammaRead(handle, filename, filenameSize) &
-      bind(C, name='PrimaryGammaRead') &
-      result(success)
+      bind(C, name='PrimaryGammaRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PrimaryGammaRead
 end function PrimaryGammaRead
 
 !! Write to file
 function PrimaryGammaWrite(handle, filename, filenameSize) &
-      bind(C, name='PrimaryGammaWrite') &
-      result(success)
+      bind(C, name='PrimaryGammaWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PrimaryGammaWrite
 end function PrimaryGammaWrite
 
 !! Print to standard output, in our prettyprinting format
 function PrimaryGammaPrint(handle) &
-      bind(C, name='PrimaryGammaPrint') &
-      result(success)
+      bind(C, name='PrimaryGammaPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PrimaryGammaPrint
 end function PrimaryGammaPrint
 
 !! Print to standard output, as XML
 function PrimaryGammaPrintXML(handle) &
-      bind(C, name='PrimaryGammaPrintXML') &
-      result(success)
+      bind(C, name='PrimaryGammaPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PrimaryGammaPrintXML
 end function PrimaryGammaPrintXML
 
 !! Print to standard output, as JSON
 function PrimaryGammaPrintJSON(handle) &
-      bind(C, name='PrimaryGammaPrintJSON') &
-      result(success)
+      bind(C, name='PrimaryGammaPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PrimaryGammaPrintJSON
 end function PrimaryGammaPrintJSON
 
 
@@ -150,22 +141,20 @@ end function PrimaryGammaPrintJSON
 
 !! Has
 function PrimaryGammaValueHas(handle) &
-      bind(C, name='PrimaryGammaValueHas') &
-      result(has)
+      bind(C, name='PrimaryGammaValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PrimaryGammaValueHas
 end function PrimaryGammaValueHas
 
 !! Get
 function PrimaryGammaValueGet(handle) &
-      bind(C, name='PrimaryGammaValueGet') &
-      result(value)
+      bind(C, name='PrimaryGammaValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: PrimaryGammaValueGet
 end function PrimaryGammaValueGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine PrimaryGammaValueSet
 
 !! Has
 function PrimaryGammaDomainMinHas(handle) &
-      bind(C, name='PrimaryGammaDomainMinHas') &
-      result(has)
+      bind(C, name='PrimaryGammaDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PrimaryGammaDomainMinHas
 end function PrimaryGammaDomainMinHas
 
 !! Get
 function PrimaryGammaDomainMinGet(handle) &
-      bind(C, name='PrimaryGammaDomainMinGet') &
-      result(domainMin)
+      bind(C, name='PrimaryGammaDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMin
+   real(c_double) :: PrimaryGammaDomainMinGet
 end function PrimaryGammaDomainMinGet
 
 !! Set
@@ -220,22 +207,20 @@ end subroutine PrimaryGammaDomainMinSet
 
 !! Has
 function PrimaryGammaDomainMaxHas(handle) &
-      bind(C, name='PrimaryGammaDomainMaxHas') &
-      result(has)
+      bind(C, name='PrimaryGammaDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PrimaryGammaDomainMaxHas
 end function PrimaryGammaDomainMaxHas
 
 !! Get
 function PrimaryGammaDomainMaxGet(handle) &
-      bind(C, name='PrimaryGammaDomainMaxGet') &
-      result(domainMax)
+      bind(C, name='PrimaryGammaDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMax
+   real(c_double) :: PrimaryGammaDomainMaxGet
 end function PrimaryGammaDomainMaxGet
 
 !! Set
@@ -255,32 +240,29 @@ end subroutine PrimaryGammaDomainMaxSet
 
 !! Has
 function PrimaryGammaAxesHas(handle) &
-      bind(C, name='PrimaryGammaAxesHas') &
-      result(has)
+      bind(C, name='PrimaryGammaAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PrimaryGammaAxesHas
 end function PrimaryGammaAxesHas
 
 !! Get, const
 function PrimaryGammaAxesGetConst(handle) &
-      bind(C, name='PrimaryGammaAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='PrimaryGammaAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PrimaryGammaAxesGetConst
 end function PrimaryGammaAxesGetConst
 
 !! Get
 function PrimaryGammaAxesGet(handle) &
-      bind(C, name='PrimaryGammaAxesGet') &
-      result(resultHandle)
+      bind(C, name='PrimaryGammaAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PrimaryGammaAxesGet
 end function PrimaryGammaAxesGet
 
 !! Set

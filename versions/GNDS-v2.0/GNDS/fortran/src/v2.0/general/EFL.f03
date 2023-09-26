@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function EFLDefaultConst() &
-      bind(C, name='EFLDefaultConst') &
-      result(handle)
+      bind(C, name='EFLDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFLDefaultConst
 end function EFLDefaultConst
 
 !! Create, default
 function EFLDefault() &
-      bind(C, name='EFLDefault') &
-      result(handle)
+      bind(C, name='EFLDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFLDefault
 end function EFLDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function EFLCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='EFLCreateConst') &
-      result(handle)
+      bind(C, name='EFLCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFLCreateConst
 end function EFLCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function EFLCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='EFLCreate') &
-      result(handle)
+      bind(C, name='EFLCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: EFLCreate
 end function EFLCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine EFLDelete
 
 !! Read from file
 function EFLRead(handle, filename, filenameSize) &
-      bind(C, name='EFLRead') &
-      result(success)
+      bind(C, name='EFLRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EFLRead
 end function EFLRead
 
 !! Write to file
 function EFLWrite(handle, filename, filenameSize) &
-      bind(C, name='EFLWrite') &
-      result(success)
+      bind(C, name='EFLWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EFLWrite
 end function EFLWrite
 
 !! Print to standard output, in our prettyprinting format
 function EFLPrint(handle) &
-      bind(C, name='EFLPrint') &
-      result(success)
+      bind(C, name='EFLPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EFLPrint
 end function EFLPrint
 
 !! Print to standard output, as XML
 function EFLPrintXML(handle) &
-      bind(C, name='EFLPrintXML') &
-      result(success)
+      bind(C, name='EFLPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EFLPrintXML
 end function EFLPrintXML
 
 !! Print to standard output, as JSON
 function EFLPrintJSON(handle) &
-      bind(C, name='EFLPrintJSON') &
-      result(success)
+      bind(C, name='EFLPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EFLPrintJSON
 end function EFLPrintJSON
 
 
@@ -146,22 +137,20 @@ end function EFLPrintJSON
 
 !! Has
 function EFLValueHas(handle) &
-      bind(C, name='EFLValueHas') &
-      result(has)
+      bind(C, name='EFLValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EFLValueHas
 end function EFLValueHas
 
 !! Get
 function EFLValueGet(handle) &
-      bind(C, name='EFLValueGet') &
-      result(value)
+      bind(C, name='EFLValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: EFLValueGet
 end function EFLValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine EFLValueSet
 
 !! Has
 function EFLUnitHas(handle) &
-      bind(C, name='EFLUnitHas') &
-      result(has)
+      bind(C, name='EFLUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EFLUnitHas
 end function EFLUnitHas
 
 !! Get
 function EFLUnitGet(handle) &
-      bind(C, name='EFLUnitGet') &
-      result(unit)
+      bind(C, name='EFLUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: EFLUnitGet
 end function EFLUnitGet
 
 !! Set

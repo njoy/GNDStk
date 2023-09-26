@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function NonNeutrinoEnergyDefaultConst() &
-      bind(C, name='NonNeutrinoEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='NonNeutrinoEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NonNeutrinoEnergyDefaultConst
 end function NonNeutrinoEnergyDefaultConst
 
 !! Create, default
 function NonNeutrinoEnergyDefault() &
-      bind(C, name='NonNeutrinoEnergyDefault') &
-      result(handle)
+      bind(C, name='NonNeutrinoEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NonNeutrinoEnergyDefault
 end function NonNeutrinoEnergyDefault
 
 !! Create, general, const
 function NonNeutrinoEnergyCreateConst( &
    polynomial1d &
 ) &
-      bind(C, name='NonNeutrinoEnergyCreateConst') &
-      result(handle)
+      bind(C, name='NonNeutrinoEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: NonNeutrinoEnergyCreateConst
 end function NonNeutrinoEnergyCreateConst
 
 !! Create, general
 function NonNeutrinoEnergyCreate( &
    polynomial1d &
 ) &
-      bind(C, name='NonNeutrinoEnergyCreate') &
-      result(handle)
+      bind(C, name='NonNeutrinoEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: NonNeutrinoEnergyCreate
 end function NonNeutrinoEnergyCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine NonNeutrinoEnergyDelete
 
 !! Read from file
 function NonNeutrinoEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='NonNeutrinoEnergyRead') &
-      result(success)
+      bind(C, name='NonNeutrinoEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NonNeutrinoEnergyRead
 end function NonNeutrinoEnergyRead
 
 !! Write to file
 function NonNeutrinoEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='NonNeutrinoEnergyWrite') &
-      result(success)
+      bind(C, name='NonNeutrinoEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NonNeutrinoEnergyWrite
 end function NonNeutrinoEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function NonNeutrinoEnergyPrint(handle) &
-      bind(C, name='NonNeutrinoEnergyPrint') &
-      result(success)
+      bind(C, name='NonNeutrinoEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NonNeutrinoEnergyPrint
 end function NonNeutrinoEnergyPrint
 
 !! Print to standard output, as XML
 function NonNeutrinoEnergyPrintXML(handle) &
-      bind(C, name='NonNeutrinoEnergyPrintXML') &
-      result(success)
+      bind(C, name='NonNeutrinoEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NonNeutrinoEnergyPrintXML
 end function NonNeutrinoEnergyPrintXML
 
 !! Print to standard output, as JSON
 function NonNeutrinoEnergyPrintJSON(handle) &
-      bind(C, name='NonNeutrinoEnergyPrintJSON') &
-      result(success)
+      bind(C, name='NonNeutrinoEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NonNeutrinoEnergyPrintJSON
 end function NonNeutrinoEnergyPrintJSON
 
 
@@ -138,32 +129,29 @@ end function NonNeutrinoEnergyPrintJSON
 
 !! Has
 function NonNeutrinoEnergyPolynomial1dHas(handle) &
-      bind(C, name='NonNeutrinoEnergyPolynomial1dHas') &
-      result(has)
+      bind(C, name='NonNeutrinoEnergyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NonNeutrinoEnergyPolynomial1dHas
 end function NonNeutrinoEnergyPolynomial1dHas
 
 !! Get, const
 function NonNeutrinoEnergyPolynomial1dGetConst(handle) &
-      bind(C, name='NonNeutrinoEnergyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='NonNeutrinoEnergyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NonNeutrinoEnergyPolynomial1dGetConst
 end function NonNeutrinoEnergyPolynomial1dGetConst
 
 !! Get
 function NonNeutrinoEnergyPolynomial1dGet(handle) &
-      bind(C, name='NonNeutrinoEnergyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='NonNeutrinoEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NonNeutrinoEnergyPolynomial1dGet
 end function NonNeutrinoEnergyPolynomial1dGet
 
 !! Set

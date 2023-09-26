@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UDefaultConst() &
-      bind(C, name='UDefaultConst') &
-      result(handle)
+      bind(C, name='UDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UDefaultConst
 end function UDefaultConst
 
 !! Create, default
 function UDefault() &
-      bind(C, name='UDefault') &
-      result(handle)
+      bind(C, name='UDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UDefault
 end function UDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function UCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='UCreateConst') &
-      result(handle)
+      bind(C, name='UCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: UCreateConst
 end function UCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function UCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='UCreate') &
-      result(handle)
+      bind(C, name='UCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: UCreate
 end function UCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine UDelete
 
 !! Read from file
 function URead(handle, filename, filenameSize) &
-      bind(C, name='URead') &
-      result(success)
+      bind(C, name='URead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: URead
 end function URead
 
 !! Write to file
 function UWrite(handle, filename, filenameSize) &
-      bind(C, name='UWrite') &
-      result(success)
+      bind(C, name='UWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UWrite
 end function UWrite
 
 !! Print to standard output, in our prettyprinting format
 function UPrint(handle) &
-      bind(C, name='UPrint') &
-      result(success)
+      bind(C, name='UPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UPrint
 end function UPrint
 
 !! Print to standard output, as XML
 function UPrintXML(handle) &
-      bind(C, name='UPrintXML') &
-      result(success)
+      bind(C, name='UPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UPrintXML
 end function UPrintXML
 
 !! Print to standard output, as JSON
 function UPrintJSON(handle) &
-      bind(C, name='UPrintJSON') &
-      result(success)
+      bind(C, name='UPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UPrintJSON
 end function UPrintJSON
 
 
@@ -146,22 +137,20 @@ end function UPrintJSON
 
 !! Has
 function UValueHas(handle) &
-      bind(C, name='UValueHas') &
-      result(has)
+      bind(C, name='UValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UValueHas
 end function UValueHas
 
 !! Get
 function UValueGet(handle) &
-      bind(C, name='UValueGet') &
-      result(value)
+      bind(C, name='UValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: UValueGet
 end function UValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine UValueSet
 
 !! Has
 function UUnitHas(handle) &
-      bind(C, name='UUnitHas') &
-      result(has)
+      bind(C, name='UUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UUnitHas
 end function UUnitHas
 
 !! Get
 function UUnitGet(handle) &
-      bind(C, name='UUnitGet') &
-      result(unit)
+      bind(C, name='UUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: UUnitGet
 end function UUnitGet
 
 !! Set

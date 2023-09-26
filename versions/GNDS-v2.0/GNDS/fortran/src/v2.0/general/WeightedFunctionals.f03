@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function WeightedFunctionalsDefaultConst() &
-      bind(C, name='WeightedFunctionalsDefaultConst') &
-      result(handle)
+      bind(C, name='WeightedFunctionalsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: WeightedFunctionalsDefaultConst
 end function WeightedFunctionalsDefaultConst
 
 !! Create, default
 function WeightedFunctionalsDefault() &
-      bind(C, name='WeightedFunctionalsDefault') &
-      result(handle)
+      bind(C, name='WeightedFunctionalsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: WeightedFunctionalsDefault
 end function WeightedFunctionalsDefault
 
 !! Create, general, const
 function WeightedFunctionalsCreateConst( &
    weighted, weightedSize &
 ) &
-      bind(C, name='WeightedFunctionalsCreateConst') &
-      result(handle)
+      bind(C, name='WeightedFunctionalsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: weightedSize
    type(c_ptr) :: weighted(weightedSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: WeightedFunctionalsCreateConst
 end function WeightedFunctionalsCreateConst
 
 !! Create, general
 function WeightedFunctionalsCreate( &
    weighted, weightedSize &
 ) &
-      bind(C, name='WeightedFunctionalsCreate') &
-      result(handle)
+      bind(C, name='WeightedFunctionalsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: weightedSize
    type(c_ptr) :: weighted(weightedSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: WeightedFunctionalsCreate
 end function WeightedFunctionalsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine WeightedFunctionalsDelete
 
 !! Read from file
 function WeightedFunctionalsRead(handle, filename, filenameSize) &
-      bind(C, name='WeightedFunctionalsRead') &
-      result(success)
+      bind(C, name='WeightedFunctionalsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: WeightedFunctionalsRead
 end function WeightedFunctionalsRead
 
 !! Write to file
 function WeightedFunctionalsWrite(handle, filename, filenameSize) &
-      bind(C, name='WeightedFunctionalsWrite') &
-      result(success)
+      bind(C, name='WeightedFunctionalsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: WeightedFunctionalsWrite
 end function WeightedFunctionalsWrite
 
 !! Print to standard output, in our prettyprinting format
 function WeightedFunctionalsPrint(handle) &
-      bind(C, name='WeightedFunctionalsPrint') &
-      result(success)
+      bind(C, name='WeightedFunctionalsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: WeightedFunctionalsPrint
 end function WeightedFunctionalsPrint
 
 !! Print to standard output, as XML
 function WeightedFunctionalsPrintXML(handle) &
-      bind(C, name='WeightedFunctionalsPrintXML') &
-      result(success)
+      bind(C, name='WeightedFunctionalsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: WeightedFunctionalsPrintXML
 end function WeightedFunctionalsPrintXML
 
 !! Print to standard output, as JSON
 function WeightedFunctionalsPrintJSON(handle) &
-      bind(C, name='WeightedFunctionalsPrintJSON') &
-      result(success)
+      bind(C, name='WeightedFunctionalsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: WeightedFunctionalsPrintJSON
 end function WeightedFunctionalsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function WeightedFunctionalsPrintJSON
 
 !! Has
 function WeightedFunctionalsWeightedHas(handle) &
-      bind(C, name='WeightedFunctionalsWeightedHas') &
-      result(has)
+      bind(C, name='WeightedFunctionalsWeightedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WeightedFunctionalsWeightedHas
 end function WeightedFunctionalsWeightedHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine WeightedFunctionalsWeightedClear
 
 !! Size
 function WeightedFunctionalsWeightedSize(handle) &
-      bind(C, name='WeightedFunctionalsWeightedSize') &
-      result(vectorSize)
+      bind(C, name='WeightedFunctionalsWeightedSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: WeightedFunctionalsWeightedSize
 end function WeightedFunctionalsWeightedSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine WeightedFunctionalsWeightedAdd
 
 !! Get, by index \in [0,size), const
 function WeightedFunctionalsWeightedGetConst(handle, index) &
-      bind(C, name='WeightedFunctionalsWeightedGetConst') &
-      result(resultHandle)
+      bind(C, name='WeightedFunctionalsWeightedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WeightedFunctionalsWeightedGetConst
 end function WeightedFunctionalsWeightedGetConst
 
 !! Get, by index \in [0,size)
 function WeightedFunctionalsWeightedGet(handle, index) &
-      bind(C, name='WeightedFunctionalsWeightedGet') &
-      result(resultHandle)
+      bind(C, name='WeightedFunctionalsWeightedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WeightedFunctionalsWeightedGet
 end function WeightedFunctionalsWeightedGet
 
 !! Set, by index \in [0,size)

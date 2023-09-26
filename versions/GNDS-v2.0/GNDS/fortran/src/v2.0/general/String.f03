@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function StringDefaultConst() &
-      bind(C, name='StringDefaultConst') &
-      result(handle)
+      bind(C, name='StringDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StringDefaultConst
 end function StringDefaultConst
 
 !! Create, default
 function StringDefault() &
-      bind(C, name='StringDefault') &
-      result(handle)
+      bind(C, name='StringDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StringDefault
 end function StringDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function StringCreateConst( &
    valueSize, &
    unitSize &
 ) &
-      bind(C, name='StringCreateConst') &
-      result(handle)
+      bind(C, name='StringCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function StringCreateConst( &
    character(c_char), intent(in) :: value(valueSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: StringCreateConst
 end function StringCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function StringCreate( &
    valueSize, &
    unitSize &
 ) &
-      bind(C, name='StringCreate') &
-      result(handle)
+      bind(C, name='StringCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function StringCreate( &
    character(c_char), intent(in) :: value(valueSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: StringCreate
 end function StringCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine StringDelete
 
 !! Read from file
 function StringRead(handle, filename, filenameSize) &
-      bind(C, name='StringRead') &
-      result(success)
+      bind(C, name='StringRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StringRead
 end function StringRead
 
 !! Write to file
 function StringWrite(handle, filename, filenameSize) &
-      bind(C, name='StringWrite') &
-      result(success)
+      bind(C, name='StringWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StringWrite
 end function StringWrite
 
 !! Print to standard output, in our prettyprinting format
 function StringPrint(handle) &
-      bind(C, name='StringPrint') &
-      result(success)
+      bind(C, name='StringPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StringPrint
 end function StringPrint
 
 !! Print to standard output, as XML
 function StringPrintXML(handle) &
-      bind(C, name='StringPrintXML') &
-      result(success)
+      bind(C, name='StringPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StringPrintXML
 end function StringPrintXML
 
 !! Print to standard output, as JSON
 function StringPrintJSON(handle) &
-      bind(C, name='StringPrintJSON') &
-      result(success)
+      bind(C, name='StringPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StringPrintJSON
 end function StringPrintJSON
 
 
@@ -158,22 +149,20 @@ end function StringPrintJSON
 
 !! Has
 function StringLabelHas(handle) &
-      bind(C, name='StringLabelHas') &
-      result(has)
+      bind(C, name='StringLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StringLabelHas
 end function StringLabelHas
 
 !! Get
 function StringLabelGet(handle) &
-      bind(C, name='StringLabelGet') &
-      result(label)
+      bind(C, name='StringLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: StringLabelGet
 end function StringLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine StringLabelSet
 
 !! Has
 function StringValueHas(handle) &
-      bind(C, name='StringValueHas') &
-      result(has)
+      bind(C, name='StringValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StringValueHas
 end function StringValueHas
 
 !! Get
 function StringValueGet(handle) &
-      bind(C, name='StringValueGet') &
-      result(value)
+      bind(C, name='StringValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: value
+   type(c_ptr) :: StringValueGet
 end function StringValueGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine StringValueSet
 
 !! Has
 function StringUnitHas(handle) &
-      bind(C, name='StringUnitHas') &
-      result(has)
+      bind(C, name='StringUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StringUnitHas
 end function StringUnitHas
 
 !! Get
 function StringUnitGet(handle) &
-      bind(C, name='StringUnitGet') &
-      result(unit)
+      bind(C, name='StringUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: StringUnitGet
 end function StringUnitGet
 
 !! Set

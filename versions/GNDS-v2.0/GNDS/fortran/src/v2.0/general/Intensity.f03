@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function IntensityDefaultConst() &
-      bind(C, name='IntensityDefaultConst') &
-      result(handle)
+      bind(C, name='IntensityDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntensityDefaultConst
 end function IntensityDefaultConst
 
 !! Create, default
 function IntensityDefault() &
-      bind(C, name='IntensityDefault') &
-      result(handle)
+      bind(C, name='IntensityDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntensityDefault
 end function IntensityDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function IntensityCreateConst( &
    value, &
    uncertainty &
 ) &
-      bind(C, name='IntensityCreateConst') &
-      result(handle)
+      bind(C, name='IntensityCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntensityCreateConst
 end function IntensityCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function IntensityCreate( &
    value, &
    uncertainty &
 ) &
-      bind(C, name='IntensityCreate') &
-      result(handle)
+      bind(C, name='IntensityCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntensityCreate
 end function IntensityCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine IntensityDelete
 
 !! Read from file
 function IntensityRead(handle, filename, filenameSize) &
-      bind(C, name='IntensityRead') &
-      result(success)
+      bind(C, name='IntensityRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IntensityRead
 end function IntensityRead
 
 !! Write to file
 function IntensityWrite(handle, filename, filenameSize) &
-      bind(C, name='IntensityWrite') &
-      result(success)
+      bind(C, name='IntensityWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IntensityWrite
 end function IntensityWrite
 
 !! Print to standard output, in our prettyprinting format
 function IntensityPrint(handle) &
-      bind(C, name='IntensityPrint') &
-      result(success)
+      bind(C, name='IntensityPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IntensityPrint
 end function IntensityPrint
 
 !! Print to standard output, as XML
 function IntensityPrintXML(handle) &
-      bind(C, name='IntensityPrintXML') &
-      result(success)
+      bind(C, name='IntensityPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IntensityPrintXML
 end function IntensityPrintXML
 
 !! Print to standard output, as JSON
 function IntensityPrintJSON(handle) &
-      bind(C, name='IntensityPrintJSON') &
-      result(success)
+      bind(C, name='IntensityPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IntensityPrintJSON
 end function IntensityPrintJSON
 
 
@@ -142,22 +133,20 @@ end function IntensityPrintJSON
 
 !! Has
 function IntensityValueHas(handle) &
-      bind(C, name='IntensityValueHas') &
-      result(has)
+      bind(C, name='IntensityValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IntensityValueHas
 end function IntensityValueHas
 
 !! Get
 function IntensityValueGet(handle) &
-      bind(C, name='IntensityValueGet') &
-      result(value)
+      bind(C, name='IntensityValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: IntensityValueGet
 end function IntensityValueGet
 
 !! Set
@@ -177,32 +166,29 @@ end subroutine IntensityValueSet
 
 !! Has
 function IntensityUncertaintyHas(handle) &
-      bind(C, name='IntensityUncertaintyHas') &
-      result(has)
+      bind(C, name='IntensityUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IntensityUncertaintyHas
 end function IntensityUncertaintyHas
 
 !! Get, const
 function IntensityUncertaintyGetConst(handle) &
-      bind(C, name='IntensityUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='IntensityUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IntensityUncertaintyGetConst
 end function IntensityUncertaintyGetConst
 
 !! Get
 function IntensityUncertaintyGet(handle) &
-      bind(C, name='IntensityUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='IntensityUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IntensityUncertaintyGet
 end function IntensityUncertaintyGet
 
 !! Set

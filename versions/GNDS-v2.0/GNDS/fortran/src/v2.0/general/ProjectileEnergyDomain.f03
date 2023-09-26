@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ProjectileEnergyDomainDefaultConst() &
-      bind(C, name='ProjectileEnergyDomainDefaultConst') &
-      result(handle)
+      bind(C, name='ProjectileEnergyDomainDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProjectileEnergyDomainDefaultConst
 end function ProjectileEnergyDomainDefaultConst
 
 !! Create, default
 function ProjectileEnergyDomainDefault() &
-      bind(C, name='ProjectileEnergyDomainDefault') &
-      result(handle)
+      bind(C, name='ProjectileEnergyDomainDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProjectileEnergyDomainDefault
 end function ProjectileEnergyDomainDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ProjectileEnergyDomainCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='ProjectileEnergyDomainCreateConst') &
-      result(handle)
+      bind(C, name='ProjectileEnergyDomainCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: min
    real(c_double), value, intent(in) :: max
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProjectileEnergyDomainCreateConst
 end function ProjectileEnergyDomainCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ProjectileEnergyDomainCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='ProjectileEnergyDomainCreate') &
-      result(handle)
+      bind(C, name='ProjectileEnergyDomainCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: min
    real(c_double), value, intent(in) :: max
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProjectileEnergyDomainCreate
 end function ProjectileEnergyDomainCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ProjectileEnergyDomainDelete
 
 !! Read from file
 function ProjectileEnergyDomainRead(handle, filename, filenameSize) &
-      bind(C, name='ProjectileEnergyDomainRead') &
-      result(success)
+      bind(C, name='ProjectileEnergyDomainRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProjectileEnergyDomainRead
 end function ProjectileEnergyDomainRead
 
 !! Write to file
 function ProjectileEnergyDomainWrite(handle, filename, filenameSize) &
-      bind(C, name='ProjectileEnergyDomainWrite') &
-      result(success)
+      bind(C, name='ProjectileEnergyDomainWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProjectileEnergyDomainWrite
 end function ProjectileEnergyDomainWrite
 
 !! Print to standard output, in our prettyprinting format
 function ProjectileEnergyDomainPrint(handle) &
-      bind(C, name='ProjectileEnergyDomainPrint') &
-      result(success)
+      bind(C, name='ProjectileEnergyDomainPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProjectileEnergyDomainPrint
 end function ProjectileEnergyDomainPrint
 
 !! Print to standard output, as XML
 function ProjectileEnergyDomainPrintXML(handle) &
-      bind(C, name='ProjectileEnergyDomainPrintXML') &
-      result(success)
+      bind(C, name='ProjectileEnergyDomainPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProjectileEnergyDomainPrintXML
 end function ProjectileEnergyDomainPrintXML
 
 !! Print to standard output, as JSON
 function ProjectileEnergyDomainPrintJSON(handle) &
-      bind(C, name='ProjectileEnergyDomainPrintJSON') &
-      result(success)
+      bind(C, name='ProjectileEnergyDomainPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProjectileEnergyDomainPrintJSON
 end function ProjectileEnergyDomainPrintJSON
 
 
@@ -150,22 +141,20 @@ end function ProjectileEnergyDomainPrintJSON
 
 !! Has
 function ProjectileEnergyDomainMinHas(handle) &
-      bind(C, name='ProjectileEnergyDomainMinHas') &
-      result(has)
+      bind(C, name='ProjectileEnergyDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProjectileEnergyDomainMinHas
 end function ProjectileEnergyDomainMinHas
 
 !! Get
 function ProjectileEnergyDomainMinGet(handle) &
-      bind(C, name='ProjectileEnergyDomainMinGet') &
-      result(min)
+      bind(C, name='ProjectileEnergyDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: min
+   real(c_double) :: ProjectileEnergyDomainMinGet
 end function ProjectileEnergyDomainMinGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine ProjectileEnergyDomainMinSet
 
 !! Has
 function ProjectileEnergyDomainMaxHas(handle) &
-      bind(C, name='ProjectileEnergyDomainMaxHas') &
-      result(has)
+      bind(C, name='ProjectileEnergyDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProjectileEnergyDomainMaxHas
 end function ProjectileEnergyDomainMaxHas
 
 !! Get
 function ProjectileEnergyDomainMaxGet(handle) &
-      bind(C, name='ProjectileEnergyDomainMaxGet') &
-      result(max)
+      bind(C, name='ProjectileEnergyDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: max
+   real(c_double) :: ProjectileEnergyDomainMaxGet
 end function ProjectileEnergyDomainMaxGet
 
 !! Set
@@ -220,22 +207,20 @@ end subroutine ProjectileEnergyDomainMaxSet
 
 !! Has
 function ProjectileEnergyDomainUnitHas(handle) &
-      bind(C, name='ProjectileEnergyDomainUnitHas') &
-      result(has)
+      bind(C, name='ProjectileEnergyDomainUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProjectileEnergyDomainUnitHas
 end function ProjectileEnergyDomainUnitHas
 
 !! Get
 function ProjectileEnergyDomainUnitGet(handle) &
-      bind(C, name='ProjectileEnergyDomainUnitGet') &
-      result(unit)
+      bind(C, name='ProjectileEnergyDomainUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: ProjectileEnergyDomainUnitGet
 end function ProjectileEnergyDomainUnitGet
 
 !! Set

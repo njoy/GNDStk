@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function RealAnomalousFactorDefaultConst() &
-      bind(C, name='RealAnomalousFactorDefaultConst') &
-      result(handle)
+      bind(C, name='RealAnomalousFactorDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RealAnomalousFactorDefaultConst
 end function RealAnomalousFactorDefaultConst
 
 !! Create, default
 function RealAnomalousFactorDefault() &
-      bind(C, name='RealAnomalousFactorDefault') &
-      result(handle)
+      bind(C, name='RealAnomalousFactorDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RealAnomalousFactorDefault
 end function RealAnomalousFactorDefault
 
 !! Create, general, const
 function RealAnomalousFactorCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='RealAnomalousFactorCreateConst') &
-      result(handle)
+      bind(C, name='RealAnomalousFactorCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: RealAnomalousFactorCreateConst
 end function RealAnomalousFactorCreateConst
 
 !! Create, general
 function RealAnomalousFactorCreate( &
    XYs1d &
 ) &
-      bind(C, name='RealAnomalousFactorCreate') &
-      result(handle)
+      bind(C, name='RealAnomalousFactorCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: RealAnomalousFactorCreate
 end function RealAnomalousFactorCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine RealAnomalousFactorDelete
 
 !! Read from file
 function RealAnomalousFactorRead(handle, filename, filenameSize) &
-      bind(C, name='RealAnomalousFactorRead') &
-      result(success)
+      bind(C, name='RealAnomalousFactorRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RealAnomalousFactorRead
 end function RealAnomalousFactorRead
 
 !! Write to file
 function RealAnomalousFactorWrite(handle, filename, filenameSize) &
-      bind(C, name='RealAnomalousFactorWrite') &
-      result(success)
+      bind(C, name='RealAnomalousFactorWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RealAnomalousFactorWrite
 end function RealAnomalousFactorWrite
 
 !! Print to standard output, in our prettyprinting format
 function RealAnomalousFactorPrint(handle) &
-      bind(C, name='RealAnomalousFactorPrint') &
-      result(success)
+      bind(C, name='RealAnomalousFactorPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RealAnomalousFactorPrint
 end function RealAnomalousFactorPrint
 
 !! Print to standard output, as XML
 function RealAnomalousFactorPrintXML(handle) &
-      bind(C, name='RealAnomalousFactorPrintXML') &
-      result(success)
+      bind(C, name='RealAnomalousFactorPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RealAnomalousFactorPrintXML
 end function RealAnomalousFactorPrintXML
 
 !! Print to standard output, as JSON
 function RealAnomalousFactorPrintJSON(handle) &
-      bind(C, name='RealAnomalousFactorPrintJSON') &
-      result(success)
+      bind(C, name='RealAnomalousFactorPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RealAnomalousFactorPrintJSON
 end function RealAnomalousFactorPrintJSON
 
 
@@ -138,32 +129,29 @@ end function RealAnomalousFactorPrintJSON
 
 !! Has
 function RealAnomalousFactorXYs1dHas(handle) &
-      bind(C, name='RealAnomalousFactorXYs1dHas') &
-      result(has)
+      bind(C, name='RealAnomalousFactorXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RealAnomalousFactorXYs1dHas
 end function RealAnomalousFactorXYs1dHas
 
 !! Get, const
 function RealAnomalousFactorXYs1dGetConst(handle) &
-      bind(C, name='RealAnomalousFactorXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='RealAnomalousFactorXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RealAnomalousFactorXYs1dGetConst
 end function RealAnomalousFactorXYs1dGetConst
 
 !! Get
 function RealAnomalousFactorXYs1dGet(handle) &
-      bind(C, name='RealAnomalousFactorXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='RealAnomalousFactorXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RealAnomalousFactorXYs1dGet
 end function RealAnomalousFactorXYs1dGet
 
 !! Set

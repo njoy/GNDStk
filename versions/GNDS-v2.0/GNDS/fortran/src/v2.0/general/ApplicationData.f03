@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ApplicationDataDefaultConst() &
-      bind(C, name='ApplicationDataDefaultConst') &
-      result(handle)
+      bind(C, name='ApplicationDataDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ApplicationDataDefaultConst
 end function ApplicationDataDefaultConst
 
 !! Create, default
 function ApplicationDataDefault() &
-      bind(C, name='ApplicationDataDefault') &
-      result(handle)
+      bind(C, name='ApplicationDataDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ApplicationDataDefault
 end function ApplicationDataDefault
 
 !! Create, general, const
 function ApplicationDataCreateConst( &
    institution &
 ) &
-      bind(C, name='ApplicationDataCreateConst') &
-      result(handle)
+      bind(C, name='ApplicationDataCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: institution
-   type(c_ptr) :: handle
+   type(c_ptr) :: ApplicationDataCreateConst
 end function ApplicationDataCreateConst
 
 !! Create, general
 function ApplicationDataCreate( &
    institution &
 ) &
-      bind(C, name='ApplicationDataCreate') &
-      result(handle)
+      bind(C, name='ApplicationDataCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: institution
-   type(c_ptr) :: handle
+   type(c_ptr) :: ApplicationDataCreate
 end function ApplicationDataCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ApplicationDataDelete
 
 !! Read from file
 function ApplicationDataRead(handle, filename, filenameSize) &
-      bind(C, name='ApplicationDataRead') &
-      result(success)
+      bind(C, name='ApplicationDataRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ApplicationDataRead
 end function ApplicationDataRead
 
 !! Write to file
 function ApplicationDataWrite(handle, filename, filenameSize) &
-      bind(C, name='ApplicationDataWrite') &
-      result(success)
+      bind(C, name='ApplicationDataWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ApplicationDataWrite
 end function ApplicationDataWrite
 
 !! Print to standard output, in our prettyprinting format
 function ApplicationDataPrint(handle) &
-      bind(C, name='ApplicationDataPrint') &
-      result(success)
+      bind(C, name='ApplicationDataPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ApplicationDataPrint
 end function ApplicationDataPrint
 
 !! Print to standard output, as XML
 function ApplicationDataPrintXML(handle) &
-      bind(C, name='ApplicationDataPrintXML') &
-      result(success)
+      bind(C, name='ApplicationDataPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ApplicationDataPrintXML
 end function ApplicationDataPrintXML
 
 !! Print to standard output, as JSON
 function ApplicationDataPrintJSON(handle) &
-      bind(C, name='ApplicationDataPrintJSON') &
-      result(success)
+      bind(C, name='ApplicationDataPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ApplicationDataPrintJSON
 end function ApplicationDataPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ApplicationDataPrintJSON
 
 !! Has
 function ApplicationDataInstitutionHas(handle) &
-      bind(C, name='ApplicationDataInstitutionHas') &
-      result(has)
+      bind(C, name='ApplicationDataInstitutionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ApplicationDataInstitutionHas
 end function ApplicationDataInstitutionHas
 
 !! Get, const
 function ApplicationDataInstitutionGetConst(handle) &
-      bind(C, name='ApplicationDataInstitutionGetConst') &
-      result(resultHandle)
+      bind(C, name='ApplicationDataInstitutionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ApplicationDataInstitutionGetConst
 end function ApplicationDataInstitutionGetConst
 
 !! Get
 function ApplicationDataInstitutionGet(handle) &
-      bind(C, name='ApplicationDataInstitutionGet') &
-      result(resultHandle)
+      bind(C, name='ApplicationDataInstitutionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ApplicationDataInstitutionGet
 end function ApplicationDataInstitutionGet
 
 !! Set

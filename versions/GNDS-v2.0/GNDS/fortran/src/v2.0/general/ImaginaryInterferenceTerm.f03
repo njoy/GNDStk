@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ImaginaryInterferenceTermDefaultConst() &
-      bind(C, name='ImaginaryInterferenceTermDefaultConst') &
-      result(handle)
+      bind(C, name='ImaginaryInterferenceTermDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryInterferenceTermDefaultConst
 end function ImaginaryInterferenceTermDefaultConst
 
 !! Create, default
 function ImaginaryInterferenceTermDefault() &
-      bind(C, name='ImaginaryInterferenceTermDefault') &
-      result(handle)
+      bind(C, name='ImaginaryInterferenceTermDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryInterferenceTermDefault
 end function ImaginaryInterferenceTermDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function ImaginaryInterferenceTermCreateConst( &
    regions2d, &
    XYs2d &
 ) &
-      bind(C, name='ImaginaryInterferenceTermCreateConst') &
-      result(handle)
+      bind(C, name='ImaginaryInterferenceTermCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: regions2d
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryInterferenceTermCreateConst
 end function ImaginaryInterferenceTermCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function ImaginaryInterferenceTermCreate( &
    regions2d, &
    XYs2d &
 ) &
-      bind(C, name='ImaginaryInterferenceTermCreate') &
-      result(handle)
+      bind(C, name='ImaginaryInterferenceTermCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: regions2d
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryInterferenceTermCreate
 end function ImaginaryInterferenceTermCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine ImaginaryInterferenceTermDelete
 
 !! Read from file
 function ImaginaryInterferenceTermRead(handle, filename, filenameSize) &
-      bind(C, name='ImaginaryInterferenceTermRead') &
-      result(success)
+      bind(C, name='ImaginaryInterferenceTermRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryInterferenceTermRead
 end function ImaginaryInterferenceTermRead
 
 !! Write to file
 function ImaginaryInterferenceTermWrite(handle, filename, filenameSize) &
-      bind(C, name='ImaginaryInterferenceTermWrite') &
-      result(success)
+      bind(C, name='ImaginaryInterferenceTermWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryInterferenceTermWrite
 end function ImaginaryInterferenceTermWrite
 
 !! Print to standard output, in our prettyprinting format
 function ImaginaryInterferenceTermPrint(handle) &
-      bind(C, name='ImaginaryInterferenceTermPrint') &
-      result(success)
+      bind(C, name='ImaginaryInterferenceTermPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryInterferenceTermPrint
 end function ImaginaryInterferenceTermPrint
 
 !! Print to standard output, as XML
 function ImaginaryInterferenceTermPrintXML(handle) &
-      bind(C, name='ImaginaryInterferenceTermPrintXML') &
-      result(success)
+      bind(C, name='ImaginaryInterferenceTermPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryInterferenceTermPrintXML
 end function ImaginaryInterferenceTermPrintXML
 
 !! Print to standard output, as JSON
 function ImaginaryInterferenceTermPrintJSON(handle) &
-      bind(C, name='ImaginaryInterferenceTermPrintJSON') &
-      result(success)
+      bind(C, name='ImaginaryInterferenceTermPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryInterferenceTermPrintJSON
 end function ImaginaryInterferenceTermPrintJSON
 
 
@@ -142,32 +133,29 @@ end function ImaginaryInterferenceTermPrintJSON
 
 !! Has
 function ImaginaryInterferenceTermRegions2dHas(handle) &
-      bind(C, name='ImaginaryInterferenceTermRegions2dHas') &
-      result(has)
+      bind(C, name='ImaginaryInterferenceTermRegions2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ImaginaryInterferenceTermRegions2dHas
 end function ImaginaryInterferenceTermRegions2dHas
 
 !! Get, const
 function ImaginaryInterferenceTermRegions2dGetConst(handle) &
-      bind(C, name='ImaginaryInterferenceTermRegions2dGetConst') &
-      result(resultHandle)
+      bind(C, name='ImaginaryInterferenceTermRegions2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ImaginaryInterferenceTermRegions2dGetConst
 end function ImaginaryInterferenceTermRegions2dGetConst
 
 !! Get
 function ImaginaryInterferenceTermRegions2dGet(handle) &
-      bind(C, name='ImaginaryInterferenceTermRegions2dGet') &
-      result(resultHandle)
+      bind(C, name='ImaginaryInterferenceTermRegions2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ImaginaryInterferenceTermRegions2dGet
 end function ImaginaryInterferenceTermRegions2dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine ImaginaryInterferenceTermRegions2dSet
 
 !! Has
 function ImaginaryInterferenceTermXYs2dHas(handle) &
-      bind(C, name='ImaginaryInterferenceTermXYs2dHas') &
-      result(has)
+      bind(C, name='ImaginaryInterferenceTermXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ImaginaryInterferenceTermXYs2dHas
 end function ImaginaryInterferenceTermXYs2dHas
 
 !! Get, const
 function ImaginaryInterferenceTermXYs2dGetConst(handle) &
-      bind(C, name='ImaginaryInterferenceTermXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='ImaginaryInterferenceTermXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ImaginaryInterferenceTermXYs2dGetConst
 end function ImaginaryInterferenceTermXYs2dGetConst
 
 !! Get
 function ImaginaryInterferenceTermXYs2dGet(handle) &
-      bind(C, name='ImaginaryInterferenceTermXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='ImaginaryInterferenceTermXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ImaginaryInterferenceTermXYs2dGet
 end function ImaginaryInterferenceTermXYs2dGet
 
 !! Set

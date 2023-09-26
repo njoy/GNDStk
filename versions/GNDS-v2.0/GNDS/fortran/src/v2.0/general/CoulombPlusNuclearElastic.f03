@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CoulombPlusNuclearElasticDefaultConst() &
-      bind(C, name='CoulombPlusNuclearElasticDefaultConst') &
-      result(handle)
+      bind(C, name='CoulombPlusNuclearElasticDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoulombPlusNuclearElasticDefaultConst
 end function CoulombPlusNuclearElasticDefaultConst
 
 !! Create, default
 function CoulombPlusNuclearElasticDefault() &
-      bind(C, name='CoulombPlusNuclearElasticDefault') &
-      result(handle)
+      bind(C, name='CoulombPlusNuclearElasticDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoulombPlusNuclearElasticDefault
 end function CoulombPlusNuclearElasticDefault
 
 !! Create, general, const
@@ -45,8 +43,7 @@ function CoulombPlusNuclearElasticCreateConst( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='CoulombPlusNuclearElasticCreateConst') &
-      result(handle)
+      bind(C, name='CoulombPlusNuclearElasticCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -61,7 +58,7 @@ function CoulombPlusNuclearElasticCreateConst( &
    type(c_ptr), value :: RutherfordScattering
    type(c_ptr), value :: nuclearAmplitudeExpansion
    type(c_ptr), value :: nuclearPlusInterference
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoulombPlusNuclearElasticCreateConst
 end function CoulombPlusNuclearElasticCreateConst
 
 !! Create, general
@@ -79,8 +76,7 @@ function CoulombPlusNuclearElasticCreate( &
    pidSize, &
    productFrameSize &
 ) &
-      bind(C, name='CoulombPlusNuclearElasticCreate') &
-      result(handle)
+      bind(C, name='CoulombPlusNuclearElasticCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -95,7 +91,7 @@ function CoulombPlusNuclearElasticCreate( &
    type(c_ptr), value :: RutherfordScattering
    type(c_ptr), value :: nuclearAmplitudeExpansion
    type(c_ptr), value :: nuclearPlusInterference
-   type(c_ptr) :: handle
+   type(c_ptr) :: CoulombPlusNuclearElasticCreate
 end function CoulombPlusNuclearElasticCreate
 
 !! Assign
@@ -123,56 +119,51 @@ end subroutine CoulombPlusNuclearElasticDelete
 
 !! Read from file
 function CoulombPlusNuclearElasticRead(handle, filename, filenameSize) &
-      bind(C, name='CoulombPlusNuclearElasticRead') &
-      result(success)
+      bind(C, name='CoulombPlusNuclearElasticRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CoulombPlusNuclearElasticRead
 end function CoulombPlusNuclearElasticRead
 
 !! Write to file
 function CoulombPlusNuclearElasticWrite(handle, filename, filenameSize) &
-      bind(C, name='CoulombPlusNuclearElasticWrite') &
-      result(success)
+      bind(C, name='CoulombPlusNuclearElasticWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CoulombPlusNuclearElasticWrite
 end function CoulombPlusNuclearElasticWrite
 
 !! Print to standard output, in our prettyprinting format
 function CoulombPlusNuclearElasticPrint(handle) &
-      bind(C, name='CoulombPlusNuclearElasticPrint') &
-      result(success)
+      bind(C, name='CoulombPlusNuclearElasticPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CoulombPlusNuclearElasticPrint
 end function CoulombPlusNuclearElasticPrint
 
 !! Print to standard output, as XML
 function CoulombPlusNuclearElasticPrintXML(handle) &
-      bind(C, name='CoulombPlusNuclearElasticPrintXML') &
-      result(success)
+      bind(C, name='CoulombPlusNuclearElasticPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CoulombPlusNuclearElasticPrintXML
 end function CoulombPlusNuclearElasticPrintXML
 
 !! Print to standard output, as JSON
 function CoulombPlusNuclearElasticPrintJSON(handle) &
-      bind(C, name='CoulombPlusNuclearElasticPrintJSON') &
-      result(success)
+      bind(C, name='CoulombPlusNuclearElasticPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CoulombPlusNuclearElasticPrintJSON
 end function CoulombPlusNuclearElasticPrintJSON
 
 
@@ -182,22 +173,20 @@ end function CoulombPlusNuclearElasticPrintJSON
 
 !! Has
 function CoulombPlusNuclearElasticLabelHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticLabelHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticLabelHas
 end function CoulombPlusNuclearElasticLabelHas
 
 !! Get
 function CoulombPlusNuclearElasticLabelGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticLabelGet') &
-      result(label)
+      bind(C, name='CoulombPlusNuclearElasticLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: CoulombPlusNuclearElasticLabelGet
 end function CoulombPlusNuclearElasticLabelGet
 
 !! Set
@@ -217,22 +206,20 @@ end subroutine CoulombPlusNuclearElasticLabelSet
 
 !! Has
 function CoulombPlusNuclearElasticHrefHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticHrefHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticHrefHas
 end function CoulombPlusNuclearElasticHrefHas
 
 !! Get
 function CoulombPlusNuclearElasticHrefGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticHrefGet') &
-      result(href)
+      bind(C, name='CoulombPlusNuclearElasticHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: CoulombPlusNuclearElasticHrefGet
 end function CoulombPlusNuclearElasticHrefGet
 
 !! Set
@@ -252,22 +239,20 @@ end subroutine CoulombPlusNuclearElasticHrefSet
 
 !! Has
 function CoulombPlusNuclearElasticPidHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticPidHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticPidHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticPidHas
 end function CoulombPlusNuclearElasticPidHas
 
 !! Get
 function CoulombPlusNuclearElasticPidGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticPidGet') &
-      result(pid)
+      bind(C, name='CoulombPlusNuclearElasticPidGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: pid
+   type(c_ptr) :: CoulombPlusNuclearElasticPidGet
 end function CoulombPlusNuclearElasticPidGet
 
 !! Set
@@ -287,22 +272,20 @@ end subroutine CoulombPlusNuclearElasticPidSet
 
 !! Has
 function CoulombPlusNuclearElasticProductFrameHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticProductFrameHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticProductFrameHas
 end function CoulombPlusNuclearElasticProductFrameHas
 
 !! Get
 function CoulombPlusNuclearElasticProductFrameGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticProductFrameGet') &
-      result(productFrame)
+      bind(C, name='CoulombPlusNuclearElasticProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: CoulombPlusNuclearElasticProductFrameGet
 end function CoulombPlusNuclearElasticProductFrameGet
 
 !! Set
@@ -322,22 +305,20 @@ end subroutine CoulombPlusNuclearElasticProductFrameSet
 
 !! Has
 function CoulombPlusNuclearElasticIdenticalParticlesHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticIdenticalParticlesHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticIdenticalParticlesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticIdenticalParticlesHas
 end function CoulombPlusNuclearElasticIdenticalParticlesHas
 
 !! Get
 function CoulombPlusNuclearElasticIdenticalParticlesGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticIdenticalParticlesGet') &
-      result(identicalParticles)
+      bind(C, name='CoulombPlusNuclearElasticIdenticalParticlesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: identicalParticles
+   logical(c_bool) :: CoulombPlusNuclearElasticIdenticalParticlesGet
 end function CoulombPlusNuclearElasticIdenticalParticlesGet
 
 !! Set
@@ -357,32 +338,29 @@ end subroutine CoulombPlusNuclearElasticIdenticalParticlesSet
 
 !! Has
 function CoulombPlusNuclearElasticRutherfordScatteringHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticRutherfordScatteringHas
 end function CoulombPlusNuclearElasticRutherfordScatteringHas
 
 !! Get, const
 function CoulombPlusNuclearElasticRutherfordScatteringGetConst(handle) &
-      bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringGetConst') &
-      result(resultHandle)
+      bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoulombPlusNuclearElasticRutherfordScatteringGetConst
 end function CoulombPlusNuclearElasticRutherfordScatteringGetConst
 
 !! Get
 function CoulombPlusNuclearElasticRutherfordScatteringGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringGet') &
-      result(resultHandle)
+      bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoulombPlusNuclearElasticRutherfordScatteringGet
 end function CoulombPlusNuclearElasticRutherfordScatteringGet
 
 !! Set
@@ -401,32 +379,29 @@ end subroutine CoulombPlusNuclearElasticRutherfordScatteringSet
 
 !! Has
 function CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas
 end function CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas
 
 !! Get, const
 function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(handle) &
-      bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst') &
-      result(resultHandle)
+      bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst
 end function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst
 
 !! Get
 function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet') &
-      result(resultHandle)
+      bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet
 end function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet
 
 !! Set
@@ -445,32 +420,29 @@ end subroutine CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet
 
 !! Has
 function CoulombPlusNuclearElasticNuclearPlusInterferenceHas(handle) &
-      bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceHas') &
-      result(has)
+      bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CoulombPlusNuclearElasticNuclearPlusInterferenceHas
 end function CoulombPlusNuclearElasticNuclearPlusInterferenceHas
 
 !! Get, const
 function CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(handle) &
-      bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst') &
-      result(resultHandle)
+      bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst
 end function CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst
 
 !! Get
 function CoulombPlusNuclearElasticNuclearPlusInterferenceGet(handle) &
-      bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceGet') &
-      result(resultHandle)
+      bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CoulombPlusNuclearElasticNuclearPlusInterferenceGet
 end function CoulombPlusNuclearElasticNuclearPlusInterferenceGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CovarianceMatrixDefaultConst() &
-      bind(C, name='CovarianceMatrixDefaultConst') &
-      result(handle)
+      bind(C, name='CovarianceMatrixDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceMatrixDefaultConst
 end function CovarianceMatrixDefaultConst
 
 !! Create, default
 function CovarianceMatrixDefault() &
-      bind(C, name='CovarianceMatrixDefault') &
-      result(handle)
+      bind(C, name='CovarianceMatrixDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceMatrixDefault
 end function CovarianceMatrixDefault
 
 !! Create, general, const
@@ -40,8 +38,7 @@ function CovarianceMatrixCreateConst( &
    type1Size, &
    productFrameSize &
 ) &
-      bind(C, name='CovarianceMatrixCreateConst') &
-      result(handle)
+      bind(C, name='CovarianceMatrixCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -51,7 +48,7 @@ function CovarianceMatrixCreateConst( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: gridded2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceMatrixCreateConst
 end function CovarianceMatrixCreateConst
 
 !! Create, general
@@ -64,8 +61,7 @@ function CovarianceMatrixCreate( &
    type1Size, &
    productFrameSize &
 ) &
-      bind(C, name='CovarianceMatrixCreate') &
-      result(handle)
+      bind(C, name='CovarianceMatrixCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -75,7 +71,7 @@ function CovarianceMatrixCreate( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: gridded2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceMatrixCreate
 end function CovarianceMatrixCreate
 
 !! Assign
@@ -103,56 +99,51 @@ end subroutine CovarianceMatrixDelete
 
 !! Read from file
 function CovarianceMatrixRead(handle, filename, filenameSize) &
-      bind(C, name='CovarianceMatrixRead') &
-      result(success)
+      bind(C, name='CovarianceMatrixRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceMatrixRead
 end function CovarianceMatrixRead
 
 !! Write to file
 function CovarianceMatrixWrite(handle, filename, filenameSize) &
-      bind(C, name='CovarianceMatrixWrite') &
-      result(success)
+      bind(C, name='CovarianceMatrixWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceMatrixWrite
 end function CovarianceMatrixWrite
 
 !! Print to standard output, in our prettyprinting format
 function CovarianceMatrixPrint(handle) &
-      bind(C, name='CovarianceMatrixPrint') &
-      result(success)
+      bind(C, name='CovarianceMatrixPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceMatrixPrint
 end function CovarianceMatrixPrint
 
 !! Print to standard output, as XML
 function CovarianceMatrixPrintXML(handle) &
-      bind(C, name='CovarianceMatrixPrintXML') &
-      result(success)
+      bind(C, name='CovarianceMatrixPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceMatrixPrintXML
 end function CovarianceMatrixPrintXML
 
 !! Print to standard output, as JSON
 function CovarianceMatrixPrintJSON(handle) &
-      bind(C, name='CovarianceMatrixPrintJSON') &
-      result(success)
+      bind(C, name='CovarianceMatrixPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceMatrixPrintJSON
 end function CovarianceMatrixPrintJSON
 
 
@@ -162,22 +153,20 @@ end function CovarianceMatrixPrintJSON
 
 !! Has
 function CovarianceMatrixLabelHas(handle) &
-      bind(C, name='CovarianceMatrixLabelHas') &
-      result(has)
+      bind(C, name='CovarianceMatrixLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceMatrixLabelHas
 end function CovarianceMatrixLabelHas
 
 !! Get
 function CovarianceMatrixLabelGet(handle) &
-      bind(C, name='CovarianceMatrixLabelGet') &
-      result(label)
+      bind(C, name='CovarianceMatrixLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: CovarianceMatrixLabelGet
 end function CovarianceMatrixLabelGet
 
 !! Set
@@ -197,22 +186,20 @@ end subroutine CovarianceMatrixLabelSet
 
 !! Has
 function CovarianceMatrixTypeHas(handle) &
-      bind(C, name='CovarianceMatrixTypeHas') &
-      result(has)
+      bind(C, name='CovarianceMatrixTypeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceMatrixTypeHas
 end function CovarianceMatrixTypeHas
 
 !! Get
 function CovarianceMatrixTypeGet(handle) &
-      bind(C, name='CovarianceMatrixTypeGet') &
-      result(type1)
+      bind(C, name='CovarianceMatrixTypeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: type1
+   type(c_ptr) :: CovarianceMatrixTypeGet
 end function CovarianceMatrixTypeGet
 
 !! Set
@@ -232,22 +219,20 @@ end subroutine CovarianceMatrixTypeSet
 
 !! Has
 function CovarianceMatrixProductFrameHas(handle) &
-      bind(C, name='CovarianceMatrixProductFrameHas') &
-      result(has)
+      bind(C, name='CovarianceMatrixProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceMatrixProductFrameHas
 end function CovarianceMatrixProductFrameHas
 
 !! Get
 function CovarianceMatrixProductFrameGet(handle) &
-      bind(C, name='CovarianceMatrixProductFrameGet') &
-      result(productFrame)
+      bind(C, name='CovarianceMatrixProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: CovarianceMatrixProductFrameGet
 end function CovarianceMatrixProductFrameGet
 
 !! Set
@@ -267,32 +252,29 @@ end subroutine CovarianceMatrixProductFrameSet
 
 !! Has
 function CovarianceMatrixGridded2dHas(handle) &
-      bind(C, name='CovarianceMatrixGridded2dHas') &
-      result(has)
+      bind(C, name='CovarianceMatrixGridded2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceMatrixGridded2dHas
 end function CovarianceMatrixGridded2dHas
 
 !! Get, const
 function CovarianceMatrixGridded2dGetConst(handle) &
-      bind(C, name='CovarianceMatrixGridded2dGetConst') &
-      result(resultHandle)
+      bind(C, name='CovarianceMatrixGridded2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceMatrixGridded2dGetConst
 end function CovarianceMatrixGridded2dGetConst
 
 !! Get
 function CovarianceMatrixGridded2dGet(handle) &
-      bind(C, name='CovarianceMatrixGridded2dGet') &
-      result(resultHandle)
+      bind(C, name='CovarianceMatrixGridded2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceMatrixGridded2dGet
 end function CovarianceMatrixGridded2dGet
 
 !! Set

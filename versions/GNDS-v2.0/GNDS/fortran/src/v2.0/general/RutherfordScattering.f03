@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function RutherfordScatteringDefaultConst() &
-      bind(C, name='RutherfordScatteringDefaultConst') &
-      result(handle)
+      bind(C, name='RutherfordScatteringDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RutherfordScatteringDefaultConst
 end function RutherfordScatteringDefaultConst
 
 !! Create, default
 function RutherfordScatteringDefault() &
-      bind(C, name='RutherfordScatteringDefault') &
-      result(handle)
+      bind(C, name='RutherfordScatteringDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RutherfordScatteringDefault
 end function RutherfordScatteringDefault
 
 !! Create, general, const
 function RutherfordScatteringCreateConst( &
 ) &
-      bind(C, name='RutherfordScatteringCreateConst') &
-      result(handle)
+      bind(C, name='RutherfordScatteringCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RutherfordScatteringCreateConst
 end function RutherfordScatteringCreateConst
 
 !! Create, general
 function RutherfordScatteringCreate( &
 ) &
-      bind(C, name='RutherfordScatteringCreate') &
-      result(handle)
+      bind(C, name='RutherfordScatteringCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RutherfordScatteringCreate
 end function RutherfordScatteringCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine RutherfordScatteringDelete
 
 !! Read from file
 function RutherfordScatteringRead(handle, filename, filenameSize) &
-      bind(C, name='RutherfordScatteringRead') &
-      result(success)
+      bind(C, name='RutherfordScatteringRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RutherfordScatteringRead
 end function RutherfordScatteringRead
 
 !! Write to file
 function RutherfordScatteringWrite(handle, filename, filenameSize) &
-      bind(C, name='RutherfordScatteringWrite') &
-      result(success)
+      bind(C, name='RutherfordScatteringWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RutherfordScatteringWrite
 end function RutherfordScatteringWrite
 
 !! Print to standard output, in our prettyprinting format
 function RutherfordScatteringPrint(handle) &
-      bind(C, name='RutherfordScatteringPrint') &
-      result(success)
+      bind(C, name='RutherfordScatteringPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RutherfordScatteringPrint
 end function RutherfordScatteringPrint
 
 !! Print to standard output, as XML
 function RutherfordScatteringPrintXML(handle) &
-      bind(C, name='RutherfordScatteringPrintXML') &
-      result(success)
+      bind(C, name='RutherfordScatteringPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RutherfordScatteringPrintXML
 end function RutherfordScatteringPrintXML
 
 !! Print to standard output, as JSON
 function RutherfordScatteringPrintJSON(handle) &
-      bind(C, name='RutherfordScatteringPrintJSON') &
-      result(success)
+      bind(C, name='RutherfordScatteringPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RutherfordScatteringPrintJSON
 end function RutherfordScatteringPrintJSON
 
 

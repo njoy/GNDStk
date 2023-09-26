@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ProbabilityDefaultConst() &
-      bind(C, name='ProbabilityDefaultConst') &
-      result(handle)
+      bind(C, name='ProbabilityDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProbabilityDefaultConst
 end function ProbabilityDefaultConst
 
 !! Create, default
 function ProbabilityDefault() &
-      bind(C, name='ProbabilityDefault') &
-      result(handle)
+      bind(C, name='ProbabilityDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProbabilityDefault
 end function ProbabilityDefault
 
 !! Create, general, const
 function ProbabilityCreateConst( &
    Double &
 ) &
-      bind(C, name='ProbabilityCreateConst') &
-      result(handle)
+      bind(C, name='ProbabilityCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProbabilityCreateConst
 end function ProbabilityCreateConst
 
 !! Create, general
 function ProbabilityCreate( &
    Double &
 ) &
-      bind(C, name='ProbabilityCreate') &
-      result(handle)
+      bind(C, name='ProbabilityCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProbabilityCreate
 end function ProbabilityCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ProbabilityDelete
 
 !! Read from file
 function ProbabilityRead(handle, filename, filenameSize) &
-      bind(C, name='ProbabilityRead') &
-      result(success)
+      bind(C, name='ProbabilityRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProbabilityRead
 end function ProbabilityRead
 
 !! Write to file
 function ProbabilityWrite(handle, filename, filenameSize) &
-      bind(C, name='ProbabilityWrite') &
-      result(success)
+      bind(C, name='ProbabilityWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProbabilityWrite
 end function ProbabilityWrite
 
 !! Print to standard output, in our prettyprinting format
 function ProbabilityPrint(handle) &
-      bind(C, name='ProbabilityPrint') &
-      result(success)
+      bind(C, name='ProbabilityPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProbabilityPrint
 end function ProbabilityPrint
 
 !! Print to standard output, as XML
 function ProbabilityPrintXML(handle) &
-      bind(C, name='ProbabilityPrintXML') &
-      result(success)
+      bind(C, name='ProbabilityPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProbabilityPrintXML
 end function ProbabilityPrintXML
 
 !! Print to standard output, as JSON
 function ProbabilityPrintJSON(handle) &
-      bind(C, name='ProbabilityPrintJSON') &
-      result(success)
+      bind(C, name='ProbabilityPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProbabilityPrintJSON
 end function ProbabilityPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ProbabilityPrintJSON
 
 !! Has
 function ProbabilityDoubleHas(handle) &
-      bind(C, name='ProbabilityDoubleHas') &
-      result(has)
+      bind(C, name='ProbabilityDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProbabilityDoubleHas
 end function ProbabilityDoubleHas
 
 !! Get, const
 function ProbabilityDoubleGetConst(handle) &
-      bind(C, name='ProbabilityDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='ProbabilityDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProbabilityDoubleGetConst
 end function ProbabilityDoubleGetConst
 
 !! Get
 function ProbabilityDoubleGet(handle) &
-      bind(C, name='ProbabilityDoubleGet') &
-      result(resultHandle)
+      bind(C, name='ProbabilityDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProbabilityDoubleGet
 end function ProbabilityDoubleGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ParameterCovariancesDefaultConst() &
-      bind(C, name='ParameterCovariancesDefaultConst') &
-      result(handle)
+      bind(C, name='ParameterCovariancesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovariancesDefaultConst
 end function ParameterCovariancesDefaultConst
 
 !! Create, default
 function ParameterCovariancesDefault() &
-      bind(C, name='ParameterCovariancesDefault') &
-      result(handle)
+      bind(C, name='ParameterCovariancesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovariancesDefault
 end function ParameterCovariancesDefault
 
 !! Create, general, const
@@ -35,15 +33,14 @@ function ParameterCovariancesCreateConst( &
    parameterCovariance, parameterCovarianceSize, &
    averageParameterCovariance, averageParameterCovarianceSize &
 ) &
-      bind(C, name='ParameterCovariancesCreateConst') &
-      result(handle)
+      bind(C, name='ParameterCovariancesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: parameterCovarianceSize
    type(c_ptr) :: parameterCovariance(parameterCovarianceSize)
    integer(c_size_t), value :: averageParameterCovarianceSize
    type(c_ptr) :: averageParameterCovariance(averageParameterCovarianceSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovariancesCreateConst
 end function ParameterCovariancesCreateConst
 
 !! Create, general
@@ -51,15 +48,14 @@ function ParameterCovariancesCreate( &
    parameterCovariance, parameterCovarianceSize, &
    averageParameterCovariance, averageParameterCovarianceSize &
 ) &
-      bind(C, name='ParameterCovariancesCreate') &
-      result(handle)
+      bind(C, name='ParameterCovariancesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: parameterCovarianceSize
    type(c_ptr) :: parameterCovariance(parameterCovarianceSize)
    integer(c_size_t), value :: averageParameterCovarianceSize
    type(c_ptr) :: averageParameterCovariance(averageParameterCovarianceSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovariancesCreate
 end function ParameterCovariancesCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine ParameterCovariancesDelete
 
 !! Read from file
 function ParameterCovariancesRead(handle, filename, filenameSize) &
-      bind(C, name='ParameterCovariancesRead') &
-      result(success)
+      bind(C, name='ParameterCovariancesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancesRead
 end function ParameterCovariancesRead
 
 !! Write to file
 function ParameterCovariancesWrite(handle, filename, filenameSize) &
-      bind(C, name='ParameterCovariancesWrite') &
-      result(success)
+      bind(C, name='ParameterCovariancesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancesWrite
 end function ParameterCovariancesWrite
 
 !! Print to standard output, in our prettyprinting format
 function ParameterCovariancesPrint(handle) &
-      bind(C, name='ParameterCovariancesPrint') &
-      result(success)
+      bind(C, name='ParameterCovariancesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancesPrint
 end function ParameterCovariancesPrint
 
 !! Print to standard output, as XML
 function ParameterCovariancesPrintXML(handle) &
-      bind(C, name='ParameterCovariancesPrintXML') &
-      result(success)
+      bind(C, name='ParameterCovariancesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancesPrintXML
 end function ParameterCovariancesPrintXML
 
 !! Print to standard output, as JSON
 function ParameterCovariancesPrintJSON(handle) &
-      bind(C, name='ParameterCovariancesPrintJSON') &
-      result(success)
+      bind(C, name='ParameterCovariancesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancesPrintJSON
 end function ParameterCovariancesPrintJSON
 
 
@@ -146,12 +137,11 @@ end function ParameterCovariancesPrintJSON
 
 !! Has
 function ParameterCovariancesParameterCovarianceHas(handle) &
-      bind(C, name='ParameterCovariancesParameterCovarianceHas') &
-      result(has)
+      bind(C, name='ParameterCovariancesParameterCovarianceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovariancesParameterCovarianceHas
 end function ParameterCovariancesParameterCovarianceHas
 
 !! Clear
@@ -164,12 +154,11 @@ end subroutine ParameterCovariancesParameterCovarianceClear
 
 !! Size
 function ParameterCovariancesParameterCovarianceSize(handle) &
-      bind(C, name='ParameterCovariancesParameterCovarianceSize') &
-      result(vectorSize)
+      bind(C, name='ParameterCovariancesParameterCovarianceSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ParameterCovariancesParameterCovarianceSize
 end function ParameterCovariancesParameterCovarianceSize
 
 !! Add
@@ -183,24 +172,22 @@ end subroutine ParameterCovariancesParameterCovarianceAdd
 
 !! Get, by index \in [0,size), const
 function ParameterCovariancesParameterCovarianceGetConst(handle, index) &
-      bind(C, name='ParameterCovariancesParameterCovarianceGetConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesParameterCovarianceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesParameterCovarianceGetConst
 end function ParameterCovariancesParameterCovarianceGetConst
 
 !! Get, by index \in [0,size)
 function ParameterCovariancesParameterCovarianceGet(handle, index) &
-      bind(C, name='ParameterCovariancesParameterCovarianceGet') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesParameterCovarianceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesParameterCovarianceGet
 end function ParameterCovariancesParameterCovarianceGet
 
 !! Set, by index \in [0,size)
@@ -219,38 +206,35 @@ end subroutine ParameterCovariancesParameterCovarianceSet
 
 !! Has, by label
 function ParameterCovariancesParameterCovarianceHasByLabel(handle, meta, metaSize) &
-      bind(C, name='ParameterCovariancesParameterCovarianceHasByLabel') &
-      result(has)
+      bind(C, name='ParameterCovariancesParameterCovarianceHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovariancesParameterCovarianceHasByLabel
 end function ParameterCovariancesParameterCovarianceHasByLabel
 
 !! Get, by label, const
 function ParameterCovariancesParameterCovarianceGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='ParameterCovariancesParameterCovarianceGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesParameterCovarianceGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesParameterCovarianceGetByLabelConst
 end function ParameterCovariancesParameterCovarianceGetByLabelConst
 
 !! Get, by label
 function ParameterCovariancesParameterCovarianceGetByLabel(handle, meta, metaSize) &
-      bind(C, name='ParameterCovariancesParameterCovarianceGetByLabel') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesParameterCovarianceGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesParameterCovarianceGetByLabel
 end function ParameterCovariancesParameterCovarianceGetByLabel
 
 !! Set, by label
@@ -271,12 +255,11 @@ end subroutine ParameterCovariancesParameterCovarianceSetByLabel
 
 !! Has
 function ParameterCovariancesAverageParameterCovarianceHas(handle) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceHas') &
-      result(has)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovariancesAverageParameterCovarianceHas
 end function ParameterCovariancesAverageParameterCovarianceHas
 
 !! Clear
@@ -289,12 +272,11 @@ end subroutine ParameterCovariancesAverageParameterCovarianceClear
 
 !! Size
 function ParameterCovariancesAverageParameterCovarianceSize(handle) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceSize') &
-      result(vectorSize)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ParameterCovariancesAverageParameterCovarianceSize
 end function ParameterCovariancesAverageParameterCovarianceSize
 
 !! Add
@@ -308,24 +290,22 @@ end subroutine ParameterCovariancesAverageParameterCovarianceAdd
 
 !! Get, by index \in [0,size), const
 function ParameterCovariancesAverageParameterCovarianceGetConst(handle, index) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetConst
 end function ParameterCovariancesAverageParameterCovarianceGetConst
 
 !! Get, by index \in [0,size)
 function ParameterCovariancesAverageParameterCovarianceGet(handle, index) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceGet') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGet
 end function ParameterCovariancesAverageParameterCovarianceGet
 
 !! Set, by index \in [0,size)
@@ -344,38 +324,35 @@ end subroutine ParameterCovariancesAverageParameterCovarianceSet
 
 !! Has, by label
 function ParameterCovariancesAverageParameterCovarianceHasByLabel(handle, meta, metaSize) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceHasByLabel') &
-      result(has)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovariancesAverageParameterCovarianceHasByLabel
 end function ParameterCovariancesAverageParameterCovarianceHasByLabel
 
 !! Get, by label, const
 function ParameterCovariancesAverageParameterCovarianceGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByLabelConst
 end function ParameterCovariancesAverageParameterCovarianceGetByLabelConst
 
 !! Get, by label
 function ParameterCovariancesAverageParameterCovarianceGetByLabel(handle, meta, metaSize) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByLabel') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByLabel
 end function ParameterCovariancesAverageParameterCovarianceGetByLabel
 
 !! Set, by label
@@ -395,35 +372,32 @@ end subroutine ParameterCovariancesAverageParameterCovarianceSetByLabel
 
 !! Has, by crossTerm
 function ParameterCovariancesAverageParameterCovarianceHasByCrossTerm(handle, meta) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceHasByCrossTerm') &
-      result(has)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceHasByCrossTerm')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovariancesAverageParameterCovarianceHasByCrossTerm
 end function ParameterCovariancesAverageParameterCovarianceHasByCrossTerm
 
 !! Get, by crossTerm, const
 function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(handle, meta) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 
 !! Get, by crossTerm
 function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(handle, meta) &
-      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByCrossTerm') &
-      result(resultHandle)
+      bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByCrossTerm')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByCrossTerm
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm
 
 !! Set, by crossTerm

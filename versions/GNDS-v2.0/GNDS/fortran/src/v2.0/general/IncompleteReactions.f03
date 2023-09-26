@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function IncompleteReactionsDefaultConst() &
-      bind(C, name='IncompleteReactionsDefaultConst') &
-      result(handle)
+      bind(C, name='IncompleteReactionsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncompleteReactionsDefaultConst
 end function IncompleteReactionsDefaultConst
 
 !! Create, default
 function IncompleteReactionsDefault() &
-      bind(C, name='IncompleteReactionsDefault') &
-      result(handle)
+      bind(C, name='IncompleteReactionsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncompleteReactionsDefault
 end function IncompleteReactionsDefault
 
 !! Create, general, const
 function IncompleteReactionsCreateConst( &
    reaction, reactionSize &
 ) &
-      bind(C, name='IncompleteReactionsCreateConst') &
-      result(handle)
+      bind(C, name='IncompleteReactionsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: reactionSize
    type(c_ptr) :: reaction(reactionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncompleteReactionsCreateConst
 end function IncompleteReactionsCreateConst
 
 !! Create, general
 function IncompleteReactionsCreate( &
    reaction, reactionSize &
 ) &
-      bind(C, name='IncompleteReactionsCreate') &
-      result(handle)
+      bind(C, name='IncompleteReactionsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: reactionSize
    type(c_ptr) :: reaction(reactionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncompleteReactionsCreate
 end function IncompleteReactionsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine IncompleteReactionsDelete
 
 !! Read from file
 function IncompleteReactionsRead(handle, filename, filenameSize) &
-      bind(C, name='IncompleteReactionsRead') &
-      result(success)
+      bind(C, name='IncompleteReactionsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IncompleteReactionsRead
 end function IncompleteReactionsRead
 
 !! Write to file
 function IncompleteReactionsWrite(handle, filename, filenameSize) &
-      bind(C, name='IncompleteReactionsWrite') &
-      result(success)
+      bind(C, name='IncompleteReactionsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IncompleteReactionsWrite
 end function IncompleteReactionsWrite
 
 !! Print to standard output, in our prettyprinting format
 function IncompleteReactionsPrint(handle) &
-      bind(C, name='IncompleteReactionsPrint') &
-      result(success)
+      bind(C, name='IncompleteReactionsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncompleteReactionsPrint
 end function IncompleteReactionsPrint
 
 !! Print to standard output, as XML
 function IncompleteReactionsPrintXML(handle) &
-      bind(C, name='IncompleteReactionsPrintXML') &
-      result(success)
+      bind(C, name='IncompleteReactionsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncompleteReactionsPrintXML
 end function IncompleteReactionsPrintXML
 
 !! Print to standard output, as JSON
 function IncompleteReactionsPrintJSON(handle) &
-      bind(C, name='IncompleteReactionsPrintJSON') &
-      result(success)
+      bind(C, name='IncompleteReactionsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncompleteReactionsPrintJSON
 end function IncompleteReactionsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function IncompleteReactionsPrintJSON
 
 !! Has
 function IncompleteReactionsReactionHas(handle) &
-      bind(C, name='IncompleteReactionsReactionHas') &
-      result(has)
+      bind(C, name='IncompleteReactionsReactionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncompleteReactionsReactionHas
 end function IncompleteReactionsReactionHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine IncompleteReactionsReactionClear
 
 !! Size
 function IncompleteReactionsReactionSize(handle) &
-      bind(C, name='IncompleteReactionsReactionSize') &
-      result(vectorSize)
+      bind(C, name='IncompleteReactionsReactionSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: IncompleteReactionsReactionSize
 end function IncompleteReactionsReactionSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine IncompleteReactionsReactionAdd
 
 !! Get, by index \in [0,size), const
 function IncompleteReactionsReactionGetConst(handle, index) &
-      bind(C, name='IncompleteReactionsReactionGetConst') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetConst
 end function IncompleteReactionsReactionGetConst
 
 !! Get, by index \in [0,size)
 function IncompleteReactionsReactionGet(handle, index) &
-      bind(C, name='IncompleteReactionsReactionGet') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGet
 end function IncompleteReactionsReactionGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine IncompleteReactionsReactionSet
 
 !! Has, by label
 function IncompleteReactionsReactionHasByLabel(handle, meta, metaSize) &
-      bind(C, name='IncompleteReactionsReactionHasByLabel') &
-      result(has)
+      bind(C, name='IncompleteReactionsReactionHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: IncompleteReactionsReactionHasByLabel
 end function IncompleteReactionsReactionHasByLabel
 
 !! Get, by label, const
 function IncompleteReactionsReactionGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='IncompleteReactionsReactionGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetByLabelConst
 end function IncompleteReactionsReactionGetByLabelConst
 
 !! Get, by label
 function IncompleteReactionsReactionGetByLabel(handle, meta, metaSize) &
-      bind(C, name='IncompleteReactionsReactionGetByLabel') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetByLabel
 end function IncompleteReactionsReactionGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine IncompleteReactionsReactionSetByLabel
 
 !! Has, by ENDF_MT
 function IncompleteReactionsReactionHasByENDFMT(handle, meta) &
-      bind(C, name='IncompleteReactionsReactionHasByENDFMT') &
-      result(has)
+      bind(C, name='IncompleteReactionsReactionHasByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: IncompleteReactionsReactionHasByENDFMT
 end function IncompleteReactionsReactionHasByENDFMT
 
 !! Get, by ENDF_MT, const
 function IncompleteReactionsReactionGetByENDFMTConst(handle, meta) &
-      bind(C, name='IncompleteReactionsReactionGetByENDFMTConst') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetByENDFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetByENDFMTConst
 end function IncompleteReactionsReactionGetByENDFMTConst
 
 !! Get, by ENDF_MT
 function IncompleteReactionsReactionGetByENDFMT(handle, meta) &
-      bind(C, name='IncompleteReactionsReactionGetByENDFMT') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetByENDFMT
 end function IncompleteReactionsReactionGetByENDFMT
 
 !! Set, by ENDF_MT
@@ -311,38 +292,35 @@ end subroutine IncompleteReactionsReactionSetByENDFMT
 
 !! Has, by fissionGenre
 function IncompleteReactionsReactionHasByFissionGenre(handle, meta, metaSize) &
-      bind(C, name='IncompleteReactionsReactionHasByFissionGenre') &
-      result(has)
+      bind(C, name='IncompleteReactionsReactionHasByFissionGenre')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: IncompleteReactionsReactionHasByFissionGenre
 end function IncompleteReactionsReactionHasByFissionGenre
 
 !! Get, by fissionGenre, const
 function IncompleteReactionsReactionGetByFissionGenreConst(handle, meta, metaSize) &
-      bind(C, name='IncompleteReactionsReactionGetByFissionGenreConst') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetByFissionGenreConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetByFissionGenreConst
 end function IncompleteReactionsReactionGetByFissionGenreConst
 
 !! Get, by fissionGenre
 function IncompleteReactionsReactionGetByFissionGenre(handle, meta, metaSize) &
-      bind(C, name='IncompleteReactionsReactionGetByFissionGenre') &
-      result(resultHandle)
+      bind(C, name='IncompleteReactionsReactionGetByFissionGenre')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncompleteReactionsReactionGetByFissionGenre
 end function IncompleteReactionsReactionGetByFissionGenre
 
 !! Set, by fissionGenre

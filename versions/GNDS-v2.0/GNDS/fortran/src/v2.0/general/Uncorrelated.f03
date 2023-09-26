@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UncorrelatedDefaultConst() &
-      bind(C, name='UncorrelatedDefaultConst') &
-      result(handle)
+      bind(C, name='UncorrelatedDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncorrelatedDefaultConst
 end function UncorrelatedDefaultConst
 
 !! Create, default
 function UncorrelatedDefault() &
-      bind(C, name='UncorrelatedDefault') &
-      result(handle)
+      bind(C, name='UncorrelatedDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncorrelatedDefault
 end function UncorrelatedDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function UncorrelatedCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='UncorrelatedCreateConst') &
-      result(handle)
+      bind(C, name='UncorrelatedCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function UncorrelatedCreateConst( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: angular
    type(c_ptr), value :: energy
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncorrelatedCreateConst
 end function UncorrelatedCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function UncorrelatedCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='UncorrelatedCreate') &
-      result(handle)
+      bind(C, name='UncorrelatedCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function UncorrelatedCreate( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: angular
    type(c_ptr), value :: energy
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncorrelatedCreate
 end function UncorrelatedCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine UncorrelatedDelete
 
 !! Read from file
 function UncorrelatedRead(handle, filename, filenameSize) &
-      bind(C, name='UncorrelatedRead') &
-      result(success)
+      bind(C, name='UncorrelatedRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UncorrelatedRead
 end function UncorrelatedRead
 
 !! Write to file
 function UncorrelatedWrite(handle, filename, filenameSize) &
-      bind(C, name='UncorrelatedWrite') &
-      result(success)
+      bind(C, name='UncorrelatedWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UncorrelatedWrite
 end function UncorrelatedWrite
 
 !! Print to standard output, in our prettyprinting format
 function UncorrelatedPrint(handle) &
-      bind(C, name='UncorrelatedPrint') &
-      result(success)
+      bind(C, name='UncorrelatedPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UncorrelatedPrint
 end function UncorrelatedPrint
 
 !! Print to standard output, as XML
 function UncorrelatedPrintXML(handle) &
-      bind(C, name='UncorrelatedPrintXML') &
-      result(success)
+      bind(C, name='UncorrelatedPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UncorrelatedPrintXML
 end function UncorrelatedPrintXML
 
 !! Print to standard output, as JSON
 function UncorrelatedPrintJSON(handle) &
-      bind(C, name='UncorrelatedPrintJSON') &
-      result(success)
+      bind(C, name='UncorrelatedPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UncorrelatedPrintJSON
 end function UncorrelatedPrintJSON
 
 
@@ -158,22 +149,20 @@ end function UncorrelatedPrintJSON
 
 !! Has
 function UncorrelatedLabelHas(handle) &
-      bind(C, name='UncorrelatedLabelHas') &
-      result(has)
+      bind(C, name='UncorrelatedLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncorrelatedLabelHas
 end function UncorrelatedLabelHas
 
 !! Get
 function UncorrelatedLabelGet(handle) &
-      bind(C, name='UncorrelatedLabelGet') &
-      result(label)
+      bind(C, name='UncorrelatedLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: UncorrelatedLabelGet
 end function UncorrelatedLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine UncorrelatedLabelSet
 
 !! Has
 function UncorrelatedProductFrameHas(handle) &
-      bind(C, name='UncorrelatedProductFrameHas') &
-      result(has)
+      bind(C, name='UncorrelatedProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncorrelatedProductFrameHas
 end function UncorrelatedProductFrameHas
 
 !! Get
 function UncorrelatedProductFrameGet(handle) &
-      bind(C, name='UncorrelatedProductFrameGet') &
-      result(productFrame)
+      bind(C, name='UncorrelatedProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: UncorrelatedProductFrameGet
 end function UncorrelatedProductFrameGet
 
 !! Set
@@ -228,32 +215,29 @@ end subroutine UncorrelatedProductFrameSet
 
 !! Has
 function UncorrelatedAngularHas(handle) &
-      bind(C, name='UncorrelatedAngularHas') &
-      result(has)
+      bind(C, name='UncorrelatedAngularHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncorrelatedAngularHas
 end function UncorrelatedAngularHas
 
 !! Get, const
 function UncorrelatedAngularGetConst(handle) &
-      bind(C, name='UncorrelatedAngularGetConst') &
-      result(resultHandle)
+      bind(C, name='UncorrelatedAngularGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncorrelatedAngularGetConst
 end function UncorrelatedAngularGetConst
 
 !! Get
 function UncorrelatedAngularGet(handle) &
-      bind(C, name='UncorrelatedAngularGet') &
-      result(resultHandle)
+      bind(C, name='UncorrelatedAngularGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncorrelatedAngularGet
 end function UncorrelatedAngularGet
 
 !! Set
@@ -272,32 +256,29 @@ end subroutine UncorrelatedAngularSet
 
 !! Has
 function UncorrelatedEnergyHas(handle) &
-      bind(C, name='UncorrelatedEnergyHas') &
-      result(has)
+      bind(C, name='UncorrelatedEnergyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncorrelatedEnergyHas
 end function UncorrelatedEnergyHas
 
 !! Get, const
 function UncorrelatedEnergyGetConst(handle) &
-      bind(C, name='UncorrelatedEnergyGetConst') &
-      result(resultHandle)
+      bind(C, name='UncorrelatedEnergyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncorrelatedEnergyGetConst
 end function UncorrelatedEnergyGetConst
 
 !! Get
 function UncorrelatedEnergyGet(handle) &
-      bind(C, name='UncorrelatedEnergyGet') &
-      result(resultHandle)
+      bind(C, name='UncorrelatedEnergyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncorrelatedEnergyGet
 end function UncorrelatedEnergyGet
 
 !! Set

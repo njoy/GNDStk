@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CrossSectionDefaultConst() &
-      bind(C, name='CrossSectionDefaultConst') &
-      result(handle)
+      bind(C, name='CrossSectionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionDefaultConst
 end function CrossSectionDefaultConst
 
 !! Create, default
 function CrossSectionDefault() &
-      bind(C, name='CrossSectionDefault') &
-      result(handle)
+      bind(C, name='CrossSectionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionDefault
 end function CrossSectionDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function CrossSectionCreateConst( &
    regions1d, &
    reference &
 ) &
-      bind(C, name='CrossSectionCreateConst') &
-      result(handle)
+      bind(C, name='CrossSectionCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
    type(c_ptr), value :: reference
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionCreateConst
 end function CrossSectionCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function CrossSectionCreate( &
    regions1d, &
    reference &
 ) &
-      bind(C, name='CrossSectionCreate') &
-      result(handle)
+      bind(C, name='CrossSectionCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
    type(c_ptr), value :: reference
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionCreate
 end function CrossSectionCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine CrossSectionDelete
 
 !! Read from file
 function CrossSectionRead(handle, filename, filenameSize) &
-      bind(C, name='CrossSectionRead') &
-      result(success)
+      bind(C, name='CrossSectionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionRead
 end function CrossSectionRead
 
 !! Write to file
 function CrossSectionWrite(handle, filename, filenameSize) &
-      bind(C, name='CrossSectionWrite') &
-      result(success)
+      bind(C, name='CrossSectionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionWrite
 end function CrossSectionWrite
 
 !! Print to standard output, in our prettyprinting format
 function CrossSectionPrint(handle) &
-      bind(C, name='CrossSectionPrint') &
-      result(success)
+      bind(C, name='CrossSectionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionPrint
 end function CrossSectionPrint
 
 !! Print to standard output, as XML
 function CrossSectionPrintXML(handle) &
-      bind(C, name='CrossSectionPrintXML') &
-      result(success)
+      bind(C, name='CrossSectionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionPrintXML
 end function CrossSectionPrintXML
 
 !! Print to standard output, as JSON
 function CrossSectionPrintJSON(handle) &
-      bind(C, name='CrossSectionPrintJSON') &
-      result(success)
+      bind(C, name='CrossSectionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionPrintJSON
 end function CrossSectionPrintJSON
 
 
@@ -146,32 +137,29 @@ end function CrossSectionPrintJSON
 
 !! Has
 function CrossSectionXYs1dHas(handle) &
-      bind(C, name='CrossSectionXYs1dHas') &
-      result(has)
+      bind(C, name='CrossSectionXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionXYs1dHas
 end function CrossSectionXYs1dHas
 
 !! Get, const
 function CrossSectionXYs1dGetConst(handle) &
-      bind(C, name='CrossSectionXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='CrossSectionXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionXYs1dGetConst
 end function CrossSectionXYs1dGetConst
 
 !! Get
 function CrossSectionXYs1dGet(handle) &
-      bind(C, name='CrossSectionXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='CrossSectionXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionXYs1dGet
 end function CrossSectionXYs1dGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine CrossSectionXYs1dSet
 
 !! Has
 function CrossSectionRegions1dHas(handle) &
-      bind(C, name='CrossSectionRegions1dHas') &
-      result(has)
+      bind(C, name='CrossSectionRegions1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionRegions1dHas
 end function CrossSectionRegions1dHas
 
 !! Get, const
 function CrossSectionRegions1dGetConst(handle) &
-      bind(C, name='CrossSectionRegions1dGetConst') &
-      result(resultHandle)
+      bind(C, name='CrossSectionRegions1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionRegions1dGetConst
 end function CrossSectionRegions1dGetConst
 
 !! Get
 function CrossSectionRegions1dGet(handle) &
-      bind(C, name='CrossSectionRegions1dGet') &
-      result(resultHandle)
+      bind(C, name='CrossSectionRegions1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionRegions1dGet
 end function CrossSectionRegions1dGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine CrossSectionRegions1dSet
 
 !! Has
 function CrossSectionReferenceHas(handle) &
-      bind(C, name='CrossSectionReferenceHas') &
-      result(has)
+      bind(C, name='CrossSectionReferenceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionReferenceHas
 end function CrossSectionReferenceHas
 
 !! Get, const
 function CrossSectionReferenceGetConst(handle) &
-      bind(C, name='CrossSectionReferenceGetConst') &
-      result(resultHandle)
+      bind(C, name='CrossSectionReferenceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionReferenceGetConst
 end function CrossSectionReferenceGetConst
 
 !! Get
 function CrossSectionReferenceGet(handle) &
-      bind(C, name='CrossSectionReferenceGet') &
-      result(resultHandle)
+      bind(C, name='CrossSectionReferenceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionReferenceGet
 end function CrossSectionReferenceGet
 
 !! Set

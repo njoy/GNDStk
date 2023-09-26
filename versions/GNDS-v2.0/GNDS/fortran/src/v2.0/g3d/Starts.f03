@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function StartsDefaultConst() &
-      bind(C, name='StartsDefaultConst') &
-      result(handle)
+      bind(C, name='StartsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StartsDefaultConst
 end function StartsDefaultConst
 
 !! Create, default
 function StartsDefault() &
-      bind(C, name='StartsDefault') &
-      result(handle)
+      bind(C, name='StartsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StartsDefault
 end function StartsDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function StartsCreateConst( &
    valueTypeSize, &
    labelSize &
 ) &
-      bind(C, name='StartsCreateConst') &
-      result(handle)
+      bind(C, name='StartsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: valueTypeSize
    character(c_char), intent(in) :: valueType(valueTypeSize)
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: StartsCreateConst
 end function StartsCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function StartsCreate( &
    valueTypeSize, &
    labelSize &
 ) &
-      bind(C, name='StartsCreate') &
-      result(handle)
+      bind(C, name='StartsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: valueTypeSize
    character(c_char), intent(in) :: valueType(valueTypeSize)
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: StartsCreate
 end function StartsCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine StartsDelete
 
 !! Read from file
 function StartsRead(handle, filename, filenameSize) &
-      bind(C, name='StartsRead') &
-      result(success)
+      bind(C, name='StartsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StartsRead
 end function StartsRead
 
 !! Write to file
 function StartsWrite(handle, filename, filenameSize) &
-      bind(C, name='StartsWrite') &
-      result(success)
+      bind(C, name='StartsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StartsWrite
 end function StartsWrite
 
 !! Print to standard output, in our prettyprinting format
 function StartsPrint(handle) &
-      bind(C, name='StartsPrint') &
-      result(success)
+      bind(C, name='StartsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StartsPrint
 end function StartsPrint
 
 !! Print to standard output, as XML
 function StartsPrintXML(handle) &
-      bind(C, name='StartsPrintXML') &
-      result(success)
+      bind(C, name='StartsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StartsPrintXML
 end function StartsPrintXML
 
 !! Print to standard output, as JSON
 function StartsPrintJSON(handle) &
-      bind(C, name='StartsPrintJSON') &
-      result(success)
+      bind(C, name='StartsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StartsPrintJSON
 end function StartsPrintJSON
 
 
@@ -158,24 +149,22 @@ end subroutine StartsIntsClear
 
 !! Get size
 function StartsIntsSize(handle) &
-      bind(C, name='StartsIntsSize') &
-      result(arraySize)
+      bind(C, name='StartsIntsSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: arraySize
+   integer(c_size_t) :: StartsIntsSize
 end function StartsIntsSize
 
 !! Get value
 !! By index \in [0,size)
 function StartsIntsGet(handle, arrayIndex) &
-      bind(C, name='StartsIntsGet') &
-      result(valueAtIndex)
+      bind(C, name='StartsIntsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   integer(c_int) :: valueAtIndex
+   integer(c_int) :: StartsIntsGet
 end function StartsIntsGet
 
 !! Set value
@@ -191,22 +180,20 @@ end subroutine StartsIntsSet
 
 !! Get pointer to existing values, const
 function StartsIntsGetArrayConst(handle) &
-      bind(C, name='StartsIntsGetArrayConst') &
-      result(ptrToArray)
+      bind(C, name='StartsIntsGetArrayConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: StartsIntsGetArrayConst
 end function StartsIntsGetArrayConst
 
 !! Get pointer to existing values
 function StartsIntsGetArray(handle) &
-      bind(C, name='StartsIntsGetArray') &
-      result(ptrToArray)
+      bind(C, name='StartsIntsGetArray')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: StartsIntsGetArray
 end function StartsIntsGetArray
 
 !! Set completely new values and size
@@ -226,22 +213,20 @@ end subroutine StartsIntsSetArray
 
 !! Has
 function StartsValueTypeHas(handle) &
-      bind(C, name='StartsValueTypeHas') &
-      result(has)
+      bind(C, name='StartsValueTypeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StartsValueTypeHas
 end function StartsValueTypeHas
 
 !! Get
 function StartsValueTypeGet(handle) &
-      bind(C, name='StartsValueTypeGet') &
-      result(valueType)
+      bind(C, name='StartsValueTypeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: valueType
+   type(c_ptr) :: StartsValueTypeGet
 end function StartsValueTypeGet
 
 !! Set
@@ -261,22 +246,20 @@ end subroutine StartsValueTypeSet
 
 !! Has
 function StartsLabelHas(handle) &
-      bind(C, name='StartsLabelHas') &
-      result(has)
+      bind(C, name='StartsLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StartsLabelHas
 end function StartsLabelHas
 
 !! Get
 function StartsLabelGet(handle) &
-      bind(C, name='StartsLabelGet') &
-      result(label)
+      bind(C, name='StartsLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: StartsLabelGet
 end function StartsLabelGet
 
 !! Set

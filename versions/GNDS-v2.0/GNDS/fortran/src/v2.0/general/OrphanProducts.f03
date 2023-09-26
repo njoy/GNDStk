@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function OrphanProductsDefaultConst() &
-      bind(C, name='OrphanProductsDefaultConst') &
-      result(handle)
+      bind(C, name='OrphanProductsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductsDefaultConst
 end function OrphanProductsDefaultConst
 
 !! Create, default
 function OrphanProductsDefault() &
-      bind(C, name='OrphanProductsDefault') &
-      result(handle)
+      bind(C, name='OrphanProductsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductsDefault
 end function OrphanProductsDefault
 
 !! Create, general, const
 function OrphanProductsCreateConst( &
    orphanProduct, orphanProductSize &
 ) &
-      bind(C, name='OrphanProductsCreateConst') &
-      result(handle)
+      bind(C, name='OrphanProductsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: orphanProductSize
    type(c_ptr) :: orphanProduct(orphanProductSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductsCreateConst
 end function OrphanProductsCreateConst
 
 !! Create, general
 function OrphanProductsCreate( &
    orphanProduct, orphanProductSize &
 ) &
-      bind(C, name='OrphanProductsCreate') &
-      result(handle)
+      bind(C, name='OrphanProductsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: orphanProductSize
    type(c_ptr) :: orphanProduct(orphanProductSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: OrphanProductsCreate
 end function OrphanProductsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine OrphanProductsDelete
 
 !! Read from file
 function OrphanProductsRead(handle, filename, filenameSize) &
-      bind(C, name='OrphanProductsRead') &
-      result(success)
+      bind(C, name='OrphanProductsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductsRead
 end function OrphanProductsRead
 
 !! Write to file
 function OrphanProductsWrite(handle, filename, filenameSize) &
-      bind(C, name='OrphanProductsWrite') &
-      result(success)
+      bind(C, name='OrphanProductsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductsWrite
 end function OrphanProductsWrite
 
 !! Print to standard output, in our prettyprinting format
 function OrphanProductsPrint(handle) &
-      bind(C, name='OrphanProductsPrint') &
-      result(success)
+      bind(C, name='OrphanProductsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductsPrint
 end function OrphanProductsPrint
 
 !! Print to standard output, as XML
 function OrphanProductsPrintXML(handle) &
-      bind(C, name='OrphanProductsPrintXML') &
-      result(success)
+      bind(C, name='OrphanProductsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductsPrintXML
 end function OrphanProductsPrintXML
 
 !! Print to standard output, as JSON
 function OrphanProductsPrintJSON(handle) &
-      bind(C, name='OrphanProductsPrintJSON') &
-      result(success)
+      bind(C, name='OrphanProductsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OrphanProductsPrintJSON
 end function OrphanProductsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function OrphanProductsPrintJSON
 
 !! Has
 function OrphanProductsOrphanProductHas(handle) &
-      bind(C, name='OrphanProductsOrphanProductHas') &
-      result(has)
+      bind(C, name='OrphanProductsOrphanProductHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductsOrphanProductHas
 end function OrphanProductsOrphanProductHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine OrphanProductsOrphanProductClear
 
 !! Size
 function OrphanProductsOrphanProductSize(handle) &
-      bind(C, name='OrphanProductsOrphanProductSize') &
-      result(vectorSize)
+      bind(C, name='OrphanProductsOrphanProductSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: OrphanProductsOrphanProductSize
 end function OrphanProductsOrphanProductSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine OrphanProductsOrphanProductAdd
 
 !! Get, by index \in [0,size), const
 function OrphanProductsOrphanProductGetConst(handle, index) &
-      bind(C, name='OrphanProductsOrphanProductGetConst') &
-      result(resultHandle)
+      bind(C, name='OrphanProductsOrphanProductGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductsOrphanProductGetConst
 end function OrphanProductsOrphanProductGetConst
 
 !! Get, by index \in [0,size)
 function OrphanProductsOrphanProductGet(handle, index) &
-      bind(C, name='OrphanProductsOrphanProductGet') &
-      result(resultHandle)
+      bind(C, name='OrphanProductsOrphanProductGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductsOrphanProductGet
 end function OrphanProductsOrphanProductGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine OrphanProductsOrphanProductSet
 
 !! Has, by label
 function OrphanProductsOrphanProductHasByLabel(handle, meta, metaSize) &
-      bind(C, name='OrphanProductsOrphanProductHasByLabel') &
-      result(has)
+      bind(C, name='OrphanProductsOrphanProductHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductsOrphanProductHasByLabel
 end function OrphanProductsOrphanProductHasByLabel
 
 !! Get, by label, const
 function OrphanProductsOrphanProductGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='OrphanProductsOrphanProductGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='OrphanProductsOrphanProductGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductsOrphanProductGetByLabelConst
 end function OrphanProductsOrphanProductGetByLabelConst
 
 !! Get, by label
 function OrphanProductsOrphanProductGetByLabel(handle, meta, metaSize) &
-      bind(C, name='OrphanProductsOrphanProductGetByLabel') &
-      result(resultHandle)
+      bind(C, name='OrphanProductsOrphanProductGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductsOrphanProductGetByLabel
 end function OrphanProductsOrphanProductGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine OrphanProductsOrphanProductSetByLabel
 
 !! Has, by ENDF_MT
 function OrphanProductsOrphanProductHasByENDFMT(handle, meta) &
-      bind(C, name='OrphanProductsOrphanProductHasByENDFMT') &
-      result(has)
+      bind(C, name='OrphanProductsOrphanProductHasByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: OrphanProductsOrphanProductHasByENDFMT
 end function OrphanProductsOrphanProductHasByENDFMT
 
 !! Get, by ENDF_MT, const
 function OrphanProductsOrphanProductGetByENDFMTConst(handle, meta) &
-      bind(C, name='OrphanProductsOrphanProductGetByENDFMTConst') &
-      result(resultHandle)
+      bind(C, name='OrphanProductsOrphanProductGetByENDFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductsOrphanProductGetByENDFMTConst
 end function OrphanProductsOrphanProductGetByENDFMTConst
 
 !! Get, by ENDF_MT
 function OrphanProductsOrphanProductGetByENDFMT(handle, meta) &
-      bind(C, name='OrphanProductsOrphanProductGetByENDFMT') &
-      result(resultHandle)
+      bind(C, name='OrphanProductsOrphanProductGetByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OrphanProductsOrphanProductGetByENDFMT
 end function OrphanProductsOrphanProductGetByENDFMT
 
 !! Set, by ENDF_MT

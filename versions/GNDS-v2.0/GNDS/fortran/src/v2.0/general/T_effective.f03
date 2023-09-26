@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function T_effectiveDefaultConst() &
-      bind(C, name='T_effectiveDefaultConst') &
-      result(handle)
+      bind(C, name='T_effectiveDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_effectiveDefaultConst
 end function T_effectiveDefaultConst
 
 !! Create, default
 function T_effectiveDefault() &
-      bind(C, name='T_effectiveDefault') &
-      result(handle)
+      bind(C, name='T_effectiveDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_effectiveDefault
 end function T_effectiveDefault
 
 !! Create, general, const
 function T_effectiveCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='T_effectiveCreateConst') &
-      result(handle)
+      bind(C, name='T_effectiveCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_effectiveCreateConst
 end function T_effectiveCreateConst
 
 !! Create, general
 function T_effectiveCreate( &
    XYs1d &
 ) &
-      bind(C, name='T_effectiveCreate') &
-      result(handle)
+      bind(C, name='T_effectiveCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_effectiveCreate
 end function T_effectiveCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine T_effectiveDelete
 
 !! Read from file
 function T_effectiveRead(handle, filename, filenameSize) &
-      bind(C, name='T_effectiveRead') &
-      result(success)
+      bind(C, name='T_effectiveRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: T_effectiveRead
 end function T_effectiveRead
 
 !! Write to file
 function T_effectiveWrite(handle, filename, filenameSize) &
-      bind(C, name='T_effectiveWrite') &
-      result(success)
+      bind(C, name='T_effectiveWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: T_effectiveWrite
 end function T_effectiveWrite
 
 !! Print to standard output, in our prettyprinting format
 function T_effectivePrint(handle) &
-      bind(C, name='T_effectivePrint') &
-      result(success)
+      bind(C, name='T_effectivePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: T_effectivePrint
 end function T_effectivePrint
 
 !! Print to standard output, as XML
 function T_effectivePrintXML(handle) &
-      bind(C, name='T_effectivePrintXML') &
-      result(success)
+      bind(C, name='T_effectivePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: T_effectivePrintXML
 end function T_effectivePrintXML
 
 !! Print to standard output, as JSON
 function T_effectivePrintJSON(handle) &
-      bind(C, name='T_effectivePrintJSON') &
-      result(success)
+      bind(C, name='T_effectivePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: T_effectivePrintJSON
 end function T_effectivePrintJSON
 
 
@@ -138,32 +129,29 @@ end function T_effectivePrintJSON
 
 !! Has
 function T_effectiveXYs1dHas(handle) &
-      bind(C, name='T_effectiveXYs1dHas') &
-      result(has)
+      bind(C, name='T_effectiveXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: T_effectiveXYs1dHas
 end function T_effectiveXYs1dHas
 
 !! Get, const
 function T_effectiveXYs1dGetConst(handle) &
-      bind(C, name='T_effectiveXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='T_effectiveXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: T_effectiveXYs1dGetConst
 end function T_effectiveXYs1dGetConst
 
 !! Get
 function T_effectiveXYs1dGet(handle) &
-      bind(C, name='T_effectiveXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='T_effectiveXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: T_effectiveXYs1dGet
 end function T_effectiveXYs1dGet
 
 !! Set

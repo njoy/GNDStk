@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function AuthorsDefaultConst() &
-      bind(C, name='AuthorsDefaultConst') &
-      result(handle)
+      bind(C, name='AuthorsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorsDefaultConst
 end function AuthorsDefaultConst
 
 !! Create, default
 function AuthorsDefault() &
-      bind(C, name='AuthorsDefault') &
-      result(handle)
+      bind(C, name='AuthorsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorsDefault
 end function AuthorsDefault
 
 !! Create, general, const
 function AuthorsCreateConst( &
    author, authorSize &
 ) &
-      bind(C, name='AuthorsCreateConst') &
-      result(handle)
+      bind(C, name='AuthorsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: authorSize
    type(c_ptr) :: author(authorSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorsCreateConst
 end function AuthorsCreateConst
 
 !! Create, general
 function AuthorsCreate( &
    author, authorSize &
 ) &
-      bind(C, name='AuthorsCreate') &
-      result(handle)
+      bind(C, name='AuthorsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: authorSize
    type(c_ptr) :: author(authorSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AuthorsCreate
 end function AuthorsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine AuthorsDelete
 
 !! Read from file
 function AuthorsRead(handle, filename, filenameSize) &
-      bind(C, name='AuthorsRead') &
-      result(success)
+      bind(C, name='AuthorsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AuthorsRead
 end function AuthorsRead
 
 !! Write to file
 function AuthorsWrite(handle, filename, filenameSize) &
-      bind(C, name='AuthorsWrite') &
-      result(success)
+      bind(C, name='AuthorsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AuthorsWrite
 end function AuthorsWrite
 
 !! Print to standard output, in our prettyprinting format
 function AuthorsPrint(handle) &
-      bind(C, name='AuthorsPrint') &
-      result(success)
+      bind(C, name='AuthorsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AuthorsPrint
 end function AuthorsPrint
 
 !! Print to standard output, as XML
 function AuthorsPrintXML(handle) &
-      bind(C, name='AuthorsPrintXML') &
-      result(success)
+      bind(C, name='AuthorsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AuthorsPrintXML
 end function AuthorsPrintXML
 
 !! Print to standard output, as JSON
 function AuthorsPrintJSON(handle) &
-      bind(C, name='AuthorsPrintJSON') &
-      result(success)
+      bind(C, name='AuthorsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AuthorsPrintJSON
 end function AuthorsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function AuthorsPrintJSON
 
 !! Has
 function AuthorsAuthorHas(handle) &
-      bind(C, name='AuthorsAuthorHas') &
-      result(has)
+      bind(C, name='AuthorsAuthorHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AuthorsAuthorHas
 end function AuthorsAuthorHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine AuthorsAuthorClear
 
 !! Size
 function AuthorsAuthorSize(handle) &
-      bind(C, name='AuthorsAuthorSize') &
-      result(vectorSize)
+      bind(C, name='AuthorsAuthorSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: AuthorsAuthorSize
 end function AuthorsAuthorSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine AuthorsAuthorAdd
 
 !! Get, by index \in [0,size), const
 function AuthorsAuthorGetConst(handle, index) &
-      bind(C, name='AuthorsAuthorGetConst') &
-      result(resultHandle)
+      bind(C, name='AuthorsAuthorGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AuthorsAuthorGetConst
 end function AuthorsAuthorGetConst
 
 !! Get, by index \in [0,size)
 function AuthorsAuthorGet(handle, index) &
-      bind(C, name='AuthorsAuthorGet') &
-      result(resultHandle)
+      bind(C, name='AuthorsAuthorGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AuthorsAuthorGet
 end function AuthorsAuthorGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine AuthorsAuthorSet
 
 !! Has, by name
 function AuthorsAuthorHasByName(handle, meta, metaSize) &
-      bind(C, name='AuthorsAuthorHasByName') &
-      result(has)
+      bind(C, name='AuthorsAuthorHasByName')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AuthorsAuthorHasByName
 end function AuthorsAuthorHasByName
 
 !! Get, by name, const
 function AuthorsAuthorGetByNameConst(handle, meta, metaSize) &
-      bind(C, name='AuthorsAuthorGetByNameConst') &
-      result(resultHandle)
+      bind(C, name='AuthorsAuthorGetByNameConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AuthorsAuthorGetByNameConst
 end function AuthorsAuthorGetByNameConst
 
 !! Get, by name
 function AuthorsAuthorGetByName(handle, meta, metaSize) &
-      bind(C, name='AuthorsAuthorGetByName') &
-      result(resultHandle)
+      bind(C, name='AuthorsAuthorGetByName')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AuthorsAuthorGetByName
 end function AuthorsAuthorGetByName
 
 !! Set, by name

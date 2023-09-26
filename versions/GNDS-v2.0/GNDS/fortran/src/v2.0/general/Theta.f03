@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ThetaDefaultConst() &
-      bind(C, name='ThetaDefaultConst') &
-      result(handle)
+      bind(C, name='ThetaDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThetaDefaultConst
 end function ThetaDefaultConst
 
 !! Create, default
 function ThetaDefault() &
-      bind(C, name='ThetaDefault') &
-      result(handle)
+      bind(C, name='ThetaDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThetaDefault
 end function ThetaDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function ThetaCreateConst( &
    XYs1d, &
    regions1d &
 ) &
-      bind(C, name='ThetaCreateConst') &
-      result(handle)
+      bind(C, name='ThetaCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThetaCreateConst
 end function ThetaCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function ThetaCreate( &
    XYs1d, &
    regions1d &
 ) &
-      bind(C, name='ThetaCreate') &
-      result(handle)
+      bind(C, name='ThetaCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ThetaCreate
 end function ThetaCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine ThetaDelete
 
 !! Read from file
 function ThetaRead(handle, filename, filenameSize) &
-      bind(C, name='ThetaRead') &
-      result(success)
+      bind(C, name='ThetaRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ThetaRead
 end function ThetaRead
 
 !! Write to file
 function ThetaWrite(handle, filename, filenameSize) &
-      bind(C, name='ThetaWrite') &
-      result(success)
+      bind(C, name='ThetaWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ThetaWrite
 end function ThetaWrite
 
 !! Print to standard output, in our prettyprinting format
 function ThetaPrint(handle) &
-      bind(C, name='ThetaPrint') &
-      result(success)
+      bind(C, name='ThetaPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThetaPrint
 end function ThetaPrint
 
 !! Print to standard output, as XML
 function ThetaPrintXML(handle) &
-      bind(C, name='ThetaPrintXML') &
-      result(success)
+      bind(C, name='ThetaPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThetaPrintXML
 end function ThetaPrintXML
 
 !! Print to standard output, as JSON
 function ThetaPrintJSON(handle) &
-      bind(C, name='ThetaPrintJSON') &
-      result(success)
+      bind(C, name='ThetaPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ThetaPrintJSON
 end function ThetaPrintJSON
 
 
@@ -142,32 +133,29 @@ end function ThetaPrintJSON
 
 !! Has
 function ThetaXYs1dHas(handle) &
-      bind(C, name='ThetaXYs1dHas') &
-      result(has)
+      bind(C, name='ThetaXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThetaXYs1dHas
 end function ThetaXYs1dHas
 
 !! Get, const
 function ThetaXYs1dGetConst(handle) &
-      bind(C, name='ThetaXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ThetaXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ThetaXYs1dGetConst
 end function ThetaXYs1dGetConst
 
 !! Get
 function ThetaXYs1dGet(handle) &
-      bind(C, name='ThetaXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='ThetaXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ThetaXYs1dGet
 end function ThetaXYs1dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine ThetaXYs1dSet
 
 !! Has
 function ThetaRegions1dHas(handle) &
-      bind(C, name='ThetaRegions1dHas') &
-      result(has)
+      bind(C, name='ThetaRegions1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ThetaRegions1dHas
 end function ThetaRegions1dHas
 
 !! Get, const
 function ThetaRegions1dGetConst(handle) &
-      bind(C, name='ThetaRegions1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ThetaRegions1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ThetaRegions1dGetConst
 end function ThetaRegions1dGetConst
 
 !! Get
 function ThetaRegions1dGet(handle) &
-      bind(C, name='ThetaRegions1dGet') &
-      result(resultHandle)
+      bind(C, name='ThetaRegions1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ThetaRegions1dGet
 end function ThetaRegions1dGet
 
 !! Set

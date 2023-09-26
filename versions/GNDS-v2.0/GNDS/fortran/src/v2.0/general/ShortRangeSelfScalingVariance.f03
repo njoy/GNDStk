@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ShortRangeSelfScalingVarianceDefaultConst() &
-      bind(C, name='ShortRangeSelfScalingVarianceDefaultConst') &
-      result(handle)
+      bind(C, name='ShortRangeSelfScalingVarianceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShortRangeSelfScalingVarianceDefaultConst
 end function ShortRangeSelfScalingVarianceDefaultConst
 
 !! Create, default
 function ShortRangeSelfScalingVarianceDefault() &
-      bind(C, name='ShortRangeSelfScalingVarianceDefault') &
-      result(handle)
+      bind(C, name='ShortRangeSelfScalingVarianceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShortRangeSelfScalingVarianceDefault
 end function ShortRangeSelfScalingVarianceDefault
 
 !! Create, general, const
@@ -40,8 +38,7 @@ function ShortRangeSelfScalingVarianceCreateConst( &
    type1Size, &
    dependenceOnProcessedGroupWidthSize &
 ) &
-      bind(C, name='ShortRangeSelfScalingVarianceCreateConst') &
-      result(handle)
+      bind(C, name='ShortRangeSelfScalingVarianceCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -51,7 +48,7 @@ function ShortRangeSelfScalingVarianceCreateConst( &
    integer(c_size_t), intent(in), value :: dependenceOnProcessedGroupWidthSize
    character(c_char), intent(in) :: dependenceOnProcessedGroupWidth(dependenceOnProcessedGroupWidthSize)
    type(c_ptr), value :: gridded2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShortRangeSelfScalingVarianceCreateConst
 end function ShortRangeSelfScalingVarianceCreateConst
 
 !! Create, general
@@ -64,8 +61,7 @@ function ShortRangeSelfScalingVarianceCreate( &
    type1Size, &
    dependenceOnProcessedGroupWidthSize &
 ) &
-      bind(C, name='ShortRangeSelfScalingVarianceCreate') &
-      result(handle)
+      bind(C, name='ShortRangeSelfScalingVarianceCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -75,7 +71,7 @@ function ShortRangeSelfScalingVarianceCreate( &
    integer(c_size_t), intent(in), value :: dependenceOnProcessedGroupWidthSize
    character(c_char), intent(in) :: dependenceOnProcessedGroupWidth(dependenceOnProcessedGroupWidthSize)
    type(c_ptr), value :: gridded2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShortRangeSelfScalingVarianceCreate
 end function ShortRangeSelfScalingVarianceCreate
 
 !! Assign
@@ -103,56 +99,51 @@ end subroutine ShortRangeSelfScalingVarianceDelete
 
 !! Read from file
 function ShortRangeSelfScalingVarianceRead(handle, filename, filenameSize) &
-      bind(C, name='ShortRangeSelfScalingVarianceRead') &
-      result(success)
+      bind(C, name='ShortRangeSelfScalingVarianceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ShortRangeSelfScalingVarianceRead
 end function ShortRangeSelfScalingVarianceRead
 
 !! Write to file
 function ShortRangeSelfScalingVarianceWrite(handle, filename, filenameSize) &
-      bind(C, name='ShortRangeSelfScalingVarianceWrite') &
-      result(success)
+      bind(C, name='ShortRangeSelfScalingVarianceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ShortRangeSelfScalingVarianceWrite
 end function ShortRangeSelfScalingVarianceWrite
 
 !! Print to standard output, in our prettyprinting format
 function ShortRangeSelfScalingVariancePrint(handle) &
-      bind(C, name='ShortRangeSelfScalingVariancePrint') &
-      result(success)
+      bind(C, name='ShortRangeSelfScalingVariancePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ShortRangeSelfScalingVariancePrint
 end function ShortRangeSelfScalingVariancePrint
 
 !! Print to standard output, as XML
 function ShortRangeSelfScalingVariancePrintXML(handle) &
-      bind(C, name='ShortRangeSelfScalingVariancePrintXML') &
-      result(success)
+      bind(C, name='ShortRangeSelfScalingVariancePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ShortRangeSelfScalingVariancePrintXML
 end function ShortRangeSelfScalingVariancePrintXML
 
 !! Print to standard output, as JSON
 function ShortRangeSelfScalingVariancePrintJSON(handle) &
-      bind(C, name='ShortRangeSelfScalingVariancePrintJSON') &
-      result(success)
+      bind(C, name='ShortRangeSelfScalingVariancePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ShortRangeSelfScalingVariancePrintJSON
 end function ShortRangeSelfScalingVariancePrintJSON
 
 
@@ -162,22 +153,20 @@ end function ShortRangeSelfScalingVariancePrintJSON
 
 !! Has
 function ShortRangeSelfScalingVarianceLabelHas(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceLabelHas') &
-      result(has)
+      bind(C, name='ShortRangeSelfScalingVarianceLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShortRangeSelfScalingVarianceLabelHas
 end function ShortRangeSelfScalingVarianceLabelHas
 
 !! Get
 function ShortRangeSelfScalingVarianceLabelGet(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceLabelGet') &
-      result(label)
+      bind(C, name='ShortRangeSelfScalingVarianceLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ShortRangeSelfScalingVarianceLabelGet
 end function ShortRangeSelfScalingVarianceLabelGet
 
 !! Set
@@ -197,22 +186,20 @@ end subroutine ShortRangeSelfScalingVarianceLabelSet
 
 !! Has
 function ShortRangeSelfScalingVarianceTypeHas(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceTypeHas') &
-      result(has)
+      bind(C, name='ShortRangeSelfScalingVarianceTypeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShortRangeSelfScalingVarianceTypeHas
 end function ShortRangeSelfScalingVarianceTypeHas
 
 !! Get
 function ShortRangeSelfScalingVarianceTypeGet(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceTypeGet') &
-      result(type1)
+      bind(C, name='ShortRangeSelfScalingVarianceTypeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: type1
+   type(c_ptr) :: ShortRangeSelfScalingVarianceTypeGet
 end function ShortRangeSelfScalingVarianceTypeGet
 
 !! Set
@@ -232,22 +219,20 @@ end subroutine ShortRangeSelfScalingVarianceTypeSet
 
 !! Has
 function ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas') &
-      result(has)
+      bind(C, name='ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas
 end function ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthHas
 
 !! Get
 function ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet') &
-      result(dependenceOnProcessedGroupWidth)
+      bind(C, name='ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: dependenceOnProcessedGroupWidth
+   type(c_ptr) :: ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet
 end function ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthGet
 
 !! Set
@@ -267,32 +252,29 @@ end subroutine ShortRangeSelfScalingVarianceDependenceOnProcessedGroupWidthSet
 
 !! Has
 function ShortRangeSelfScalingVarianceGridded2dHas(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceGridded2dHas') &
-      result(has)
+      bind(C, name='ShortRangeSelfScalingVarianceGridded2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShortRangeSelfScalingVarianceGridded2dHas
 end function ShortRangeSelfScalingVarianceGridded2dHas
 
 !! Get, const
 function ShortRangeSelfScalingVarianceGridded2dGetConst(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceGridded2dGetConst') &
-      result(resultHandle)
+      bind(C, name='ShortRangeSelfScalingVarianceGridded2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ShortRangeSelfScalingVarianceGridded2dGetConst
 end function ShortRangeSelfScalingVarianceGridded2dGetConst
 
 !! Get
 function ShortRangeSelfScalingVarianceGridded2dGet(handle) &
-      bind(C, name='ShortRangeSelfScalingVarianceGridded2dGet') &
-      result(resultHandle)
+      bind(C, name='ShortRangeSelfScalingVarianceGridded2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ShortRangeSelfScalingVarianceGridded2dGet
 end function ShortRangeSelfScalingVarianceGridded2dGet
 
 !! Set

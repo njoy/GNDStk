@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function SCTApproximationDefaultConst() &
-      bind(C, name='SCTApproximationDefaultConst') &
-      result(handle)
+      bind(C, name='SCTApproximationDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SCTApproximationDefaultConst
 end function SCTApproximationDefaultConst
 
 !! Create, default
 function SCTApproximationDefault() &
-      bind(C, name='SCTApproximationDefault') &
-      result(handle)
+      bind(C, name='SCTApproximationDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SCTApproximationDefault
 end function SCTApproximationDefault
 
 !! Create, general, const
 function SCTApproximationCreateConst( &
 ) &
-      bind(C, name='SCTApproximationCreateConst') &
-      result(handle)
+      bind(C, name='SCTApproximationCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SCTApproximationCreateConst
 end function SCTApproximationCreateConst
 
 !! Create, general
 function SCTApproximationCreate( &
 ) &
-      bind(C, name='SCTApproximationCreate') &
-      result(handle)
+      bind(C, name='SCTApproximationCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SCTApproximationCreate
 end function SCTApproximationCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine SCTApproximationDelete
 
 !! Read from file
 function SCTApproximationRead(handle, filename, filenameSize) &
-      bind(C, name='SCTApproximationRead') &
-      result(success)
+      bind(C, name='SCTApproximationRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SCTApproximationRead
 end function SCTApproximationRead
 
 !! Write to file
 function SCTApproximationWrite(handle, filename, filenameSize) &
-      bind(C, name='SCTApproximationWrite') &
-      result(success)
+      bind(C, name='SCTApproximationWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SCTApproximationWrite
 end function SCTApproximationWrite
 
 !! Print to standard output, in our prettyprinting format
 function SCTApproximationPrint(handle) &
-      bind(C, name='SCTApproximationPrint') &
-      result(success)
+      bind(C, name='SCTApproximationPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SCTApproximationPrint
 end function SCTApproximationPrint
 
 !! Print to standard output, as XML
 function SCTApproximationPrintXML(handle) &
-      bind(C, name='SCTApproximationPrintXML') &
-      result(success)
+      bind(C, name='SCTApproximationPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SCTApproximationPrintXML
 end function SCTApproximationPrintXML
 
 !! Print to standard output, as JSON
 function SCTApproximationPrintJSON(handle) &
-      bind(C, name='SCTApproximationPrintJSON') &
-      result(success)
+      bind(C, name='SCTApproximationPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SCTApproximationPrintJSON
 end function SCTApproximationPrintJSON
 
 

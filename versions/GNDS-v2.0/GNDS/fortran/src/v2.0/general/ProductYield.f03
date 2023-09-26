@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ProductYieldDefaultConst() &
-      bind(C, name='ProductYieldDefaultConst') &
-      result(handle)
+      bind(C, name='ProductYieldDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductYieldDefaultConst
 end function ProductYieldDefaultConst
 
 !! Create, default
 function ProductYieldDefault() &
-      bind(C, name='ProductYieldDefault') &
-      result(handle)
+      bind(C, name='ProductYieldDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductYieldDefault
 end function ProductYieldDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ProductYieldCreateConst( &
    elapsedTimes, &
    labelSize &
 ) &
-      bind(C, name='ProductYieldCreateConst') &
-      result(handle)
+      bind(C, name='ProductYieldCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: nuclides
    type(c_ptr), value :: elapsedTimes
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductYieldCreateConst
 end function ProductYieldCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ProductYieldCreate( &
    elapsedTimes, &
    labelSize &
 ) &
-      bind(C, name='ProductYieldCreate') &
-      result(handle)
+      bind(C, name='ProductYieldCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: nuclides
    type(c_ptr), value :: elapsedTimes
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductYieldCreate
 end function ProductYieldCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ProductYieldDelete
 
 !! Read from file
 function ProductYieldRead(handle, filename, filenameSize) &
-      bind(C, name='ProductYieldRead') &
-      result(success)
+      bind(C, name='ProductYieldRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProductYieldRead
 end function ProductYieldRead
 
 !! Write to file
 function ProductYieldWrite(handle, filename, filenameSize) &
-      bind(C, name='ProductYieldWrite') &
-      result(success)
+      bind(C, name='ProductYieldWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProductYieldWrite
 end function ProductYieldWrite
 
 !! Print to standard output, in our prettyprinting format
 function ProductYieldPrint(handle) &
-      bind(C, name='ProductYieldPrint') &
-      result(success)
+      bind(C, name='ProductYieldPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductYieldPrint
 end function ProductYieldPrint
 
 !! Print to standard output, as XML
 function ProductYieldPrintXML(handle) &
-      bind(C, name='ProductYieldPrintXML') &
-      result(success)
+      bind(C, name='ProductYieldPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductYieldPrintXML
 end function ProductYieldPrintXML
 
 !! Print to standard output, as JSON
 function ProductYieldPrintJSON(handle) &
-      bind(C, name='ProductYieldPrintJSON') &
-      result(success)
+      bind(C, name='ProductYieldPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductYieldPrintJSON
 end function ProductYieldPrintJSON
 
 
@@ -150,22 +141,20 @@ end function ProductYieldPrintJSON
 
 !! Has
 function ProductYieldLabelHas(handle) &
-      bind(C, name='ProductYieldLabelHas') &
-      result(has)
+      bind(C, name='ProductYieldLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductYieldLabelHas
 end function ProductYieldLabelHas
 
 !! Get
 function ProductYieldLabelGet(handle) &
-      bind(C, name='ProductYieldLabelGet') &
-      result(label)
+      bind(C, name='ProductYieldLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ProductYieldLabelGet
 end function ProductYieldLabelGet
 
 !! Set
@@ -185,32 +174,29 @@ end subroutine ProductYieldLabelSet
 
 !! Has
 function ProductYieldNuclidesHas(handle) &
-      bind(C, name='ProductYieldNuclidesHas') &
-      result(has)
+      bind(C, name='ProductYieldNuclidesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductYieldNuclidesHas
 end function ProductYieldNuclidesHas
 
 !! Get, const
 function ProductYieldNuclidesGetConst(handle) &
-      bind(C, name='ProductYieldNuclidesGetConst') &
-      result(resultHandle)
+      bind(C, name='ProductYieldNuclidesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductYieldNuclidesGetConst
 end function ProductYieldNuclidesGetConst
 
 !! Get
 function ProductYieldNuclidesGet(handle) &
-      bind(C, name='ProductYieldNuclidesGet') &
-      result(resultHandle)
+      bind(C, name='ProductYieldNuclidesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductYieldNuclidesGet
 end function ProductYieldNuclidesGet
 
 !! Set
@@ -229,32 +215,29 @@ end subroutine ProductYieldNuclidesSet
 
 !! Has
 function ProductYieldElapsedTimesHas(handle) &
-      bind(C, name='ProductYieldElapsedTimesHas') &
-      result(has)
+      bind(C, name='ProductYieldElapsedTimesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductYieldElapsedTimesHas
 end function ProductYieldElapsedTimesHas
 
 !! Get, const
 function ProductYieldElapsedTimesGetConst(handle) &
-      bind(C, name='ProductYieldElapsedTimesGetConst') &
-      result(resultHandle)
+      bind(C, name='ProductYieldElapsedTimesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductYieldElapsedTimesGetConst
 end function ProductYieldElapsedTimesGetConst
 
 !! Get
 function ProductYieldElapsedTimesGet(handle) &
-      bind(C, name='ProductYieldElapsedTimesGet') &
-      result(resultHandle)
+      bind(C, name='ProductYieldElapsedTimesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductYieldElapsedTimesGet
 end function ProductYieldElapsedTimesGet
 
 !! Set

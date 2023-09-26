@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ResonanceReactionDefaultConst() &
-      bind(C, name='ResonanceReactionDefaultConst') &
-      result(handle)
+      bind(C, name='ResonanceReactionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceReactionDefaultConst
 end function ResonanceReactionDefaultConst
 
 !! Create, default
 function ResonanceReactionDefault() &
-      bind(C, name='ResonanceReactionDefault') &
-      result(handle)
+      bind(C, name='ResonanceReactionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceReactionDefault
 end function ResonanceReactionDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function ResonanceReactionCreateConst( &
    labelSize, &
    ejectileSize &
 ) &
-      bind(C, name='ResonanceReactionCreateConst') &
-      result(handle)
+      bind(C, name='ResonanceReactionCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -55,7 +52,7 @@ function ResonanceReactionCreateConst( &
    type(c_ptr), value :: hardSphereRadius
    type(c_ptr), value :: Q
    type(c_ptr), value :: scatteringRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceReactionCreateConst
 end function ResonanceReactionCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function ResonanceReactionCreate( &
    labelSize, &
    ejectileSize &
 ) &
-      bind(C, name='ResonanceReactionCreate') &
-      result(handle)
+      bind(C, name='ResonanceReactionCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -83,7 +79,7 @@ function ResonanceReactionCreate( &
    type(c_ptr), value :: hardSphereRadius
    type(c_ptr), value :: Q
    type(c_ptr), value :: scatteringRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceReactionCreate
 end function ResonanceReactionCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine ResonanceReactionDelete
 
 !! Read from file
 function ResonanceReactionRead(handle, filename, filenameSize) &
-      bind(C, name='ResonanceReactionRead') &
-      result(success)
+      bind(C, name='ResonanceReactionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceReactionRead
 end function ResonanceReactionRead
 
 !! Write to file
 function ResonanceReactionWrite(handle, filename, filenameSize) &
-      bind(C, name='ResonanceReactionWrite') &
-      result(success)
+      bind(C, name='ResonanceReactionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceReactionWrite
 end function ResonanceReactionWrite
 
 !! Print to standard output, in our prettyprinting format
 function ResonanceReactionPrint(handle) &
-      bind(C, name='ResonanceReactionPrint') &
-      result(success)
+      bind(C, name='ResonanceReactionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceReactionPrint
 end function ResonanceReactionPrint
 
 !! Print to standard output, as XML
 function ResonanceReactionPrintXML(handle) &
-      bind(C, name='ResonanceReactionPrintXML') &
-      result(success)
+      bind(C, name='ResonanceReactionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceReactionPrintXML
 end function ResonanceReactionPrintXML
 
 !! Print to standard output, as JSON
 function ResonanceReactionPrintJSON(handle) &
-      bind(C, name='ResonanceReactionPrintJSON') &
-      result(success)
+      bind(C, name='ResonanceReactionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceReactionPrintJSON
 end function ResonanceReactionPrintJSON
 
 
@@ -170,22 +161,20 @@ end function ResonanceReactionPrintJSON
 
 !! Has
 function ResonanceReactionLabelHas(handle) &
-      bind(C, name='ResonanceReactionLabelHas') &
-      result(has)
+      bind(C, name='ResonanceReactionLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionLabelHas
 end function ResonanceReactionLabelHas
 
 !! Get
 function ResonanceReactionLabelGet(handle) &
-      bind(C, name='ResonanceReactionLabelGet') &
-      result(label)
+      bind(C, name='ResonanceReactionLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ResonanceReactionLabelGet
 end function ResonanceReactionLabelGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine ResonanceReactionLabelSet
 
 !! Has
 function ResonanceReactionEjectileHas(handle) &
-      bind(C, name='ResonanceReactionEjectileHas') &
-      result(has)
+      bind(C, name='ResonanceReactionEjectileHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionEjectileHas
 end function ResonanceReactionEjectileHas
 
 !! Get
 function ResonanceReactionEjectileGet(handle) &
-      bind(C, name='ResonanceReactionEjectileGet') &
-      result(ejectile)
+      bind(C, name='ResonanceReactionEjectileGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ejectile
+   type(c_ptr) :: ResonanceReactionEjectileGet
 end function ResonanceReactionEjectileGet
 
 !! Set
@@ -240,22 +227,20 @@ end subroutine ResonanceReactionEjectileSet
 
 !! Has
 function ResonanceReactionEliminatedHas(handle) &
-      bind(C, name='ResonanceReactionEliminatedHas') &
-      result(has)
+      bind(C, name='ResonanceReactionEliminatedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionEliminatedHas
 end function ResonanceReactionEliminatedHas
 
 !! Get
 function ResonanceReactionEliminatedGet(handle) &
-      bind(C, name='ResonanceReactionEliminatedGet') &
-      result(eliminated)
+      bind(C, name='ResonanceReactionEliminatedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: eliminated
+   logical(c_bool) :: ResonanceReactionEliminatedGet
 end function ResonanceReactionEliminatedGet
 
 !! Set
@@ -275,32 +260,29 @@ end subroutine ResonanceReactionEliminatedSet
 
 !! Has
 function ResonanceReactionLinkHas(handle) &
-      bind(C, name='ResonanceReactionLinkHas') &
-      result(has)
+      bind(C, name='ResonanceReactionLinkHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionLinkHas
 end function ResonanceReactionLinkHas
 
 !! Get, const
 function ResonanceReactionLinkGetConst(handle) &
-      bind(C, name='ResonanceReactionLinkGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionLinkGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionLinkGetConst
 end function ResonanceReactionLinkGetConst
 
 !! Get
 function ResonanceReactionLinkGet(handle) &
-      bind(C, name='ResonanceReactionLinkGet') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionLinkGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionLinkGet
 end function ResonanceReactionLinkGet
 
 !! Set
@@ -319,32 +301,29 @@ end subroutine ResonanceReactionLinkSet
 
 !! Has
 function ResonanceReactionHardSphereRadiusHas(handle) &
-      bind(C, name='ResonanceReactionHardSphereRadiusHas') &
-      result(has)
+      bind(C, name='ResonanceReactionHardSphereRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionHardSphereRadiusHas
 end function ResonanceReactionHardSphereRadiusHas
 
 !! Get, const
 function ResonanceReactionHardSphereRadiusGetConst(handle) &
-      bind(C, name='ResonanceReactionHardSphereRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionHardSphereRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionHardSphereRadiusGetConst
 end function ResonanceReactionHardSphereRadiusGetConst
 
 !! Get
 function ResonanceReactionHardSphereRadiusGet(handle) &
-      bind(C, name='ResonanceReactionHardSphereRadiusGet') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionHardSphereRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionHardSphereRadiusGet
 end function ResonanceReactionHardSphereRadiusGet
 
 !! Set
@@ -363,32 +342,29 @@ end subroutine ResonanceReactionHardSphereRadiusSet
 
 !! Has
 function ResonanceReactionQHas(handle) &
-      bind(C, name='ResonanceReactionQHas') &
-      result(has)
+      bind(C, name='ResonanceReactionQHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionQHas
 end function ResonanceReactionQHas
 
 !! Get, const
 function ResonanceReactionQGetConst(handle) &
-      bind(C, name='ResonanceReactionQGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionQGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionQGetConst
 end function ResonanceReactionQGetConst
 
 !! Get
 function ResonanceReactionQGet(handle) &
-      bind(C, name='ResonanceReactionQGet') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionQGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionQGet
 end function ResonanceReactionQGet
 
 !! Set
@@ -407,32 +383,29 @@ end subroutine ResonanceReactionQSet
 
 !! Has
 function ResonanceReactionScatteringRadiusHas(handle) &
-      bind(C, name='ResonanceReactionScatteringRadiusHas') &
-      result(has)
+      bind(C, name='ResonanceReactionScatteringRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceReactionScatteringRadiusHas
 end function ResonanceReactionScatteringRadiusHas
 
 !! Get, const
 function ResonanceReactionScatteringRadiusGetConst(handle) &
-      bind(C, name='ResonanceReactionScatteringRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionScatteringRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionScatteringRadiusGetConst
 end function ResonanceReactionScatteringRadiusGetConst
 
 !! Get
 function ResonanceReactionScatteringRadiusGet(handle) &
-      bind(C, name='ResonanceReactionScatteringRadiusGet') &
-      result(resultHandle)
+      bind(C, name='ResonanceReactionScatteringRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceReactionScatteringRadiusGet
 end function ResonanceReactionScatteringRadiusGet
 
 !! Set

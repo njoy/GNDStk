@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function MadlandNixDefaultConst() &
-      bind(C, name='MadlandNixDefaultConst') &
-      result(handle)
+      bind(C, name='MadlandNixDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MadlandNixDefaultConst
 end function MadlandNixDefaultConst
 
 !! Create, default
 function MadlandNixDefault() &
-      bind(C, name='MadlandNixDefault') &
-      result(handle)
+      bind(C, name='MadlandNixDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MadlandNixDefault
 end function MadlandNixDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function MadlandNixCreateConst( &
    EFH, &
    T_M &
 ) &
-      bind(C, name='MadlandNixCreateConst') &
-      result(handle)
+      bind(C, name='MadlandNixCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: EFL
    type(c_ptr), value :: EFH
    type(c_ptr), value :: T_M
-   type(c_ptr) :: handle
+   type(c_ptr) :: MadlandNixCreateConst
 end function MadlandNixCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function MadlandNixCreate( &
    EFH, &
    T_M &
 ) &
-      bind(C, name='MadlandNixCreate') &
-      result(handle)
+      bind(C, name='MadlandNixCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: EFL
    type(c_ptr), value :: EFH
    type(c_ptr), value :: T_M
-   type(c_ptr) :: handle
+   type(c_ptr) :: MadlandNixCreate
 end function MadlandNixCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine MadlandNixDelete
 
 !! Read from file
 function MadlandNixRead(handle, filename, filenameSize) &
-      bind(C, name='MadlandNixRead') &
-      result(success)
+      bind(C, name='MadlandNixRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MadlandNixRead
 end function MadlandNixRead
 
 !! Write to file
 function MadlandNixWrite(handle, filename, filenameSize) &
-      bind(C, name='MadlandNixWrite') &
-      result(success)
+      bind(C, name='MadlandNixWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MadlandNixWrite
 end function MadlandNixWrite
 
 !! Print to standard output, in our prettyprinting format
 function MadlandNixPrint(handle) &
-      bind(C, name='MadlandNixPrint') &
-      result(success)
+      bind(C, name='MadlandNixPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MadlandNixPrint
 end function MadlandNixPrint
 
 !! Print to standard output, as XML
 function MadlandNixPrintXML(handle) &
-      bind(C, name='MadlandNixPrintXML') &
-      result(success)
+      bind(C, name='MadlandNixPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MadlandNixPrintXML
 end function MadlandNixPrintXML
 
 !! Print to standard output, as JSON
 function MadlandNixPrintJSON(handle) &
-      bind(C, name='MadlandNixPrintJSON') &
-      result(success)
+      bind(C, name='MadlandNixPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MadlandNixPrintJSON
 end function MadlandNixPrintJSON
 
 
@@ -146,32 +137,29 @@ end function MadlandNixPrintJSON
 
 !! Has
 function MadlandNixEFLHas(handle) &
-      bind(C, name='MadlandNixEFLHas') &
-      result(has)
+      bind(C, name='MadlandNixEFLHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MadlandNixEFLHas
 end function MadlandNixEFLHas
 
 !! Get, const
 function MadlandNixEFLGetConst(handle) &
-      bind(C, name='MadlandNixEFLGetConst') &
-      result(resultHandle)
+      bind(C, name='MadlandNixEFLGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MadlandNixEFLGetConst
 end function MadlandNixEFLGetConst
 
 !! Get
 function MadlandNixEFLGet(handle) &
-      bind(C, name='MadlandNixEFLGet') &
-      result(resultHandle)
+      bind(C, name='MadlandNixEFLGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MadlandNixEFLGet
 end function MadlandNixEFLGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine MadlandNixEFLSet
 
 !! Has
 function MadlandNixEFHHas(handle) &
-      bind(C, name='MadlandNixEFHHas') &
-      result(has)
+      bind(C, name='MadlandNixEFHHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MadlandNixEFHHas
 end function MadlandNixEFHHas
 
 !! Get, const
 function MadlandNixEFHGetConst(handle) &
-      bind(C, name='MadlandNixEFHGetConst') &
-      result(resultHandle)
+      bind(C, name='MadlandNixEFHGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MadlandNixEFHGetConst
 end function MadlandNixEFHGetConst
 
 !! Get
 function MadlandNixEFHGet(handle) &
-      bind(C, name='MadlandNixEFHGet') &
-      result(resultHandle)
+      bind(C, name='MadlandNixEFHGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MadlandNixEFHGet
 end function MadlandNixEFHGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine MadlandNixEFHSet
 
 !! Has
 function MadlandNixT_MHas(handle) &
-      bind(C, name='MadlandNixT_MHas') &
-      result(has)
+      bind(C, name='MadlandNixT_MHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MadlandNixT_MHas
 end function MadlandNixT_MHas
 
 !! Get, const
 function MadlandNixT_MGetConst(handle) &
-      bind(C, name='MadlandNixT_MGetConst') &
-      result(resultHandle)
+      bind(C, name='MadlandNixT_MGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MadlandNixT_MGetConst
 end function MadlandNixT_MGetConst
 
 !! Get
 function MadlandNixT_MGet(handle) &
-      bind(C, name='MadlandNixT_MGet') &
-      result(resultHandle)
+      bind(C, name='MadlandNixT_MGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MadlandNixT_MGet
 end function MadlandNixT_MGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ReactionDefaultConst() &
-      bind(C, name='ReactionDefaultConst') &
-      result(handle)
+      bind(C, name='ReactionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionDefaultConst
 end function ReactionDefaultConst
 
 !! Create, default
 function ReactionDefault() &
-      bind(C, name='ReactionDefault') &
-      result(handle)
+      bind(C, name='ReactionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionDefault
 end function ReactionDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function ReactionCreateConst( &
    labelSize, &
    fissionGenreSize &
 ) &
-      bind(C, name='ReactionCreateConst') &
-      result(handle)
+      bind(C, name='ReactionCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -53,7 +50,7 @@ function ReactionCreateConst( &
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: outputChannel
    type(c_ptr), value :: doubleDifferentialCrossSection
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionCreateConst
 end function ReactionCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function ReactionCreate( &
    labelSize, &
    fissionGenreSize &
 ) &
-      bind(C, name='ReactionCreate') &
-      result(handle)
+      bind(C, name='ReactionCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -79,7 +75,7 @@ function ReactionCreate( &
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: outputChannel
    type(c_ptr), value :: doubleDifferentialCrossSection
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionCreate
 end function ReactionCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine ReactionDelete
 
 !! Read from file
 function ReactionRead(handle, filename, filenameSize) &
-      bind(C, name='ReactionRead') &
-      result(success)
+      bind(C, name='ReactionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReactionRead
 end function ReactionRead
 
 !! Write to file
 function ReactionWrite(handle, filename, filenameSize) &
-      bind(C, name='ReactionWrite') &
-      result(success)
+      bind(C, name='ReactionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReactionWrite
 end function ReactionWrite
 
 !! Print to standard output, in our prettyprinting format
 function ReactionPrint(handle) &
-      bind(C, name='ReactionPrint') &
-      result(success)
+      bind(C, name='ReactionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionPrint
 end function ReactionPrint
 
 !! Print to standard output, as XML
 function ReactionPrintXML(handle) &
-      bind(C, name='ReactionPrintXML') &
-      result(success)
+      bind(C, name='ReactionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionPrintXML
 end function ReactionPrintXML
 
 !! Print to standard output, as JSON
 function ReactionPrintJSON(handle) &
-      bind(C, name='ReactionPrintJSON') &
-      result(success)
+      bind(C, name='ReactionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionPrintJSON
 end function ReactionPrintJSON
 
 
@@ -166,22 +157,20 @@ end function ReactionPrintJSON
 
 !! Has
 function ReactionLabelHas(handle) &
-      bind(C, name='ReactionLabelHas') &
-      result(has)
+      bind(C, name='ReactionLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionLabelHas
 end function ReactionLabelHas
 
 !! Get
 function ReactionLabelGet(handle) &
-      bind(C, name='ReactionLabelGet') &
-      result(label)
+      bind(C, name='ReactionLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ReactionLabelGet
 end function ReactionLabelGet
 
 !! Set
@@ -201,22 +190,20 @@ end subroutine ReactionLabelSet
 
 !! Has
 function ReactionENDFMTHas(handle) &
-      bind(C, name='ReactionENDFMTHas') &
-      result(has)
+      bind(C, name='ReactionENDFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionENDFMTHas
 end function ReactionENDFMTHas
 
 !! Get
 function ReactionENDFMTGet(handle) &
-      bind(C, name='ReactionENDFMTGet') &
-      result(ENDF_MT)
+      bind(C, name='ReactionENDFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: ENDF_MT
+   integer(c_int) :: ReactionENDFMTGet
 end function ReactionENDFMTGet
 
 !! Set
@@ -236,22 +223,20 @@ end subroutine ReactionENDFMTSet
 
 !! Has
 function ReactionFissionGenreHas(handle) &
-      bind(C, name='ReactionFissionGenreHas') &
-      result(has)
+      bind(C, name='ReactionFissionGenreHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionFissionGenreHas
 end function ReactionFissionGenreHas
 
 !! Get
 function ReactionFissionGenreGet(handle) &
-      bind(C, name='ReactionFissionGenreGet') &
-      result(fissionGenre)
+      bind(C, name='ReactionFissionGenreGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: fissionGenre
+   type(c_ptr) :: ReactionFissionGenreGet
 end function ReactionFissionGenreGet
 
 !! Set
@@ -271,32 +256,29 @@ end subroutine ReactionFissionGenreSet
 
 !! Has
 function ReactionCrossSectionHas(handle) &
-      bind(C, name='ReactionCrossSectionHas') &
-      result(has)
+      bind(C, name='ReactionCrossSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionCrossSectionHas
 end function ReactionCrossSectionHas
 
 !! Get, const
 function ReactionCrossSectionGetConst(handle) &
-      bind(C, name='ReactionCrossSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionCrossSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionCrossSectionGetConst
 end function ReactionCrossSectionGetConst
 
 !! Get
 function ReactionCrossSectionGet(handle) &
-      bind(C, name='ReactionCrossSectionGet') &
-      result(resultHandle)
+      bind(C, name='ReactionCrossSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionCrossSectionGet
 end function ReactionCrossSectionGet
 
 !! Set
@@ -315,32 +297,29 @@ end subroutine ReactionCrossSectionSet
 
 !! Has
 function ReactionOutputChannelHas(handle) &
-      bind(C, name='ReactionOutputChannelHas') &
-      result(has)
+      bind(C, name='ReactionOutputChannelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionOutputChannelHas
 end function ReactionOutputChannelHas
 
 !! Get, const
 function ReactionOutputChannelGetConst(handle) &
-      bind(C, name='ReactionOutputChannelGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionOutputChannelGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionOutputChannelGetConst
 end function ReactionOutputChannelGetConst
 
 !! Get
 function ReactionOutputChannelGet(handle) &
-      bind(C, name='ReactionOutputChannelGet') &
-      result(resultHandle)
+      bind(C, name='ReactionOutputChannelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionOutputChannelGet
 end function ReactionOutputChannelGet
 
 !! Set
@@ -359,32 +338,29 @@ end subroutine ReactionOutputChannelSet
 
 !! Has
 function ReactionDoubleDifferentialCrossSectionHas(handle) &
-      bind(C, name='ReactionDoubleDifferentialCrossSectionHas') &
-      result(has)
+      bind(C, name='ReactionDoubleDifferentialCrossSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionDoubleDifferentialCrossSectionHas
 end function ReactionDoubleDifferentialCrossSectionHas
 
 !! Get, const
 function ReactionDoubleDifferentialCrossSectionGetConst(handle) &
-      bind(C, name='ReactionDoubleDifferentialCrossSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionDoubleDifferentialCrossSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionDoubleDifferentialCrossSectionGetConst
 end function ReactionDoubleDifferentialCrossSectionGetConst
 
 !! Get
 function ReactionDoubleDifferentialCrossSectionGet(handle) &
-      bind(C, name='ReactionDoubleDifferentialCrossSectionGet') &
-      result(resultHandle)
+      bind(C, name='ReactionDoubleDifferentialCrossSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionDoubleDifferentialCrossSectionGet
 end function ReactionDoubleDifferentialCrossSectionGet
 
 !! Set

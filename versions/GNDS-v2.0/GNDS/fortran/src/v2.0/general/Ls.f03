@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function LsDefaultConst() &
-      bind(C, name='LsDefaultConst') &
-      result(handle)
+      bind(C, name='LsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LsDefaultConst
 end function LsDefaultConst
 
 !! Create, default
 function LsDefault() &
-      bind(C, name='LsDefault') &
-      result(handle)
+      bind(C, name='LsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LsDefault
 end function LsDefault
 
 !! Create, general, const
 function LsCreateConst( &
    L, LSize &
 ) &
-      bind(C, name='LsCreateConst') &
-      result(handle)
+      bind(C, name='LsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: LSize
    type(c_ptr) :: L(LSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: LsCreateConst
 end function LsCreateConst
 
 !! Create, general
 function LsCreate( &
    L, LSize &
 ) &
-      bind(C, name='LsCreate') &
-      result(handle)
+      bind(C, name='LsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: LSize
    type(c_ptr) :: L(LSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: LsCreate
 end function LsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine LsDelete
 
 !! Read from file
 function LsRead(handle, filename, filenameSize) &
-      bind(C, name='LsRead') &
-      result(success)
+      bind(C, name='LsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LsRead
 end function LsRead
 
 !! Write to file
 function LsWrite(handle, filename, filenameSize) &
-      bind(C, name='LsWrite') &
-      result(success)
+      bind(C, name='LsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LsWrite
 end function LsWrite
 
 !! Print to standard output, in our prettyprinting format
 function LsPrint(handle) &
-      bind(C, name='LsPrint') &
-      result(success)
+      bind(C, name='LsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LsPrint
 end function LsPrint
 
 !! Print to standard output, as XML
 function LsPrintXML(handle) &
-      bind(C, name='LsPrintXML') &
-      result(success)
+      bind(C, name='LsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LsPrintXML
 end function LsPrintXML
 
 !! Print to standard output, as JSON
 function LsPrintJSON(handle) &
-      bind(C, name='LsPrintJSON') &
-      result(success)
+      bind(C, name='LsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LsPrintJSON
 end function LsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function LsPrintJSON
 
 !! Has
 function LsLHas(handle) &
-      bind(C, name='LsLHas') &
-      result(has)
+      bind(C, name='LsLHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LsLHas
 end function LsLHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine LsLClear
 
 !! Size
 function LsLSize(handle) &
-      bind(C, name='LsLSize') &
-      result(vectorSize)
+      bind(C, name='LsLSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: LsLSize
 end function LsLSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine LsLAdd
 
 !! Get, by index \in [0,size), const
 function LsLGetConst(handle, index) &
-      bind(C, name='LsLGetConst') &
-      result(resultHandle)
+      bind(C, name='LsLGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LsLGetConst
 end function LsLGetConst
 
 !! Get, by index \in [0,size)
 function LsLGet(handle, index) &
-      bind(C, name='LsLGet') &
-      result(resultHandle)
+      bind(C, name='LsLGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LsLGet
 end function LsLGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine LsLSet
 
 !! Has, by label
 function LsLHasByLabel(handle, meta, metaSize) &
-      bind(C, name='LsLHasByLabel') &
-      result(has)
+      bind(C, name='LsLHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: LsLHasByLabel
 end function LsLHasByLabel
 
 !! Get, by label, const
 function LsLGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='LsLGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='LsLGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LsLGetByLabelConst
 end function LsLGetByLabelConst
 
 !! Get, by label
 function LsLGetByLabel(handle, meta, metaSize) &
-      bind(C, name='LsLGetByLabel') &
-      result(resultHandle)
+      bind(C, name='LsLGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LsLGetByLabel
 end function LsLGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine LsLSetByLabel
 
 !! Has, by value
 function LsLHasByValue(handle, meta) &
-      bind(C, name='LsLHasByValue') &
-      result(has)
+      bind(C, name='LsLHasByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: LsLHasByValue
 end function LsLHasByValue
 
 !! Get, by value, const
 function LsLGetByValueConst(handle, meta) &
-      bind(C, name='LsLGetByValueConst') &
-      result(resultHandle)
+      bind(C, name='LsLGetByValueConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LsLGetByValueConst
 end function LsLGetByValueConst
 
 !! Get, by value
 function LsLGetByValue(handle, meta) &
-      bind(C, name='LsLGetByValue') &
-      result(resultHandle)
+      bind(C, name='LsLGetByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LsLGetByValue
 end function LsLGetByValue
 
 !! Set, by value

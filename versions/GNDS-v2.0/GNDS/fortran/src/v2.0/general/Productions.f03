@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ProductionsDefaultConst() &
-      bind(C, name='ProductionsDefaultConst') &
-      result(handle)
+      bind(C, name='ProductionsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionsDefaultConst
 end function ProductionsDefaultConst
 
 !! Create, default
 function ProductionsDefault() &
-      bind(C, name='ProductionsDefault') &
-      result(handle)
+      bind(C, name='ProductionsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionsDefault
 end function ProductionsDefault
 
 !! Create, general, const
 function ProductionsCreateConst( &
    production, productionSize &
 ) &
-      bind(C, name='ProductionsCreateConst') &
-      result(handle)
+      bind(C, name='ProductionsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: productionSize
    type(c_ptr) :: production(productionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionsCreateConst
 end function ProductionsCreateConst
 
 !! Create, general
 function ProductionsCreate( &
    production, productionSize &
 ) &
-      bind(C, name='ProductionsCreate') &
-      result(handle)
+      bind(C, name='ProductionsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: productionSize
    type(c_ptr) :: production(productionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionsCreate
 end function ProductionsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ProductionsDelete
 
 !! Read from file
 function ProductionsRead(handle, filename, filenameSize) &
-      bind(C, name='ProductionsRead') &
-      result(success)
+      bind(C, name='ProductionsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProductionsRead
 end function ProductionsRead
 
 !! Write to file
 function ProductionsWrite(handle, filename, filenameSize) &
-      bind(C, name='ProductionsWrite') &
-      result(success)
+      bind(C, name='ProductionsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProductionsWrite
 end function ProductionsWrite
 
 !! Print to standard output, in our prettyprinting format
 function ProductionsPrint(handle) &
-      bind(C, name='ProductionsPrint') &
-      result(success)
+      bind(C, name='ProductionsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductionsPrint
 end function ProductionsPrint
 
 !! Print to standard output, as XML
 function ProductionsPrintXML(handle) &
-      bind(C, name='ProductionsPrintXML') &
-      result(success)
+      bind(C, name='ProductionsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductionsPrintXML
 end function ProductionsPrintXML
 
 !! Print to standard output, as JSON
 function ProductionsPrintJSON(handle) &
-      bind(C, name='ProductionsPrintJSON') &
-      result(success)
+      bind(C, name='ProductionsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductionsPrintJSON
 end function ProductionsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ProductionsPrintJSON
 
 !! Has
 function ProductionsProductionHas(handle) &
-      bind(C, name='ProductionsProductionHas') &
-      result(has)
+      bind(C, name='ProductionsProductionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductionsProductionHas
 end function ProductionsProductionHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ProductionsProductionClear
 
 !! Size
 function ProductionsProductionSize(handle) &
-      bind(C, name='ProductionsProductionSize') &
-      result(vectorSize)
+      bind(C, name='ProductionsProductionSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ProductionsProductionSize
 end function ProductionsProductionSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ProductionsProductionAdd
 
 !! Get, by index \in [0,size), const
 function ProductionsProductionGetConst(handle, index) &
-      bind(C, name='ProductionsProductionGetConst') &
-      result(resultHandle)
+      bind(C, name='ProductionsProductionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionsProductionGetConst
 end function ProductionsProductionGetConst
 
 !! Get, by index \in [0,size)
 function ProductionsProductionGet(handle, index) &
-      bind(C, name='ProductionsProductionGet') &
-      result(resultHandle)
+      bind(C, name='ProductionsProductionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionsProductionGet
 end function ProductionsProductionGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ProductionsProductionSet
 
 !! Has, by label
 function ProductionsProductionHasByLabel(handle, meta, metaSize) &
-      bind(C, name='ProductionsProductionHasByLabel') &
-      result(has)
+      bind(C, name='ProductionsProductionHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ProductionsProductionHasByLabel
 end function ProductionsProductionHasByLabel
 
 !! Get, by label, const
 function ProductionsProductionGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='ProductionsProductionGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='ProductionsProductionGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionsProductionGetByLabelConst
 end function ProductionsProductionGetByLabelConst
 
 !! Get, by label
 function ProductionsProductionGetByLabel(handle, meta, metaSize) &
-      bind(C, name='ProductionsProductionGetByLabel') &
-      result(resultHandle)
+      bind(C, name='ProductionsProductionGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionsProductionGetByLabel
 end function ProductionsProductionGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine ProductionsProductionSetByLabel
 
 !! Has, by ENDF_MT
 function ProductionsProductionHasByENDFMT(handle, meta) &
-      bind(C, name='ProductionsProductionHasByENDFMT') &
-      result(has)
+      bind(C, name='ProductionsProductionHasByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ProductionsProductionHasByENDFMT
 end function ProductionsProductionHasByENDFMT
 
 !! Get, by ENDF_MT, const
 function ProductionsProductionGetByENDFMTConst(handle, meta) &
-      bind(C, name='ProductionsProductionGetByENDFMTConst') &
-      result(resultHandle)
+      bind(C, name='ProductionsProductionGetByENDFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionsProductionGetByENDFMTConst
 end function ProductionsProductionGetByENDFMTConst
 
 !! Get, by ENDF_MT
 function ProductionsProductionGetByENDFMT(handle, meta) &
-      bind(C, name='ProductionsProductionGetByENDFMT') &
-      result(resultHandle)
+      bind(C, name='ProductionsProductionGetByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionsProductionGetByENDFMT
 end function ProductionsProductionGetByENDFMT
 
 !! Set, by ENDF_MT

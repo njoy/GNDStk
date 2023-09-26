@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function NuclidesDefaultConst() &
-      bind(C, name='NuclidesDefaultConst') &
-      result(handle)
+      bind(C, name='NuclidesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclidesDefaultConst
 end function NuclidesDefaultConst
 
 !! Create, default
 function NuclidesDefault() &
-      bind(C, name='NuclidesDefault') &
-      result(handle)
+      bind(C, name='NuclidesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclidesDefault
 end function NuclidesDefault
 
 !! Create, general, const
 function NuclidesCreateConst( &
    nuclide, nuclideSize &
 ) &
-      bind(C, name='NuclidesCreateConst') &
-      result(handle)
+      bind(C, name='NuclidesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: nuclideSize
    type(c_ptr) :: nuclide(nuclideSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclidesCreateConst
 end function NuclidesCreateConst
 
 !! Create, general
 function NuclidesCreate( &
    nuclide, nuclideSize &
 ) &
-      bind(C, name='NuclidesCreate') &
-      result(handle)
+      bind(C, name='NuclidesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: nuclideSize
    type(c_ptr) :: nuclide(nuclideSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclidesCreate
 end function NuclidesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine NuclidesDelete
 
 !! Read from file
 function NuclidesRead(handle, filename, filenameSize) &
-      bind(C, name='NuclidesRead') &
-      result(success)
+      bind(C, name='NuclidesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclidesRead
 end function NuclidesRead
 
 !! Write to file
 function NuclidesWrite(handle, filename, filenameSize) &
-      bind(C, name='NuclidesWrite') &
-      result(success)
+      bind(C, name='NuclidesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclidesWrite
 end function NuclidesWrite
 
 !! Print to standard output, in our prettyprinting format
 function NuclidesPrint(handle) &
-      bind(C, name='NuclidesPrint') &
-      result(success)
+      bind(C, name='NuclidesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclidesPrint
 end function NuclidesPrint
 
 !! Print to standard output, as XML
 function NuclidesPrintXML(handle) &
-      bind(C, name='NuclidesPrintXML') &
-      result(success)
+      bind(C, name='NuclidesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclidesPrintXML
 end function NuclidesPrintXML
 
 !! Print to standard output, as JSON
 function NuclidesPrintJSON(handle) &
-      bind(C, name='NuclidesPrintJSON') &
-      result(success)
+      bind(C, name='NuclidesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclidesPrintJSON
 end function NuclidesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function NuclidesPrintJSON
 
 !! Has
 function NuclidesNuclideHas(handle) &
-      bind(C, name='NuclidesNuclideHas') &
-      result(has)
+      bind(C, name='NuclidesNuclideHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclidesNuclideHas
 end function NuclidesNuclideHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine NuclidesNuclideClear
 
 !! Size
 function NuclidesNuclideSize(handle) &
-      bind(C, name='NuclidesNuclideSize') &
-      result(vectorSize)
+      bind(C, name='NuclidesNuclideSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: NuclidesNuclideSize
 end function NuclidesNuclideSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine NuclidesNuclideAdd
 
 !! Get, by index \in [0,size), const
 function NuclidesNuclideGetConst(handle, index) &
-      bind(C, name='NuclidesNuclideGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclidesNuclideGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclidesNuclideGetConst
 end function NuclidesNuclideGetConst
 
 !! Get, by index \in [0,size)
 function NuclidesNuclideGet(handle, index) &
-      bind(C, name='NuclidesNuclideGet') &
-      result(resultHandle)
+      bind(C, name='NuclidesNuclideGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclidesNuclideGet
 end function NuclidesNuclideGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine NuclidesNuclideSet
 
 !! Has, by id
 function NuclidesNuclideHasById(handle, meta, metaSize) &
-      bind(C, name='NuclidesNuclideHasById') &
-      result(has)
+      bind(C, name='NuclidesNuclideHasById')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: NuclidesNuclideHasById
 end function NuclidesNuclideHasById
 
 !! Get, by id, const
 function NuclidesNuclideGetByIdConst(handle, meta, metaSize) &
-      bind(C, name='NuclidesNuclideGetByIdConst') &
-      result(resultHandle)
+      bind(C, name='NuclidesNuclideGetByIdConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclidesNuclideGetByIdConst
 end function NuclidesNuclideGetByIdConst
 
 !! Get, by id
 function NuclidesNuclideGetById(handle, meta, metaSize) &
-      bind(C, name='NuclidesNuclideGetById') &
-      result(resultHandle)
+      bind(C, name='NuclidesNuclideGetById')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclidesNuclideGetById
 end function NuclidesNuclideGetById
 
 !! Set, by id

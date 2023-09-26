@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function FissionComponentsDefaultConst() &
-      bind(C, name='FissionComponentsDefaultConst') &
-      result(handle)
+      bind(C, name='FissionComponentsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionComponentsDefaultConst
 end function FissionComponentsDefaultConst
 
 !! Create, default
 function FissionComponentsDefault() &
-      bind(C, name='FissionComponentsDefault') &
-      result(handle)
+      bind(C, name='FissionComponentsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionComponentsDefault
 end function FissionComponentsDefault
 
 !! Create, general, const
 function FissionComponentsCreateConst( &
    fissionComponent, fissionComponentSize &
 ) &
-      bind(C, name='FissionComponentsCreateConst') &
-      result(handle)
+      bind(C, name='FissionComponentsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: fissionComponentSize
    type(c_ptr) :: fissionComponent(fissionComponentSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionComponentsCreateConst
 end function FissionComponentsCreateConst
 
 !! Create, general
 function FissionComponentsCreate( &
    fissionComponent, fissionComponentSize &
 ) &
-      bind(C, name='FissionComponentsCreate') &
-      result(handle)
+      bind(C, name='FissionComponentsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: fissionComponentSize
    type(c_ptr) :: fissionComponent(fissionComponentSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: FissionComponentsCreate
 end function FissionComponentsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine FissionComponentsDelete
 
 !! Read from file
 function FissionComponentsRead(handle, filename, filenameSize) &
-      bind(C, name='FissionComponentsRead') &
-      result(success)
+      bind(C, name='FissionComponentsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FissionComponentsRead
 end function FissionComponentsRead
 
 !! Write to file
 function FissionComponentsWrite(handle, filename, filenameSize) &
-      bind(C, name='FissionComponentsWrite') &
-      result(success)
+      bind(C, name='FissionComponentsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FissionComponentsWrite
 end function FissionComponentsWrite
 
 !! Print to standard output, in our prettyprinting format
 function FissionComponentsPrint(handle) &
-      bind(C, name='FissionComponentsPrint') &
-      result(success)
+      bind(C, name='FissionComponentsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FissionComponentsPrint
 end function FissionComponentsPrint
 
 !! Print to standard output, as XML
 function FissionComponentsPrintXML(handle) &
-      bind(C, name='FissionComponentsPrintXML') &
-      result(success)
+      bind(C, name='FissionComponentsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FissionComponentsPrintXML
 end function FissionComponentsPrintXML
 
 !! Print to standard output, as JSON
 function FissionComponentsPrintJSON(handle) &
-      bind(C, name='FissionComponentsPrintJSON') &
-      result(success)
+      bind(C, name='FissionComponentsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FissionComponentsPrintJSON
 end function FissionComponentsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function FissionComponentsPrintJSON
 
 !! Has
 function FissionComponentsFissionComponentHas(handle) &
-      bind(C, name='FissionComponentsFissionComponentHas') &
-      result(has)
+      bind(C, name='FissionComponentsFissionComponentHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FissionComponentsFissionComponentHas
 end function FissionComponentsFissionComponentHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine FissionComponentsFissionComponentClear
 
 !! Size
 function FissionComponentsFissionComponentSize(handle) &
-      bind(C, name='FissionComponentsFissionComponentSize') &
-      result(vectorSize)
+      bind(C, name='FissionComponentsFissionComponentSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: FissionComponentsFissionComponentSize
 end function FissionComponentsFissionComponentSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine FissionComponentsFissionComponentAdd
 
 !! Get, by index \in [0,size), const
 function FissionComponentsFissionComponentGetConst(handle, index) &
-      bind(C, name='FissionComponentsFissionComponentGetConst') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetConst
 end function FissionComponentsFissionComponentGetConst
 
 !! Get, by index \in [0,size)
 function FissionComponentsFissionComponentGet(handle, index) &
-      bind(C, name='FissionComponentsFissionComponentGet') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGet
 end function FissionComponentsFissionComponentGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine FissionComponentsFissionComponentSet
 
 !! Has, by label
 function FissionComponentsFissionComponentHasByLabel(handle, meta, metaSize) &
-      bind(C, name='FissionComponentsFissionComponentHasByLabel') &
-      result(has)
+      bind(C, name='FissionComponentsFissionComponentHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: FissionComponentsFissionComponentHasByLabel
 end function FissionComponentsFissionComponentHasByLabel
 
 !! Get, by label, const
 function FissionComponentsFissionComponentGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='FissionComponentsFissionComponentGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetByLabelConst
 end function FissionComponentsFissionComponentGetByLabelConst
 
 !! Get, by label
 function FissionComponentsFissionComponentGetByLabel(handle, meta, metaSize) &
-      bind(C, name='FissionComponentsFissionComponentGetByLabel') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetByLabel
 end function FissionComponentsFissionComponentGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine FissionComponentsFissionComponentSetByLabel
 
 !! Has, by ENDF_MT
 function FissionComponentsFissionComponentHasByENDFMT(handle, meta) &
-      bind(C, name='FissionComponentsFissionComponentHasByENDFMT') &
-      result(has)
+      bind(C, name='FissionComponentsFissionComponentHasByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: FissionComponentsFissionComponentHasByENDFMT
 end function FissionComponentsFissionComponentHasByENDFMT
 
 !! Get, by ENDF_MT, const
 function FissionComponentsFissionComponentGetByENDFMTConst(handle, meta) &
-      bind(C, name='FissionComponentsFissionComponentGetByENDFMTConst') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetByENDFMTConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetByENDFMTConst
 end function FissionComponentsFissionComponentGetByENDFMTConst
 
 !! Get, by ENDF_MT
 function FissionComponentsFissionComponentGetByENDFMT(handle, meta) &
-      bind(C, name='FissionComponentsFissionComponentGetByENDFMT') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetByENDFMT')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetByENDFMT
 end function FissionComponentsFissionComponentGetByENDFMT
 
 !! Set, by ENDF_MT
@@ -311,38 +292,35 @@ end subroutine FissionComponentsFissionComponentSetByENDFMT
 
 !! Has, by fissionGenre
 function FissionComponentsFissionComponentHasByFissionGenre(handle, meta, metaSize) &
-      bind(C, name='FissionComponentsFissionComponentHasByFissionGenre') &
-      result(has)
+      bind(C, name='FissionComponentsFissionComponentHasByFissionGenre')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: FissionComponentsFissionComponentHasByFissionGenre
 end function FissionComponentsFissionComponentHasByFissionGenre
 
 !! Get, by fissionGenre, const
 function FissionComponentsFissionComponentGetByFissionGenreConst(handle, meta, metaSize) &
-      bind(C, name='FissionComponentsFissionComponentGetByFissionGenreConst') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetByFissionGenreConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetByFissionGenreConst
 end function FissionComponentsFissionComponentGetByFissionGenreConst
 
 !! Get, by fissionGenre
 function FissionComponentsFissionComponentGetByFissionGenre(handle, meta, metaSize) &
-      bind(C, name='FissionComponentsFissionComponentGetByFissionGenre') &
-      result(resultHandle)
+      bind(C, name='FissionComponentsFissionComponentGetByFissionGenre')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FissionComponentsFissionComponentGetByFissionGenre
 end function FissionComponentsFissionComponentGetByFissionGenre
 
 !! Set, by fissionGenre

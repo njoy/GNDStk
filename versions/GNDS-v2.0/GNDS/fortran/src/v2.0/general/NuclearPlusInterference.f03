@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function NuclearPlusInterferenceDefaultConst() &
-      bind(C, name='NuclearPlusInterferenceDefaultConst') &
-      result(handle)
+      bind(C, name='NuclearPlusInterferenceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearPlusInterferenceDefaultConst
 end function NuclearPlusInterferenceDefaultConst
 
 !! Create, default
 function NuclearPlusInterferenceDefault() &
-      bind(C, name='NuclearPlusInterferenceDefault') &
-      result(handle)
+      bind(C, name='NuclearPlusInterferenceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearPlusInterferenceDefault
 end function NuclearPlusInterferenceDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function NuclearPlusInterferenceCreateConst( &
    crossSection, &
    distribution &
 ) &
-      bind(C, name='NuclearPlusInterferenceCreateConst') &
-      result(handle)
+      bind(C, name='NuclearPlusInterferenceCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: muCutoff
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: distribution
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearPlusInterferenceCreateConst
 end function NuclearPlusInterferenceCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function NuclearPlusInterferenceCreate( &
    crossSection, &
    distribution &
 ) &
-      bind(C, name='NuclearPlusInterferenceCreate') &
-      result(handle)
+      bind(C, name='NuclearPlusInterferenceCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: muCutoff
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: distribution
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearPlusInterferenceCreate
 end function NuclearPlusInterferenceCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine NuclearPlusInterferenceDelete
 
 !! Read from file
 function NuclearPlusInterferenceRead(handle, filename, filenameSize) &
-      bind(C, name='NuclearPlusInterferenceRead') &
-      result(success)
+      bind(C, name='NuclearPlusInterferenceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclearPlusInterferenceRead
 end function NuclearPlusInterferenceRead
 
 !! Write to file
 function NuclearPlusInterferenceWrite(handle, filename, filenameSize) &
-      bind(C, name='NuclearPlusInterferenceWrite') &
-      result(success)
+      bind(C, name='NuclearPlusInterferenceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclearPlusInterferenceWrite
 end function NuclearPlusInterferenceWrite
 
 !! Print to standard output, in our prettyprinting format
 function NuclearPlusInterferencePrint(handle) &
-      bind(C, name='NuclearPlusInterferencePrint') &
-      result(success)
+      bind(C, name='NuclearPlusInterferencePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearPlusInterferencePrint
 end function NuclearPlusInterferencePrint
 
 !! Print to standard output, as XML
 function NuclearPlusInterferencePrintXML(handle) &
-      bind(C, name='NuclearPlusInterferencePrintXML') &
-      result(success)
+      bind(C, name='NuclearPlusInterferencePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearPlusInterferencePrintXML
 end function NuclearPlusInterferencePrintXML
 
 !! Print to standard output, as JSON
 function NuclearPlusInterferencePrintJSON(handle) &
-      bind(C, name='NuclearPlusInterferencePrintJSON') &
-      result(success)
+      bind(C, name='NuclearPlusInterferencePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearPlusInterferencePrintJSON
 end function NuclearPlusInterferencePrintJSON
 
 
@@ -146,22 +137,20 @@ end function NuclearPlusInterferencePrintJSON
 
 !! Has
 function NuclearPlusInterferenceMuCutoffHas(handle) &
-      bind(C, name='NuclearPlusInterferenceMuCutoffHas') &
-      result(has)
+      bind(C, name='NuclearPlusInterferenceMuCutoffHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearPlusInterferenceMuCutoffHas
 end function NuclearPlusInterferenceMuCutoffHas
 
 !! Get
 function NuclearPlusInterferenceMuCutoffGet(handle) &
-      bind(C, name='NuclearPlusInterferenceMuCutoffGet') &
-      result(muCutoff)
+      bind(C, name='NuclearPlusInterferenceMuCutoffGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: muCutoff
+   real(c_double) :: NuclearPlusInterferenceMuCutoffGet
 end function NuclearPlusInterferenceMuCutoffGet
 
 !! Set
@@ -181,32 +170,29 @@ end subroutine NuclearPlusInterferenceMuCutoffSet
 
 !! Has
 function NuclearPlusInterferenceCrossSectionHas(handle) &
-      bind(C, name='NuclearPlusInterferenceCrossSectionHas') &
-      result(has)
+      bind(C, name='NuclearPlusInterferenceCrossSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearPlusInterferenceCrossSectionHas
 end function NuclearPlusInterferenceCrossSectionHas
 
 !! Get, const
 function NuclearPlusInterferenceCrossSectionGetConst(handle) &
-      bind(C, name='NuclearPlusInterferenceCrossSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearPlusInterferenceCrossSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearPlusInterferenceCrossSectionGetConst
 end function NuclearPlusInterferenceCrossSectionGetConst
 
 !! Get
 function NuclearPlusInterferenceCrossSectionGet(handle) &
-      bind(C, name='NuclearPlusInterferenceCrossSectionGet') &
-      result(resultHandle)
+      bind(C, name='NuclearPlusInterferenceCrossSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearPlusInterferenceCrossSectionGet
 end function NuclearPlusInterferenceCrossSectionGet
 
 !! Set
@@ -225,32 +211,29 @@ end subroutine NuclearPlusInterferenceCrossSectionSet
 
 !! Has
 function NuclearPlusInterferenceDistributionHas(handle) &
-      bind(C, name='NuclearPlusInterferenceDistributionHas') &
-      result(has)
+      bind(C, name='NuclearPlusInterferenceDistributionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearPlusInterferenceDistributionHas
 end function NuclearPlusInterferenceDistributionHas
 
 !! Get, const
 function NuclearPlusInterferenceDistributionGetConst(handle) &
-      bind(C, name='NuclearPlusInterferenceDistributionGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearPlusInterferenceDistributionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearPlusInterferenceDistributionGetConst
 end function NuclearPlusInterferenceDistributionGetConst
 
 !! Get
 function NuclearPlusInterferenceDistributionGet(handle) &
-      bind(C, name='NuclearPlusInterferenceDistributionGet') &
-      result(resultHandle)
+      bind(C, name='NuclearPlusInterferenceDistributionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearPlusInterferenceDistributionGet
 end function NuclearPlusInterferenceDistributionGet
 
 !! Set

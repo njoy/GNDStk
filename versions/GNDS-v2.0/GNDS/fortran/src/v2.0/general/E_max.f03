@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function E_maxDefaultConst() &
-      bind(C, name='E_maxDefaultConst') &
-      result(handle)
+      bind(C, name='E_maxDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_maxDefaultConst
 end function E_maxDefaultConst
 
 !! Create, default
 function E_maxDefault() &
-      bind(C, name='E_maxDefault') &
-      result(handle)
+      bind(C, name='E_maxDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_maxDefault
 end function E_maxDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function E_maxCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='E_maxCreateConst') &
-      result(handle)
+      bind(C, name='E_maxCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_maxCreateConst
 end function E_maxCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function E_maxCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='E_maxCreate') &
-      result(handle)
+      bind(C, name='E_maxCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_maxCreate
 end function E_maxCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine E_maxDelete
 
 !! Read from file
 function E_maxRead(handle, filename, filenameSize) &
-      bind(C, name='E_maxRead') &
-      result(success)
+      bind(C, name='E_maxRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: E_maxRead
 end function E_maxRead
 
 !! Write to file
 function E_maxWrite(handle, filename, filenameSize) &
-      bind(C, name='E_maxWrite') &
-      result(success)
+      bind(C, name='E_maxWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: E_maxWrite
 end function E_maxWrite
 
 !! Print to standard output, in our prettyprinting format
 function E_maxPrint(handle) &
-      bind(C, name='E_maxPrint') &
-      result(success)
+      bind(C, name='E_maxPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: E_maxPrint
 end function E_maxPrint
 
 !! Print to standard output, as XML
 function E_maxPrintXML(handle) &
-      bind(C, name='E_maxPrintXML') &
-      result(success)
+      bind(C, name='E_maxPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: E_maxPrintXML
 end function E_maxPrintXML
 
 !! Print to standard output, as JSON
 function E_maxPrintJSON(handle) &
-      bind(C, name='E_maxPrintJSON') &
-      result(success)
+      bind(C, name='E_maxPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: E_maxPrintJSON
 end function E_maxPrintJSON
 
 
@@ -146,22 +137,20 @@ end function E_maxPrintJSON
 
 !! Has
 function E_maxValueHas(handle) &
-      bind(C, name='E_maxValueHas') &
-      result(has)
+      bind(C, name='E_maxValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: E_maxValueHas
 end function E_maxValueHas
 
 !! Get
 function E_maxValueGet(handle) &
-      bind(C, name='E_maxValueGet') &
-      result(value)
+      bind(C, name='E_maxValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: E_maxValueGet
 end function E_maxValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine E_maxValueSet
 
 !! Has
 function E_maxUnitHas(handle) &
-      bind(C, name='E_maxUnitHas') &
-      result(has)
+      bind(C, name='E_maxUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: E_maxUnitHas
 end function E_maxUnitHas
 
 !! Get
 function E_maxUnitGet(handle) &
-      bind(C, name='E_maxUnitGet') &
-      result(unit)
+      bind(C, name='E_maxUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: E_maxUnitGet
 end function E_maxUnitGet
 
 !! Set

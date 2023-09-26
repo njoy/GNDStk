@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function BoundAtomCrossSectionDefaultConst() &
-      bind(C, name='BoundAtomCrossSectionDefaultConst') &
-      result(handle)
+      bind(C, name='BoundAtomCrossSectionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BoundAtomCrossSectionDefaultConst
 end function BoundAtomCrossSectionDefaultConst
 
 !! Create, default
 function BoundAtomCrossSectionDefault() &
-      bind(C, name='BoundAtomCrossSectionDefault') &
-      result(handle)
+      bind(C, name='BoundAtomCrossSectionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BoundAtomCrossSectionDefault
 end function BoundAtomCrossSectionDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function BoundAtomCrossSectionCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='BoundAtomCrossSectionCreateConst') &
-      result(handle)
+      bind(C, name='BoundAtomCrossSectionCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: BoundAtomCrossSectionCreateConst
 end function BoundAtomCrossSectionCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function BoundAtomCrossSectionCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='BoundAtomCrossSectionCreate') &
-      result(handle)
+      bind(C, name='BoundAtomCrossSectionCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: BoundAtomCrossSectionCreate
 end function BoundAtomCrossSectionCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine BoundAtomCrossSectionDelete
 
 !! Read from file
 function BoundAtomCrossSectionRead(handle, filename, filenameSize) &
-      bind(C, name='BoundAtomCrossSectionRead') &
-      result(success)
+      bind(C, name='BoundAtomCrossSectionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BoundAtomCrossSectionRead
 end function BoundAtomCrossSectionRead
 
 !! Write to file
 function BoundAtomCrossSectionWrite(handle, filename, filenameSize) &
-      bind(C, name='BoundAtomCrossSectionWrite') &
-      result(success)
+      bind(C, name='BoundAtomCrossSectionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BoundAtomCrossSectionWrite
 end function BoundAtomCrossSectionWrite
 
 !! Print to standard output, in our prettyprinting format
 function BoundAtomCrossSectionPrint(handle) &
-      bind(C, name='BoundAtomCrossSectionPrint') &
-      result(success)
+      bind(C, name='BoundAtomCrossSectionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BoundAtomCrossSectionPrint
 end function BoundAtomCrossSectionPrint
 
 !! Print to standard output, as XML
 function BoundAtomCrossSectionPrintXML(handle) &
-      bind(C, name='BoundAtomCrossSectionPrintXML') &
-      result(success)
+      bind(C, name='BoundAtomCrossSectionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BoundAtomCrossSectionPrintXML
 end function BoundAtomCrossSectionPrintXML
 
 !! Print to standard output, as JSON
 function BoundAtomCrossSectionPrintJSON(handle) &
-      bind(C, name='BoundAtomCrossSectionPrintJSON') &
-      result(success)
+      bind(C, name='BoundAtomCrossSectionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BoundAtomCrossSectionPrintJSON
 end function BoundAtomCrossSectionPrintJSON
 
 
@@ -146,22 +137,20 @@ end function BoundAtomCrossSectionPrintJSON
 
 !! Has
 function BoundAtomCrossSectionValueHas(handle) &
-      bind(C, name='BoundAtomCrossSectionValueHas') &
-      result(has)
+      bind(C, name='BoundAtomCrossSectionValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BoundAtomCrossSectionValueHas
 end function BoundAtomCrossSectionValueHas
 
 !! Get
 function BoundAtomCrossSectionValueGet(handle) &
-      bind(C, name='BoundAtomCrossSectionValueGet') &
-      result(value)
+      bind(C, name='BoundAtomCrossSectionValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: BoundAtomCrossSectionValueGet
 end function BoundAtomCrossSectionValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine BoundAtomCrossSectionValueSet
 
 !! Has
 function BoundAtomCrossSectionUnitHas(handle) &
-      bind(C, name='BoundAtomCrossSectionUnitHas') &
-      result(has)
+      bind(C, name='BoundAtomCrossSectionUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BoundAtomCrossSectionUnitHas
 end function BoundAtomCrossSectionUnitHas
 
 !! Get
 function BoundAtomCrossSectionUnitGet(handle) &
-      bind(C, name='BoundAtomCrossSectionUnitGet') &
-      result(unit)
+      bind(C, name='BoundAtomCrossSectionUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: BoundAtomCrossSectionUnitGet
 end function BoundAtomCrossSectionUnitGet
 
 !! Set

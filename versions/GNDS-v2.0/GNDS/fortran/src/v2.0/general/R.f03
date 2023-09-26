@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function RDefaultConst() &
-      bind(C, name='RDefaultConst') &
-      result(handle)
+      bind(C, name='RDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RDefaultConst
 end function RDefaultConst
 
 !! Create, default
 function RDefault() &
-      bind(C, name='RDefault') &
-      result(handle)
+      bind(C, name='RDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RDefault
 end function RDefault
 
 !! Create, general, const
 function RCreateConst( &
    XYs2d &
 ) &
-      bind(C, name='RCreateConst') &
-      result(handle)
+      bind(C, name='RCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: RCreateConst
 end function RCreateConst
 
 !! Create, general
 function RCreate( &
    XYs2d &
 ) &
-      bind(C, name='RCreate') &
-      result(handle)
+      bind(C, name='RCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: RCreate
 end function RCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine RDelete
 
 !! Read from file
 function RRead(handle, filename, filenameSize) &
-      bind(C, name='RRead') &
-      result(success)
+      bind(C, name='RRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RRead
 end function RRead
 
 !! Write to file
 function RWrite(handle, filename, filenameSize) &
-      bind(C, name='RWrite') &
-      result(success)
+      bind(C, name='RWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RWrite
 end function RWrite
 
 !! Print to standard output, in our prettyprinting format
 function RPrint(handle) &
-      bind(C, name='RPrint') &
-      result(success)
+      bind(C, name='RPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RPrint
 end function RPrint
 
 !! Print to standard output, as XML
 function RPrintXML(handle) &
-      bind(C, name='RPrintXML') &
-      result(success)
+      bind(C, name='RPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RPrintXML
 end function RPrintXML
 
 !! Print to standard output, as JSON
 function RPrintJSON(handle) &
-      bind(C, name='RPrintJSON') &
-      result(success)
+      bind(C, name='RPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RPrintJSON
 end function RPrintJSON
 
 
@@ -138,32 +129,29 @@ end function RPrintJSON
 
 !! Has
 function RXYs2dHas(handle) &
-      bind(C, name='RXYs2dHas') &
-      result(has)
+      bind(C, name='RXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RXYs2dHas
 end function RXYs2dHas
 
 !! Get, const
 function RXYs2dGetConst(handle) &
-      bind(C, name='RXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='RXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RXYs2dGetConst
 end function RXYs2dGetConst
 
 !! Get
 function RXYs2dGet(handle) &
-      bind(C, name='RXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='RXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RXYs2dGet
 end function RXYs2dGet
 
 !! Set

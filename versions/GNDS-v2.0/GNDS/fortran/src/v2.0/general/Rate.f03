@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function RateDefaultConst() &
-      bind(C, name='RateDefaultConst') &
-      result(handle)
+      bind(C, name='RateDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RateDefaultConst
 end function RateDefaultConst
 
 !! Create, default
 function RateDefault() &
-      bind(C, name='RateDefault') &
-      result(handle)
+      bind(C, name='RateDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RateDefault
 end function RateDefault
 
 !! Create, general, const
 function RateCreateConst( &
    Double &
 ) &
-      bind(C, name='RateCreateConst') &
-      result(handle)
+      bind(C, name='RateCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: RateCreateConst
 end function RateCreateConst
 
 !! Create, general
 function RateCreate( &
    Double &
 ) &
-      bind(C, name='RateCreate') &
-      result(handle)
+      bind(C, name='RateCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: RateCreate
 end function RateCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine RateDelete
 
 !! Read from file
 function RateRead(handle, filename, filenameSize) &
-      bind(C, name='RateRead') &
-      result(success)
+      bind(C, name='RateRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RateRead
 end function RateRead
 
 !! Write to file
 function RateWrite(handle, filename, filenameSize) &
-      bind(C, name='RateWrite') &
-      result(success)
+      bind(C, name='RateWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RateWrite
 end function RateWrite
 
 !! Print to standard output, in our prettyprinting format
 function RatePrint(handle) &
-      bind(C, name='RatePrint') &
-      result(success)
+      bind(C, name='RatePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RatePrint
 end function RatePrint
 
 !! Print to standard output, as XML
 function RatePrintXML(handle) &
-      bind(C, name='RatePrintXML') &
-      result(success)
+      bind(C, name='RatePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RatePrintXML
 end function RatePrintXML
 
 !! Print to standard output, as JSON
 function RatePrintJSON(handle) &
-      bind(C, name='RatePrintJSON') &
-      result(success)
+      bind(C, name='RatePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RatePrintJSON
 end function RatePrintJSON
 
 
@@ -138,32 +129,29 @@ end function RatePrintJSON
 
 !! Has
 function RateDoubleHas(handle) &
-      bind(C, name='RateDoubleHas') &
-      result(has)
+      bind(C, name='RateDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RateDoubleHas
 end function RateDoubleHas
 
 !! Get, const
 function RateDoubleGetConst(handle) &
-      bind(C, name='RateDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='RateDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RateDoubleGetConst
 end function RateDoubleGetConst
 
 !! Get
 function RateDoubleGet(handle) &
-      bind(C, name='RateDoubleGet') &
-      result(resultHandle)
+      bind(C, name='RateDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RateDoubleGet
 end function RateDoubleGet
 
 !! Set

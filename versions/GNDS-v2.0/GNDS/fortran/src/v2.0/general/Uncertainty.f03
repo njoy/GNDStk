@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UncertaintyDefaultConst() &
-      bind(C, name='UncertaintyDefaultConst') &
-      result(handle)
+      bind(C, name='UncertaintyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncertaintyDefaultConst
 end function UncertaintyDefaultConst
 
 !! Create, default
 function UncertaintyDefault() &
-      bind(C, name='UncertaintyDefault') &
-      result(handle)
+      bind(C, name='UncertaintyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncertaintyDefault
 end function UncertaintyDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function UncertaintyCreateConst( &
    listOfCovariances, &
    polynomial1d &
 ) &
-      bind(C, name='UncertaintyCreateConst') &
-      result(handle)
+      bind(C, name='UncertaintyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: covariance
    type(c_ptr), value :: standard
    type(c_ptr), value :: listOfCovariances
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncertaintyCreateConst
 end function UncertaintyCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function UncertaintyCreate( &
    listOfCovariances, &
    polynomial1d &
 ) &
-      bind(C, name='UncertaintyCreate') &
-      result(handle)
+      bind(C, name='UncertaintyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: covariance
    type(c_ptr), value :: standard
    type(c_ptr), value :: listOfCovariances
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: UncertaintyCreate
 end function UncertaintyCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine UncertaintyDelete
 
 !! Read from file
 function UncertaintyRead(handle, filename, filenameSize) &
-      bind(C, name='UncertaintyRead') &
-      result(success)
+      bind(C, name='UncertaintyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UncertaintyRead
 end function UncertaintyRead
 
 !! Write to file
 function UncertaintyWrite(handle, filename, filenameSize) &
-      bind(C, name='UncertaintyWrite') &
-      result(success)
+      bind(C, name='UncertaintyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UncertaintyWrite
 end function UncertaintyWrite
 
 !! Print to standard output, in our prettyprinting format
 function UncertaintyPrint(handle) &
-      bind(C, name='UncertaintyPrint') &
-      result(success)
+      bind(C, name='UncertaintyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UncertaintyPrint
 end function UncertaintyPrint
 
 !! Print to standard output, as XML
 function UncertaintyPrintXML(handle) &
-      bind(C, name='UncertaintyPrintXML') &
-      result(success)
+      bind(C, name='UncertaintyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UncertaintyPrintXML
 end function UncertaintyPrintXML
 
 !! Print to standard output, as JSON
 function UncertaintyPrintJSON(handle) &
-      bind(C, name='UncertaintyPrintJSON') &
-      result(success)
+      bind(C, name='UncertaintyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UncertaintyPrintJSON
 end function UncertaintyPrintJSON
 
 
@@ -150,32 +141,29 @@ end function UncertaintyPrintJSON
 
 !! Has
 function UncertaintyCovarianceHas(handle) &
-      bind(C, name='UncertaintyCovarianceHas') &
-      result(has)
+      bind(C, name='UncertaintyCovarianceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncertaintyCovarianceHas
 end function UncertaintyCovarianceHas
 
 !! Get, const
 function UncertaintyCovarianceGetConst(handle) &
-      bind(C, name='UncertaintyCovarianceGetConst') &
-      result(resultHandle)
+      bind(C, name='UncertaintyCovarianceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyCovarianceGetConst
 end function UncertaintyCovarianceGetConst
 
 !! Get
 function UncertaintyCovarianceGet(handle) &
-      bind(C, name='UncertaintyCovarianceGet') &
-      result(resultHandle)
+      bind(C, name='UncertaintyCovarianceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyCovarianceGet
 end function UncertaintyCovarianceGet
 
 !! Set
@@ -194,32 +182,29 @@ end subroutine UncertaintyCovarianceSet
 
 !! Has
 function UncertaintyStandardHas(handle) &
-      bind(C, name='UncertaintyStandardHas') &
-      result(has)
+      bind(C, name='UncertaintyStandardHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncertaintyStandardHas
 end function UncertaintyStandardHas
 
 !! Get, const
 function UncertaintyStandardGetConst(handle) &
-      bind(C, name='UncertaintyStandardGetConst') &
-      result(resultHandle)
+      bind(C, name='UncertaintyStandardGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyStandardGetConst
 end function UncertaintyStandardGetConst
 
 !! Get
 function UncertaintyStandardGet(handle) &
-      bind(C, name='UncertaintyStandardGet') &
-      result(resultHandle)
+      bind(C, name='UncertaintyStandardGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyStandardGet
 end function UncertaintyStandardGet
 
 !! Set
@@ -238,32 +223,29 @@ end subroutine UncertaintyStandardSet
 
 !! Has
 function UncertaintyListOfCovariancesHas(handle) &
-      bind(C, name='UncertaintyListOfCovariancesHas') &
-      result(has)
+      bind(C, name='UncertaintyListOfCovariancesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncertaintyListOfCovariancesHas
 end function UncertaintyListOfCovariancesHas
 
 !! Get, const
 function UncertaintyListOfCovariancesGetConst(handle) &
-      bind(C, name='UncertaintyListOfCovariancesGetConst') &
-      result(resultHandle)
+      bind(C, name='UncertaintyListOfCovariancesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyListOfCovariancesGetConst
 end function UncertaintyListOfCovariancesGetConst
 
 !! Get
 function UncertaintyListOfCovariancesGet(handle) &
-      bind(C, name='UncertaintyListOfCovariancesGet') &
-      result(resultHandle)
+      bind(C, name='UncertaintyListOfCovariancesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyListOfCovariancesGet
 end function UncertaintyListOfCovariancesGet
 
 !! Set
@@ -282,32 +264,29 @@ end subroutine UncertaintyListOfCovariancesSet
 
 !! Has
 function UncertaintyPolynomial1dHas(handle) &
-      bind(C, name='UncertaintyPolynomial1dHas') &
-      result(has)
+      bind(C, name='UncertaintyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UncertaintyPolynomial1dHas
 end function UncertaintyPolynomial1dHas
 
 !! Get, const
 function UncertaintyPolynomial1dGetConst(handle) &
-      bind(C, name='UncertaintyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='UncertaintyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyPolynomial1dGetConst
 end function UncertaintyPolynomial1dGetConst
 
 !! Get
 function UncertaintyPolynomial1dGet(handle) &
-      bind(C, name='UncertaintyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='UncertaintyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UncertaintyPolynomial1dGet
 end function UncertaintyPolynomial1dGet
 
 !! Set

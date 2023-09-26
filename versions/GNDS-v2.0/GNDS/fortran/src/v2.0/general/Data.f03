@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function DataDefaultConst() &
-      bind(C, name='DataDefaultConst') &
-      result(handle)
+      bind(C, name='DataDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DataDefaultConst
 end function DataDefaultConst
 
 !! Create, default
 function DataDefault() &
-      bind(C, name='DataDefault') &
-      result(handle)
+      bind(C, name='DataDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DataDefault
 end function DataDefault
 
 !! Create, general, const
 function DataCreateConst( &
 ) &
-      bind(C, name='DataCreateConst') &
-      result(handle)
+      bind(C, name='DataCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DataCreateConst
 end function DataCreateConst
 
 !! Create, general
 function DataCreate( &
 ) &
-      bind(C, name='DataCreate') &
-      result(handle)
+      bind(C, name='DataCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DataCreate
 end function DataCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine DataDelete
 
 !! Read from file
 function DataRead(handle, filename, filenameSize) &
-      bind(C, name='DataRead') &
-      result(success)
+      bind(C, name='DataRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DataRead
 end function DataRead
 
 !! Write to file
 function DataWrite(handle, filename, filenameSize) &
-      bind(C, name='DataWrite') &
-      result(success)
+      bind(C, name='DataWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DataWrite
 end function DataWrite
 
 !! Print to standard output, in our prettyprinting format
 function DataPrint(handle) &
-      bind(C, name='DataPrint') &
-      result(success)
+      bind(C, name='DataPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DataPrint
 end function DataPrint
 
 !! Print to standard output, as XML
 function DataPrintXML(handle) &
-      bind(C, name='DataPrintXML') &
-      result(success)
+      bind(C, name='DataPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DataPrintXML
 end function DataPrintXML
 
 !! Print to standard output, as JSON
 function DataPrintJSON(handle) &
-      bind(C, name='DataPrintJSON') &
-      result(success)
+      bind(C, name='DataPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DataPrintJSON
 end function DataPrintJSON
 
 
@@ -142,24 +133,22 @@ end subroutine DataDoublesClear
 
 !! Get size
 function DataDoublesSize(handle) &
-      bind(C, name='DataDoublesSize') &
-      result(arraySize)
+      bind(C, name='DataDoublesSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: arraySize
+   integer(c_size_t) :: DataDoublesSize
 end function DataDoublesSize
 
 !! Get value
 !! By index \in [0,size)
 function DataDoublesGet(handle, arrayIndex) &
-      bind(C, name='DataDoublesGet') &
-      result(valueAtIndex)
+      bind(C, name='DataDoublesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   real(c_double) :: valueAtIndex
+   real(c_double) :: DataDoublesGet
 end function DataDoublesGet
 
 !! Set value
@@ -175,22 +164,20 @@ end subroutine DataDoublesSet
 
 !! Get pointer to existing values, const
 function DataDoublesGetArrayConst(handle) &
-      bind(C, name='DataDoublesGetArrayConst') &
-      result(ptrToArray)
+      bind(C, name='DataDoublesGetArrayConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: DataDoublesGetArrayConst
 end function DataDoublesGetArrayConst
 
 !! Get pointer to existing values
 function DataDoublesGetArray(handle) &
-      bind(C, name='DataDoublesGetArray') &
-      result(ptrToArray)
+      bind(C, name='DataDoublesGetArray')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: DataDoublesGetArray
 end function DataDoublesGetArray
 
 !! Set completely new values and size

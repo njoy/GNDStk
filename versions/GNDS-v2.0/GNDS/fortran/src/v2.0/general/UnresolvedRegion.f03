@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UnresolvedRegionDefaultConst() &
-      bind(C, name='UnresolvedRegionDefaultConst') &
-      result(handle)
+      bind(C, name='UnresolvedRegionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedRegionDefaultConst
 end function UnresolvedRegionDefaultConst
 
 !! Create, default
 function UnresolvedRegionDefault() &
-      bind(C, name='UnresolvedRegionDefault') &
-      result(handle)
+      bind(C, name='UnresolvedRegionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedRegionDefault
 end function UnresolvedRegionDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function UnresolvedRegionCreateConst( &
    XYs1d, &
    regions1d &
 ) &
-      bind(C, name='UnresolvedRegionCreateConst') &
-      result(handle)
+      bind(C, name='UnresolvedRegionCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedRegionCreateConst
 end function UnresolvedRegionCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function UnresolvedRegionCreate( &
    XYs1d, &
    regions1d &
 ) &
-      bind(C, name='UnresolvedRegionCreate') &
-      result(handle)
+      bind(C, name='UnresolvedRegionCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnresolvedRegionCreate
 end function UnresolvedRegionCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine UnresolvedRegionDelete
 
 !! Read from file
 function UnresolvedRegionRead(handle, filename, filenameSize) &
-      bind(C, name='UnresolvedRegionRead') &
-      result(success)
+      bind(C, name='UnresolvedRegionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedRegionRead
 end function UnresolvedRegionRead
 
 !! Write to file
 function UnresolvedRegionWrite(handle, filename, filenameSize) &
-      bind(C, name='UnresolvedRegionWrite') &
-      result(success)
+      bind(C, name='UnresolvedRegionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedRegionWrite
 end function UnresolvedRegionWrite
 
 !! Print to standard output, in our prettyprinting format
 function UnresolvedRegionPrint(handle) &
-      bind(C, name='UnresolvedRegionPrint') &
-      result(success)
+      bind(C, name='UnresolvedRegionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedRegionPrint
 end function UnresolvedRegionPrint
 
 !! Print to standard output, as XML
 function UnresolvedRegionPrintXML(handle) &
-      bind(C, name='UnresolvedRegionPrintXML') &
-      result(success)
+      bind(C, name='UnresolvedRegionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedRegionPrintXML
 end function UnresolvedRegionPrintXML
 
 !! Print to standard output, as JSON
 function UnresolvedRegionPrintJSON(handle) &
-      bind(C, name='UnresolvedRegionPrintJSON') &
-      result(success)
+      bind(C, name='UnresolvedRegionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnresolvedRegionPrintJSON
 end function UnresolvedRegionPrintJSON
 
 
@@ -142,32 +133,29 @@ end function UnresolvedRegionPrintJSON
 
 !! Has
 function UnresolvedRegionXYs1dHas(handle) &
-      bind(C, name='UnresolvedRegionXYs1dHas') &
-      result(has)
+      bind(C, name='UnresolvedRegionXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnresolvedRegionXYs1dHas
 end function UnresolvedRegionXYs1dHas
 
 !! Get, const
 function UnresolvedRegionXYs1dGetConst(handle) &
-      bind(C, name='UnresolvedRegionXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='UnresolvedRegionXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnresolvedRegionXYs1dGetConst
 end function UnresolvedRegionXYs1dGetConst
 
 !! Get
 function UnresolvedRegionXYs1dGet(handle) &
-      bind(C, name='UnresolvedRegionXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='UnresolvedRegionXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnresolvedRegionXYs1dGet
 end function UnresolvedRegionXYs1dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine UnresolvedRegionXYs1dSet
 
 !! Has
 function UnresolvedRegionRegions1dHas(handle) &
-      bind(C, name='UnresolvedRegionRegions1dHas') &
-      result(has)
+      bind(C, name='UnresolvedRegionRegions1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnresolvedRegionRegions1dHas
 end function UnresolvedRegionRegions1dHas
 
 !! Get, const
 function UnresolvedRegionRegions1dGetConst(handle) &
-      bind(C, name='UnresolvedRegionRegions1dGetConst') &
-      result(resultHandle)
+      bind(C, name='UnresolvedRegionRegions1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnresolvedRegionRegions1dGetConst
 end function UnresolvedRegionRegions1dGetConst
 
 !! Get
 function UnresolvedRegionRegions1dGet(handle) &
-      bind(C, name='UnresolvedRegionRegions1dGet') &
-      result(resultHandle)
+      bind(C, name='UnresolvedRegionRegions1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnresolvedRegionRegions1dGet
 end function UnresolvedRegionRegions1dGet
 
 !! Set

@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function IncidentEnergiesDefaultConst() &
-      bind(C, name='IncidentEnergiesDefaultConst') &
-      result(handle)
+      bind(C, name='IncidentEnergiesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncidentEnergiesDefaultConst
 end function IncidentEnergiesDefaultConst
 
 !! Create, default
 function IncidentEnergiesDefault() &
-      bind(C, name='IncidentEnergiesDefault') &
-      result(handle)
+      bind(C, name='IncidentEnergiesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncidentEnergiesDefault
 end function IncidentEnergiesDefault
 
 !! Create, general, const
 function IncidentEnergiesCreateConst( &
    incidentEnergy, incidentEnergySize &
 ) &
-      bind(C, name='IncidentEnergiesCreateConst') &
-      result(handle)
+      bind(C, name='IncidentEnergiesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: incidentEnergySize
    type(c_ptr) :: incidentEnergy(incidentEnergySize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncidentEnergiesCreateConst
 end function IncidentEnergiesCreateConst
 
 !! Create, general
 function IncidentEnergiesCreate( &
    incidentEnergy, incidentEnergySize &
 ) &
-      bind(C, name='IncidentEnergiesCreate') &
-      result(handle)
+      bind(C, name='IncidentEnergiesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: incidentEnergySize
    type(c_ptr) :: incidentEnergy(incidentEnergySize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IncidentEnergiesCreate
 end function IncidentEnergiesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine IncidentEnergiesDelete
 
 !! Read from file
 function IncidentEnergiesRead(handle, filename, filenameSize) &
-      bind(C, name='IncidentEnergiesRead') &
-      result(success)
+      bind(C, name='IncidentEnergiesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IncidentEnergiesRead
 end function IncidentEnergiesRead
 
 !! Write to file
 function IncidentEnergiesWrite(handle, filename, filenameSize) &
-      bind(C, name='IncidentEnergiesWrite') &
-      result(success)
+      bind(C, name='IncidentEnergiesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IncidentEnergiesWrite
 end function IncidentEnergiesWrite
 
 !! Print to standard output, in our prettyprinting format
 function IncidentEnergiesPrint(handle) &
-      bind(C, name='IncidentEnergiesPrint') &
-      result(success)
+      bind(C, name='IncidentEnergiesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncidentEnergiesPrint
 end function IncidentEnergiesPrint
 
 !! Print to standard output, as XML
 function IncidentEnergiesPrintXML(handle) &
-      bind(C, name='IncidentEnergiesPrintXML') &
-      result(success)
+      bind(C, name='IncidentEnergiesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncidentEnergiesPrintXML
 end function IncidentEnergiesPrintXML
 
 !! Print to standard output, as JSON
 function IncidentEnergiesPrintJSON(handle) &
-      bind(C, name='IncidentEnergiesPrintJSON') &
-      result(success)
+      bind(C, name='IncidentEnergiesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IncidentEnergiesPrintJSON
 end function IncidentEnergiesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function IncidentEnergiesPrintJSON
 
 !! Has
 function IncidentEnergiesIncidentEnergyHas(handle) &
-      bind(C, name='IncidentEnergiesIncidentEnergyHas') &
-      result(has)
+      bind(C, name='IncidentEnergiesIncidentEnergyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IncidentEnergiesIncidentEnergyHas
 end function IncidentEnergiesIncidentEnergyHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine IncidentEnergiesIncidentEnergyClear
 
 !! Size
 function IncidentEnergiesIncidentEnergySize(handle) &
-      bind(C, name='IncidentEnergiesIncidentEnergySize') &
-      result(vectorSize)
+      bind(C, name='IncidentEnergiesIncidentEnergySize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: IncidentEnergiesIncidentEnergySize
 end function IncidentEnergiesIncidentEnergySize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine IncidentEnergiesIncidentEnergyAdd
 
 !! Get, by index \in [0,size), const
 function IncidentEnergiesIncidentEnergyGetConst(handle, index) &
-      bind(C, name='IncidentEnergiesIncidentEnergyGetConst') &
-      result(resultHandle)
+      bind(C, name='IncidentEnergiesIncidentEnergyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncidentEnergiesIncidentEnergyGetConst
 end function IncidentEnergiesIncidentEnergyGetConst
 
 !! Get, by index \in [0,size)
 function IncidentEnergiesIncidentEnergyGet(handle, index) &
-      bind(C, name='IncidentEnergiesIncidentEnergyGet') &
-      result(resultHandle)
+      bind(C, name='IncidentEnergiesIncidentEnergyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncidentEnergiesIncidentEnergyGet
 end function IncidentEnergiesIncidentEnergyGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine IncidentEnergiesIncidentEnergySet
 
 !! Has, by label
 function IncidentEnergiesIncidentEnergyHasByLabel(handle, meta, metaSize) &
-      bind(C, name='IncidentEnergiesIncidentEnergyHasByLabel') &
-      result(has)
+      bind(C, name='IncidentEnergiesIncidentEnergyHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: IncidentEnergiesIncidentEnergyHasByLabel
 end function IncidentEnergiesIncidentEnergyHasByLabel
 
 !! Get, by label, const
 function IncidentEnergiesIncidentEnergyGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='IncidentEnergiesIncidentEnergyGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='IncidentEnergiesIncidentEnergyGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncidentEnergiesIncidentEnergyGetByLabelConst
 end function IncidentEnergiesIncidentEnergyGetByLabelConst
 
 !! Get, by label
 function IncidentEnergiesIncidentEnergyGetByLabel(handle, meta, metaSize) &
-      bind(C, name='IncidentEnergiesIncidentEnergyGetByLabel') &
-      result(resultHandle)
+      bind(C, name='IncidentEnergiesIncidentEnergyGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: IncidentEnergiesIncidentEnergyGetByLabel
 end function IncidentEnergiesIncidentEnergyGetByLabel
 
 !! Set, by label

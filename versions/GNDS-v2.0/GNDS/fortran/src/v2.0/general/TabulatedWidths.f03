@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function TabulatedWidthsDefaultConst() &
-      bind(C, name='TabulatedWidthsDefaultConst') &
-      result(handle)
+      bind(C, name='TabulatedWidthsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TabulatedWidthsDefaultConst
 end function TabulatedWidthsDefaultConst
 
 !! Create, default
 function TabulatedWidthsDefault() &
-      bind(C, name='TabulatedWidthsDefault') &
-      result(handle)
+      bind(C, name='TabulatedWidthsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TabulatedWidthsDefault
 end function TabulatedWidthsDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function TabulatedWidthsCreateConst( &
    labelSize, &
    approximationSize &
 ) &
-      bind(C, name='TabulatedWidthsCreateConst') &
-      result(handle)
+      bind(C, name='TabulatedWidthsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -55,7 +52,7 @@ function TabulatedWidthsCreateConst( &
    type(c_ptr), value :: Ls
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: scatteringRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: TabulatedWidthsCreateConst
 end function TabulatedWidthsCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function TabulatedWidthsCreate( &
    labelSize, &
    approximationSize &
 ) &
-      bind(C, name='TabulatedWidthsCreate') &
-      result(handle)
+      bind(C, name='TabulatedWidthsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -83,7 +79,7 @@ function TabulatedWidthsCreate( &
    type(c_ptr), value :: Ls
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: scatteringRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: TabulatedWidthsCreate
 end function TabulatedWidthsCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine TabulatedWidthsDelete
 
 !! Read from file
 function TabulatedWidthsRead(handle, filename, filenameSize) &
-      bind(C, name='TabulatedWidthsRead') &
-      result(success)
+      bind(C, name='TabulatedWidthsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TabulatedWidthsRead
 end function TabulatedWidthsRead
 
 !! Write to file
 function TabulatedWidthsWrite(handle, filename, filenameSize) &
-      bind(C, name='TabulatedWidthsWrite') &
-      result(success)
+      bind(C, name='TabulatedWidthsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TabulatedWidthsWrite
 end function TabulatedWidthsWrite
 
 !! Print to standard output, in our prettyprinting format
 function TabulatedWidthsPrint(handle) &
-      bind(C, name='TabulatedWidthsPrint') &
-      result(success)
+      bind(C, name='TabulatedWidthsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TabulatedWidthsPrint
 end function TabulatedWidthsPrint
 
 !! Print to standard output, as XML
 function TabulatedWidthsPrintXML(handle) &
-      bind(C, name='TabulatedWidthsPrintXML') &
-      result(success)
+      bind(C, name='TabulatedWidthsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TabulatedWidthsPrintXML
 end function TabulatedWidthsPrintXML
 
 !! Print to standard output, as JSON
 function TabulatedWidthsPrintJSON(handle) &
-      bind(C, name='TabulatedWidthsPrintJSON') &
-      result(success)
+      bind(C, name='TabulatedWidthsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TabulatedWidthsPrintJSON
 end function TabulatedWidthsPrintJSON
 
 
@@ -170,22 +161,20 @@ end function TabulatedWidthsPrintJSON
 
 !! Has
 function TabulatedWidthsLabelHas(handle) &
-      bind(C, name='TabulatedWidthsLabelHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsLabelHas
 end function TabulatedWidthsLabelHas
 
 !! Get
 function TabulatedWidthsLabelGet(handle) &
-      bind(C, name='TabulatedWidthsLabelGet') &
-      result(label)
+      bind(C, name='TabulatedWidthsLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: TabulatedWidthsLabelGet
 end function TabulatedWidthsLabelGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine TabulatedWidthsLabelSet
 
 !! Has
 function TabulatedWidthsApproximationHas(handle) &
-      bind(C, name='TabulatedWidthsApproximationHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsApproximationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsApproximationHas
 end function TabulatedWidthsApproximationHas
 
 !! Get
 function TabulatedWidthsApproximationGet(handle) &
-      bind(C, name='TabulatedWidthsApproximationGet') &
-      result(approximation)
+      bind(C, name='TabulatedWidthsApproximationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: approximation
+   type(c_ptr) :: TabulatedWidthsApproximationGet
 end function TabulatedWidthsApproximationGet
 
 !! Set
@@ -240,22 +227,20 @@ end subroutine TabulatedWidthsApproximationSet
 
 !! Has
 function TabulatedWidthsUseForSelfShieldingOnlyHas(handle) &
-      bind(C, name='TabulatedWidthsUseForSelfShieldingOnlyHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsUseForSelfShieldingOnlyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsUseForSelfShieldingOnlyHas
 end function TabulatedWidthsUseForSelfShieldingOnlyHas
 
 !! Get
 function TabulatedWidthsUseForSelfShieldingOnlyGet(handle) &
-      bind(C, name='TabulatedWidthsUseForSelfShieldingOnlyGet') &
-      result(useForSelfShieldingOnly)
+      bind(C, name='TabulatedWidthsUseForSelfShieldingOnlyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: useForSelfShieldingOnly
+   logical(c_bool) :: TabulatedWidthsUseForSelfShieldingOnlyGet
 end function TabulatedWidthsUseForSelfShieldingOnlyGet
 
 !! Set
@@ -275,32 +260,29 @@ end subroutine TabulatedWidthsUseForSelfShieldingOnlySet
 
 !! Has
 function TabulatedWidthsResonanceReactionsHas(handle) &
-      bind(C, name='TabulatedWidthsResonanceReactionsHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsResonanceReactionsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsResonanceReactionsHas
 end function TabulatedWidthsResonanceReactionsHas
 
 !! Get, const
 function TabulatedWidthsResonanceReactionsGetConst(handle) &
-      bind(C, name='TabulatedWidthsResonanceReactionsGetConst') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsResonanceReactionsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsResonanceReactionsGetConst
 end function TabulatedWidthsResonanceReactionsGetConst
 
 !! Get
 function TabulatedWidthsResonanceReactionsGet(handle) &
-      bind(C, name='TabulatedWidthsResonanceReactionsGet') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsResonanceReactionsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsResonanceReactionsGet
 end function TabulatedWidthsResonanceReactionsGet
 
 !! Set
@@ -319,32 +301,29 @@ end subroutine TabulatedWidthsResonanceReactionsSet
 
 !! Has
 function TabulatedWidthsLsHas(handle) &
-      bind(C, name='TabulatedWidthsLsHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsLsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsLsHas
 end function TabulatedWidthsLsHas
 
 !! Get, const
 function TabulatedWidthsLsGetConst(handle) &
-      bind(C, name='TabulatedWidthsLsGetConst') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsLsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsLsGetConst
 end function TabulatedWidthsLsGetConst
 
 !! Get
 function TabulatedWidthsLsGet(handle) &
-      bind(C, name='TabulatedWidthsLsGet') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsLsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsLsGet
 end function TabulatedWidthsLsGet
 
 !! Set
@@ -363,32 +342,29 @@ end subroutine TabulatedWidthsLsSet
 
 !! Has
 function TabulatedWidthsPoPsHas(handle) &
-      bind(C, name='TabulatedWidthsPoPsHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsPoPsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsPoPsHas
 end function TabulatedWidthsPoPsHas
 
 !! Get, const
 function TabulatedWidthsPoPsGetConst(handle) &
-      bind(C, name='TabulatedWidthsPoPsGetConst') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsPoPsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsPoPsGetConst
 end function TabulatedWidthsPoPsGetConst
 
 !! Get
 function TabulatedWidthsPoPsGet(handle) &
-      bind(C, name='TabulatedWidthsPoPsGet') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsPoPsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsPoPsGet
 end function TabulatedWidthsPoPsGet
 
 !! Set
@@ -407,32 +383,29 @@ end subroutine TabulatedWidthsPoPsSet
 
 !! Has
 function TabulatedWidthsScatteringRadiusHas(handle) &
-      bind(C, name='TabulatedWidthsScatteringRadiusHas') &
-      result(has)
+      bind(C, name='TabulatedWidthsScatteringRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TabulatedWidthsScatteringRadiusHas
 end function TabulatedWidthsScatteringRadiusHas
 
 !! Get, const
 function TabulatedWidthsScatteringRadiusGetConst(handle) &
-      bind(C, name='TabulatedWidthsScatteringRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsScatteringRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsScatteringRadiusGetConst
 end function TabulatedWidthsScatteringRadiusGetConst
 
 !! Get
 function TabulatedWidthsScatteringRadiusGet(handle) &
-      bind(C, name='TabulatedWidthsScatteringRadiusGet') &
-      result(resultHandle)
+      bind(C, name='TabulatedWidthsScatteringRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TabulatedWidthsScatteringRadiusGet
 end function TabulatedWidthsScatteringRadiusGet
 
 !! Set

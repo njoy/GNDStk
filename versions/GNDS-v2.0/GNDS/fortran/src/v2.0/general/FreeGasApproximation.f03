@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function FreeGasApproximationDefaultConst() &
-      bind(C, name='FreeGasApproximationDefaultConst') &
-      result(handle)
+      bind(C, name='FreeGasApproximationDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FreeGasApproximationDefaultConst
 end function FreeGasApproximationDefaultConst
 
 !! Create, default
 function FreeGasApproximationDefault() &
-      bind(C, name='FreeGasApproximationDefault') &
-      result(handle)
+      bind(C, name='FreeGasApproximationDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FreeGasApproximationDefault
 end function FreeGasApproximationDefault
 
 !! Create, general, const
 function FreeGasApproximationCreateConst( &
 ) &
-      bind(C, name='FreeGasApproximationCreateConst') &
-      result(handle)
+      bind(C, name='FreeGasApproximationCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FreeGasApproximationCreateConst
 end function FreeGasApproximationCreateConst
 
 !! Create, general
 function FreeGasApproximationCreate( &
 ) &
-      bind(C, name='FreeGasApproximationCreate') &
-      result(handle)
+      bind(C, name='FreeGasApproximationCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FreeGasApproximationCreate
 end function FreeGasApproximationCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine FreeGasApproximationDelete
 
 !! Read from file
 function FreeGasApproximationRead(handle, filename, filenameSize) &
-      bind(C, name='FreeGasApproximationRead') &
-      result(success)
+      bind(C, name='FreeGasApproximationRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FreeGasApproximationRead
 end function FreeGasApproximationRead
 
 !! Write to file
 function FreeGasApproximationWrite(handle, filename, filenameSize) &
-      bind(C, name='FreeGasApproximationWrite') &
-      result(success)
+      bind(C, name='FreeGasApproximationWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FreeGasApproximationWrite
 end function FreeGasApproximationWrite
 
 !! Print to standard output, in our prettyprinting format
 function FreeGasApproximationPrint(handle) &
-      bind(C, name='FreeGasApproximationPrint') &
-      result(success)
+      bind(C, name='FreeGasApproximationPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FreeGasApproximationPrint
 end function FreeGasApproximationPrint
 
 !! Print to standard output, as XML
 function FreeGasApproximationPrintXML(handle) &
-      bind(C, name='FreeGasApproximationPrintXML') &
-      result(success)
+      bind(C, name='FreeGasApproximationPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FreeGasApproximationPrintXML
 end function FreeGasApproximationPrintXML
 
 !! Print to standard output, as JSON
 function FreeGasApproximationPrintJSON(handle) &
-      bind(C, name='FreeGasApproximationPrintJSON') &
-      result(success)
+      bind(C, name='FreeGasApproximationPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FreeGasApproximationPrintJSON
 end function FreeGasApproximationPrintJSON
 
 

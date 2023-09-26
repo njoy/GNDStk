@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ElapsedTimesDefaultConst() &
-      bind(C, name='ElapsedTimesDefaultConst') &
-      result(handle)
+      bind(C, name='ElapsedTimesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ElapsedTimesDefaultConst
 end function ElapsedTimesDefaultConst
 
 !! Create, default
 function ElapsedTimesDefault() &
-      bind(C, name='ElapsedTimesDefault') &
-      result(handle)
+      bind(C, name='ElapsedTimesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ElapsedTimesDefault
 end function ElapsedTimesDefault
 
 !! Create, general, const
 function ElapsedTimesCreateConst( &
    elapsedTime, elapsedTimeSize &
 ) &
-      bind(C, name='ElapsedTimesCreateConst') &
-      result(handle)
+      bind(C, name='ElapsedTimesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: elapsedTimeSize
    type(c_ptr) :: elapsedTime(elapsedTimeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ElapsedTimesCreateConst
 end function ElapsedTimesCreateConst
 
 !! Create, general
 function ElapsedTimesCreate( &
    elapsedTime, elapsedTimeSize &
 ) &
-      bind(C, name='ElapsedTimesCreate') &
-      result(handle)
+      bind(C, name='ElapsedTimesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: elapsedTimeSize
    type(c_ptr) :: elapsedTime(elapsedTimeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ElapsedTimesCreate
 end function ElapsedTimesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ElapsedTimesDelete
 
 !! Read from file
 function ElapsedTimesRead(handle, filename, filenameSize) &
-      bind(C, name='ElapsedTimesRead') &
-      result(success)
+      bind(C, name='ElapsedTimesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ElapsedTimesRead
 end function ElapsedTimesRead
 
 !! Write to file
 function ElapsedTimesWrite(handle, filename, filenameSize) &
-      bind(C, name='ElapsedTimesWrite') &
-      result(success)
+      bind(C, name='ElapsedTimesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ElapsedTimesWrite
 end function ElapsedTimesWrite
 
 !! Print to standard output, in our prettyprinting format
 function ElapsedTimesPrint(handle) &
-      bind(C, name='ElapsedTimesPrint') &
-      result(success)
+      bind(C, name='ElapsedTimesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ElapsedTimesPrint
 end function ElapsedTimesPrint
 
 !! Print to standard output, as XML
 function ElapsedTimesPrintXML(handle) &
-      bind(C, name='ElapsedTimesPrintXML') &
-      result(success)
+      bind(C, name='ElapsedTimesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ElapsedTimesPrintXML
 end function ElapsedTimesPrintXML
 
 !! Print to standard output, as JSON
 function ElapsedTimesPrintJSON(handle) &
-      bind(C, name='ElapsedTimesPrintJSON') &
-      result(success)
+      bind(C, name='ElapsedTimesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ElapsedTimesPrintJSON
 end function ElapsedTimesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ElapsedTimesPrintJSON
 
 !! Has
 function ElapsedTimesElapsedTimeHas(handle) &
-      bind(C, name='ElapsedTimesElapsedTimeHas') &
-      result(has)
+      bind(C, name='ElapsedTimesElapsedTimeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ElapsedTimesElapsedTimeHas
 end function ElapsedTimesElapsedTimeHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ElapsedTimesElapsedTimeClear
 
 !! Size
 function ElapsedTimesElapsedTimeSize(handle) &
-      bind(C, name='ElapsedTimesElapsedTimeSize') &
-      result(vectorSize)
+      bind(C, name='ElapsedTimesElapsedTimeSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ElapsedTimesElapsedTimeSize
 end function ElapsedTimesElapsedTimeSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ElapsedTimesElapsedTimeAdd
 
 !! Get, by index \in [0,size), const
 function ElapsedTimesElapsedTimeGetConst(handle, index) &
-      bind(C, name='ElapsedTimesElapsedTimeGetConst') &
-      result(resultHandle)
+      bind(C, name='ElapsedTimesElapsedTimeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ElapsedTimesElapsedTimeGetConst
 end function ElapsedTimesElapsedTimeGetConst
 
 !! Get, by index \in [0,size)
 function ElapsedTimesElapsedTimeGet(handle, index) &
-      bind(C, name='ElapsedTimesElapsedTimeGet') &
-      result(resultHandle)
+      bind(C, name='ElapsedTimesElapsedTimeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ElapsedTimesElapsedTimeGet
 end function ElapsedTimesElapsedTimeGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ElapsedTimesElapsedTimeSet
 
 !! Has, by label
 function ElapsedTimesElapsedTimeHasByLabel(handle, meta, metaSize) &
-      bind(C, name='ElapsedTimesElapsedTimeHasByLabel') &
-      result(has)
+      bind(C, name='ElapsedTimesElapsedTimeHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ElapsedTimesElapsedTimeHasByLabel
 end function ElapsedTimesElapsedTimeHasByLabel
 
 !! Get, by label, const
 function ElapsedTimesElapsedTimeGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='ElapsedTimesElapsedTimeGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='ElapsedTimesElapsedTimeGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ElapsedTimesElapsedTimeGetByLabelConst
 end function ElapsedTimesElapsedTimeGetByLabelConst
 
 !! Get, by label
 function ElapsedTimesElapsedTimeGetByLabel(handle, meta, metaSize) &
-      bind(C, name='ElapsedTimesElapsedTimeGetByLabel') &
-      result(resultHandle)
+      bind(C, name='ElapsedTimesElapsedTimeGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ElapsedTimesElapsedTimeGetByLabel
 end function ElapsedTimesElapsedTimeGetByLabel
 
 !! Set, by label

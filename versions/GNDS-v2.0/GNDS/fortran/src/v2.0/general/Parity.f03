@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ParityDefaultConst() &
-      bind(C, name='ParityDefaultConst') &
-      result(handle)
+      bind(C, name='ParityDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParityDefaultConst
 end function ParityDefaultConst
 
 !! Create, default
 function ParityDefault() &
-      bind(C, name='ParityDefault') &
-      result(handle)
+      bind(C, name='ParityDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParityDefault
 end function ParityDefault
 
 !! Create, general, const
 function ParityCreateConst( &
    integer &
 ) &
-      bind(C, name='ParityCreateConst') &
-      result(handle)
+      bind(C, name='ParityCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: integer
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParityCreateConst
 end function ParityCreateConst
 
 !! Create, general
 function ParityCreate( &
    integer &
 ) &
-      bind(C, name='ParityCreate') &
-      result(handle)
+      bind(C, name='ParityCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: integer
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParityCreate
 end function ParityCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ParityDelete
 
 !! Read from file
 function ParityRead(handle, filename, filenameSize) &
-      bind(C, name='ParityRead') &
-      result(success)
+      bind(C, name='ParityRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ParityRead
 end function ParityRead
 
 !! Write to file
 function ParityWrite(handle, filename, filenameSize) &
-      bind(C, name='ParityWrite') &
-      result(success)
+      bind(C, name='ParityWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ParityWrite
 end function ParityWrite
 
 !! Print to standard output, in our prettyprinting format
 function ParityPrint(handle) &
-      bind(C, name='ParityPrint') &
-      result(success)
+      bind(C, name='ParityPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParityPrint
 end function ParityPrint
 
 !! Print to standard output, as XML
 function ParityPrintXML(handle) &
-      bind(C, name='ParityPrintXML') &
-      result(success)
+      bind(C, name='ParityPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParityPrintXML
 end function ParityPrintXML
 
 !! Print to standard output, as JSON
 function ParityPrintJSON(handle) &
-      bind(C, name='ParityPrintJSON') &
-      result(success)
+      bind(C, name='ParityPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParityPrintJSON
 end function ParityPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ParityPrintJSON
 
 !! Has
 function ParityIntegerHas(handle) &
-      bind(C, name='ParityIntegerHas') &
-      result(has)
+      bind(C, name='ParityIntegerHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ParityIntegerHas
 end function ParityIntegerHas
 
 !! Get, const
 function ParityIntegerGetConst(handle) &
-      bind(C, name='ParityIntegerGetConst') &
-      result(resultHandle)
+      bind(C, name='ParityIntegerGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParityIntegerGetConst
 end function ParityIntegerGetConst
 
 !! Get
 function ParityIntegerGet(handle) &
-      bind(C, name='ParityIntegerGet') &
-      result(resultHandle)
+      bind(C, name='ParityIntegerGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParityIntegerGet
 end function ParityIntegerGet
 
 !! Set

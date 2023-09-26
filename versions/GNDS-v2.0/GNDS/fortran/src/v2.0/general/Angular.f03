@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AngularDefaultConst() &
-      bind(C, name='AngularDefaultConst') &
-      result(handle)
+      bind(C, name='AngularDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularDefaultConst
 end function AngularDefaultConst
 
 !! Create, default
 function AngularDefault() &
-      bind(C, name='AngularDefault') &
-      result(handle)
+      bind(C, name='AngularDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularDefault
 end function AngularDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function AngularCreateConst( &
    isotropic2d, &
    XYs2d &
 ) &
-      bind(C, name='AngularCreateConst') &
-      result(handle)
+      bind(C, name='AngularCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: isotropic2d
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularCreateConst
 end function AngularCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function AngularCreate( &
    isotropic2d, &
    XYs2d &
 ) &
-      bind(C, name='AngularCreate') &
-      result(handle)
+      bind(C, name='AngularCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: isotropic2d
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: AngularCreate
 end function AngularCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine AngularDelete
 
 !! Read from file
 function AngularRead(handle, filename, filenameSize) &
-      bind(C, name='AngularRead') &
-      result(success)
+      bind(C, name='AngularRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AngularRead
 end function AngularRead
 
 !! Write to file
 function AngularWrite(handle, filename, filenameSize) &
-      bind(C, name='AngularWrite') &
-      result(success)
+      bind(C, name='AngularWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AngularWrite
 end function AngularWrite
 
 !! Print to standard output, in our prettyprinting format
 function AngularPrint(handle) &
-      bind(C, name='AngularPrint') &
-      result(success)
+      bind(C, name='AngularPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularPrint
 end function AngularPrint
 
 !! Print to standard output, as XML
 function AngularPrintXML(handle) &
-      bind(C, name='AngularPrintXML') &
-      result(success)
+      bind(C, name='AngularPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularPrintXML
 end function AngularPrintXML
 
 !! Print to standard output, as JSON
 function AngularPrintJSON(handle) &
-      bind(C, name='AngularPrintJSON') &
-      result(success)
+      bind(C, name='AngularPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AngularPrintJSON
 end function AngularPrintJSON
 
 
@@ -142,32 +133,29 @@ end function AngularPrintJSON
 
 !! Has
 function AngularIsotropic2dHas(handle) &
-      bind(C, name='AngularIsotropic2dHas') &
-      result(has)
+      bind(C, name='AngularIsotropic2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularIsotropic2dHas
 end function AngularIsotropic2dHas
 
 !! Get, const
 function AngularIsotropic2dGetConst(handle) &
-      bind(C, name='AngularIsotropic2dGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularIsotropic2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularIsotropic2dGetConst
 end function AngularIsotropic2dGetConst
 
 !! Get
 function AngularIsotropic2dGet(handle) &
-      bind(C, name='AngularIsotropic2dGet') &
-      result(resultHandle)
+      bind(C, name='AngularIsotropic2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularIsotropic2dGet
 end function AngularIsotropic2dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine AngularIsotropic2dSet
 
 !! Has
 function AngularXYs2dHas(handle) &
-      bind(C, name='AngularXYs2dHas') &
-      result(has)
+      bind(C, name='AngularXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AngularXYs2dHas
 end function AngularXYs2dHas
 
 !! Get, const
 function AngularXYs2dGetConst(handle) &
-      bind(C, name='AngularXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='AngularXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularXYs2dGetConst
 end function AngularXYs2dGetConst
 
 !! Get
 function AngularXYs2dGet(handle) &
-      bind(C, name='AngularXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='AngularXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AngularXYs2dGet
 end function AngularXYs2dGet
 
 !! Set

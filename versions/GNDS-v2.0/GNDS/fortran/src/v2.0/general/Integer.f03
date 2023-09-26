@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function IntegerDefaultConst() &
-      bind(C, name='IntegerDefaultConst') &
-      result(handle)
+      bind(C, name='IntegerDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntegerDefaultConst
 end function IntegerDefaultConst
 
 !! Create, default
 function IntegerDefault() &
-      bind(C, name='IntegerDefault') &
-      result(handle)
+      bind(C, name='IntegerDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntegerDefault
 end function IntegerDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function IntegerCreateConst( &
    labelSize, &
    unitSize &
 ) &
-      bind(C, name='IntegerCreateConst') &
-      result(handle)
+      bind(C, name='IntegerCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function IntegerCreateConst( &
    integer(c_int), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntegerCreateConst
 end function IntegerCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function IntegerCreate( &
    labelSize, &
    unitSize &
 ) &
-      bind(C, name='IntegerCreate') &
-      result(handle)
+      bind(C, name='IntegerCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function IntegerCreate( &
    integer(c_int), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: IntegerCreate
 end function IntegerCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine IntegerDelete
 
 !! Read from file
 function IntegerRead(handle, filename, filenameSize) &
-      bind(C, name='IntegerRead') &
-      result(success)
+      bind(C, name='IntegerRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IntegerRead
 end function IntegerRead
 
 !! Write to file
 function IntegerWrite(handle, filename, filenameSize) &
-      bind(C, name='IntegerWrite') &
-      result(success)
+      bind(C, name='IntegerWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: IntegerWrite
 end function IntegerWrite
 
 !! Print to standard output, in our prettyprinting format
 function IntegerPrint(handle) &
-      bind(C, name='IntegerPrint') &
-      result(success)
+      bind(C, name='IntegerPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IntegerPrint
 end function IntegerPrint
 
 !! Print to standard output, as XML
 function IntegerPrintXML(handle) &
-      bind(C, name='IntegerPrintXML') &
-      result(success)
+      bind(C, name='IntegerPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IntegerPrintXML
 end function IntegerPrintXML
 
 !! Print to standard output, as JSON
 function IntegerPrintJSON(handle) &
-      bind(C, name='IntegerPrintJSON') &
-      result(success)
+      bind(C, name='IntegerPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: IntegerPrintJSON
 end function IntegerPrintJSON
 
 
@@ -154,22 +145,20 @@ end function IntegerPrintJSON
 
 !! Has
 function IntegerLabelHas(handle) &
-      bind(C, name='IntegerLabelHas') &
-      result(has)
+      bind(C, name='IntegerLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IntegerLabelHas
 end function IntegerLabelHas
 
 !! Get
 function IntegerLabelGet(handle) &
-      bind(C, name='IntegerLabelGet') &
-      result(label)
+      bind(C, name='IntegerLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: IntegerLabelGet
 end function IntegerLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine IntegerLabelSet
 
 !! Has
 function IntegerValueHas(handle) &
-      bind(C, name='IntegerValueHas') &
-      result(has)
+      bind(C, name='IntegerValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IntegerValueHas
 end function IntegerValueHas
 
 !! Get
 function IntegerValueGet(handle) &
-      bind(C, name='IntegerValueGet') &
-      result(value)
+      bind(C, name='IntegerValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: value
+   integer(c_int) :: IntegerValueGet
 end function IntegerValueGet
 
 !! Set
@@ -224,22 +211,20 @@ end subroutine IntegerValueSet
 
 !! Has
 function IntegerUnitHas(handle) &
-      bind(C, name='IntegerUnitHas') &
-      result(has)
+      bind(C, name='IntegerUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: IntegerUnitHas
 end function IntegerUnitHas
 
 !! Get
 function IntegerUnitGet(handle) &
-      bind(C, name='IntegerUnitGet') &
-      result(unit)
+      bind(C, name='IntegerUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: IntegerUnitGet
 end function IntegerUnitGet
 
 !! Set

@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function CovarianceSectionsDefaultConst() &
-      bind(C, name='CovarianceSectionsDefaultConst') &
-      result(handle)
+      bind(C, name='CovarianceSectionsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceSectionsDefaultConst
 end function CovarianceSectionsDefaultConst
 
 !! Create, default
 function CovarianceSectionsDefault() &
-      bind(C, name='CovarianceSectionsDefault') &
-      result(handle)
+      bind(C, name='CovarianceSectionsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceSectionsDefault
 end function CovarianceSectionsDefault
 
 !! Create, general, const
 function CovarianceSectionsCreateConst( &
    covarianceSection, covarianceSectionSize &
 ) &
-      bind(C, name='CovarianceSectionsCreateConst') &
-      result(handle)
+      bind(C, name='CovarianceSectionsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: covarianceSectionSize
    type(c_ptr) :: covarianceSection(covarianceSectionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceSectionsCreateConst
 end function CovarianceSectionsCreateConst
 
 !! Create, general
 function CovarianceSectionsCreate( &
    covarianceSection, covarianceSectionSize &
 ) &
-      bind(C, name='CovarianceSectionsCreate') &
-      result(handle)
+      bind(C, name='CovarianceSectionsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: covarianceSectionSize
    type(c_ptr) :: covarianceSection(covarianceSectionSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceSectionsCreate
 end function CovarianceSectionsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine CovarianceSectionsDelete
 
 !! Read from file
 function CovarianceSectionsRead(handle, filename, filenameSize) &
-      bind(C, name='CovarianceSectionsRead') &
-      result(success)
+      bind(C, name='CovarianceSectionsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceSectionsRead
 end function CovarianceSectionsRead
 
 !! Write to file
 function CovarianceSectionsWrite(handle, filename, filenameSize) &
-      bind(C, name='CovarianceSectionsWrite') &
-      result(success)
+      bind(C, name='CovarianceSectionsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceSectionsWrite
 end function CovarianceSectionsWrite
 
 !! Print to standard output, in our prettyprinting format
 function CovarianceSectionsPrint(handle) &
-      bind(C, name='CovarianceSectionsPrint') &
-      result(success)
+      bind(C, name='CovarianceSectionsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceSectionsPrint
 end function CovarianceSectionsPrint
 
 !! Print to standard output, as XML
 function CovarianceSectionsPrintXML(handle) &
-      bind(C, name='CovarianceSectionsPrintXML') &
-      result(success)
+      bind(C, name='CovarianceSectionsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceSectionsPrintXML
 end function CovarianceSectionsPrintXML
 
 !! Print to standard output, as JSON
 function CovarianceSectionsPrintJSON(handle) &
-      bind(C, name='CovarianceSectionsPrintJSON') &
-      result(success)
+      bind(C, name='CovarianceSectionsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceSectionsPrintJSON
 end function CovarianceSectionsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function CovarianceSectionsPrintJSON
 
 !! Has
 function CovarianceSectionsCovarianceSectionHas(handle) &
-      bind(C, name='CovarianceSectionsCovarianceSectionHas') &
-      result(has)
+      bind(C, name='CovarianceSectionsCovarianceSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceSectionsCovarianceSectionHas
 end function CovarianceSectionsCovarianceSectionHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine CovarianceSectionsCovarianceSectionClear
 
 !! Size
 function CovarianceSectionsCovarianceSectionSize(handle) &
-      bind(C, name='CovarianceSectionsCovarianceSectionSize') &
-      result(vectorSize)
+      bind(C, name='CovarianceSectionsCovarianceSectionSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: CovarianceSectionsCovarianceSectionSize
 end function CovarianceSectionsCovarianceSectionSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine CovarianceSectionsCovarianceSectionAdd
 
 !! Get, by index \in [0,size), const
 function CovarianceSectionsCovarianceSectionGetConst(handle, index) &
-      bind(C, name='CovarianceSectionsCovarianceSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='CovarianceSectionsCovarianceSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceSectionsCovarianceSectionGetConst
 end function CovarianceSectionsCovarianceSectionGetConst
 
 !! Get, by index \in [0,size)
 function CovarianceSectionsCovarianceSectionGet(handle, index) &
-      bind(C, name='CovarianceSectionsCovarianceSectionGet') &
-      result(resultHandle)
+      bind(C, name='CovarianceSectionsCovarianceSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceSectionsCovarianceSectionGet
 end function CovarianceSectionsCovarianceSectionGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine CovarianceSectionsCovarianceSectionSet
 
 !! Has, by label
 function CovarianceSectionsCovarianceSectionHasByLabel(handle, meta, metaSize) &
-      bind(C, name='CovarianceSectionsCovarianceSectionHasByLabel') &
-      result(has)
+      bind(C, name='CovarianceSectionsCovarianceSectionHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceSectionsCovarianceSectionHasByLabel
 end function CovarianceSectionsCovarianceSectionHasByLabel
 
 !! Get, by label, const
 function CovarianceSectionsCovarianceSectionGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='CovarianceSectionsCovarianceSectionGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='CovarianceSectionsCovarianceSectionGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByLabelConst
 end function CovarianceSectionsCovarianceSectionGetByLabelConst
 
 !! Get, by label
 function CovarianceSectionsCovarianceSectionGetByLabel(handle, meta, metaSize) &
-      bind(C, name='CovarianceSectionsCovarianceSectionGetByLabel') &
-      result(resultHandle)
+      bind(C, name='CovarianceSectionsCovarianceSectionGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByLabel
 end function CovarianceSectionsCovarianceSectionGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine CovarianceSectionsCovarianceSectionSetByLabel
 
 !! Has, by crossTerm
 function CovarianceSectionsCovarianceSectionHasByCrossTerm(handle, meta) &
-      bind(C, name='CovarianceSectionsCovarianceSectionHasByCrossTerm') &
-      result(has)
+      bind(C, name='CovarianceSectionsCovarianceSectionHasByCrossTerm')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceSectionsCovarianceSectionHasByCrossTerm
 end function CovarianceSectionsCovarianceSectionHasByCrossTerm
 
 !! Get, by crossTerm, const
 function CovarianceSectionsCovarianceSectionGetByCrossTermConst(handle, meta) &
-      bind(C, name='CovarianceSectionsCovarianceSectionGetByCrossTermConst') &
-      result(resultHandle)
+      bind(C, name='CovarianceSectionsCovarianceSectionGetByCrossTermConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByCrossTermConst
 end function CovarianceSectionsCovarianceSectionGetByCrossTermConst
 
 !! Get, by crossTerm
 function CovarianceSectionsCovarianceSectionGetByCrossTerm(handle, meta) &
-      bind(C, name='CovarianceSectionsCovarianceSectionGetByCrossTerm') &
-      result(resultHandle)
+      bind(C, name='CovarianceSectionsCovarianceSectionGetByCrossTerm')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByCrossTerm
 end function CovarianceSectionsCovarianceSectionGetByCrossTerm
 
 !! Set, by crossTerm

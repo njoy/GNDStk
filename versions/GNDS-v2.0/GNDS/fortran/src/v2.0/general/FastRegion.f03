@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function FastRegionDefaultConst() &
-      bind(C, name='FastRegionDefaultConst') &
-      result(handle)
+      bind(C, name='FastRegionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FastRegionDefaultConst
 end function FastRegionDefaultConst
 
 !! Create, default
 function FastRegionDefault() &
-      bind(C, name='FastRegionDefault') &
-      result(handle)
+      bind(C, name='FastRegionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FastRegionDefault
 end function FastRegionDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function FastRegionCreateConst( &
    XYs1d, &
    regions1d &
 ) &
-      bind(C, name='FastRegionCreateConst') &
-      result(handle)
+      bind(C, name='FastRegionCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: FastRegionCreateConst
 end function FastRegionCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function FastRegionCreate( &
    XYs1d, &
    regions1d &
 ) &
-      bind(C, name='FastRegionCreate') &
-      result(handle)
+      bind(C, name='FastRegionCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: FastRegionCreate
 end function FastRegionCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine FastRegionDelete
 
 !! Read from file
 function FastRegionRead(handle, filename, filenameSize) &
-      bind(C, name='FastRegionRead') &
-      result(success)
+      bind(C, name='FastRegionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FastRegionRead
 end function FastRegionRead
 
 !! Write to file
 function FastRegionWrite(handle, filename, filenameSize) &
-      bind(C, name='FastRegionWrite') &
-      result(success)
+      bind(C, name='FastRegionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FastRegionWrite
 end function FastRegionWrite
 
 !! Print to standard output, in our prettyprinting format
 function FastRegionPrint(handle) &
-      bind(C, name='FastRegionPrint') &
-      result(success)
+      bind(C, name='FastRegionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FastRegionPrint
 end function FastRegionPrint
 
 !! Print to standard output, as XML
 function FastRegionPrintXML(handle) &
-      bind(C, name='FastRegionPrintXML') &
-      result(success)
+      bind(C, name='FastRegionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FastRegionPrintXML
 end function FastRegionPrintXML
 
 !! Print to standard output, as JSON
 function FastRegionPrintJSON(handle) &
-      bind(C, name='FastRegionPrintJSON') &
-      result(success)
+      bind(C, name='FastRegionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FastRegionPrintJSON
 end function FastRegionPrintJSON
 
 
@@ -142,32 +133,29 @@ end function FastRegionPrintJSON
 
 !! Has
 function FastRegionXYs1dHas(handle) &
-      bind(C, name='FastRegionXYs1dHas') &
-      result(has)
+      bind(C, name='FastRegionXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FastRegionXYs1dHas
 end function FastRegionXYs1dHas
 
 !! Get, const
 function FastRegionXYs1dGetConst(handle) &
-      bind(C, name='FastRegionXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='FastRegionXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FastRegionXYs1dGetConst
 end function FastRegionXYs1dGetConst
 
 !! Get
 function FastRegionXYs1dGet(handle) &
-      bind(C, name='FastRegionXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='FastRegionXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FastRegionXYs1dGet
 end function FastRegionXYs1dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine FastRegionXYs1dSet
 
 !! Has
 function FastRegionRegions1dHas(handle) &
-      bind(C, name='FastRegionRegions1dHas') &
-      result(has)
+      bind(C, name='FastRegionRegions1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FastRegionRegions1dHas
 end function FastRegionRegions1dHas
 
 !! Get, const
 function FastRegionRegions1dGetConst(handle) &
-      bind(C, name='FastRegionRegions1dGetConst') &
-      result(resultHandle)
+      bind(C, name='FastRegionRegions1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FastRegionRegions1dGetConst
 end function FastRegionRegions1dGetConst
 
 !! Get
 function FastRegionRegions1dGet(handle) &
-      bind(C, name='FastRegionRegions1dGet') &
-      result(resultHandle)
+      bind(C, name='FastRegionRegions1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: FastRegionRegions1dGet
 end function FastRegionRegions1dGet
 
 !! Set

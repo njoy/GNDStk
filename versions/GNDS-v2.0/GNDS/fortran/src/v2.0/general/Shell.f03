@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ShellDefaultConst() &
-      bind(C, name='ShellDefaultConst') &
-      result(handle)
+      bind(C, name='ShellDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShellDefaultConst
 end function ShellDefaultConst
 
 !! Create, default
 function ShellDefault() &
-      bind(C, name='ShellDefault') &
-      result(handle)
+      bind(C, name='ShellDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShellDefault
 end function ShellDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ShellCreateConst( &
    uncertainty, &
    labelSize &
 ) &
-      bind(C, name='ShellCreateConst') &
-      result(handle)
+      bind(C, name='ShellCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    real(c_double), value, intent(in) :: value
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShellCreateConst
 end function ShellCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ShellCreate( &
    uncertainty, &
    labelSize &
 ) &
-      bind(C, name='ShellCreate') &
-      result(handle)
+      bind(C, name='ShellCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    real(c_double), value, intent(in) :: value
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: ShellCreate
 end function ShellCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ShellDelete
 
 !! Read from file
 function ShellRead(handle, filename, filenameSize) &
-      bind(C, name='ShellRead') &
-      result(success)
+      bind(C, name='ShellRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ShellRead
 end function ShellRead
 
 !! Write to file
 function ShellWrite(handle, filename, filenameSize) &
-      bind(C, name='ShellWrite') &
-      result(success)
+      bind(C, name='ShellWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ShellWrite
 end function ShellWrite
 
 !! Print to standard output, in our prettyprinting format
 function ShellPrint(handle) &
-      bind(C, name='ShellPrint') &
-      result(success)
+      bind(C, name='ShellPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ShellPrint
 end function ShellPrint
 
 !! Print to standard output, as XML
 function ShellPrintXML(handle) &
-      bind(C, name='ShellPrintXML') &
-      result(success)
+      bind(C, name='ShellPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ShellPrintXML
 end function ShellPrintXML
 
 !! Print to standard output, as JSON
 function ShellPrintJSON(handle) &
-      bind(C, name='ShellPrintJSON') &
-      result(success)
+      bind(C, name='ShellPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ShellPrintJSON
 end function ShellPrintJSON
 
 
@@ -150,22 +141,20 @@ end function ShellPrintJSON
 
 !! Has
 function ShellLabelHas(handle) &
-      bind(C, name='ShellLabelHas') &
-      result(has)
+      bind(C, name='ShellLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShellLabelHas
 end function ShellLabelHas
 
 !! Get
 function ShellLabelGet(handle) &
-      bind(C, name='ShellLabelGet') &
-      result(label)
+      bind(C, name='ShellLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ShellLabelGet
 end function ShellLabelGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine ShellLabelSet
 
 !! Has
 function ShellValueHas(handle) &
-      bind(C, name='ShellValueHas') &
-      result(has)
+      bind(C, name='ShellValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShellValueHas
 end function ShellValueHas
 
 !! Get
 function ShellValueGet(handle) &
-      bind(C, name='ShellValueGet') &
-      result(value)
+      bind(C, name='ShellValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: ShellValueGet
 end function ShellValueGet
 
 !! Set
@@ -220,32 +207,29 @@ end subroutine ShellValueSet
 
 !! Has
 function ShellUncertaintyHas(handle) &
-      bind(C, name='ShellUncertaintyHas') &
-      result(has)
+      bind(C, name='ShellUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ShellUncertaintyHas
 end function ShellUncertaintyHas
 
 !! Get, const
 function ShellUncertaintyGetConst(handle) &
-      bind(C, name='ShellUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='ShellUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ShellUncertaintyGetConst
 end function ShellUncertaintyGetConst
 
 !! Get
 function ShellUncertaintyGet(handle) &
-      bind(C, name='ShellUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='ShellUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ShellUncertaintyGet
 end function ShellUncertaintyGet
 
 !! Set

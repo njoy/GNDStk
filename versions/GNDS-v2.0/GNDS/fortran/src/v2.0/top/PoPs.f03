@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function PoPsDefaultConst() &
-      bind(C, name='PoPsDefaultConst') &
-      result(handle)
+      bind(C, name='PoPsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PoPsDefaultConst
 end function PoPsDefaultConst
 
 !! Create, default
 function PoPsDefault() &
-      bind(C, name='PoPsDefault') &
-      result(handle)
+      bind(C, name='PoPsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: PoPsDefault
 end function PoPsDefault
 
 !! Create, general, const
@@ -46,8 +44,7 @@ function PoPsCreateConst( &
    versionSize, &
    formatSize &
 ) &
-      bind(C, name='PoPsCreateConst') &
-      result(handle)
+      bind(C, name='PoPsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: nameSize
@@ -63,7 +60,7 @@ function PoPsCreateConst( &
    type(c_ptr), value :: unorthodoxes
    type(c_ptr), value :: gaugeBosons
    type(c_ptr), value :: leptons
-   type(c_ptr) :: handle
+   type(c_ptr) :: PoPsCreateConst
 end function PoPsCreateConst
 
 !! Create, general
@@ -82,8 +79,7 @@ function PoPsCreate( &
    versionSize, &
    formatSize &
 ) &
-      bind(C, name='PoPsCreate') &
-      result(handle)
+      bind(C, name='PoPsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: nameSize
@@ -99,7 +95,7 @@ function PoPsCreate( &
    type(c_ptr), value :: unorthodoxes
    type(c_ptr), value :: gaugeBosons
    type(c_ptr), value :: leptons
-   type(c_ptr) :: handle
+   type(c_ptr) :: PoPsCreate
 end function PoPsCreate
 
 !! Assign
@@ -127,56 +123,51 @@ end subroutine PoPsDelete
 
 !! Read from file
 function PoPsRead(handle, filename, filenameSize) &
-      bind(C, name='PoPsRead') &
-      result(success)
+      bind(C, name='PoPsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PoPsRead
 end function PoPsRead
 
 !! Write to file
 function PoPsWrite(handle, filename, filenameSize) &
-      bind(C, name='PoPsWrite') &
-      result(success)
+      bind(C, name='PoPsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: PoPsWrite
 end function PoPsWrite
 
 !! Print to standard output, in our prettyprinting format
 function PoPsPrint(handle) &
-      bind(C, name='PoPsPrint') &
-      result(success)
+      bind(C, name='PoPsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PoPsPrint
 end function PoPsPrint
 
 !! Print to standard output, as XML
 function PoPsPrintXML(handle) &
-      bind(C, name='PoPsPrintXML') &
-      result(success)
+      bind(C, name='PoPsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PoPsPrintXML
 end function PoPsPrintXML
 
 !! Print to standard output, as JSON
 function PoPsPrintJSON(handle) &
-      bind(C, name='PoPsPrintJSON') &
-      result(success)
+      bind(C, name='PoPsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: PoPsPrintJSON
 end function PoPsPrintJSON
 
 
@@ -186,22 +177,20 @@ end function PoPsPrintJSON
 
 !! Has
 function PoPsNameHas(handle) &
-      bind(C, name='PoPsNameHas') &
-      result(has)
+      bind(C, name='PoPsNameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsNameHas
 end function PoPsNameHas
 
 !! Get
 function PoPsNameGet(handle) &
-      bind(C, name='PoPsNameGet') &
-      result(name)
+      bind(C, name='PoPsNameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: name
+   type(c_ptr) :: PoPsNameGet
 end function PoPsNameGet
 
 !! Set
@@ -221,22 +210,20 @@ end subroutine PoPsNameSet
 
 !! Has
 function PoPsVersionHas(handle) &
-      bind(C, name='PoPsVersionHas') &
-      result(has)
+      bind(C, name='PoPsVersionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsVersionHas
 end function PoPsVersionHas
 
 !! Get
 function PoPsVersionGet(handle) &
-      bind(C, name='PoPsVersionGet') &
-      result(version)
+      bind(C, name='PoPsVersionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: version
+   type(c_ptr) :: PoPsVersionGet
 end function PoPsVersionGet
 
 !! Set
@@ -256,22 +243,20 @@ end subroutine PoPsVersionSet
 
 !! Has
 function PoPsFormatHas(handle) &
-      bind(C, name='PoPsFormatHas') &
-      result(has)
+      bind(C, name='PoPsFormatHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsFormatHas
 end function PoPsFormatHas
 
 !! Get
 function PoPsFormatGet(handle) &
-      bind(C, name='PoPsFormatGet') &
-      result(format)
+      bind(C, name='PoPsFormatGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: format
+   type(c_ptr) :: PoPsFormatGet
 end function PoPsFormatGet
 
 !! Set
@@ -291,32 +276,29 @@ end subroutine PoPsFormatSet
 
 !! Has
 function PoPsAliasesHas(handle) &
-      bind(C, name='PoPsAliasesHas') &
-      result(has)
+      bind(C, name='PoPsAliasesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsAliasesHas
 end function PoPsAliasesHas
 
 !! Get, const
 function PoPsAliasesGetConst(handle) &
-      bind(C, name='PoPsAliasesGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsAliasesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsAliasesGetConst
 end function PoPsAliasesGetConst
 
 !! Get
 function PoPsAliasesGet(handle) &
-      bind(C, name='PoPsAliasesGet') &
-      result(resultHandle)
+      bind(C, name='PoPsAliasesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsAliasesGet
 end function PoPsAliasesGet
 
 !! Set
@@ -335,32 +317,29 @@ end subroutine PoPsAliasesSet
 
 !! Has
 function PoPsBaryonsHas(handle) &
-      bind(C, name='PoPsBaryonsHas') &
-      result(has)
+      bind(C, name='PoPsBaryonsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsBaryonsHas
 end function PoPsBaryonsHas
 
 !! Get, const
 function PoPsBaryonsGetConst(handle) &
-      bind(C, name='PoPsBaryonsGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsBaryonsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsBaryonsGetConst
 end function PoPsBaryonsGetConst
 
 !! Get
 function PoPsBaryonsGet(handle) &
-      bind(C, name='PoPsBaryonsGet') &
-      result(resultHandle)
+      bind(C, name='PoPsBaryonsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsBaryonsGet
 end function PoPsBaryonsGet
 
 !! Set
@@ -379,32 +358,29 @@ end subroutine PoPsBaryonsSet
 
 !! Has
 function PoPsChemicalElementsHas(handle) &
-      bind(C, name='PoPsChemicalElementsHas') &
-      result(has)
+      bind(C, name='PoPsChemicalElementsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsChemicalElementsHas
 end function PoPsChemicalElementsHas
 
 !! Get, const
 function PoPsChemicalElementsGetConst(handle) &
-      bind(C, name='PoPsChemicalElementsGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsChemicalElementsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsChemicalElementsGetConst
 end function PoPsChemicalElementsGetConst
 
 !! Get
 function PoPsChemicalElementsGet(handle) &
-      bind(C, name='PoPsChemicalElementsGet') &
-      result(resultHandle)
+      bind(C, name='PoPsChemicalElementsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsChemicalElementsGet
 end function PoPsChemicalElementsGet
 
 !! Set
@@ -423,32 +399,29 @@ end subroutine PoPsChemicalElementsSet
 
 !! Has
 function PoPsStylesHas(handle) &
-      bind(C, name='PoPsStylesHas') &
-      result(has)
+      bind(C, name='PoPsStylesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsStylesHas
 end function PoPsStylesHas
 
 !! Get, const
 function PoPsStylesGetConst(handle) &
-      bind(C, name='PoPsStylesGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsStylesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsStylesGetConst
 end function PoPsStylesGetConst
 
 !! Get
 function PoPsStylesGet(handle) &
-      bind(C, name='PoPsStylesGet') &
-      result(resultHandle)
+      bind(C, name='PoPsStylesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsStylesGet
 end function PoPsStylesGet
 
 !! Set
@@ -467,32 +440,29 @@ end subroutine PoPsStylesSet
 
 !! Has
 function PoPsUnorthodoxesHas(handle) &
-      bind(C, name='PoPsUnorthodoxesHas') &
-      result(has)
+      bind(C, name='PoPsUnorthodoxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsUnorthodoxesHas
 end function PoPsUnorthodoxesHas
 
 !! Get, const
 function PoPsUnorthodoxesGetConst(handle) &
-      bind(C, name='PoPsUnorthodoxesGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsUnorthodoxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsUnorthodoxesGetConst
 end function PoPsUnorthodoxesGetConst
 
 !! Get
 function PoPsUnorthodoxesGet(handle) &
-      bind(C, name='PoPsUnorthodoxesGet') &
-      result(resultHandle)
+      bind(C, name='PoPsUnorthodoxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsUnorthodoxesGet
 end function PoPsUnorthodoxesGet
 
 !! Set
@@ -511,32 +481,29 @@ end subroutine PoPsUnorthodoxesSet
 
 !! Has
 function PoPsGaugeBosonsHas(handle) &
-      bind(C, name='PoPsGaugeBosonsHas') &
-      result(has)
+      bind(C, name='PoPsGaugeBosonsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsGaugeBosonsHas
 end function PoPsGaugeBosonsHas
 
 !! Get, const
 function PoPsGaugeBosonsGetConst(handle) &
-      bind(C, name='PoPsGaugeBosonsGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsGaugeBosonsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsGaugeBosonsGetConst
 end function PoPsGaugeBosonsGetConst
 
 !! Get
 function PoPsGaugeBosonsGet(handle) &
-      bind(C, name='PoPsGaugeBosonsGet') &
-      result(resultHandle)
+      bind(C, name='PoPsGaugeBosonsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsGaugeBosonsGet
 end function PoPsGaugeBosonsGet
 
 !! Set
@@ -555,32 +522,29 @@ end subroutine PoPsGaugeBosonsSet
 
 !! Has
 function PoPsLeptonsHas(handle) &
-      bind(C, name='PoPsLeptonsHas') &
-      result(has)
+      bind(C, name='PoPsLeptonsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: PoPsLeptonsHas
 end function PoPsLeptonsHas
 
 !! Get, const
 function PoPsLeptonsGetConst(handle) &
-      bind(C, name='PoPsLeptonsGetConst') &
-      result(resultHandle)
+      bind(C, name='PoPsLeptonsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsLeptonsGetConst
 end function PoPsLeptonsGetConst
 
 !! Get
 function PoPsLeptonsGet(handle) &
-      bind(C, name='PoPsLeptonsGet') &
-      result(resultHandle)
+      bind(C, name='PoPsLeptonsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: PoPsLeptonsGet
 end function PoPsLeptonsGet
 
 !! Set

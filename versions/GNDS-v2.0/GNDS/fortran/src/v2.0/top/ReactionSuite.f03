@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ReactionSuiteDefaultConst() &
-      bind(C, name='ReactionSuiteDefaultConst') &
-      result(handle)
+      bind(C, name='ReactionSuiteDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionSuiteDefaultConst
 end function ReactionSuiteDefaultConst
 
 !! Create, default
 function ReactionSuiteDefault() &
-      bind(C, name='ReactionSuiteDefault') &
-      result(handle)
+      bind(C, name='ReactionSuiteDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionSuiteDefault
 end function ReactionSuiteDefault
 
 !! Create, general, const
@@ -56,8 +54,7 @@ function ReactionSuiteCreateConst( &
    projectileFrameSize, &
    interactionSize &
 ) &
-      bind(C, name='ReactionSuiteCreateConst') &
-      result(handle)
+      bind(C, name='ReactionSuiteCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: projectileSize
@@ -83,7 +80,7 @@ function ReactionSuiteCreateConst( &
    type(c_ptr), value :: fissionComponents
    type(c_ptr), value :: orphanProducts
    type(c_ptr), value :: incompleteReactions
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionSuiteCreateConst
 end function ReactionSuiteCreateConst
 
 !! Create, general
@@ -112,8 +109,7 @@ function ReactionSuiteCreate( &
    projectileFrameSize, &
    interactionSize &
 ) &
-      bind(C, name='ReactionSuiteCreate') &
-      result(handle)
+      bind(C, name='ReactionSuiteCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: projectileSize
@@ -139,7 +135,7 @@ function ReactionSuiteCreate( &
    type(c_ptr), value :: fissionComponents
    type(c_ptr), value :: orphanProducts
    type(c_ptr), value :: incompleteReactions
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReactionSuiteCreate
 end function ReactionSuiteCreate
 
 !! Assign
@@ -167,56 +163,51 @@ end subroutine ReactionSuiteDelete
 
 !! Read from file
 function ReactionSuiteRead(handle, filename, filenameSize) &
-      bind(C, name='ReactionSuiteRead') &
-      result(success)
+      bind(C, name='ReactionSuiteRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReactionSuiteRead
 end function ReactionSuiteRead
 
 !! Write to file
 function ReactionSuiteWrite(handle, filename, filenameSize) &
-      bind(C, name='ReactionSuiteWrite') &
-      result(success)
+      bind(C, name='ReactionSuiteWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReactionSuiteWrite
 end function ReactionSuiteWrite
 
 !! Print to standard output, in our prettyprinting format
 function ReactionSuitePrint(handle) &
-      bind(C, name='ReactionSuitePrint') &
-      result(success)
+      bind(C, name='ReactionSuitePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionSuitePrint
 end function ReactionSuitePrint
 
 !! Print to standard output, as XML
 function ReactionSuitePrintXML(handle) &
-      bind(C, name='ReactionSuitePrintXML') &
-      result(success)
+      bind(C, name='ReactionSuitePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionSuitePrintXML
 end function ReactionSuitePrintXML
 
 !! Print to standard output, as JSON
 function ReactionSuitePrintJSON(handle) &
-      bind(C, name='ReactionSuitePrintJSON') &
-      result(success)
+      bind(C, name='ReactionSuitePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReactionSuitePrintJSON
 end function ReactionSuitePrintJSON
 
 
@@ -226,22 +217,20 @@ end function ReactionSuitePrintJSON
 
 !! Has
 function ReactionSuiteProjectileHas(handle) &
-      bind(C, name='ReactionSuiteProjectileHas') &
-      result(has)
+      bind(C, name='ReactionSuiteProjectileHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteProjectileHas
 end function ReactionSuiteProjectileHas
 
 !! Get
 function ReactionSuiteProjectileGet(handle) &
-      bind(C, name='ReactionSuiteProjectileGet') &
-      result(projectile)
+      bind(C, name='ReactionSuiteProjectileGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: projectile
+   type(c_ptr) :: ReactionSuiteProjectileGet
 end function ReactionSuiteProjectileGet
 
 !! Set
@@ -261,22 +250,20 @@ end subroutine ReactionSuiteProjectileSet
 
 !! Has
 function ReactionSuiteTargetHas(handle) &
-      bind(C, name='ReactionSuiteTargetHas') &
-      result(has)
+      bind(C, name='ReactionSuiteTargetHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteTargetHas
 end function ReactionSuiteTargetHas
 
 !! Get
 function ReactionSuiteTargetGet(handle) &
-      bind(C, name='ReactionSuiteTargetGet') &
-      result(target)
+      bind(C, name='ReactionSuiteTargetGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: target
+   type(c_ptr) :: ReactionSuiteTargetGet
 end function ReactionSuiteTargetGet
 
 !! Set
@@ -296,22 +283,20 @@ end subroutine ReactionSuiteTargetSet
 
 !! Has
 function ReactionSuiteEvaluationHas(handle) &
-      bind(C, name='ReactionSuiteEvaluationHas') &
-      result(has)
+      bind(C, name='ReactionSuiteEvaluationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteEvaluationHas
 end function ReactionSuiteEvaluationHas
 
 !! Get
 function ReactionSuiteEvaluationGet(handle) &
-      bind(C, name='ReactionSuiteEvaluationGet') &
-      result(evaluation)
+      bind(C, name='ReactionSuiteEvaluationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: evaluation
+   type(c_ptr) :: ReactionSuiteEvaluationGet
 end function ReactionSuiteEvaluationGet
 
 !! Set
@@ -331,22 +316,20 @@ end subroutine ReactionSuiteEvaluationSet
 
 !! Has
 function ReactionSuiteFormatHas(handle) &
-      bind(C, name='ReactionSuiteFormatHas') &
-      result(has)
+      bind(C, name='ReactionSuiteFormatHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteFormatHas
 end function ReactionSuiteFormatHas
 
 !! Get
 function ReactionSuiteFormatGet(handle) &
-      bind(C, name='ReactionSuiteFormatGet') &
-      result(format)
+      bind(C, name='ReactionSuiteFormatGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: format
+   type(c_ptr) :: ReactionSuiteFormatGet
 end function ReactionSuiteFormatGet
 
 !! Set
@@ -366,22 +349,20 @@ end subroutine ReactionSuiteFormatSet
 
 !! Has
 function ReactionSuiteProjectileFrameHas(handle) &
-      bind(C, name='ReactionSuiteProjectileFrameHas') &
-      result(has)
+      bind(C, name='ReactionSuiteProjectileFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteProjectileFrameHas
 end function ReactionSuiteProjectileFrameHas
 
 !! Get
 function ReactionSuiteProjectileFrameGet(handle) &
-      bind(C, name='ReactionSuiteProjectileFrameGet') &
-      result(projectileFrame)
+      bind(C, name='ReactionSuiteProjectileFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: projectileFrame
+   type(c_ptr) :: ReactionSuiteProjectileFrameGet
 end function ReactionSuiteProjectileFrameGet
 
 !! Set
@@ -401,22 +382,20 @@ end subroutine ReactionSuiteProjectileFrameSet
 
 !! Has
 function ReactionSuiteInteractionHas(handle) &
-      bind(C, name='ReactionSuiteInteractionHas') &
-      result(has)
+      bind(C, name='ReactionSuiteInteractionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteInteractionHas
 end function ReactionSuiteInteractionHas
 
 !! Get
 function ReactionSuiteInteractionGet(handle) &
-      bind(C, name='ReactionSuiteInteractionGet') &
-      result(interaction)
+      bind(C, name='ReactionSuiteInteractionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: interaction
+   type(c_ptr) :: ReactionSuiteInteractionGet
 end function ReactionSuiteInteractionGet
 
 !! Set
@@ -436,32 +415,29 @@ end subroutine ReactionSuiteInteractionSet
 
 !! Has
 function ReactionSuiteStylesHas(handle) &
-      bind(C, name='ReactionSuiteStylesHas') &
-      result(has)
+      bind(C, name='ReactionSuiteStylesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteStylesHas
 end function ReactionSuiteStylesHas
 
 !! Get, const
 function ReactionSuiteStylesGetConst(handle) &
-      bind(C, name='ReactionSuiteStylesGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteStylesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteStylesGetConst
 end function ReactionSuiteStylesGetConst
 
 !! Get
 function ReactionSuiteStylesGet(handle) &
-      bind(C, name='ReactionSuiteStylesGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteStylesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteStylesGet
 end function ReactionSuiteStylesGet
 
 !! Set
@@ -480,32 +456,29 @@ end subroutine ReactionSuiteStylesSet
 
 !! Has
 function ReactionSuitePoPsHas(handle) &
-      bind(C, name='ReactionSuitePoPsHas') &
-      result(has)
+      bind(C, name='ReactionSuitePoPsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuitePoPsHas
 end function ReactionSuitePoPsHas
 
 !! Get, const
 function ReactionSuitePoPsGetConst(handle) &
-      bind(C, name='ReactionSuitePoPsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuitePoPsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuitePoPsGetConst
 end function ReactionSuitePoPsGetConst
 
 !! Get
 function ReactionSuitePoPsGet(handle) &
-      bind(C, name='ReactionSuitePoPsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuitePoPsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuitePoPsGet
 end function ReactionSuitePoPsGet
 
 !! Set
@@ -524,32 +497,29 @@ end subroutine ReactionSuitePoPsSet
 
 !! Has
 function ReactionSuiteReactionsHas(handle) &
-      bind(C, name='ReactionSuiteReactionsHas') &
-      result(has)
+      bind(C, name='ReactionSuiteReactionsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteReactionsHas
 end function ReactionSuiteReactionsHas
 
 !! Get, const
 function ReactionSuiteReactionsGetConst(handle) &
-      bind(C, name='ReactionSuiteReactionsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteReactionsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteReactionsGetConst
 end function ReactionSuiteReactionsGetConst
 
 !! Get
 function ReactionSuiteReactionsGet(handle) &
-      bind(C, name='ReactionSuiteReactionsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteReactionsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteReactionsGet
 end function ReactionSuiteReactionsGet
 
 !! Set
@@ -568,32 +538,29 @@ end subroutine ReactionSuiteReactionsSet
 
 !! Has
 function ReactionSuiteApplicationDataHas(handle) &
-      bind(C, name='ReactionSuiteApplicationDataHas') &
-      result(has)
+      bind(C, name='ReactionSuiteApplicationDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteApplicationDataHas
 end function ReactionSuiteApplicationDataHas
 
 !! Get, const
 function ReactionSuiteApplicationDataGetConst(handle) &
-      bind(C, name='ReactionSuiteApplicationDataGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteApplicationDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteApplicationDataGetConst
 end function ReactionSuiteApplicationDataGetConst
 
 !! Get
 function ReactionSuiteApplicationDataGet(handle) &
-      bind(C, name='ReactionSuiteApplicationDataGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteApplicationDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteApplicationDataGet
 end function ReactionSuiteApplicationDataGet
 
 !! Set
@@ -612,32 +579,29 @@ end subroutine ReactionSuiteApplicationDataSet
 
 !! Has
 function ReactionSuiteExternalFilesHas(handle) &
-      bind(C, name='ReactionSuiteExternalFilesHas') &
-      result(has)
+      bind(C, name='ReactionSuiteExternalFilesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteExternalFilesHas
 end function ReactionSuiteExternalFilesHas
 
 !! Get, const
 function ReactionSuiteExternalFilesGetConst(handle) &
-      bind(C, name='ReactionSuiteExternalFilesGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteExternalFilesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteExternalFilesGetConst
 end function ReactionSuiteExternalFilesGetConst
 
 !! Get
 function ReactionSuiteExternalFilesGet(handle) &
-      bind(C, name='ReactionSuiteExternalFilesGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteExternalFilesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteExternalFilesGet
 end function ReactionSuiteExternalFilesGet
 
 !! Set
@@ -656,32 +620,29 @@ end subroutine ReactionSuiteExternalFilesSet
 
 !! Has
 function ReactionSuiteResonancesHas(handle) &
-      bind(C, name='ReactionSuiteResonancesHas') &
-      result(has)
+      bind(C, name='ReactionSuiteResonancesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteResonancesHas
 end function ReactionSuiteResonancesHas
 
 !! Get, const
 function ReactionSuiteResonancesGetConst(handle) &
-      bind(C, name='ReactionSuiteResonancesGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteResonancesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteResonancesGetConst
 end function ReactionSuiteResonancesGetConst
 
 !! Get
 function ReactionSuiteResonancesGet(handle) &
-      bind(C, name='ReactionSuiteResonancesGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteResonancesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteResonancesGet
 end function ReactionSuiteResonancesGet
 
 !! Set
@@ -700,32 +661,29 @@ end subroutine ReactionSuiteResonancesSet
 
 !! Has
 function ReactionSuiteSumsHas(handle) &
-      bind(C, name='ReactionSuiteSumsHas') &
-      result(has)
+      bind(C, name='ReactionSuiteSumsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteSumsHas
 end function ReactionSuiteSumsHas
 
 !! Get, const
 function ReactionSuiteSumsGetConst(handle) &
-      bind(C, name='ReactionSuiteSumsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteSumsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteSumsGetConst
 end function ReactionSuiteSumsGetConst
 
 !! Get
 function ReactionSuiteSumsGet(handle) &
-      bind(C, name='ReactionSuiteSumsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteSumsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteSumsGet
 end function ReactionSuiteSumsGet
 
 !! Set
@@ -744,32 +702,29 @@ end subroutine ReactionSuiteSumsSet
 
 !! Has
 function ReactionSuiteProductionsHas(handle) &
-      bind(C, name='ReactionSuiteProductionsHas') &
-      result(has)
+      bind(C, name='ReactionSuiteProductionsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteProductionsHas
 end function ReactionSuiteProductionsHas
 
 !! Get, const
 function ReactionSuiteProductionsGetConst(handle) &
-      bind(C, name='ReactionSuiteProductionsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteProductionsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteProductionsGetConst
 end function ReactionSuiteProductionsGetConst
 
 !! Get
 function ReactionSuiteProductionsGet(handle) &
-      bind(C, name='ReactionSuiteProductionsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteProductionsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteProductionsGet
 end function ReactionSuiteProductionsGet
 
 !! Set
@@ -788,32 +743,29 @@ end subroutine ReactionSuiteProductionsSet
 
 !! Has
 function ReactionSuiteFissionComponentsHas(handle) &
-      bind(C, name='ReactionSuiteFissionComponentsHas') &
-      result(has)
+      bind(C, name='ReactionSuiteFissionComponentsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteFissionComponentsHas
 end function ReactionSuiteFissionComponentsHas
 
 !! Get, const
 function ReactionSuiteFissionComponentsGetConst(handle) &
-      bind(C, name='ReactionSuiteFissionComponentsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteFissionComponentsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteFissionComponentsGetConst
 end function ReactionSuiteFissionComponentsGetConst
 
 !! Get
 function ReactionSuiteFissionComponentsGet(handle) &
-      bind(C, name='ReactionSuiteFissionComponentsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteFissionComponentsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteFissionComponentsGet
 end function ReactionSuiteFissionComponentsGet
 
 !! Set
@@ -832,32 +784,29 @@ end subroutine ReactionSuiteFissionComponentsSet
 
 !! Has
 function ReactionSuiteOrphanProductsHas(handle) &
-      bind(C, name='ReactionSuiteOrphanProductsHas') &
-      result(has)
+      bind(C, name='ReactionSuiteOrphanProductsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteOrphanProductsHas
 end function ReactionSuiteOrphanProductsHas
 
 !! Get, const
 function ReactionSuiteOrphanProductsGetConst(handle) &
-      bind(C, name='ReactionSuiteOrphanProductsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteOrphanProductsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteOrphanProductsGetConst
 end function ReactionSuiteOrphanProductsGetConst
 
 !! Get
 function ReactionSuiteOrphanProductsGet(handle) &
-      bind(C, name='ReactionSuiteOrphanProductsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteOrphanProductsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteOrphanProductsGet
 end function ReactionSuiteOrphanProductsGet
 
 !! Set
@@ -876,32 +825,29 @@ end subroutine ReactionSuiteOrphanProductsSet
 
 !! Has
 function ReactionSuiteIncompleteReactionsHas(handle) &
-      bind(C, name='ReactionSuiteIncompleteReactionsHas') &
-      result(has)
+      bind(C, name='ReactionSuiteIncompleteReactionsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReactionSuiteIncompleteReactionsHas
 end function ReactionSuiteIncompleteReactionsHas
 
 !! Get, const
 function ReactionSuiteIncompleteReactionsGetConst(handle) &
-      bind(C, name='ReactionSuiteIncompleteReactionsGetConst') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteIncompleteReactionsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteIncompleteReactionsGetConst
 end function ReactionSuiteIncompleteReactionsGetConst
 
 !! Get
 function ReactionSuiteIncompleteReactionsGet(handle) &
-      bind(C, name='ReactionSuiteIncompleteReactionsGet') &
-      result(resultHandle)
+      bind(C, name='ReactionSuiteIncompleteReactionsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ReactionSuiteIncompleteReactionsGet
 end function ReactionSuiteIncompleteReactionsGet
 
 !! Set

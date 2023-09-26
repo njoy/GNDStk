@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function AtomicDefaultConst() &
-      bind(C, name='AtomicDefaultConst') &
-      result(handle)
+      bind(C, name='AtomicDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AtomicDefaultConst
 end function AtomicDefaultConst
 
 !! Create, default
 function AtomicDefault() &
-      bind(C, name='AtomicDefault') &
-      result(handle)
+      bind(C, name='AtomicDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AtomicDefault
 end function AtomicDefault
 
 !! Create, general, const
 function AtomicCreateConst( &
    configurations &
 ) &
-      bind(C, name='AtomicCreateConst') &
-      result(handle)
+      bind(C, name='AtomicCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: configurations
-   type(c_ptr) :: handle
+   type(c_ptr) :: AtomicCreateConst
 end function AtomicCreateConst
 
 !! Create, general
 function AtomicCreate( &
    configurations &
 ) &
-      bind(C, name='AtomicCreate') &
-      result(handle)
+      bind(C, name='AtomicCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: configurations
-   type(c_ptr) :: handle
+   type(c_ptr) :: AtomicCreate
 end function AtomicCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine AtomicDelete
 
 !! Read from file
 function AtomicRead(handle, filename, filenameSize) &
-      bind(C, name='AtomicRead') &
-      result(success)
+      bind(C, name='AtomicRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AtomicRead
 end function AtomicRead
 
 !! Write to file
 function AtomicWrite(handle, filename, filenameSize) &
-      bind(C, name='AtomicWrite') &
-      result(success)
+      bind(C, name='AtomicWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AtomicWrite
 end function AtomicWrite
 
 !! Print to standard output, in our prettyprinting format
 function AtomicPrint(handle) &
-      bind(C, name='AtomicPrint') &
-      result(success)
+      bind(C, name='AtomicPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AtomicPrint
 end function AtomicPrint
 
 !! Print to standard output, as XML
 function AtomicPrintXML(handle) &
-      bind(C, name='AtomicPrintXML') &
-      result(success)
+      bind(C, name='AtomicPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AtomicPrintXML
 end function AtomicPrintXML
 
 !! Print to standard output, as JSON
 function AtomicPrintJSON(handle) &
-      bind(C, name='AtomicPrintJSON') &
-      result(success)
+      bind(C, name='AtomicPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AtomicPrintJSON
 end function AtomicPrintJSON
 
 
@@ -138,32 +129,29 @@ end function AtomicPrintJSON
 
 !! Has
 function AtomicConfigurationsHas(handle) &
-      bind(C, name='AtomicConfigurationsHas') &
-      result(has)
+      bind(C, name='AtomicConfigurationsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AtomicConfigurationsHas
 end function AtomicConfigurationsHas
 
 !! Get, const
 function AtomicConfigurationsGetConst(handle) &
-      bind(C, name='AtomicConfigurationsGetConst') &
-      result(resultHandle)
+      bind(C, name='AtomicConfigurationsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AtomicConfigurationsGetConst
 end function AtomicConfigurationsGetConst
 
 !! Get
 function AtomicConfigurationsGet(handle) &
-      bind(C, name='AtomicConfigurationsGet') &
-      result(resultHandle)
+      bind(C, name='AtomicConfigurationsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AtomicConfigurationsGet
 end function AtomicConfigurationsGet
 
 !! Set

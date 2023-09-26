@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function T_MDefaultConst() &
-      bind(C, name='T_MDefaultConst') &
-      result(handle)
+      bind(C, name='T_MDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_MDefaultConst
 end function T_MDefaultConst
 
 !! Create, default
 function T_MDefault() &
-      bind(C, name='T_MDefault') &
-      result(handle)
+      bind(C, name='T_MDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_MDefault
 end function T_MDefault
 
 !! Create, general, const
 function T_MCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='T_MCreateConst') &
-      result(handle)
+      bind(C, name='T_MCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_MCreateConst
 end function T_MCreateConst
 
 !! Create, general
 function T_MCreate( &
    XYs1d &
 ) &
-      bind(C, name='T_MCreate') &
-      result(handle)
+      bind(C, name='T_MCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: T_MCreate
 end function T_MCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine T_MDelete
 
 !! Read from file
 function T_MRead(handle, filename, filenameSize) &
-      bind(C, name='T_MRead') &
-      result(success)
+      bind(C, name='T_MRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: T_MRead
 end function T_MRead
 
 !! Write to file
 function T_MWrite(handle, filename, filenameSize) &
-      bind(C, name='T_MWrite') &
-      result(success)
+      bind(C, name='T_MWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: T_MWrite
 end function T_MWrite
 
 !! Print to standard output, in our prettyprinting format
 function T_MPrint(handle) &
-      bind(C, name='T_MPrint') &
-      result(success)
+      bind(C, name='T_MPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: T_MPrint
 end function T_MPrint
 
 !! Print to standard output, as XML
 function T_MPrintXML(handle) &
-      bind(C, name='T_MPrintXML') &
-      result(success)
+      bind(C, name='T_MPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: T_MPrintXML
 end function T_MPrintXML
 
 !! Print to standard output, as JSON
 function T_MPrintJSON(handle) &
-      bind(C, name='T_MPrintJSON') &
-      result(success)
+      bind(C, name='T_MPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: T_MPrintJSON
 end function T_MPrintJSON
 
 
@@ -138,32 +129,29 @@ end function T_MPrintJSON
 
 !! Has
 function T_MXYs1dHas(handle) &
-      bind(C, name='T_MXYs1dHas') &
-      result(has)
+      bind(C, name='T_MXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: T_MXYs1dHas
 end function T_MXYs1dHas
 
 !! Get, const
 function T_MXYs1dGetConst(handle) &
-      bind(C, name='T_MXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='T_MXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: T_MXYs1dGetConst
 end function T_MXYs1dGetConst
 
 !! Get
 function T_MXYs1dGet(handle) &
-      bind(C, name='T_MXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='T_MXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: T_MXYs1dGet
 end function T_MXYs1dGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function RMatrixDefaultConst() &
-      bind(C, name='RMatrixDefaultConst') &
-      result(handle)
+      bind(C, name='RMatrixDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RMatrixDefaultConst
 end function RMatrixDefaultConst
 
 !! Create, default
 function RMatrixDefault() &
-      bind(C, name='RMatrixDefault') &
-      result(handle)
+      bind(C, name='RMatrixDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RMatrixDefault
 end function RMatrixDefault
 
 !! Create, general, const
@@ -44,8 +42,7 @@ function RMatrixCreateConst( &
    approximationSize, &
    boundaryConditionSize &
 ) &
-      bind(C, name='RMatrixCreateConst') &
-      result(handle)
+      bind(C, name='RMatrixCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -59,7 +56,7 @@ function RMatrixCreateConst( &
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: resonanceReactions
    type(c_ptr), value :: spinGroups
-   type(c_ptr) :: handle
+   type(c_ptr) :: RMatrixCreateConst
 end function RMatrixCreateConst
 
 !! Create, general
@@ -76,8 +73,7 @@ function RMatrixCreate( &
    approximationSize, &
    boundaryConditionSize &
 ) &
-      bind(C, name='RMatrixCreate') &
-      result(handle)
+      bind(C, name='RMatrixCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -91,7 +87,7 @@ function RMatrixCreate( &
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: resonanceReactions
    type(c_ptr), value :: spinGroups
-   type(c_ptr) :: handle
+   type(c_ptr) :: RMatrixCreate
 end function RMatrixCreate
 
 !! Assign
@@ -119,56 +115,51 @@ end subroutine RMatrixDelete
 
 !! Read from file
 function RMatrixRead(handle, filename, filenameSize) &
-      bind(C, name='RMatrixRead') &
-      result(success)
+      bind(C, name='RMatrixRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RMatrixRead
 end function RMatrixRead
 
 !! Write to file
 function RMatrixWrite(handle, filename, filenameSize) &
-      bind(C, name='RMatrixWrite') &
-      result(success)
+      bind(C, name='RMatrixWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RMatrixWrite
 end function RMatrixWrite
 
 !! Print to standard output, in our prettyprinting format
 function RMatrixPrint(handle) &
-      bind(C, name='RMatrixPrint') &
-      result(success)
+      bind(C, name='RMatrixPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RMatrixPrint
 end function RMatrixPrint
 
 !! Print to standard output, as XML
 function RMatrixPrintXML(handle) &
-      bind(C, name='RMatrixPrintXML') &
-      result(success)
+      bind(C, name='RMatrixPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RMatrixPrintXML
 end function RMatrixPrintXML
 
 !! Print to standard output, as JSON
 function RMatrixPrintJSON(handle) &
-      bind(C, name='RMatrixPrintJSON') &
-      result(success)
+      bind(C, name='RMatrixPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RMatrixPrintJSON
 end function RMatrixPrintJSON
 
 
@@ -178,22 +169,20 @@ end function RMatrixPrintJSON
 
 !! Has
 function RMatrixLabelHas(handle) &
-      bind(C, name='RMatrixLabelHas') &
-      result(has)
+      bind(C, name='RMatrixLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixLabelHas
 end function RMatrixLabelHas
 
 !! Get
 function RMatrixLabelGet(handle) &
-      bind(C, name='RMatrixLabelGet') &
-      result(label)
+      bind(C, name='RMatrixLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: RMatrixLabelGet
 end function RMatrixLabelGet
 
 !! Set
@@ -213,22 +202,20 @@ end subroutine RMatrixLabelSet
 
 !! Has
 function RMatrixApproximationHas(handle) &
-      bind(C, name='RMatrixApproximationHas') &
-      result(has)
+      bind(C, name='RMatrixApproximationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixApproximationHas
 end function RMatrixApproximationHas
 
 !! Get
 function RMatrixApproximationGet(handle) &
-      bind(C, name='RMatrixApproximationGet') &
-      result(approximation)
+      bind(C, name='RMatrixApproximationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: approximation
+   type(c_ptr) :: RMatrixApproximationGet
 end function RMatrixApproximationGet
 
 !! Set
@@ -248,22 +235,20 @@ end subroutine RMatrixApproximationSet
 
 !! Has
 function RMatrixBoundaryConditionHas(handle) &
-      bind(C, name='RMatrixBoundaryConditionHas') &
-      result(has)
+      bind(C, name='RMatrixBoundaryConditionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixBoundaryConditionHas
 end function RMatrixBoundaryConditionHas
 
 !! Get
 function RMatrixBoundaryConditionGet(handle) &
-      bind(C, name='RMatrixBoundaryConditionGet') &
-      result(boundaryCondition)
+      bind(C, name='RMatrixBoundaryConditionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: boundaryCondition
+   type(c_ptr) :: RMatrixBoundaryConditionGet
 end function RMatrixBoundaryConditionGet
 
 !! Set
@@ -283,22 +268,20 @@ end subroutine RMatrixBoundaryConditionSet
 
 !! Has
 function RMatrixCalculateChannelRadiusHas(handle) &
-      bind(C, name='RMatrixCalculateChannelRadiusHas') &
-      result(has)
+      bind(C, name='RMatrixCalculateChannelRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixCalculateChannelRadiusHas
 end function RMatrixCalculateChannelRadiusHas
 
 !! Get
 function RMatrixCalculateChannelRadiusGet(handle) &
-      bind(C, name='RMatrixCalculateChannelRadiusGet') &
-      result(calculateChannelRadius)
+      bind(C, name='RMatrixCalculateChannelRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: calculateChannelRadius
+   logical(c_bool) :: RMatrixCalculateChannelRadiusGet
 end function RMatrixCalculateChannelRadiusGet
 
 !! Set
@@ -318,22 +301,20 @@ end subroutine RMatrixCalculateChannelRadiusSet
 
 !! Has
 function RMatrixSupportsAngularReconstructionHas(handle) &
-      bind(C, name='RMatrixSupportsAngularReconstructionHas') &
-      result(has)
+      bind(C, name='RMatrixSupportsAngularReconstructionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixSupportsAngularReconstructionHas
 end function RMatrixSupportsAngularReconstructionHas
 
 !! Get
 function RMatrixSupportsAngularReconstructionGet(handle) &
-      bind(C, name='RMatrixSupportsAngularReconstructionGet') &
-      result(supportsAngularReconstruction)
+      bind(C, name='RMatrixSupportsAngularReconstructionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: supportsAngularReconstruction
+   logical(c_bool) :: RMatrixSupportsAngularReconstructionGet
 end function RMatrixSupportsAngularReconstructionGet
 
 !! Set
@@ -353,32 +334,29 @@ end subroutine RMatrixSupportsAngularReconstructionSet
 
 !! Has
 function RMatrixPoPsHas(handle) &
-      bind(C, name='RMatrixPoPsHas') &
-      result(has)
+      bind(C, name='RMatrixPoPsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixPoPsHas
 end function RMatrixPoPsHas
 
 !! Get, const
 function RMatrixPoPsGetConst(handle) &
-      bind(C, name='RMatrixPoPsGetConst') &
-      result(resultHandle)
+      bind(C, name='RMatrixPoPsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RMatrixPoPsGetConst
 end function RMatrixPoPsGetConst
 
 !! Get
 function RMatrixPoPsGet(handle) &
-      bind(C, name='RMatrixPoPsGet') &
-      result(resultHandle)
+      bind(C, name='RMatrixPoPsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RMatrixPoPsGet
 end function RMatrixPoPsGet
 
 !! Set
@@ -397,32 +375,29 @@ end subroutine RMatrixPoPsSet
 
 !! Has
 function RMatrixResonanceReactionsHas(handle) &
-      bind(C, name='RMatrixResonanceReactionsHas') &
-      result(has)
+      bind(C, name='RMatrixResonanceReactionsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixResonanceReactionsHas
 end function RMatrixResonanceReactionsHas
 
 !! Get, const
 function RMatrixResonanceReactionsGetConst(handle) &
-      bind(C, name='RMatrixResonanceReactionsGetConst') &
-      result(resultHandle)
+      bind(C, name='RMatrixResonanceReactionsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RMatrixResonanceReactionsGetConst
 end function RMatrixResonanceReactionsGetConst
 
 !! Get
 function RMatrixResonanceReactionsGet(handle) &
-      bind(C, name='RMatrixResonanceReactionsGet') &
-      result(resultHandle)
+      bind(C, name='RMatrixResonanceReactionsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RMatrixResonanceReactionsGet
 end function RMatrixResonanceReactionsGet
 
 !! Set
@@ -441,32 +416,29 @@ end subroutine RMatrixResonanceReactionsSet
 
 !! Has
 function RMatrixSpinGroupsHas(handle) &
-      bind(C, name='RMatrixSpinGroupsHas') &
-      result(has)
+      bind(C, name='RMatrixSpinGroupsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RMatrixSpinGroupsHas
 end function RMatrixSpinGroupsHas
 
 !! Get, const
 function RMatrixSpinGroupsGetConst(handle) &
-      bind(C, name='RMatrixSpinGroupsGetConst') &
-      result(resultHandle)
+      bind(C, name='RMatrixSpinGroupsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RMatrixSpinGroupsGetConst
 end function RMatrixSpinGroupsGetConst
 
 !! Get
 function RMatrixSpinGroupsGet(handle) &
-      bind(C, name='RMatrixSpinGroupsGet') &
-      result(resultHandle)
+      bind(C, name='RMatrixSpinGroupsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RMatrixSpinGroupsGet
 end function RMatrixSpinGroupsGet
 
 !! Set

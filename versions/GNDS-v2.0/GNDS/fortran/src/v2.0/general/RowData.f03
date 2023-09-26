@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function RowDataDefaultConst() &
-      bind(C, name='RowDataDefaultConst') &
-      result(handle)
+      bind(C, name='RowDataDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RowDataDefaultConst
 end function RowDataDefaultConst
 
 !! Create, default
 function RowDataDefault() &
-      bind(C, name='RowDataDefault') &
-      result(handle)
+      bind(C, name='RowDataDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: RowDataDefault
 end function RowDataDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function RowDataCreateConst( &
    ENDF_MFMTSize, &
    hrefSize &
 ) &
-      bind(C, name='RowDataCreateConst') &
-      result(handle)
+      bind(C, name='RowDataCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
@@ -49,7 +46,7 @@ function RowDataCreateConst( &
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
    type(c_ptr), value :: slices
-   type(c_ptr) :: handle
+   type(c_ptr) :: RowDataCreateConst
 end function RowDataCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function RowDataCreate( &
    ENDF_MFMTSize, &
    hrefSize &
 ) &
-      bind(C, name='RowDataCreate') &
-      result(handle)
+      bind(C, name='RowDataCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
@@ -71,7 +67,7 @@ function RowDataCreate( &
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
    type(c_ptr), value :: slices
-   type(c_ptr) :: handle
+   type(c_ptr) :: RowDataCreate
 end function RowDataCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine RowDataDelete
 
 !! Read from file
 function RowDataRead(handle, filename, filenameSize) &
-      bind(C, name='RowDataRead') &
-      result(success)
+      bind(C, name='RowDataRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RowDataRead
 end function RowDataRead
 
 !! Write to file
 function RowDataWrite(handle, filename, filenameSize) &
-      bind(C, name='RowDataWrite') &
-      result(success)
+      bind(C, name='RowDataWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: RowDataWrite
 end function RowDataWrite
 
 !! Print to standard output, in our prettyprinting format
 function RowDataPrint(handle) &
-      bind(C, name='RowDataPrint') &
-      result(success)
+      bind(C, name='RowDataPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RowDataPrint
 end function RowDataPrint
 
 !! Print to standard output, as XML
 function RowDataPrintXML(handle) &
-      bind(C, name='RowDataPrintXML') &
-      result(success)
+      bind(C, name='RowDataPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RowDataPrintXML
 end function RowDataPrintXML
 
 !! Print to standard output, as JSON
 function RowDataPrintJSON(handle) &
-      bind(C, name='RowDataPrintJSON') &
-      result(success)
+      bind(C, name='RowDataPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: RowDataPrintJSON
 end function RowDataPrintJSON
 
 
@@ -158,22 +149,20 @@ end function RowDataPrintJSON
 
 !! Has
 function RowDataENDFMFMTHas(handle) &
-      bind(C, name='RowDataENDFMFMTHas') &
-      result(has)
+      bind(C, name='RowDataENDFMFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RowDataENDFMFMTHas
 end function RowDataENDFMFMTHas
 
 !! Get
 function RowDataENDFMFMTGet(handle) &
-      bind(C, name='RowDataENDFMFMTGet') &
-      result(ENDF_MFMT)
+      bind(C, name='RowDataENDFMFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ENDF_MFMT
+   type(c_ptr) :: RowDataENDFMFMTGet
 end function RowDataENDFMFMTGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine RowDataENDFMFMTSet
 
 !! Has
 function RowDataDimensionHas(handle) &
-      bind(C, name='RowDataDimensionHas') &
-      result(has)
+      bind(C, name='RowDataDimensionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RowDataDimensionHas
 end function RowDataDimensionHas
 
 !! Get
 function RowDataDimensionGet(handle) &
-      bind(C, name='RowDataDimensionGet') &
-      result(dimension)
+      bind(C, name='RowDataDimensionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: dimension
+   integer(c_int) :: RowDataDimensionGet
 end function RowDataDimensionGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine RowDataDimensionSet
 
 !! Has
 function RowDataHrefHas(handle) &
-      bind(C, name='RowDataHrefHas') &
-      result(has)
+      bind(C, name='RowDataHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RowDataHrefHas
 end function RowDataHrefHas
 
 !! Get
 function RowDataHrefGet(handle) &
-      bind(C, name='RowDataHrefGet') &
-      result(href)
+      bind(C, name='RowDataHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: RowDataHrefGet
 end function RowDataHrefGet
 
 !! Set
@@ -263,32 +248,29 @@ end subroutine RowDataHrefSet
 
 !! Has
 function RowDataSlicesHas(handle) &
-      bind(C, name='RowDataSlicesHas') &
-      result(has)
+      bind(C, name='RowDataSlicesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: RowDataSlicesHas
 end function RowDataSlicesHas
 
 !! Get, const
 function RowDataSlicesGetConst(handle) &
-      bind(C, name='RowDataSlicesGetConst') &
-      result(resultHandle)
+      bind(C, name='RowDataSlicesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RowDataSlicesGetConst
 end function RowDataSlicesGetConst
 
 !! Get
 function RowDataSlicesGet(handle) &
-      bind(C, name='RowDataSlicesGet') &
-      result(resultHandle)
+      bind(C, name='RowDataSlicesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: RowDataSlicesGet
 end function RowDataSlicesGet
 
 !! Set

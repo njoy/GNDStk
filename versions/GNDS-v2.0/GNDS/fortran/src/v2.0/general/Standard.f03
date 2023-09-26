@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function StandardDefaultConst() &
-      bind(C, name='StandardDefaultConst') &
-      result(handle)
+      bind(C, name='StandardDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StandardDefaultConst
 end function StandardDefaultConst
 
 !! Create, default
 function StandardDefault() &
-      bind(C, name='StandardDefault') &
-      result(handle)
+      bind(C, name='StandardDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StandardDefault
 end function StandardDefault
 
 !! Create, general, const
 function StandardCreateConst( &
    Double &
 ) &
-      bind(C, name='StandardCreateConst') &
-      result(handle)
+      bind(C, name='StandardCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: StandardCreateConst
 end function StandardCreateConst
 
 !! Create, general
 function StandardCreate( &
    Double &
 ) &
-      bind(C, name='StandardCreate') &
-      result(handle)
+      bind(C, name='StandardCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: StandardCreate
 end function StandardCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine StandardDelete
 
 !! Read from file
 function StandardRead(handle, filename, filenameSize) &
-      bind(C, name='StandardRead') &
-      result(success)
+      bind(C, name='StandardRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StandardRead
 end function StandardRead
 
 !! Write to file
 function StandardWrite(handle, filename, filenameSize) &
-      bind(C, name='StandardWrite') &
-      result(success)
+      bind(C, name='StandardWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StandardWrite
 end function StandardWrite
 
 !! Print to standard output, in our prettyprinting format
 function StandardPrint(handle) &
-      bind(C, name='StandardPrint') &
-      result(success)
+      bind(C, name='StandardPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StandardPrint
 end function StandardPrint
 
 !! Print to standard output, as XML
 function StandardPrintXML(handle) &
-      bind(C, name='StandardPrintXML') &
-      result(success)
+      bind(C, name='StandardPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StandardPrintXML
 end function StandardPrintXML
 
 !! Print to standard output, as JSON
 function StandardPrintJSON(handle) &
-      bind(C, name='StandardPrintJSON') &
-      result(success)
+      bind(C, name='StandardPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StandardPrintJSON
 end function StandardPrintJSON
 
 
@@ -138,32 +129,29 @@ end function StandardPrintJSON
 
 !! Has
 function StandardDoubleHas(handle) &
-      bind(C, name='StandardDoubleHas') &
-      result(has)
+      bind(C, name='StandardDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StandardDoubleHas
 end function StandardDoubleHas
 
 !! Get, const
 function StandardDoubleGetConst(handle) &
-      bind(C, name='StandardDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='StandardDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: StandardDoubleGetConst
 end function StandardDoubleGetConst
 
 !! Get
 function StandardDoubleGet(handle) &
-      bind(C, name='StandardDoubleGet') &
-      result(resultHandle)
+      bind(C, name='StandardDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: StandardDoubleGet
 end function StandardDoubleGet
 
 !! Set

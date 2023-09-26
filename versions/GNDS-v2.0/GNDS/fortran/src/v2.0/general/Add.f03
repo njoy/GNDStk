@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AddDefaultConst() &
-      bind(C, name='AddDefaultConst') &
-      result(handle)
+      bind(C, name='AddDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AddDefaultConst
 end function AddDefaultConst
 
 !! Create, default
 function AddDefault() &
-      bind(C, name='AddDefault') &
-      result(handle)
+      bind(C, name='AddDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AddDefault
 end function AddDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function AddCreateConst( &
    href, &
    hrefSize &
 ) &
-      bind(C, name='AddCreateConst') &
-      result(handle)
+      bind(C, name='AddCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AddCreateConst
 end function AddCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function AddCreate( &
    href, &
    hrefSize &
 ) &
-      bind(C, name='AddCreate') &
-      result(handle)
+      bind(C, name='AddCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AddCreate
 end function AddCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine AddDelete
 
 !! Read from file
 function AddRead(handle, filename, filenameSize) &
-      bind(C, name='AddRead') &
-      result(success)
+      bind(C, name='AddRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AddRead
 end function AddRead
 
 !! Write to file
 function AddWrite(handle, filename, filenameSize) &
-      bind(C, name='AddWrite') &
-      result(success)
+      bind(C, name='AddWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AddWrite
 end function AddWrite
 
 !! Print to standard output, in our prettyprinting format
 function AddPrint(handle) &
-      bind(C, name='AddPrint') &
-      result(success)
+      bind(C, name='AddPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AddPrint
 end function AddPrint
 
 !! Print to standard output, as XML
 function AddPrintXML(handle) &
-      bind(C, name='AddPrintXML') &
-      result(success)
+      bind(C, name='AddPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AddPrintXML
 end function AddPrintXML
 
 !! Print to standard output, as JSON
 function AddPrintJSON(handle) &
-      bind(C, name='AddPrintJSON') &
-      result(success)
+      bind(C, name='AddPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AddPrintJSON
 end function AddPrintJSON
 
 
@@ -142,22 +133,20 @@ end function AddPrintJSON
 
 !! Has
 function AddHrefHas(handle) &
-      bind(C, name='AddHrefHas') &
-      result(has)
+      bind(C, name='AddHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AddHrefHas
 end function AddHrefHas
 
 !! Get
 function AddHrefGet(handle) &
-      bind(C, name='AddHrefGet') &
-      result(href)
+      bind(C, name='AddHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: AddHrefGet
 end function AddHrefGet
 
 !! Set

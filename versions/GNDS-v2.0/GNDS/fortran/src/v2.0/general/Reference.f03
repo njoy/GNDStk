@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ReferenceDefaultConst() &
-      bind(C, name='ReferenceDefaultConst') &
-      result(handle)
+      bind(C, name='ReferenceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReferenceDefaultConst
 end function ReferenceDefaultConst
 
 !! Create, default
 function ReferenceDefault() &
-      bind(C, name='ReferenceDefault') &
-      result(handle)
+      bind(C, name='ReferenceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReferenceDefault
 end function ReferenceDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ReferenceCreateConst( &
    labelSize, &
    hrefSize &
 ) &
-      bind(C, name='ReferenceCreateConst') &
-      result(handle)
+      bind(C, name='ReferenceCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReferenceCreateConst
 end function ReferenceCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ReferenceCreate( &
    labelSize, &
    hrefSize &
 ) &
-      bind(C, name='ReferenceCreate') &
-      result(handle)
+      bind(C, name='ReferenceCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ReferenceCreate
 end function ReferenceCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ReferenceDelete
 
 !! Read from file
 function ReferenceRead(handle, filename, filenameSize) &
-      bind(C, name='ReferenceRead') &
-      result(success)
+      bind(C, name='ReferenceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReferenceRead
 end function ReferenceRead
 
 !! Write to file
 function ReferenceWrite(handle, filename, filenameSize) &
-      bind(C, name='ReferenceWrite') &
-      result(success)
+      bind(C, name='ReferenceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ReferenceWrite
 end function ReferenceWrite
 
 !! Print to standard output, in our prettyprinting format
 function ReferencePrint(handle) &
-      bind(C, name='ReferencePrint') &
-      result(success)
+      bind(C, name='ReferencePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReferencePrint
 end function ReferencePrint
 
 !! Print to standard output, as XML
 function ReferencePrintXML(handle) &
-      bind(C, name='ReferencePrintXML') &
-      result(success)
+      bind(C, name='ReferencePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReferencePrintXML
 end function ReferencePrintXML
 
 !! Print to standard output, as JSON
 function ReferencePrintJSON(handle) &
-      bind(C, name='ReferencePrintJSON') &
-      result(success)
+      bind(C, name='ReferencePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ReferencePrintJSON
 end function ReferencePrintJSON
 
 
@@ -150,22 +141,20 @@ end function ReferencePrintJSON
 
 !! Has
 function ReferenceLabelHas(handle) &
-      bind(C, name='ReferenceLabelHas') &
-      result(has)
+      bind(C, name='ReferenceLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReferenceLabelHas
 end function ReferenceLabelHas
 
 !! Get
 function ReferenceLabelGet(handle) &
-      bind(C, name='ReferenceLabelGet') &
-      result(label)
+      bind(C, name='ReferenceLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ReferenceLabelGet
 end function ReferenceLabelGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine ReferenceLabelSet
 
 !! Has
 function ReferenceHrefHas(handle) &
-      bind(C, name='ReferenceHrefHas') &
-      result(has)
+      bind(C, name='ReferenceHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ReferenceHrefHas
 end function ReferenceHrefHas
 
 !! Get
 function ReferenceHrefGet(handle) &
-      bind(C, name='ReferenceHrefGet') &
-      result(href)
+      bind(C, name='ReferenceHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: ReferenceHrefGet
 end function ReferenceHrefGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function TimeDefaultConst() &
-      bind(C, name='TimeDefaultConst') &
-      result(handle)
+      bind(C, name='TimeDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TimeDefaultConst
 end function TimeDefaultConst
 
 !! Create, default
 function TimeDefault() &
-      bind(C, name='TimeDefault') &
-      result(handle)
+      bind(C, name='TimeDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TimeDefault
 end function TimeDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function TimeCreateConst( &
    Double, &
    string &
 ) &
-      bind(C, name='TimeCreateConst') &
-      result(handle)
+      bind(C, name='TimeCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
    type(c_ptr), value :: string
-   type(c_ptr) :: handle
+   type(c_ptr) :: TimeCreateConst
 end function TimeCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function TimeCreate( &
    Double, &
    string &
 ) &
-      bind(C, name='TimeCreate') &
-      result(handle)
+      bind(C, name='TimeCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
    type(c_ptr), value :: string
-   type(c_ptr) :: handle
+   type(c_ptr) :: TimeCreate
 end function TimeCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine TimeDelete
 
 !! Read from file
 function TimeRead(handle, filename, filenameSize) &
-      bind(C, name='TimeRead') &
-      result(success)
+      bind(C, name='TimeRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TimeRead
 end function TimeRead
 
 !! Write to file
 function TimeWrite(handle, filename, filenameSize) &
-      bind(C, name='TimeWrite') &
-      result(success)
+      bind(C, name='TimeWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TimeWrite
 end function TimeWrite
 
 !! Print to standard output, in our prettyprinting format
 function TimePrint(handle) &
-      bind(C, name='TimePrint') &
-      result(success)
+      bind(C, name='TimePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TimePrint
 end function TimePrint
 
 !! Print to standard output, as XML
 function TimePrintXML(handle) &
-      bind(C, name='TimePrintXML') &
-      result(success)
+      bind(C, name='TimePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TimePrintXML
 end function TimePrintXML
 
 !! Print to standard output, as JSON
 function TimePrintJSON(handle) &
-      bind(C, name='TimePrintJSON') &
-      result(success)
+      bind(C, name='TimePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TimePrintJSON
 end function TimePrintJSON
 
 
@@ -142,32 +133,29 @@ end function TimePrintJSON
 
 !! Has
 function TimeDoubleHas(handle) &
-      bind(C, name='TimeDoubleHas') &
-      result(has)
+      bind(C, name='TimeDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TimeDoubleHas
 end function TimeDoubleHas
 
 !! Get, const
 function TimeDoubleGetConst(handle) &
-      bind(C, name='TimeDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='TimeDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TimeDoubleGetConst
 end function TimeDoubleGetConst
 
 !! Get
 function TimeDoubleGet(handle) &
-      bind(C, name='TimeDoubleGet') &
-      result(resultHandle)
+      bind(C, name='TimeDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TimeDoubleGet
 end function TimeDoubleGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine TimeDoubleSet
 
 !! Has
 function TimeStringHas(handle) &
-      bind(C, name='TimeStringHas') &
-      result(has)
+      bind(C, name='TimeStringHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: TimeStringHas
 end function TimeStringHas
 
 !! Get, const
 function TimeStringGetConst(handle) &
-      bind(C, name='TimeStringGetConst') &
-      result(resultHandle)
+      bind(C, name='TimeStringGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TimeStringGetConst
 end function TimeStringGetConst
 
 !! Get
 function TimeStringGet(handle) &
-      bind(C, name='TimeStringGet') &
-      result(resultHandle)
+      bind(C, name='TimeStringGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: TimeStringGet
 end function TimeStringGet
 
 !! Set

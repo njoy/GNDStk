@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function BreitWignerDefaultConst() &
-      bind(C, name='BreitWignerDefaultConst') &
-      result(handle)
+      bind(C, name='BreitWignerDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BreitWignerDefaultConst
 end function BreitWignerDefaultConst
 
 !! Create, default
 function BreitWignerDefault() &
-      bind(C, name='BreitWignerDefault') &
-      result(handle)
+      bind(C, name='BreitWignerDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BreitWignerDefault
 end function BreitWignerDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function BreitWignerCreateConst( &
    labelSize, &
    approximationSize &
 ) &
-      bind(C, name='BreitWignerCreateConst') &
-      result(handle)
+      bind(C, name='BreitWignerCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -53,7 +50,7 @@ function BreitWignerCreateConst( &
    type(c_ptr), value :: resonanceParameters
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: scatteringRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: BreitWignerCreateConst
 end function BreitWignerCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function BreitWignerCreate( &
    labelSize, &
    approximationSize &
 ) &
-      bind(C, name='BreitWignerCreate') &
-      result(handle)
+      bind(C, name='BreitWignerCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -79,7 +75,7 @@ function BreitWignerCreate( &
    type(c_ptr), value :: resonanceParameters
    type(c_ptr), value :: PoPs
    type(c_ptr), value :: scatteringRadius
-   type(c_ptr) :: handle
+   type(c_ptr) :: BreitWignerCreate
 end function BreitWignerCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine BreitWignerDelete
 
 !! Read from file
 function BreitWignerRead(handle, filename, filenameSize) &
-      bind(C, name='BreitWignerRead') &
-      result(success)
+      bind(C, name='BreitWignerRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BreitWignerRead
 end function BreitWignerRead
 
 !! Write to file
 function BreitWignerWrite(handle, filename, filenameSize) &
-      bind(C, name='BreitWignerWrite') &
-      result(success)
+      bind(C, name='BreitWignerWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BreitWignerWrite
 end function BreitWignerWrite
 
 !! Print to standard output, in our prettyprinting format
 function BreitWignerPrint(handle) &
-      bind(C, name='BreitWignerPrint') &
-      result(success)
+      bind(C, name='BreitWignerPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BreitWignerPrint
 end function BreitWignerPrint
 
 !! Print to standard output, as XML
 function BreitWignerPrintXML(handle) &
-      bind(C, name='BreitWignerPrintXML') &
-      result(success)
+      bind(C, name='BreitWignerPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BreitWignerPrintXML
 end function BreitWignerPrintXML
 
 !! Print to standard output, as JSON
 function BreitWignerPrintJSON(handle) &
-      bind(C, name='BreitWignerPrintJSON') &
-      result(success)
+      bind(C, name='BreitWignerPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BreitWignerPrintJSON
 end function BreitWignerPrintJSON
 
 
@@ -166,22 +157,20 @@ end function BreitWignerPrintJSON
 
 !! Has
 function BreitWignerLabelHas(handle) &
-      bind(C, name='BreitWignerLabelHas') &
-      result(has)
+      bind(C, name='BreitWignerLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BreitWignerLabelHas
 end function BreitWignerLabelHas
 
 !! Get
 function BreitWignerLabelGet(handle) &
-      bind(C, name='BreitWignerLabelGet') &
-      result(label)
+      bind(C, name='BreitWignerLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: BreitWignerLabelGet
 end function BreitWignerLabelGet
 
 !! Set
@@ -201,22 +190,20 @@ end subroutine BreitWignerLabelSet
 
 !! Has
 function BreitWignerApproximationHas(handle) &
-      bind(C, name='BreitWignerApproximationHas') &
-      result(has)
+      bind(C, name='BreitWignerApproximationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BreitWignerApproximationHas
 end function BreitWignerApproximationHas
 
 !! Get
 function BreitWignerApproximationGet(handle) &
-      bind(C, name='BreitWignerApproximationGet') &
-      result(approximation)
+      bind(C, name='BreitWignerApproximationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: approximation
+   type(c_ptr) :: BreitWignerApproximationGet
 end function BreitWignerApproximationGet
 
 !! Set
@@ -236,22 +223,20 @@ end subroutine BreitWignerApproximationSet
 
 !! Has
 function BreitWignerCalculateChannelRadiusHas(handle) &
-      bind(C, name='BreitWignerCalculateChannelRadiusHas') &
-      result(has)
+      bind(C, name='BreitWignerCalculateChannelRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BreitWignerCalculateChannelRadiusHas
 end function BreitWignerCalculateChannelRadiusHas
 
 !! Get
 function BreitWignerCalculateChannelRadiusGet(handle) &
-      bind(C, name='BreitWignerCalculateChannelRadiusGet') &
-      result(calculateChannelRadius)
+      bind(C, name='BreitWignerCalculateChannelRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: calculateChannelRadius
+   logical(c_bool) :: BreitWignerCalculateChannelRadiusGet
 end function BreitWignerCalculateChannelRadiusGet
 
 !! Set
@@ -271,32 +256,29 @@ end subroutine BreitWignerCalculateChannelRadiusSet
 
 !! Has
 function BreitWignerResonanceParametersHas(handle) &
-      bind(C, name='BreitWignerResonanceParametersHas') &
-      result(has)
+      bind(C, name='BreitWignerResonanceParametersHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BreitWignerResonanceParametersHas
 end function BreitWignerResonanceParametersHas
 
 !! Get, const
 function BreitWignerResonanceParametersGetConst(handle) &
-      bind(C, name='BreitWignerResonanceParametersGetConst') &
-      result(resultHandle)
+      bind(C, name='BreitWignerResonanceParametersGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BreitWignerResonanceParametersGetConst
 end function BreitWignerResonanceParametersGetConst
 
 !! Get
 function BreitWignerResonanceParametersGet(handle) &
-      bind(C, name='BreitWignerResonanceParametersGet') &
-      result(resultHandle)
+      bind(C, name='BreitWignerResonanceParametersGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BreitWignerResonanceParametersGet
 end function BreitWignerResonanceParametersGet
 
 !! Set
@@ -315,32 +297,29 @@ end subroutine BreitWignerResonanceParametersSet
 
 !! Has
 function BreitWignerPoPsHas(handle) &
-      bind(C, name='BreitWignerPoPsHas') &
-      result(has)
+      bind(C, name='BreitWignerPoPsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BreitWignerPoPsHas
 end function BreitWignerPoPsHas
 
 !! Get, const
 function BreitWignerPoPsGetConst(handle) &
-      bind(C, name='BreitWignerPoPsGetConst') &
-      result(resultHandle)
+      bind(C, name='BreitWignerPoPsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BreitWignerPoPsGetConst
 end function BreitWignerPoPsGetConst
 
 !! Get
 function BreitWignerPoPsGet(handle) &
-      bind(C, name='BreitWignerPoPsGet') &
-      result(resultHandle)
+      bind(C, name='BreitWignerPoPsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BreitWignerPoPsGet
 end function BreitWignerPoPsGet
 
 !! Set
@@ -359,32 +338,29 @@ end subroutine BreitWignerPoPsSet
 
 !! Has
 function BreitWignerScatteringRadiusHas(handle) &
-      bind(C, name='BreitWignerScatteringRadiusHas') &
-      result(has)
+      bind(C, name='BreitWignerScatteringRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BreitWignerScatteringRadiusHas
 end function BreitWignerScatteringRadiusHas
 
 !! Get, const
 function BreitWignerScatteringRadiusGetConst(handle) &
-      bind(C, name='BreitWignerScatteringRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='BreitWignerScatteringRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BreitWignerScatteringRadiusGetConst
 end function BreitWignerScatteringRadiusGetConst
 
 !! Get
 function BreitWignerScatteringRadiusGet(handle) &
-      bind(C, name='BreitWignerScatteringRadiusGet') &
-      result(resultHandle)
+      bind(C, name='BreitWignerScatteringRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BreitWignerScatteringRadiusGet
 end function BreitWignerScatteringRadiusGet
 
 !! Set

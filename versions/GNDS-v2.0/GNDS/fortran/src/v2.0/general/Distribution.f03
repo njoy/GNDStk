@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DistributionDefaultConst() &
-      bind(C, name='DistributionDefaultConst') &
-      result(handle)
+      bind(C, name='DistributionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DistributionDefaultConst
 end function DistributionDefaultConst
 
 !! Create, default
 function DistributionDefault() &
-      bind(C, name='DistributionDefault') &
-      result(handle)
+      bind(C, name='DistributionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DistributionDefault
 end function DistributionDefault
 
 !! Create, general, const
@@ -44,8 +42,7 @@ function DistributionCreateConst( &
    coherentPhotonScattering, &
    incoherentPhotonScattering &
 ) &
-      bind(C, name='DistributionCreateConst') &
-      result(handle)
+      bind(C, name='DistributionCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: thermalNeutronScatteringLaw
@@ -59,7 +56,7 @@ function DistributionCreateConst( &
    type(c_ptr), value :: CoulombPlusNuclearElastic
    type(c_ptr), value :: coherentPhotonScattering
    type(c_ptr), value :: incoherentPhotonScattering
-   type(c_ptr) :: handle
+   type(c_ptr) :: DistributionCreateConst
 end function DistributionCreateConst
 
 !! Create, general
@@ -76,8 +73,7 @@ function DistributionCreate( &
    coherentPhotonScattering, &
    incoherentPhotonScattering &
 ) &
-      bind(C, name='DistributionCreate') &
-      result(handle)
+      bind(C, name='DistributionCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: thermalNeutronScatteringLaw
@@ -91,7 +87,7 @@ function DistributionCreate( &
    type(c_ptr), value :: CoulombPlusNuclearElastic
    type(c_ptr), value :: coherentPhotonScattering
    type(c_ptr), value :: incoherentPhotonScattering
-   type(c_ptr) :: handle
+   type(c_ptr) :: DistributionCreate
 end function DistributionCreate
 
 !! Assign
@@ -119,56 +115,51 @@ end subroutine DistributionDelete
 
 !! Read from file
 function DistributionRead(handle, filename, filenameSize) &
-      bind(C, name='DistributionRead') &
-      result(success)
+      bind(C, name='DistributionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DistributionRead
 end function DistributionRead
 
 !! Write to file
 function DistributionWrite(handle, filename, filenameSize) &
-      bind(C, name='DistributionWrite') &
-      result(success)
+      bind(C, name='DistributionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DistributionWrite
 end function DistributionWrite
 
 !! Print to standard output, in our prettyprinting format
 function DistributionPrint(handle) &
-      bind(C, name='DistributionPrint') &
-      result(success)
+      bind(C, name='DistributionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DistributionPrint
 end function DistributionPrint
 
 !! Print to standard output, as XML
 function DistributionPrintXML(handle) &
-      bind(C, name='DistributionPrintXML') &
-      result(success)
+      bind(C, name='DistributionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DistributionPrintXML
 end function DistributionPrintXML
 
 !! Print to standard output, as JSON
 function DistributionPrintJSON(handle) &
-      bind(C, name='DistributionPrintJSON') &
-      result(success)
+      bind(C, name='DistributionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DistributionPrintJSON
 end function DistributionPrintJSON
 
 
@@ -178,32 +169,29 @@ end function DistributionPrintJSON
 
 !! Has
 function DistributionThermalNeutronScatteringLawHas(handle) &
-      bind(C, name='DistributionThermalNeutronScatteringLawHas') &
-      result(has)
+      bind(C, name='DistributionThermalNeutronScatteringLawHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionThermalNeutronScatteringLawHas
 end function DistributionThermalNeutronScatteringLawHas
 
 !! Get, const
 function DistributionThermalNeutronScatteringLawGetConst(handle) &
-      bind(C, name='DistributionThermalNeutronScatteringLawGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionThermalNeutronScatteringLawGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionThermalNeutronScatteringLawGetConst
 end function DistributionThermalNeutronScatteringLawGetConst
 
 !! Get
 function DistributionThermalNeutronScatteringLawGet(handle) &
-      bind(C, name='DistributionThermalNeutronScatteringLawGet') &
-      result(resultHandle)
+      bind(C, name='DistributionThermalNeutronScatteringLawGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionThermalNeutronScatteringLawGet
 end function DistributionThermalNeutronScatteringLawGet
 
 !! Set
@@ -222,32 +210,29 @@ end subroutine DistributionThermalNeutronScatteringLawSet
 
 !! Has
 function DistributionUncorrelatedHas(handle) &
-      bind(C, name='DistributionUncorrelatedHas') &
-      result(has)
+      bind(C, name='DistributionUncorrelatedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionUncorrelatedHas
 end function DistributionUncorrelatedHas
 
 !! Get, const
 function DistributionUncorrelatedGetConst(handle) &
-      bind(C, name='DistributionUncorrelatedGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionUncorrelatedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionUncorrelatedGetConst
 end function DistributionUncorrelatedGetConst
 
 !! Get
 function DistributionUncorrelatedGet(handle) &
-      bind(C, name='DistributionUncorrelatedGet') &
-      result(resultHandle)
+      bind(C, name='DistributionUncorrelatedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionUncorrelatedGet
 end function DistributionUncorrelatedGet
 
 !! Set
@@ -266,32 +251,29 @@ end subroutine DistributionUncorrelatedSet
 
 !! Has
 function DistributionUnspecifiedHas(handle) &
-      bind(C, name='DistributionUnspecifiedHas') &
-      result(has)
+      bind(C, name='DistributionUnspecifiedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionUnspecifiedHas
 end function DistributionUnspecifiedHas
 
 !! Get, const
 function DistributionUnspecifiedGetConst(handle) &
-      bind(C, name='DistributionUnspecifiedGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionUnspecifiedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionUnspecifiedGetConst
 end function DistributionUnspecifiedGetConst
 
 !! Get
 function DistributionUnspecifiedGet(handle) &
-      bind(C, name='DistributionUnspecifiedGet') &
-      result(resultHandle)
+      bind(C, name='DistributionUnspecifiedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionUnspecifiedGet
 end function DistributionUnspecifiedGet
 
 !! Set
@@ -310,32 +292,29 @@ end subroutine DistributionUnspecifiedSet
 
 !! Has
 function DistributionBranching3dHas(handle) &
-      bind(C, name='DistributionBranching3dHas') &
-      result(has)
+      bind(C, name='DistributionBranching3dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionBranching3dHas
 end function DistributionBranching3dHas
 
 !! Get, const
 function DistributionBranching3dGetConst(handle) &
-      bind(C, name='DistributionBranching3dGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionBranching3dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionBranching3dGetConst
 end function DistributionBranching3dGetConst
 
 !! Get
 function DistributionBranching3dGet(handle) &
-      bind(C, name='DistributionBranching3dGet') &
-      result(resultHandle)
+      bind(C, name='DistributionBranching3dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionBranching3dGet
 end function DistributionBranching3dGet
 
 !! Set
@@ -354,32 +333,29 @@ end subroutine DistributionBranching3dSet
 
 !! Has
 function DistributionAngularTwoBodyHas(handle) &
-      bind(C, name='DistributionAngularTwoBodyHas') &
-      result(has)
+      bind(C, name='DistributionAngularTwoBodyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionAngularTwoBodyHas
 end function DistributionAngularTwoBodyHas
 
 !! Get, const
 function DistributionAngularTwoBodyGetConst(handle) &
-      bind(C, name='DistributionAngularTwoBodyGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionAngularTwoBodyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionAngularTwoBodyGetConst
 end function DistributionAngularTwoBodyGetConst
 
 !! Get
 function DistributionAngularTwoBodyGet(handle) &
-      bind(C, name='DistributionAngularTwoBodyGet') &
-      result(resultHandle)
+      bind(C, name='DistributionAngularTwoBodyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionAngularTwoBodyGet
 end function DistributionAngularTwoBodyGet
 
 !! Set
@@ -398,32 +374,29 @@ end subroutine DistributionAngularTwoBodySet
 
 !! Has
 function DistributionEnergyAngularHas(handle) &
-      bind(C, name='DistributionEnergyAngularHas') &
-      result(has)
+      bind(C, name='DistributionEnergyAngularHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionEnergyAngularHas
 end function DistributionEnergyAngularHas
 
 !! Get, const
 function DistributionEnergyAngularGetConst(handle) &
-      bind(C, name='DistributionEnergyAngularGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionEnergyAngularGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionEnergyAngularGetConst
 end function DistributionEnergyAngularGetConst
 
 !! Get
 function DistributionEnergyAngularGet(handle) &
-      bind(C, name='DistributionEnergyAngularGet') &
-      result(resultHandle)
+      bind(C, name='DistributionEnergyAngularGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionEnergyAngularGet
 end function DistributionEnergyAngularGet
 
 !! Set
@@ -442,32 +415,29 @@ end subroutine DistributionEnergyAngularSet
 
 !! Has
 function DistributionKalbachMannHas(handle) &
-      bind(C, name='DistributionKalbachMannHas') &
-      result(has)
+      bind(C, name='DistributionKalbachMannHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionKalbachMannHas
 end function DistributionKalbachMannHas
 
 !! Get, const
 function DistributionKalbachMannGetConst(handle) &
-      bind(C, name='DistributionKalbachMannGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionKalbachMannGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionKalbachMannGetConst
 end function DistributionKalbachMannGetConst
 
 !! Get
 function DistributionKalbachMannGet(handle) &
-      bind(C, name='DistributionKalbachMannGet') &
-      result(resultHandle)
+      bind(C, name='DistributionKalbachMannGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionKalbachMannGet
 end function DistributionKalbachMannGet
 
 !! Set
@@ -486,32 +456,29 @@ end subroutine DistributionKalbachMannSet
 
 !! Has
 function DistributionAngularEnergyHas(handle) &
-      bind(C, name='DistributionAngularEnergyHas') &
-      result(has)
+      bind(C, name='DistributionAngularEnergyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionAngularEnergyHas
 end function DistributionAngularEnergyHas
 
 !! Get, const
 function DistributionAngularEnergyGetConst(handle) &
-      bind(C, name='DistributionAngularEnergyGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionAngularEnergyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionAngularEnergyGetConst
 end function DistributionAngularEnergyGetConst
 
 !! Get
 function DistributionAngularEnergyGet(handle) &
-      bind(C, name='DistributionAngularEnergyGet') &
-      result(resultHandle)
+      bind(C, name='DistributionAngularEnergyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionAngularEnergyGet
 end function DistributionAngularEnergyGet
 
 !! Set
@@ -530,32 +497,29 @@ end subroutine DistributionAngularEnergySet
 
 !! Has
 function DistributionCoulombPlusNuclearElasticHas(handle) &
-      bind(C, name='DistributionCoulombPlusNuclearElasticHas') &
-      result(has)
+      bind(C, name='DistributionCoulombPlusNuclearElasticHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionCoulombPlusNuclearElasticHas
 end function DistributionCoulombPlusNuclearElasticHas
 
 !! Get, const
 function DistributionCoulombPlusNuclearElasticGetConst(handle) &
-      bind(C, name='DistributionCoulombPlusNuclearElasticGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionCoulombPlusNuclearElasticGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionCoulombPlusNuclearElasticGetConst
 end function DistributionCoulombPlusNuclearElasticGetConst
 
 !! Get
 function DistributionCoulombPlusNuclearElasticGet(handle) &
-      bind(C, name='DistributionCoulombPlusNuclearElasticGet') &
-      result(resultHandle)
+      bind(C, name='DistributionCoulombPlusNuclearElasticGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionCoulombPlusNuclearElasticGet
 end function DistributionCoulombPlusNuclearElasticGet
 
 !! Set
@@ -574,32 +538,29 @@ end subroutine DistributionCoulombPlusNuclearElasticSet
 
 !! Has
 function DistributionCoherentPhotonScatteringHas(handle) &
-      bind(C, name='DistributionCoherentPhotonScatteringHas') &
-      result(has)
+      bind(C, name='DistributionCoherentPhotonScatteringHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionCoherentPhotonScatteringHas
 end function DistributionCoherentPhotonScatteringHas
 
 !! Get, const
 function DistributionCoherentPhotonScatteringGetConst(handle) &
-      bind(C, name='DistributionCoherentPhotonScatteringGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionCoherentPhotonScatteringGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionCoherentPhotonScatteringGetConst
 end function DistributionCoherentPhotonScatteringGetConst
 
 !! Get
 function DistributionCoherentPhotonScatteringGet(handle) &
-      bind(C, name='DistributionCoherentPhotonScatteringGet') &
-      result(resultHandle)
+      bind(C, name='DistributionCoherentPhotonScatteringGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionCoherentPhotonScatteringGet
 end function DistributionCoherentPhotonScatteringGet
 
 !! Set
@@ -618,32 +579,29 @@ end subroutine DistributionCoherentPhotonScatteringSet
 
 !! Has
 function DistributionIncoherentPhotonScatteringHas(handle) &
-      bind(C, name='DistributionIncoherentPhotonScatteringHas') &
-      result(has)
+      bind(C, name='DistributionIncoherentPhotonScatteringHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DistributionIncoherentPhotonScatteringHas
 end function DistributionIncoherentPhotonScatteringHas
 
 !! Get, const
 function DistributionIncoherentPhotonScatteringGetConst(handle) &
-      bind(C, name='DistributionIncoherentPhotonScatteringGetConst') &
-      result(resultHandle)
+      bind(C, name='DistributionIncoherentPhotonScatteringGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionIncoherentPhotonScatteringGetConst
 end function DistributionIncoherentPhotonScatteringGetConst
 
 !! Get
 function DistributionIncoherentPhotonScatteringGet(handle) &
-      bind(C, name='DistributionIncoherentPhotonScatteringGet') &
-      result(resultHandle)
+      bind(C, name='DistributionIncoherentPhotonScatteringGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DistributionIncoherentPhotonScatteringGet
 end function DistributionIncoherentPhotonScatteringGet
 
 !! Set

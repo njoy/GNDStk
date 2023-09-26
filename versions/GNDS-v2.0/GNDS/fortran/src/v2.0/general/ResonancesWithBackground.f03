@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ResonancesWithBackgroundDefaultConst() &
-      bind(C, name='ResonancesWithBackgroundDefaultConst') &
-      result(handle)
+      bind(C, name='ResonancesWithBackgroundDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesWithBackgroundDefaultConst
 end function ResonancesWithBackgroundDefaultConst
 
 !! Create, default
 function ResonancesWithBackgroundDefault() &
-      bind(C, name='ResonancesWithBackgroundDefault') &
-      result(handle)
+      bind(C, name='ResonancesWithBackgroundDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesWithBackgroundDefault
 end function ResonancesWithBackgroundDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function ResonancesWithBackgroundCreateConst( &
    uncertainty, &
    labelSize &
 ) &
-      bind(C, name='ResonancesWithBackgroundCreateConst') &
-      result(handle)
+      bind(C, name='ResonancesWithBackgroundCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function ResonancesWithBackgroundCreateConst( &
    type(c_ptr), value :: resonances
    type(c_ptr), value :: background
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesWithBackgroundCreateConst
 end function ResonancesWithBackgroundCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function ResonancesWithBackgroundCreate( &
    uncertainty, &
    labelSize &
 ) &
-      bind(C, name='ResonancesWithBackgroundCreate') &
-      result(handle)
+      bind(C, name='ResonancesWithBackgroundCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function ResonancesWithBackgroundCreate( &
    type(c_ptr), value :: resonances
    type(c_ptr), value :: background
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesWithBackgroundCreate
 end function ResonancesWithBackgroundCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine ResonancesWithBackgroundDelete
 
 !! Read from file
 function ResonancesWithBackgroundRead(handle, filename, filenameSize) &
-      bind(C, name='ResonancesWithBackgroundRead') &
-      result(success)
+      bind(C, name='ResonancesWithBackgroundRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesWithBackgroundRead
 end function ResonancesWithBackgroundRead
 
 !! Write to file
 function ResonancesWithBackgroundWrite(handle, filename, filenameSize) &
-      bind(C, name='ResonancesWithBackgroundWrite') &
-      result(success)
+      bind(C, name='ResonancesWithBackgroundWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesWithBackgroundWrite
 end function ResonancesWithBackgroundWrite
 
 !! Print to standard output, in our prettyprinting format
 function ResonancesWithBackgroundPrint(handle) &
-      bind(C, name='ResonancesWithBackgroundPrint') &
-      result(success)
+      bind(C, name='ResonancesWithBackgroundPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesWithBackgroundPrint
 end function ResonancesWithBackgroundPrint
 
 !! Print to standard output, as XML
 function ResonancesWithBackgroundPrintXML(handle) &
-      bind(C, name='ResonancesWithBackgroundPrintXML') &
-      result(success)
+      bind(C, name='ResonancesWithBackgroundPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesWithBackgroundPrintXML
 end function ResonancesWithBackgroundPrintXML
 
 !! Print to standard output, as JSON
 function ResonancesWithBackgroundPrintJSON(handle) &
-      bind(C, name='ResonancesWithBackgroundPrintJSON') &
-      result(success)
+      bind(C, name='ResonancesWithBackgroundPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesWithBackgroundPrintJSON
 end function ResonancesWithBackgroundPrintJSON
 
 
@@ -154,22 +145,20 @@ end function ResonancesWithBackgroundPrintJSON
 
 !! Has
 function ResonancesWithBackgroundLabelHas(handle) &
-      bind(C, name='ResonancesWithBackgroundLabelHas') &
-      result(has)
+      bind(C, name='ResonancesWithBackgroundLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesWithBackgroundLabelHas
 end function ResonancesWithBackgroundLabelHas
 
 !! Get
 function ResonancesWithBackgroundLabelGet(handle) &
-      bind(C, name='ResonancesWithBackgroundLabelGet') &
-      result(label)
+      bind(C, name='ResonancesWithBackgroundLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ResonancesWithBackgroundLabelGet
 end function ResonancesWithBackgroundLabelGet
 
 !! Set
@@ -189,32 +178,29 @@ end subroutine ResonancesWithBackgroundLabelSet
 
 !! Has
 function ResonancesWithBackgroundResonancesHas(handle) &
-      bind(C, name='ResonancesWithBackgroundResonancesHas') &
-      result(has)
+      bind(C, name='ResonancesWithBackgroundResonancesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesWithBackgroundResonancesHas
 end function ResonancesWithBackgroundResonancesHas
 
 !! Get, const
 function ResonancesWithBackgroundResonancesGetConst(handle) &
-      bind(C, name='ResonancesWithBackgroundResonancesGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonancesWithBackgroundResonancesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesWithBackgroundResonancesGetConst
 end function ResonancesWithBackgroundResonancesGetConst
 
 !! Get
 function ResonancesWithBackgroundResonancesGet(handle) &
-      bind(C, name='ResonancesWithBackgroundResonancesGet') &
-      result(resultHandle)
+      bind(C, name='ResonancesWithBackgroundResonancesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesWithBackgroundResonancesGet
 end function ResonancesWithBackgroundResonancesGet
 
 !! Set
@@ -233,32 +219,29 @@ end subroutine ResonancesWithBackgroundResonancesSet
 
 !! Has
 function ResonancesWithBackgroundBackgroundHas(handle) &
-      bind(C, name='ResonancesWithBackgroundBackgroundHas') &
-      result(has)
+      bind(C, name='ResonancesWithBackgroundBackgroundHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesWithBackgroundBackgroundHas
 end function ResonancesWithBackgroundBackgroundHas
 
 !! Get, const
 function ResonancesWithBackgroundBackgroundGetConst(handle) &
-      bind(C, name='ResonancesWithBackgroundBackgroundGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonancesWithBackgroundBackgroundGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesWithBackgroundBackgroundGetConst
 end function ResonancesWithBackgroundBackgroundGetConst
 
 !! Get
 function ResonancesWithBackgroundBackgroundGet(handle) &
-      bind(C, name='ResonancesWithBackgroundBackgroundGet') &
-      result(resultHandle)
+      bind(C, name='ResonancesWithBackgroundBackgroundGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesWithBackgroundBackgroundGet
 end function ResonancesWithBackgroundBackgroundGet
 
 !! Set
@@ -277,32 +260,29 @@ end subroutine ResonancesWithBackgroundBackgroundSet
 
 !! Has
 function ResonancesWithBackgroundUncertaintyHas(handle) &
-      bind(C, name='ResonancesWithBackgroundUncertaintyHas') &
-      result(has)
+      bind(C, name='ResonancesWithBackgroundUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesWithBackgroundUncertaintyHas
 end function ResonancesWithBackgroundUncertaintyHas
 
 !! Get, const
 function ResonancesWithBackgroundUncertaintyGetConst(handle) &
-      bind(C, name='ResonancesWithBackgroundUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonancesWithBackgroundUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesWithBackgroundUncertaintyGetConst
 end function ResonancesWithBackgroundUncertaintyGetConst
 
 !! Get
 function ResonancesWithBackgroundUncertaintyGet(handle) &
-      bind(C, name='ResonancesWithBackgroundUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='ResonancesWithBackgroundUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesWithBackgroundUncertaintyGet
 end function ResonancesWithBackgroundUncertaintyGet
 
 !! Set

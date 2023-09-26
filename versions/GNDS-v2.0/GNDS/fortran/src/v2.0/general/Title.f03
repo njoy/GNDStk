@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function TitleDefaultConst() &
-      bind(C, name='TitleDefaultConst') &
-      result(handle)
+      bind(C, name='TitleDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TitleDefaultConst
 end function TitleDefaultConst
 
 !! Create, default
 function TitleDefault() &
-      bind(C, name='TitleDefault') &
-      result(handle)
+      bind(C, name='TitleDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TitleDefault
 end function TitleDefault
 
 !! Create, general, const
 function TitleCreateConst( &
 ) &
-      bind(C, name='TitleCreateConst') &
-      result(handle)
+      bind(C, name='TitleCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TitleCreateConst
 end function TitleCreateConst
 
 !! Create, general
 function TitleCreate( &
 ) &
-      bind(C, name='TitleCreate') &
-      result(handle)
+      bind(C, name='TitleCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: TitleCreate
 end function TitleCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine TitleDelete
 
 !! Read from file
 function TitleRead(handle, filename, filenameSize) &
-      bind(C, name='TitleRead') &
-      result(success)
+      bind(C, name='TitleRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TitleRead
 end function TitleRead
 
 !! Write to file
 function TitleWrite(handle, filename, filenameSize) &
-      bind(C, name='TitleWrite') &
-      result(success)
+      bind(C, name='TitleWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: TitleWrite
 end function TitleWrite
 
 !! Print to standard output, in our prettyprinting format
 function TitlePrint(handle) &
-      bind(C, name='TitlePrint') &
-      result(success)
+      bind(C, name='TitlePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TitlePrint
 end function TitlePrint
 
 !! Print to standard output, as XML
 function TitlePrintXML(handle) &
-      bind(C, name='TitlePrintXML') &
-      result(success)
+      bind(C, name='TitlePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TitlePrintXML
 end function TitlePrintXML
 
 !! Print to standard output, as JSON
 function TitlePrintJSON(handle) &
-      bind(C, name='TitlePrintJSON') &
-      result(success)
+      bind(C, name='TitlePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: TitlePrintJSON
 end function TitlePrintJSON
 
 

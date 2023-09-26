@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function NuclideDefaultConst() &
-      bind(C, name='NuclideDefaultConst') &
-      result(handle)
+      bind(C, name='NuclideDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclideDefaultConst
 end function NuclideDefaultConst
 
 !! Create, default
 function NuclideDefault() &
-      bind(C, name='NuclideDefault') &
-      result(handle)
+      bind(C, name='NuclideDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclideDefault
 end function NuclideDefault
 
 !! Create, general, const
@@ -40,8 +38,7 @@ function NuclideCreateConst( &
    fissionFragmentData, &
    idSize &
 ) &
-      bind(C, name='NuclideCreateConst') &
-      result(handle)
+      bind(C, name='NuclideCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -51,7 +48,7 @@ function NuclideCreateConst( &
    type(c_ptr), value :: nucleus
    type(c_ptr), value :: decayData
    type(c_ptr), value :: fissionFragmentData
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclideCreateConst
 end function NuclideCreateConst
 
 !! Create, general
@@ -64,8 +61,7 @@ function NuclideCreate( &
    fissionFragmentData, &
    idSize &
 ) &
-      bind(C, name='NuclideCreate') &
-      result(handle)
+      bind(C, name='NuclideCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -75,7 +71,7 @@ function NuclideCreate( &
    type(c_ptr), value :: nucleus
    type(c_ptr), value :: decayData
    type(c_ptr), value :: fissionFragmentData
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclideCreate
 end function NuclideCreate
 
 !! Assign
@@ -103,56 +99,51 @@ end subroutine NuclideDelete
 
 !! Read from file
 function NuclideRead(handle, filename, filenameSize) &
-      bind(C, name='NuclideRead') &
-      result(success)
+      bind(C, name='NuclideRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclideRead
 end function NuclideRead
 
 !! Write to file
 function NuclideWrite(handle, filename, filenameSize) &
-      bind(C, name='NuclideWrite') &
-      result(success)
+      bind(C, name='NuclideWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclideWrite
 end function NuclideWrite
 
 !! Print to standard output, in our prettyprinting format
 function NuclidePrint(handle) &
-      bind(C, name='NuclidePrint') &
-      result(success)
+      bind(C, name='NuclidePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclidePrint
 end function NuclidePrint
 
 !! Print to standard output, as XML
 function NuclidePrintXML(handle) &
-      bind(C, name='NuclidePrintXML') &
-      result(success)
+      bind(C, name='NuclidePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclidePrintXML
 end function NuclidePrintXML
 
 !! Print to standard output, as JSON
 function NuclidePrintJSON(handle) &
-      bind(C, name='NuclidePrintJSON') &
-      result(success)
+      bind(C, name='NuclidePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclidePrintJSON
 end function NuclidePrintJSON
 
 
@@ -162,22 +153,20 @@ end function NuclidePrintJSON
 
 !! Has
 function NuclideIdHas(handle) &
-      bind(C, name='NuclideIdHas') &
-      result(has)
+      bind(C, name='NuclideIdHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclideIdHas
 end function NuclideIdHas
 
 !! Get
 function NuclideIdGet(handle) &
-      bind(C, name='NuclideIdGet') &
-      result(id)
+      bind(C, name='NuclideIdGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: id
+   type(c_ptr) :: NuclideIdGet
 end function NuclideIdGet
 
 !! Set
@@ -197,32 +186,29 @@ end subroutine NuclideIdSet
 
 !! Has
 function NuclideMassHas(handle) &
-      bind(C, name='NuclideMassHas') &
-      result(has)
+      bind(C, name='NuclideMassHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclideMassHas
 end function NuclideMassHas
 
 !! Get, const
 function NuclideMassGetConst(handle) &
-      bind(C, name='NuclideMassGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclideMassGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideMassGetConst
 end function NuclideMassGetConst
 
 !! Get
 function NuclideMassGet(handle) &
-      bind(C, name='NuclideMassGet') &
-      result(resultHandle)
+      bind(C, name='NuclideMassGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideMassGet
 end function NuclideMassGet
 
 !! Set
@@ -241,32 +227,29 @@ end subroutine NuclideMassSet
 
 !! Has
 function NuclideChargeHas(handle) &
-      bind(C, name='NuclideChargeHas') &
-      result(has)
+      bind(C, name='NuclideChargeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclideChargeHas
 end function NuclideChargeHas
 
 !! Get, const
 function NuclideChargeGetConst(handle) &
-      bind(C, name='NuclideChargeGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclideChargeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideChargeGetConst
 end function NuclideChargeGetConst
 
 !! Get
 function NuclideChargeGet(handle) &
-      bind(C, name='NuclideChargeGet') &
-      result(resultHandle)
+      bind(C, name='NuclideChargeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideChargeGet
 end function NuclideChargeGet
 
 !! Set
@@ -285,32 +268,29 @@ end subroutine NuclideChargeSet
 
 !! Has
 function NuclideNucleusHas(handle) &
-      bind(C, name='NuclideNucleusHas') &
-      result(has)
+      bind(C, name='NuclideNucleusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclideNucleusHas
 end function NuclideNucleusHas
 
 !! Get, const
 function NuclideNucleusGetConst(handle) &
-      bind(C, name='NuclideNucleusGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclideNucleusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideNucleusGetConst
 end function NuclideNucleusGetConst
 
 !! Get
 function NuclideNucleusGet(handle) &
-      bind(C, name='NuclideNucleusGet') &
-      result(resultHandle)
+      bind(C, name='NuclideNucleusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideNucleusGet
 end function NuclideNucleusGet
 
 !! Set
@@ -329,32 +309,29 @@ end subroutine NuclideNucleusSet
 
 !! Has
 function NuclideDecayDataHas(handle) &
-      bind(C, name='NuclideDecayDataHas') &
-      result(has)
+      bind(C, name='NuclideDecayDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclideDecayDataHas
 end function NuclideDecayDataHas
 
 !! Get, const
 function NuclideDecayDataGetConst(handle) &
-      bind(C, name='NuclideDecayDataGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclideDecayDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideDecayDataGetConst
 end function NuclideDecayDataGetConst
 
 !! Get
 function NuclideDecayDataGet(handle) &
-      bind(C, name='NuclideDecayDataGet') &
-      result(resultHandle)
+      bind(C, name='NuclideDecayDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideDecayDataGet
 end function NuclideDecayDataGet
 
 !! Set
@@ -373,32 +350,29 @@ end subroutine NuclideDecayDataSet
 
 !! Has
 function NuclideFissionFragmentDataHas(handle) &
-      bind(C, name='NuclideFissionFragmentDataHas') &
-      result(has)
+      bind(C, name='NuclideFissionFragmentDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclideFissionFragmentDataHas
 end function NuclideFissionFragmentDataHas
 
 !! Get, const
 function NuclideFissionFragmentDataGetConst(handle) &
-      bind(C, name='NuclideFissionFragmentDataGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclideFissionFragmentDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideFissionFragmentDataGetConst
 end function NuclideFissionFragmentDataGetConst
 
 !! Get
 function NuclideFissionFragmentDataGet(handle) &
-      bind(C, name='NuclideFissionFragmentDataGet') &
-      result(resultHandle)
+      bind(C, name='NuclideFissionFragmentDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclideFissionFragmentDataGet
 end function NuclideFissionFragmentDataGet
 
 !! Set

@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function EvaluatedDefaultConst() &
-      bind(C, name='EvaluatedDefaultConst') &
-      result(handle)
+      bind(C, name='EvaluatedDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaluatedDefaultConst
 end function EvaluatedDefaultConst
 
 !! Create, default
 function EvaluatedDefault() &
-      bind(C, name='EvaluatedDefault') &
-      result(handle)
+      bind(C, name='EvaluatedDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaluatedDefault
 end function EvaluatedDefault
 
 !! Create, general, const
@@ -44,8 +42,7 @@ function EvaluatedCreateConst( &
    librarySize, &
    versionSize &
 ) &
-      bind(C, name='EvaluatedCreateConst') &
-      result(handle)
+      bind(C, name='EvaluatedCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -59,7 +56,7 @@ function EvaluatedCreateConst( &
    type(c_ptr), value :: documentation
    type(c_ptr), value :: temperature
    type(c_ptr), value :: projectileEnergyDomain
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaluatedCreateConst
 end function EvaluatedCreateConst
 
 !! Create, general
@@ -76,8 +73,7 @@ function EvaluatedCreate( &
    librarySize, &
    versionSize &
 ) &
-      bind(C, name='EvaluatedCreate') &
-      result(handle)
+      bind(C, name='EvaluatedCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -91,7 +87,7 @@ function EvaluatedCreate( &
    type(c_ptr), value :: documentation
    type(c_ptr), value :: temperature
    type(c_ptr), value :: projectileEnergyDomain
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaluatedCreate
 end function EvaluatedCreate
 
 !! Assign
@@ -119,56 +115,51 @@ end subroutine EvaluatedDelete
 
 !! Read from file
 function EvaluatedRead(handle, filename, filenameSize) &
-      bind(C, name='EvaluatedRead') &
-      result(success)
+      bind(C, name='EvaluatedRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EvaluatedRead
 end function EvaluatedRead
 
 !! Write to file
 function EvaluatedWrite(handle, filename, filenameSize) &
-      bind(C, name='EvaluatedWrite') &
-      result(success)
+      bind(C, name='EvaluatedWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EvaluatedWrite
 end function EvaluatedWrite
 
 !! Print to standard output, in our prettyprinting format
 function EvaluatedPrint(handle) &
-      bind(C, name='EvaluatedPrint') &
-      result(success)
+      bind(C, name='EvaluatedPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EvaluatedPrint
 end function EvaluatedPrint
 
 !! Print to standard output, as XML
 function EvaluatedPrintXML(handle) &
-      bind(C, name='EvaluatedPrintXML') &
-      result(success)
+      bind(C, name='EvaluatedPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EvaluatedPrintXML
 end function EvaluatedPrintXML
 
 !! Print to standard output, as JSON
 function EvaluatedPrintJSON(handle) &
-      bind(C, name='EvaluatedPrintJSON') &
-      result(success)
+      bind(C, name='EvaluatedPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EvaluatedPrintJSON
 end function EvaluatedPrintJSON
 
 
@@ -178,22 +169,20 @@ end function EvaluatedPrintJSON
 
 !! Has
 function EvaluatedLabelHas(handle) &
-      bind(C, name='EvaluatedLabelHas') &
-      result(has)
+      bind(C, name='EvaluatedLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedLabelHas
 end function EvaluatedLabelHas
 
 !! Get
 function EvaluatedLabelGet(handle) &
-      bind(C, name='EvaluatedLabelGet') &
-      result(label)
+      bind(C, name='EvaluatedLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: EvaluatedLabelGet
 end function EvaluatedLabelGet
 
 !! Set
@@ -213,22 +202,20 @@ end subroutine EvaluatedLabelSet
 
 !! Has
 function EvaluatedDateHas(handle) &
-      bind(C, name='EvaluatedDateHas') &
-      result(has)
+      bind(C, name='EvaluatedDateHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedDateHas
 end function EvaluatedDateHas
 
 !! Get
 function EvaluatedDateGet(handle) &
-      bind(C, name='EvaluatedDateGet') &
-      result(date)
+      bind(C, name='EvaluatedDateGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: date
+   type(c_ptr) :: EvaluatedDateGet
 end function EvaluatedDateGet
 
 !! Set
@@ -248,22 +235,20 @@ end subroutine EvaluatedDateSet
 
 !! Has
 function EvaluatedLibraryHas(handle) &
-      bind(C, name='EvaluatedLibraryHas') &
-      result(has)
+      bind(C, name='EvaluatedLibraryHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedLibraryHas
 end function EvaluatedLibraryHas
 
 !! Get
 function EvaluatedLibraryGet(handle) &
-      bind(C, name='EvaluatedLibraryGet') &
-      result(library)
+      bind(C, name='EvaluatedLibraryGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: library
+   type(c_ptr) :: EvaluatedLibraryGet
 end function EvaluatedLibraryGet
 
 !! Set
@@ -283,22 +268,20 @@ end subroutine EvaluatedLibrarySet
 
 !! Has
 function EvaluatedVersionHas(handle) &
-      bind(C, name='EvaluatedVersionHas') &
-      result(has)
+      bind(C, name='EvaluatedVersionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedVersionHas
 end function EvaluatedVersionHas
 
 !! Get
 function EvaluatedVersionGet(handle) &
-      bind(C, name='EvaluatedVersionGet') &
-      result(version)
+      bind(C, name='EvaluatedVersionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: version
+   type(c_ptr) :: EvaluatedVersionGet
 end function EvaluatedVersionGet
 
 !! Set
@@ -318,32 +301,29 @@ end subroutine EvaluatedVersionSet
 
 !! Has
 function EvaluatedDocumentationHas(handle) &
-      bind(C, name='EvaluatedDocumentationHas') &
-      result(has)
+      bind(C, name='EvaluatedDocumentationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedDocumentationHas
 end function EvaluatedDocumentationHas
 
 !! Get, const
 function EvaluatedDocumentationGetConst(handle) &
-      bind(C, name='EvaluatedDocumentationGetConst') &
-      result(resultHandle)
+      bind(C, name='EvaluatedDocumentationGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaluatedDocumentationGetConst
 end function EvaluatedDocumentationGetConst
 
 !! Get
 function EvaluatedDocumentationGet(handle) &
-      bind(C, name='EvaluatedDocumentationGet') &
-      result(resultHandle)
+      bind(C, name='EvaluatedDocumentationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaluatedDocumentationGet
 end function EvaluatedDocumentationGet
 
 !! Set
@@ -362,32 +342,29 @@ end subroutine EvaluatedDocumentationSet
 
 !! Has
 function EvaluatedTemperatureHas(handle) &
-      bind(C, name='EvaluatedTemperatureHas') &
-      result(has)
+      bind(C, name='EvaluatedTemperatureHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedTemperatureHas
 end function EvaluatedTemperatureHas
 
 !! Get, const
 function EvaluatedTemperatureGetConst(handle) &
-      bind(C, name='EvaluatedTemperatureGetConst') &
-      result(resultHandle)
+      bind(C, name='EvaluatedTemperatureGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaluatedTemperatureGetConst
 end function EvaluatedTemperatureGetConst
 
 !! Get
 function EvaluatedTemperatureGet(handle) &
-      bind(C, name='EvaluatedTemperatureGet') &
-      result(resultHandle)
+      bind(C, name='EvaluatedTemperatureGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaluatedTemperatureGet
 end function EvaluatedTemperatureGet
 
 !! Set
@@ -406,32 +383,29 @@ end subroutine EvaluatedTemperatureSet
 
 !! Has
 function EvaluatedProjectileEnergyDomainHas(handle) &
-      bind(C, name='EvaluatedProjectileEnergyDomainHas') &
-      result(has)
+      bind(C, name='EvaluatedProjectileEnergyDomainHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaluatedProjectileEnergyDomainHas
 end function EvaluatedProjectileEnergyDomainHas
 
 !! Get, const
 function EvaluatedProjectileEnergyDomainGetConst(handle) &
-      bind(C, name='EvaluatedProjectileEnergyDomainGetConst') &
-      result(resultHandle)
+      bind(C, name='EvaluatedProjectileEnergyDomainGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaluatedProjectileEnergyDomainGetConst
 end function EvaluatedProjectileEnergyDomainGetConst
 
 !! Get
 function EvaluatedProjectileEnergyDomainGet(handle) &
-      bind(C, name='EvaluatedProjectileEnergyDomainGet') &
-      result(resultHandle)
+      bind(C, name='EvaluatedProjectileEnergyDomainGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaluatedProjectileEnergyDomainGet
 end function EvaluatedProjectileEnergyDomainGet
 
 !! Set

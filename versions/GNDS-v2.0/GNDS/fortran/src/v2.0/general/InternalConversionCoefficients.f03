@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function InternalConversionCoefficientsDefaultConst() &
-      bind(C, name='InternalConversionCoefficientsDefaultConst') &
-      result(handle)
+      bind(C, name='InternalConversionCoefficientsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: InternalConversionCoefficientsDefaultConst
 end function InternalConversionCoefficientsDefaultConst
 
 !! Create, default
 function InternalConversionCoefficientsDefault() &
-      bind(C, name='InternalConversionCoefficientsDefault') &
-      result(handle)
+      bind(C, name='InternalConversionCoefficientsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: InternalConversionCoefficientsDefault
 end function InternalConversionCoefficientsDefault
 
 !! Create, general, const
 function InternalConversionCoefficientsCreateConst( &
    shell, shellSize &
 ) &
-      bind(C, name='InternalConversionCoefficientsCreateConst') &
-      result(handle)
+      bind(C, name='InternalConversionCoefficientsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: shellSize
    type(c_ptr) :: shell(shellSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: InternalConversionCoefficientsCreateConst
 end function InternalConversionCoefficientsCreateConst
 
 !! Create, general
 function InternalConversionCoefficientsCreate( &
    shell, shellSize &
 ) &
-      bind(C, name='InternalConversionCoefficientsCreate') &
-      result(handle)
+      bind(C, name='InternalConversionCoefficientsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: shellSize
    type(c_ptr) :: shell(shellSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: InternalConversionCoefficientsCreate
 end function InternalConversionCoefficientsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine InternalConversionCoefficientsDelete
 
 !! Read from file
 function InternalConversionCoefficientsRead(handle, filename, filenameSize) &
-      bind(C, name='InternalConversionCoefficientsRead') &
-      result(success)
+      bind(C, name='InternalConversionCoefficientsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: InternalConversionCoefficientsRead
 end function InternalConversionCoefficientsRead
 
 !! Write to file
 function InternalConversionCoefficientsWrite(handle, filename, filenameSize) &
-      bind(C, name='InternalConversionCoefficientsWrite') &
-      result(success)
+      bind(C, name='InternalConversionCoefficientsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: InternalConversionCoefficientsWrite
 end function InternalConversionCoefficientsWrite
 
 !! Print to standard output, in our prettyprinting format
 function InternalConversionCoefficientsPrint(handle) &
-      bind(C, name='InternalConversionCoefficientsPrint') &
-      result(success)
+      bind(C, name='InternalConversionCoefficientsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: InternalConversionCoefficientsPrint
 end function InternalConversionCoefficientsPrint
 
 !! Print to standard output, as XML
 function InternalConversionCoefficientsPrintXML(handle) &
-      bind(C, name='InternalConversionCoefficientsPrintXML') &
-      result(success)
+      bind(C, name='InternalConversionCoefficientsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: InternalConversionCoefficientsPrintXML
 end function InternalConversionCoefficientsPrintXML
 
 !! Print to standard output, as JSON
 function InternalConversionCoefficientsPrintJSON(handle) &
-      bind(C, name='InternalConversionCoefficientsPrintJSON') &
-      result(success)
+      bind(C, name='InternalConversionCoefficientsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: InternalConversionCoefficientsPrintJSON
 end function InternalConversionCoefficientsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function InternalConversionCoefficientsPrintJSON
 
 !! Has
 function InternalConversionCoefficientsShellHas(handle) &
-      bind(C, name='InternalConversionCoefficientsShellHas') &
-      result(has)
+      bind(C, name='InternalConversionCoefficientsShellHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: InternalConversionCoefficientsShellHas
 end function InternalConversionCoefficientsShellHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine InternalConversionCoefficientsShellClear
 
 !! Size
 function InternalConversionCoefficientsShellSize(handle) &
-      bind(C, name='InternalConversionCoefficientsShellSize') &
-      result(vectorSize)
+      bind(C, name='InternalConversionCoefficientsShellSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: InternalConversionCoefficientsShellSize
 end function InternalConversionCoefficientsShellSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine InternalConversionCoefficientsShellAdd
 
 !! Get, by index \in [0,size), const
 function InternalConversionCoefficientsShellGetConst(handle, index) &
-      bind(C, name='InternalConversionCoefficientsShellGetConst') &
-      result(resultHandle)
+      bind(C, name='InternalConversionCoefficientsShellGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InternalConversionCoefficientsShellGetConst
 end function InternalConversionCoefficientsShellGetConst
 
 !! Get, by index \in [0,size)
 function InternalConversionCoefficientsShellGet(handle, index) &
-      bind(C, name='InternalConversionCoefficientsShellGet') &
-      result(resultHandle)
+      bind(C, name='InternalConversionCoefficientsShellGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InternalConversionCoefficientsShellGet
 end function InternalConversionCoefficientsShellGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine InternalConversionCoefficientsShellSet
 
 !! Has, by label
 function InternalConversionCoefficientsShellHasByLabel(handle, meta, metaSize) &
-      bind(C, name='InternalConversionCoefficientsShellHasByLabel') &
-      result(has)
+      bind(C, name='InternalConversionCoefficientsShellHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: InternalConversionCoefficientsShellHasByLabel
 end function InternalConversionCoefficientsShellHasByLabel
 
 !! Get, by label, const
 function InternalConversionCoefficientsShellGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='InternalConversionCoefficientsShellGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='InternalConversionCoefficientsShellGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InternalConversionCoefficientsShellGetByLabelConst
 end function InternalConversionCoefficientsShellGetByLabelConst
 
 !! Get, by label
 function InternalConversionCoefficientsShellGetByLabel(handle, meta, metaSize) &
-      bind(C, name='InternalConversionCoefficientsShellGetByLabel') &
-      result(resultHandle)
+      bind(C, name='InternalConversionCoefficientsShellGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InternalConversionCoefficientsShellGetByLabel
 end function InternalConversionCoefficientsShellGetByLabel
 
 !! Set, by label
@@ -264,35 +248,32 @@ end subroutine InternalConversionCoefficientsShellSetByLabel
 
 !! Has, by value
 function InternalConversionCoefficientsShellHasByValue(handle, meta) &
-      bind(C, name='InternalConversionCoefficientsShellHasByValue') &
-      result(has)
+      bind(C, name='InternalConversionCoefficientsShellHasByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: InternalConversionCoefficientsShellHasByValue
 end function InternalConversionCoefficientsShellHasByValue
 
 !! Get, by value, const
 function InternalConversionCoefficientsShellGetByValueConst(handle, meta) &
-      bind(C, name='InternalConversionCoefficientsShellGetByValueConst') &
-      result(resultHandle)
+      bind(C, name='InternalConversionCoefficientsShellGetByValueConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InternalConversionCoefficientsShellGetByValueConst
 end function InternalConversionCoefficientsShellGetByValueConst
 
 !! Get, by value
 function InternalConversionCoefficientsShellGetByValue(handle, meta) &
-      bind(C, name='InternalConversionCoefficientsShellGetByValue') &
-      result(resultHandle)
+      bind(C, name='InternalConversionCoefficientsShellGetByValue')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: InternalConversionCoefficientsShellGetByValue
 end function InternalConversionCoefficientsShellGetByValue
 
 !! Set, by value

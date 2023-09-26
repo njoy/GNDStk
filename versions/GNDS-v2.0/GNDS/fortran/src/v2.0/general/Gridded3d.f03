@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function Gridded3dDefaultConst() &
-      bind(C, name='Gridded3dDefaultConst') &
-      result(handle)
+      bind(C, name='Gridded3dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Gridded3dDefaultConst
 end function Gridded3dDefaultConst
 
 !! Create, default
 function Gridded3dDefault() &
-      bind(C, name='Gridded3dDefault') &
-      result(handle)
+      bind(C, name='Gridded3dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Gridded3dDefault
 end function Gridded3dDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function Gridded3dCreateConst( &
    axes, &
    array &
 ) &
-      bind(C, name='Gridded3dCreateConst') &
-      result(handle)
+      bind(C, name='Gridded3dCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: axes
    type(c_ptr), value :: array
-   type(c_ptr) :: handle
+   type(c_ptr) :: Gridded3dCreateConst
 end function Gridded3dCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function Gridded3dCreate( &
    axes, &
    array &
 ) &
-      bind(C, name='Gridded3dCreate') &
-      result(handle)
+      bind(C, name='Gridded3dCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: axes
    type(c_ptr), value :: array
-   type(c_ptr) :: handle
+   type(c_ptr) :: Gridded3dCreate
 end function Gridded3dCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine Gridded3dDelete
 
 !! Read from file
 function Gridded3dRead(handle, filename, filenameSize) &
-      bind(C, name='Gridded3dRead') &
-      result(success)
+      bind(C, name='Gridded3dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Gridded3dRead
 end function Gridded3dRead
 
 !! Write to file
 function Gridded3dWrite(handle, filename, filenameSize) &
-      bind(C, name='Gridded3dWrite') &
-      result(success)
+      bind(C, name='Gridded3dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Gridded3dWrite
 end function Gridded3dWrite
 
 !! Print to standard output, in our prettyprinting format
 function Gridded3dPrint(handle) &
-      bind(C, name='Gridded3dPrint') &
-      result(success)
+      bind(C, name='Gridded3dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Gridded3dPrint
 end function Gridded3dPrint
 
 !! Print to standard output, as XML
 function Gridded3dPrintXML(handle) &
-      bind(C, name='Gridded3dPrintXML') &
-      result(success)
+      bind(C, name='Gridded3dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Gridded3dPrintXML
 end function Gridded3dPrintXML
 
 !! Print to standard output, as JSON
 function Gridded3dPrintJSON(handle) &
-      bind(C, name='Gridded3dPrintJSON') &
-      result(success)
+      bind(C, name='Gridded3dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Gridded3dPrintJSON
 end function Gridded3dPrintJSON
 
 
@@ -142,32 +133,29 @@ end function Gridded3dPrintJSON
 
 !! Has
 function Gridded3dAxesHas(handle) &
-      bind(C, name='Gridded3dAxesHas') &
-      result(has)
+      bind(C, name='Gridded3dAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Gridded3dAxesHas
 end function Gridded3dAxesHas
 
 !! Get, const
 function Gridded3dAxesGetConst(handle) &
-      bind(C, name='Gridded3dAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='Gridded3dAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Gridded3dAxesGetConst
 end function Gridded3dAxesGetConst
 
 !! Get
 function Gridded3dAxesGet(handle) &
-      bind(C, name='Gridded3dAxesGet') &
-      result(resultHandle)
+      bind(C, name='Gridded3dAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Gridded3dAxesGet
 end function Gridded3dAxesGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine Gridded3dAxesSet
 
 !! Has
 function Gridded3dArrayHas(handle) &
-      bind(C, name='Gridded3dArrayHas') &
-      result(has)
+      bind(C, name='Gridded3dArrayHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Gridded3dArrayHas
 end function Gridded3dArrayHas
 
 !! Get, const
 function Gridded3dArrayGetConst(handle) &
-      bind(C, name='Gridded3dArrayGetConst') &
-      result(resultHandle)
+      bind(C, name='Gridded3dArrayGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Gridded3dArrayGetConst
 end function Gridded3dArrayGetConst
 
 !! Get
 function Gridded3dArrayGet(handle) &
-      bind(C, name='Gridded3dArrayGet') &
-      result(resultHandle)
+      bind(C, name='Gridded3dArrayGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Gridded3dArrayGet
 end function Gridded3dArrayGet
 
 !! Set

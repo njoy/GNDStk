@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DecayModeDefaultConst() &
-      bind(C, name='DecayModeDefaultConst') &
-      result(handle)
+      bind(C, name='DecayModeDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModeDefaultConst
 end function DecayModeDefaultConst
 
 !! Create, default
 function DecayModeDefault() &
-      bind(C, name='DecayModeDefault') &
-      result(handle)
+      bind(C, name='DecayModeDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModeDefault
 end function DecayModeDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function DecayModeCreateConst( &
    labelSize, &
    modeSize &
 ) &
-      bind(C, name='DecayModeCreateConst') &
-      result(handle)
+      bind(C, name='DecayModeCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -55,7 +52,7 @@ function DecayModeCreateConst( &
    type(c_ptr), value :: photonEmissionProbabilities
    type(c_ptr), value :: Q
    type(c_ptr), value :: spectra
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModeCreateConst
 end function DecayModeCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function DecayModeCreate( &
    labelSize, &
    modeSize &
 ) &
-      bind(C, name='DecayModeCreate') &
-      result(handle)
+      bind(C, name='DecayModeCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -83,7 +79,7 @@ function DecayModeCreate( &
    type(c_ptr), value :: photonEmissionProbabilities
    type(c_ptr), value :: Q
    type(c_ptr), value :: spectra
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayModeCreate
 end function DecayModeCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine DecayModeDelete
 
 !! Read from file
 function DecayModeRead(handle, filename, filenameSize) &
-      bind(C, name='DecayModeRead') &
-      result(success)
+      bind(C, name='DecayModeRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DecayModeRead
 end function DecayModeRead
 
 !! Write to file
 function DecayModeWrite(handle, filename, filenameSize) &
-      bind(C, name='DecayModeWrite') &
-      result(success)
+      bind(C, name='DecayModeWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DecayModeWrite
 end function DecayModeWrite
 
 !! Print to standard output, in our prettyprinting format
 function DecayModePrint(handle) &
-      bind(C, name='DecayModePrint') &
-      result(success)
+      bind(C, name='DecayModePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayModePrint
 end function DecayModePrint
 
 !! Print to standard output, as XML
 function DecayModePrintXML(handle) &
-      bind(C, name='DecayModePrintXML') &
-      result(success)
+      bind(C, name='DecayModePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayModePrintXML
 end function DecayModePrintXML
 
 !! Print to standard output, as JSON
 function DecayModePrintJSON(handle) &
-      bind(C, name='DecayModePrintJSON') &
-      result(success)
+      bind(C, name='DecayModePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayModePrintJSON
 end function DecayModePrintJSON
 
 
@@ -170,22 +161,20 @@ end function DecayModePrintJSON
 
 !! Has
 function DecayModeLabelHas(handle) &
-      bind(C, name='DecayModeLabelHas') &
-      result(has)
+      bind(C, name='DecayModeLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModeLabelHas
 end function DecayModeLabelHas
 
 !! Get
 function DecayModeLabelGet(handle) &
-      bind(C, name='DecayModeLabelGet') &
-      result(label)
+      bind(C, name='DecayModeLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: DecayModeLabelGet
 end function DecayModeLabelGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine DecayModeLabelSet
 
 !! Has
 function DecayModeModeHas(handle) &
-      bind(C, name='DecayModeModeHas') &
-      result(has)
+      bind(C, name='DecayModeModeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModeModeHas
 end function DecayModeModeHas
 
 !! Get
 function DecayModeModeGet(handle) &
-      bind(C, name='DecayModeModeGet') &
-      result(mode)
+      bind(C, name='DecayModeModeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: mode
+   type(c_ptr) :: DecayModeModeGet
 end function DecayModeModeGet
 
 !! Set
@@ -240,32 +227,29 @@ end subroutine DecayModeModeSet
 
 !! Has
 function DecayModeProbabilityHas(handle) &
-      bind(C, name='DecayModeProbabilityHas') &
-      result(has)
+      bind(C, name='DecayModeProbabilityHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModeProbabilityHas
 end function DecayModeProbabilityHas
 
 !! Get, const
 function DecayModeProbabilityGetConst(handle) &
-      bind(C, name='DecayModeProbabilityGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayModeProbabilityGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeProbabilityGetConst
 end function DecayModeProbabilityGetConst
 
 !! Get
 function DecayModeProbabilityGet(handle) &
-      bind(C, name='DecayModeProbabilityGet') &
-      result(resultHandle)
+      bind(C, name='DecayModeProbabilityGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeProbabilityGet
 end function DecayModeProbabilityGet
 
 !! Set
@@ -284,32 +268,29 @@ end subroutine DecayModeProbabilitySet
 
 !! Has
 function DecayModeDecayPathHas(handle) &
-      bind(C, name='DecayModeDecayPathHas') &
-      result(has)
+      bind(C, name='DecayModeDecayPathHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModeDecayPathHas
 end function DecayModeDecayPathHas
 
 !! Get, const
 function DecayModeDecayPathGetConst(handle) &
-      bind(C, name='DecayModeDecayPathGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayModeDecayPathGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeDecayPathGetConst
 end function DecayModeDecayPathGetConst
 
 !! Get
 function DecayModeDecayPathGet(handle) &
-      bind(C, name='DecayModeDecayPathGet') &
-      result(resultHandle)
+      bind(C, name='DecayModeDecayPathGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeDecayPathGet
 end function DecayModeDecayPathGet
 
 !! Set
@@ -328,32 +309,29 @@ end subroutine DecayModeDecayPathSet
 
 !! Has
 function DecayModePhotonEmissionProbabilitiesHas(handle) &
-      bind(C, name='DecayModePhotonEmissionProbabilitiesHas') &
-      result(has)
+      bind(C, name='DecayModePhotonEmissionProbabilitiesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModePhotonEmissionProbabilitiesHas
 end function DecayModePhotonEmissionProbabilitiesHas
 
 !! Get, const
 function DecayModePhotonEmissionProbabilitiesGetConst(handle) &
-      bind(C, name='DecayModePhotonEmissionProbabilitiesGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayModePhotonEmissionProbabilitiesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModePhotonEmissionProbabilitiesGetConst
 end function DecayModePhotonEmissionProbabilitiesGetConst
 
 !! Get
 function DecayModePhotonEmissionProbabilitiesGet(handle) &
-      bind(C, name='DecayModePhotonEmissionProbabilitiesGet') &
-      result(resultHandle)
+      bind(C, name='DecayModePhotonEmissionProbabilitiesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModePhotonEmissionProbabilitiesGet
 end function DecayModePhotonEmissionProbabilitiesGet
 
 !! Set
@@ -372,32 +350,29 @@ end subroutine DecayModePhotonEmissionProbabilitiesSet
 
 !! Has
 function DecayModeQHas(handle) &
-      bind(C, name='DecayModeQHas') &
-      result(has)
+      bind(C, name='DecayModeQHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModeQHas
 end function DecayModeQHas
 
 !! Get, const
 function DecayModeQGetConst(handle) &
-      bind(C, name='DecayModeQGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayModeQGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeQGetConst
 end function DecayModeQGetConst
 
 !! Get
 function DecayModeQGet(handle) &
-      bind(C, name='DecayModeQGet') &
-      result(resultHandle)
+      bind(C, name='DecayModeQGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeQGet
 end function DecayModeQGet
 
 !! Set
@@ -416,32 +391,29 @@ end subroutine DecayModeQSet
 
 !! Has
 function DecayModeSpectraHas(handle) &
-      bind(C, name='DecayModeSpectraHas') &
-      result(has)
+      bind(C, name='DecayModeSpectraHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayModeSpectraHas
 end function DecayModeSpectraHas
 
 !! Get, const
 function DecayModeSpectraGetConst(handle) &
-      bind(C, name='DecayModeSpectraGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayModeSpectraGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeSpectraGetConst
 end function DecayModeSpectraGetConst
 
 !! Get
 function DecayModeSpectraGet(handle) &
-      bind(C, name='DecayModeSpectraGet') &
-      result(resultHandle)
+      bind(C, name='DecayModeSpectraGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayModeSpectraGet
 end function DecayModeSpectraGet
 
 !! Set

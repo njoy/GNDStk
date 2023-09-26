@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function DelayedBetaEnergyDefaultConst() &
-      bind(C, name='DelayedBetaEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='DelayedBetaEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedBetaEnergyDefaultConst
 end function DelayedBetaEnergyDefaultConst
 
 !! Create, default
 function DelayedBetaEnergyDefault() &
-      bind(C, name='DelayedBetaEnergyDefault') &
-      result(handle)
+      bind(C, name='DelayedBetaEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedBetaEnergyDefault
 end function DelayedBetaEnergyDefault
 
 !! Create, general, const
 function DelayedBetaEnergyCreateConst( &
    polynomial1d &
 ) &
-      bind(C, name='DelayedBetaEnergyCreateConst') &
-      result(handle)
+      bind(C, name='DelayedBetaEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedBetaEnergyCreateConst
 end function DelayedBetaEnergyCreateConst
 
 !! Create, general
 function DelayedBetaEnergyCreate( &
    polynomial1d &
 ) &
-      bind(C, name='DelayedBetaEnergyCreate') &
-      result(handle)
+      bind(C, name='DelayedBetaEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedBetaEnergyCreate
 end function DelayedBetaEnergyCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine DelayedBetaEnergyDelete
 
 !! Read from file
 function DelayedBetaEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='DelayedBetaEnergyRead') &
-      result(success)
+      bind(C, name='DelayedBetaEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DelayedBetaEnergyRead
 end function DelayedBetaEnergyRead
 
 !! Write to file
 function DelayedBetaEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='DelayedBetaEnergyWrite') &
-      result(success)
+      bind(C, name='DelayedBetaEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DelayedBetaEnergyWrite
 end function DelayedBetaEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function DelayedBetaEnergyPrint(handle) &
-      bind(C, name='DelayedBetaEnergyPrint') &
-      result(success)
+      bind(C, name='DelayedBetaEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedBetaEnergyPrint
 end function DelayedBetaEnergyPrint
 
 !! Print to standard output, as XML
 function DelayedBetaEnergyPrintXML(handle) &
-      bind(C, name='DelayedBetaEnergyPrintXML') &
-      result(success)
+      bind(C, name='DelayedBetaEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedBetaEnergyPrintXML
 end function DelayedBetaEnergyPrintXML
 
 !! Print to standard output, as JSON
 function DelayedBetaEnergyPrintJSON(handle) &
-      bind(C, name='DelayedBetaEnergyPrintJSON') &
-      result(success)
+      bind(C, name='DelayedBetaEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedBetaEnergyPrintJSON
 end function DelayedBetaEnergyPrintJSON
 
 
@@ -138,32 +129,29 @@ end function DelayedBetaEnergyPrintJSON
 
 !! Has
 function DelayedBetaEnergyPolynomial1dHas(handle) &
-      bind(C, name='DelayedBetaEnergyPolynomial1dHas') &
-      result(has)
+      bind(C, name='DelayedBetaEnergyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DelayedBetaEnergyPolynomial1dHas
 end function DelayedBetaEnergyPolynomial1dHas
 
 !! Get, const
 function DelayedBetaEnergyPolynomial1dGetConst(handle) &
-      bind(C, name='DelayedBetaEnergyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='DelayedBetaEnergyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedBetaEnergyPolynomial1dGetConst
 end function DelayedBetaEnergyPolynomial1dGetConst
 
 !! Get
 function DelayedBetaEnergyPolynomial1dGet(handle) &
-      bind(C, name='DelayedBetaEnergyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='DelayedBetaEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedBetaEnergyPolynomial1dGet
 end function DelayedBetaEnergyPolynomial1dGet
 
 !! Set

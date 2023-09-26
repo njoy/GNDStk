@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function SelfScatteringKernelDefaultConst() &
-      bind(C, name='SelfScatteringKernelDefaultConst') &
-      result(handle)
+      bind(C, name='SelfScatteringKernelDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SelfScatteringKernelDefaultConst
 end function SelfScatteringKernelDefaultConst
 
 !! Create, default
 function SelfScatteringKernelDefault() &
-      bind(C, name='SelfScatteringKernelDefault') &
-      result(handle)
+      bind(C, name='SelfScatteringKernelDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SelfScatteringKernelDefault
 end function SelfScatteringKernelDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function SelfScatteringKernelCreateConst( &
    SCTApproximation, &
    freeGasApproximation &
 ) &
-      bind(C, name='SelfScatteringKernelCreateConst') &
-      result(handle)
+      bind(C, name='SelfScatteringKernelCreateConst')
    use iso_c_binding
    implicit none
    logical(c_bool), value, intent(in) :: symmetric
    type(c_ptr), value :: gridded3d
    type(c_ptr), value :: SCTApproximation
    type(c_ptr), value :: freeGasApproximation
-   type(c_ptr) :: handle
+   type(c_ptr) :: SelfScatteringKernelCreateConst
 end function SelfScatteringKernelCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function SelfScatteringKernelCreate( &
    SCTApproximation, &
    freeGasApproximation &
 ) &
-      bind(C, name='SelfScatteringKernelCreate') &
-      result(handle)
+      bind(C, name='SelfScatteringKernelCreate')
    use iso_c_binding
    implicit none
    logical(c_bool), value, intent(in) :: symmetric
    type(c_ptr), value :: gridded3d
    type(c_ptr), value :: SCTApproximation
    type(c_ptr), value :: freeGasApproximation
-   type(c_ptr) :: handle
+   type(c_ptr) :: SelfScatteringKernelCreate
 end function SelfScatteringKernelCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine SelfScatteringKernelDelete
 
 !! Read from file
 function SelfScatteringKernelRead(handle, filename, filenameSize) &
-      bind(C, name='SelfScatteringKernelRead') &
-      result(success)
+      bind(C, name='SelfScatteringKernelRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SelfScatteringKernelRead
 end function SelfScatteringKernelRead
 
 !! Write to file
 function SelfScatteringKernelWrite(handle, filename, filenameSize) &
-      bind(C, name='SelfScatteringKernelWrite') &
-      result(success)
+      bind(C, name='SelfScatteringKernelWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SelfScatteringKernelWrite
 end function SelfScatteringKernelWrite
 
 !! Print to standard output, in our prettyprinting format
 function SelfScatteringKernelPrint(handle) &
-      bind(C, name='SelfScatteringKernelPrint') &
-      result(success)
+      bind(C, name='SelfScatteringKernelPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SelfScatteringKernelPrint
 end function SelfScatteringKernelPrint
 
 !! Print to standard output, as XML
 function SelfScatteringKernelPrintXML(handle) &
-      bind(C, name='SelfScatteringKernelPrintXML') &
-      result(success)
+      bind(C, name='SelfScatteringKernelPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SelfScatteringKernelPrintXML
 end function SelfScatteringKernelPrintXML
 
 !! Print to standard output, as JSON
 function SelfScatteringKernelPrintJSON(handle) &
-      bind(C, name='SelfScatteringKernelPrintJSON') &
-      result(success)
+      bind(C, name='SelfScatteringKernelPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SelfScatteringKernelPrintJSON
 end function SelfScatteringKernelPrintJSON
 
 
@@ -150,22 +141,20 @@ end function SelfScatteringKernelPrintJSON
 
 !! Has
 function SelfScatteringKernelSymmetricHas(handle) &
-      bind(C, name='SelfScatteringKernelSymmetricHas') &
-      result(has)
+      bind(C, name='SelfScatteringKernelSymmetricHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SelfScatteringKernelSymmetricHas
 end function SelfScatteringKernelSymmetricHas
 
 !! Get
 function SelfScatteringKernelSymmetricGet(handle) &
-      bind(C, name='SelfScatteringKernelSymmetricGet') &
-      result(symmetric)
+      bind(C, name='SelfScatteringKernelSymmetricGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool) :: symmetric
+   logical(c_bool) :: SelfScatteringKernelSymmetricGet
 end function SelfScatteringKernelSymmetricGet
 
 !! Set
@@ -185,32 +174,29 @@ end subroutine SelfScatteringKernelSymmetricSet
 
 !! Has
 function SelfScatteringKernelGridded3dHas(handle) &
-      bind(C, name='SelfScatteringKernelGridded3dHas') &
-      result(has)
+      bind(C, name='SelfScatteringKernelGridded3dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SelfScatteringKernelGridded3dHas
 end function SelfScatteringKernelGridded3dHas
 
 !! Get, const
 function SelfScatteringKernelGridded3dGetConst(handle) &
-      bind(C, name='SelfScatteringKernelGridded3dGetConst') &
-      result(resultHandle)
+      bind(C, name='SelfScatteringKernelGridded3dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SelfScatteringKernelGridded3dGetConst
 end function SelfScatteringKernelGridded3dGetConst
 
 !! Get
 function SelfScatteringKernelGridded3dGet(handle) &
-      bind(C, name='SelfScatteringKernelGridded3dGet') &
-      result(resultHandle)
+      bind(C, name='SelfScatteringKernelGridded3dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SelfScatteringKernelGridded3dGet
 end function SelfScatteringKernelGridded3dGet
 
 !! Set
@@ -229,32 +215,29 @@ end subroutine SelfScatteringKernelGridded3dSet
 
 !! Has
 function SelfScatteringKernelSCTApproximationHas(handle) &
-      bind(C, name='SelfScatteringKernelSCTApproximationHas') &
-      result(has)
+      bind(C, name='SelfScatteringKernelSCTApproximationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SelfScatteringKernelSCTApproximationHas
 end function SelfScatteringKernelSCTApproximationHas
 
 !! Get, const
 function SelfScatteringKernelSCTApproximationGetConst(handle) &
-      bind(C, name='SelfScatteringKernelSCTApproximationGetConst') &
-      result(resultHandle)
+      bind(C, name='SelfScatteringKernelSCTApproximationGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SelfScatteringKernelSCTApproximationGetConst
 end function SelfScatteringKernelSCTApproximationGetConst
 
 !! Get
 function SelfScatteringKernelSCTApproximationGet(handle) &
-      bind(C, name='SelfScatteringKernelSCTApproximationGet') &
-      result(resultHandle)
+      bind(C, name='SelfScatteringKernelSCTApproximationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SelfScatteringKernelSCTApproximationGet
 end function SelfScatteringKernelSCTApproximationGet
 
 !! Set
@@ -273,32 +256,29 @@ end subroutine SelfScatteringKernelSCTApproximationSet
 
 !! Has
 function SelfScatteringKernelFreeGasApproximationHas(handle) &
-      bind(C, name='SelfScatteringKernelFreeGasApproximationHas') &
-      result(has)
+      bind(C, name='SelfScatteringKernelFreeGasApproximationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SelfScatteringKernelFreeGasApproximationHas
 end function SelfScatteringKernelFreeGasApproximationHas
 
 !! Get, const
 function SelfScatteringKernelFreeGasApproximationGetConst(handle) &
-      bind(C, name='SelfScatteringKernelFreeGasApproximationGetConst') &
-      result(resultHandle)
+      bind(C, name='SelfScatteringKernelFreeGasApproximationGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SelfScatteringKernelFreeGasApproximationGetConst
 end function SelfScatteringKernelFreeGasApproximationGetConst
 
 !! Get
 function SelfScatteringKernelFreeGasApproximationGet(handle) &
-      bind(C, name='SelfScatteringKernelFreeGasApproximationGet') &
-      result(resultHandle)
+      bind(C, name='SelfScatteringKernelFreeGasApproximationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: SelfScatteringKernelFreeGasApproximationGet
 end function SelfScatteringKernelFreeGasApproximationGet
 
 !! Set

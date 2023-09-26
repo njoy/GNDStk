@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ConversionDefaultConst() &
-      bind(C, name='ConversionDefaultConst') &
-      result(handle)
+      bind(C, name='ConversionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConversionDefaultConst
 end function ConversionDefaultConst
 
 !! Create, default
 function ConversionDefault() &
-      bind(C, name='ConversionDefault') &
-      result(handle)
+      bind(C, name='ConversionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConversionDefault
 end function ConversionDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ConversionCreateConst( &
    flagsSize, &
    hrefSize &
 ) &
-      bind(C, name='ConversionCreateConst') &
-      result(handle)
+      bind(C, name='ConversionCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: flagsSize
    character(c_char), intent(in) :: flags(flagsSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConversionCreateConst
 end function ConversionCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ConversionCreate( &
    flagsSize, &
    hrefSize &
 ) &
-      bind(C, name='ConversionCreate') &
-      result(handle)
+      bind(C, name='ConversionCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: flagsSize
    character(c_char), intent(in) :: flags(flagsSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConversionCreate
 end function ConversionCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ConversionDelete
 
 !! Read from file
 function ConversionRead(handle, filename, filenameSize) &
-      bind(C, name='ConversionRead') &
-      result(success)
+      bind(C, name='ConversionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ConversionRead
 end function ConversionRead
 
 !! Write to file
 function ConversionWrite(handle, filename, filenameSize) &
-      bind(C, name='ConversionWrite') &
-      result(success)
+      bind(C, name='ConversionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ConversionWrite
 end function ConversionWrite
 
 !! Print to standard output, in our prettyprinting format
 function ConversionPrint(handle) &
-      bind(C, name='ConversionPrint') &
-      result(success)
+      bind(C, name='ConversionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ConversionPrint
 end function ConversionPrint
 
 !! Print to standard output, as XML
 function ConversionPrintXML(handle) &
-      bind(C, name='ConversionPrintXML') &
-      result(success)
+      bind(C, name='ConversionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ConversionPrintXML
 end function ConversionPrintXML
 
 !! Print to standard output, as JSON
 function ConversionPrintJSON(handle) &
-      bind(C, name='ConversionPrintJSON') &
-      result(success)
+      bind(C, name='ConversionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ConversionPrintJSON
 end function ConversionPrintJSON
 
 
@@ -150,22 +141,20 @@ end function ConversionPrintJSON
 
 !! Has
 function ConversionFlagsHas(handle) &
-      bind(C, name='ConversionFlagsHas') &
-      result(has)
+      bind(C, name='ConversionFlagsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ConversionFlagsHas
 end function ConversionFlagsHas
 
 !! Get
 function ConversionFlagsGet(handle) &
-      bind(C, name='ConversionFlagsGet') &
-      result(flags)
+      bind(C, name='ConversionFlagsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: flags
+   type(c_ptr) :: ConversionFlagsGet
 end function ConversionFlagsGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine ConversionFlagsSet
 
 !! Has
 function ConversionHrefHas(handle) &
-      bind(C, name='ConversionHrefHas') &
-      result(has)
+      bind(C, name='ConversionHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ConversionHrefHas
 end function ConversionHrefHas
 
 !! Get
 function ConversionHrefGet(handle) &
-      bind(C, name='ConversionHrefGet') &
-      result(href)
+      bind(C, name='ConversionHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: ConversionHrefGet
 end function ConversionHrefGet
 
 !! Set

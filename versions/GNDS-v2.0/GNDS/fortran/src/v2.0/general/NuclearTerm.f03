@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function NuclearTermDefaultConst() &
-      bind(C, name='NuclearTermDefaultConst') &
-      result(handle)
+      bind(C, name='NuclearTermDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearTermDefaultConst
 end function NuclearTermDefaultConst
 
 !! Create, default
 function NuclearTermDefault() &
-      bind(C, name='NuclearTermDefault') &
-      result(handle)
+      bind(C, name='NuclearTermDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearTermDefault
 end function NuclearTermDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function NuclearTermCreateConst( &
    regions2d, &
    XYs2d &
 ) &
-      bind(C, name='NuclearTermCreateConst') &
-      result(handle)
+      bind(C, name='NuclearTermCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: regions2d
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearTermCreateConst
 end function NuclearTermCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function NuclearTermCreate( &
    regions2d, &
    XYs2d &
 ) &
-      bind(C, name='NuclearTermCreate') &
-      result(handle)
+      bind(C, name='NuclearTermCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: regions2d
    type(c_ptr), value :: XYs2d
-   type(c_ptr) :: handle
+   type(c_ptr) :: NuclearTermCreate
 end function NuclearTermCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine NuclearTermDelete
 
 !! Read from file
 function NuclearTermRead(handle, filename, filenameSize) &
-      bind(C, name='NuclearTermRead') &
-      result(success)
+      bind(C, name='NuclearTermRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclearTermRead
 end function NuclearTermRead
 
 !! Write to file
 function NuclearTermWrite(handle, filename, filenameSize) &
-      bind(C, name='NuclearTermWrite') &
-      result(success)
+      bind(C, name='NuclearTermWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NuclearTermWrite
 end function NuclearTermWrite
 
 !! Print to standard output, in our prettyprinting format
 function NuclearTermPrint(handle) &
-      bind(C, name='NuclearTermPrint') &
-      result(success)
+      bind(C, name='NuclearTermPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearTermPrint
 end function NuclearTermPrint
 
 !! Print to standard output, as XML
 function NuclearTermPrintXML(handle) &
-      bind(C, name='NuclearTermPrintXML') &
-      result(success)
+      bind(C, name='NuclearTermPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearTermPrintXML
 end function NuclearTermPrintXML
 
 !! Print to standard output, as JSON
 function NuclearTermPrintJSON(handle) &
-      bind(C, name='NuclearTermPrintJSON') &
-      result(success)
+      bind(C, name='NuclearTermPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NuclearTermPrintJSON
 end function NuclearTermPrintJSON
 
 
@@ -142,32 +133,29 @@ end function NuclearTermPrintJSON
 
 !! Has
 function NuclearTermRegions2dHas(handle) &
-      bind(C, name='NuclearTermRegions2dHas') &
-      result(has)
+      bind(C, name='NuclearTermRegions2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearTermRegions2dHas
 end function NuclearTermRegions2dHas
 
 !! Get, const
 function NuclearTermRegions2dGetConst(handle) &
-      bind(C, name='NuclearTermRegions2dGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearTermRegions2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearTermRegions2dGetConst
 end function NuclearTermRegions2dGetConst
 
 !! Get
 function NuclearTermRegions2dGet(handle) &
-      bind(C, name='NuclearTermRegions2dGet') &
-      result(resultHandle)
+      bind(C, name='NuclearTermRegions2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearTermRegions2dGet
 end function NuclearTermRegions2dGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine NuclearTermRegions2dSet
 
 !! Has
 function NuclearTermXYs2dHas(handle) &
-      bind(C, name='NuclearTermXYs2dHas') &
-      result(has)
+      bind(C, name='NuclearTermXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NuclearTermXYs2dHas
 end function NuclearTermXYs2dHas
 
 !! Get, const
 function NuclearTermXYs2dGetConst(handle) &
-      bind(C, name='NuclearTermXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='NuclearTermXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearTermXYs2dGetConst
 end function NuclearTermXYs2dGetConst
 
 !! Get
 function NuclearTermXYs2dGet(handle) &
-      bind(C, name='NuclearTermXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='NuclearTermXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NuclearTermXYs2dGet
 end function NuclearTermXYs2dGet
 
 !! Set

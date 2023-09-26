@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function XYs2dDefaultConst() &
-      bind(C, name='XYs2dDefaultConst') &
-      result(handle)
+      bind(C, name='XYs2dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs2dDefaultConst
 end function XYs2dDefaultConst
 
 !! Create, default
 function XYs2dDefault() &
-      bind(C, name='XYs2dDefault') &
-      result(handle)
+      bind(C, name='XYs2dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs2dDefault
 end function XYs2dDefault
 
 !! Create, general, const
@@ -42,8 +40,7 @@ function XYs2dCreateConst( &
    interpolationSize, &
    interpolationQualifierSize &
 ) &
-      bind(C, name='XYs2dCreateConst') &
-      result(handle)
+      bind(C, name='XYs2dCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -55,7 +52,7 @@ function XYs2dCreateConst( &
    type(c_ptr), value :: axes
    type(c_ptr), value :: function1ds
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs2dCreateConst
 end function XYs2dCreateConst
 
 !! Create, general
@@ -70,8 +67,7 @@ function XYs2dCreate( &
    interpolationSize, &
    interpolationQualifierSize &
 ) &
-      bind(C, name='XYs2dCreate') &
-      result(handle)
+      bind(C, name='XYs2dCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -83,7 +79,7 @@ function XYs2dCreate( &
    type(c_ptr), value :: axes
    type(c_ptr), value :: function1ds
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs2dCreate
 end function XYs2dCreate
 
 !! Assign
@@ -111,56 +107,51 @@ end subroutine XYs2dDelete
 
 !! Read from file
 function XYs2dRead(handle, filename, filenameSize) &
-      bind(C, name='XYs2dRead') &
-      result(success)
+      bind(C, name='XYs2dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: XYs2dRead
 end function XYs2dRead
 
 !! Write to file
 function XYs2dWrite(handle, filename, filenameSize) &
-      bind(C, name='XYs2dWrite') &
-      result(success)
+      bind(C, name='XYs2dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: XYs2dWrite
 end function XYs2dWrite
 
 !! Print to standard output, in our prettyprinting format
 function XYs2dPrint(handle) &
-      bind(C, name='XYs2dPrint') &
-      result(success)
+      bind(C, name='XYs2dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: XYs2dPrint
 end function XYs2dPrint
 
 !! Print to standard output, as XML
 function XYs2dPrintXML(handle) &
-      bind(C, name='XYs2dPrintXML') &
-      result(success)
+      bind(C, name='XYs2dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: XYs2dPrintXML
 end function XYs2dPrintXML
 
 !! Print to standard output, as JSON
 function XYs2dPrintJSON(handle) &
-      bind(C, name='XYs2dPrintJSON') &
-      result(success)
+      bind(C, name='XYs2dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: XYs2dPrintJSON
 end function XYs2dPrintJSON
 
 
@@ -170,22 +161,20 @@ end function XYs2dPrintJSON
 
 !! Has
 function XYs2dIndexHas(handle) &
-      bind(C, name='XYs2dIndexHas') &
-      result(has)
+      bind(C, name='XYs2dIndexHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dIndexHas
 end function XYs2dIndexHas
 
 !! Get
 function XYs2dIndexGet(handle) &
-      bind(C, name='XYs2dIndexGet') &
-      result(index)
+      bind(C, name='XYs2dIndexGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: index
+   integer(c_int) :: XYs2dIndexGet
 end function XYs2dIndexGet
 
 !! Set
@@ -205,22 +194,20 @@ end subroutine XYs2dIndexSet
 
 !! Has
 function XYs2dInterpolationHas(handle) &
-      bind(C, name='XYs2dInterpolationHas') &
-      result(has)
+      bind(C, name='XYs2dInterpolationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dInterpolationHas
 end function XYs2dInterpolationHas
 
 !! Get
 function XYs2dInterpolationGet(handle) &
-      bind(C, name='XYs2dInterpolationGet') &
-      result(interpolation)
+      bind(C, name='XYs2dInterpolationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: interpolation
+   type(c_ptr) :: XYs2dInterpolationGet
 end function XYs2dInterpolationGet
 
 !! Set
@@ -240,22 +227,20 @@ end subroutine XYs2dInterpolationSet
 
 !! Has
 function XYs2dInterpolationQualifierHas(handle) &
-      bind(C, name='XYs2dInterpolationQualifierHas') &
-      result(has)
+      bind(C, name='XYs2dInterpolationQualifierHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dInterpolationQualifierHas
 end function XYs2dInterpolationQualifierHas
 
 !! Get
 function XYs2dInterpolationQualifierGet(handle) &
-      bind(C, name='XYs2dInterpolationQualifierGet') &
-      result(interpolationQualifier)
+      bind(C, name='XYs2dInterpolationQualifierGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: interpolationQualifier
+   type(c_ptr) :: XYs2dInterpolationQualifierGet
 end function XYs2dInterpolationQualifierGet
 
 !! Set
@@ -275,22 +260,20 @@ end subroutine XYs2dInterpolationQualifierSet
 
 !! Has
 function XYs2dOuterDomainValueHas(handle) &
-      bind(C, name='XYs2dOuterDomainValueHas') &
-      result(has)
+      bind(C, name='XYs2dOuterDomainValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dOuterDomainValueHas
 end function XYs2dOuterDomainValueHas
 
 !! Get
 function XYs2dOuterDomainValueGet(handle) &
-      bind(C, name='XYs2dOuterDomainValueGet') &
-      result(outerDomainValue)
+      bind(C, name='XYs2dOuterDomainValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: outerDomainValue
+   real(c_double) :: XYs2dOuterDomainValueGet
 end function XYs2dOuterDomainValueGet
 
 !! Set
@@ -310,32 +293,29 @@ end subroutine XYs2dOuterDomainValueSet
 
 !! Has
 function XYs2dAxesHas(handle) &
-      bind(C, name='XYs2dAxesHas') &
-      result(has)
+      bind(C, name='XYs2dAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dAxesHas
 end function XYs2dAxesHas
 
 !! Get, const
 function XYs2dAxesGetConst(handle) &
-      bind(C, name='XYs2dAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='XYs2dAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs2dAxesGetConst
 end function XYs2dAxesGetConst
 
 !! Get
 function XYs2dAxesGet(handle) &
-      bind(C, name='XYs2dAxesGet') &
-      result(resultHandle)
+      bind(C, name='XYs2dAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs2dAxesGet
 end function XYs2dAxesGet
 
 !! Set
@@ -354,32 +334,29 @@ end subroutine XYs2dAxesSet
 
 !! Has
 function XYs2dFunction1dsHas(handle) &
-      bind(C, name='XYs2dFunction1dsHas') &
-      result(has)
+      bind(C, name='XYs2dFunction1dsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dFunction1dsHas
 end function XYs2dFunction1dsHas
 
 !! Get, const
 function XYs2dFunction1dsGetConst(handle) &
-      bind(C, name='XYs2dFunction1dsGetConst') &
-      result(resultHandle)
+      bind(C, name='XYs2dFunction1dsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs2dFunction1dsGetConst
 end function XYs2dFunction1dsGetConst
 
 !! Get
 function XYs2dFunction1dsGet(handle) &
-      bind(C, name='XYs2dFunction1dsGet') &
-      result(resultHandle)
+      bind(C, name='XYs2dFunction1dsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs2dFunction1dsGet
 end function XYs2dFunction1dsGet
 
 !! Set
@@ -398,32 +375,29 @@ end subroutine XYs2dFunction1dsSet
 
 !! Has
 function XYs2dUncertaintyHas(handle) &
-      bind(C, name='XYs2dUncertaintyHas') &
-      result(has)
+      bind(C, name='XYs2dUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs2dUncertaintyHas
 end function XYs2dUncertaintyHas
 
 !! Get, const
 function XYs2dUncertaintyGetConst(handle) &
-      bind(C, name='XYs2dUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='XYs2dUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs2dUncertaintyGetConst
 end function XYs2dUncertaintyGetConst
 
 !! Get
 function XYs2dUncertaintyGet(handle) &
-      bind(C, name='XYs2dUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='XYs2dUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs2dUncertaintyGet
 end function XYs2dUncertaintyGet
 
 !! Set

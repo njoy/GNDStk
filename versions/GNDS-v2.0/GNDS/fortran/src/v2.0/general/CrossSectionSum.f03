@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CrossSectionSumDefaultConst() &
-      bind(C, name='CrossSectionSumDefaultConst') &
-      result(handle)
+      bind(C, name='CrossSectionSumDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionSumDefaultConst
 end function CrossSectionSumDefaultConst
 
 !! Create, default
 function CrossSectionSumDefault() &
-      bind(C, name='CrossSectionSumDefault') &
-      result(handle)
+      bind(C, name='CrossSectionSumDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionSumDefault
 end function CrossSectionSumDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function CrossSectionSumCreateConst( &
    crossSection, &
    labelSize &
 ) &
-      bind(C, name='CrossSectionSumCreateConst') &
-      result(handle)
+      bind(C, name='CrossSectionSumCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function CrossSectionSumCreateConst( &
    type(c_ptr), value :: summands
    type(c_ptr), value :: Q
    type(c_ptr), value :: crossSection
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionSumCreateConst
 end function CrossSectionSumCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function CrossSectionSumCreate( &
    crossSection, &
    labelSize &
 ) &
-      bind(C, name='CrossSectionSumCreate') &
-      result(handle)
+      bind(C, name='CrossSectionSumCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function CrossSectionSumCreate( &
    type(c_ptr), value :: summands
    type(c_ptr), value :: Q
    type(c_ptr), value :: crossSection
-   type(c_ptr) :: handle
+   type(c_ptr) :: CrossSectionSumCreate
 end function CrossSectionSumCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine CrossSectionSumDelete
 
 !! Read from file
 function CrossSectionSumRead(handle, filename, filenameSize) &
-      bind(C, name='CrossSectionSumRead') &
-      result(success)
+      bind(C, name='CrossSectionSumRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionSumRead
 end function CrossSectionSumRead
 
 !! Write to file
 function CrossSectionSumWrite(handle, filename, filenameSize) &
-      bind(C, name='CrossSectionSumWrite') &
-      result(success)
+      bind(C, name='CrossSectionSumWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionSumWrite
 end function CrossSectionSumWrite
 
 !! Print to standard output, in our prettyprinting format
 function CrossSectionSumPrint(handle) &
-      bind(C, name='CrossSectionSumPrint') &
-      result(success)
+      bind(C, name='CrossSectionSumPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionSumPrint
 end function CrossSectionSumPrint
 
 !! Print to standard output, as XML
 function CrossSectionSumPrintXML(handle) &
-      bind(C, name='CrossSectionSumPrintXML') &
-      result(success)
+      bind(C, name='CrossSectionSumPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionSumPrintXML
 end function CrossSectionSumPrintXML
 
 !! Print to standard output, as JSON
 function CrossSectionSumPrintJSON(handle) &
-      bind(C, name='CrossSectionSumPrintJSON') &
-      result(success)
+      bind(C, name='CrossSectionSumPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CrossSectionSumPrintJSON
 end function CrossSectionSumPrintJSON
 
 
@@ -158,22 +149,20 @@ end function CrossSectionSumPrintJSON
 
 !! Has
 function CrossSectionSumLabelHas(handle) &
-      bind(C, name='CrossSectionSumLabelHas') &
-      result(has)
+      bind(C, name='CrossSectionSumLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionSumLabelHas
 end function CrossSectionSumLabelHas
 
 !! Get
 function CrossSectionSumLabelGet(handle) &
-      bind(C, name='CrossSectionSumLabelGet') &
-      result(label)
+      bind(C, name='CrossSectionSumLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: CrossSectionSumLabelGet
 end function CrossSectionSumLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine CrossSectionSumLabelSet
 
 !! Has
 function CrossSectionSumENDFMTHas(handle) &
-      bind(C, name='CrossSectionSumENDFMTHas') &
-      result(has)
+      bind(C, name='CrossSectionSumENDFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionSumENDFMTHas
 end function CrossSectionSumENDFMTHas
 
 !! Get
 function CrossSectionSumENDFMTGet(handle) &
-      bind(C, name='CrossSectionSumENDFMTGet') &
-      result(ENDF_MT)
+      bind(C, name='CrossSectionSumENDFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: ENDF_MT
+   integer(c_int) :: CrossSectionSumENDFMTGet
 end function CrossSectionSumENDFMTGet
 
 !! Set
@@ -228,32 +215,29 @@ end subroutine CrossSectionSumENDFMTSet
 
 !! Has
 function CrossSectionSumSummandsHas(handle) &
-      bind(C, name='CrossSectionSumSummandsHas') &
-      result(has)
+      bind(C, name='CrossSectionSumSummandsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionSumSummandsHas
 end function CrossSectionSumSummandsHas
 
 !! Get, const
 function CrossSectionSumSummandsGetConst(handle) &
-      bind(C, name='CrossSectionSumSummandsGetConst') &
-      result(resultHandle)
+      bind(C, name='CrossSectionSumSummandsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionSumSummandsGetConst
 end function CrossSectionSumSummandsGetConst
 
 !! Get
 function CrossSectionSumSummandsGet(handle) &
-      bind(C, name='CrossSectionSumSummandsGet') &
-      result(resultHandle)
+      bind(C, name='CrossSectionSumSummandsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionSumSummandsGet
 end function CrossSectionSumSummandsGet
 
 !! Set
@@ -272,32 +256,29 @@ end subroutine CrossSectionSumSummandsSet
 
 !! Has
 function CrossSectionSumQHas(handle) &
-      bind(C, name='CrossSectionSumQHas') &
-      result(has)
+      bind(C, name='CrossSectionSumQHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionSumQHas
 end function CrossSectionSumQHas
 
 !! Get, const
 function CrossSectionSumQGetConst(handle) &
-      bind(C, name='CrossSectionSumQGetConst') &
-      result(resultHandle)
+      bind(C, name='CrossSectionSumQGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionSumQGetConst
 end function CrossSectionSumQGetConst
 
 !! Get
 function CrossSectionSumQGet(handle) &
-      bind(C, name='CrossSectionSumQGet') &
-      result(resultHandle)
+      bind(C, name='CrossSectionSumQGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionSumQGet
 end function CrossSectionSumQGet
 
 !! Set
@@ -316,32 +297,29 @@ end subroutine CrossSectionSumQSet
 
 !! Has
 function CrossSectionSumCrossSectionHas(handle) &
-      bind(C, name='CrossSectionSumCrossSectionHas') &
-      result(has)
+      bind(C, name='CrossSectionSumCrossSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CrossSectionSumCrossSectionHas
 end function CrossSectionSumCrossSectionHas
 
 !! Get, const
 function CrossSectionSumCrossSectionGetConst(handle) &
-      bind(C, name='CrossSectionSumCrossSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='CrossSectionSumCrossSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionSumCrossSectionGetConst
 end function CrossSectionSumCrossSectionGetConst
 
 !! Get
 function CrossSectionSumCrossSectionGet(handle) &
-      bind(C, name='CrossSectionSumCrossSectionGet') &
-      result(resultHandle)
+      bind(C, name='CrossSectionSumCrossSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CrossSectionSumCrossSectionGet
 end function CrossSectionSumCrossSectionGet
 
 !! Set

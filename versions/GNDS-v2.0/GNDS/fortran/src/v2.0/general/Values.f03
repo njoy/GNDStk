@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function ValuesDefaultConst() &
-      bind(C, name='ValuesDefaultConst') &
-      result(handle)
+      bind(C, name='ValuesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ValuesDefaultConst
 end function ValuesDefaultConst
 
 !! Create, default
 function ValuesDefault() &
-      bind(C, name='ValuesDefault') &
-      result(handle)
+      bind(C, name='ValuesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ValuesDefault
 end function ValuesDefault
 
 !! Create, general, const
 function ValuesCreateConst( &
 ) &
-      bind(C, name='ValuesCreateConst') &
-      result(handle)
+      bind(C, name='ValuesCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ValuesCreateConst
 end function ValuesCreateConst
 
 !! Create, general
 function ValuesCreate( &
 ) &
-      bind(C, name='ValuesCreate') &
-      result(handle)
+      bind(C, name='ValuesCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ValuesCreate
 end function ValuesCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine ValuesDelete
 
 !! Read from file
 function ValuesRead(handle, filename, filenameSize) &
-      bind(C, name='ValuesRead') &
-      result(success)
+      bind(C, name='ValuesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ValuesRead
 end function ValuesRead
 
 !! Write to file
 function ValuesWrite(handle, filename, filenameSize) &
-      bind(C, name='ValuesWrite') &
-      result(success)
+      bind(C, name='ValuesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ValuesWrite
 end function ValuesWrite
 
 !! Print to standard output, in our prettyprinting format
 function ValuesPrint(handle) &
-      bind(C, name='ValuesPrint') &
-      result(success)
+      bind(C, name='ValuesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ValuesPrint
 end function ValuesPrint
 
 !! Print to standard output, as XML
 function ValuesPrintXML(handle) &
-      bind(C, name='ValuesPrintXML') &
-      result(success)
+      bind(C, name='ValuesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ValuesPrintXML
 end function ValuesPrintXML
 
 !! Print to standard output, as JSON
 function ValuesPrintJSON(handle) &
-      bind(C, name='ValuesPrintJSON') &
-      result(success)
+      bind(C, name='ValuesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ValuesPrintJSON
 end function ValuesPrintJSON
 
 
@@ -142,24 +133,22 @@ end subroutine ValuesDoublesClear
 
 !! Get size
 function ValuesDoublesSize(handle) &
-      bind(C, name='ValuesDoublesSize') &
-      result(arraySize)
+      bind(C, name='ValuesDoublesSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: arraySize
+   integer(c_size_t) :: ValuesDoublesSize
 end function ValuesDoublesSize
 
 !! Get value
 !! By index \in [0,size)
 function ValuesDoublesGet(handle, arrayIndex) &
-      bind(C, name='ValuesDoublesGet') &
-      result(valueAtIndex)
+      bind(C, name='ValuesDoublesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   real(c_double) :: valueAtIndex
+   real(c_double) :: ValuesDoublesGet
 end function ValuesDoublesGet
 
 !! Set value
@@ -175,22 +164,20 @@ end subroutine ValuesDoublesSet
 
 !! Get pointer to existing values, const
 function ValuesDoublesGetArrayConst(handle) &
-      bind(C, name='ValuesDoublesGetArrayConst') &
-      result(ptrToArray)
+      bind(C, name='ValuesDoublesGetArrayConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: ValuesDoublesGetArrayConst
 end function ValuesDoublesGetArrayConst
 
 !! Get pointer to existing values
 function ValuesDoublesGetArray(handle) &
-      bind(C, name='ValuesDoublesGetArray') &
-      result(ptrToArray)
+      bind(C, name='ValuesDoublesGetArray')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: ValuesDoublesGetArray
 end function ValuesDoublesGetArray
 
 !! Set completely new values and size

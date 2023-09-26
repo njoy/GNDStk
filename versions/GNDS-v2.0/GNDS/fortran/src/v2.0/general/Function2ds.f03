@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function Function2dsDefaultConst() &
-      bind(C, name='Function2dsDefaultConst') &
-      result(handle)
+      bind(C, name='Function2dsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Function2dsDefaultConst
 end function Function2dsDefaultConst
 
 !! Create, default
 function Function2dsDefault() &
-      bind(C, name='Function2dsDefault') &
-      result(handle)
+      bind(C, name='Function2dsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Function2dsDefault
 end function Function2dsDefault
 
 !! Create, general, const
 function Function2dsCreateConst( &
    XYs2d, XYs2dSize &
 ) &
-      bind(C, name='Function2dsCreateConst') &
-      result(handle)
+      bind(C, name='Function2dsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: XYs2dSize
    type(c_ptr) :: XYs2d(XYs2dSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: Function2dsCreateConst
 end function Function2dsCreateConst
 
 !! Create, general
 function Function2dsCreate( &
    XYs2d, XYs2dSize &
 ) &
-      bind(C, name='Function2dsCreate') &
-      result(handle)
+      bind(C, name='Function2dsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: XYs2dSize
    type(c_ptr) :: XYs2d(XYs2dSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: Function2dsCreate
 end function Function2dsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine Function2dsDelete
 
 !! Read from file
 function Function2dsRead(handle, filename, filenameSize) &
-      bind(C, name='Function2dsRead') &
-      result(success)
+      bind(C, name='Function2dsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Function2dsRead
 end function Function2dsRead
 
 !! Write to file
 function Function2dsWrite(handle, filename, filenameSize) &
-      bind(C, name='Function2dsWrite') &
-      result(success)
+      bind(C, name='Function2dsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Function2dsWrite
 end function Function2dsWrite
 
 !! Print to standard output, in our prettyprinting format
 function Function2dsPrint(handle) &
-      bind(C, name='Function2dsPrint') &
-      result(success)
+      bind(C, name='Function2dsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Function2dsPrint
 end function Function2dsPrint
 
 !! Print to standard output, as XML
 function Function2dsPrintXML(handle) &
-      bind(C, name='Function2dsPrintXML') &
-      result(success)
+      bind(C, name='Function2dsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Function2dsPrintXML
 end function Function2dsPrintXML
 
 !! Print to standard output, as JSON
 function Function2dsPrintJSON(handle) &
-      bind(C, name='Function2dsPrintJSON') &
-      result(success)
+      bind(C, name='Function2dsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Function2dsPrintJSON
 end function Function2dsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function Function2dsPrintJSON
 
 !! Has
 function Function2dsXYs2dHas(handle) &
-      bind(C, name='Function2dsXYs2dHas') &
-      result(has)
+      bind(C, name='Function2dsXYs2dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Function2dsXYs2dHas
 end function Function2dsXYs2dHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine Function2dsXYs2dClear
 
 !! Size
 function Function2dsXYs2dSize(handle) &
-      bind(C, name='Function2dsXYs2dSize') &
-      result(vectorSize)
+      bind(C, name='Function2dsXYs2dSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: Function2dsXYs2dSize
 end function Function2dsXYs2dSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine Function2dsXYs2dAdd
 
 !! Get, by index \in [0,size), const
 function Function2dsXYs2dGetConst(handle, index) &
-      bind(C, name='Function2dsXYs2dGetConst') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetConst
 end function Function2dsXYs2dGetConst
 
 !! Get, by index \in [0,size)
 function Function2dsXYs2dGet(handle, index) &
-      bind(C, name='Function2dsXYs2dGet') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGet
 end function Function2dsXYs2dGet
 
 !! Set, by index \in [0,size)
@@ -213,35 +200,32 @@ end subroutine Function2dsXYs2dSet
 
 !! Has, by index
 function Function2dsXYs2dHasByIndex(handle, meta) &
-      bind(C, name='Function2dsXYs2dHasByIndex') &
-      result(has)
+      bind(C, name='Function2dsXYs2dHasByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: Function2dsXYs2dHasByIndex
 end function Function2dsXYs2dHasByIndex
 
 !! Get, by index, const
 function Function2dsXYs2dGetByIndexConst(handle, meta) &
-      bind(C, name='Function2dsXYs2dGetByIndexConst') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByIndexConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByIndexConst
 end function Function2dsXYs2dGetByIndexConst
 
 !! Get, by index
 function Function2dsXYs2dGetByIndex(handle, meta) &
-      bind(C, name='Function2dsXYs2dGetByIndex') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByIndex
 end function Function2dsXYs2dGetByIndex
 
 !! Set, by index
@@ -260,38 +244,35 @@ end subroutine Function2dsXYs2dSetByIndex
 
 !! Has, by interpolation
 function Function2dsXYs2dHasByInterpolation(handle, meta, metaSize) &
-      bind(C, name='Function2dsXYs2dHasByInterpolation') &
-      result(has)
+      bind(C, name='Function2dsXYs2dHasByInterpolation')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: Function2dsXYs2dHasByInterpolation
 end function Function2dsXYs2dHasByInterpolation
 
 !! Get, by interpolation, const
 function Function2dsXYs2dGetByInterpolationConst(handle, meta, metaSize) &
-      bind(C, name='Function2dsXYs2dGetByInterpolationConst') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByInterpolationConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByInterpolationConst
 end function Function2dsXYs2dGetByInterpolationConst
 
 !! Get, by interpolation
 function Function2dsXYs2dGetByInterpolation(handle, meta, metaSize) &
-      bind(C, name='Function2dsXYs2dGetByInterpolation') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByInterpolation')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByInterpolation
 end function Function2dsXYs2dGetByInterpolation
 
 !! Set, by interpolation
@@ -311,38 +292,35 @@ end subroutine Function2dsXYs2dSetByInterpolation
 
 !! Has, by interpolationQualifier
 function Function2dsXYs2dHasByInterpolationQualifier(handle, meta, metaSize) &
-      bind(C, name='Function2dsXYs2dHasByInterpolationQualifier') &
-      result(has)
+      bind(C, name='Function2dsXYs2dHasByInterpolationQualifier')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: Function2dsXYs2dHasByInterpolationQualifier
 end function Function2dsXYs2dHasByInterpolationQualifier
 
 !! Get, by interpolationQualifier, const
 function Function2dsXYs2dGetByInterpolationQualifierConst(handle, meta, metaSize) &
-      bind(C, name='Function2dsXYs2dGetByInterpolationQualifierConst') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByInterpolationQualifierConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByInterpolationQualifierConst
 end function Function2dsXYs2dGetByInterpolationQualifierConst
 
 !! Get, by interpolationQualifier
 function Function2dsXYs2dGetByInterpolationQualifier(handle, meta, metaSize) &
-      bind(C, name='Function2dsXYs2dGetByInterpolationQualifier') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByInterpolationQualifier')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByInterpolationQualifier
 end function Function2dsXYs2dGetByInterpolationQualifier
 
 !! Set, by interpolationQualifier
@@ -362,35 +340,32 @@ end subroutine Function2dsXYs2dSetByInterpolationQualifier
 
 !! Has, by outerDomainValue
 function Function2dsXYs2dHasByOuterDomainValue(handle, meta) &
-      bind(C, name='Function2dsXYs2dHasByOuterDomainValue') &
-      result(has)
+      bind(C, name='Function2dsXYs2dHasByOuterDomainValue')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: Function2dsXYs2dHasByOuterDomainValue
 end function Function2dsXYs2dHasByOuterDomainValue
 
 !! Get, by outerDomainValue, const
 function Function2dsXYs2dGetByOuterDomainValueConst(handle, meta) &
-      bind(C, name='Function2dsXYs2dGetByOuterDomainValueConst') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByOuterDomainValueConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByOuterDomainValueConst
 end function Function2dsXYs2dGetByOuterDomainValueConst
 
 !! Get, by outerDomainValue
 function Function2dsXYs2dGetByOuterDomainValue(handle, meta) &
-      bind(C, name='Function2dsXYs2dGetByOuterDomainValue') &
-      result(resultHandle)
+      bind(C, name='Function2dsXYs2dGetByOuterDomainValue')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Function2dsXYs2dGetByOuterDomainValue
 end function Function2dsXYs2dGetByOuterDomainValue
 
 !! Set, by outerDomainValue

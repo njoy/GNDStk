@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ColumnDefaultConst() &
-      bind(C, name='ColumnDefaultConst') &
-      result(handle)
+      bind(C, name='ColumnDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnDefaultConst
 end function ColumnDefaultConst
 
 !! Create, default
 function ColumnDefault() &
-      bind(C, name='ColumnDefault') &
-      result(handle)
+      bind(C, name='ColumnDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnDefault
 end function ColumnDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function ColumnCreateConst( &
    nameSize, &
    unitSize &
 ) &
-      bind(C, name='ColumnCreateConst') &
-      result(handle)
+      bind(C, name='ColumnCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -47,7 +44,7 @@ function ColumnCreateConst( &
    character(c_char), intent(in) :: name(nameSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnCreateConst
 end function ColumnCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function ColumnCreate( &
    nameSize, &
    unitSize &
 ) &
-      bind(C, name='ColumnCreate') &
-      result(handle)
+      bind(C, name='ColumnCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -67,7 +63,7 @@ function ColumnCreate( &
    character(c_char), intent(in) :: name(nameSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ColumnCreate
 end function ColumnCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine ColumnDelete
 
 !! Read from file
 function ColumnRead(handle, filename, filenameSize) &
-      bind(C, name='ColumnRead') &
-      result(success)
+      bind(C, name='ColumnRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ColumnRead
 end function ColumnRead
 
 !! Write to file
 function ColumnWrite(handle, filename, filenameSize) &
-      bind(C, name='ColumnWrite') &
-      result(success)
+      bind(C, name='ColumnWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ColumnWrite
 end function ColumnWrite
 
 !! Print to standard output, in our prettyprinting format
 function ColumnPrint(handle) &
-      bind(C, name='ColumnPrint') &
-      result(success)
+      bind(C, name='ColumnPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnPrint
 end function ColumnPrint
 
 !! Print to standard output, as XML
 function ColumnPrintXML(handle) &
-      bind(C, name='ColumnPrintXML') &
-      result(success)
+      bind(C, name='ColumnPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnPrintXML
 end function ColumnPrintXML
 
 !! Print to standard output, as JSON
 function ColumnPrintJSON(handle) &
-      bind(C, name='ColumnPrintJSON') &
-      result(success)
+      bind(C, name='ColumnPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ColumnPrintJSON
 end function ColumnPrintJSON
 
 
@@ -154,22 +145,20 @@ end function ColumnPrintJSON
 
 !! Has
 function ColumnIndexHas(handle) &
-      bind(C, name='ColumnIndexHas') &
-      result(has)
+      bind(C, name='ColumnIndexHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnIndexHas
 end function ColumnIndexHas
 
 !! Get
 function ColumnIndexGet(handle) &
-      bind(C, name='ColumnIndexGet') &
-      result(index)
+      bind(C, name='ColumnIndexGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: index
+   integer(c_int) :: ColumnIndexGet
 end function ColumnIndexGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine ColumnIndexSet
 
 !! Has
 function ColumnNameHas(handle) &
-      bind(C, name='ColumnNameHas') &
-      result(has)
+      bind(C, name='ColumnNameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnNameHas
 end function ColumnNameHas
 
 !! Get
 function ColumnNameGet(handle) &
-      bind(C, name='ColumnNameGet') &
-      result(name)
+      bind(C, name='ColumnNameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: name
+   type(c_ptr) :: ColumnNameGet
 end function ColumnNameGet
 
 !! Set
@@ -224,22 +211,20 @@ end subroutine ColumnNameSet
 
 !! Has
 function ColumnUnitHas(handle) &
-      bind(C, name='ColumnUnitHas') &
-      result(has)
+      bind(C, name='ColumnUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ColumnUnitHas
 end function ColumnUnitHas
 
 !! Get
 function ColumnUnitGet(handle) &
-      bind(C, name='ColumnUnitGet') &
-      result(unit)
+      bind(C, name='ColumnUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: ColumnUnitGet
 end function ColumnUnitGet
 
 !! Set

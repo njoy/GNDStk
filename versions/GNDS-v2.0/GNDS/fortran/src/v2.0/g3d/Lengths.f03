@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function LengthsDefaultConst() &
-      bind(C, name='LengthsDefaultConst') &
-      result(handle)
+      bind(C, name='LengthsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LengthsDefaultConst
 end function LengthsDefaultConst
 
 !! Create, default
 function LengthsDefault() &
-      bind(C, name='LengthsDefault') &
-      result(handle)
+      bind(C, name='LengthsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LengthsDefault
 end function LengthsDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function LengthsCreateConst( &
    valueTypeSize, &
    labelSize &
 ) &
-      bind(C, name='LengthsCreateConst') &
-      result(handle)
+      bind(C, name='LengthsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: valueTypeSize
    character(c_char), intent(in) :: valueType(valueTypeSize)
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: LengthsCreateConst
 end function LengthsCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function LengthsCreate( &
    valueTypeSize, &
    labelSize &
 ) &
-      bind(C, name='LengthsCreate') &
-      result(handle)
+      bind(C, name='LengthsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: valueTypeSize
    character(c_char), intent(in) :: valueType(valueTypeSize)
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: LengthsCreate
 end function LengthsCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine LengthsDelete
 
 !! Read from file
 function LengthsRead(handle, filename, filenameSize) &
-      bind(C, name='LengthsRead') &
-      result(success)
+      bind(C, name='LengthsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LengthsRead
 end function LengthsRead
 
 !! Write to file
 function LengthsWrite(handle, filename, filenameSize) &
-      bind(C, name='LengthsWrite') &
-      result(success)
+      bind(C, name='LengthsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LengthsWrite
 end function LengthsWrite
 
 !! Print to standard output, in our prettyprinting format
 function LengthsPrint(handle) &
-      bind(C, name='LengthsPrint') &
-      result(success)
+      bind(C, name='LengthsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LengthsPrint
 end function LengthsPrint
 
 !! Print to standard output, as XML
 function LengthsPrintXML(handle) &
-      bind(C, name='LengthsPrintXML') &
-      result(success)
+      bind(C, name='LengthsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LengthsPrintXML
 end function LengthsPrintXML
 
 !! Print to standard output, as JSON
 function LengthsPrintJSON(handle) &
-      bind(C, name='LengthsPrintJSON') &
-      result(success)
+      bind(C, name='LengthsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LengthsPrintJSON
 end function LengthsPrintJSON
 
 
@@ -158,24 +149,22 @@ end subroutine LengthsIntsClear
 
 !! Get size
 function LengthsIntsSize(handle) &
-      bind(C, name='LengthsIntsSize') &
-      result(arraySize)
+      bind(C, name='LengthsIntsSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: arraySize
+   integer(c_size_t) :: LengthsIntsSize
 end function LengthsIntsSize
 
 !! Get value
 !! By index \in [0,size)
 function LengthsIntsGet(handle, arrayIndex) &
-      bind(C, name='LengthsIntsGet') &
-      result(valueAtIndex)
+      bind(C, name='LengthsIntsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   integer(c_int) :: valueAtIndex
+   integer(c_int) :: LengthsIntsGet
 end function LengthsIntsGet
 
 !! Set value
@@ -191,22 +180,20 @@ end subroutine LengthsIntsSet
 
 !! Get pointer to existing values, const
 function LengthsIntsGetArrayConst(handle) &
-      bind(C, name='LengthsIntsGetArrayConst') &
-      result(ptrToArray)
+      bind(C, name='LengthsIntsGetArrayConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: LengthsIntsGetArrayConst
 end function LengthsIntsGetArrayConst
 
 !! Get pointer to existing values
 function LengthsIntsGetArray(handle) &
-      bind(C, name='LengthsIntsGetArray') &
-      result(ptrToArray)
+      bind(C, name='LengthsIntsGetArray')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr) :: ptrToArray
+   type(c_ptr) :: LengthsIntsGetArray
 end function LengthsIntsGetArray
 
 !! Set completely new values and size
@@ -226,22 +213,20 @@ end subroutine LengthsIntsSetArray
 
 !! Has
 function LengthsValueTypeHas(handle) &
-      bind(C, name='LengthsValueTypeHas') &
-      result(has)
+      bind(C, name='LengthsValueTypeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LengthsValueTypeHas
 end function LengthsValueTypeHas
 
 !! Get
 function LengthsValueTypeGet(handle) &
-      bind(C, name='LengthsValueTypeGet') &
-      result(valueType)
+      bind(C, name='LengthsValueTypeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: valueType
+   type(c_ptr) :: LengthsValueTypeGet
 end function LengthsValueTypeGet
 
 !! Set
@@ -261,22 +246,20 @@ end subroutine LengthsValueTypeSet
 
 !! Has
 function LengthsLabelHas(handle) &
-      bind(C, name='LengthsLabelHas') &
-      result(has)
+      bind(C, name='LengthsLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LengthsLabelHas
 end function LengthsLabelHas
 
 !! Get
 function LengthsLabelGet(handle) &
-      bind(C, name='LengthsLabelGet') &
-      result(label)
+      bind(C, name='LengthsLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: LengthsLabelGet
 end function LengthsLabelGet
 
 !! Set

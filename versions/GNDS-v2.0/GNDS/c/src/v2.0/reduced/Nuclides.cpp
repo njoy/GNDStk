@@ -173,30 +173,6 @@ NuclidesStringsSet(ConstHandle2Nuclides self, const size_t index, const std::str
       (CLASSNAME, CLASSNAME+"StringsSet", self, index, value);
 }
 
-// Get pointer to existing values, const
-const std::string *
-NuclidesStringsGetArrayConst(ConstHandle2ConstNuclides self)
-{
-   return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"StringsGetArrayConst", self);
-}
-
-// Get pointer to existing values
-std::string *
-NuclidesStringsGetArray(ConstHandle2Nuclides self)
-{
-   return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"StringsGetArray", self);
-}
-
-// Set completely new values and size
-void
-NuclidesStringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size)
-{
-   return detail::vectorSet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"StringsSetArray", self, size, values);
-}
-
 
 // -----------------------------------------------------------------------------
 // Metadatum: href

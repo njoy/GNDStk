@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ChemicalElementsDefaultConst() &
-      bind(C, name='ChemicalElementsDefaultConst') &
-      result(handle)
+      bind(C, name='ChemicalElementsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChemicalElementsDefaultConst
 end function ChemicalElementsDefaultConst
 
 !! Create, default
 function ChemicalElementsDefault() &
-      bind(C, name='ChemicalElementsDefault') &
-      result(handle)
+      bind(C, name='ChemicalElementsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChemicalElementsDefault
 end function ChemicalElementsDefault
 
 !! Create, general, const
 function ChemicalElementsCreateConst( &
    chemicalElement, chemicalElementSize &
 ) &
-      bind(C, name='ChemicalElementsCreateConst') &
-      result(handle)
+      bind(C, name='ChemicalElementsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: chemicalElementSize
    type(c_ptr) :: chemicalElement(chemicalElementSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChemicalElementsCreateConst
 end function ChemicalElementsCreateConst
 
 !! Create, general
 function ChemicalElementsCreate( &
    chemicalElement, chemicalElementSize &
 ) &
-      bind(C, name='ChemicalElementsCreate') &
-      result(handle)
+      bind(C, name='ChemicalElementsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: chemicalElementSize
    type(c_ptr) :: chemicalElement(chemicalElementSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ChemicalElementsCreate
 end function ChemicalElementsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ChemicalElementsDelete
 
 !! Read from file
 function ChemicalElementsRead(handle, filename, filenameSize) &
-      bind(C, name='ChemicalElementsRead') &
-      result(success)
+      bind(C, name='ChemicalElementsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ChemicalElementsRead
 end function ChemicalElementsRead
 
 !! Write to file
 function ChemicalElementsWrite(handle, filename, filenameSize) &
-      bind(C, name='ChemicalElementsWrite') &
-      result(success)
+      bind(C, name='ChemicalElementsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ChemicalElementsWrite
 end function ChemicalElementsWrite
 
 !! Print to standard output, in our prettyprinting format
 function ChemicalElementsPrint(handle) &
-      bind(C, name='ChemicalElementsPrint') &
-      result(success)
+      bind(C, name='ChemicalElementsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChemicalElementsPrint
 end function ChemicalElementsPrint
 
 !! Print to standard output, as XML
 function ChemicalElementsPrintXML(handle) &
-      bind(C, name='ChemicalElementsPrintXML') &
-      result(success)
+      bind(C, name='ChemicalElementsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChemicalElementsPrintXML
 end function ChemicalElementsPrintXML
 
 !! Print to standard output, as JSON
 function ChemicalElementsPrintJSON(handle) &
-      bind(C, name='ChemicalElementsPrintJSON') &
-      result(success)
+      bind(C, name='ChemicalElementsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ChemicalElementsPrintJSON
 end function ChemicalElementsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ChemicalElementsPrintJSON
 
 !! Has
 function ChemicalElementsChemicalElementHas(handle) &
-      bind(C, name='ChemicalElementsChemicalElementHas') &
-      result(has)
+      bind(C, name='ChemicalElementsChemicalElementHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ChemicalElementsChemicalElementHas
 end function ChemicalElementsChemicalElementHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ChemicalElementsChemicalElementClear
 
 !! Size
 function ChemicalElementsChemicalElementSize(handle) &
-      bind(C, name='ChemicalElementsChemicalElementSize') &
-      result(vectorSize)
+      bind(C, name='ChemicalElementsChemicalElementSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ChemicalElementsChemicalElementSize
 end function ChemicalElementsChemicalElementSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ChemicalElementsChemicalElementAdd
 
 !! Get, by index \in [0,size), const
 function ChemicalElementsChemicalElementGetConst(handle, index) &
-      bind(C, name='ChemicalElementsChemicalElementGetConst') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetConst
 end function ChemicalElementsChemicalElementGetConst
 
 !! Get, by index \in [0,size)
 function ChemicalElementsChemicalElementGet(handle, index) &
-      bind(C, name='ChemicalElementsChemicalElementGet') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGet
 end function ChemicalElementsChemicalElementGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ChemicalElementsChemicalElementSet
 
 !! Has, by symbol
 function ChemicalElementsChemicalElementHasBySymbol(handle, meta, metaSize) &
-      bind(C, name='ChemicalElementsChemicalElementHasBySymbol') &
-      result(has)
+      bind(C, name='ChemicalElementsChemicalElementHasBySymbol')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ChemicalElementsChemicalElementHasBySymbol
 end function ChemicalElementsChemicalElementHasBySymbol
 
 !! Get, by symbol, const
 function ChemicalElementsChemicalElementGetBySymbolConst(handle, meta, metaSize) &
-      bind(C, name='ChemicalElementsChemicalElementGetBySymbolConst') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetBySymbolConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetBySymbolConst
 end function ChemicalElementsChemicalElementGetBySymbolConst
 
 !! Get, by symbol
 function ChemicalElementsChemicalElementGetBySymbol(handle, meta, metaSize) &
-      bind(C, name='ChemicalElementsChemicalElementGetBySymbol') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetBySymbol')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetBySymbol
 end function ChemicalElementsChemicalElementGetBySymbol
 
 !! Set, by symbol
@@ -264,35 +248,32 @@ end subroutine ChemicalElementsChemicalElementSetBySymbol
 
 !! Has, by Z
 function ChemicalElementsChemicalElementHasByZ(handle, meta) &
-      bind(C, name='ChemicalElementsChemicalElementHasByZ') &
-      result(has)
+      bind(C, name='ChemicalElementsChemicalElementHasByZ')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ChemicalElementsChemicalElementHasByZ
 end function ChemicalElementsChemicalElementHasByZ
 
 !! Get, by Z, const
 function ChemicalElementsChemicalElementGetByZConst(handle, meta) &
-      bind(C, name='ChemicalElementsChemicalElementGetByZConst') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetByZConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetByZConst
 end function ChemicalElementsChemicalElementGetByZConst
 
 !! Get, by Z
 function ChemicalElementsChemicalElementGetByZ(handle, meta) &
-      bind(C, name='ChemicalElementsChemicalElementGetByZ') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetByZ')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetByZ
 end function ChemicalElementsChemicalElementGetByZ
 
 !! Set, by Z
@@ -311,38 +292,35 @@ end subroutine ChemicalElementsChemicalElementSetByZ
 
 !! Has, by name
 function ChemicalElementsChemicalElementHasByName(handle, meta, metaSize) &
-      bind(C, name='ChemicalElementsChemicalElementHasByName') &
-      result(has)
+      bind(C, name='ChemicalElementsChemicalElementHasByName')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ChemicalElementsChemicalElementHasByName
 end function ChemicalElementsChemicalElementHasByName
 
 !! Get, by name, const
 function ChemicalElementsChemicalElementGetByNameConst(handle, meta, metaSize) &
-      bind(C, name='ChemicalElementsChemicalElementGetByNameConst') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetByNameConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetByNameConst
 end function ChemicalElementsChemicalElementGetByNameConst
 
 !! Get, by name
 function ChemicalElementsChemicalElementGetByName(handle, meta, metaSize) &
-      bind(C, name='ChemicalElementsChemicalElementGetByName') &
-      result(resultHandle)
+      bind(C, name='ChemicalElementsChemicalElementGetByName')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ChemicalElementsChemicalElementGetByName
 end function ChemicalElementsChemicalElementGetByName
 
 !! Set, by name

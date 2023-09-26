@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function BaryonDefaultConst() &
-      bind(C, name='BaryonDefaultConst') &
-      result(handle)
+      bind(C, name='BaryonDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BaryonDefaultConst
 end function BaryonDefaultConst
 
 !! Create, default
 function BaryonDefault() &
-      bind(C, name='BaryonDefault') &
-      result(handle)
+      bind(C, name='BaryonDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BaryonDefault
 end function BaryonDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function BaryonCreateConst( &
    decayData, &
    idSize &
 ) &
-      bind(C, name='BaryonCreateConst') &
-      result(handle)
+      bind(C, name='BaryonCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -53,7 +50,7 @@ function BaryonCreateConst( &
    type(c_ptr), value :: charge
    type(c_ptr), value :: halflife
    type(c_ptr), value :: decayData
-   type(c_ptr) :: handle
+   type(c_ptr) :: BaryonCreateConst
 end function BaryonCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function BaryonCreate( &
    decayData, &
    idSize &
 ) &
-      bind(C, name='BaryonCreate') &
-      result(handle)
+      bind(C, name='BaryonCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
@@ -79,7 +75,7 @@ function BaryonCreate( &
    type(c_ptr), value :: charge
    type(c_ptr), value :: halflife
    type(c_ptr), value :: decayData
-   type(c_ptr) :: handle
+   type(c_ptr) :: BaryonCreate
 end function BaryonCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine BaryonDelete
 
 !! Read from file
 function BaryonRead(handle, filename, filenameSize) &
-      bind(C, name='BaryonRead') &
-      result(success)
+      bind(C, name='BaryonRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BaryonRead
 end function BaryonRead
 
 !! Write to file
 function BaryonWrite(handle, filename, filenameSize) &
-      bind(C, name='BaryonWrite') &
-      result(success)
+      bind(C, name='BaryonWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BaryonWrite
 end function BaryonWrite
 
 !! Print to standard output, in our prettyprinting format
 function BaryonPrint(handle) &
-      bind(C, name='BaryonPrint') &
-      result(success)
+      bind(C, name='BaryonPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BaryonPrint
 end function BaryonPrint
 
 !! Print to standard output, as XML
 function BaryonPrintXML(handle) &
-      bind(C, name='BaryonPrintXML') &
-      result(success)
+      bind(C, name='BaryonPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BaryonPrintXML
 end function BaryonPrintXML
 
 !! Print to standard output, as JSON
 function BaryonPrintJSON(handle) &
-      bind(C, name='BaryonPrintJSON') &
-      result(success)
+      bind(C, name='BaryonPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BaryonPrintJSON
 end function BaryonPrintJSON
 
 
@@ -166,22 +157,20 @@ end function BaryonPrintJSON
 
 !! Has
 function BaryonIdHas(handle) &
-      bind(C, name='BaryonIdHas') &
-      result(has)
+      bind(C, name='BaryonIdHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonIdHas
 end function BaryonIdHas
 
 !! Get
 function BaryonIdGet(handle) &
-      bind(C, name='BaryonIdGet') &
-      result(id)
+      bind(C, name='BaryonIdGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: id
+   type(c_ptr) :: BaryonIdGet
 end function BaryonIdGet
 
 !! Set
@@ -201,32 +190,29 @@ end subroutine BaryonIdSet
 
 !! Has
 function BaryonMassHas(handle) &
-      bind(C, name='BaryonMassHas') &
-      result(has)
+      bind(C, name='BaryonMassHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonMassHas
 end function BaryonMassHas
 
 !! Get, const
 function BaryonMassGetConst(handle) &
-      bind(C, name='BaryonMassGetConst') &
-      result(resultHandle)
+      bind(C, name='BaryonMassGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonMassGetConst
 end function BaryonMassGetConst
 
 !! Get
 function BaryonMassGet(handle) &
-      bind(C, name='BaryonMassGet') &
-      result(resultHandle)
+      bind(C, name='BaryonMassGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonMassGet
 end function BaryonMassGet
 
 !! Set
@@ -245,32 +231,29 @@ end subroutine BaryonMassSet
 
 !! Has
 function BaryonSpinHas(handle) &
-      bind(C, name='BaryonSpinHas') &
-      result(has)
+      bind(C, name='BaryonSpinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonSpinHas
 end function BaryonSpinHas
 
 !! Get, const
 function BaryonSpinGetConst(handle) &
-      bind(C, name='BaryonSpinGetConst') &
-      result(resultHandle)
+      bind(C, name='BaryonSpinGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonSpinGetConst
 end function BaryonSpinGetConst
 
 !! Get
 function BaryonSpinGet(handle) &
-      bind(C, name='BaryonSpinGet') &
-      result(resultHandle)
+      bind(C, name='BaryonSpinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonSpinGet
 end function BaryonSpinGet
 
 !! Set
@@ -289,32 +272,29 @@ end subroutine BaryonSpinSet
 
 !! Has
 function BaryonParityHas(handle) &
-      bind(C, name='BaryonParityHas') &
-      result(has)
+      bind(C, name='BaryonParityHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonParityHas
 end function BaryonParityHas
 
 !! Get, const
 function BaryonParityGetConst(handle) &
-      bind(C, name='BaryonParityGetConst') &
-      result(resultHandle)
+      bind(C, name='BaryonParityGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonParityGetConst
 end function BaryonParityGetConst
 
 !! Get
 function BaryonParityGet(handle) &
-      bind(C, name='BaryonParityGet') &
-      result(resultHandle)
+      bind(C, name='BaryonParityGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonParityGet
 end function BaryonParityGet
 
 !! Set
@@ -333,32 +313,29 @@ end subroutine BaryonParitySet
 
 !! Has
 function BaryonChargeHas(handle) &
-      bind(C, name='BaryonChargeHas') &
-      result(has)
+      bind(C, name='BaryonChargeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonChargeHas
 end function BaryonChargeHas
 
 !! Get, const
 function BaryonChargeGetConst(handle) &
-      bind(C, name='BaryonChargeGetConst') &
-      result(resultHandle)
+      bind(C, name='BaryonChargeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonChargeGetConst
 end function BaryonChargeGetConst
 
 !! Get
 function BaryonChargeGet(handle) &
-      bind(C, name='BaryonChargeGet') &
-      result(resultHandle)
+      bind(C, name='BaryonChargeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonChargeGet
 end function BaryonChargeGet
 
 !! Set
@@ -377,32 +354,29 @@ end subroutine BaryonChargeSet
 
 !! Has
 function BaryonHalflifeHas(handle) &
-      bind(C, name='BaryonHalflifeHas') &
-      result(has)
+      bind(C, name='BaryonHalflifeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonHalflifeHas
 end function BaryonHalflifeHas
 
 !! Get, const
 function BaryonHalflifeGetConst(handle) &
-      bind(C, name='BaryonHalflifeGetConst') &
-      result(resultHandle)
+      bind(C, name='BaryonHalflifeGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonHalflifeGetConst
 end function BaryonHalflifeGetConst
 
 !! Get
 function BaryonHalflifeGet(handle) &
-      bind(C, name='BaryonHalflifeGet') &
-      result(resultHandle)
+      bind(C, name='BaryonHalflifeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonHalflifeGet
 end function BaryonHalflifeGet
 
 !! Set
@@ -421,32 +395,29 @@ end subroutine BaryonHalflifeSet
 
 !! Has
 function BaryonDecayDataHas(handle) &
-      bind(C, name='BaryonDecayDataHas') &
-      result(has)
+      bind(C, name='BaryonDecayDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BaryonDecayDataHas
 end function BaryonDecayDataHas
 
 !! Get, const
 function BaryonDecayDataGetConst(handle) &
-      bind(C, name='BaryonDecayDataGetConst') &
-      result(resultHandle)
+      bind(C, name='BaryonDecayDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonDecayDataGetConst
 end function BaryonDecayDataGetConst
 
 !! Get
 function BaryonDecayDataGet(handle) &
-      bind(C, name='BaryonDecayDataGet') &
-      result(resultHandle)
+      bind(C, name='BaryonDecayDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BaryonDecayDataGet
 end function BaryonDecayDataGet
 
 !! Set

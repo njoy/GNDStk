@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function EvaporationDefaultConst() &
-      bind(C, name='EvaporationDefaultConst') &
-      result(handle)
+      bind(C, name='EvaporationDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaporationDefaultConst
 end function EvaporationDefaultConst
 
 !! Create, default
 function EvaporationDefault() &
-      bind(C, name='EvaporationDefault') &
-      result(handle)
+      bind(C, name='EvaporationDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaporationDefault
 end function EvaporationDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function EvaporationCreateConst( &
    U, &
    theta &
 ) &
-      bind(C, name='EvaporationCreateConst') &
-      result(handle)
+      bind(C, name='EvaporationCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: U
    type(c_ptr), value :: theta
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaporationCreateConst
 end function EvaporationCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function EvaporationCreate( &
    U, &
    theta &
 ) &
-      bind(C, name='EvaporationCreate') &
-      result(handle)
+      bind(C, name='EvaporationCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: U
    type(c_ptr), value :: theta
-   type(c_ptr) :: handle
+   type(c_ptr) :: EvaporationCreate
 end function EvaporationCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine EvaporationDelete
 
 !! Read from file
 function EvaporationRead(handle, filename, filenameSize) &
-      bind(C, name='EvaporationRead') &
-      result(success)
+      bind(C, name='EvaporationRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EvaporationRead
 end function EvaporationRead
 
 !! Write to file
 function EvaporationWrite(handle, filename, filenameSize) &
-      bind(C, name='EvaporationWrite') &
-      result(success)
+      bind(C, name='EvaporationWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EvaporationWrite
 end function EvaporationWrite
 
 !! Print to standard output, in our prettyprinting format
 function EvaporationPrint(handle) &
-      bind(C, name='EvaporationPrint') &
-      result(success)
+      bind(C, name='EvaporationPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EvaporationPrint
 end function EvaporationPrint
 
 !! Print to standard output, as XML
 function EvaporationPrintXML(handle) &
-      bind(C, name='EvaporationPrintXML') &
-      result(success)
+      bind(C, name='EvaporationPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EvaporationPrintXML
 end function EvaporationPrintXML
 
 !! Print to standard output, as JSON
 function EvaporationPrintJSON(handle) &
-      bind(C, name='EvaporationPrintJSON') &
-      result(success)
+      bind(C, name='EvaporationPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EvaporationPrintJSON
 end function EvaporationPrintJSON
 
 
@@ -142,32 +133,29 @@ end function EvaporationPrintJSON
 
 !! Has
 function EvaporationUHas(handle) &
-      bind(C, name='EvaporationUHas') &
-      result(has)
+      bind(C, name='EvaporationUHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaporationUHas
 end function EvaporationUHas
 
 !! Get, const
 function EvaporationUGetConst(handle) &
-      bind(C, name='EvaporationUGetConst') &
-      result(resultHandle)
+      bind(C, name='EvaporationUGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaporationUGetConst
 end function EvaporationUGetConst
 
 !! Get
 function EvaporationUGet(handle) &
-      bind(C, name='EvaporationUGet') &
-      result(resultHandle)
+      bind(C, name='EvaporationUGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaporationUGet
 end function EvaporationUGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine EvaporationUSet
 
 !! Has
 function EvaporationThetaHas(handle) &
-      bind(C, name='EvaporationThetaHas') &
-      result(has)
+      bind(C, name='EvaporationThetaHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EvaporationThetaHas
 end function EvaporationThetaHas
 
 !! Get, const
 function EvaporationThetaGetConst(handle) &
-      bind(C, name='EvaporationThetaGetConst') &
-      result(resultHandle)
+      bind(C, name='EvaporationThetaGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaporationThetaGetConst
 end function EvaporationThetaGetConst
 
 !! Get
 function EvaporationThetaGet(handle) &
-      bind(C, name='EvaporationThetaGet') &
-      result(resultHandle)
+      bind(C, name='EvaporationThetaGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EvaporationThetaGet
 end function EvaporationThetaGet
 
 !! Set

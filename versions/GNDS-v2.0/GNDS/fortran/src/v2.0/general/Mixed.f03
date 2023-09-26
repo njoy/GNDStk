@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function MixedDefaultConst() &
-      bind(C, name='MixedDefaultConst') &
-      result(handle)
+      bind(C, name='MixedDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MixedDefaultConst
 end function MixedDefaultConst
 
 !! Create, default
 function MixedDefault() &
-      bind(C, name='MixedDefault') &
-      result(handle)
+      bind(C, name='MixedDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MixedDefault
 end function MixedDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function MixedCreateConst( &
    shortRangeSelfScalingVariance, &
    labelSize &
 ) &
-      bind(C, name='MixedCreateConst') &
-      result(handle)
+      bind(C, name='MixedCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function MixedCreateConst( &
    integer(c_size_t), value :: sumSize
    type(c_ptr) :: sum(sumSize)
    type(c_ptr), value :: shortRangeSelfScalingVariance
-   type(c_ptr) :: handle
+   type(c_ptr) :: MixedCreateConst
 end function MixedCreateConst
 
 !! Create, general
@@ -60,8 +57,7 @@ function MixedCreate( &
    shortRangeSelfScalingVariance, &
    labelSize &
 ) &
-      bind(C, name='MixedCreate') &
-      result(handle)
+      bind(C, name='MixedCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function MixedCreate( &
    integer(c_size_t), value :: sumSize
    type(c_ptr) :: sum(sumSize)
    type(c_ptr), value :: shortRangeSelfScalingVariance
-   type(c_ptr) :: handle
+   type(c_ptr) :: MixedCreate
 end function MixedCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine MixedDelete
 
 !! Read from file
 function MixedRead(handle, filename, filenameSize) &
-      bind(C, name='MixedRead') &
-      result(success)
+      bind(C, name='MixedRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MixedRead
 end function MixedRead
 
 !! Write to file
 function MixedWrite(handle, filename, filenameSize) &
-      bind(C, name='MixedWrite') &
-      result(success)
+      bind(C, name='MixedWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MixedWrite
 end function MixedWrite
 
 !! Print to standard output, in our prettyprinting format
 function MixedPrint(handle) &
-      bind(C, name='MixedPrint') &
-      result(success)
+      bind(C, name='MixedPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MixedPrint
 end function MixedPrint
 
 !! Print to standard output, as XML
 function MixedPrintXML(handle) &
-      bind(C, name='MixedPrintXML') &
-      result(success)
+      bind(C, name='MixedPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MixedPrintXML
 end function MixedPrintXML
 
 !! Print to standard output, as JSON
 function MixedPrintJSON(handle) &
-      bind(C, name='MixedPrintJSON') &
-      result(success)
+      bind(C, name='MixedPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MixedPrintJSON
 end function MixedPrintJSON
 
 
@@ -158,22 +149,20 @@ end function MixedPrintJSON
 
 !! Has
 function MixedLabelHas(handle) &
-      bind(C, name='MixedLabelHas') &
-      result(has)
+      bind(C, name='MixedLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MixedLabelHas
 end function MixedLabelHas
 
 !! Get
 function MixedLabelGet(handle) &
-      bind(C, name='MixedLabelGet') &
-      result(label)
+      bind(C, name='MixedLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: MixedLabelGet
 end function MixedLabelGet
 
 !! Set
@@ -193,12 +182,11 @@ end subroutine MixedLabelSet
 
 !! Has
 function MixedCovarianceMatrixHas(handle) &
-      bind(C, name='MixedCovarianceMatrixHas') &
-      result(has)
+      bind(C, name='MixedCovarianceMatrixHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MixedCovarianceMatrixHas
 end function MixedCovarianceMatrixHas
 
 !! Clear
@@ -211,12 +199,11 @@ end subroutine MixedCovarianceMatrixClear
 
 !! Size
 function MixedCovarianceMatrixSize(handle) &
-      bind(C, name='MixedCovarianceMatrixSize') &
-      result(vectorSize)
+      bind(C, name='MixedCovarianceMatrixSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: MixedCovarianceMatrixSize
 end function MixedCovarianceMatrixSize
 
 !! Add
@@ -230,24 +217,22 @@ end subroutine MixedCovarianceMatrixAdd
 
 !! Get, by index \in [0,size), const
 function MixedCovarianceMatrixGetConst(handle, index) &
-      bind(C, name='MixedCovarianceMatrixGetConst') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetConst
 end function MixedCovarianceMatrixGetConst
 
 !! Get, by index \in [0,size)
 function MixedCovarianceMatrixGet(handle, index) &
-      bind(C, name='MixedCovarianceMatrixGet') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGet
 end function MixedCovarianceMatrixGet
 
 !! Set, by index \in [0,size)
@@ -266,38 +251,35 @@ end subroutine MixedCovarianceMatrixSet
 
 !! Has, by label
 function MixedCovarianceMatrixHasByLabel(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixHasByLabel') &
-      result(has)
+      bind(C, name='MixedCovarianceMatrixHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: MixedCovarianceMatrixHasByLabel
 end function MixedCovarianceMatrixHasByLabel
 
 !! Get, by label, const
 function MixedCovarianceMatrixGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetByLabelConst
 end function MixedCovarianceMatrixGetByLabelConst
 
 !! Get, by label
 function MixedCovarianceMatrixGetByLabel(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixGetByLabel') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetByLabel
 end function MixedCovarianceMatrixGetByLabel
 
 !! Set, by label
@@ -317,38 +299,35 @@ end subroutine MixedCovarianceMatrixSetByLabel
 
 !! Has, by type
 function MixedCovarianceMatrixHasByType(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixHasByType') &
-      result(has)
+      bind(C, name='MixedCovarianceMatrixHasByType')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: MixedCovarianceMatrixHasByType
 end function MixedCovarianceMatrixHasByType
 
 !! Get, by type, const
 function MixedCovarianceMatrixGetByTypeConst(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixGetByTypeConst') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetByTypeConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetByTypeConst
 end function MixedCovarianceMatrixGetByTypeConst
 
 !! Get, by type
 function MixedCovarianceMatrixGetByType(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixGetByType') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetByType')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetByType
 end function MixedCovarianceMatrixGetByType
 
 !! Set, by type
@@ -368,38 +347,35 @@ end subroutine MixedCovarianceMatrixSetByType
 
 !! Has, by productFrame
 function MixedCovarianceMatrixHasByProductFrame(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixHasByProductFrame') &
-      result(has)
+      bind(C, name='MixedCovarianceMatrixHasByProductFrame')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: MixedCovarianceMatrixHasByProductFrame
 end function MixedCovarianceMatrixHasByProductFrame
 
 !! Get, by productFrame, const
 function MixedCovarianceMatrixGetByProductFrameConst(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixGetByProductFrameConst') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetByProductFrameConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetByProductFrameConst
 end function MixedCovarianceMatrixGetByProductFrameConst
 
 !! Get, by productFrame
 function MixedCovarianceMatrixGetByProductFrame(handle, meta, metaSize) &
-      bind(C, name='MixedCovarianceMatrixGetByProductFrame') &
-      result(resultHandle)
+      bind(C, name='MixedCovarianceMatrixGetByProductFrame')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedCovarianceMatrixGetByProductFrame
 end function MixedCovarianceMatrixGetByProductFrame
 
 !! Set, by productFrame
@@ -420,12 +396,11 @@ end subroutine MixedCovarianceMatrixSetByProductFrame
 
 !! Has
 function MixedSumHas(handle) &
-      bind(C, name='MixedSumHas') &
-      result(has)
+      bind(C, name='MixedSumHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MixedSumHas
 end function MixedSumHas
 
 !! Clear
@@ -438,12 +413,11 @@ end subroutine MixedSumClear
 
 !! Size
 function MixedSumSize(handle) &
-      bind(C, name='MixedSumSize') &
-      result(vectorSize)
+      bind(C, name='MixedSumSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: MixedSumSize
 end function MixedSumSize
 
 !! Add
@@ -457,24 +431,22 @@ end subroutine MixedSumAdd
 
 !! Get, by index \in [0,size), const
 function MixedSumGetConst(handle, index) &
-      bind(C, name='MixedSumGetConst') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetConst
 end function MixedSumGetConst
 
 !! Get, by index \in [0,size)
 function MixedSumGet(handle, index) &
-      bind(C, name='MixedSumGet') &
-      result(resultHandle)
+      bind(C, name='MixedSumGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGet
 end function MixedSumGet
 
 !! Set, by index \in [0,size)
@@ -493,38 +465,35 @@ end subroutine MixedSumSet
 
 !! Has, by label
 function MixedSumHasByLabel(handle, meta, metaSize) &
-      bind(C, name='MixedSumHasByLabel') &
-      result(has)
+      bind(C, name='MixedSumHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: MixedSumHasByLabel
 end function MixedSumHasByLabel
 
 !! Get, by label, const
 function MixedSumGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='MixedSumGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByLabelConst
 end function MixedSumGetByLabelConst
 
 !! Get, by label
 function MixedSumGetByLabel(handle, meta, metaSize) &
-      bind(C, name='MixedSumGetByLabel') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByLabel
 end function MixedSumGetByLabel
 
 !! Set, by label
@@ -544,35 +513,32 @@ end subroutine MixedSumSetByLabel
 
 !! Has, by domainMin
 function MixedSumHasByDomainMin(handle, meta) &
-      bind(C, name='MixedSumHasByDomainMin') &
-      result(has)
+      bind(C, name='MixedSumHasByDomainMin')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: MixedSumHasByDomainMin
 end function MixedSumHasByDomainMin
 
 !! Get, by domainMin, const
 function MixedSumGetByDomainMinConst(handle, meta) &
-      bind(C, name='MixedSumGetByDomainMinConst') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByDomainMinConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByDomainMinConst
 end function MixedSumGetByDomainMinConst
 
 !! Get, by domainMin
 function MixedSumGetByDomainMin(handle, meta) &
-      bind(C, name='MixedSumGetByDomainMin') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByDomainMin')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByDomainMin
 end function MixedSumGetByDomainMin
 
 !! Set, by domainMin
@@ -591,35 +557,32 @@ end subroutine MixedSumSetByDomainMin
 
 !! Has, by domainMax
 function MixedSumHasByDomainMax(handle, meta) &
-      bind(C, name='MixedSumHasByDomainMax') &
-      result(has)
+      bind(C, name='MixedSumHasByDomainMax')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: MixedSumHasByDomainMax
 end function MixedSumHasByDomainMax
 
 !! Get, by domainMax, const
 function MixedSumGetByDomainMaxConst(handle, meta) &
-      bind(C, name='MixedSumGetByDomainMaxConst') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByDomainMaxConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByDomainMaxConst
 end function MixedSumGetByDomainMaxConst
 
 !! Get, by domainMax
 function MixedSumGetByDomainMax(handle, meta) &
-      bind(C, name='MixedSumGetByDomainMax') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByDomainMax')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByDomainMax
 end function MixedSumGetByDomainMax
 
 !! Set, by domainMax
@@ -638,38 +601,35 @@ end subroutine MixedSumSetByDomainMax
 
 !! Has, by domainUnit
 function MixedSumHasByDomainUnit(handle, meta, metaSize) &
-      bind(C, name='MixedSumHasByDomainUnit') &
-      result(has)
+      bind(C, name='MixedSumHasByDomainUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: MixedSumHasByDomainUnit
 end function MixedSumHasByDomainUnit
 
 !! Get, by domainUnit, const
 function MixedSumGetByDomainUnitConst(handle, meta, metaSize) &
-      bind(C, name='MixedSumGetByDomainUnitConst') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByDomainUnitConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByDomainUnitConst
 end function MixedSumGetByDomainUnitConst
 
 !! Get, by domainUnit
 function MixedSumGetByDomainUnit(handle, meta, metaSize) &
-      bind(C, name='MixedSumGetByDomainUnit') &
-      result(resultHandle)
+      bind(C, name='MixedSumGetByDomainUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedSumGetByDomainUnit
 end function MixedSumGetByDomainUnit
 
 !! Set, by domainUnit
@@ -690,32 +650,29 @@ end subroutine MixedSumSetByDomainUnit
 
 !! Has
 function MixedShortRangeSelfScalingVarianceHas(handle) &
-      bind(C, name='MixedShortRangeSelfScalingVarianceHas') &
-      result(has)
+      bind(C, name='MixedShortRangeSelfScalingVarianceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MixedShortRangeSelfScalingVarianceHas
 end function MixedShortRangeSelfScalingVarianceHas
 
 !! Get, const
 function MixedShortRangeSelfScalingVarianceGetConst(handle) &
-      bind(C, name='MixedShortRangeSelfScalingVarianceGetConst') &
-      result(resultHandle)
+      bind(C, name='MixedShortRangeSelfScalingVarianceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedShortRangeSelfScalingVarianceGetConst
 end function MixedShortRangeSelfScalingVarianceGetConst
 
 !! Get
 function MixedShortRangeSelfScalingVarianceGet(handle) &
-      bind(C, name='MixedShortRangeSelfScalingVarianceGet') &
-      result(resultHandle)
+      bind(C, name='MixedShortRangeSelfScalingVarianceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MixedShortRangeSelfScalingVarianceGet
 end function MixedShortRangeSelfScalingVarianceGet
 
 !! Set

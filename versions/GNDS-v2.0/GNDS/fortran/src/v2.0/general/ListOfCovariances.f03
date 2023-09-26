@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ListOfCovariancesDefaultConst() &
-      bind(C, name='ListOfCovariancesDefaultConst') &
-      result(handle)
+      bind(C, name='ListOfCovariancesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ListOfCovariancesDefaultConst
 end function ListOfCovariancesDefaultConst
 
 !! Create, default
 function ListOfCovariancesDefault() &
-      bind(C, name='ListOfCovariancesDefault') &
-      result(handle)
+      bind(C, name='ListOfCovariancesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ListOfCovariancesDefault
 end function ListOfCovariancesDefault
 
 !! Create, general, const
 function ListOfCovariancesCreateConst( &
    covariance, covarianceSize &
 ) &
-      bind(C, name='ListOfCovariancesCreateConst') &
-      result(handle)
+      bind(C, name='ListOfCovariancesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: covarianceSize
    type(c_ptr) :: covariance(covarianceSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ListOfCovariancesCreateConst
 end function ListOfCovariancesCreateConst
 
 !! Create, general
 function ListOfCovariancesCreate( &
    covariance, covarianceSize &
 ) &
-      bind(C, name='ListOfCovariancesCreate') &
-      result(handle)
+      bind(C, name='ListOfCovariancesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: covarianceSize
    type(c_ptr) :: covariance(covarianceSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ListOfCovariancesCreate
 end function ListOfCovariancesCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ListOfCovariancesDelete
 
 !! Read from file
 function ListOfCovariancesRead(handle, filename, filenameSize) &
-      bind(C, name='ListOfCovariancesRead') &
-      result(success)
+      bind(C, name='ListOfCovariancesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ListOfCovariancesRead
 end function ListOfCovariancesRead
 
 !! Write to file
 function ListOfCovariancesWrite(handle, filename, filenameSize) &
-      bind(C, name='ListOfCovariancesWrite') &
-      result(success)
+      bind(C, name='ListOfCovariancesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ListOfCovariancesWrite
 end function ListOfCovariancesWrite
 
 !! Print to standard output, in our prettyprinting format
 function ListOfCovariancesPrint(handle) &
-      bind(C, name='ListOfCovariancesPrint') &
-      result(success)
+      bind(C, name='ListOfCovariancesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ListOfCovariancesPrint
 end function ListOfCovariancesPrint
 
 !! Print to standard output, as XML
 function ListOfCovariancesPrintXML(handle) &
-      bind(C, name='ListOfCovariancesPrintXML') &
-      result(success)
+      bind(C, name='ListOfCovariancesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ListOfCovariancesPrintXML
 end function ListOfCovariancesPrintXML
 
 !! Print to standard output, as JSON
 function ListOfCovariancesPrintJSON(handle) &
-      bind(C, name='ListOfCovariancesPrintJSON') &
-      result(success)
+      bind(C, name='ListOfCovariancesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ListOfCovariancesPrintJSON
 end function ListOfCovariancesPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ListOfCovariancesPrintJSON
 
 !! Has
 function ListOfCovariancesCovarianceHas(handle) &
-      bind(C, name='ListOfCovariancesCovarianceHas') &
-      result(has)
+      bind(C, name='ListOfCovariancesCovarianceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ListOfCovariancesCovarianceHas
 end function ListOfCovariancesCovarianceHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ListOfCovariancesCovarianceClear
 
 !! Size
 function ListOfCovariancesCovarianceSize(handle) &
-      bind(C, name='ListOfCovariancesCovarianceSize') &
-      result(vectorSize)
+      bind(C, name='ListOfCovariancesCovarianceSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ListOfCovariancesCovarianceSize
 end function ListOfCovariancesCovarianceSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ListOfCovariancesCovarianceAdd
 
 !! Get, by index \in [0,size), const
 function ListOfCovariancesCovarianceGetConst(handle, index) &
-      bind(C, name='ListOfCovariancesCovarianceGetConst') &
-      result(resultHandle)
+      bind(C, name='ListOfCovariancesCovarianceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ListOfCovariancesCovarianceGetConst
 end function ListOfCovariancesCovarianceGetConst
 
 !! Get, by index \in [0,size)
 function ListOfCovariancesCovarianceGet(handle, index) &
-      bind(C, name='ListOfCovariancesCovarianceGet') &
-      result(resultHandle)
+      bind(C, name='ListOfCovariancesCovarianceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ListOfCovariancesCovarianceGet
 end function ListOfCovariancesCovarianceGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ListOfCovariancesCovarianceSet
 
 !! Has, by label
 function ListOfCovariancesCovarianceHasByLabel(handle, meta, metaSize) &
-      bind(C, name='ListOfCovariancesCovarianceHasByLabel') &
-      result(has)
+      bind(C, name='ListOfCovariancesCovarianceHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ListOfCovariancesCovarianceHasByLabel
 end function ListOfCovariancesCovarianceHasByLabel
 
 !! Get, by label, const
 function ListOfCovariancesCovarianceGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='ListOfCovariancesCovarianceGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='ListOfCovariancesCovarianceGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ListOfCovariancesCovarianceGetByLabelConst
 end function ListOfCovariancesCovarianceGetByLabelConst
 
 !! Get, by label
 function ListOfCovariancesCovarianceGetByLabel(handle, meta, metaSize) &
-      bind(C, name='ListOfCovariancesCovarianceGetByLabel') &
-      result(resultHandle)
+      bind(C, name='ListOfCovariancesCovarianceGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ListOfCovariancesCovarianceGetByLabel
 end function ListOfCovariancesCovarianceGetByLabel
 
 !! Set, by label
@@ -264,38 +248,35 @@ end subroutine ListOfCovariancesCovarianceSetByLabel
 
 !! Has, by href
 function ListOfCovariancesCovarianceHasByHref(handle, meta, metaSize) &
-      bind(C, name='ListOfCovariancesCovarianceHasByHref') &
-      result(has)
+      bind(C, name='ListOfCovariancesCovarianceHasByHref')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ListOfCovariancesCovarianceHasByHref
 end function ListOfCovariancesCovarianceHasByHref
 
 !! Get, by href, const
 function ListOfCovariancesCovarianceGetByHrefConst(handle, meta, metaSize) &
-      bind(C, name='ListOfCovariancesCovarianceGetByHrefConst') &
-      result(resultHandle)
+      bind(C, name='ListOfCovariancesCovarianceGetByHrefConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ListOfCovariancesCovarianceGetByHrefConst
 end function ListOfCovariancesCovarianceGetByHrefConst
 
 !! Get, by href
 function ListOfCovariancesCovarianceGetByHref(handle, meta, metaSize) &
-      bind(C, name='ListOfCovariancesCovarianceGetByHref') &
-      result(resultHandle)
+      bind(C, name='ListOfCovariancesCovarianceGetByHref')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ListOfCovariancesCovarianceGetByHref
 end function ListOfCovariancesCovarianceGetByHref
 
 !! Set, by href

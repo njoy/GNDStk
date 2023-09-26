@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function BodyDefaultConst() &
-      bind(C, name='BodyDefaultConst') &
-      result(handle)
+      bind(C, name='BodyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BodyDefaultConst
 end function BodyDefaultConst
 
 !! Create, default
 function BodyDefault() &
-      bind(C, name='BodyDefault') &
-      result(handle)
+      bind(C, name='BodyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BodyDefault
 end function BodyDefault
 
 !! Create, general, const
 function BodyCreateConst( &
 ) &
-      bind(C, name='BodyCreateConst') &
-      result(handle)
+      bind(C, name='BodyCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BodyCreateConst
 end function BodyCreateConst
 
 !! Create, general
 function BodyCreate( &
 ) &
-      bind(C, name='BodyCreate') &
-      result(handle)
+      bind(C, name='BodyCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BodyCreate
 end function BodyCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine BodyDelete
 
 !! Read from file
 function BodyRead(handle, filename, filenameSize) &
-      bind(C, name='BodyRead') &
-      result(success)
+      bind(C, name='BodyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BodyRead
 end function BodyRead
 
 !! Write to file
 function BodyWrite(handle, filename, filenameSize) &
-      bind(C, name='BodyWrite') &
-      result(success)
+      bind(C, name='BodyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BodyWrite
 end function BodyWrite
 
 !! Print to standard output, in our prettyprinting format
 function BodyPrint(handle) &
-      bind(C, name='BodyPrint') &
-      result(success)
+      bind(C, name='BodyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BodyPrint
 end function BodyPrint
 
 !! Print to standard output, as XML
 function BodyPrintXML(handle) &
-      bind(C, name='BodyPrintXML') &
-      result(success)
+      bind(C, name='BodyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BodyPrintXML
 end function BodyPrintXML
 
 !! Print to standard output, as JSON
 function BodyPrintJSON(handle) &
-      bind(C, name='BodyPrintJSON') &
-      result(success)
+      bind(C, name='BodyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BodyPrintJSON
 end function BodyPrintJSON
 
 

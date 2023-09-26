@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function NeutrinoEnergyDefaultConst() &
-      bind(C, name='NeutrinoEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='NeutrinoEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NeutrinoEnergyDefaultConst
 end function NeutrinoEnergyDefaultConst
 
 !! Create, default
 function NeutrinoEnergyDefault() &
-      bind(C, name='NeutrinoEnergyDefault') &
-      result(handle)
+      bind(C, name='NeutrinoEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: NeutrinoEnergyDefault
 end function NeutrinoEnergyDefault
 
 !! Create, general, const
 function NeutrinoEnergyCreateConst( &
    polynomial1d &
 ) &
-      bind(C, name='NeutrinoEnergyCreateConst') &
-      result(handle)
+      bind(C, name='NeutrinoEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: NeutrinoEnergyCreateConst
 end function NeutrinoEnergyCreateConst
 
 !! Create, general
 function NeutrinoEnergyCreate( &
    polynomial1d &
 ) &
-      bind(C, name='NeutrinoEnergyCreate') &
-      result(handle)
+      bind(C, name='NeutrinoEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: polynomial1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: NeutrinoEnergyCreate
 end function NeutrinoEnergyCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine NeutrinoEnergyDelete
 
 !! Read from file
 function NeutrinoEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='NeutrinoEnergyRead') &
-      result(success)
+      bind(C, name='NeutrinoEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NeutrinoEnergyRead
 end function NeutrinoEnergyRead
 
 !! Write to file
 function NeutrinoEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='NeutrinoEnergyWrite') &
-      result(success)
+      bind(C, name='NeutrinoEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: NeutrinoEnergyWrite
 end function NeutrinoEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function NeutrinoEnergyPrint(handle) &
-      bind(C, name='NeutrinoEnergyPrint') &
-      result(success)
+      bind(C, name='NeutrinoEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NeutrinoEnergyPrint
 end function NeutrinoEnergyPrint
 
 !! Print to standard output, as XML
 function NeutrinoEnergyPrintXML(handle) &
-      bind(C, name='NeutrinoEnergyPrintXML') &
-      result(success)
+      bind(C, name='NeutrinoEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NeutrinoEnergyPrintXML
 end function NeutrinoEnergyPrintXML
 
 !! Print to standard output, as JSON
 function NeutrinoEnergyPrintJSON(handle) &
-      bind(C, name='NeutrinoEnergyPrintJSON') &
-      result(success)
+      bind(C, name='NeutrinoEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: NeutrinoEnergyPrintJSON
 end function NeutrinoEnergyPrintJSON
 
 
@@ -138,32 +129,29 @@ end function NeutrinoEnergyPrintJSON
 
 !! Has
 function NeutrinoEnergyPolynomial1dHas(handle) &
-      bind(C, name='NeutrinoEnergyPolynomial1dHas') &
-      result(has)
+      bind(C, name='NeutrinoEnergyPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: NeutrinoEnergyPolynomial1dHas
 end function NeutrinoEnergyPolynomial1dHas
 
 !! Get, const
 function NeutrinoEnergyPolynomial1dGetConst(handle) &
-      bind(C, name='NeutrinoEnergyPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='NeutrinoEnergyPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NeutrinoEnergyPolynomial1dGetConst
 end function NeutrinoEnergyPolynomial1dGetConst
 
 !! Get
 function NeutrinoEnergyPolynomial1dGet(handle) &
-      bind(C, name='NeutrinoEnergyPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='NeutrinoEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: NeutrinoEnergyPolynomial1dGet
 end function NeutrinoEnergyPolynomial1dGet
 
 !! Set

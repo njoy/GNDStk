@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function ConfigurationsDefaultConst() &
-      bind(C, name='ConfigurationsDefaultConst') &
-      result(handle)
+      bind(C, name='ConfigurationsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConfigurationsDefaultConst
 end function ConfigurationsDefaultConst
 
 !! Create, default
 function ConfigurationsDefault() &
-      bind(C, name='ConfigurationsDefault') &
-      result(handle)
+      bind(C, name='ConfigurationsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConfigurationsDefault
 end function ConfigurationsDefault
 
 !! Create, general, const
 function ConfigurationsCreateConst( &
    configuration, configurationSize &
 ) &
-      bind(C, name='ConfigurationsCreateConst') &
-      result(handle)
+      bind(C, name='ConfigurationsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: configurationSize
    type(c_ptr) :: configuration(configurationSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConfigurationsCreateConst
 end function ConfigurationsCreateConst
 
 !! Create, general
 function ConfigurationsCreate( &
    configuration, configurationSize &
 ) &
-      bind(C, name='ConfigurationsCreate') &
-      result(handle)
+      bind(C, name='ConfigurationsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: configurationSize
    type(c_ptr) :: configuration(configurationSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: ConfigurationsCreate
 end function ConfigurationsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine ConfigurationsDelete
 
 !! Read from file
 function ConfigurationsRead(handle, filename, filenameSize) &
-      bind(C, name='ConfigurationsRead') &
-      result(success)
+      bind(C, name='ConfigurationsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ConfigurationsRead
 end function ConfigurationsRead
 
 !! Write to file
 function ConfigurationsWrite(handle, filename, filenameSize) &
-      bind(C, name='ConfigurationsWrite') &
-      result(success)
+      bind(C, name='ConfigurationsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ConfigurationsWrite
 end function ConfigurationsWrite
 
 !! Print to standard output, in our prettyprinting format
 function ConfigurationsPrint(handle) &
-      bind(C, name='ConfigurationsPrint') &
-      result(success)
+      bind(C, name='ConfigurationsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ConfigurationsPrint
 end function ConfigurationsPrint
 
 !! Print to standard output, as XML
 function ConfigurationsPrintXML(handle) &
-      bind(C, name='ConfigurationsPrintXML') &
-      result(success)
+      bind(C, name='ConfigurationsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ConfigurationsPrintXML
 end function ConfigurationsPrintXML
 
 !! Print to standard output, as JSON
 function ConfigurationsPrintJSON(handle) &
-      bind(C, name='ConfigurationsPrintJSON') &
-      result(success)
+      bind(C, name='ConfigurationsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ConfigurationsPrintJSON
 end function ConfigurationsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function ConfigurationsPrintJSON
 
 !! Has
 function ConfigurationsConfigurationHas(handle) &
-      bind(C, name='ConfigurationsConfigurationHas') &
-      result(has)
+      bind(C, name='ConfigurationsConfigurationHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ConfigurationsConfigurationHas
 end function ConfigurationsConfigurationHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine ConfigurationsConfigurationClear
 
 !! Size
 function ConfigurationsConfigurationSize(handle) &
-      bind(C, name='ConfigurationsConfigurationSize') &
-      result(vectorSize)
+      bind(C, name='ConfigurationsConfigurationSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: ConfigurationsConfigurationSize
 end function ConfigurationsConfigurationSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine ConfigurationsConfigurationAdd
 
 !! Get, by index \in [0,size), const
 function ConfigurationsConfigurationGetConst(handle, index) &
-      bind(C, name='ConfigurationsConfigurationGetConst') &
-      result(resultHandle)
+      bind(C, name='ConfigurationsConfigurationGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ConfigurationsConfigurationGetConst
 end function ConfigurationsConfigurationGetConst
 
 !! Get, by index \in [0,size)
 function ConfigurationsConfigurationGet(handle, index) &
-      bind(C, name='ConfigurationsConfigurationGet') &
-      result(resultHandle)
+      bind(C, name='ConfigurationsConfigurationGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ConfigurationsConfigurationGet
 end function ConfigurationsConfigurationGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine ConfigurationsConfigurationSet
 
 !! Has, by subshell
 function ConfigurationsConfigurationHasBySubshell(handle, meta, metaSize) &
-      bind(C, name='ConfigurationsConfigurationHasBySubshell') &
-      result(has)
+      bind(C, name='ConfigurationsConfigurationHasBySubshell')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: ConfigurationsConfigurationHasBySubshell
 end function ConfigurationsConfigurationHasBySubshell
 
 !! Get, by subshell, const
 function ConfigurationsConfigurationGetBySubshellConst(handle, meta, metaSize) &
-      bind(C, name='ConfigurationsConfigurationGetBySubshellConst') &
-      result(resultHandle)
+      bind(C, name='ConfigurationsConfigurationGetBySubshellConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ConfigurationsConfigurationGetBySubshellConst
 end function ConfigurationsConfigurationGetBySubshellConst
 
 !! Get, by subshell
 function ConfigurationsConfigurationGetBySubshell(handle, meta, metaSize) &
-      bind(C, name='ConfigurationsConfigurationGetBySubshell') &
-      result(resultHandle)
+      bind(C, name='ConfigurationsConfigurationGetBySubshell')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ConfigurationsConfigurationGetBySubshell
 end function ConfigurationsConfigurationGetBySubshell
 
 !! Set, by subshell
@@ -264,35 +248,32 @@ end subroutine ConfigurationsConfigurationSetBySubshell
 
 !! Has, by electronNumber
 function ConfigurationsConfigurationHasByElectronNumber(handle, meta) &
-      bind(C, name='ConfigurationsConfigurationHasByElectronNumber') &
-      result(has)
+      bind(C, name='ConfigurationsConfigurationHasByElectronNumber')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: ConfigurationsConfigurationHasByElectronNumber
 end function ConfigurationsConfigurationHasByElectronNumber
 
 !! Get, by electronNumber, const
 function ConfigurationsConfigurationGetByElectronNumberConst(handle, meta) &
-      bind(C, name='ConfigurationsConfigurationGetByElectronNumberConst') &
-      result(resultHandle)
+      bind(C, name='ConfigurationsConfigurationGetByElectronNumberConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ConfigurationsConfigurationGetByElectronNumberConst
 end function ConfigurationsConfigurationGetByElectronNumberConst
 
 !! Get, by electronNumber
 function ConfigurationsConfigurationGetByElectronNumber(handle, meta) &
-      bind(C, name='ConfigurationsConfigurationGetByElectronNumber') &
-      result(resultHandle)
+      bind(C, name='ConfigurationsConfigurationGetByElectronNumber')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    real(c_double), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ConfigurationsConfigurationGetByElectronNumber
 end function ConfigurationsConfigurationGetByElectronNumber
 
 !! Set, by electronNumber

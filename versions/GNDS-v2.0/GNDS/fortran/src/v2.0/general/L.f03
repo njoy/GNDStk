@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function LDefaultConst() &
-      bind(C, name='LDefaultConst') &
-      result(handle)
+      bind(C, name='LDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LDefaultConst
 end function LDefaultConst
 
 !! Create, default
 function LDefault() &
-      bind(C, name='LDefault') &
-      result(handle)
+      bind(C, name='LDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: LDefault
 end function LDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function LCreateConst( &
    Js, &
    labelSize &
 ) &
-      bind(C, name='LCreateConst') &
-      result(handle)
+      bind(C, name='LCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_int), value, intent(in) :: value
    type(c_ptr), value :: Js
-   type(c_ptr) :: handle
+   type(c_ptr) :: LCreateConst
 end function LCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function LCreate( &
    Js, &
    labelSize &
 ) &
-      bind(C, name='LCreate') &
-      result(handle)
+      bind(C, name='LCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_int), value, intent(in) :: value
    type(c_ptr), value :: Js
-   type(c_ptr) :: handle
+   type(c_ptr) :: LCreate
 end function LCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine LDelete
 
 !! Read from file
 function LRead(handle, filename, filenameSize) &
-      bind(C, name='LRead') &
-      result(success)
+      bind(C, name='LRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LRead
 end function LRead
 
 !! Write to file
 function LWrite(handle, filename, filenameSize) &
-      bind(C, name='LWrite') &
-      result(success)
+      bind(C, name='LWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: LWrite
 end function LWrite
 
 !! Print to standard output, in our prettyprinting format
 function LPrint(handle) &
-      bind(C, name='LPrint') &
-      result(success)
+      bind(C, name='LPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LPrint
 end function LPrint
 
 !! Print to standard output, as XML
 function LPrintXML(handle) &
-      bind(C, name='LPrintXML') &
-      result(success)
+      bind(C, name='LPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LPrintXML
 end function LPrintXML
 
 !! Print to standard output, as JSON
 function LPrintJSON(handle) &
-      bind(C, name='LPrintJSON') &
-      result(success)
+      bind(C, name='LPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: LPrintJSON
 end function LPrintJSON
 
 
@@ -150,22 +141,20 @@ end function LPrintJSON
 
 !! Has
 function LLabelHas(handle) &
-      bind(C, name='LLabelHas') &
-      result(has)
+      bind(C, name='LLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LLabelHas
 end function LLabelHas
 
 !! Get
 function LLabelGet(handle) &
-      bind(C, name='LLabelGet') &
-      result(label)
+      bind(C, name='LLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: LLabelGet
 end function LLabelGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine LLabelSet
 
 !! Has
 function LValueHas(handle) &
-      bind(C, name='LValueHas') &
-      result(has)
+      bind(C, name='LValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LValueHas
 end function LValueHas
 
 !! Get
 function LValueGet(handle) &
-      bind(C, name='LValueGet') &
-      result(value)
+      bind(C, name='LValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: value
+   integer(c_int) :: LValueGet
 end function LValueGet
 
 !! Set
@@ -220,32 +207,29 @@ end subroutine LValueSet
 
 !! Has
 function LJsHas(handle) &
-      bind(C, name='LJsHas') &
-      result(has)
+      bind(C, name='LJsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: LJsHas
 end function LJsHas
 
 !! Get, const
 function LJsGetConst(handle) &
-      bind(C, name='LJsGetConst') &
-      result(resultHandle)
+      bind(C, name='LJsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LJsGetConst
 end function LJsGetConst
 
 !! Get
 function LJsGet(handle) &
-      bind(C, name='LJsGet') &
-      result(resultHandle)
+      bind(C, name='LJsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: LJsGet
 end function LJsGet
 
 !! Set

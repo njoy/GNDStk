@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ResonanceParametersDefaultConst() &
-      bind(C, name='ResonanceParametersDefaultConst') &
-      result(handle)
+      bind(C, name='ResonanceParametersDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceParametersDefaultConst
 end function ResonanceParametersDefaultConst
 
 !! Create, default
 function ResonanceParametersDefault() &
-      bind(C, name='ResonanceParametersDefault') &
-      result(handle)
+      bind(C, name='ResonanceParametersDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceParametersDefault
 end function ResonanceParametersDefault
 
 !! Create, general, const
 function ResonanceParametersCreateConst( &
    table &
 ) &
-      bind(C, name='ResonanceParametersCreateConst') &
-      result(handle)
+      bind(C, name='ResonanceParametersCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: table
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceParametersCreateConst
 end function ResonanceParametersCreateConst
 
 !! Create, general
 function ResonanceParametersCreate( &
    table &
 ) &
-      bind(C, name='ResonanceParametersCreate') &
-      result(handle)
+      bind(C, name='ResonanceParametersCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: table
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonanceParametersCreate
 end function ResonanceParametersCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ResonanceParametersDelete
 
 !! Read from file
 function ResonanceParametersRead(handle, filename, filenameSize) &
-      bind(C, name='ResonanceParametersRead') &
-      result(success)
+      bind(C, name='ResonanceParametersRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceParametersRead
 end function ResonanceParametersRead
 
 !! Write to file
 function ResonanceParametersWrite(handle, filename, filenameSize) &
-      bind(C, name='ResonanceParametersWrite') &
-      result(success)
+      bind(C, name='ResonanceParametersWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceParametersWrite
 end function ResonanceParametersWrite
 
 !! Print to standard output, in our prettyprinting format
 function ResonanceParametersPrint(handle) &
-      bind(C, name='ResonanceParametersPrint') &
-      result(success)
+      bind(C, name='ResonanceParametersPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceParametersPrint
 end function ResonanceParametersPrint
 
 !! Print to standard output, as XML
 function ResonanceParametersPrintXML(handle) &
-      bind(C, name='ResonanceParametersPrintXML') &
-      result(success)
+      bind(C, name='ResonanceParametersPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceParametersPrintXML
 end function ResonanceParametersPrintXML
 
 !! Print to standard output, as JSON
 function ResonanceParametersPrintJSON(handle) &
-      bind(C, name='ResonanceParametersPrintJSON') &
-      result(success)
+      bind(C, name='ResonanceParametersPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonanceParametersPrintJSON
 end function ResonanceParametersPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ResonanceParametersPrintJSON
 
 !! Has
 function ResonanceParametersTableHas(handle) &
-      bind(C, name='ResonanceParametersTableHas') &
-      result(has)
+      bind(C, name='ResonanceParametersTableHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonanceParametersTableHas
 end function ResonanceParametersTableHas
 
 !! Get, const
 function ResonanceParametersTableGetConst(handle) &
-      bind(C, name='ResonanceParametersTableGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonanceParametersTableGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceParametersTableGetConst
 end function ResonanceParametersTableGetConst
 
 !! Get
 function ResonanceParametersTableGet(handle) &
-      bind(C, name='ResonanceParametersTableGet') &
-      result(resultHandle)
+      bind(C, name='ResonanceParametersTableGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonanceParametersTableGet
 end function ResonanceParametersTableGet
 
 !! Set

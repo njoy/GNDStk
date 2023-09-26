@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function MultiplicityDefaultConst() &
-      bind(C, name='MultiplicityDefaultConst') &
-      result(handle)
+      bind(C, name='MultiplicityDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicityDefaultConst
 end function MultiplicityDefaultConst
 
 !! Create, default
 function MultiplicityDefault() &
-      bind(C, name='MultiplicityDefault') &
-      result(handle)
+      bind(C, name='MultiplicityDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicityDefault
 end function MultiplicityDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function MultiplicityCreateConst( &
    branching3d, &
    unspecified &
 ) &
-      bind(C, name='MultiplicityCreateConst') &
-      result(handle)
+      bind(C, name='MultiplicityCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: constant1d
@@ -53,7 +50,7 @@ function MultiplicityCreateConst( &
    type(c_ptr), value :: branching1d
    type(c_ptr), value :: branching3d
    type(c_ptr), value :: unspecified
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicityCreateConst
 end function MultiplicityCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function MultiplicityCreate( &
    branching3d, &
    unspecified &
 ) &
-      bind(C, name='MultiplicityCreate') &
-      result(handle)
+      bind(C, name='MultiplicityCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: constant1d
@@ -79,7 +75,7 @@ function MultiplicityCreate( &
    type(c_ptr), value :: branching1d
    type(c_ptr), value :: branching3d
    type(c_ptr), value :: unspecified
-   type(c_ptr) :: handle
+   type(c_ptr) :: MultiplicityCreate
 end function MultiplicityCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine MultiplicityDelete
 
 !! Read from file
 function MultiplicityRead(handle, filename, filenameSize) &
-      bind(C, name='MultiplicityRead') &
-      result(success)
+      bind(C, name='MultiplicityRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicityRead
 end function MultiplicityRead
 
 !! Write to file
 function MultiplicityWrite(handle, filename, filenameSize) &
-      bind(C, name='MultiplicityWrite') &
-      result(success)
+      bind(C, name='MultiplicityWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicityWrite
 end function MultiplicityWrite
 
 !! Print to standard output, in our prettyprinting format
 function MultiplicityPrint(handle) &
-      bind(C, name='MultiplicityPrint') &
-      result(success)
+      bind(C, name='MultiplicityPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicityPrint
 end function MultiplicityPrint
 
 !! Print to standard output, as XML
 function MultiplicityPrintXML(handle) &
-      bind(C, name='MultiplicityPrintXML') &
-      result(success)
+      bind(C, name='MultiplicityPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicityPrintXML
 end function MultiplicityPrintXML
 
 !! Print to standard output, as JSON
 function MultiplicityPrintJSON(handle) &
-      bind(C, name='MultiplicityPrintJSON') &
-      result(success)
+      bind(C, name='MultiplicityPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MultiplicityPrintJSON
 end function MultiplicityPrintJSON
 
 
@@ -166,32 +157,29 @@ end function MultiplicityPrintJSON
 
 !! Has
 function MultiplicityConstant1dHas(handle) &
-      bind(C, name='MultiplicityConstant1dHas') &
-      result(has)
+      bind(C, name='MultiplicityConstant1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityConstant1dHas
 end function MultiplicityConstant1dHas
 
 !! Get, const
 function MultiplicityConstant1dGetConst(handle) &
-      bind(C, name='MultiplicityConstant1dGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityConstant1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityConstant1dGetConst
 end function MultiplicityConstant1dGetConst
 
 !! Get
 function MultiplicityConstant1dGet(handle) &
-      bind(C, name='MultiplicityConstant1dGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityConstant1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityConstant1dGet
 end function MultiplicityConstant1dGet
 
 !! Set
@@ -210,32 +198,29 @@ end subroutine MultiplicityConstant1dSet
 
 !! Has
 function MultiplicityXYs1dHas(handle) &
-      bind(C, name='MultiplicityXYs1dHas') &
-      result(has)
+      bind(C, name='MultiplicityXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityXYs1dHas
 end function MultiplicityXYs1dHas
 
 !! Get, const
 function MultiplicityXYs1dGetConst(handle) &
-      bind(C, name='MultiplicityXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityXYs1dGetConst
 end function MultiplicityXYs1dGetConst
 
 !! Get
 function MultiplicityXYs1dGet(handle) &
-      bind(C, name='MultiplicityXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityXYs1dGet
 end function MultiplicityXYs1dGet
 
 !! Set
@@ -254,32 +239,29 @@ end subroutine MultiplicityXYs1dSet
 
 !! Has
 function MultiplicityRegions1dHas(handle) &
-      bind(C, name='MultiplicityRegions1dHas') &
-      result(has)
+      bind(C, name='MultiplicityRegions1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityRegions1dHas
 end function MultiplicityRegions1dHas
 
 !! Get, const
 function MultiplicityRegions1dGetConst(handle) &
-      bind(C, name='MultiplicityRegions1dGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityRegions1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityRegions1dGetConst
 end function MultiplicityRegions1dGetConst
 
 !! Get
 function MultiplicityRegions1dGet(handle) &
-      bind(C, name='MultiplicityRegions1dGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityRegions1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityRegions1dGet
 end function MultiplicityRegions1dGet
 
 !! Set
@@ -298,32 +280,29 @@ end subroutine MultiplicityRegions1dSet
 
 !! Has
 function MultiplicityPolynomial1dHas(handle) &
-      bind(C, name='MultiplicityPolynomial1dHas') &
-      result(has)
+      bind(C, name='MultiplicityPolynomial1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityPolynomial1dHas
 end function MultiplicityPolynomial1dHas
 
 !! Get, const
 function MultiplicityPolynomial1dGetConst(handle) &
-      bind(C, name='MultiplicityPolynomial1dGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityPolynomial1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityPolynomial1dGetConst
 end function MultiplicityPolynomial1dGetConst
 
 !! Get
 function MultiplicityPolynomial1dGet(handle) &
-      bind(C, name='MultiplicityPolynomial1dGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityPolynomial1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityPolynomial1dGet
 end function MultiplicityPolynomial1dGet
 
 !! Set
@@ -342,32 +321,29 @@ end subroutine MultiplicityPolynomial1dSet
 
 !! Has
 function MultiplicityReferenceHas(handle) &
-      bind(C, name='MultiplicityReferenceHas') &
-      result(has)
+      bind(C, name='MultiplicityReferenceHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityReferenceHas
 end function MultiplicityReferenceHas
 
 !! Get, const
 function MultiplicityReferenceGetConst(handle) &
-      bind(C, name='MultiplicityReferenceGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityReferenceGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityReferenceGetConst
 end function MultiplicityReferenceGetConst
 
 !! Get
 function MultiplicityReferenceGet(handle) &
-      bind(C, name='MultiplicityReferenceGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityReferenceGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityReferenceGet
 end function MultiplicityReferenceGet
 
 !! Set
@@ -386,32 +362,29 @@ end subroutine MultiplicityReferenceSet
 
 !! Has
 function MultiplicityBranching1dHas(handle) &
-      bind(C, name='MultiplicityBranching1dHas') &
-      result(has)
+      bind(C, name='MultiplicityBranching1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityBranching1dHas
 end function MultiplicityBranching1dHas
 
 !! Get, const
 function MultiplicityBranching1dGetConst(handle) &
-      bind(C, name='MultiplicityBranching1dGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityBranching1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityBranching1dGetConst
 end function MultiplicityBranching1dGetConst
 
 !! Get
 function MultiplicityBranching1dGet(handle) &
-      bind(C, name='MultiplicityBranching1dGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityBranching1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityBranching1dGet
 end function MultiplicityBranching1dGet
 
 !! Set
@@ -430,32 +403,29 @@ end subroutine MultiplicityBranching1dSet
 
 !! Has
 function MultiplicityBranching3dHas(handle) &
-      bind(C, name='MultiplicityBranching3dHas') &
-      result(has)
+      bind(C, name='MultiplicityBranching3dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityBranching3dHas
 end function MultiplicityBranching3dHas
 
 !! Get, const
 function MultiplicityBranching3dGetConst(handle) &
-      bind(C, name='MultiplicityBranching3dGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityBranching3dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityBranching3dGetConst
 end function MultiplicityBranching3dGetConst
 
 !! Get
 function MultiplicityBranching3dGet(handle) &
-      bind(C, name='MultiplicityBranching3dGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityBranching3dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityBranching3dGet
 end function MultiplicityBranching3dGet
 
 !! Set
@@ -474,32 +444,29 @@ end subroutine MultiplicityBranching3dSet
 
 !! Has
 function MultiplicityUnspecifiedHas(handle) &
-      bind(C, name='MultiplicityUnspecifiedHas') &
-      result(has)
+      bind(C, name='MultiplicityUnspecifiedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MultiplicityUnspecifiedHas
 end function MultiplicityUnspecifiedHas
 
 !! Get, const
 function MultiplicityUnspecifiedGetConst(handle) &
-      bind(C, name='MultiplicityUnspecifiedGetConst') &
-      result(resultHandle)
+      bind(C, name='MultiplicityUnspecifiedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityUnspecifiedGetConst
 end function MultiplicityUnspecifiedGetConst
 
 !! Get
 function MultiplicityUnspecifiedGet(handle) &
-      bind(C, name='MultiplicityUnspecifiedGet') &
-      result(resultHandle)
+      bind(C, name='MultiplicityUnspecifiedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MultiplicityUnspecifiedGet
 end function MultiplicityUnspecifiedGet
 
 !! Set

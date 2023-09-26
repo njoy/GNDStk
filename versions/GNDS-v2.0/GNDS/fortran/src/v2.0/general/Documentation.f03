@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DocumentationDefaultConst() &
-      bind(C, name='DocumentationDefaultConst') &
-      result(handle)
+      bind(C, name='DocumentationDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DocumentationDefaultConst
 end function DocumentationDefaultConst
 
 !! Create, default
 function DocumentationDefault() &
-      bind(C, name='DocumentationDefault') &
-      result(handle)
+      bind(C, name='DocumentationDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DocumentationDefault
 end function DocumentationDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function DocumentationCreateConst( &
    body, &
    endfCompatible &
 ) &
-      bind(C, name='DocumentationCreateConst') &
-      result(handle)
+      bind(C, name='DocumentationCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: authors
@@ -47,7 +44,7 @@ function DocumentationCreateConst( &
    type(c_ptr), value :: title
    type(c_ptr), value :: body
    type(c_ptr), value :: endfCompatible
-   type(c_ptr) :: handle
+   type(c_ptr) :: DocumentationCreateConst
 end function DocumentationCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function DocumentationCreate( &
    body, &
    endfCompatible &
 ) &
-      bind(C, name='DocumentationCreate') &
-      result(handle)
+      bind(C, name='DocumentationCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: authors
@@ -67,7 +63,7 @@ function DocumentationCreate( &
    type(c_ptr), value :: title
    type(c_ptr), value :: body
    type(c_ptr), value :: endfCompatible
-   type(c_ptr) :: handle
+   type(c_ptr) :: DocumentationCreate
 end function DocumentationCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine DocumentationDelete
 
 !! Read from file
 function DocumentationRead(handle, filename, filenameSize) &
-      bind(C, name='DocumentationRead') &
-      result(success)
+      bind(C, name='DocumentationRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DocumentationRead
 end function DocumentationRead
 
 !! Write to file
 function DocumentationWrite(handle, filename, filenameSize) &
-      bind(C, name='DocumentationWrite') &
-      result(success)
+      bind(C, name='DocumentationWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DocumentationWrite
 end function DocumentationWrite
 
 !! Print to standard output, in our prettyprinting format
 function DocumentationPrint(handle) &
-      bind(C, name='DocumentationPrint') &
-      result(success)
+      bind(C, name='DocumentationPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DocumentationPrint
 end function DocumentationPrint
 
 !! Print to standard output, as XML
 function DocumentationPrintXML(handle) &
-      bind(C, name='DocumentationPrintXML') &
-      result(success)
+      bind(C, name='DocumentationPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DocumentationPrintXML
 end function DocumentationPrintXML
 
 !! Print to standard output, as JSON
 function DocumentationPrintJSON(handle) &
-      bind(C, name='DocumentationPrintJSON') &
-      result(success)
+      bind(C, name='DocumentationPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DocumentationPrintJSON
 end function DocumentationPrintJSON
 
 
@@ -154,32 +145,29 @@ end function DocumentationPrintJSON
 
 !! Has
 function DocumentationAuthorsHas(handle) &
-      bind(C, name='DocumentationAuthorsHas') &
-      result(has)
+      bind(C, name='DocumentationAuthorsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DocumentationAuthorsHas
 end function DocumentationAuthorsHas
 
 !! Get, const
 function DocumentationAuthorsGetConst(handle) &
-      bind(C, name='DocumentationAuthorsGetConst') &
-      result(resultHandle)
+      bind(C, name='DocumentationAuthorsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationAuthorsGetConst
 end function DocumentationAuthorsGetConst
 
 !! Get
 function DocumentationAuthorsGet(handle) &
-      bind(C, name='DocumentationAuthorsGet') &
-      result(resultHandle)
+      bind(C, name='DocumentationAuthorsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationAuthorsGet
 end function DocumentationAuthorsGet
 
 !! Set
@@ -198,32 +186,29 @@ end subroutine DocumentationAuthorsSet
 
 !! Has
 function DocumentationDatesHas(handle) &
-      bind(C, name='DocumentationDatesHas') &
-      result(has)
+      bind(C, name='DocumentationDatesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DocumentationDatesHas
 end function DocumentationDatesHas
 
 !! Get, const
 function DocumentationDatesGetConst(handle) &
-      bind(C, name='DocumentationDatesGetConst') &
-      result(resultHandle)
+      bind(C, name='DocumentationDatesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationDatesGetConst
 end function DocumentationDatesGetConst
 
 !! Get
 function DocumentationDatesGet(handle) &
-      bind(C, name='DocumentationDatesGet') &
-      result(resultHandle)
+      bind(C, name='DocumentationDatesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationDatesGet
 end function DocumentationDatesGet
 
 !! Set
@@ -242,32 +227,29 @@ end subroutine DocumentationDatesSet
 
 !! Has
 function DocumentationTitleHas(handle) &
-      bind(C, name='DocumentationTitleHas') &
-      result(has)
+      bind(C, name='DocumentationTitleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DocumentationTitleHas
 end function DocumentationTitleHas
 
 !! Get, const
 function DocumentationTitleGetConst(handle) &
-      bind(C, name='DocumentationTitleGetConst') &
-      result(resultHandle)
+      bind(C, name='DocumentationTitleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationTitleGetConst
 end function DocumentationTitleGetConst
 
 !! Get
 function DocumentationTitleGet(handle) &
-      bind(C, name='DocumentationTitleGet') &
-      result(resultHandle)
+      bind(C, name='DocumentationTitleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationTitleGet
 end function DocumentationTitleGet
 
 !! Set
@@ -286,32 +268,29 @@ end subroutine DocumentationTitleSet
 
 !! Has
 function DocumentationBodyHas(handle) &
-      bind(C, name='DocumentationBodyHas') &
-      result(has)
+      bind(C, name='DocumentationBodyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DocumentationBodyHas
 end function DocumentationBodyHas
 
 !! Get, const
 function DocumentationBodyGetConst(handle) &
-      bind(C, name='DocumentationBodyGetConst') &
-      result(resultHandle)
+      bind(C, name='DocumentationBodyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationBodyGetConst
 end function DocumentationBodyGetConst
 
 !! Get
 function DocumentationBodyGet(handle) &
-      bind(C, name='DocumentationBodyGet') &
-      result(resultHandle)
+      bind(C, name='DocumentationBodyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationBodyGet
 end function DocumentationBodyGet
 
 !! Set
@@ -330,32 +309,29 @@ end subroutine DocumentationBodySet
 
 !! Has
 function DocumentationEndfCompatibleHas(handle) &
-      bind(C, name='DocumentationEndfCompatibleHas') &
-      result(has)
+      bind(C, name='DocumentationEndfCompatibleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DocumentationEndfCompatibleHas
 end function DocumentationEndfCompatibleHas
 
 !! Get, const
 function DocumentationEndfCompatibleGetConst(handle) &
-      bind(C, name='DocumentationEndfCompatibleGetConst') &
-      result(resultHandle)
+      bind(C, name='DocumentationEndfCompatibleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationEndfCompatibleGetConst
 end function DocumentationEndfCompatibleGetConst
 
 !! Get
 function DocumentationEndfCompatibleGet(handle) &
-      bind(C, name='DocumentationEndfCompatibleGet') &
-      result(resultHandle)
+      bind(C, name='DocumentationEndfCompatibleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DocumentationEndfCompatibleGet
 end function DocumentationEndfCompatibleGet
 
 !! Set

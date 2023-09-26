@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function HalflifeDefaultConst() &
-      bind(C, name='HalflifeDefaultConst') &
-      result(handle)
+      bind(C, name='HalflifeDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: HalflifeDefaultConst
 end function HalflifeDefaultConst
 
 !! Create, default
 function HalflifeDefault() &
-      bind(C, name='HalflifeDefault') &
-      result(handle)
+      bind(C, name='HalflifeDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: HalflifeDefault
 end function HalflifeDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function HalflifeCreateConst( &
    string, &
    Double &
 ) &
-      bind(C, name='HalflifeCreateConst') &
-      result(handle)
+      bind(C, name='HalflifeCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: string
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: HalflifeCreateConst
 end function HalflifeCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function HalflifeCreate( &
    string, &
    Double &
 ) &
-      bind(C, name='HalflifeCreate') &
-      result(handle)
+      bind(C, name='HalflifeCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: string
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: HalflifeCreate
 end function HalflifeCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine HalflifeDelete
 
 !! Read from file
 function HalflifeRead(handle, filename, filenameSize) &
-      bind(C, name='HalflifeRead') &
-      result(success)
+      bind(C, name='HalflifeRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: HalflifeRead
 end function HalflifeRead
 
 !! Write to file
 function HalflifeWrite(handle, filename, filenameSize) &
-      bind(C, name='HalflifeWrite') &
-      result(success)
+      bind(C, name='HalflifeWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: HalflifeWrite
 end function HalflifeWrite
 
 !! Print to standard output, in our prettyprinting format
 function HalflifePrint(handle) &
-      bind(C, name='HalflifePrint') &
-      result(success)
+      bind(C, name='HalflifePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: HalflifePrint
 end function HalflifePrint
 
 !! Print to standard output, as XML
 function HalflifePrintXML(handle) &
-      bind(C, name='HalflifePrintXML') &
-      result(success)
+      bind(C, name='HalflifePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: HalflifePrintXML
 end function HalflifePrintXML
 
 !! Print to standard output, as JSON
 function HalflifePrintJSON(handle) &
-      bind(C, name='HalflifePrintJSON') &
-      result(success)
+      bind(C, name='HalflifePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: HalflifePrintJSON
 end function HalflifePrintJSON
 
 
@@ -142,32 +133,29 @@ end function HalflifePrintJSON
 
 !! Has
 function HalflifeStringHas(handle) &
-      bind(C, name='HalflifeStringHas') &
-      result(has)
+      bind(C, name='HalflifeStringHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: HalflifeStringHas
 end function HalflifeStringHas
 
 !! Get, const
 function HalflifeStringGetConst(handle) &
-      bind(C, name='HalflifeStringGetConst') &
-      result(resultHandle)
+      bind(C, name='HalflifeStringGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: HalflifeStringGetConst
 end function HalflifeStringGetConst
 
 !! Get
 function HalflifeStringGet(handle) &
-      bind(C, name='HalflifeStringGet') &
-      result(resultHandle)
+      bind(C, name='HalflifeStringGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: HalflifeStringGet
 end function HalflifeStringGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine HalflifeStringSet
 
 !! Has
 function HalflifeDoubleHas(handle) &
-      bind(C, name='HalflifeDoubleHas') &
-      result(has)
+      bind(C, name='HalflifeDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: HalflifeDoubleHas
 end function HalflifeDoubleHas
 
 !! Get, const
 function HalflifeDoubleGetConst(handle) &
-      bind(C, name='HalflifeDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='HalflifeDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: HalflifeDoubleGetConst
 end function HalflifeDoubleGetConst
 
 !! Get
 function HalflifeDoubleGet(handle) &
-      bind(C, name='HalflifeDoubleGet') &
-      result(resultHandle)
+      bind(C, name='HalflifeDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: HalflifeDoubleGet
 end function HalflifeDoubleGet
 
 !! Set

@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function GaugeBosonsDefaultConst() &
-      bind(C, name='GaugeBosonsDefaultConst') &
-      result(handle)
+      bind(C, name='GaugeBosonsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GaugeBosonsDefaultConst
 end function GaugeBosonsDefaultConst
 
 !! Create, default
 function GaugeBosonsDefault() &
-      bind(C, name='GaugeBosonsDefault') &
-      result(handle)
+      bind(C, name='GaugeBosonsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: GaugeBosonsDefault
 end function GaugeBosonsDefault
 
 !! Create, general, const
 function GaugeBosonsCreateConst( &
    gaugeBoson, gaugeBosonSize &
 ) &
-      bind(C, name='GaugeBosonsCreateConst') &
-      result(handle)
+      bind(C, name='GaugeBosonsCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: gaugeBosonSize
    type(c_ptr) :: gaugeBoson(gaugeBosonSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: GaugeBosonsCreateConst
 end function GaugeBosonsCreateConst
 
 !! Create, general
 function GaugeBosonsCreate( &
    gaugeBoson, gaugeBosonSize &
 ) &
-      bind(C, name='GaugeBosonsCreate') &
-      result(handle)
+      bind(C, name='GaugeBosonsCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: gaugeBosonSize
    type(c_ptr) :: gaugeBoson(gaugeBosonSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: GaugeBosonsCreate
 end function GaugeBosonsCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine GaugeBosonsDelete
 
 !! Read from file
 function GaugeBosonsRead(handle, filename, filenameSize) &
-      bind(C, name='GaugeBosonsRead') &
-      result(success)
+      bind(C, name='GaugeBosonsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GaugeBosonsRead
 end function GaugeBosonsRead
 
 !! Write to file
 function GaugeBosonsWrite(handle, filename, filenameSize) &
-      bind(C, name='GaugeBosonsWrite') &
-      result(success)
+      bind(C, name='GaugeBosonsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: GaugeBosonsWrite
 end function GaugeBosonsWrite
 
 !! Print to standard output, in our prettyprinting format
 function GaugeBosonsPrint(handle) &
-      bind(C, name='GaugeBosonsPrint') &
-      result(success)
+      bind(C, name='GaugeBosonsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GaugeBosonsPrint
 end function GaugeBosonsPrint
 
 !! Print to standard output, as XML
 function GaugeBosonsPrintXML(handle) &
-      bind(C, name='GaugeBosonsPrintXML') &
-      result(success)
+      bind(C, name='GaugeBosonsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GaugeBosonsPrintXML
 end function GaugeBosonsPrintXML
 
 !! Print to standard output, as JSON
 function GaugeBosonsPrintJSON(handle) &
-      bind(C, name='GaugeBosonsPrintJSON') &
-      result(success)
+      bind(C, name='GaugeBosonsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: GaugeBosonsPrintJSON
 end function GaugeBosonsPrintJSON
 
 
@@ -140,12 +131,11 @@ end function GaugeBosonsPrintJSON
 
 !! Has
 function GaugeBosonsGaugeBosonHas(handle) &
-      bind(C, name='GaugeBosonsGaugeBosonHas') &
-      result(has)
+      bind(C, name='GaugeBosonsGaugeBosonHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: GaugeBosonsGaugeBosonHas
 end function GaugeBosonsGaugeBosonHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine GaugeBosonsGaugeBosonClear
 
 !! Size
 function GaugeBosonsGaugeBosonSize(handle) &
-      bind(C, name='GaugeBosonsGaugeBosonSize') &
-      result(vectorSize)
+      bind(C, name='GaugeBosonsGaugeBosonSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: GaugeBosonsGaugeBosonSize
 end function GaugeBosonsGaugeBosonSize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine GaugeBosonsGaugeBosonAdd
 
 !! Get, by index \in [0,size), const
 function GaugeBosonsGaugeBosonGetConst(handle, index) &
-      bind(C, name='GaugeBosonsGaugeBosonGetConst') &
-      result(resultHandle)
+      bind(C, name='GaugeBosonsGaugeBosonGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GaugeBosonsGaugeBosonGetConst
 end function GaugeBosonsGaugeBosonGetConst
 
 !! Get, by index \in [0,size)
 function GaugeBosonsGaugeBosonGet(handle, index) &
-      bind(C, name='GaugeBosonsGaugeBosonGet') &
-      result(resultHandle)
+      bind(C, name='GaugeBosonsGaugeBosonGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GaugeBosonsGaugeBosonGet
 end function GaugeBosonsGaugeBosonGet
 
 !! Set, by index \in [0,size)
@@ -213,38 +200,35 @@ end subroutine GaugeBosonsGaugeBosonSet
 
 !! Has, by id
 function GaugeBosonsGaugeBosonHasById(handle, meta, metaSize) &
-      bind(C, name='GaugeBosonsGaugeBosonHasById') &
-      result(has)
+      bind(C, name='GaugeBosonsGaugeBosonHasById')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: GaugeBosonsGaugeBosonHasById
 end function GaugeBosonsGaugeBosonHasById
 
 !! Get, by id, const
 function GaugeBosonsGaugeBosonGetByIdConst(handle, meta, metaSize) &
-      bind(C, name='GaugeBosonsGaugeBosonGetByIdConst') &
-      result(resultHandle)
+      bind(C, name='GaugeBosonsGaugeBosonGetByIdConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GaugeBosonsGaugeBosonGetByIdConst
 end function GaugeBosonsGaugeBosonGetByIdConst
 
 !! Get, by id
 function GaugeBosonsGaugeBosonGetById(handle, meta, metaSize) &
-      bind(C, name='GaugeBosonsGaugeBosonGetById') &
-      result(resultHandle)
+      bind(C, name='GaugeBosonsGaugeBosonGetById')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: GaugeBosonsGaugeBosonGetById
 end function GaugeBosonsGaugeBosonGetById
 
 !! Set, by id

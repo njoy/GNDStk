@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function YieldsDefaultConst() &
-      bind(C, name='YieldsDefaultConst') &
-      result(handle)
+      bind(C, name='YieldsDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: YieldsDefaultConst
 end function YieldsDefaultConst
 
 !! Create, default
 function YieldsDefault() &
-      bind(C, name='YieldsDefault') &
-      result(handle)
+      bind(C, name='YieldsDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: YieldsDefault
 end function YieldsDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function YieldsCreateConst( &
    values, &
    uncertainty &
 ) &
-      bind(C, name='YieldsCreateConst') &
-      result(handle)
+      bind(C, name='YieldsCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: nuclides
    type(c_ptr), value :: values
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: YieldsCreateConst
 end function YieldsCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function YieldsCreate( &
    values, &
    uncertainty &
 ) &
-      bind(C, name='YieldsCreate') &
-      result(handle)
+      bind(C, name='YieldsCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: nuclides
    type(c_ptr), value :: values
    type(c_ptr), value :: uncertainty
-   type(c_ptr) :: handle
+   type(c_ptr) :: YieldsCreate
 end function YieldsCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine YieldsDelete
 
 !! Read from file
 function YieldsRead(handle, filename, filenameSize) &
-      bind(C, name='YieldsRead') &
-      result(success)
+      bind(C, name='YieldsRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: YieldsRead
 end function YieldsRead
 
 !! Write to file
 function YieldsWrite(handle, filename, filenameSize) &
-      bind(C, name='YieldsWrite') &
-      result(success)
+      bind(C, name='YieldsWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: YieldsWrite
 end function YieldsWrite
 
 !! Print to standard output, in our prettyprinting format
 function YieldsPrint(handle) &
-      bind(C, name='YieldsPrint') &
-      result(success)
+      bind(C, name='YieldsPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: YieldsPrint
 end function YieldsPrint
 
 !! Print to standard output, as XML
 function YieldsPrintXML(handle) &
-      bind(C, name='YieldsPrintXML') &
-      result(success)
+      bind(C, name='YieldsPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: YieldsPrintXML
 end function YieldsPrintXML
 
 !! Print to standard output, as JSON
 function YieldsPrintJSON(handle) &
-      bind(C, name='YieldsPrintJSON') &
-      result(success)
+      bind(C, name='YieldsPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: YieldsPrintJSON
 end function YieldsPrintJSON
 
 
@@ -146,32 +137,29 @@ end function YieldsPrintJSON
 
 !! Has
 function YieldsNuclidesHas(handle) &
-      bind(C, name='YieldsNuclidesHas') &
-      result(has)
+      bind(C, name='YieldsNuclidesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: YieldsNuclidesHas
 end function YieldsNuclidesHas
 
 !! Get, const
 function YieldsNuclidesGetConst(handle) &
-      bind(C, name='YieldsNuclidesGetConst') &
-      result(resultHandle)
+      bind(C, name='YieldsNuclidesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: YieldsNuclidesGetConst
 end function YieldsNuclidesGetConst
 
 !! Get
 function YieldsNuclidesGet(handle) &
-      bind(C, name='YieldsNuclidesGet') &
-      result(resultHandle)
+      bind(C, name='YieldsNuclidesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: YieldsNuclidesGet
 end function YieldsNuclidesGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine YieldsNuclidesSet
 
 !! Has
 function YieldsValuesHas(handle) &
-      bind(C, name='YieldsValuesHas') &
-      result(has)
+      bind(C, name='YieldsValuesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: YieldsValuesHas
 end function YieldsValuesHas
 
 !! Get, const
 function YieldsValuesGetConst(handle) &
-      bind(C, name='YieldsValuesGetConst') &
-      result(resultHandle)
+      bind(C, name='YieldsValuesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: YieldsValuesGetConst
 end function YieldsValuesGetConst
 
 !! Get
 function YieldsValuesGet(handle) &
-      bind(C, name='YieldsValuesGet') &
-      result(resultHandle)
+      bind(C, name='YieldsValuesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: YieldsValuesGet
 end function YieldsValuesGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine YieldsValuesSet
 
 !! Has
 function YieldsUncertaintyHas(handle) &
-      bind(C, name='YieldsUncertaintyHas') &
-      result(has)
+      bind(C, name='YieldsUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: YieldsUncertaintyHas
 end function YieldsUncertaintyHas
 
 !! Get, const
 function YieldsUncertaintyGetConst(handle) &
-      bind(C, name='YieldsUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='YieldsUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: YieldsUncertaintyGetConst
 end function YieldsUncertaintyGetConst
 
 !! Get
 function YieldsUncertaintyGet(handle) &
-      bind(C, name='YieldsUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='YieldsUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: YieldsUncertaintyGet
 end function YieldsUncertaintyGet
 
 !! Set

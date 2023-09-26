@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ResonancesDefaultConst() &
-      bind(C, name='ResonancesDefaultConst') &
-      result(handle)
+      bind(C, name='ResonancesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesDefaultConst
 end function ResonancesDefaultConst
 
 !! Create, default
 function ResonancesDefault() &
-      bind(C, name='ResonancesDefault') &
-      result(handle)
+      bind(C, name='ResonancesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesDefault
 end function ResonancesDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function ResonancesCreateConst( &
    unresolved, &
    hrefSize &
 ) &
-      bind(C, name='ResonancesCreateConst') &
-      result(handle)
+      bind(C, name='ResonancesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
@@ -47,7 +44,7 @@ function ResonancesCreateConst( &
    type(c_ptr), value :: scatteringRadius
    type(c_ptr), value :: resolved
    type(c_ptr), value :: unresolved
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesCreateConst
 end function ResonancesCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function ResonancesCreate( &
    unresolved, &
    hrefSize &
 ) &
-      bind(C, name='ResonancesCreate') &
-      result(handle)
+      bind(C, name='ResonancesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
@@ -67,7 +63,7 @@ function ResonancesCreate( &
    type(c_ptr), value :: scatteringRadius
    type(c_ptr), value :: resolved
    type(c_ptr), value :: unresolved
-   type(c_ptr) :: handle
+   type(c_ptr) :: ResonancesCreate
 end function ResonancesCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine ResonancesDelete
 
 !! Read from file
 function ResonancesRead(handle, filename, filenameSize) &
-      bind(C, name='ResonancesRead') &
-      result(success)
+      bind(C, name='ResonancesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesRead
 end function ResonancesRead
 
 !! Write to file
 function ResonancesWrite(handle, filename, filenameSize) &
-      bind(C, name='ResonancesWrite') &
-      result(success)
+      bind(C, name='ResonancesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesWrite
 end function ResonancesWrite
 
 !! Print to standard output, in our prettyprinting format
 function ResonancesPrint(handle) &
-      bind(C, name='ResonancesPrint') &
-      result(success)
+      bind(C, name='ResonancesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesPrint
 end function ResonancesPrint
 
 !! Print to standard output, as XML
 function ResonancesPrintXML(handle) &
-      bind(C, name='ResonancesPrintXML') &
-      result(success)
+      bind(C, name='ResonancesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesPrintXML
 end function ResonancesPrintXML
 
 !! Print to standard output, as JSON
 function ResonancesPrintJSON(handle) &
-      bind(C, name='ResonancesPrintJSON') &
-      result(success)
+      bind(C, name='ResonancesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ResonancesPrintJSON
 end function ResonancesPrintJSON
 
 
@@ -154,22 +145,20 @@ end function ResonancesPrintJSON
 
 !! Has
 function ResonancesHrefHas(handle) &
-      bind(C, name='ResonancesHrefHas') &
-      result(has)
+      bind(C, name='ResonancesHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesHrefHas
 end function ResonancesHrefHas
 
 !! Get
 function ResonancesHrefGet(handle) &
-      bind(C, name='ResonancesHrefGet') &
-      result(href)
+      bind(C, name='ResonancesHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: ResonancesHrefGet
 end function ResonancesHrefGet
 
 !! Set
@@ -189,32 +178,29 @@ end subroutine ResonancesHrefSet
 
 !! Has
 function ResonancesScatteringRadiusHas(handle) &
-      bind(C, name='ResonancesScatteringRadiusHas') &
-      result(has)
+      bind(C, name='ResonancesScatteringRadiusHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesScatteringRadiusHas
 end function ResonancesScatteringRadiusHas
 
 !! Get, const
 function ResonancesScatteringRadiusGetConst(handle) &
-      bind(C, name='ResonancesScatteringRadiusGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonancesScatteringRadiusGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesScatteringRadiusGetConst
 end function ResonancesScatteringRadiusGetConst
 
 !! Get
 function ResonancesScatteringRadiusGet(handle) &
-      bind(C, name='ResonancesScatteringRadiusGet') &
-      result(resultHandle)
+      bind(C, name='ResonancesScatteringRadiusGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesScatteringRadiusGet
 end function ResonancesScatteringRadiusGet
 
 !! Set
@@ -233,32 +219,29 @@ end subroutine ResonancesScatteringRadiusSet
 
 !! Has
 function ResonancesResolvedHas(handle) &
-      bind(C, name='ResonancesResolvedHas') &
-      result(has)
+      bind(C, name='ResonancesResolvedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesResolvedHas
 end function ResonancesResolvedHas
 
 !! Get, const
 function ResonancesResolvedGetConst(handle) &
-      bind(C, name='ResonancesResolvedGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonancesResolvedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesResolvedGetConst
 end function ResonancesResolvedGetConst
 
 !! Get
 function ResonancesResolvedGet(handle) &
-      bind(C, name='ResonancesResolvedGet') &
-      result(resultHandle)
+      bind(C, name='ResonancesResolvedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesResolvedGet
 end function ResonancesResolvedGet
 
 !! Set
@@ -277,32 +260,29 @@ end subroutine ResonancesResolvedSet
 
 !! Has
 function ResonancesUnresolvedHas(handle) &
-      bind(C, name='ResonancesUnresolvedHas') &
-      result(has)
+      bind(C, name='ResonancesUnresolvedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ResonancesUnresolvedHas
 end function ResonancesUnresolvedHas
 
 !! Get, const
 function ResonancesUnresolvedGetConst(handle) &
-      bind(C, name='ResonancesUnresolvedGetConst') &
-      result(resultHandle)
+      bind(C, name='ResonancesUnresolvedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesUnresolvedGetConst
 end function ResonancesUnresolvedGetConst
 
 !! Get
 function ResonancesUnresolvedGet(handle) &
-      bind(C, name='ResonancesUnresolvedGet') &
-      result(resultHandle)
+      bind(C, name='ResonancesUnresolvedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ResonancesUnresolvedGet
 end function ResonancesUnresolvedGet
 
 !! Set

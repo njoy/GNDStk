@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function CovarianceDefaultConst() &
-      bind(C, name='CovarianceDefaultConst') &
-      result(handle)
+      bind(C, name='CovarianceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceDefaultConst
 end function CovarianceDefaultConst
 
 !! Create, default
 function CovarianceDefault() &
-      bind(C, name='CovarianceDefault') &
-      result(handle)
+      bind(C, name='CovarianceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceDefault
 end function CovarianceDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function CovarianceCreateConst( &
    labelSize, &
    hrefSize &
 ) &
-      bind(C, name='CovarianceCreateConst') &
-      result(handle)
+      bind(C, name='CovarianceCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function CovarianceCreateConst( &
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
    type(c_ptr), value :: array
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceCreateConst
 end function CovarianceCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function CovarianceCreate( &
    labelSize, &
    hrefSize &
 ) &
-      bind(C, name='CovarianceCreate') &
-      result(handle)
+      bind(C, name='CovarianceCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function CovarianceCreate( &
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
    type(c_ptr), value :: array
-   type(c_ptr) :: handle
+   type(c_ptr) :: CovarianceCreate
 end function CovarianceCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine CovarianceDelete
 
 !! Read from file
 function CovarianceRead(handle, filename, filenameSize) &
-      bind(C, name='CovarianceRead') &
-      result(success)
+      bind(C, name='CovarianceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceRead
 end function CovarianceRead
 
 !! Write to file
 function CovarianceWrite(handle, filename, filenameSize) &
-      bind(C, name='CovarianceWrite') &
-      result(success)
+      bind(C, name='CovarianceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: CovarianceWrite
 end function CovarianceWrite
 
 !! Print to standard output, in our prettyprinting format
 function CovariancePrint(handle) &
-      bind(C, name='CovariancePrint') &
-      result(success)
+      bind(C, name='CovariancePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovariancePrint
 end function CovariancePrint
 
 !! Print to standard output, as XML
 function CovariancePrintXML(handle) &
-      bind(C, name='CovariancePrintXML') &
-      result(success)
+      bind(C, name='CovariancePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovariancePrintXML
 end function CovariancePrintXML
 
 !! Print to standard output, as JSON
 function CovariancePrintJSON(handle) &
-      bind(C, name='CovariancePrintJSON') &
-      result(success)
+      bind(C, name='CovariancePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: CovariancePrintJSON
 end function CovariancePrintJSON
 
 
@@ -154,22 +145,20 @@ end function CovariancePrintJSON
 
 !! Has
 function CovarianceLabelHas(handle) &
-      bind(C, name='CovarianceLabelHas') &
-      result(has)
+      bind(C, name='CovarianceLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceLabelHas
 end function CovarianceLabelHas
 
 !! Get
 function CovarianceLabelGet(handle) &
-      bind(C, name='CovarianceLabelGet') &
-      result(label)
+      bind(C, name='CovarianceLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: CovarianceLabelGet
 end function CovarianceLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine CovarianceLabelSet
 
 !! Has
 function CovarianceHrefHas(handle) &
-      bind(C, name='CovarianceHrefHas') &
-      result(has)
+      bind(C, name='CovarianceHrefHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceHrefHas
 end function CovarianceHrefHas
 
 !! Get
 function CovarianceHrefGet(handle) &
-      bind(C, name='CovarianceHrefGet') &
-      result(href)
+      bind(C, name='CovarianceHrefGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: href
+   type(c_ptr) :: CovarianceHrefGet
 end function CovarianceHrefGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine CovarianceHrefSet
 
 !! Has
 function CovarianceArrayHas(handle) &
-      bind(C, name='CovarianceArrayHas') &
-      result(has)
+      bind(C, name='CovarianceArrayHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: CovarianceArrayHas
 end function CovarianceArrayHas
 
 !! Get, const
 function CovarianceArrayGetConst(handle) &
-      bind(C, name='CovarianceArrayGetConst') &
-      result(resultHandle)
+      bind(C, name='CovarianceArrayGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceArrayGetConst
 end function CovarianceArrayGetConst
 
 !! Get
 function CovarianceArrayGet(handle) &
-      bind(C, name='CovarianceArrayGet') &
-      result(resultHandle)
+      bind(C, name='CovarianceArrayGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: CovarianceArrayGet
 end function CovarianceArrayGet
 
 !! Set

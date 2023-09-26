@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function E_criticalDefaultConst() &
-      bind(C, name='E_criticalDefaultConst') &
-      result(handle)
+      bind(C, name='E_criticalDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_criticalDefaultConst
 end function E_criticalDefaultConst
 
 !! Create, default
 function E_criticalDefault() &
-      bind(C, name='E_criticalDefault') &
-      result(handle)
+      bind(C, name='E_criticalDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_criticalDefault
 end function E_criticalDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function E_criticalCreateConst( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='E_criticalCreateConst') &
-      result(handle)
+      bind(C, name='E_criticalCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_criticalCreateConst
 end function E_criticalCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function E_criticalCreate( &
    unit, &
    unitSize &
 ) &
-      bind(C, name='E_criticalCreate') &
-      result(handle)
+      bind(C, name='E_criticalCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: E_criticalCreate
 end function E_criticalCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine E_criticalDelete
 
 !! Read from file
 function E_criticalRead(handle, filename, filenameSize) &
-      bind(C, name='E_criticalRead') &
-      result(success)
+      bind(C, name='E_criticalRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: E_criticalRead
 end function E_criticalRead
 
 !! Write to file
 function E_criticalWrite(handle, filename, filenameSize) &
-      bind(C, name='E_criticalWrite') &
-      result(success)
+      bind(C, name='E_criticalWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: E_criticalWrite
 end function E_criticalWrite
 
 !! Print to standard output, in our prettyprinting format
 function E_criticalPrint(handle) &
-      bind(C, name='E_criticalPrint') &
-      result(success)
+      bind(C, name='E_criticalPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: E_criticalPrint
 end function E_criticalPrint
 
 !! Print to standard output, as XML
 function E_criticalPrintXML(handle) &
-      bind(C, name='E_criticalPrintXML') &
-      result(success)
+      bind(C, name='E_criticalPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: E_criticalPrintXML
 end function E_criticalPrintXML
 
 !! Print to standard output, as JSON
 function E_criticalPrintJSON(handle) &
-      bind(C, name='E_criticalPrintJSON') &
-      result(success)
+      bind(C, name='E_criticalPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: E_criticalPrintJSON
 end function E_criticalPrintJSON
 
 
@@ -146,22 +137,20 @@ end function E_criticalPrintJSON
 
 !! Has
 function E_criticalValueHas(handle) &
-      bind(C, name='E_criticalValueHas') &
-      result(has)
+      bind(C, name='E_criticalValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: E_criticalValueHas
 end function E_criticalValueHas
 
 !! Get
 function E_criticalValueGet(handle) &
-      bind(C, name='E_criticalValueGet') &
-      result(value)
+      bind(C, name='E_criticalValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: E_criticalValueGet
 end function E_criticalValueGet
 
 !! Set
@@ -181,22 +170,20 @@ end subroutine E_criticalValueSet
 
 !! Has
 function E_criticalUnitHas(handle) &
-      bind(C, name='E_criticalUnitHas') &
-      result(has)
+      bind(C, name='E_criticalUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: E_criticalUnitHas
 end function E_criticalUnitHas
 
 !! Get
 function E_criticalUnitGet(handle) &
-      bind(C, name='E_criticalUnitGet') &
-      result(unit)
+      bind(C, name='E_criticalUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: E_criticalUnitGet
 end function E_criticalUnitGet
 
 !! Set

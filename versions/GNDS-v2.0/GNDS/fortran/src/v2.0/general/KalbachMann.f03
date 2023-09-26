@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function KalbachMannDefaultConst() &
-      bind(C, name='KalbachMannDefaultConst') &
-      result(handle)
+      bind(C, name='KalbachMannDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: KalbachMannDefaultConst
 end function KalbachMannDefaultConst
 
 !! Create, default
 function KalbachMannDefault() &
-      bind(C, name='KalbachMannDefault') &
-      result(handle)
+      bind(C, name='KalbachMannDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: KalbachMannDefault
 end function KalbachMannDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function KalbachMannCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='KalbachMannCreateConst') &
-      result(handle)
+      bind(C, name='KalbachMannCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function KalbachMannCreateConst( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: f
    type(c_ptr), value :: r
-   type(c_ptr) :: handle
+   type(c_ptr) :: KalbachMannCreateConst
 end function KalbachMannCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function KalbachMannCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='KalbachMannCreate') &
-      result(handle)
+      bind(C, name='KalbachMannCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function KalbachMannCreate( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: f
    type(c_ptr), value :: r
-   type(c_ptr) :: handle
+   type(c_ptr) :: KalbachMannCreate
 end function KalbachMannCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine KalbachMannDelete
 
 !! Read from file
 function KalbachMannRead(handle, filename, filenameSize) &
-      bind(C, name='KalbachMannRead') &
-      result(success)
+      bind(C, name='KalbachMannRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: KalbachMannRead
 end function KalbachMannRead
 
 !! Write to file
 function KalbachMannWrite(handle, filename, filenameSize) &
-      bind(C, name='KalbachMannWrite') &
-      result(success)
+      bind(C, name='KalbachMannWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: KalbachMannWrite
 end function KalbachMannWrite
 
 !! Print to standard output, in our prettyprinting format
 function KalbachMannPrint(handle) &
-      bind(C, name='KalbachMannPrint') &
-      result(success)
+      bind(C, name='KalbachMannPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: KalbachMannPrint
 end function KalbachMannPrint
 
 !! Print to standard output, as XML
 function KalbachMannPrintXML(handle) &
-      bind(C, name='KalbachMannPrintXML') &
-      result(success)
+      bind(C, name='KalbachMannPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: KalbachMannPrintXML
 end function KalbachMannPrintXML
 
 !! Print to standard output, as JSON
 function KalbachMannPrintJSON(handle) &
-      bind(C, name='KalbachMannPrintJSON') &
-      result(success)
+      bind(C, name='KalbachMannPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: KalbachMannPrintJSON
 end function KalbachMannPrintJSON
 
 
@@ -158,22 +149,20 @@ end function KalbachMannPrintJSON
 
 !! Has
 function KalbachMannLabelHas(handle) &
-      bind(C, name='KalbachMannLabelHas') &
-      result(has)
+      bind(C, name='KalbachMannLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: KalbachMannLabelHas
 end function KalbachMannLabelHas
 
 !! Get
 function KalbachMannLabelGet(handle) &
-      bind(C, name='KalbachMannLabelGet') &
-      result(label)
+      bind(C, name='KalbachMannLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: KalbachMannLabelGet
 end function KalbachMannLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine KalbachMannLabelSet
 
 !! Has
 function KalbachMannProductFrameHas(handle) &
-      bind(C, name='KalbachMannProductFrameHas') &
-      result(has)
+      bind(C, name='KalbachMannProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: KalbachMannProductFrameHas
 end function KalbachMannProductFrameHas
 
 !! Get
 function KalbachMannProductFrameGet(handle) &
-      bind(C, name='KalbachMannProductFrameGet') &
-      result(productFrame)
+      bind(C, name='KalbachMannProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: KalbachMannProductFrameGet
 end function KalbachMannProductFrameGet
 
 !! Set
@@ -228,32 +215,29 @@ end subroutine KalbachMannProductFrameSet
 
 !! Has
 function KalbachMannFHas(handle) &
-      bind(C, name='KalbachMannFHas') &
-      result(has)
+      bind(C, name='KalbachMannFHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: KalbachMannFHas
 end function KalbachMannFHas
 
 !! Get, const
 function KalbachMannFGetConst(handle) &
-      bind(C, name='KalbachMannFGetConst') &
-      result(resultHandle)
+      bind(C, name='KalbachMannFGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: KalbachMannFGetConst
 end function KalbachMannFGetConst
 
 !! Get
 function KalbachMannFGet(handle) &
-      bind(C, name='KalbachMannFGet') &
-      result(resultHandle)
+      bind(C, name='KalbachMannFGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: KalbachMannFGet
 end function KalbachMannFGet
 
 !! Set
@@ -272,32 +256,29 @@ end subroutine KalbachMannFSet
 
 !! Has
 function KalbachMannRHas(handle) &
-      bind(C, name='KalbachMannRHas') &
-      result(has)
+      bind(C, name='KalbachMannRHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: KalbachMannRHas
 end function KalbachMannRHas
 
 !! Get, const
 function KalbachMannRGetConst(handle) &
-      bind(C, name='KalbachMannRGetConst') &
-      result(resultHandle)
+      bind(C, name='KalbachMannRGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: KalbachMannRGetConst
 end function KalbachMannRGetConst
 
 !! Get
 function KalbachMannRGet(handle) &
-      bind(C, name='KalbachMannRGet') &
-      result(resultHandle)
+      bind(C, name='KalbachMannRGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: KalbachMannRGet
 end function KalbachMannRGet
 
 !! Set

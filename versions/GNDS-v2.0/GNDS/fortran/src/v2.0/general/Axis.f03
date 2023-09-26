@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AxisDefaultConst() &
-      bind(C, name='AxisDefaultConst') &
-      result(handle)
+      bind(C, name='AxisDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxisDefaultConst
 end function AxisDefaultConst
 
 !! Create, default
 function AxisDefault() &
-      bind(C, name='AxisDefault') &
-      result(handle)
+      bind(C, name='AxisDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxisDefault
 end function AxisDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function AxisCreateConst( &
    labelSize, &
    unitSize &
 ) &
-      bind(C, name='AxisCreateConst') &
-      result(handle)
+      bind(C, name='AxisCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -47,7 +44,7 @@ function AxisCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxisCreateConst
 end function AxisCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function AxisCreate( &
    labelSize, &
    unitSize &
 ) &
-      bind(C, name='AxisCreate') &
-      result(handle)
+      bind(C, name='AxisCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: index
@@ -67,7 +63,7 @@ function AxisCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxisCreate
 end function AxisCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine AxisDelete
 
 !! Read from file
 function AxisRead(handle, filename, filenameSize) &
-      bind(C, name='AxisRead') &
-      result(success)
+      bind(C, name='AxisRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AxisRead
 end function AxisRead
 
 !! Write to file
 function AxisWrite(handle, filename, filenameSize) &
-      bind(C, name='AxisWrite') &
-      result(success)
+      bind(C, name='AxisWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AxisWrite
 end function AxisWrite
 
 !! Print to standard output, in our prettyprinting format
 function AxisPrint(handle) &
-      bind(C, name='AxisPrint') &
-      result(success)
+      bind(C, name='AxisPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AxisPrint
 end function AxisPrint
 
 !! Print to standard output, as XML
 function AxisPrintXML(handle) &
-      bind(C, name='AxisPrintXML') &
-      result(success)
+      bind(C, name='AxisPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AxisPrintXML
 end function AxisPrintXML
 
 !! Print to standard output, as JSON
 function AxisPrintJSON(handle) &
-      bind(C, name='AxisPrintJSON') &
-      result(success)
+      bind(C, name='AxisPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AxisPrintJSON
 end function AxisPrintJSON
 
 
@@ -154,22 +145,20 @@ end function AxisPrintJSON
 
 !! Has
 function AxisIndexHas(handle) &
-      bind(C, name='AxisIndexHas') &
-      result(has)
+      bind(C, name='AxisIndexHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AxisIndexHas
 end function AxisIndexHas
 
 !! Get
 function AxisIndexGet(handle) &
-      bind(C, name='AxisIndexGet') &
-      result(index)
+      bind(C, name='AxisIndexGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: index
+   integer(c_int) :: AxisIndexGet
 end function AxisIndexGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine AxisIndexSet
 
 !! Has
 function AxisLabelHas(handle) &
-      bind(C, name='AxisLabelHas') &
-      result(has)
+      bind(C, name='AxisLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AxisLabelHas
 end function AxisLabelHas
 
 !! Get
 function AxisLabelGet(handle) &
-      bind(C, name='AxisLabelGet') &
-      result(label)
+      bind(C, name='AxisLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: AxisLabelGet
 end function AxisLabelGet
 
 !! Set
@@ -224,22 +211,20 @@ end subroutine AxisLabelSet
 
 !! Has
 function AxisUnitHas(handle) &
-      bind(C, name='AxisUnitHas') &
-      result(has)
+      bind(C, name='AxisUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AxisUnitHas
 end function AxisUnitHas
 
 !! Get
 function AxisUnitGet(handle) &
-      bind(C, name='AxisUnitGet') &
-      result(unit)
+      bind(C, name='AxisUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: AxisUnitGet
 end function AxisUnitGet
 
 !! Set

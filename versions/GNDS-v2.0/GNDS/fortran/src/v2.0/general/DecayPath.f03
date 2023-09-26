@@ -14,46 +14,42 @@ interface
 
 !! Create, default, const
 function DecayPathDefaultConst() &
-      bind(C, name='DecayPathDefaultConst') &
-      result(handle)
+      bind(C, name='DecayPathDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayPathDefaultConst
 end function DecayPathDefaultConst
 
 !! Create, default
 function DecayPathDefault() &
-      bind(C, name='DecayPathDefault') &
-      result(handle)
+      bind(C, name='DecayPathDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayPathDefault
 end function DecayPathDefault
 
 !! Create, general, const
 function DecayPathCreateConst( &
    decay, decaySize &
 ) &
-      bind(C, name='DecayPathCreateConst') &
-      result(handle)
+      bind(C, name='DecayPathCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: decaySize
    type(c_ptr) :: decay(decaySize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayPathCreateConst
 end function DecayPathCreateConst
 
 !! Create, general
 function DecayPathCreate( &
    decay, decaySize &
 ) &
-      bind(C, name='DecayPathCreate') &
-      result(handle)
+      bind(C, name='DecayPathCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: decaySize
    type(c_ptr) :: decay(decaySize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DecayPathCreate
 end function DecayPathCreate
 
 !! Assign
@@ -81,56 +77,51 @@ end subroutine DecayPathDelete
 
 !! Read from file
 function DecayPathRead(handle, filename, filenameSize) &
-      bind(C, name='DecayPathRead') &
-      result(success)
+      bind(C, name='DecayPathRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DecayPathRead
 end function DecayPathRead
 
 !! Write to file
 function DecayPathWrite(handle, filename, filenameSize) &
-      bind(C, name='DecayPathWrite') &
-      result(success)
+      bind(C, name='DecayPathWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DecayPathWrite
 end function DecayPathWrite
 
 !! Print to standard output, in our prettyprinting format
 function DecayPathPrint(handle) &
-      bind(C, name='DecayPathPrint') &
-      result(success)
+      bind(C, name='DecayPathPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayPathPrint
 end function DecayPathPrint
 
 !! Print to standard output, as XML
 function DecayPathPrintXML(handle) &
-      bind(C, name='DecayPathPrintXML') &
-      result(success)
+      bind(C, name='DecayPathPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayPathPrintXML
 end function DecayPathPrintXML
 
 !! Print to standard output, as JSON
 function DecayPathPrintJSON(handle) &
-      bind(C, name='DecayPathPrintJSON') &
-      result(success)
+      bind(C, name='DecayPathPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DecayPathPrintJSON
 end function DecayPathPrintJSON
 
 
@@ -140,12 +131,11 @@ end function DecayPathPrintJSON
 
 !! Has
 function DecayPathDecayHas(handle) &
-      bind(C, name='DecayPathDecayHas') &
-      result(has)
+      bind(C, name='DecayPathDecayHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DecayPathDecayHas
 end function DecayPathDecayHas
 
 !! Clear
@@ -158,12 +148,11 @@ end subroutine DecayPathDecayClear
 
 !! Size
 function DecayPathDecaySize(handle) &
-      bind(C, name='DecayPathDecaySize') &
-      result(vectorSize)
+      bind(C, name='DecayPathDecaySize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: DecayPathDecaySize
 end function DecayPathDecaySize
 
 !! Add
@@ -177,24 +166,22 @@ end subroutine DecayPathDecayAdd
 
 !! Get, by index \in [0,size), const
 function DecayPathDecayGetConst(handle, index) &
-      bind(C, name='DecayPathDecayGetConst') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetConst
 end function DecayPathDecayGetConst
 
 !! Get, by index \in [0,size)
 function DecayPathDecayGet(handle, index) &
-      bind(C, name='DecayPathDecayGet') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGet
 end function DecayPathDecayGet
 
 !! Set, by index \in [0,size)
@@ -213,35 +200,32 @@ end subroutine DecayPathDecaySet
 
 !! Has, by index
 function DecayPathDecayHasByIndex(handle, meta) &
-      bind(C, name='DecayPathDecayHasByIndex') &
-      result(has)
+      bind(C, name='DecayPathDecayHasByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: DecayPathDecayHasByIndex
 end function DecayPathDecayHasByIndex
 
 !! Get, by index, const
 function DecayPathDecayGetByIndexConst(handle, meta) &
-      bind(C, name='DecayPathDecayGetByIndexConst') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetByIndexConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetByIndexConst
 end function DecayPathDecayGetByIndexConst
 
 !! Get, by index
 function DecayPathDecayGetByIndex(handle, meta) &
-      bind(C, name='DecayPathDecayGetByIndex') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetByIndex
 end function DecayPathDecayGetByIndex
 
 !! Set, by index
@@ -260,38 +244,35 @@ end subroutine DecayPathDecaySetByIndex
 
 !! Has, by mode
 function DecayPathDecayHasByMode(handle, meta, metaSize) &
-      bind(C, name='DecayPathDecayHasByMode') &
-      result(has)
+      bind(C, name='DecayPathDecayHasByMode')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: DecayPathDecayHasByMode
 end function DecayPathDecayHasByMode
 
 !! Get, by mode, const
 function DecayPathDecayGetByModeConst(handle, meta, metaSize) &
-      bind(C, name='DecayPathDecayGetByModeConst') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetByModeConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetByModeConst
 end function DecayPathDecayGetByModeConst
 
 !! Get, by mode
 function DecayPathDecayGetByMode(handle, meta, metaSize) &
-      bind(C, name='DecayPathDecayGetByMode') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetByMode')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetByMode
 end function DecayPathDecayGetByMode
 
 !! Set, by mode
@@ -311,35 +292,32 @@ end subroutine DecayPathDecaySetByMode
 
 !! Has, by complete
 function DecayPathDecayHasByComplete(handle, meta) &
-      bind(C, name='DecayPathDecayHasByComplete') &
-      result(has)
+      bind(C, name='DecayPathDecayHasByComplete')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: DecayPathDecayHasByComplete
 end function DecayPathDecayHasByComplete
 
 !! Get, by complete, const
 function DecayPathDecayGetByCompleteConst(handle, meta) &
-      bind(C, name='DecayPathDecayGetByCompleteConst') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetByCompleteConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetByCompleteConst
 end function DecayPathDecayGetByCompleteConst
 
 !! Get, by complete
 function DecayPathDecayGetByComplete(handle, meta) &
-      bind(C, name='DecayPathDecayGetByComplete') &
-      result(resultHandle)
+      bind(C, name='DecayPathDecayGetByComplete')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    logical(c_bool), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DecayPathDecayGetByComplete
 end function DecayPathDecayGetByComplete
 
 !! Set, by complete

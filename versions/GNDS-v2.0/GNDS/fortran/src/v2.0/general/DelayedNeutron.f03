@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DelayedNeutronDefaultConst() &
-      bind(C, name='DelayedNeutronDefaultConst') &
-      result(handle)
+      bind(C, name='DelayedNeutronDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedNeutronDefaultConst
 end function DelayedNeutronDefaultConst
 
 !! Create, default
 function DelayedNeutronDefault() &
-      bind(C, name='DelayedNeutronDefault') &
-      result(handle)
+      bind(C, name='DelayedNeutronDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedNeutronDefault
 end function DelayedNeutronDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function DelayedNeutronCreateConst( &
    product, &
    labelSize &
 ) &
-      bind(C, name='DelayedNeutronCreateConst') &
-      result(handle)
+      bind(C, name='DelayedNeutronCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: rate
    type(c_ptr), value :: product
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedNeutronCreateConst
 end function DelayedNeutronCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function DelayedNeutronCreate( &
    product, &
    labelSize &
 ) &
-      bind(C, name='DelayedNeutronCreate') &
-      result(handle)
+      bind(C, name='DelayedNeutronCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: rate
    type(c_ptr), value :: product
-   type(c_ptr) :: handle
+   type(c_ptr) :: DelayedNeutronCreate
 end function DelayedNeutronCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine DelayedNeutronDelete
 
 !! Read from file
 function DelayedNeutronRead(handle, filename, filenameSize) &
-      bind(C, name='DelayedNeutronRead') &
-      result(success)
+      bind(C, name='DelayedNeutronRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DelayedNeutronRead
 end function DelayedNeutronRead
 
 !! Write to file
 function DelayedNeutronWrite(handle, filename, filenameSize) &
-      bind(C, name='DelayedNeutronWrite') &
-      result(success)
+      bind(C, name='DelayedNeutronWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DelayedNeutronWrite
 end function DelayedNeutronWrite
 
 !! Print to standard output, in our prettyprinting format
 function DelayedNeutronPrint(handle) &
-      bind(C, name='DelayedNeutronPrint') &
-      result(success)
+      bind(C, name='DelayedNeutronPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedNeutronPrint
 end function DelayedNeutronPrint
 
 !! Print to standard output, as XML
 function DelayedNeutronPrintXML(handle) &
-      bind(C, name='DelayedNeutronPrintXML') &
-      result(success)
+      bind(C, name='DelayedNeutronPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedNeutronPrintXML
 end function DelayedNeutronPrintXML
 
 !! Print to standard output, as JSON
 function DelayedNeutronPrintJSON(handle) &
-      bind(C, name='DelayedNeutronPrintJSON') &
-      result(success)
+      bind(C, name='DelayedNeutronPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DelayedNeutronPrintJSON
 end function DelayedNeutronPrintJSON
 
 
@@ -150,22 +141,20 @@ end function DelayedNeutronPrintJSON
 
 !! Has
 function DelayedNeutronLabelHas(handle) &
-      bind(C, name='DelayedNeutronLabelHas') &
-      result(has)
+      bind(C, name='DelayedNeutronLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DelayedNeutronLabelHas
 end function DelayedNeutronLabelHas
 
 !! Get
 function DelayedNeutronLabelGet(handle) &
-      bind(C, name='DelayedNeutronLabelGet') &
-      result(label)
+      bind(C, name='DelayedNeutronLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: DelayedNeutronLabelGet
 end function DelayedNeutronLabelGet
 
 !! Set
@@ -185,32 +174,29 @@ end subroutine DelayedNeutronLabelSet
 
 !! Has
 function DelayedNeutronRateHas(handle) &
-      bind(C, name='DelayedNeutronRateHas') &
-      result(has)
+      bind(C, name='DelayedNeutronRateHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DelayedNeutronRateHas
 end function DelayedNeutronRateHas
 
 !! Get, const
 function DelayedNeutronRateGetConst(handle) &
-      bind(C, name='DelayedNeutronRateGetConst') &
-      result(resultHandle)
+      bind(C, name='DelayedNeutronRateGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedNeutronRateGetConst
 end function DelayedNeutronRateGetConst
 
 !! Get
 function DelayedNeutronRateGet(handle) &
-      bind(C, name='DelayedNeutronRateGet') &
-      result(resultHandle)
+      bind(C, name='DelayedNeutronRateGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedNeutronRateGet
 end function DelayedNeutronRateGet
 
 !! Set
@@ -229,32 +215,29 @@ end subroutine DelayedNeutronRateSet
 
 !! Has
 function DelayedNeutronProductHas(handle) &
-      bind(C, name='DelayedNeutronProductHas') &
-      result(has)
+      bind(C, name='DelayedNeutronProductHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DelayedNeutronProductHas
 end function DelayedNeutronProductHas
 
 !! Get, const
 function DelayedNeutronProductGetConst(handle) &
-      bind(C, name='DelayedNeutronProductGetConst') &
-      result(resultHandle)
+      bind(C, name='DelayedNeutronProductGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedNeutronProductGetConst
 end function DelayedNeutronProductGetConst
 
 !! Get
 function DelayedNeutronProductGet(handle) &
-      bind(C, name='DelayedNeutronProductGet') &
-      result(resultHandle)
+      bind(C, name='DelayedNeutronProductGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DelayedNeutronProductGet
 end function DelayedNeutronProductGet
 
 !! Set

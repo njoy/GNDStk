@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function BackgroundDefaultConst() &
-      bind(C, name='BackgroundDefaultConst') &
-      result(handle)
+      bind(C, name='BackgroundDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BackgroundDefaultConst
 end function BackgroundDefaultConst
 
 !! Create, default
 function BackgroundDefault() &
-      bind(C, name='BackgroundDefault') &
-      result(handle)
+      bind(C, name='BackgroundDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BackgroundDefault
 end function BackgroundDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function BackgroundCreateConst( &
    fastRegion, &
    unresolvedRegion &
 ) &
-      bind(C, name='BackgroundCreateConst') &
-      result(handle)
+      bind(C, name='BackgroundCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: resolvedRegion
    type(c_ptr), value :: fastRegion
    type(c_ptr), value :: unresolvedRegion
-   type(c_ptr) :: handle
+   type(c_ptr) :: BackgroundCreateConst
 end function BackgroundCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function BackgroundCreate( &
    fastRegion, &
    unresolvedRegion &
 ) &
-      bind(C, name='BackgroundCreate') &
-      result(handle)
+      bind(C, name='BackgroundCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: resolvedRegion
    type(c_ptr), value :: fastRegion
    type(c_ptr), value :: unresolvedRegion
-   type(c_ptr) :: handle
+   type(c_ptr) :: BackgroundCreate
 end function BackgroundCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine BackgroundDelete
 
 !! Read from file
 function BackgroundRead(handle, filename, filenameSize) &
-      bind(C, name='BackgroundRead') &
-      result(success)
+      bind(C, name='BackgroundRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BackgroundRead
 end function BackgroundRead
 
 !! Write to file
 function BackgroundWrite(handle, filename, filenameSize) &
-      bind(C, name='BackgroundWrite') &
-      result(success)
+      bind(C, name='BackgroundWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BackgroundWrite
 end function BackgroundWrite
 
 !! Print to standard output, in our prettyprinting format
 function BackgroundPrint(handle) &
-      bind(C, name='BackgroundPrint') &
-      result(success)
+      bind(C, name='BackgroundPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BackgroundPrint
 end function BackgroundPrint
 
 !! Print to standard output, as XML
 function BackgroundPrintXML(handle) &
-      bind(C, name='BackgroundPrintXML') &
-      result(success)
+      bind(C, name='BackgroundPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BackgroundPrintXML
 end function BackgroundPrintXML
 
 !! Print to standard output, as JSON
 function BackgroundPrintJSON(handle) &
-      bind(C, name='BackgroundPrintJSON') &
-      result(success)
+      bind(C, name='BackgroundPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BackgroundPrintJSON
 end function BackgroundPrintJSON
 
 
@@ -146,32 +137,29 @@ end function BackgroundPrintJSON
 
 !! Has
 function BackgroundResolvedRegionHas(handle) &
-      bind(C, name='BackgroundResolvedRegionHas') &
-      result(has)
+      bind(C, name='BackgroundResolvedRegionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BackgroundResolvedRegionHas
 end function BackgroundResolvedRegionHas
 
 !! Get, const
 function BackgroundResolvedRegionGetConst(handle) &
-      bind(C, name='BackgroundResolvedRegionGetConst') &
-      result(resultHandle)
+      bind(C, name='BackgroundResolvedRegionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BackgroundResolvedRegionGetConst
 end function BackgroundResolvedRegionGetConst
 
 !! Get
 function BackgroundResolvedRegionGet(handle) &
-      bind(C, name='BackgroundResolvedRegionGet') &
-      result(resultHandle)
+      bind(C, name='BackgroundResolvedRegionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BackgroundResolvedRegionGet
 end function BackgroundResolvedRegionGet
 
 !! Set
@@ -190,32 +178,29 @@ end subroutine BackgroundResolvedRegionSet
 
 !! Has
 function BackgroundFastRegionHas(handle) &
-      bind(C, name='BackgroundFastRegionHas') &
-      result(has)
+      bind(C, name='BackgroundFastRegionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BackgroundFastRegionHas
 end function BackgroundFastRegionHas
 
 !! Get, const
 function BackgroundFastRegionGetConst(handle) &
-      bind(C, name='BackgroundFastRegionGetConst') &
-      result(resultHandle)
+      bind(C, name='BackgroundFastRegionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BackgroundFastRegionGetConst
 end function BackgroundFastRegionGetConst
 
 !! Get
 function BackgroundFastRegionGet(handle) &
-      bind(C, name='BackgroundFastRegionGet') &
-      result(resultHandle)
+      bind(C, name='BackgroundFastRegionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BackgroundFastRegionGet
 end function BackgroundFastRegionGet
 
 !! Set
@@ -234,32 +219,29 @@ end subroutine BackgroundFastRegionSet
 
 !! Has
 function BackgroundUnresolvedRegionHas(handle) &
-      bind(C, name='BackgroundUnresolvedRegionHas') &
-      result(has)
+      bind(C, name='BackgroundUnresolvedRegionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BackgroundUnresolvedRegionHas
 end function BackgroundUnresolvedRegionHas
 
 !! Get, const
 function BackgroundUnresolvedRegionGetConst(handle) &
-      bind(C, name='BackgroundUnresolvedRegionGetConst') &
-      result(resultHandle)
+      bind(C, name='BackgroundUnresolvedRegionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BackgroundUnresolvedRegionGetConst
 end function BackgroundUnresolvedRegionGetConst
 
 !! Get
 function BackgroundUnresolvedRegionGet(handle) &
-      bind(C, name='BackgroundUnresolvedRegionGet') &
-      result(resultHandle)
+      bind(C, name='BackgroundUnresolvedRegionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BackgroundUnresolvedRegionGet
 end function BackgroundUnresolvedRegionGet
 
 !! Set

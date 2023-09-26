@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function ImaginaryAnomalousFactorDefaultConst() &
-      bind(C, name='ImaginaryAnomalousFactorDefaultConst') &
-      result(handle)
+      bind(C, name='ImaginaryAnomalousFactorDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryAnomalousFactorDefaultConst
 end function ImaginaryAnomalousFactorDefaultConst
 
 !! Create, default
 function ImaginaryAnomalousFactorDefault() &
-      bind(C, name='ImaginaryAnomalousFactorDefault') &
-      result(handle)
+      bind(C, name='ImaginaryAnomalousFactorDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryAnomalousFactorDefault
 end function ImaginaryAnomalousFactorDefault
 
 !! Create, general, const
 function ImaginaryAnomalousFactorCreateConst( &
    XYs1d &
 ) &
-      bind(C, name='ImaginaryAnomalousFactorCreateConst') &
-      result(handle)
+      bind(C, name='ImaginaryAnomalousFactorCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryAnomalousFactorCreateConst
 end function ImaginaryAnomalousFactorCreateConst
 
 !! Create, general
 function ImaginaryAnomalousFactorCreate( &
    XYs1d &
 ) &
-      bind(C, name='ImaginaryAnomalousFactorCreate') &
-      result(handle)
+      bind(C, name='ImaginaryAnomalousFactorCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: XYs1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: ImaginaryAnomalousFactorCreate
 end function ImaginaryAnomalousFactorCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine ImaginaryAnomalousFactorDelete
 
 !! Read from file
 function ImaginaryAnomalousFactorRead(handle, filename, filenameSize) &
-      bind(C, name='ImaginaryAnomalousFactorRead') &
-      result(success)
+      bind(C, name='ImaginaryAnomalousFactorRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryAnomalousFactorRead
 end function ImaginaryAnomalousFactorRead
 
 !! Write to file
 function ImaginaryAnomalousFactorWrite(handle, filename, filenameSize) &
-      bind(C, name='ImaginaryAnomalousFactorWrite') &
-      result(success)
+      bind(C, name='ImaginaryAnomalousFactorWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryAnomalousFactorWrite
 end function ImaginaryAnomalousFactorWrite
 
 !! Print to standard output, in our prettyprinting format
 function ImaginaryAnomalousFactorPrint(handle) &
-      bind(C, name='ImaginaryAnomalousFactorPrint') &
-      result(success)
+      bind(C, name='ImaginaryAnomalousFactorPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryAnomalousFactorPrint
 end function ImaginaryAnomalousFactorPrint
 
 !! Print to standard output, as XML
 function ImaginaryAnomalousFactorPrintXML(handle) &
-      bind(C, name='ImaginaryAnomalousFactorPrintXML') &
-      result(success)
+      bind(C, name='ImaginaryAnomalousFactorPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryAnomalousFactorPrintXML
 end function ImaginaryAnomalousFactorPrintXML
 
 !! Print to standard output, as JSON
 function ImaginaryAnomalousFactorPrintJSON(handle) &
-      bind(C, name='ImaginaryAnomalousFactorPrintJSON') &
-      result(success)
+      bind(C, name='ImaginaryAnomalousFactorPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ImaginaryAnomalousFactorPrintJSON
 end function ImaginaryAnomalousFactorPrintJSON
 
 
@@ -138,32 +129,29 @@ end function ImaginaryAnomalousFactorPrintJSON
 
 !! Has
 function ImaginaryAnomalousFactorXYs1dHas(handle) &
-      bind(C, name='ImaginaryAnomalousFactorXYs1dHas') &
-      result(has)
+      bind(C, name='ImaginaryAnomalousFactorXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ImaginaryAnomalousFactorXYs1dHas
 end function ImaginaryAnomalousFactorXYs1dHas
 
 !! Get, const
 function ImaginaryAnomalousFactorXYs1dGetConst(handle) &
-      bind(C, name='ImaginaryAnomalousFactorXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='ImaginaryAnomalousFactorXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ImaginaryAnomalousFactorXYs1dGetConst
 end function ImaginaryAnomalousFactorXYs1dGetConst
 
 !! Get
 function ImaginaryAnomalousFactorXYs1dGet(handle) &
-      bind(C, name='ImaginaryAnomalousFactorXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='ImaginaryAnomalousFactorXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ImaginaryAnomalousFactorXYs1dGet
 end function ImaginaryAnomalousFactorXYs1dGet
 
 !! Set

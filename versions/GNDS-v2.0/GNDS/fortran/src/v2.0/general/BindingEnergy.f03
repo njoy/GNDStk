@@ -14,44 +14,40 @@ interface
 
 !! Create, default, const
 function BindingEnergyDefaultConst() &
-      bind(C, name='BindingEnergyDefaultConst') &
-      result(handle)
+      bind(C, name='BindingEnergyDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BindingEnergyDefaultConst
 end function BindingEnergyDefaultConst
 
 !! Create, default
 function BindingEnergyDefault() &
-      bind(C, name='BindingEnergyDefault') &
-      result(handle)
+      bind(C, name='BindingEnergyDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: BindingEnergyDefault
 end function BindingEnergyDefault
 
 !! Create, general, const
 function BindingEnergyCreateConst( &
    Double &
 ) &
-      bind(C, name='BindingEnergyCreateConst') &
-      result(handle)
+      bind(C, name='BindingEnergyCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: BindingEnergyCreateConst
 end function BindingEnergyCreateConst
 
 !! Create, general
 function BindingEnergyCreate( &
    Double &
 ) &
-      bind(C, name='BindingEnergyCreate') &
-      result(handle)
+      bind(C, name='BindingEnergyCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: BindingEnergyCreate
 end function BindingEnergyCreate
 
 !! Assign
@@ -79,56 +75,51 @@ end subroutine BindingEnergyDelete
 
 !! Read from file
 function BindingEnergyRead(handle, filename, filenameSize) &
-      bind(C, name='BindingEnergyRead') &
-      result(success)
+      bind(C, name='BindingEnergyRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BindingEnergyRead
 end function BindingEnergyRead
 
 !! Write to file
 function BindingEnergyWrite(handle, filename, filenameSize) &
-      bind(C, name='BindingEnergyWrite') &
-      result(success)
+      bind(C, name='BindingEnergyWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: BindingEnergyWrite
 end function BindingEnergyWrite
 
 !! Print to standard output, in our prettyprinting format
 function BindingEnergyPrint(handle) &
-      bind(C, name='BindingEnergyPrint') &
-      result(success)
+      bind(C, name='BindingEnergyPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BindingEnergyPrint
 end function BindingEnergyPrint
 
 !! Print to standard output, as XML
 function BindingEnergyPrintXML(handle) &
-      bind(C, name='BindingEnergyPrintXML') &
-      result(success)
+      bind(C, name='BindingEnergyPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BindingEnergyPrintXML
 end function BindingEnergyPrintXML
 
 !! Print to standard output, as JSON
 function BindingEnergyPrintJSON(handle) &
-      bind(C, name='BindingEnergyPrintJSON') &
-      result(success)
+      bind(C, name='BindingEnergyPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: BindingEnergyPrintJSON
 end function BindingEnergyPrintJSON
 
 
@@ -138,32 +129,29 @@ end function BindingEnergyPrintJSON
 
 !! Has
 function BindingEnergyDoubleHas(handle) &
-      bind(C, name='BindingEnergyDoubleHas') &
-      result(has)
+      bind(C, name='BindingEnergyDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: BindingEnergyDoubleHas
 end function BindingEnergyDoubleHas
 
 !! Get, const
 function BindingEnergyDoubleGetConst(handle) &
-      bind(C, name='BindingEnergyDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='BindingEnergyDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BindingEnergyDoubleGetConst
 end function BindingEnergyDoubleGetConst
 
 !! Get
 function BindingEnergyDoubleGet(handle) &
-      bind(C, name='BindingEnergyDoubleGet') &
-      result(resultHandle)
+      bind(C, name='BindingEnergyDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: BindingEnergyDoubleGet
 end function BindingEnergyDoubleGet
 
 !! Set

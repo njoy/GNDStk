@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function FractionDefaultConst() &
-      bind(C, name='FractionDefaultConst') &
-      result(handle)
+      bind(C, name='FractionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FractionDefaultConst
 end function FractionDefaultConst
 
 !! Create, default
 function FractionDefault() &
-      bind(C, name='FractionDefault') &
-      result(handle)
+      bind(C, name='FractionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: FractionDefault
 end function FractionDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function FractionCreateConst( &
    valueSize, &
    unitSize &
 ) &
-      bind(C, name='FractionCreateConst') &
-      result(handle)
+      bind(C, name='FractionCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function FractionCreateConst( &
    character(c_char), intent(in) :: value(valueSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: FractionCreateConst
 end function FractionCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function FractionCreate( &
    valueSize, &
    unitSize &
 ) &
-      bind(C, name='FractionCreate') &
-      result(handle)
+      bind(C, name='FractionCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function FractionCreate( &
    character(c_char), intent(in) :: value(valueSize)
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: FractionCreate
 end function FractionCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine FractionDelete
 
 !! Read from file
 function FractionRead(handle, filename, filenameSize) &
-      bind(C, name='FractionRead') &
-      result(success)
+      bind(C, name='FractionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FractionRead
 end function FractionRead
 
 !! Write to file
 function FractionWrite(handle, filename, filenameSize) &
-      bind(C, name='FractionWrite') &
-      result(success)
+      bind(C, name='FractionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: FractionWrite
 end function FractionWrite
 
 !! Print to standard output, in our prettyprinting format
 function FractionPrint(handle) &
-      bind(C, name='FractionPrint') &
-      result(success)
+      bind(C, name='FractionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FractionPrint
 end function FractionPrint
 
 !! Print to standard output, as XML
 function FractionPrintXML(handle) &
-      bind(C, name='FractionPrintXML') &
-      result(success)
+      bind(C, name='FractionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FractionPrintXML
 end function FractionPrintXML
 
 !! Print to standard output, as JSON
 function FractionPrintJSON(handle) &
-      bind(C, name='FractionPrintJSON') &
-      result(success)
+      bind(C, name='FractionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: FractionPrintJSON
 end function FractionPrintJSON
 
 
@@ -158,22 +149,20 @@ end function FractionPrintJSON
 
 !! Has
 function FractionLabelHas(handle) &
-      bind(C, name='FractionLabelHas') &
-      result(has)
+      bind(C, name='FractionLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FractionLabelHas
 end function FractionLabelHas
 
 !! Get
 function FractionLabelGet(handle) &
-      bind(C, name='FractionLabelGet') &
-      result(label)
+      bind(C, name='FractionLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: FractionLabelGet
 end function FractionLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine FractionLabelSet
 
 !! Has
 function FractionValueHas(handle) &
-      bind(C, name='FractionValueHas') &
-      result(has)
+      bind(C, name='FractionValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FractionValueHas
 end function FractionValueHas
 
 !! Get
 function FractionValueGet(handle) &
-      bind(C, name='FractionValueGet') &
-      result(value)
+      bind(C, name='FractionValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: value
+   type(c_ptr) :: FractionValueGet
 end function FractionValueGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine FractionValueSet
 
 !! Has
 function FractionUnitHas(handle) &
-      bind(C, name='FractionUnitHas') &
-      result(has)
+      bind(C, name='FractionUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: FractionUnitHas
 end function FractionUnitHas
 
 !! Get
 function FractionUnitGet(handle) &
-      bind(C, name='FractionUnitGet') &
-      result(unit)
+      bind(C, name='FractionUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: FractionUnitGet
 end function FractionUnitGet
 
 !! Set

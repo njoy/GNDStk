@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function Regions1dDefaultConst() &
-      bind(C, name='Regions1dDefaultConst') &
-      result(handle)
+      bind(C, name='Regions1dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions1dDefaultConst
 end function Regions1dDefaultConst
 
 !! Create, default
 function Regions1dDefault() &
-      bind(C, name='Regions1dDefault') &
-      result(handle)
+      bind(C, name='Regions1dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions1dDefault
 end function Regions1dDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function Regions1dCreateConst( &
    function1ds, &
    labelSize &
 ) &
-      bind(C, name='Regions1dCreateConst') &
-      result(handle)
+      bind(C, name='Regions1dCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -49,7 +46,7 @@ function Regions1dCreateConst( &
    type(c_ptr), value :: axes
    type(c_ptr), value :: uncertainty
    type(c_ptr), value :: function1ds
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions1dCreateConst
 end function Regions1dCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function Regions1dCreate( &
    function1ds, &
    labelSize &
 ) &
-      bind(C, name='Regions1dCreate') &
-      result(handle)
+      bind(C, name='Regions1dCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -71,7 +67,7 @@ function Regions1dCreate( &
    type(c_ptr), value :: axes
    type(c_ptr), value :: uncertainty
    type(c_ptr), value :: function1ds
-   type(c_ptr) :: handle
+   type(c_ptr) :: Regions1dCreate
 end function Regions1dCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine Regions1dDelete
 
 !! Read from file
 function Regions1dRead(handle, filename, filenameSize) &
-      bind(C, name='Regions1dRead') &
-      result(success)
+      bind(C, name='Regions1dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Regions1dRead
 end function Regions1dRead
 
 !! Write to file
 function Regions1dWrite(handle, filename, filenameSize) &
-      bind(C, name='Regions1dWrite') &
-      result(success)
+      bind(C, name='Regions1dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Regions1dWrite
 end function Regions1dWrite
 
 !! Print to standard output, in our prettyprinting format
 function Regions1dPrint(handle) &
-      bind(C, name='Regions1dPrint') &
-      result(success)
+      bind(C, name='Regions1dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Regions1dPrint
 end function Regions1dPrint
 
 !! Print to standard output, as XML
 function Regions1dPrintXML(handle) &
-      bind(C, name='Regions1dPrintXML') &
-      result(success)
+      bind(C, name='Regions1dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Regions1dPrintXML
 end function Regions1dPrintXML
 
 !! Print to standard output, as JSON
 function Regions1dPrintJSON(handle) &
-      bind(C, name='Regions1dPrintJSON') &
-      result(success)
+      bind(C, name='Regions1dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Regions1dPrintJSON
 end function Regions1dPrintJSON
 
 
@@ -158,22 +149,20 @@ end function Regions1dPrintJSON
 
 !! Has
 function Regions1dLabelHas(handle) &
-      bind(C, name='Regions1dLabelHas') &
-      result(has)
+      bind(C, name='Regions1dLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions1dLabelHas
 end function Regions1dLabelHas
 
 !! Get
 function Regions1dLabelGet(handle) &
-      bind(C, name='Regions1dLabelGet') &
-      result(label)
+      bind(C, name='Regions1dLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: Regions1dLabelGet
 end function Regions1dLabelGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine Regions1dLabelSet
 
 !! Has
 function Regions1dOuterDomainValueHas(handle) &
-      bind(C, name='Regions1dOuterDomainValueHas') &
-      result(has)
+      bind(C, name='Regions1dOuterDomainValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions1dOuterDomainValueHas
 end function Regions1dOuterDomainValueHas
 
 !! Get
 function Regions1dOuterDomainValueGet(handle) &
-      bind(C, name='Regions1dOuterDomainValueGet') &
-      result(outerDomainValue)
+      bind(C, name='Regions1dOuterDomainValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: outerDomainValue
+   real(c_double) :: Regions1dOuterDomainValueGet
 end function Regions1dOuterDomainValueGet
 
 !! Set
@@ -228,32 +215,29 @@ end subroutine Regions1dOuterDomainValueSet
 
 !! Has
 function Regions1dAxesHas(handle) &
-      bind(C, name='Regions1dAxesHas') &
-      result(has)
+      bind(C, name='Regions1dAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions1dAxesHas
 end function Regions1dAxesHas
 
 !! Get, const
 function Regions1dAxesGetConst(handle) &
-      bind(C, name='Regions1dAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='Regions1dAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions1dAxesGetConst
 end function Regions1dAxesGetConst
 
 !! Get
 function Regions1dAxesGet(handle) &
-      bind(C, name='Regions1dAxesGet') &
-      result(resultHandle)
+      bind(C, name='Regions1dAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions1dAxesGet
 end function Regions1dAxesGet
 
 !! Set
@@ -272,32 +256,29 @@ end subroutine Regions1dAxesSet
 
 !! Has
 function Regions1dUncertaintyHas(handle) &
-      bind(C, name='Regions1dUncertaintyHas') &
-      result(has)
+      bind(C, name='Regions1dUncertaintyHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions1dUncertaintyHas
 end function Regions1dUncertaintyHas
 
 !! Get, const
 function Regions1dUncertaintyGetConst(handle) &
-      bind(C, name='Regions1dUncertaintyGetConst') &
-      result(resultHandle)
+      bind(C, name='Regions1dUncertaintyGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions1dUncertaintyGetConst
 end function Regions1dUncertaintyGetConst
 
 !! Get
 function Regions1dUncertaintyGet(handle) &
-      bind(C, name='Regions1dUncertaintyGet') &
-      result(resultHandle)
+      bind(C, name='Regions1dUncertaintyGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions1dUncertaintyGet
 end function Regions1dUncertaintyGet
 
 !! Set
@@ -316,32 +297,29 @@ end subroutine Regions1dUncertaintySet
 
 !! Has
 function Regions1dFunction1dsHas(handle) &
-      bind(C, name='Regions1dFunction1dsHas') &
-      result(has)
+      bind(C, name='Regions1dFunction1dsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Regions1dFunction1dsHas
 end function Regions1dFunction1dsHas
 
 !! Get, const
 function Regions1dFunction1dsGetConst(handle) &
-      bind(C, name='Regions1dFunction1dsGetConst') &
-      result(resultHandle)
+      bind(C, name='Regions1dFunction1dsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions1dFunction1dsGetConst
 end function Regions1dFunction1dsGetConst
 
 !! Get
 function Regions1dFunction1dsGet(handle) &
-      bind(C, name='Regions1dFunction1dsGet') &
-      result(resultHandle)
+      bind(C, name='Regions1dFunction1dsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: Regions1dFunction1dsGet
 end function Regions1dFunction1dsGet
 
 !! Set

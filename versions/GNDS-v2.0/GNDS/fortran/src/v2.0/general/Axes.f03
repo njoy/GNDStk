@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function AxesDefaultConst() &
-      bind(C, name='AxesDefaultConst') &
-      result(handle)
+      bind(C, name='AxesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxesDefaultConst
 end function AxesDefaultConst
 
 !! Create, default
 function AxesDefault() &
-      bind(C, name='AxesDefault') &
-      result(handle)
+      bind(C, name='AxesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxesDefault
 end function AxesDefault
 
 !! Create, general, const
@@ -35,15 +33,14 @@ function AxesCreateConst( &
    axis, axisSize, &
    grid, gridSize &
 ) &
-      bind(C, name='AxesCreateConst') &
-      result(handle)
+      bind(C, name='AxesCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: axisSize
    type(c_ptr) :: axis(axisSize)
    integer(c_size_t), value :: gridSize
    type(c_ptr) :: grid(gridSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxesCreateConst
 end function AxesCreateConst
 
 !! Create, general
@@ -51,15 +48,14 @@ function AxesCreate( &
    axis, axisSize, &
    grid, gridSize &
 ) &
-      bind(C, name='AxesCreate') &
-      result(handle)
+      bind(C, name='AxesCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), value :: axisSize
    type(c_ptr) :: axis(axisSize)
    integer(c_size_t), value :: gridSize
    type(c_ptr) :: grid(gridSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: AxesCreate
 end function AxesCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine AxesDelete
 
 !! Read from file
 function AxesRead(handle, filename, filenameSize) &
-      bind(C, name='AxesRead') &
-      result(success)
+      bind(C, name='AxesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AxesRead
 end function AxesRead
 
 !! Write to file
 function AxesWrite(handle, filename, filenameSize) &
-      bind(C, name='AxesWrite') &
-      result(success)
+      bind(C, name='AxesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: AxesWrite
 end function AxesWrite
 
 !! Print to standard output, in our prettyprinting format
 function AxesPrint(handle) &
-      bind(C, name='AxesPrint') &
-      result(success)
+      bind(C, name='AxesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AxesPrint
 end function AxesPrint
 
 !! Print to standard output, as XML
 function AxesPrintXML(handle) &
-      bind(C, name='AxesPrintXML') &
-      result(success)
+      bind(C, name='AxesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AxesPrintXML
 end function AxesPrintXML
 
 !! Print to standard output, as JSON
 function AxesPrintJSON(handle) &
-      bind(C, name='AxesPrintJSON') &
-      result(success)
+      bind(C, name='AxesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: AxesPrintJSON
 end function AxesPrintJSON
 
 
@@ -146,12 +137,11 @@ end function AxesPrintJSON
 
 !! Has
 function AxesAxisHas(handle) &
-      bind(C, name='AxesAxisHas') &
-      result(has)
+      bind(C, name='AxesAxisHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AxesAxisHas
 end function AxesAxisHas
 
 !! Clear
@@ -164,12 +154,11 @@ end subroutine AxesAxisClear
 
 !! Size
 function AxesAxisSize(handle) &
-      bind(C, name='AxesAxisSize') &
-      result(vectorSize)
+      bind(C, name='AxesAxisSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: AxesAxisSize
 end function AxesAxisSize
 
 !! Add
@@ -183,24 +172,22 @@ end subroutine AxesAxisAdd
 
 !! Get, by index \in [0,size), const
 function AxesAxisGetConst(handle, index) &
-      bind(C, name='AxesAxisGetConst') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetConst
 end function AxesAxisGetConst
 
 !! Get, by index \in [0,size)
 function AxesAxisGet(handle, index) &
-      bind(C, name='AxesAxisGet') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGet
 end function AxesAxisGet
 
 !! Set, by index \in [0,size)
@@ -219,35 +206,32 @@ end subroutine AxesAxisSet
 
 !! Has, by index
 function AxesAxisHasByIndex(handle, meta) &
-      bind(C, name='AxesAxisHasByIndex') &
-      result(has)
+      bind(C, name='AxesAxisHasByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: AxesAxisHasByIndex
 end function AxesAxisHasByIndex
 
 !! Get, by index, const
 function AxesAxisGetByIndexConst(handle, meta) &
-      bind(C, name='AxesAxisGetByIndexConst') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetByIndexConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetByIndexConst
 end function AxesAxisGetByIndexConst
 
 !! Get, by index
 function AxesAxisGetByIndex(handle, meta) &
-      bind(C, name='AxesAxisGetByIndex') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetByIndex
 end function AxesAxisGetByIndex
 
 !! Set, by index
@@ -266,38 +250,35 @@ end subroutine AxesAxisSetByIndex
 
 !! Has, by label
 function AxesAxisHasByLabel(handle, meta, metaSize) &
-      bind(C, name='AxesAxisHasByLabel') &
-      result(has)
+      bind(C, name='AxesAxisHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AxesAxisHasByLabel
 end function AxesAxisHasByLabel
 
 !! Get, by label, const
 function AxesAxisGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='AxesAxisGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetByLabelConst
 end function AxesAxisGetByLabelConst
 
 !! Get, by label
 function AxesAxisGetByLabel(handle, meta, metaSize) &
-      bind(C, name='AxesAxisGetByLabel') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetByLabel
 end function AxesAxisGetByLabel
 
 !! Set, by label
@@ -317,38 +298,35 @@ end subroutine AxesAxisSetByLabel
 
 !! Has, by unit
 function AxesAxisHasByUnit(handle, meta, metaSize) &
-      bind(C, name='AxesAxisHasByUnit') &
-      result(has)
+      bind(C, name='AxesAxisHasByUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AxesAxisHasByUnit
 end function AxesAxisHasByUnit
 
 !! Get, by unit, const
 function AxesAxisGetByUnitConst(handle, meta, metaSize) &
-      bind(C, name='AxesAxisGetByUnitConst') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetByUnitConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetByUnitConst
 end function AxesAxisGetByUnitConst
 
 !! Get, by unit
 function AxesAxisGetByUnit(handle, meta, metaSize) &
-      bind(C, name='AxesAxisGetByUnit') &
-      result(resultHandle)
+      bind(C, name='AxesAxisGetByUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesAxisGetByUnit
 end function AxesAxisGetByUnit
 
 !! Set, by unit
@@ -369,12 +347,11 @@ end subroutine AxesAxisSetByUnit
 
 !! Has
 function AxesGridHas(handle) &
-      bind(C, name='AxesGridHas') &
-      result(has)
+      bind(C, name='AxesGridHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: AxesGridHas
 end function AxesGridHas
 
 !! Clear
@@ -387,12 +364,11 @@ end subroutine AxesGridClear
 
 !! Size
 function AxesGridSize(handle) &
-      bind(C, name='AxesGridSize') &
-      result(vectorSize)
+      bind(C, name='AxesGridSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: AxesGridSize
 end function AxesGridSize
 
 !! Add
@@ -406,24 +382,22 @@ end subroutine AxesGridAdd
 
 !! Get, by index \in [0,size), const
 function AxesGridGetConst(handle, index) &
-      bind(C, name='AxesGridGetConst') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetConst
 end function AxesGridGetConst
 
 !! Get, by index \in [0,size)
 function AxesGridGet(handle, index) &
-      bind(C, name='AxesGridGet') &
-      result(resultHandle)
+      bind(C, name='AxesGridGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGet
 end function AxesGridGet
 
 !! Set, by index \in [0,size)
@@ -442,35 +416,32 @@ end subroutine AxesGridSet
 
 !! Has, by index
 function AxesGridHasByIndex(handle, meta) &
-      bind(C, name='AxesGridHasByIndex') &
-      result(has)
+      bind(C, name='AxesGridHasByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   integer(c_int) :: has
+   integer(c_int) :: AxesGridHasByIndex
 end function AxesGridHasByIndex
 
 !! Get, by index, const
 function AxesGridGetByIndexConst(handle, meta) &
-      bind(C, name='AxesGridGetByIndexConst') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByIndexConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByIndexConst
 end function AxesGridGetByIndexConst
 
 !! Get, by index
 function AxesGridGetByIndex(handle, meta) &
-      bind(C, name='AxesGridGetByIndex') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByIndex')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_int), value, intent(in) :: meta
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByIndex
 end function AxesGridGetByIndex
 
 !! Set, by index
@@ -489,38 +460,35 @@ end subroutine AxesGridSetByIndex
 
 !! Has, by label
 function AxesGridHasByLabel(handle, meta, metaSize) &
-      bind(C, name='AxesGridHasByLabel') &
-      result(has)
+      bind(C, name='AxesGridHasByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AxesGridHasByLabel
 end function AxesGridHasByLabel
 
 !! Get, by label, const
 function AxesGridGetByLabelConst(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByLabelConst') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByLabelConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByLabelConst
 end function AxesGridGetByLabelConst
 
 !! Get, by label
 function AxesGridGetByLabel(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByLabel') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByLabel')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByLabel
 end function AxesGridGetByLabel
 
 !! Set, by label
@@ -540,38 +508,35 @@ end subroutine AxesGridSetByLabel
 
 !! Has, by unit
 function AxesGridHasByUnit(handle, meta, metaSize) &
-      bind(C, name='AxesGridHasByUnit') &
-      result(has)
+      bind(C, name='AxesGridHasByUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AxesGridHasByUnit
 end function AxesGridHasByUnit
 
 !! Get, by unit, const
 function AxesGridGetByUnitConst(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByUnitConst') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByUnitConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByUnitConst
 end function AxesGridGetByUnitConst
 
 !! Get, by unit
 function AxesGridGetByUnit(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByUnit') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByUnit')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByUnit
 end function AxesGridGetByUnit
 
 !! Set, by unit
@@ -591,38 +556,35 @@ end subroutine AxesGridSetByUnit
 
 !! Has, by style
 function AxesGridHasByStyle(handle, meta, metaSize) &
-      bind(C, name='AxesGridHasByStyle') &
-      result(has)
+      bind(C, name='AxesGridHasByStyle')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AxesGridHasByStyle
 end function AxesGridHasByStyle
 
 !! Get, by style, const
 function AxesGridGetByStyleConst(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByStyleConst') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByStyleConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByStyleConst
 end function AxesGridGetByStyleConst
 
 !! Get, by style
 function AxesGridGetByStyle(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByStyle') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByStyle')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByStyle
 end function AxesGridGetByStyle
 
 !! Set, by style
@@ -642,38 +604,35 @@ end subroutine AxesGridSetByStyle
 
 !! Has, by interpolation
 function AxesGridHasByInterpolation(handle, meta, metaSize) &
-      bind(C, name='AxesGridHasByInterpolation') &
-      result(has)
+      bind(C, name='AxesGridHasByInterpolation')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   integer(c_int) :: has
+   integer(c_int) :: AxesGridHasByInterpolation
 end function AxesGridHasByInterpolation
 
 !! Get, by interpolation, const
 function AxesGridGetByInterpolationConst(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByInterpolationConst') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByInterpolationConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByInterpolationConst
 end function AxesGridGetByInterpolationConst
 
 !! Get, by interpolation
 function AxesGridGetByInterpolation(handle, meta, metaSize) &
-      bind(C, name='AxesGridGetByInterpolation') &
-      result(resultHandle)
+      bind(C, name='AxesGridGetByInterpolation')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: AxesGridGetByInterpolation
 end function AxesGridGetByInterpolation
 
 !! Set, by interpolation

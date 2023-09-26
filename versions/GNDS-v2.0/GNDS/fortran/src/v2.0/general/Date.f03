@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DateDefaultConst() &
-      bind(C, name='DateDefaultConst') &
-      result(handle)
+      bind(C, name='DateDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DateDefaultConst
 end function DateDefaultConst
 
 !! Create, default
 function DateDefault() &
-      bind(C, name='DateDefault') &
-      result(handle)
+      bind(C, name='DateDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DateDefault
 end function DateDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function DateCreateConst( &
    valueSize, &
    dateTypeSize &
 ) &
-      bind(C, name='DateCreateConst') &
-      result(handle)
+      bind(C, name='DateCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: valueSize
    character(c_char), intent(in) :: value(valueSize)
    integer(c_size_t), intent(in), value :: dateTypeSize
    character(c_char), intent(in) :: dateType(dateTypeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DateCreateConst
 end function DateCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function DateCreate( &
    valueSize, &
    dateTypeSize &
 ) &
-      bind(C, name='DateCreate') &
-      result(handle)
+      bind(C, name='DateCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: valueSize
    character(c_char), intent(in) :: value(valueSize)
    integer(c_size_t), intent(in), value :: dateTypeSize
    character(c_char), intent(in) :: dateType(dateTypeSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: DateCreate
 end function DateCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine DateDelete
 
 !! Read from file
 function DateRead(handle, filename, filenameSize) &
-      bind(C, name='DateRead') &
-      result(success)
+      bind(C, name='DateRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DateRead
 end function DateRead
 
 !! Write to file
 function DateWrite(handle, filename, filenameSize) &
-      bind(C, name='DateWrite') &
-      result(success)
+      bind(C, name='DateWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DateWrite
 end function DateWrite
 
 !! Print to standard output, in our prettyprinting format
 function DatePrint(handle) &
-      bind(C, name='DatePrint') &
-      result(success)
+      bind(C, name='DatePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DatePrint
 end function DatePrint
 
 !! Print to standard output, as XML
 function DatePrintXML(handle) &
-      bind(C, name='DatePrintXML') &
-      result(success)
+      bind(C, name='DatePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DatePrintXML
 end function DatePrintXML
 
 !! Print to standard output, as JSON
 function DatePrintJSON(handle) &
-      bind(C, name='DatePrintJSON') &
-      result(success)
+      bind(C, name='DatePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DatePrintJSON
 end function DatePrintJSON
 
 
@@ -150,22 +141,20 @@ end function DatePrintJSON
 
 !! Has
 function DateValueHas(handle) &
-      bind(C, name='DateValueHas') &
-      result(has)
+      bind(C, name='DateValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DateValueHas
 end function DateValueHas
 
 !! Get
 function DateValueGet(handle) &
-      bind(C, name='DateValueGet') &
-      result(value)
+      bind(C, name='DateValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: value
+   type(c_ptr) :: DateValueGet
 end function DateValueGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine DateValueSet
 
 !! Has
 function DateDateTypeHas(handle) &
-      bind(C, name='DateDateTypeHas') &
-      result(has)
+      bind(C, name='DateDateTypeHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DateDateTypeHas
 end function DateDateTypeHas
 
 !! Get
 function DateDateTypeGet(handle) &
-      bind(C, name='DateDateTypeGet') &
-      result(dateType)
+      bind(C, name='DateDateTypeGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: dateType
+   type(c_ptr) :: DateDateTypeGet
 end function DateDateTypeGet
 
 !! Set

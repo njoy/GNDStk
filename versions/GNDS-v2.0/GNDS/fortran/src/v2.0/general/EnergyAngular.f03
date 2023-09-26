@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function EnergyAngularDefaultConst() &
-      bind(C, name='EnergyAngularDefaultConst') &
-      result(handle)
+      bind(C, name='EnergyAngularDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyAngularDefaultConst
 end function EnergyAngularDefaultConst
 
 !! Create, default
 function EnergyAngularDefault() &
-      bind(C, name='EnergyAngularDefault') &
-      result(handle)
+      bind(C, name='EnergyAngularDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyAngularDefault
 end function EnergyAngularDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function EnergyAngularCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='EnergyAngularCreateConst') &
-      result(handle)
+      bind(C, name='EnergyAngularCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function EnergyAngularCreateConst( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: XYs3d
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyAngularCreateConst
 end function EnergyAngularCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function EnergyAngularCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='EnergyAngularCreate') &
-      result(handle)
+      bind(C, name='EnergyAngularCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function EnergyAngularCreate( &
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
    type(c_ptr), value :: XYs3d
-   type(c_ptr) :: handle
+   type(c_ptr) :: EnergyAngularCreate
 end function EnergyAngularCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine EnergyAngularDelete
 
 !! Read from file
 function EnergyAngularRead(handle, filename, filenameSize) &
-      bind(C, name='EnergyAngularRead') &
-      result(success)
+      bind(C, name='EnergyAngularRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EnergyAngularRead
 end function EnergyAngularRead
 
 !! Write to file
 function EnergyAngularWrite(handle, filename, filenameSize) &
-      bind(C, name='EnergyAngularWrite') &
-      result(success)
+      bind(C, name='EnergyAngularWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: EnergyAngularWrite
 end function EnergyAngularWrite
 
 !! Print to standard output, in our prettyprinting format
 function EnergyAngularPrint(handle) &
-      bind(C, name='EnergyAngularPrint') &
-      result(success)
+      bind(C, name='EnergyAngularPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EnergyAngularPrint
 end function EnergyAngularPrint
 
 !! Print to standard output, as XML
 function EnergyAngularPrintXML(handle) &
-      bind(C, name='EnergyAngularPrintXML') &
-      result(success)
+      bind(C, name='EnergyAngularPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EnergyAngularPrintXML
 end function EnergyAngularPrintXML
 
 !! Print to standard output, as JSON
 function EnergyAngularPrintJSON(handle) &
-      bind(C, name='EnergyAngularPrintJSON') &
-      result(success)
+      bind(C, name='EnergyAngularPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: EnergyAngularPrintJSON
 end function EnergyAngularPrintJSON
 
 
@@ -154,22 +145,20 @@ end function EnergyAngularPrintJSON
 
 !! Has
 function EnergyAngularLabelHas(handle) &
-      bind(C, name='EnergyAngularLabelHas') &
-      result(has)
+      bind(C, name='EnergyAngularLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyAngularLabelHas
 end function EnergyAngularLabelHas
 
 !! Get
 function EnergyAngularLabelGet(handle) &
-      bind(C, name='EnergyAngularLabelGet') &
-      result(label)
+      bind(C, name='EnergyAngularLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: EnergyAngularLabelGet
 end function EnergyAngularLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine EnergyAngularLabelSet
 
 !! Has
 function EnergyAngularProductFrameHas(handle) &
-      bind(C, name='EnergyAngularProductFrameHas') &
-      result(has)
+      bind(C, name='EnergyAngularProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyAngularProductFrameHas
 end function EnergyAngularProductFrameHas
 
 !! Get
 function EnergyAngularProductFrameGet(handle) &
-      bind(C, name='EnergyAngularProductFrameGet') &
-      result(productFrame)
+      bind(C, name='EnergyAngularProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: EnergyAngularProductFrameGet
 end function EnergyAngularProductFrameGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine EnergyAngularProductFrameSet
 
 !! Has
 function EnergyAngularXYs3dHas(handle) &
-      bind(C, name='EnergyAngularXYs3dHas') &
-      result(has)
+      bind(C, name='EnergyAngularXYs3dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: EnergyAngularXYs3dHas
 end function EnergyAngularXYs3dHas
 
 !! Get, const
 function EnergyAngularXYs3dGetConst(handle) &
-      bind(C, name='EnergyAngularXYs3dGetConst') &
-      result(resultHandle)
+      bind(C, name='EnergyAngularXYs3dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyAngularXYs3dGetConst
 end function EnergyAngularXYs3dGetConst
 
 !! Get
 function EnergyAngularXYs3dGet(handle) &
-      bind(C, name='EnergyAngularXYs3dGet') &
-      result(resultHandle)
+      bind(C, name='EnergyAngularXYs3dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: EnergyAngularXYs3dGet
 end function EnergyAngularXYs3dGet
 
 !! Set

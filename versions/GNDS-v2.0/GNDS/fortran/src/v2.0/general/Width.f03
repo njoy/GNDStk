@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function WidthDefaultConst() &
-      bind(C, name='WidthDefaultConst') &
-      result(handle)
+      bind(C, name='WidthDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: WidthDefaultConst
 end function WidthDefaultConst
 
 !! Create, default
 function WidthDefault() &
-      bind(C, name='WidthDefault') &
-      result(handle)
+      bind(C, name='WidthDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: WidthDefault
 end function WidthDefault
 
 !! Create, general, const
@@ -41,8 +39,7 @@ function WidthCreateConst( &
    labelSize, &
    resonanceReactionSize &
 ) &
-      bind(C, name='WidthCreateConst') &
-      result(handle)
+      bind(C, name='WidthCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -53,7 +50,7 @@ function WidthCreateConst( &
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: constant1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: WidthCreateConst
 end function WidthCreateConst
 
 !! Create, general
@@ -67,8 +64,7 @@ function WidthCreate( &
    labelSize, &
    resonanceReactionSize &
 ) &
-      bind(C, name='WidthCreate') &
-      result(handle)
+      bind(C, name='WidthCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -79,7 +75,7 @@ function WidthCreate( &
    type(c_ptr), value :: XYs1d
    type(c_ptr), value :: constant1d
    type(c_ptr), value :: regions1d
-   type(c_ptr) :: handle
+   type(c_ptr) :: WidthCreate
 end function WidthCreate
 
 !! Assign
@@ -107,56 +103,51 @@ end subroutine WidthDelete
 
 !! Read from file
 function WidthRead(handle, filename, filenameSize) &
-      bind(C, name='WidthRead') &
-      result(success)
+      bind(C, name='WidthRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: WidthRead
 end function WidthRead
 
 !! Write to file
 function WidthWrite(handle, filename, filenameSize) &
-      bind(C, name='WidthWrite') &
-      result(success)
+      bind(C, name='WidthWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: WidthWrite
 end function WidthWrite
 
 !! Print to standard output, in our prettyprinting format
 function WidthPrint(handle) &
-      bind(C, name='WidthPrint') &
-      result(success)
+      bind(C, name='WidthPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: WidthPrint
 end function WidthPrint
 
 !! Print to standard output, as XML
 function WidthPrintXML(handle) &
-      bind(C, name='WidthPrintXML') &
-      result(success)
+      bind(C, name='WidthPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: WidthPrintXML
 end function WidthPrintXML
 
 !! Print to standard output, as JSON
 function WidthPrintJSON(handle) &
-      bind(C, name='WidthPrintJSON') &
-      result(success)
+      bind(C, name='WidthPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: WidthPrintJSON
 end function WidthPrintJSON
 
 
@@ -166,22 +157,20 @@ end function WidthPrintJSON
 
 !! Has
 function WidthLabelHas(handle) &
-      bind(C, name='WidthLabelHas') &
-      result(has)
+      bind(C, name='WidthLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WidthLabelHas
 end function WidthLabelHas
 
 !! Get
 function WidthLabelGet(handle) &
-      bind(C, name='WidthLabelGet') &
-      result(label)
+      bind(C, name='WidthLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: WidthLabelGet
 end function WidthLabelGet
 
 !! Set
@@ -201,22 +190,20 @@ end subroutine WidthLabelSet
 
 !! Has
 function WidthResonanceReactionHas(handle) &
-      bind(C, name='WidthResonanceReactionHas') &
-      result(has)
+      bind(C, name='WidthResonanceReactionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WidthResonanceReactionHas
 end function WidthResonanceReactionHas
 
 !! Get
 function WidthResonanceReactionGet(handle) &
-      bind(C, name='WidthResonanceReactionGet') &
-      result(resonanceReaction)
+      bind(C, name='WidthResonanceReactionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resonanceReaction
+   type(c_ptr) :: WidthResonanceReactionGet
 end function WidthResonanceReactionGet
 
 !! Set
@@ -236,22 +223,20 @@ end subroutine WidthResonanceReactionSet
 
 !! Has
 function WidthDegreesOfFreedomHas(handle) &
-      bind(C, name='WidthDegreesOfFreedomHas') &
-      result(has)
+      bind(C, name='WidthDegreesOfFreedomHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WidthDegreesOfFreedomHas
 end function WidthDegreesOfFreedomHas
 
 !! Get
 function WidthDegreesOfFreedomGet(handle) &
-      bind(C, name='WidthDegreesOfFreedomGet') &
-      result(degreesOfFreedom)
+      bind(C, name='WidthDegreesOfFreedomGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: degreesOfFreedom
+   integer(c_int) :: WidthDegreesOfFreedomGet
 end function WidthDegreesOfFreedomGet
 
 !! Set
@@ -271,32 +256,29 @@ end subroutine WidthDegreesOfFreedomSet
 
 !! Has
 function WidthXYs1dHas(handle) &
-      bind(C, name='WidthXYs1dHas') &
-      result(has)
+      bind(C, name='WidthXYs1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WidthXYs1dHas
 end function WidthXYs1dHas
 
 !! Get, const
 function WidthXYs1dGetConst(handle) &
-      bind(C, name='WidthXYs1dGetConst') &
-      result(resultHandle)
+      bind(C, name='WidthXYs1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WidthXYs1dGetConst
 end function WidthXYs1dGetConst
 
 !! Get
 function WidthXYs1dGet(handle) &
-      bind(C, name='WidthXYs1dGet') &
-      result(resultHandle)
+      bind(C, name='WidthXYs1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WidthXYs1dGet
 end function WidthXYs1dGet
 
 !! Set
@@ -315,32 +297,29 @@ end subroutine WidthXYs1dSet
 
 !! Has
 function WidthConstant1dHas(handle) &
-      bind(C, name='WidthConstant1dHas') &
-      result(has)
+      bind(C, name='WidthConstant1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WidthConstant1dHas
 end function WidthConstant1dHas
 
 !! Get, const
 function WidthConstant1dGetConst(handle) &
-      bind(C, name='WidthConstant1dGetConst') &
-      result(resultHandle)
+      bind(C, name='WidthConstant1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WidthConstant1dGetConst
 end function WidthConstant1dGetConst
 
 !! Get
 function WidthConstant1dGet(handle) &
-      bind(C, name='WidthConstant1dGet') &
-      result(resultHandle)
+      bind(C, name='WidthConstant1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WidthConstant1dGet
 end function WidthConstant1dGet
 
 !! Set
@@ -359,32 +338,29 @@ end subroutine WidthConstant1dSet
 
 !! Has
 function WidthRegions1dHas(handle) &
-      bind(C, name='WidthRegions1dHas') &
-      result(has)
+      bind(C, name='WidthRegions1dHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: WidthRegions1dHas
 end function WidthRegions1dHas
 
 !! Get, const
 function WidthRegions1dGetConst(handle) &
-      bind(C, name='WidthRegions1dGetConst') &
-      result(resultHandle)
+      bind(C, name='WidthRegions1dGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WidthRegions1dGetConst
 end function WidthRegions1dGetConst
 
 !! Get
 function WidthRegions1dGet(handle) &
-      bind(C, name='WidthRegions1dGet') &
-      result(resultHandle)
+      bind(C, name='WidthRegions1dGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: WidthRegions1dGet
 end function WidthRegions1dGet
 
 !! Set

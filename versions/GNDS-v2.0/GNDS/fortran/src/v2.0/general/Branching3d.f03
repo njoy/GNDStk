@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function Branching3dDefaultConst() &
-      bind(C, name='Branching3dDefaultConst') &
-      result(handle)
+      bind(C, name='Branching3dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Branching3dDefaultConst
 end function Branching3dDefaultConst
 
 !! Create, default
 function Branching3dDefault() &
-      bind(C, name='Branching3dDefault') &
-      result(handle)
+      bind(C, name='Branching3dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Branching3dDefault
 end function Branching3dDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function Branching3dCreateConst( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='Branching3dCreateConst') &
-      result(handle)
+      bind(C, name='Branching3dCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: Branching3dCreateConst
 end function Branching3dCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function Branching3dCreate( &
    labelSize, &
    productFrameSize &
 ) &
-      bind(C, name='Branching3dCreate') &
-      result(handle)
+      bind(C, name='Branching3dCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: Branching3dCreate
 end function Branching3dCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine Branching3dDelete
 
 !! Read from file
 function Branching3dRead(handle, filename, filenameSize) &
-      bind(C, name='Branching3dRead') &
-      result(success)
+      bind(C, name='Branching3dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Branching3dRead
 end function Branching3dRead
 
 !! Write to file
 function Branching3dWrite(handle, filename, filenameSize) &
-      bind(C, name='Branching3dWrite') &
-      result(success)
+      bind(C, name='Branching3dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Branching3dWrite
 end function Branching3dWrite
 
 !! Print to standard output, in our prettyprinting format
 function Branching3dPrint(handle) &
-      bind(C, name='Branching3dPrint') &
-      result(success)
+      bind(C, name='Branching3dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Branching3dPrint
 end function Branching3dPrint
 
 !! Print to standard output, as XML
 function Branching3dPrintXML(handle) &
-      bind(C, name='Branching3dPrintXML') &
-      result(success)
+      bind(C, name='Branching3dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Branching3dPrintXML
 end function Branching3dPrintXML
 
 !! Print to standard output, as JSON
 function Branching3dPrintJSON(handle) &
-      bind(C, name='Branching3dPrintJSON') &
-      result(success)
+      bind(C, name='Branching3dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Branching3dPrintJSON
 end function Branching3dPrintJSON
 
 
@@ -150,22 +141,20 @@ end function Branching3dPrintJSON
 
 !! Has
 function Branching3dLabelHas(handle) &
-      bind(C, name='Branching3dLabelHas') &
-      result(has)
+      bind(C, name='Branching3dLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Branching3dLabelHas
 end function Branching3dLabelHas
 
 !! Get
 function Branching3dLabelGet(handle) &
-      bind(C, name='Branching3dLabelGet') &
-      result(label)
+      bind(C, name='Branching3dLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: Branching3dLabelGet
 end function Branching3dLabelGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine Branching3dLabelSet
 
 !! Has
 function Branching3dProductFrameHas(handle) &
-      bind(C, name='Branching3dProductFrameHas') &
-      result(has)
+      bind(C, name='Branching3dProductFrameHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: Branching3dProductFrameHas
 end function Branching3dProductFrameHas
 
 !! Get
 function Branching3dProductFrameGet(handle) &
-      bind(C, name='Branching3dProductFrameGet') &
-      result(productFrame)
+      bind(C, name='Branching3dProductFrameGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: productFrame
+   type(c_ptr) :: Branching3dProductFrameGet
 end function Branching3dProductFrameGet
 
 !! Set

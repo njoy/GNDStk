@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ParameterCovarianceDefaultConst() &
-      bind(C, name='ParameterCovarianceDefaultConst') &
-      result(handle)
+      bind(C, name='ParameterCovarianceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovarianceDefaultConst
 end function ParameterCovarianceDefaultConst
 
 !! Create, default
 function ParameterCovarianceDefault() &
-      bind(C, name='ParameterCovarianceDefault') &
-      result(handle)
+      bind(C, name='ParameterCovarianceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovarianceDefault
 end function ParameterCovarianceDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function ParameterCovarianceCreateConst( &
    parameterCovarianceMatrix, &
    labelSize &
 ) &
-      bind(C, name='ParameterCovarianceCreateConst') &
-      result(handle)
+      bind(C, name='ParameterCovarianceCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: rowData
    type(c_ptr), value :: parameterCovarianceMatrix
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovarianceCreateConst
 end function ParameterCovarianceCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function ParameterCovarianceCreate( &
    parameterCovarianceMatrix, &
    labelSize &
 ) &
-      bind(C, name='ParameterCovarianceCreate') &
-      result(handle)
+      bind(C, name='ParameterCovarianceCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    type(c_ptr), value :: rowData
    type(c_ptr), value :: parameterCovarianceMatrix
-   type(c_ptr) :: handle
+   type(c_ptr) :: ParameterCovarianceCreate
 end function ParameterCovarianceCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine ParameterCovarianceDelete
 
 !! Read from file
 function ParameterCovarianceRead(handle, filename, filenameSize) &
-      bind(C, name='ParameterCovarianceRead') &
-      result(success)
+      bind(C, name='ParameterCovarianceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovarianceRead
 end function ParameterCovarianceRead
 
 !! Write to file
 function ParameterCovarianceWrite(handle, filename, filenameSize) &
-      bind(C, name='ParameterCovarianceWrite') &
-      result(success)
+      bind(C, name='ParameterCovarianceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovarianceWrite
 end function ParameterCovarianceWrite
 
 !! Print to standard output, in our prettyprinting format
 function ParameterCovariancePrint(handle) &
-      bind(C, name='ParameterCovariancePrint') &
-      result(success)
+      bind(C, name='ParameterCovariancePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancePrint
 end function ParameterCovariancePrint
 
 !! Print to standard output, as XML
 function ParameterCovariancePrintXML(handle) &
-      bind(C, name='ParameterCovariancePrintXML') &
-      result(success)
+      bind(C, name='ParameterCovariancePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancePrintXML
 end function ParameterCovariancePrintXML
 
 !! Print to standard output, as JSON
 function ParameterCovariancePrintJSON(handle) &
-      bind(C, name='ParameterCovariancePrintJSON') &
-      result(success)
+      bind(C, name='ParameterCovariancePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ParameterCovariancePrintJSON
 end function ParameterCovariancePrintJSON
 
 
@@ -150,22 +141,20 @@ end function ParameterCovariancePrintJSON
 
 !! Has
 function ParameterCovarianceLabelHas(handle) &
-      bind(C, name='ParameterCovarianceLabelHas') &
-      result(has)
+      bind(C, name='ParameterCovarianceLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovarianceLabelHas
 end function ParameterCovarianceLabelHas
 
 !! Get
 function ParameterCovarianceLabelGet(handle) &
-      bind(C, name='ParameterCovarianceLabelGet') &
-      result(label)
+      bind(C, name='ParameterCovarianceLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ParameterCovarianceLabelGet
 end function ParameterCovarianceLabelGet
 
 !! Set
@@ -185,32 +174,29 @@ end subroutine ParameterCovarianceLabelSet
 
 !! Has
 function ParameterCovarianceRowDataHas(handle) &
-      bind(C, name='ParameterCovarianceRowDataHas') &
-      result(has)
+      bind(C, name='ParameterCovarianceRowDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovarianceRowDataHas
 end function ParameterCovarianceRowDataHas
 
 !! Get, const
 function ParameterCovarianceRowDataGetConst(handle) &
-      bind(C, name='ParameterCovarianceRowDataGetConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovarianceRowDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovarianceRowDataGetConst
 end function ParameterCovarianceRowDataGetConst
 
 !! Get
 function ParameterCovarianceRowDataGet(handle) &
-      bind(C, name='ParameterCovarianceRowDataGet') &
-      result(resultHandle)
+      bind(C, name='ParameterCovarianceRowDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovarianceRowDataGet
 end function ParameterCovarianceRowDataGet
 
 !! Set
@@ -229,32 +215,29 @@ end subroutine ParameterCovarianceRowDataSet
 
 !! Has
 function ParameterCovarianceParameterCovarianceMatrixHas(handle) &
-      bind(C, name='ParameterCovarianceParameterCovarianceMatrixHas') &
-      result(has)
+      bind(C, name='ParameterCovarianceParameterCovarianceMatrixHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ParameterCovarianceParameterCovarianceMatrixHas
 end function ParameterCovarianceParameterCovarianceMatrixHas
 
 !! Get, const
 function ParameterCovarianceParameterCovarianceMatrixGetConst(handle) &
-      bind(C, name='ParameterCovarianceParameterCovarianceMatrixGetConst') &
-      result(resultHandle)
+      bind(C, name='ParameterCovarianceParameterCovarianceMatrixGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovarianceParameterCovarianceMatrixGetConst
 end function ParameterCovarianceParameterCovarianceMatrixGetConst
 
 !! Get
 function ParameterCovarianceParameterCovarianceMatrixGet(handle) &
-      bind(C, name='ParameterCovarianceParameterCovarianceMatrixGet') &
-      result(resultHandle)
+      bind(C, name='ParameterCovarianceParameterCovarianceMatrixGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ParameterCovarianceParameterCovarianceMatrixGet
 end function ParameterCovarianceParameterCovarianceMatrixGet
 
 !! Set

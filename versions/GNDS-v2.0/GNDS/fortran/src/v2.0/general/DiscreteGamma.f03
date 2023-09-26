@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function DiscreteGammaDefaultConst() &
-      bind(C, name='DiscreteGammaDefaultConst') &
-      result(handle)
+      bind(C, name='DiscreteGammaDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteGammaDefaultConst
 end function DiscreteGammaDefaultConst
 
 !! Create, default
 function DiscreteGammaDefault() &
-      bind(C, name='DiscreteGammaDefault') &
-      result(handle)
+      bind(C, name='DiscreteGammaDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteGammaDefault
 end function DiscreteGammaDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function DiscreteGammaCreateConst( &
    domainMax, &
    axes &
 ) &
-      bind(C, name='DiscreteGammaCreateConst') &
-      result(handle)
+      bind(C, name='DiscreteGammaCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    real(c_double), value, intent(in) :: domainMin
    real(c_double), value, intent(in) :: domainMax
    type(c_ptr), value :: axes
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteGammaCreateConst
 end function DiscreteGammaCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function DiscreteGammaCreate( &
    domainMax, &
    axes &
 ) &
-      bind(C, name='DiscreteGammaCreate') &
-      result(handle)
+      bind(C, name='DiscreteGammaCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    real(c_double), value, intent(in) :: domainMin
    real(c_double), value, intent(in) :: domainMax
    type(c_ptr), value :: axes
-   type(c_ptr) :: handle
+   type(c_ptr) :: DiscreteGammaCreate
 end function DiscreteGammaCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine DiscreteGammaDelete
 
 !! Read from file
 function DiscreteGammaRead(handle, filename, filenameSize) &
-      bind(C, name='DiscreteGammaRead') &
-      result(success)
+      bind(C, name='DiscreteGammaRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteGammaRead
 end function DiscreteGammaRead
 
 !! Write to file
 function DiscreteGammaWrite(handle, filename, filenameSize) &
-      bind(C, name='DiscreteGammaWrite') &
-      result(success)
+      bind(C, name='DiscreteGammaWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteGammaWrite
 end function DiscreteGammaWrite
 
 !! Print to standard output, in our prettyprinting format
 function DiscreteGammaPrint(handle) &
-      bind(C, name='DiscreteGammaPrint') &
-      result(success)
+      bind(C, name='DiscreteGammaPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteGammaPrint
 end function DiscreteGammaPrint
 
 !! Print to standard output, as XML
 function DiscreteGammaPrintXML(handle) &
-      bind(C, name='DiscreteGammaPrintXML') &
-      result(success)
+      bind(C, name='DiscreteGammaPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteGammaPrintXML
 end function DiscreteGammaPrintXML
 
 !! Print to standard output, as JSON
 function DiscreteGammaPrintJSON(handle) &
-      bind(C, name='DiscreteGammaPrintJSON') &
-      result(success)
+      bind(C, name='DiscreteGammaPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: DiscreteGammaPrintJSON
 end function DiscreteGammaPrintJSON
 
 
@@ -150,22 +141,20 @@ end function DiscreteGammaPrintJSON
 
 !! Has
 function DiscreteGammaValueHas(handle) &
-      bind(C, name='DiscreteGammaValueHas') &
-      result(has)
+      bind(C, name='DiscreteGammaValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteGammaValueHas
 end function DiscreteGammaValueHas
 
 !! Get
 function DiscreteGammaValueGet(handle) &
-      bind(C, name='DiscreteGammaValueGet') &
-      result(value)
+      bind(C, name='DiscreteGammaValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: DiscreteGammaValueGet
 end function DiscreteGammaValueGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine DiscreteGammaValueSet
 
 !! Has
 function DiscreteGammaDomainMinHas(handle) &
-      bind(C, name='DiscreteGammaDomainMinHas') &
-      result(has)
+      bind(C, name='DiscreteGammaDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteGammaDomainMinHas
 end function DiscreteGammaDomainMinHas
 
 !! Get
 function DiscreteGammaDomainMinGet(handle) &
-      bind(C, name='DiscreteGammaDomainMinGet') &
-      result(domainMin)
+      bind(C, name='DiscreteGammaDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMin
+   real(c_double) :: DiscreteGammaDomainMinGet
 end function DiscreteGammaDomainMinGet
 
 !! Set
@@ -220,22 +207,20 @@ end subroutine DiscreteGammaDomainMinSet
 
 !! Has
 function DiscreteGammaDomainMaxHas(handle) &
-      bind(C, name='DiscreteGammaDomainMaxHas') &
-      result(has)
+      bind(C, name='DiscreteGammaDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteGammaDomainMaxHas
 end function DiscreteGammaDomainMaxHas
 
 !! Get
 function DiscreteGammaDomainMaxGet(handle) &
-      bind(C, name='DiscreteGammaDomainMaxGet') &
-      result(domainMax)
+      bind(C, name='DiscreteGammaDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMax
+   real(c_double) :: DiscreteGammaDomainMaxGet
 end function DiscreteGammaDomainMaxGet
 
 !! Set
@@ -255,32 +240,29 @@ end subroutine DiscreteGammaDomainMaxSet
 
 !! Has
 function DiscreteGammaAxesHas(handle) &
-      bind(C, name='DiscreteGammaAxesHas') &
-      result(has)
+      bind(C, name='DiscreteGammaAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: DiscreteGammaAxesHas
 end function DiscreteGammaAxesHas
 
 !! Get, const
 function DiscreteGammaAxesGetConst(handle) &
-      bind(C, name='DiscreteGammaAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='DiscreteGammaAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteGammaAxesGetConst
 end function DiscreteGammaAxesGetConst
 
 !! Get
 function DiscreteGammaAxesGet(handle) &
-      bind(C, name='DiscreteGammaAxesGet') &
-      result(resultHandle)
+      bind(C, name='DiscreteGammaAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: DiscreteGammaAxesGet
 end function DiscreteGammaAxesGet
 
 !! Set

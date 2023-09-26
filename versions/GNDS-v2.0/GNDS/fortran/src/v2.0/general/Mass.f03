@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function MassDefaultConst() &
-      bind(C, name='MassDefaultConst') &
-      result(handle)
+      bind(C, name='MassDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MassDefaultConst
 end function MassDefaultConst
 
 !! Create, default
 function MassDefault() &
-      bind(C, name='MassDefault') &
-      result(handle)
+      bind(C, name='MassDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: MassDefault
 end function MassDefault
 
 !! Create, general, const
@@ -37,15 +35,14 @@ function MassCreateConst( &
    Double, &
    unitSize &
 ) &
-      bind(C, name='MassCreateConst') &
-      result(handle)
+      bind(C, name='MassCreateConst')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: MassCreateConst
 end function MassCreateConst
 
 !! Create, general
@@ -55,15 +52,14 @@ function MassCreate( &
    Double, &
    unitSize &
 ) &
-      bind(C, name='MassCreate') &
-      result(handle)
+      bind(C, name='MassCreate')
    use iso_c_binding
    implicit none
    real(c_double), value, intent(in) :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr), value :: Double
-   type(c_ptr) :: handle
+   type(c_ptr) :: MassCreate
 end function MassCreate
 
 !! Assign
@@ -91,56 +87,51 @@ end subroutine MassDelete
 
 !! Read from file
 function MassRead(handle, filename, filenameSize) &
-      bind(C, name='MassRead') &
-      result(success)
+      bind(C, name='MassRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MassRead
 end function MassRead
 
 !! Write to file
 function MassWrite(handle, filename, filenameSize) &
-      bind(C, name='MassWrite') &
-      result(success)
+      bind(C, name='MassWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: MassWrite
 end function MassWrite
 
 !! Print to standard output, in our prettyprinting format
 function MassPrint(handle) &
-      bind(C, name='MassPrint') &
-      result(success)
+      bind(C, name='MassPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MassPrint
 end function MassPrint
 
 !! Print to standard output, as XML
 function MassPrintXML(handle) &
-      bind(C, name='MassPrintXML') &
-      result(success)
+      bind(C, name='MassPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MassPrintXML
 end function MassPrintXML
 
 !! Print to standard output, as JSON
 function MassPrintJSON(handle) &
-      bind(C, name='MassPrintJSON') &
-      result(success)
+      bind(C, name='MassPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: MassPrintJSON
 end function MassPrintJSON
 
 
@@ -150,22 +141,20 @@ end function MassPrintJSON
 
 !! Has
 function MassValueHas(handle) &
-      bind(C, name='MassValueHas') &
-      result(has)
+      bind(C, name='MassValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MassValueHas
 end function MassValueHas
 
 !! Get
 function MassValueGet(handle) &
-      bind(C, name='MassValueGet') &
-      result(value)
+      bind(C, name='MassValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: value
+   real(c_double) :: MassValueGet
 end function MassValueGet
 
 !! Set
@@ -185,22 +174,20 @@ end subroutine MassValueSet
 
 !! Has
 function MassUnitHas(handle) &
-      bind(C, name='MassUnitHas') &
-      result(has)
+      bind(C, name='MassUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MassUnitHas
 end function MassUnitHas
 
 !! Get
 function MassUnitGet(handle) &
-      bind(C, name='MassUnitGet') &
-      result(unit)
+      bind(C, name='MassUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: unit
+   type(c_ptr) :: MassUnitGet
 end function MassUnitGet
 
 !! Set
@@ -220,32 +207,29 @@ end subroutine MassUnitSet
 
 !! Has
 function MassDoubleHas(handle) &
-      bind(C, name='MassDoubleHas') &
-      result(has)
+      bind(C, name='MassDoubleHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: MassDoubleHas
 end function MassDoubleHas
 
 !! Get, const
 function MassDoubleGetConst(handle) &
-      bind(C, name='MassDoubleGetConst') &
-      result(resultHandle)
+      bind(C, name='MassDoubleGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MassDoubleGetConst
 end function MassDoubleGetConst
 
 !! Get
 function MassDoubleGet(handle) &
-      bind(C, name='MassDoubleGet') &
-      result(resultHandle)
+      bind(C, name='MassDoubleGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: MassDoubleGet
 end function MassDoubleGet
 
 !! Set

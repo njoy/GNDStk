@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function StylesDefaultConst() &
-      bind(C, name='StylesDefaultConst') &
-      result(handle)
+      bind(C, name='StylesDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StylesDefaultConst
 end function StylesDefaultConst
 
 !! Create, default
 function StylesDefault() &
-      bind(C, name='StylesDefault') &
-      result(handle)
+      bind(C, name='StylesDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: StylesDefault
 end function StylesDefault
 
 !! Create, general, const
@@ -35,13 +33,12 @@ function StylesCreateConst( &
    evaluated, &
    crossSectionReconstructed &
 ) &
-      bind(C, name='StylesCreateConst') &
-      result(handle)
+      bind(C, name='StylesCreateConst')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: evaluated
    type(c_ptr), value :: crossSectionReconstructed
-   type(c_ptr) :: handle
+   type(c_ptr) :: StylesCreateConst
 end function StylesCreateConst
 
 !! Create, general
@@ -49,13 +46,12 @@ function StylesCreate( &
    evaluated, &
    crossSectionReconstructed &
 ) &
-      bind(C, name='StylesCreate') &
-      result(handle)
+      bind(C, name='StylesCreate')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: evaluated
    type(c_ptr), value :: crossSectionReconstructed
-   type(c_ptr) :: handle
+   type(c_ptr) :: StylesCreate
 end function StylesCreate
 
 !! Assign
@@ -83,56 +79,51 @@ end subroutine StylesDelete
 
 !! Read from file
 function StylesRead(handle, filename, filenameSize) &
-      bind(C, name='StylesRead') &
-      result(success)
+      bind(C, name='StylesRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StylesRead
 end function StylesRead
 
 !! Write to file
 function StylesWrite(handle, filename, filenameSize) &
-      bind(C, name='StylesWrite') &
-      result(success)
+      bind(C, name='StylesWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: StylesWrite
 end function StylesWrite
 
 !! Print to standard output, in our prettyprinting format
 function StylesPrint(handle) &
-      bind(C, name='StylesPrint') &
-      result(success)
+      bind(C, name='StylesPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StylesPrint
 end function StylesPrint
 
 !! Print to standard output, as XML
 function StylesPrintXML(handle) &
-      bind(C, name='StylesPrintXML') &
-      result(success)
+      bind(C, name='StylesPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StylesPrintXML
 end function StylesPrintXML
 
 !! Print to standard output, as JSON
 function StylesPrintJSON(handle) &
-      bind(C, name='StylesPrintJSON') &
-      result(success)
+      bind(C, name='StylesPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: StylesPrintJSON
 end function StylesPrintJSON
 
 
@@ -142,32 +133,29 @@ end function StylesPrintJSON
 
 !! Has
 function StylesEvaluatedHas(handle) &
-      bind(C, name='StylesEvaluatedHas') &
-      result(has)
+      bind(C, name='StylesEvaluatedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StylesEvaluatedHas
 end function StylesEvaluatedHas
 
 !! Get, const
 function StylesEvaluatedGetConst(handle) &
-      bind(C, name='StylesEvaluatedGetConst') &
-      result(resultHandle)
+      bind(C, name='StylesEvaluatedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: StylesEvaluatedGetConst
 end function StylesEvaluatedGetConst
 
 !! Get
 function StylesEvaluatedGet(handle) &
-      bind(C, name='StylesEvaluatedGet') &
-      result(resultHandle)
+      bind(C, name='StylesEvaluatedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: StylesEvaluatedGet
 end function StylesEvaluatedGet
 
 !! Set
@@ -186,32 +174,29 @@ end subroutine StylesEvaluatedSet
 
 !! Has
 function StylesCrossSectionReconstructedHas(handle) &
-      bind(C, name='StylesCrossSectionReconstructedHas') &
-      result(has)
+      bind(C, name='StylesCrossSectionReconstructedHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: StylesCrossSectionReconstructedHas
 end function StylesCrossSectionReconstructedHas
 
 !! Get, const
 function StylesCrossSectionReconstructedGetConst(handle) &
-      bind(C, name='StylesCrossSectionReconstructedGetConst') &
-      result(resultHandle)
+      bind(C, name='StylesCrossSectionReconstructedGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: StylesCrossSectionReconstructedGetConst
 end function StylesCrossSectionReconstructedGetConst
 
 !! Get
 function StylesCrossSectionReconstructedGet(handle) &
-      bind(C, name='StylesCrossSectionReconstructedGet') &
-      result(resultHandle)
+      bind(C, name='StylesCrossSectionReconstructedGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: StylesCrossSectionReconstructedGet
 end function StylesCrossSectionReconstructedGet
 
 !! Set

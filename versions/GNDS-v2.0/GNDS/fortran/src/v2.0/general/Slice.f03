@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function SliceDefaultConst() &
-      bind(C, name='SliceDefaultConst') &
-      result(handle)
+      bind(C, name='SliceDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SliceDefaultConst
 end function SliceDefaultConst
 
 !! Create, default
 function SliceDefault() &
-      bind(C, name='SliceDefault') &
-      result(handle)
+      bind(C, name='SliceDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: SliceDefault
 end function SliceDefault
 
 !! Create, general, const
@@ -39,8 +37,7 @@ function SliceCreateConst( &
    domainUnit, &
    domainUnitSize &
 ) &
-      bind(C, name='SliceCreateConst') &
-      result(handle)
+      bind(C, name='SliceCreateConst')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: dimension
@@ -49,7 +46,7 @@ function SliceCreateConst( &
    real(c_double), value, intent(in) :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SliceCreateConst
 end function SliceCreateConst
 
 !! Create, general
@@ -61,8 +58,7 @@ function SliceCreate( &
    domainUnit, &
    domainUnitSize &
 ) &
-      bind(C, name='SliceCreate') &
-      result(handle)
+      bind(C, name='SliceCreate')
    use iso_c_binding
    implicit none
    integer(c_int), value, intent(in) :: dimension
@@ -71,7 +67,7 @@ function SliceCreate( &
    real(c_double), value, intent(in) :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: SliceCreate
 end function SliceCreate
 
 !! Assign
@@ -99,56 +95,51 @@ end subroutine SliceDelete
 
 !! Read from file
 function SliceRead(handle, filename, filenameSize) &
-      bind(C, name='SliceRead') &
-      result(success)
+      bind(C, name='SliceRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SliceRead
 end function SliceRead
 
 !! Write to file
 function SliceWrite(handle, filename, filenameSize) &
-      bind(C, name='SliceWrite') &
-      result(success)
+      bind(C, name='SliceWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: SliceWrite
 end function SliceWrite
 
 !! Print to standard output, in our prettyprinting format
 function SlicePrint(handle) &
-      bind(C, name='SlicePrint') &
-      result(success)
+      bind(C, name='SlicePrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SlicePrint
 end function SlicePrint
 
 !! Print to standard output, as XML
 function SlicePrintXML(handle) &
-      bind(C, name='SlicePrintXML') &
-      result(success)
+      bind(C, name='SlicePrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SlicePrintXML
 end function SlicePrintXML
 
 !! Print to standard output, as JSON
 function SlicePrintJSON(handle) &
-      bind(C, name='SlicePrintJSON') &
-      result(success)
+      bind(C, name='SlicePrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: SlicePrintJSON
 end function SlicePrintJSON
 
 
@@ -158,22 +149,20 @@ end function SlicePrintJSON
 
 !! Has
 function SliceDimensionHas(handle) &
-      bind(C, name='SliceDimensionHas') &
-      result(has)
+      bind(C, name='SliceDimensionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SliceDimensionHas
 end function SliceDimensionHas
 
 !! Get
 function SliceDimensionGet(handle) &
-      bind(C, name='SliceDimensionGet') &
-      result(dimension)
+      bind(C, name='SliceDimensionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: dimension
+   integer(c_int) :: SliceDimensionGet
 end function SliceDimensionGet
 
 !! Set
@@ -193,22 +182,20 @@ end subroutine SliceDimensionSet
 
 !! Has
 function SliceDomainValueHas(handle) &
-      bind(C, name='SliceDomainValueHas') &
-      result(has)
+      bind(C, name='SliceDomainValueHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SliceDomainValueHas
 end function SliceDomainValueHas
 
 !! Get
 function SliceDomainValueGet(handle) &
-      bind(C, name='SliceDomainValueGet') &
-      result(domainValue)
+      bind(C, name='SliceDomainValueGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: domainValue
+   integer(c_int) :: SliceDomainValueGet
 end function SliceDomainValueGet
 
 !! Set
@@ -228,22 +215,20 @@ end subroutine SliceDomainValueSet
 
 !! Has
 function SliceDomainMinHas(handle) &
-      bind(C, name='SliceDomainMinHas') &
-      result(has)
+      bind(C, name='SliceDomainMinHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SliceDomainMinHas
 end function SliceDomainMinHas
 
 !! Get
 function SliceDomainMinGet(handle) &
-      bind(C, name='SliceDomainMinGet') &
-      result(domainMin)
+      bind(C, name='SliceDomainMinGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMin
+   real(c_double) :: SliceDomainMinGet
 end function SliceDomainMinGet
 
 !! Set
@@ -263,22 +248,20 @@ end subroutine SliceDomainMinSet
 
 !! Has
 function SliceDomainMaxHas(handle) &
-      bind(C, name='SliceDomainMaxHas') &
-      result(has)
+      bind(C, name='SliceDomainMaxHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SliceDomainMaxHas
 end function SliceDomainMaxHas
 
 !! Get
 function SliceDomainMaxGet(handle) &
-      bind(C, name='SliceDomainMaxGet') &
-      result(domainMax)
+      bind(C, name='SliceDomainMaxGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double) :: domainMax
+   real(c_double) :: SliceDomainMaxGet
 end function SliceDomainMaxGet
 
 !! Set
@@ -298,22 +281,20 @@ end subroutine SliceDomainMaxSet
 
 !! Has
 function SliceDomainUnitHas(handle) &
-      bind(C, name='SliceDomainUnitHas') &
-      result(has)
+      bind(C, name='SliceDomainUnitHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: SliceDomainUnitHas
 end function SliceDomainUnitHas
 
 !! Get
 function SliceDomainUnitGet(handle) &
-      bind(C, name='SliceDomainUnitGet') &
-      result(domainUnit)
+      bind(C, name='SliceDomainUnitGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: domainUnit
+   type(c_ptr) :: SliceDomainUnitGet
 end function SliceDomainUnitGet
 
 !! Set

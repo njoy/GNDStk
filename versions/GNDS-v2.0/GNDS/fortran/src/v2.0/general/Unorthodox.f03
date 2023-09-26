@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function UnorthodoxDefaultConst() &
-      bind(C, name='UnorthodoxDefaultConst') &
-      result(handle)
+      bind(C, name='UnorthodoxDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnorthodoxDefaultConst
 end function UnorthodoxDefaultConst
 
 !! Create, default
 function UnorthodoxDefault() &
-      bind(C, name='UnorthodoxDefault') &
-      result(handle)
+      bind(C, name='UnorthodoxDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnorthodoxDefault
 end function UnorthodoxDefault
 
 !! Create, general, const
@@ -36,14 +34,13 @@ function UnorthodoxCreateConst( &
    mass, &
    idSize &
 ) &
-      bind(C, name='UnorthodoxCreateConst') &
-      result(handle)
+      bind(C, name='UnorthodoxCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
    type(c_ptr), value :: mass
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnorthodoxCreateConst
 end function UnorthodoxCreateConst
 
 !! Create, general
@@ -52,14 +49,13 @@ function UnorthodoxCreate( &
    mass, &
    idSize &
 ) &
-      bind(C, name='UnorthodoxCreate') &
-      result(handle)
+      bind(C, name='UnorthodoxCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
    type(c_ptr), value :: mass
-   type(c_ptr) :: handle
+   type(c_ptr) :: UnorthodoxCreate
 end function UnorthodoxCreate
 
 !! Assign
@@ -87,56 +83,51 @@ end subroutine UnorthodoxDelete
 
 !! Read from file
 function UnorthodoxRead(handle, filename, filenameSize) &
-      bind(C, name='UnorthodoxRead') &
-      result(success)
+      bind(C, name='UnorthodoxRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnorthodoxRead
 end function UnorthodoxRead
 
 !! Write to file
 function UnorthodoxWrite(handle, filename, filenameSize) &
-      bind(C, name='UnorthodoxWrite') &
-      result(success)
+      bind(C, name='UnorthodoxWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: UnorthodoxWrite
 end function UnorthodoxWrite
 
 !! Print to standard output, in our prettyprinting format
 function UnorthodoxPrint(handle) &
-      bind(C, name='UnorthodoxPrint') &
-      result(success)
+      bind(C, name='UnorthodoxPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnorthodoxPrint
 end function UnorthodoxPrint
 
 !! Print to standard output, as XML
 function UnorthodoxPrintXML(handle) &
-      bind(C, name='UnorthodoxPrintXML') &
-      result(success)
+      bind(C, name='UnorthodoxPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnorthodoxPrintXML
 end function UnorthodoxPrintXML
 
 !! Print to standard output, as JSON
 function UnorthodoxPrintJSON(handle) &
-      bind(C, name='UnorthodoxPrintJSON') &
-      result(success)
+      bind(C, name='UnorthodoxPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: UnorthodoxPrintJSON
 end function UnorthodoxPrintJSON
 
 
@@ -146,22 +137,20 @@ end function UnorthodoxPrintJSON
 
 !! Has
 function UnorthodoxIdHas(handle) &
-      bind(C, name='UnorthodoxIdHas') &
-      result(has)
+      bind(C, name='UnorthodoxIdHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnorthodoxIdHas
 end function UnorthodoxIdHas
 
 !! Get
 function UnorthodoxIdGet(handle) &
-      bind(C, name='UnorthodoxIdGet') &
-      result(id)
+      bind(C, name='UnorthodoxIdGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: id
+   type(c_ptr) :: UnorthodoxIdGet
 end function UnorthodoxIdGet
 
 !! Set
@@ -181,32 +170,29 @@ end subroutine UnorthodoxIdSet
 
 !! Has
 function UnorthodoxMassHas(handle) &
-      bind(C, name='UnorthodoxMassHas') &
-      result(has)
+      bind(C, name='UnorthodoxMassHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: UnorthodoxMassHas
 end function UnorthodoxMassHas
 
 !! Get, const
 function UnorthodoxMassGetConst(handle) &
-      bind(C, name='UnorthodoxMassGetConst') &
-      result(resultHandle)
+      bind(C, name='UnorthodoxMassGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnorthodoxMassGetConst
 end function UnorthodoxMassGetConst
 
 !! Get
 function UnorthodoxMassGet(handle) &
-      bind(C, name='UnorthodoxMassGet') &
-      result(resultHandle)
+      bind(C, name='UnorthodoxMassGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: UnorthodoxMassGet
 end function UnorthodoxMassGet
 
 !! Set

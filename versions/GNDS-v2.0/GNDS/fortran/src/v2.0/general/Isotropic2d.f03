@@ -14,40 +14,36 @@ interface
 
 !! Create, default, const
 function Isotropic2dDefaultConst() &
-      bind(C, name='Isotropic2dDefaultConst') &
-      result(handle)
+      bind(C, name='Isotropic2dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Isotropic2dDefaultConst
 end function Isotropic2dDefaultConst
 
 !! Create, default
 function Isotropic2dDefault() &
-      bind(C, name='Isotropic2dDefault') &
-      result(handle)
+      bind(C, name='Isotropic2dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Isotropic2dDefault
 end function Isotropic2dDefault
 
 !! Create, general, const
 function Isotropic2dCreateConst( &
 ) &
-      bind(C, name='Isotropic2dCreateConst') &
-      result(handle)
+      bind(C, name='Isotropic2dCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Isotropic2dCreateConst
 end function Isotropic2dCreateConst
 
 !! Create, general
 function Isotropic2dCreate( &
 ) &
-      bind(C, name='Isotropic2dCreate') &
-      result(handle)
+      bind(C, name='Isotropic2dCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: Isotropic2dCreate
 end function Isotropic2dCreate
 
 !! Assign
@@ -75,56 +71,51 @@ end subroutine Isotropic2dDelete
 
 !! Read from file
 function Isotropic2dRead(handle, filename, filenameSize) &
-      bind(C, name='Isotropic2dRead') &
-      result(success)
+      bind(C, name='Isotropic2dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Isotropic2dRead
 end function Isotropic2dRead
 
 !! Write to file
 function Isotropic2dWrite(handle, filename, filenameSize) &
-      bind(C, name='Isotropic2dWrite') &
-      result(success)
+      bind(C, name='Isotropic2dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: Isotropic2dWrite
 end function Isotropic2dWrite
 
 !! Print to standard output, in our prettyprinting format
 function Isotropic2dPrint(handle) &
-      bind(C, name='Isotropic2dPrint') &
-      result(success)
+      bind(C, name='Isotropic2dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Isotropic2dPrint
 end function Isotropic2dPrint
 
 !! Print to standard output, as XML
 function Isotropic2dPrintXML(handle) &
-      bind(C, name='Isotropic2dPrintXML') &
-      result(success)
+      bind(C, name='Isotropic2dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Isotropic2dPrintXML
 end function Isotropic2dPrintXML
 
 !! Print to standard output, as JSON
 function Isotropic2dPrintJSON(handle) &
-      bind(C, name='Isotropic2dPrintJSON') &
-      result(success)
+      bind(C, name='Isotropic2dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: Isotropic2dPrintJSON
 end function Isotropic2dPrintJSON
 
 

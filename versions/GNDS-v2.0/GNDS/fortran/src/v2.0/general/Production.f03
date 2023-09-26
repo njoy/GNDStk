@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function ProductionDefaultConst() &
-      bind(C, name='ProductionDefaultConst') &
-      result(handle)
+      bind(C, name='ProductionDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionDefaultConst
 end function ProductionDefaultConst
 
 !! Create, default
 function ProductionDefault() &
-      bind(C, name='ProductionDefault') &
-      result(handle)
+      bind(C, name='ProductionDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionDefault
 end function ProductionDefault
 
 !! Create, general, const
@@ -38,8 +36,7 @@ function ProductionCreateConst( &
    outputChannel, &
    labelSize &
 ) &
-      bind(C, name='ProductionCreateConst') &
-      result(handle)
+      bind(C, name='ProductionCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -47,7 +44,7 @@ function ProductionCreateConst( &
    integer(c_int), value, intent(in) :: ENDF_MT
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: outputChannel
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionCreateConst
 end function ProductionCreateConst
 
 !! Create, general
@@ -58,8 +55,7 @@ function ProductionCreate( &
    outputChannel, &
    labelSize &
 ) &
-      bind(C, name='ProductionCreate') &
-      result(handle)
+      bind(C, name='ProductionCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
@@ -67,7 +63,7 @@ function ProductionCreate( &
    integer(c_int), value, intent(in) :: ENDF_MT
    type(c_ptr), value :: crossSection
    type(c_ptr), value :: outputChannel
-   type(c_ptr) :: handle
+   type(c_ptr) :: ProductionCreate
 end function ProductionCreate
 
 !! Assign
@@ -95,56 +91,51 @@ end subroutine ProductionDelete
 
 !! Read from file
 function ProductionRead(handle, filename, filenameSize) &
-      bind(C, name='ProductionRead') &
-      result(success)
+      bind(C, name='ProductionRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProductionRead
 end function ProductionRead
 
 !! Write to file
 function ProductionWrite(handle, filename, filenameSize) &
-      bind(C, name='ProductionWrite') &
-      result(success)
+      bind(C, name='ProductionWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: ProductionWrite
 end function ProductionWrite
 
 !! Print to standard output, in our prettyprinting format
 function ProductionPrint(handle) &
-      bind(C, name='ProductionPrint') &
-      result(success)
+      bind(C, name='ProductionPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductionPrint
 end function ProductionPrint
 
 !! Print to standard output, as XML
 function ProductionPrintXML(handle) &
-      bind(C, name='ProductionPrintXML') &
-      result(success)
+      bind(C, name='ProductionPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductionPrintXML
 end function ProductionPrintXML
 
 !! Print to standard output, as JSON
 function ProductionPrintJSON(handle) &
-      bind(C, name='ProductionPrintJSON') &
-      result(success)
+      bind(C, name='ProductionPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: ProductionPrintJSON
 end function ProductionPrintJSON
 
 
@@ -154,22 +145,20 @@ end function ProductionPrintJSON
 
 !! Has
 function ProductionLabelHas(handle) &
-      bind(C, name='ProductionLabelHas') &
-      result(has)
+      bind(C, name='ProductionLabelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductionLabelHas
 end function ProductionLabelHas
 
 !! Get
 function ProductionLabelGet(handle) &
-      bind(C, name='ProductionLabelGet') &
-      result(label)
+      bind(C, name='ProductionLabelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: label
+   type(c_ptr) :: ProductionLabelGet
 end function ProductionLabelGet
 
 !! Set
@@ -189,22 +178,20 @@ end subroutine ProductionLabelSet
 
 !! Has
 function ProductionENDFMTHas(handle) &
-      bind(C, name='ProductionENDFMTHas') &
-      result(has)
+      bind(C, name='ProductionENDFMTHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductionENDFMTHas
 end function ProductionENDFMTHas
 
 !! Get
 function ProductionENDFMTGet(handle) &
-      bind(C, name='ProductionENDFMTGet') &
-      result(ENDF_MT)
+      bind(C, name='ProductionENDFMTGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: ENDF_MT
+   integer(c_int) :: ProductionENDFMTGet
 end function ProductionENDFMTGet
 
 !! Set
@@ -224,32 +211,29 @@ end subroutine ProductionENDFMTSet
 
 !! Has
 function ProductionCrossSectionHas(handle) &
-      bind(C, name='ProductionCrossSectionHas') &
-      result(has)
+      bind(C, name='ProductionCrossSectionHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductionCrossSectionHas
 end function ProductionCrossSectionHas
 
 !! Get, const
 function ProductionCrossSectionGetConst(handle) &
-      bind(C, name='ProductionCrossSectionGetConst') &
-      result(resultHandle)
+      bind(C, name='ProductionCrossSectionGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionCrossSectionGetConst
 end function ProductionCrossSectionGetConst
 
 !! Get
 function ProductionCrossSectionGet(handle) &
-      bind(C, name='ProductionCrossSectionGet') &
-      result(resultHandle)
+      bind(C, name='ProductionCrossSectionGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionCrossSectionGet
 end function ProductionCrossSectionGet
 
 !! Set
@@ -268,32 +252,29 @@ end subroutine ProductionCrossSectionSet
 
 !! Has
 function ProductionOutputChannelHas(handle) &
-      bind(C, name='ProductionOutputChannelHas') &
-      result(has)
+      bind(C, name='ProductionOutputChannelHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: ProductionOutputChannelHas
 end function ProductionOutputChannelHas
 
 !! Get, const
 function ProductionOutputChannelGetConst(handle) &
-      bind(C, name='ProductionOutputChannelGetConst') &
-      result(resultHandle)
+      bind(C, name='ProductionOutputChannelGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionOutputChannelGetConst
 end function ProductionOutputChannelGetConst
 
 !! Get
 function ProductionOutputChannelGet(handle) &
-      bind(C, name='ProductionOutputChannelGet') &
-      result(resultHandle)
+      bind(C, name='ProductionOutputChannelGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: ProductionOutputChannelGet
 end function ProductionOutputChannelGet
 
 !! Set

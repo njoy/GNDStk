@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function OutputChannelDefaultConst() &
-      bind(C, name='OutputChannelDefaultConst') &
-      result(handle)
+      bind(C, name='OutputChannelDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: OutputChannelDefaultConst
 end function OutputChannelDefaultConst
 
 !! Create, default
 function OutputChannelDefault() &
-      bind(C, name='OutputChannelDefault') &
-      result(handle)
+      bind(C, name='OutputChannelDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: OutputChannelDefault
 end function OutputChannelDefault
 
 !! Create, general, const
@@ -40,8 +38,7 @@ function OutputChannelCreateConst( &
    genreSize, &
    processSize &
 ) &
-      bind(C, name='OutputChannelCreateConst') &
-      result(handle)
+      bind(C, name='OutputChannelCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: genreSize
@@ -51,7 +48,7 @@ function OutputChannelCreateConst( &
    type(c_ptr), value :: Q
    type(c_ptr), value :: products
    type(c_ptr), value :: fissionFragmentData
-   type(c_ptr) :: handle
+   type(c_ptr) :: OutputChannelCreateConst
 end function OutputChannelCreateConst
 
 !! Create, general
@@ -64,8 +61,7 @@ function OutputChannelCreate( &
    genreSize, &
    processSize &
 ) &
-      bind(C, name='OutputChannelCreate') &
-      result(handle)
+      bind(C, name='OutputChannelCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: genreSize
@@ -75,7 +71,7 @@ function OutputChannelCreate( &
    type(c_ptr), value :: Q
    type(c_ptr), value :: products
    type(c_ptr), value :: fissionFragmentData
-   type(c_ptr) :: handle
+   type(c_ptr) :: OutputChannelCreate
 end function OutputChannelCreate
 
 !! Assign
@@ -103,56 +99,51 @@ end subroutine OutputChannelDelete
 
 !! Read from file
 function OutputChannelRead(handle, filename, filenameSize) &
-      bind(C, name='OutputChannelRead') &
-      result(success)
+      bind(C, name='OutputChannelRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: OutputChannelRead
 end function OutputChannelRead
 
 !! Write to file
 function OutputChannelWrite(handle, filename, filenameSize) &
-      bind(C, name='OutputChannelWrite') &
-      result(success)
+      bind(C, name='OutputChannelWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: OutputChannelWrite
 end function OutputChannelWrite
 
 !! Print to standard output, in our prettyprinting format
 function OutputChannelPrint(handle) &
-      bind(C, name='OutputChannelPrint') &
-      result(success)
+      bind(C, name='OutputChannelPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OutputChannelPrint
 end function OutputChannelPrint
 
 !! Print to standard output, as XML
 function OutputChannelPrintXML(handle) &
-      bind(C, name='OutputChannelPrintXML') &
-      result(success)
+      bind(C, name='OutputChannelPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OutputChannelPrintXML
 end function OutputChannelPrintXML
 
 !! Print to standard output, as JSON
 function OutputChannelPrintJSON(handle) &
-      bind(C, name='OutputChannelPrintJSON') &
-      result(success)
+      bind(C, name='OutputChannelPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: OutputChannelPrintJSON
 end function OutputChannelPrintJSON
 
 
@@ -162,22 +153,20 @@ end function OutputChannelPrintJSON
 
 !! Has
 function OutputChannelGenreHas(handle) &
-      bind(C, name='OutputChannelGenreHas') &
-      result(has)
+      bind(C, name='OutputChannelGenreHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OutputChannelGenreHas
 end function OutputChannelGenreHas
 
 !! Get
 function OutputChannelGenreGet(handle) &
-      bind(C, name='OutputChannelGenreGet') &
-      result(genre)
+      bind(C, name='OutputChannelGenreGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: genre
+   type(c_ptr) :: OutputChannelGenreGet
 end function OutputChannelGenreGet
 
 !! Set
@@ -197,22 +186,20 @@ end subroutine OutputChannelGenreSet
 
 !! Has
 function OutputChannelProcessHas(handle) &
-      bind(C, name='OutputChannelProcessHas') &
-      result(has)
+      bind(C, name='OutputChannelProcessHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OutputChannelProcessHas
 end function OutputChannelProcessHas
 
 !! Get
 function OutputChannelProcessGet(handle) &
-      bind(C, name='OutputChannelProcessGet') &
-      result(process)
+      bind(C, name='OutputChannelProcessGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: process
+   type(c_ptr) :: OutputChannelProcessGet
 end function OutputChannelProcessGet
 
 !! Set
@@ -232,32 +219,29 @@ end subroutine OutputChannelProcessSet
 
 !! Has
 function OutputChannelQHas(handle) &
-      bind(C, name='OutputChannelQHas') &
-      result(has)
+      bind(C, name='OutputChannelQHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OutputChannelQHas
 end function OutputChannelQHas
 
 !! Get, const
 function OutputChannelQGetConst(handle) &
-      bind(C, name='OutputChannelQGetConst') &
-      result(resultHandle)
+      bind(C, name='OutputChannelQGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OutputChannelQGetConst
 end function OutputChannelQGetConst
 
 !! Get
 function OutputChannelQGet(handle) &
-      bind(C, name='OutputChannelQGet') &
-      result(resultHandle)
+      bind(C, name='OutputChannelQGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OutputChannelQGet
 end function OutputChannelQGet
 
 !! Set
@@ -276,32 +260,29 @@ end subroutine OutputChannelQSet
 
 !! Has
 function OutputChannelProductsHas(handle) &
-      bind(C, name='OutputChannelProductsHas') &
-      result(has)
+      bind(C, name='OutputChannelProductsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OutputChannelProductsHas
 end function OutputChannelProductsHas
 
 !! Get, const
 function OutputChannelProductsGetConst(handle) &
-      bind(C, name='OutputChannelProductsGetConst') &
-      result(resultHandle)
+      bind(C, name='OutputChannelProductsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OutputChannelProductsGetConst
 end function OutputChannelProductsGetConst
 
 !! Get
 function OutputChannelProductsGet(handle) &
-      bind(C, name='OutputChannelProductsGet') &
-      result(resultHandle)
+      bind(C, name='OutputChannelProductsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OutputChannelProductsGet
 end function OutputChannelProductsGet
 
 !! Set
@@ -320,32 +301,29 @@ end subroutine OutputChannelProductsSet
 
 !! Has
 function OutputChannelFissionFragmentDataHas(handle) &
-      bind(C, name='OutputChannelFissionFragmentDataHas') &
-      result(has)
+      bind(C, name='OutputChannelFissionFragmentDataHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: OutputChannelFissionFragmentDataHas
 end function OutputChannelFissionFragmentDataHas
 
 !! Get, const
 function OutputChannelFissionFragmentDataGetConst(handle) &
-      bind(C, name='OutputChannelFissionFragmentDataGetConst') &
-      result(resultHandle)
+      bind(C, name='OutputChannelFissionFragmentDataGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OutputChannelFissionFragmentDataGetConst
 end function OutputChannelFissionFragmentDataGetConst
 
 !! Get
 function OutputChannelFissionFragmentDataGet(handle) &
-      bind(C, name='OutputChannelFissionFragmentDataGet') &
-      result(resultHandle)
+      bind(C, name='OutputChannelFissionFragmentDataGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: OutputChannelFissionFragmentDataGet
 end function OutputChannelFissionFragmentDataGet
 
 !! Set

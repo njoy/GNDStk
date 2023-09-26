@@ -14,20 +14,18 @@ interface
 
 !! Create, default, const
 function XYs3dDefaultConst() &
-      bind(C, name='XYs3dDefaultConst') &
-      result(handle)
+      bind(C, name='XYs3dDefaultConst')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs3dDefaultConst
 end function XYs3dDefaultConst
 
 !! Create, default
 function XYs3dDefault() &
-      bind(C, name='XYs3dDefault') &
-      result(handle)
+      bind(C, name='XYs3dDefault')
    use iso_c_binding
    implicit none
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs3dDefault
 end function XYs3dDefault
 
 !! Create, general, const
@@ -37,8 +35,7 @@ function XYs3dCreateConst( &
    function2ds, function2dsSize, &
    interpolationQualifierSize &
 ) &
-      bind(C, name='XYs3dCreateConst') &
-      result(handle)
+      bind(C, name='XYs3dCreateConst')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: interpolationQualifierSize
@@ -46,7 +43,7 @@ function XYs3dCreateConst( &
    type(c_ptr), value :: axes
    integer(c_size_t), value :: function2dsSize
    type(c_ptr) :: function2ds(function2dsSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs3dCreateConst
 end function XYs3dCreateConst
 
 !! Create, general
@@ -56,8 +53,7 @@ function XYs3dCreate( &
    function2ds, function2dsSize, &
    interpolationQualifierSize &
 ) &
-      bind(C, name='XYs3dCreate') &
-      result(handle)
+      bind(C, name='XYs3dCreate')
    use iso_c_binding
    implicit none
    integer(c_size_t), intent(in), value :: interpolationQualifierSize
@@ -65,7 +61,7 @@ function XYs3dCreate( &
    type(c_ptr), value :: axes
    integer(c_size_t), value :: function2dsSize
    type(c_ptr) :: function2ds(function2dsSize)
-   type(c_ptr) :: handle
+   type(c_ptr) :: XYs3dCreate
 end function XYs3dCreate
 
 !! Assign
@@ -93,56 +89,51 @@ end subroutine XYs3dDelete
 
 !! Read from file
 function XYs3dRead(handle, filename, filenameSize) &
-      bind(C, name='XYs3dRead') &
-      result(success)
+      bind(C, name='XYs3dRead')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: XYs3dRead
 end function XYs3dRead
 
 !! Write to file
 function XYs3dWrite(handle, filename, filenameSize) &
-      bind(C, name='XYs3dWrite') &
-      result(success)
+      bind(C, name='XYs3dWrite')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
-   integer(c_int) :: success
+   integer(c_int) :: XYs3dWrite
 end function XYs3dWrite
 
 !! Print to standard output, in our prettyprinting format
 function XYs3dPrint(handle) &
-      bind(C, name='XYs3dPrint') &
-      result(success)
+      bind(C, name='XYs3dPrint')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: XYs3dPrint
 end function XYs3dPrint
 
 !! Print to standard output, as XML
 function XYs3dPrintXML(handle) &
-      bind(C, name='XYs3dPrintXML') &
-      result(success)
+      bind(C, name='XYs3dPrintXML')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: XYs3dPrintXML
 end function XYs3dPrintXML
 
 !! Print to standard output, as JSON
 function XYs3dPrintJSON(handle) &
-      bind(C, name='XYs3dPrintJSON') &
-      result(success)
+      bind(C, name='XYs3dPrintJSON')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: success
+   integer(c_int) :: XYs3dPrintJSON
 end function XYs3dPrintJSON
 
 
@@ -152,22 +143,20 @@ end function XYs3dPrintJSON
 
 !! Has
 function XYs3dInterpolationQualifierHas(handle) &
-      bind(C, name='XYs3dInterpolationQualifierHas') &
-      result(has)
+      bind(C, name='XYs3dInterpolationQualifierHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs3dInterpolationQualifierHas
 end function XYs3dInterpolationQualifierHas
 
 !! Get
 function XYs3dInterpolationQualifierGet(handle) &
-      bind(C, name='XYs3dInterpolationQualifierGet') &
-      result(interpolationQualifier)
+      bind(C, name='XYs3dInterpolationQualifierGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: interpolationQualifier
+   type(c_ptr) :: XYs3dInterpolationQualifierGet
 end function XYs3dInterpolationQualifierGet
 
 !! Set
@@ -187,32 +176,29 @@ end subroutine XYs3dInterpolationQualifierSet
 
 !! Has
 function XYs3dAxesHas(handle) &
-      bind(C, name='XYs3dAxesHas') &
-      result(has)
+      bind(C, name='XYs3dAxesHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs3dAxesHas
 end function XYs3dAxesHas
 
 !! Get, const
 function XYs3dAxesGetConst(handle) &
-      bind(C, name='XYs3dAxesGetConst') &
-      result(resultHandle)
+      bind(C, name='XYs3dAxesGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs3dAxesGetConst
 end function XYs3dAxesGetConst
 
 !! Get
 function XYs3dAxesGet(handle) &
-      bind(C, name='XYs3dAxesGet') &
-      result(resultHandle)
+      bind(C, name='XYs3dAxesGet')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs3dAxesGet
 end function XYs3dAxesGet
 
 !! Set
@@ -231,12 +217,11 @@ end subroutine XYs3dAxesSet
 
 !! Has
 function XYs3dFunction2dsHas(handle) &
-      bind(C, name='XYs3dFunction2dsHas') &
-      result(has)
+      bind(C, name='XYs3dFunction2dsHas')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int) :: has
+   integer(c_int) :: XYs3dFunction2dsHas
 end function XYs3dFunction2dsHas
 
 !! Clear
@@ -249,12 +234,11 @@ end subroutine XYs3dFunction2dsClear
 
 !! Size
 function XYs3dFunction2dsSize(handle) &
-      bind(C, name='XYs3dFunction2dsSize') &
-      result(vectorSize)
+      bind(C, name='XYs3dFunction2dsSize')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t) :: vectorSize
+   integer(c_size_t) :: XYs3dFunction2dsSize
 end function XYs3dFunction2dsSize
 
 !! Add
@@ -268,24 +252,22 @@ end subroutine XYs3dFunction2dsAdd
 
 !! Get, by index \in [0,size), const
 function XYs3dFunction2dsGetConst(handle, index) &
-      bind(C, name='XYs3dFunction2dsGetConst') &
-      result(resultHandle)
+      bind(C, name='XYs3dFunction2dsGetConst')
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs3dFunction2dsGetConst
 end function XYs3dFunction2dsGetConst
 
 !! Get, by index \in [0,size)
 function XYs3dFunction2dsGet(handle, index) &
-      bind(C, name='XYs3dFunction2dsGet') &
-      result(resultHandle)
+      bind(C, name='XYs3dFunction2dsGet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: index
-   type(c_ptr) :: resultHandle
+   type(c_ptr) :: XYs3dFunction2dsGet
 end function XYs3dFunction2dsGet
 
 !! Set, by index \in [0,size)

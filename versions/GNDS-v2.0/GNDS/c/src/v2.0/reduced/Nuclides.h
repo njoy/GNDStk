@@ -151,18 +151,6 @@ NuclidesStringsGet(ConstHandle2ConstNuclides self, const size_t index);
 extern_c void
 NuclidesStringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value);
 
-// --- Get pointer to existing values, const
-extern_c const std::string *
-NuclidesStringsGetArrayConst(ConstHandle2ConstNuclides self);
-
-// +++ Get pointer to existing values
-extern_c std::string *
-NuclidesStringsGetArray(ConstHandle2Nuclides self);
-
-// +++ Set completely new values and size
-extern_c void
-NuclidesStringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size);
-
 
 // -----------------------------------------------------------------------------
 // Metadatum: href
