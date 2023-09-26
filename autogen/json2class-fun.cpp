@@ -167,8 +167,10 @@ bool isClass(const json::pair &keyval)
       return false;
 
    // not a node class?
-   if ((val.contains("__class__") && val["__class__"].get<json::string>() != "nodes.Node") || (
-        val.contains(  "class"  ) && val[  "class"  ].get<json::string>() != "nodes.Node")
+   if ((val.contains("__class__") &&
+        val["__class__"].get<json::string>() != "nodes.Node") ||
+       (val.contains(  "class"  ) &&
+        val[  "class"  ].get<json::string>() != "nodes.Node")
    )
       return false;
 
@@ -291,8 +293,9 @@ const std::string &getFileNamespace(const json::object &j)
 }
 
 // Get the JSON's "type", with any relevant specs.mapMetaType entry applied
-const std::string &getMetadatumType(const json::object &j, const InfoSpecs &specs)
-{
+const std::string &getMetadatumType(
+   const json::object &j, const InfoSpecs &specs
+) {
    const std::string &type = j["type"].get<json::string>();
    const auto it = specs.mapMetaType.find(type);
    return it == specs.mapMetaType.end() ? type : it->second;
@@ -309,8 +312,10 @@ std::string getChildNamespace(
    // childClass' namespace...
 
    // ...is explicitly given by "__namespace__"or "namespace"
-   if (j.contains("__namespace__")) return j["__namespace__"].get<json::string>();
-   if (j.contains(  "namespace"  )) return j[  "namespace"  ].get<json::string>();
+   if (j.contains("__namespace__"))
+      return j["__namespace__"].get<json::string>();
+   if (j.contains(  "namespace"  ))
+      return j[  "namespace"  ].get<json::string>();
 
    // ...isn't given, and this child isn't in any of the JSONs :-(
    if (specs.class2nspace.count(childClass) == 0) {
@@ -381,7 +386,9 @@ void getClassMetadata(
       m.name = nameField(field,specs);
 
       // Converter, if given
-      m.converter = metaRHS.contains("converter") ? metaRHS["converter"].get<json::string>() : "";
+      m.converter = metaRHS.contains("converter")
+         ? metaRHS["converter"].get<json::string>()
+         : "";
 
       // Type
       m.type = getMetadatumType(metaRHS,specs);
@@ -409,12 +416,16 @@ void getClassMetadata(
       }
 
       // Optional? (not required, and has no default)
-      m.isOptional = !metaRHS["required"].get<json::boolean>() && m.defaultValue == "";
+      m.isOptional =
+         !metaRHS["required"].get<json::boolean>() &&
+         m.defaultValue == "";
       const std::string optPrefix = m.isOptional ? "std::optional<" : "";
       const std::string optSuffix = m.isOptional ? ">" : "";
 
       // Defaulted? (not required, but does have a default)
-      m.isDefaulted = !metaRHS["required"].get<json::boolean>() && m.defaultValue != "";
+      m.isDefaulted =
+         !metaRHS["required"].get<json::boolean>() &&
+         m.defaultValue != "";
       const std::string defPrefix = m.isDefaulted ? "Defaulted<" : "";
       const std::string defSuffix = m.isDefaulted ? ">" : "";
 
@@ -456,9 +467,12 @@ void getClassChildren(
       c.name = nameField(field,specs);
 
       // Converter, Filter, and Label, if given
-      c.converter = elemRHS.contains("converter") ? elemRHS["converter"].get<json::string>() : "";
-      c.filter = elemRHS.contains("filter") ? elemRHS["filter"].get<json::string>() : "";
-      c.label = elemRHS.contains("label") ? elemRHS["label"].get<json::string>() : "";
+      c.converter = elemRHS.contains("converter")
+         ? elemRHS["converter"].get<json::string>() : "";
+      c.filter    = elemRHS.contains("filter")
+         ? elemRHS["filter"   ].get<json::string>() : "";
+      c.label     = elemRHS.contains("label")
+         ? elemRHS["label"    ].get<json::string>() : "";
 
       // Type, excluding namespace
       c.plain = nameClass(field,specs);
@@ -700,7 +714,9 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
    if (jchanges.contains("name"))
       for (const auto &item : jchanges["name"].items())
          if (!isComment(item.first))
-            specs.mapName.insert(pair(item.first,item.second.get<json::string>()));
+            specs.mapName.insert(
+               pair(item.first, item.second.get<json::string>())
+            );
 
    // Changes to metadata/attributes?
    const json::object metadata = getMetadataJSON(jchanges);
@@ -709,12 +725,16 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
    if (metadata.contains("type"))
       for (const auto &item : metadata["type"].items())
          if (!isComment(item.first))
-            specs.mapMetaType.insert(pair(item.first,item.second.get<json::string>()));
+            specs.mapMetaType.insert(
+               pair(item.first,item.second.get<json::string>())
+            );
    // from/to pairs for "default"
    if (metadata.contains("default"))
       for (const auto &item : metadata["default"].items())
          if (!isComment(item.first))
-            specs.mapMetaDefault.insert(pair(item.first,item.second.get<json::string>()));
+            specs.mapMetaDefault.insert(
+               pair(item.first,item.second.get<json::string>())
+            );
 } // readChangesFile
 
 
@@ -801,9 +821,13 @@ void commandLine(
    // Extract information from the command line JSON file...
 
    // ...these are optional:
-   specs.Path    = jmain.contains(path   ) ? jmain[path   ].get<json::string>() : ".";
-   specs.Project = jmain.contains(project) ? jmain[project].get<json::string>() : "GNDStk";
-   specs.JSONDir = jmain.contains(input  ) ? jmain[input  ].get<json::string>() : ".";
+   specs.Path    = jmain.contains(path   )
+      ? jmain[path   ].get<json::string>() : ".";
+   specs.Project = jmain.contains(project)
+      ? jmain[project].get<json::string>() : "GNDStk";
+   specs.JSONDir = jmain.contains(input  )
+      ? jmain[input  ].get<json::string>() : ".";
+
    if (jmain.contains(enums))
       for (const auto &e : jmain[enums].get<json::object>().items()) {
          specs.Enumerators.push_back(
@@ -1033,7 +1057,11 @@ void validateChildren(const json::object &children, const PerClass &per)
       // Remark: the GNDS manual speaks of "choice2" and "choice2+" options
       // for occurrence. We're not sure if those will remain in future GNDS
       // specifications, so we won't worry now about how they might fit in.
-      const std::string &times = getTimes(per,field.first,field.second.get<json::object>());
+      const std::string &times = getTimes(
+         per,
+         field.first,
+         field.second.get<json::object>()
+      );
       if (times == "0+" || times == "choice" || times == "choice+")
          assert(!field.second["required"].get<json::boolean>()); // not required
 
@@ -1101,8 +1129,11 @@ void getClass(
    } else
       per.elementType = "";
    per.isDataNode =
-      per.isDataString || (per.isDataVector && per.elementType != "");
-   per.cdata = classRHS.contains("cdata") && classRHS["cdata"].get<json::boolean>();
+      per.isDataString ||
+     (per.isDataVector && per.elementType != "");
+   per.cdata =
+      classRHS.contains("cdata") &&
+      classRHS["cdata"].get<json::boolean>();
 
    // save dependencies
    specs.ClassDependenciesRaw.push_back(dep);

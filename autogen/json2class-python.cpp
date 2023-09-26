@@ -98,7 +98,8 @@ void filePythonVersion(const InfoSpecs &specs)
 
    out();
    out(1,"// version @: wrapper", specs.Version);
-   out(1,"void wrap@(pybind11::module &module)", capital(specs.VersionUnderscore));
+   out(1,"void wrap@(pybind11::module &module)",
+       capital(specs.VersionUnderscore));
    out(1,"{");
    out(2,"// @", specs.Version);
    out(2,"pybind11::module submodule = module.def_submodule(");

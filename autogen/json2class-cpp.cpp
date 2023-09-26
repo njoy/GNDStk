@@ -83,7 +83,8 @@ void writeClassForComponent(writer &out, const PerClass &per)
 
    // KEYS() begin
    out();
-   out(1,"// Core Interface multi-query to transfer information to/from core Nodes");
+   out(1,"// Core Interface multi-query to transfer information "
+       "to/from core Nodes");
    out(1,"static auto KEYS()");
    out(1,"{");
 
@@ -904,7 +905,8 @@ void fileGNDStkKey(const InfoSpecs &specs)
                nameGNDS(node)));
 
             // attributes ==> metadata
-            const json::object attrs = getMetadataJSON(node.second.get<json::object>());
+            const json::object attrs =
+               getMetadataJSON(node.second.get<json::object>());
             for (const auto &attr : attrs.items()) {
                if (beginsin(attr.first, "//"))
                   continue;

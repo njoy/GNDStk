@@ -453,7 +453,8 @@ void fileCInterfaceVector(
       PPP(hdr,src,"Set completely new values and size");
       ext(hdr,src,"void");
       two(hdr,src,"@@SetArray(", Class, Types, false);
-      two(hdr,src,"ConstHandle2@ self, const @ *const values, const size_t size",
+      two(hdr,src,"ConstHandle2@ self, const @ *const values, "
+         "const size_t size",
           Class, type, false);
       sig(hdr,src);
       src(1,"return detail::vectorSet<CPP,@>", type);

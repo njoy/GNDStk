@@ -81,10 +81,11 @@ void fileF03InterfaceCreateParams(
    for (const auto &c : per.children) {
       const std::string varname = fname(c.name);
       src();
-      if (c.isVector)
-         src(1,"@, @Size@", varname, varname, ++count < total || hasSizes ? ", &" : " &", false);
-      else
-         src(1,"@@", varname, ++count < total || hasSizes ? ", &" : " &", false);
+      c.isVector
+         ? src(1,"@, @Size@", varname, varname,
+               ++count < total || hasSizes ? ", &" : " &", false)
+         : src(1,"@@", varname,
+               ++count < total || hasSizes ? ", &" : " &", false);
    }
 
    // variants
@@ -367,8 +368,10 @@ void fileF03InterfaceVector(
    src("!! Set value");
    src("!! By index \\in [0,size)");
    type == "std::string"
-      ? src("subroutine @@Set(handle, arrayIndex, valueAtIndex, valueAtIndexSize) &", Class, Types)
-      : src("subroutine @@Set(handle, arrayIndex, valueAtIndex) &", Class, Types);
+      ? src("subroutine @@Set(handle, arrayIndex, valueAtIndex, "
+            "valueAtIndexSize) &", Class, Types)
+      : src("subroutine @@Set(handle, arrayIndex, valueAtIndex) "
+            "&", Class, Types);
    src(2,"bind(C, name='@@Set')", Class, Types);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
