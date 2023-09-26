@@ -10,10 +10,10 @@ const std::map<std::string,std::string> nameMapFortran =
 };
 
 // fname
-std::string fname(const std::string &name)
+std::string fname(const std::string &varname)
 {
-   const auto it = nameMapFortran.find(name);
-   return it == nameMapFortran.end() ? name : it->second;
+   const auto it = nameMapFortran.find(varname);
+   return it == nameMapFortran.end() ? varname : it->second;
 }
 
 // ftype
@@ -70,21 +70,21 @@ void fileF03InterfaceCreateParams(
 
    // metadata
    for (const auto &m : per.metadata) {
-      const std::string name = fname(m.name);
+      const std::string varname = fname(m.name);
       src();
-      src(1,"@@", name, ++count < total || hasSizes ? ", &" : " &", false);
+      src(1,"@@", varname, ++count < total || hasSizes ? ", &" : " &", false);
       if (m.type == "std::string")
-         sizes.push_back(name+"Size");
+         sizes.push_back(varname+"Size");
    }
 
    // children
    for (const auto &c : per.children) {
-      const std::string name = fname(c.name);
+      const std::string varname = fname(c.name);
       src();
       if (c.isVector)
-         src(1,"@, @Size@", name, name, ++count < total || hasSizes ? ", &" : " &", false);
+         src(1,"@, @Size@", varname, varname, ++count < total || hasSizes ? ", &" : " &", false);
       else
-         src(1,"@@", name, ++count < total || hasSizes ? ", &" : " &", false);
+         src(1,"@@", varname, ++count < total || hasSizes ? ", &" : " &", false);
    }
 
    // variants
@@ -104,22 +104,22 @@ void fileF03InterfaceDeclareParams(
 ) {
    // metadata
    for (const auto &m : per.metadata) {
-      const std::string name = fname(m.name);
+      const std::string varname = fname(m.name);
       if (m.type == "std::string") {
-         src(1,"integer(c_size_t), intent(in), value :: @Size", name);
-         src(1,"character(c_char), intent(in) :: @(@Size)", name, name);
+         src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
+         src(1,"character(c_char), intent(in) :: @(@Size)", varname, varname);
       } else
-         src(1,"@, value, intent(in) :: @", ftype(m.type), name);
+         src(1,"@, value, intent(in) :: @", ftype(m.type), varname);
    }
 
    // children
    for (const auto &c : per.children) {
-      const std::string name = fname(c.name);
+      const std::string varname = fname(c.name);
       if (c.isVector) {
-         src(1,"integer(c_size_t), value :: @Size", name);
-         src(1,"type(c_ptr) :: @(@Size)", name, name);
+         src(1,"integer(c_size_t), value :: @Size", varname);
+         src(1,"type(c_ptr) :: @(@Size)", varname, varname);
       } else
-         src(1,"type(c_ptr), value :: @", name);
+         src(1,"type(c_ptr), value :: @", varname);
    }
 
    // variants
@@ -433,12 +433,11 @@ void fileF03InterfaceMeta(
    const PerClass &per, const InfoMetadata &m
 ) {
    const std::string Class = per.clname;
-   const std::string Meta  = UpperCamel(m.name);
-   const std::string meta  = m.name;
-   const std::string name  = fname(m.name);
+   const std::string Meta = UpperCamel(m.name);
+   const std::string varname = fname(m.name);
 
    // section comment
-   sectionFortran(src,"!! Metadatum: @", meta);
+   sectionFortran(src,"!! Metadatum: @", m.name);
 
    // has
    src();
@@ -465,13 +464,13 @@ void fileF03InterfaceMeta(
    // set
    src();
    src("!! Set");
-   src("subroutine @@Set(handle, @, @Size) &", Class, Meta, name, name);
+   src("subroutine @@Set(handle, @, @Size) &", Class, Meta, varname, varname);
    src(2,"bind(C, name='@@Set')", Class, Meta);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
-   src(1,"integer(c_size_t), intent(in), value :: @Size", name);
-   src(1,"character(c_char), intent(in) :: @(@Size)", name, name);
+   src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
+   src(1,"character(c_char), intent(in) :: @(@Size)", varname, varname);
    src("end subroutine @@Set", Class, Meta);
 }
 
