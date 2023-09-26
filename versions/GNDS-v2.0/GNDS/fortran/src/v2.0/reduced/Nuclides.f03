@@ -141,75 +141,46 @@ end function NuclidesPrintJSON
 !! -----------------------------------------------------------------------------
 
 !! Clear
-subroutine NuclidesStd::stringsClear(handle) &
-      bind(C, name='NuclidesStd::stringsClear')
+subroutine NuclidesStringsClear(handle) &
+      bind(C, name='NuclidesStringsClear')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-end subroutine NuclidesStd::stringsClear
+end subroutine NuclidesStringsClear
 
 !! Get size
-function NuclidesStd::stringsSize(handle) &
-      bind(C, name='NuclidesStd::stringsSize') &
+function NuclidesStringsSize(handle) &
+      bind(C, name='NuclidesStringsSize') &
       result(arraySize)
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t) :: arraySize
-end function NuclidesStd::stringsSize
+end function NuclidesStringsSize
 
 !! Get value
 !! By index \in [0,size)
-function NuclidesStd::stringsGet(handle, arrayIndex) &
-      bind(C, name='NuclidesStd::stringsGet') &
+function NuclidesStringsGet(handle, arrayIndex) &
+      bind(C, name='NuclidesStringsGet') &
       result(valueAtIndex)
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   real(c_std::string) :: valueAtIndex
-end function NuclidesStd::stringsGet
+   type(c_ptr) :: valueAtIndex
+end function NuclidesStringsGet
 
 !! Set value
 !! By index \in [0,size)
-subroutine NuclidesStd::stringsSet(handle, arrayIndex, valueAtIndex) &
-      bind(C, name='NuclidesStd::stringsSet')
+subroutine NuclidesStringsSet(handle, arrayIndex, valueAtIndex, valueAtIndexSize) &
+      bind(C, name='NuclidesStringsSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   real(c_std::string), intent(in), value :: valueAtIndex
-end subroutine NuclidesStd::stringsSet
-
-!! Get pointer to existing values, const
-function NuclidesStd::stringsGetArrayConst(handle) &
-      bind(C, name='NuclidesStd::stringsGetArrayConst') &
-      result(ptrToArray)
-   use iso_c_binding
-   implicit none
-   type(c_ptr), intent(in), value :: handle
-   type(c_ptr) :: ptrToArray
-end function NuclidesStd::stringsGetArrayConst
-
-!! Get pointer to existing values
-function NuclidesStd::stringsGetArray(handle) &
-      bind(C, name='NuclidesStd::stringsGetArray') &
-      result(ptrToArray)
-   use iso_c_binding
-   implicit none
-   type(c_ptr), value :: handle
-   type(c_ptr) :: ptrToArray
-end function NuclidesStd::stringsGetArray
-
-!! Set completely new values and size
-subroutine NuclidesStd::stringsSetArray(handle, values, valuesSize) &
-      bind(C, name='NuclidesStd::stringsSetArray')
-   use iso_c_binding
-   implicit none
-   type(c_ptr), value :: handle
-   integer(c_size_t), value :: valuesSize
-   real(c_std::string), intent(in) :: values(valuesSize)
-end subroutine NuclidesStd::stringsSetArray
+   integer(c_size_t), intent(in), value :: valueAtIndexSize
+   character(c_char), intent(in) :: valueAtIndex(valueAtIndexSize)
+end subroutine NuclidesStringsSet
 
 
 !! -----------------------------------------------------------------------------

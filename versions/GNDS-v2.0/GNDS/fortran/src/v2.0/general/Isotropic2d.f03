@@ -31,7 +31,8 @@ function Isotropic2dDefault() &
 end function Isotropic2dDefault
 
 !! Create, general, const
-function Isotropic2dCreateConst( &) &
+function Isotropic2dCreateConst( &
+) &
       bind(C, name='Isotropic2dCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function Isotropic2dCreateConst( &) &
 end function Isotropic2dCreateConst
 
 !! Create, general
-function Isotropic2dCreate( &) &
+function Isotropic2dCreate( &
+) &
       bind(C, name='Isotropic2dCreate') &
       result(handle)
    use iso_c_binding

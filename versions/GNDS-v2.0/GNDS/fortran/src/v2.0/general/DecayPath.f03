@@ -316,7 +316,7 @@ function DecayPathDecayHasByComplete(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    integer(c_int) :: has
 end function DecayPathDecayHasByComplete
 
@@ -327,7 +327,7 @@ function DecayPathDecayGetByCompleteConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function DecayPathDecayGetByCompleteConst
 
@@ -338,7 +338,7 @@ function DecayPathDecayGetByComplete(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function DecayPathDecayGetByComplete
 
@@ -348,7 +348,7 @@ subroutine DecayPathDecaySetByComplete(handle, meta, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayPathDecaySetByComplete
 

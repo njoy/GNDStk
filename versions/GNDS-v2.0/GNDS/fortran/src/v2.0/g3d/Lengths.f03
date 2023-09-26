@@ -175,7 +175,7 @@ function LengthsIntsGet(handle, arrayIndex) &
    implicit none
    type(c_ptr), intent(in), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   real(c_int) :: valueAtIndex
+   integer(c_int) :: valueAtIndex
 end function LengthsIntsGet
 
 !! Set value
@@ -186,7 +186,7 @@ subroutine LengthsIntsSet(handle, arrayIndex, valueAtIndex) &
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: arrayIndex
-   real(c_int), intent(in), value :: valueAtIndex
+   integer(c_int), intent(in), value :: valueAtIndex
 end subroutine LengthsIntsSet
 
 !! Get pointer to existing values, const
@@ -216,7 +216,7 @@ subroutine LengthsIntsSetArray(handle, values, valuesSize) &
    implicit none
    type(c_ptr), value :: handle
    integer(c_size_t), value :: valuesSize
-   real(c_int), intent(in) :: values(valuesSize)
+   integer(c_int), intent(in) :: values(valuesSize)
 end subroutine LengthsIntsSetArray
 
 

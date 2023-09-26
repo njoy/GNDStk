@@ -31,7 +31,8 @@ function TitleDefault() &
 end function TitleDefault
 
 !! Create, general, const
-function TitleCreateConst( &) &
+function TitleCreateConst( &
+) &
       bind(C, name='TitleCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function TitleCreateConst( &) &
 end function TitleCreateConst
 
 !! Create, general
-function TitleCreate( &) &
+function TitleCreate( &
+) &
       bind(C, name='TitleCreate') &
       result(handle)
    use iso_c_binding

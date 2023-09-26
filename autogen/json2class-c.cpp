@@ -373,8 +373,9 @@ void fileCInterfaceVector(
    // Example:
    //    type:  "double" (parameter to the present function)
    // Then:
-   //    Class: "Foobar" (class type; for brevity)
+   //    Class: "Foobar" (example class name)
    //    Types: "Doubles"
+   // fixme The determination of Types should probably be more general.
    const std::string Class = per.clname;
    const std::string Types = type == "std::string"
       ? "Strings"
@@ -423,36 +424,42 @@ void fileCInterfaceVector(
    src(2,"(CLASSNAME, CLASSNAME+\"@Set\", self, index, value);", Types);
    src("}");
 
-   // get pointer to existing values, const
-   MMM(hdr,src,"Get pointer to existing values, const");
-   ext(hdr,src,"const @ *", type);
-   two(hdr,src,"@@GetArrayConst(", Class, Types, false);
-   two(hdr,src,"ConstHandle2Const@ self", Class, false);
-   sig(hdr,src);
-   src(1,"return detail::vectorGet<CPP,@>", type);
-   src(2,"(CLASSNAME, CLASSNAME+\"@GetArrayConst\", self);", Types);
-   src("}");
+   // fixme
+   // For now, we only have the following for non-std::string types.
+   // Supporting std::string here means we really need the equivalent
+   // of char** (pointer to pointer to char).
+   if (type != "std::string") {
+      // get pointer to existing values, const
+      MMM(hdr,src,"Get pointer to existing values, const");
+      ext(hdr,src,"const @ *", type);
+      two(hdr,src,"@@GetArrayConst(", Class, Types, false);
+      two(hdr,src,"ConstHandle2Const@ self", Class, false);
+      sig(hdr,src);
+      src(1,"return detail::vectorGet<CPP,@>", type);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetArrayConst\", self);", Types);
+      src("}");
 
-   // get pointer to existing values
-   PPP(hdr,src,"Get pointer to existing values");
-   ext(hdr,src,"@ *", type);
-   two(hdr,src,"@@GetArray(", Class, Types, false);
-   two(hdr,src,"ConstHandle2@ self", Class, false);
-   sig(hdr,src);
-   src(1,"return detail::vectorGet<CPP,@>", type);
-   src(2,"(CLASSNAME, CLASSNAME+\"@GetArray\", self);", Types);
-   src("}");
+      // get pointer to existing values
+      PPP(hdr,src,"Get pointer to existing values");
+      ext(hdr,src,"@ *", type);
+      two(hdr,src,"@@GetArray(", Class, Types, false);
+      two(hdr,src,"ConstHandle2@ self", Class, false);
+      sig(hdr,src);
+      src(1,"return detail::vectorGet<CPP,@>", type);
+      src(2,"(CLASSNAME, CLASSNAME+\"@GetArray\", self);", Types);
+      src("}");
 
-   // set completely new values and size
-   PPP(hdr,src,"Set completely new values and size");
-   ext(hdr,src,"void");
-   two(hdr,src,"@@SetArray(", Class, Types, false);
-   two(hdr,src,"ConstHandle2@ self, const @ *const values, const size_t size",
-       Class, type, false);
-   sig(hdr,src);
-   src(1,"return detail::vectorSet<CPP,@>", type);
-   src(2,"(CLASSNAME, CLASSNAME+\"@SetArray\", self, size, values);", Types);
-   src("}");
+      // set completely new values and size
+      PPP(hdr,src,"Set completely new values and size");
+      ext(hdr,src,"void");
+      two(hdr,src,"@@SetArray(", Class, Types, false);
+      two(hdr,src,"ConstHandle2@ self, const @ *const values, const size_t size",
+          Class, type, false);
+      sig(hdr,src);
+      src(1,"return detail::vectorSet<CPP,@>", type);
+      src(2,"(CLASSNAME, CLASSNAME+\"@SetArray\", self, size, values);", Types);
+      src("}");
+   }
 } // fileCInterfaceVector
 
 

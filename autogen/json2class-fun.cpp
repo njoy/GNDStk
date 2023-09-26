@@ -889,8 +889,8 @@ void preprocessClass(
    const std::string cltestcpp = nsdircpp + "/" + clname + "/test";
    const std::string clsrcc    = nsdirc   + "/" + clname + "/src";
    const std::string cltestc   = nsdirc   + "/" + clname + "/test";
-   ///const std::string clsrcf03  = nsdirf03 + "/" + clname + "/src";
-   ///const std::string cltestf03 = nsdirf03 + "/" + clname + "/test";
+   // const std::string clsrcf03  = nsdirf03 + "/" + clname + "/src";
+   // const std::string cltestf03 = nsdirf03 + "/" + clname + "/test";
 
    // Create the above directories, if (and only if) they don't already exist.
    system(("mkdir -p " + nsdircpp ).data());
@@ -901,8 +901,8 @@ void preprocessClass(
    system(("mkdir -p " + cltestcpp).data());
    system(("mkdir -p " + clsrcc   ).data());
    system(("mkdir -p " + cltestc  ).data());
-   ///system(("mkdir -p " + clsrcf03 ).data());
-   ///system(("mkdir -p " + cltestf03).data());
+   // system(("mkdir -p " + clsrcf03 ).data());
+   // system(("mkdir -p " + cltestf03).data());
 
    // ------------------------
    // Create custom files

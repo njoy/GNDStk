@@ -135,33 +135,33 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides self);
 
 // +++ Clear
 extern_c void
-NuclidesStd::stringsClear(ConstHandle2Nuclides self);
+NuclidesStringsClear(ConstHandle2Nuclides self);
 
 // +++ Get size
 extern_c size_t
-NuclidesStd::stringsSize(ConstHandle2ConstNuclides self);
+NuclidesStringsSize(ConstHandle2ConstNuclides self);
 
 // +++ Get value
 // +++ By index \in [0,size)
 extern_c std::string
-NuclidesStd::stringsGet(ConstHandle2ConstNuclides self, const size_t index);
+NuclidesStringsGet(ConstHandle2ConstNuclides self, const size_t index);
 
 // +++ Set value
 // +++ By index \in [0,size)
 extern_c void
-NuclidesStd::stringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value);
+NuclidesStringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value);
 
 // --- Get pointer to existing values, const
 extern_c const std::string *
-NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides self);
+NuclidesStringsGetArrayConst(ConstHandle2ConstNuclides self);
 
 // +++ Get pointer to existing values
 extern_c std::string *
-NuclidesStd::stringsGetArray(ConstHandle2Nuclides self);
+NuclidesStringsGetArray(ConstHandle2Nuclides self);
 
 // +++ Set completely new values and size
 extern_c void
-NuclidesStd::stringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size);
+NuclidesStringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size);
 
 
 // -----------------------------------------------------------------------------

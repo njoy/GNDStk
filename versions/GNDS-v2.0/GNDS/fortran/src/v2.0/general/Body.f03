@@ -31,7 +31,8 @@ function BodyDefault() &
 end function BodyDefault
 
 !! Create, general, const
-function BodyCreateConst( &) &
+function BodyCreateConst( &
+) &
       bind(C, name='BodyCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function BodyCreateConst( &) &
 end function BodyCreateConst
 
 !! Create, general
-function BodyCreate( &) &
+function BodyCreate( &
+) &
       bind(C, name='BodyCreate') &
       result(handle)
    use iso_c_binding

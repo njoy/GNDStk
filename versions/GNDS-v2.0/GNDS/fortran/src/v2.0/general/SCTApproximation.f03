@@ -31,7 +31,8 @@ function SCTApproximationDefault() &
 end function SCTApproximationDefault
 
 !! Create, general, const
-function SCTApproximationCreateConst( &) &
+function SCTApproximationCreateConst( &
+) &
       bind(C, name='SCTApproximationCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function SCTApproximationCreateConst( &) &
 end function SCTApproximationCreateConst
 
 !! Create, general
-function SCTApproximationCreate( &) &
+function SCTApproximationCreate( &
+) &
       bind(C, name='SCTApproximationCreate') &
       result(handle)
    use iso_c_binding

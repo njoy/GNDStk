@@ -31,7 +31,8 @@ function EndfCompatibleDefault() &
 end function EndfCompatibleDefault
 
 !! Create, general, const
-function EndfCompatibleCreateConst( &) &
+function EndfCompatibleCreateConst( &
+) &
       bind(C, name='EndfCompatibleCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function EndfCompatibleCreateConst( &) &
 end function EndfCompatibleCreateConst
 
 !! Create, general
-function EndfCompatibleCreate( &) &
+function EndfCompatibleCreate( &
+) &
       bind(C, name='EndfCompatibleCreate') &
       result(handle)
    use iso_c_binding

@@ -31,7 +31,8 @@ function ValuesDefault() &
 end function ValuesDefault
 
 !! Create, general, const
-function ValuesCreateConst( &) &
+function ValuesCreateConst( &
+) &
       bind(C, name='ValuesCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function ValuesCreateConst( &) &
 end function ValuesCreateConst
 
 !! Create, general
-function ValuesCreate( &) &
+function ValuesCreate( &
+) &
       bind(C, name='ValuesCreate') &
       result(handle)
    use iso_c_binding

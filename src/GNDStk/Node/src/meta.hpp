@@ -100,7 +100,7 @@ void meta(
          using TYPE = typename T::value_type;
          bool f; // local "found" for TYPE (not optional<TYPE>)
          TYPE obj;
-         meta(obj, obj/kwd, f);
+         meta(obj, TYPE()/kwd, f);
          if (f)
             existing = obj;
          else
@@ -133,7 +133,7 @@ void meta(
       // Remarks as with those for optional case above
       bool f; // local "found"
       TYPE obj;
-      meta(obj, obj/kwd, f);
+      meta(obj, TYPE()/kwd, f);
       if (f)
          existing = obj;
       else

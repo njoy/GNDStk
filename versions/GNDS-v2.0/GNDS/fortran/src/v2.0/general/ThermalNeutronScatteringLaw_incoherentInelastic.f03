@@ -55,7 +55,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCreateConst( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    integer(c_size_t), intent(in), value :: primaryScattererSize
    character(c_char), intent(in) :: primaryScatterer(primaryScattererSize)
-   integer(c_bool), value, intent(in) :: calculatedAtThermal
+   logical(c_bool), value, intent(in) :: calculatedAtThermal
    type(c_ptr), value :: scatteringAtoms
    type(c_ptr) :: handle
 end function ThermalNeutronScatteringLaw_incoherentInelasticCreateConst
@@ -85,7 +85,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCreate( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    integer(c_size_t), intent(in), value :: primaryScattererSize
    character(c_char), intent(in) :: primaryScatterer(primaryScattererSize)
-   integer(c_bool), value, intent(in) :: calculatedAtThermal
+   logical(c_bool), value, intent(in) :: calculatedAtThermal
    type(c_ptr), value :: scatteringAtoms
    type(c_ptr) :: handle
 end function ThermalNeutronScatteringLaw_incoherentInelasticCreate
@@ -329,7 +329,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalGet(h
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool) :: calculatedAtThermal
+   logical(c_bool) :: calculatedAtThermal
 end function ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalGet
 
 !! Set

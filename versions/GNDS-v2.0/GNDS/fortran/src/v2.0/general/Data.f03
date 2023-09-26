@@ -31,7 +31,8 @@ function DataDefault() &
 end function DataDefault
 
 !! Create, general, const
-function DataCreateConst( &) &
+function DataCreateConst( &
+) &
       bind(C, name='DataCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function DataCreateConst( &) &
 end function DataCreateConst
 
 !! Create, general
-function DataCreate( &) &
+function DataCreate( &
+) &
       bind(C, name='DataCreate') &
       result(handle)
    use iso_c_binding

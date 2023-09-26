@@ -141,60 +141,60 @@ NuclidesPrintJSON(ConstHandle2ConstNuclides self)
 
 // Clear
 void
-NuclidesStd::stringsClear(ConstHandle2Nuclides self)
+NuclidesStringsClear(ConstHandle2Nuclides self)
 {
    detail::vectorClear<CPP>
-      (CLASSNAME, CLASSNAME+"Std::stringsClear", self);
+      (CLASSNAME, CLASSNAME+"StringsClear", self);
 }
 
 // Get size
 size_t
-NuclidesStd::stringsSize(ConstHandle2ConstNuclides self)
+NuclidesStringsSize(ConstHandle2ConstNuclides self)
 {
    return detail::vectorSize<CPP>
-      (CLASSNAME, CLASSNAME+"Std::stringsSize", self);
+      (CLASSNAME, CLASSNAME+"StringsSize", self);
 }
 
 // Get value
 // By index \in [0,size)
 std::string
-NuclidesStd::stringsGet(ConstHandle2ConstNuclides self, const size_t index)
+NuclidesStringsGet(ConstHandle2ConstNuclides self, const size_t index)
 {
    return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsGet", self, index);
+      (CLASSNAME, CLASSNAME+"StringsGet", self, index);
 }
 
 // Set value
 // By index \in [0,size)
 void
-NuclidesStd::stringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value)
+NuclidesStringsSet(ConstHandle2Nuclides self, const size_t index, const std::string value)
 {
    detail::vectorSet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsSet", self, index, value);
+      (CLASSNAME, CLASSNAME+"StringsSet", self, index, value);
 }
 
 // Get pointer to existing values, const
 const std::string *
-NuclidesStd::stringsGetArrayConst(ConstHandle2ConstNuclides self)
+NuclidesStringsGetArrayConst(ConstHandle2ConstNuclides self)
 {
    return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsGetArrayConst", self);
+      (CLASSNAME, CLASSNAME+"StringsGetArrayConst", self);
 }
 
 // Get pointer to existing values
 std::string *
-NuclidesStd::stringsGetArray(ConstHandle2Nuclides self)
+NuclidesStringsGetArray(ConstHandle2Nuclides self)
 {
    return detail::vectorGet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsGetArray", self);
+      (CLASSNAME, CLASSNAME+"StringsGetArray", self);
 }
 
 // Set completely new values and size
 void
-NuclidesStd::stringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size)
+NuclidesStringsSetArray(ConstHandle2Nuclides self, const std::string *const values, const size_t size)
 {
    return detail::vectorSet<CPP,std::string>
-      (CLASSNAME, CLASSNAME+"Std::stringsSetArray", self, size, values);
+      (CLASSNAME, CLASSNAME+"StringsSetArray", self, size, values);
 }
 
 

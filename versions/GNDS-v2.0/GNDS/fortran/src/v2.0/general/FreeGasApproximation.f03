@@ -31,7 +31,8 @@ function FreeGasApproximationDefault() &
 end function FreeGasApproximationDefault
 
 !! Create, general, const
-function FreeGasApproximationCreateConst( &) &
+function FreeGasApproximationCreateConst( &
+) &
       bind(C, name='FreeGasApproximationCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function FreeGasApproximationCreateConst( &) &
 end function FreeGasApproximationCreateConst
 
 !! Create, general
-function FreeGasApproximationCreate( &) &
+function FreeGasApproximationCreate( &
+) &
       bind(C, name='FreeGasApproximationCreate') &
       result(handle)
    use iso_c_binding

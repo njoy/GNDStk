@@ -41,7 +41,7 @@ function SelfScatteringKernelCreateConst( &
       result(handle)
    use iso_c_binding
    implicit none
-   integer(c_bool), value, intent(in) :: symmetric
+   logical(c_bool), value, intent(in) :: symmetric
    type(c_ptr), value :: gridded3d
    type(c_ptr), value :: SCTApproximation
    type(c_ptr), value :: freeGasApproximation
@@ -59,7 +59,7 @@ function SelfScatteringKernelCreate( &
       result(handle)
    use iso_c_binding
    implicit none
-   integer(c_bool), value, intent(in) :: symmetric
+   logical(c_bool), value, intent(in) :: symmetric
    type(c_ptr), value :: gridded3d
    type(c_ptr), value :: SCTApproximation
    type(c_ptr), value :: freeGasApproximation
@@ -165,7 +165,7 @@ function SelfScatteringKernelSymmetricGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool) :: symmetric
+   logical(c_bool) :: symmetric
 end function SelfScatteringKernelSymmetricGet
 
 !! Set

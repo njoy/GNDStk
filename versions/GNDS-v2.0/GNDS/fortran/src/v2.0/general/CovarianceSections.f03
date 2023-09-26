@@ -269,7 +269,7 @@ function CovarianceSectionsCovarianceSectionHasByCrossTerm(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    integer(c_int) :: has
 end function CovarianceSectionsCovarianceSectionHasByCrossTerm
 
@@ -280,7 +280,7 @@ function CovarianceSectionsCovarianceSectionGetByCrossTermConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function CovarianceSectionsCovarianceSectionGetByCrossTermConst
 
@@ -291,7 +291,7 @@ function CovarianceSectionsCovarianceSectionGetByCrossTerm(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    type(c_ptr) :: resultHandle
 end function CovarianceSectionsCovarianceSectionGetByCrossTerm
 
@@ -301,7 +301,7 @@ subroutine CovarianceSectionsCovarianceSectionSetByCrossTerm(handle, meta, field
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool), value, intent(in) :: meta
+   logical(c_bool), value, intent(in) :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionsCovarianceSectionSetByCrossTerm
 

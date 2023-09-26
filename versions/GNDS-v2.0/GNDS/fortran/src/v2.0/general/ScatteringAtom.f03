@@ -50,7 +50,7 @@ function ScatteringAtomCreateConst( &
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_int), value, intent(in) :: numberPerMolecule
-   integer(c_bool), value, intent(in) :: primaryScatterer
+   logical(c_bool), value, intent(in) :: primaryScatterer
    type(c_ptr), value :: mass
    type(c_ptr), value :: e_critical
    type(c_ptr), value :: e_max
@@ -80,7 +80,7 @@ function ScatteringAtomCreate( &
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_int), value, intent(in) :: numberPerMolecule
-   integer(c_bool), value, intent(in) :: primaryScatterer
+   logical(c_bool), value, intent(in) :: primaryScatterer
    type(c_ptr), value :: mass
    type(c_ptr), value :: e_critical
    type(c_ptr), value :: e_max
@@ -259,7 +259,7 @@ function ScatteringAtomPrimaryScattererGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool) :: primaryScatterer
+   logical(c_bool) :: primaryScatterer
 end function ScatteringAtomPrimaryScattererGet
 
 !! Set

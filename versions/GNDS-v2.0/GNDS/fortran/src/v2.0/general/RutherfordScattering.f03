@@ -31,7 +31,8 @@ function RutherfordScatteringDefault() &
 end function RutherfordScatteringDefault
 
 !! Create, general, const
-function RutherfordScatteringCreateConst( &) &
+function RutherfordScatteringCreateConst( &
+) &
       bind(C, name='RutherfordScatteringCreateConst') &
       result(handle)
    use iso_c_binding
@@ -40,7 +41,8 @@ function RutherfordScatteringCreateConst( &) &
 end function RutherfordScatteringCreateConst
 
 !! Create, general
-function RutherfordScatteringCreate( &) &
+function RutherfordScatteringCreate( &
+) &
       bind(C, name='RutherfordScatteringCreate') &
       result(handle)
    use iso_c_binding

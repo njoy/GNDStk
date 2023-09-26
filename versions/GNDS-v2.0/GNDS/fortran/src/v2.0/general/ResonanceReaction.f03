@@ -50,7 +50,7 @@ function ResonanceReactionCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: ejectileSize
    character(c_char), intent(in) :: ejectile(ejectileSize)
-   integer(c_bool), value, intent(in) :: eliminated
+   logical(c_bool), value, intent(in) :: eliminated
    type(c_ptr), value :: link
    type(c_ptr), value :: hardSphereRadius
    type(c_ptr), value :: Q
@@ -78,7 +78,7 @@ function ResonanceReactionCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: ejectileSize
    character(c_char), intent(in) :: ejectile(ejectileSize)
-   integer(c_bool), value, intent(in) :: eliminated
+   logical(c_bool), value, intent(in) :: eliminated
    type(c_ptr), value :: link
    type(c_ptr), value :: hardSphereRadius
    type(c_ptr), value :: Q
@@ -255,7 +255,7 @@ function ResonanceReactionEliminatedGet(handle) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_bool) :: eliminated
+   logical(c_bool) :: eliminated
 end function ResonanceReactionEliminatedGet
 
 !! Set
