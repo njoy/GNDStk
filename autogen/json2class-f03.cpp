@@ -52,9 +52,8 @@ std::string ftype(const std::string &type)
 // -----------------------------------------------------------------------------
 
 // fileF03InterfaceCreateParams
-void fileF03InterfaceCreateParams(
-   writer &src, const PerClass &per
-) {
+void fileF03InterfaceCreateParams(writer &src, const PerClass &per)
+{
    int count = 0;
    const int total = per.nfields();
    std::vector<std::string> sizes;
@@ -100,9 +99,8 @@ void fileF03InterfaceCreateParams(
 }
 
 // fileF03InterfaceDeclareParams
-void fileF03InterfaceDeclareParams(
-   writer &src, const PerClass &per
-) {
+void fileF03InterfaceDeclareParams(writer &src, const PerClass &per)
+{
    // metadata
    for (const auto &m : per.metadata) {
       const std::string varname = fname(m.name);
@@ -132,9 +130,10 @@ void fileF03InterfaceDeclareParams(
 // fileF03InterfaceBasics
 // -----------------------------------------------------------------------------
 
-void fileF03InterfaceBasics(
-   writer &src, const PerClass &per
-) {
+void fileF03InterfaceBasics(writer &src, const PerClass &per)
+{
+   std::string sub;
+
    // section comment
    sectionFortran(
       src,
@@ -143,70 +142,76 @@ void fileF03InterfaceBasics(
    );
 
    // create: default, const
+   sub = per.clname + "DefaultConst";
    src();
    src("!! Create, default, const");
-   src("function @DefaultConst() &", per.clname);
-   src(2,"bind(C, name='@DefaultConst')", per.clname);
+   src("function @() &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
-   src(1,"type(c_ptr) :: @DefaultConst", per.clname);
-   src("end function @DefaultConst", per.clname);
+   src(1,"type(c_ptr) :: @", sub);
+   src("end function @", sub);
 
    // create: default
+   sub = per.clname + "Default";
    src();
    src("!! Create, default");
-   src("function @Default() &", per.clname);
-   src(2,"bind(C, name='@Default')", per.clname);
+   src("function @() &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
-   src(1,"type(c_ptr) :: @Default", per.clname);
-   src("end function @Default", per.clname);
+   src(1,"type(c_ptr) :: @", sub);
+   src("end function @", sub);
 
    // create: general, const
+   sub = per.clname + "CreateConst";
    src();
    src("!! Create, general, const");
-   src("function @CreateConst( &", per.clname, false);
+   src("function @( &", sub, false);
    fileF03InterfaceCreateParams(src,per);
    src(") &");
-   src(2,"bind(C, name='@CreateConst')", per.clname);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    fileF03InterfaceDeclareParams(src,per);
-   src(1,"type(c_ptr) :: @CreateConst", per.clname);
-   src("end function @CreateConst", per.clname);
+   src(1,"type(c_ptr) :: @", sub);
+   src("end function @", sub);
 
    // create: general
+   sub = per.clname + "Create";
    src();
    src("!! Create, general");
-   src("function @Create( &", per.clname, false);
+   src("function @( &", sub, false);
    fileF03InterfaceCreateParams(src,per);
    src(") &");
-   src(2,"bind(C, name='@Create')", per.clname);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    fileF03InterfaceDeclareParams(src,per);
-   src(1,"type(c_ptr) :: @Create", per.clname);
-   src("end function @Create", per.clname);
+   src(1,"type(c_ptr) :: @", sub);
+   src("end function @", sub);
 
    // assign
+   sub = per.clname + "Assign";
    src();
    src("!! Assign");
-   src("subroutine @Assign(handleLHS, handleRHS) &", per.clname);
-   src(2,"bind(C, name='@Assign')", per.clname);
+   src("subroutine @(handleLHS, handleRHS) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handleLHS, handleRHS");
-   src("end subroutine @Assign", per.clname);
+   src("end subroutine @", sub);
 
    // delete
+   sub = per.clname + "Delete";
    src();
    src("!! Delete");
-   src("subroutine @Delete(handle) &", per.clname);
-   src(2,"bind(C, name='@Delete')", per.clname);
+   src("subroutine @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
-   src("end subroutine @Delete", per.clname);
+   src("end subroutine @", sub);
 }
 
 
@@ -214,9 +219,10 @@ void fileF03InterfaceBasics(
 // fileF03InterfaceIO
 // -----------------------------------------------------------------------------
 
-void fileF03InterfaceIO(
-   writer &src, const PerClass &per
-) {
+void fileF03InterfaceIO(writer &src, const PerClass &per)
+{
+   std::string sub;
+
    // section comment
    sectionFortran(
       src,
@@ -226,63 +232,68 @@ void fileF03InterfaceIO(
    );
 
    // read from file
+   sub = per.clname + "Read";
    src();
    src("!! Read from file");
-   src("function @Read(handle, filename, filenameSize) &", per.clname);
-   src(2,"bind(C, name='@Read')", per.clname);
+   src("function @(handle, filename, filenameSize) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
    src(1,"integer(c_size_t), value :: filenameSize");
    src(1,"character(c_char), intent(in) :: filename(filenameSize)");
-   src(1,"integer(c_int) :: @Read", per.clname);
-   src("end function @Read", per.clname);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 
    // write to file
+   sub = per.clname + "Write";
    src();
    src("!! Write to file");
-   src("function @Write(handle, filename, filenameSize) &", per.clname);
-   src(2,"bind(C, name='@Write')", per.clname);
+   src("function @(handle, filename, filenameSize) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
    src(1,"integer(c_size_t), value :: filenameSize");
    src(1,"character(c_char), intent(in) :: filename(filenameSize)");
-   src(1,"integer(c_int) :: @Write", per.clname);
-   src("end function @Write", per.clname);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 
    // print
+   sub = per.clname + "Print";
    src();
    src("!! Print to standard output, in our prettyprinting format");
-   src("function @Print(handle) &", per.clname);
-   src(2,"bind(C, name='@Print')", per.clname);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_int) :: @Print", per.clname);
-   src("end function @Print", per.clname);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 
    // print, XML
+   sub = per.clname + "PrintXML";
    src();
    src("!! Print to standard output, as XML");
-   src("function @PrintXML(handle) &", per.clname);
-   src(2,"bind(C, name='@PrintXML')", per.clname);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_int) :: @PrintXML", per.clname);
-   src("end function @PrintXML", per.clname);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 
    // print, JSON
+   sub = per.clname + "PrintJSON";
    src();
    src("!! Print to standard output, as JSON");
-   src("function @PrintJSON(handle) &", per.clname);
-   src(2,"bind(C, name='@PrintJSON')", per.clname);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_int) :: @PrintJSON", per.clname);
-   src("end function @PrintJSON", per.clname);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 }
 
 
@@ -326,53 +337,58 @@ void fileF03InterfaceVector(
    const std::string Types = type == "std::string"
       ? "Strings"
       : capital(type) + 's';
+   std::string sub;
 
    // clear
+   sub = Class + Types + "Clear";
    src();
    src("!! Clear");
-   src("subroutine @@Clear(handle) &", Class, Types);
-   src(2,"bind(C, name='@@Clear')", Class, Types);
+   src("subroutine @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
-   src("end subroutine @@Clear", Class, Types);
+   src("end subroutine @", sub);
 
    // get size
+   sub = Class + Types + "Size";
    src();
    src("!! Get size");
-   src("function @@Size(handle) &", Class, Types);
-   src(2,"bind(C, name='@@Size')", Class, Types);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_size_t) :: @@Size", Class, Types);
-   src("end function @@Size", Class, Types);
+   src(1,"integer(c_size_t) :: @", sub);
+   src("end function @", sub);
 
    // get value
+   sub = Class + Types + "Get";
    src();
    src("!! Get value");
    src("!! By index \\in [0,size)");
-   src("function @@Get(handle, arrayIndex) &", Class, Types);
-   src(2,"bind(C, name='@@Get')", Class, Types);
+   src("function @(handle, arrayIndex) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
    src(1,"integer(c_size_t), intent(in), value :: arrayIndex");
    type == "std::string"
-      ? src(1,"type(c_ptr) :: @@Get", Class, Types)
-      : src(1,"@ :: @@Get", ftype(type), Class, Types);
-   src("end function @@Get", Class, Types);
+      ? src(1,"type(c_ptr) :: @", sub)
+      : src(1,"@ :: @", ftype(type), sub);
+   src("end function @", sub);
 
    // set value
+   sub = Class + Types + "Set";
    src();
    src("!! Set value");
    src("!! By index \\in [0,size)");
    type == "std::string"
-      ? src("subroutine @@Set(handle, arrayIndex, valueAtIndex, "
-            "valueAtIndexSize) &", Class, Types)
-      : src("subroutine @@Set(handle, arrayIndex, valueAtIndex) "
-            "&", Class, Types);
-   src(2,"bind(C, name='@@Set')", Class, Types);
+      ? src("subroutine @(handle, arrayIndex, valueAtIndex, "
+            "valueAtIndexSize) &", sub)
+      : src("subroutine @(handle, arrayIndex, valueAtIndex) "
+            "&", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
@@ -382,7 +398,7 @@ void fileF03InterfaceVector(
       src(1,"character(c_char), intent(in) :: valueAtIndex(valueAtIndexSize)");
    } else
       src(1,"@, intent(in), value :: valueAtIndex", ftype(type));
-   src("end subroutine @@Set", Class, Types);
+   src("end subroutine @", sub);
 
    // fixme
    // For now, we only have the following for non-std::string types.
@@ -391,38 +407,41 @@ void fileF03InterfaceVector(
    // something compatible with that in this (the Fortran) interface.
    if (type != "std::string") {
       // get pointer to existing values, const
+      sub = Class + Types + "GetArrayConst";
       src();
       src("!! Get pointer to existing values, const");
-      src("function @@GetArrayConst(handle) &", Class, Types);
-      src(2,"bind(C, name='@@GetArrayConst')", Class, Types);
+      src("function @(handle) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), intent(in), value :: handle");
-      src(1,"type(c_ptr) :: @@GetArrayConst", Class, Types);
-      src("end function @@GetArrayConst", Class, Types);
+      src(1,"type(c_ptr) :: @", sub);
+      src("end function @", sub);
 
       // get pointer to existing values
+      sub = Class + Types + "GetArray";
       src();
       src("!! Get pointer to existing values");
-      src("function @@GetArray(handle) &", Class, Types);
-      src(2,"bind(C, name='@@GetArray')", Class, Types);
+      src("function @(handle) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), value :: handle");
-      src(1,"type(c_ptr) :: @@GetArray", Class, Types);
-      src("end function @@GetArray", Class, Types);
+      src(1,"type(c_ptr) :: @", sub);
+      src("end function @", sub);
 
       // set completely new values and size
+      sub = Class + Types + "SetArray";
       src();
       src("!! Set completely new values and size");
-      src("subroutine @@SetArray(handle, values, valuesSize) &", Class, Types);
-      src(2,"bind(C, name='@@SetArray')", Class, Types);
+      src("subroutine @(handle, values, valuesSize) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), value :: handle");
       src(1,"integer(c_size_t), value :: valuesSize");
       src(1,"@, intent(in) :: values(valuesSize)", ftype(type));
-      src("end subroutine @@SetArray", Class, Types);
+      src("end subroutine @", sub);
    }
 }
 
@@ -438,43 +457,47 @@ void fileF03InterfaceMeta(
    const std::string Class = per.clname;
    const std::string Meta = UpperCamel(m.name);
    const std::string varname = fname(m.name);
+   std::string sub;
 
    // section comment
    sectionFortran(src,"!! Metadatum: @", m.name);
 
    // has
+   sub = Class + Meta + "Has";
    src();
    src("!! Has");
-   src("function @@Has(handle) &", Class, Meta);
-   src(2,"bind(C, name='@@Has')", Class, Meta);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_int) :: @@Has", Class, Meta);
-   src("end function @@Has", Class, Meta);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 
    // get
+   sub = Class + Meta + "Get";
    src();
    src("!! Get");
-   src("function @@Get(handle) &", Class, Meta);
-   src(2,"bind(C, name='@@Get')", Class, Meta);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"@ :: @@Get", ftype(m.type), Class, Meta);
-   src("end function @@Get", Class, Meta);
+   src(1,"@ :: @", ftype(m.type), sub);
+   src("end function @", sub);
 
    // set
+   sub = Class + Meta + "Set";
    src();
    src("!! Set");
-   src("subroutine @@Set(handle, @, @Size) &", Class, Meta, varname, varname);
-   src(2,"bind(C, name='@@Set')", Class, Meta);
+   src("subroutine @(handle, @, @Size) &", sub, varname, varname);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
    src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
    src(1,"character(c_char), intent(in) :: @(@Size)", varname, varname);
-   src("end subroutine @@Set", Class, Meta);
+   src("end subroutine @", sub);
 }
 
 
@@ -489,6 +512,7 @@ void fileF03InterfaceChild(
    const std::string Class = per.clname;
    const std::string Child = c.plain;
    const std::string child = c.name;
+   std::string sub;
 
    // section comment
    sectionFortran(src,"!! Child: @", child);
@@ -496,15 +520,16 @@ void fileF03InterfaceChild(
    // has
    // Applies to both the scalar and the vector cases,
    // which are otherwise distinguished below
+   sub = Class + Child + "Has";
    src();
    src("!! Has");
-   src("function @@Has(handle) &", Class, Child);
-   src(2,"bind(C, name='@@Has')", Class, Child);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_int) :: @@Has", Class, Child);
-   src("end function @@Has", Class, Child);
+   src(1,"integer(c_int) :: @", sub);
+   src("end function @", sub);
 
    // ------------------------
    // scalar case
@@ -512,37 +537,40 @@ void fileF03InterfaceChild(
 
    if (!c.isVector) {
       // get, const
+      sub = Class + Child + "GetConst";
       src();
       src("!! Get, const");
-      src("function @@GetConst(handle) &", Class, Child);
-      src(2,"bind(C, name='@@GetConst')", Class, Child);
+      src("function @(handle) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), intent(in), value :: handle");
-      src(1,"type(c_ptr) :: @@GetConst", Class, Child);
-      src("end function @@GetConst", Class, Child);
+      src(1,"type(c_ptr) :: @", sub);
+      src("end function @", sub);
 
       // get
+      sub = Class + Child + "Get";
       src();
       src("!! Get");
-      src("function @@Get(handle) &", Class, Child);
-      src(2,"bind(C, name='@@Get')", Class, Child);
+      src("function @(handle) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), intent(in), value :: handle");
-      src(1,"type(c_ptr) :: @@Get", Class, Child);
-      src("end function @@Get", Class, Child);
+      src(1,"type(c_ptr) :: @", sub);
+      src("end function @", sub);
 
       // set
+      sub = Class + Child + "Set";
       src();
       src("!! Set");
-      src("subroutine @@Set(handle, fieldHandle) &", Class, Child);
-      src(2,"bind(C, name='@@Set')", Class, Child);
+      src("subroutine @(handle, fieldHandle) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), value :: handle");
       src(1,"type(c_ptr), value :: fieldHandle");
-      src("end subroutine @@Set", Class, Child);
+      src("end subroutine @", sub);
 
       return;
    }
@@ -552,72 +580,78 @@ void fileF03InterfaceChild(
    // ------------------------
 
    // clear
+   sub = Class + Child + "Clear";
    src();
    src("!! Clear");
-   src("subroutine @@Clear(handle) &", Class, Child);
-   src(2,"bind(C, name='@@Clear')", Class, Child);
+   src("subroutine @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
-   src("end subroutine @@Clear", Class, Child);
+   src("end subroutine @", sub);
 
    // size
+   sub = Class + Child + "Size";
    src();
    src("!! Size");
-   src("function @@Size(handle) &", Class, Child);
-   src(2,"bind(C, name='@@Size')", Class, Child);
+   src("function @(handle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_size_t) :: @@Size", Class, Child);
-   src("end function @@Size", Class, Child);
+   src(1,"integer(c_size_t) :: @", sub);
+   src("end function @", sub);
 
    // add
+   sub = Class + Child + "Add";
    src();
    src("!! Add");
-   src("subroutine @@Add(handle, fieldHandle) &", Class, Child);
-   src(2,"bind(C, name='@@Add')", Class, Child);
+   src("subroutine @(handle, fieldHandle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
    src(1,"type(c_ptr), intent(in), value :: fieldHandle");
-   src("end subroutine @@Add", Class, Child);
+   src("end subroutine @", sub);
 
    // get, by index, const
+   sub = Class + Child + "GetConst";
    src();
    src("!! Get, by index \\in [0,size), const");
-   src("function @@GetConst(handle, index) &", Class, Child);
-   src(2,"bind(C, name='@@GetConst')", Class, Child);
+   src("function @(handle, index) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
    src(1,"integer(c_size_t), intent(in), value :: index");
-   src(1,"type(c_ptr) :: @@GetConst", Class, Child);
-   src("end function @@GetConst", Class, Child);
+   src(1,"type(c_ptr) :: @", sub);
+   src("end function @", sub);
 
    // get, by index
+   sub = Class + Child + "Get";
    src();
    src("!! Get, by index \\in [0,size)");
-   src("function @@Get(handle, index) &", Class, Child);
-   src(2,"bind(C, name='@@Get')", Class, Child);
+   src("function @(handle, index) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
    src(1,"integer(c_size_t), intent(in), value :: index");
-   src(1,"type(c_ptr) :: @@Get", Class, Child);
-   src("end function @@Get", Class, Child);
+   src(1,"type(c_ptr) :: @", sub);
+   src("end function @", sub);
 
    // set, by index
+   sub = Class + Child + "Set";
    src();
    src("!! Set, by index \\in [0,size)");
-   src("subroutine @@Set(handle, index, fieldHandle) &", Class, Child);
-   src(2,"bind(C, name='@@Set')", Class, Child);
+   src("subroutine @(handle, index, fieldHandle) &", sub);
+   src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
    src(1,"integer(c_size_t), intent(in), value :: index");
    src(1,"type(c_ptr), intent(in), value :: fieldHandle");
-   src("end subroutine @@Set", Class, Child);
+   src("end subroutine @", sub);
 
    // for this child's metadata: has, get const, get, set
    const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
@@ -644,14 +678,13 @@ void fileF03InterfaceChild(
       src(smallFortran);
 
       // has, by metadatum
+      sub = Class + Child + "HasBy" + Meta;
       src();
       src("!! Has, by @", meta);
       m.type == "std::string"
-         ? src("function @@HasBy@(handle, meta, metaSize) &",
-               Class, Child, Meta)
-         : src("function @@HasBy@(handle, meta) &",
-               Class, Child, Meta);
-      src(2,"bind(C, name='@@HasBy@')", Class, Child, Meta);
+         ? src("function @(handle, meta, metaSize) &", sub)
+         : src("function @(handle, meta) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), intent(in), value :: handle");
@@ -660,18 +693,17 @@ void fileF03InterfaceChild(
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
          src(1,"@, value, intent(in) :: meta", ftype(m.type));
-      src(1,"integer(c_int) :: @@HasBy@", Class, Child, Meta);
-      src("end function @@HasBy@", Class, Child, Meta);
+      src(1,"integer(c_int) :: @", sub);
+      src("end function @", sub);
 
       // get, by metadatum, const
+      sub = Class + Child + "GetBy" + Meta + "Const";
       src();
       src("!! Get, by @, const", meta);
       m.type == "std::string"
-         ? src("function @@GetBy@Const(handle, meta, metaSize) &",
-               Class, Child, Meta)
-         : src("function @@GetBy@Const(handle, meta) &",
-               Class, Child, Meta);
-      src(2,"bind(C, name='@@GetBy@Const')", Class, Child, Meta);
+         ? src("function @(handle, meta, metaSize) &", sub)
+         : src("function @(handle, meta) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), intent(in), value :: handle");
@@ -680,16 +712,17 @@ void fileF03InterfaceChild(
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
          src(1,"@, value, intent(in) :: meta", ftype(m.type));
-      src(1,"type(c_ptr) :: @@GetBy@Const", Class, Child, Meta);
-      src("end function @@GetBy@Const", Class, Child, Meta);
+      src(1,"type(c_ptr) :: @", sub);
+      src("end function @", sub);
 
       // get, by metadatum
+      sub = Class + Child + "GetBy" + Meta;
       src();
       src("!! Get, by @", meta);
       m.type == "std::string"
-       ? src("function @@GetBy@(handle, meta, metaSize) &", Class, Child, Meta)
-       : src("function @@GetBy@(handle, meta) &", Class, Child, Meta);
-      src(2,"bind(C, name='@@GetBy@')", Class, Child, Meta);
+       ? src("function @(handle, meta, metaSize) &", sub)
+       : src("function @(handle, meta) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), value :: handle");
@@ -698,18 +731,17 @@ void fileF03InterfaceChild(
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
          src(1,"@, value, intent(in) :: meta", ftype(m.type));
-      src(1,"type(c_ptr) :: @@GetBy@", Class, Child, Meta);
-      src("end function @@GetBy@", Class, Child, Meta);
+      src(1,"type(c_ptr) :: @", sub);
+      src("end function @", sub);
 
       // set, by metadatum
+      sub = Class + Child + "SetBy" + Meta;
       src();
       src("!! Set, by @", meta);
       m.type == "std::string"
-         ? src("subroutine @@SetBy@(handle, meta, metaSize, fieldHandle) &",
-               Class, Child, Meta)
-         : src("subroutine @@SetBy@(handle, meta, fieldHandle) &",
-               Class, Child, Meta);
-      src(2,"bind(C, name='@@SetBy@')", Class, Child, Meta);
+         ? src("subroutine @(handle, meta, metaSize, fieldHandle) &", sub)
+         : src("subroutine @(handle, meta, fieldHandle) &", sub);
+      src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), intent(in), value :: handle");
@@ -719,7 +751,7 @@ void fileF03InterfaceChild(
       } else
          src(1,"@, value, intent(in) :: meta", ftype(m.type));
       src(1,"type(c_ptr), intent(in), value :: fieldHandle");
-      src("end subroutine @@SetBy@", Class, Child, Meta);
+      src("end subroutine @", sub);
    } // metadata
 }
 
