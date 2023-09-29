@@ -204,6 +204,10 @@ ElapsedTimesElapsedTimeSet(
       (CLASSNAME, CLASSNAME+"ElapsedTimeSet", self, extract::elapsedTime, index_, elapsedTime);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ElapsedTimesElapsedTimeHasByLabel(

@@ -35,8 +35,8 @@ function AuthorsCreateConst( &
       bind(C, name='AuthorsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: authorSize
-   type(c_ptr) :: author(authorSize)
+   integer(c_size_t), intent(in), value :: authorSize
+   type(c_ptr), intent(in) :: author(authorSize)
    type(c_ptr) :: AuthorsCreateConst
 end function AuthorsCreateConst
 
@@ -47,8 +47,8 @@ function AuthorsCreate( &
       bind(C, name='AuthorsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: authorSize
-   type(c_ptr) :: author(authorSize)
+   integer(c_size_t), intent(in), value :: authorSize
+   type(c_ptr), intent(in) :: author(authorSize)
    type(c_ptr) :: AuthorsCreate
 end function AuthorsCreate
 
@@ -57,7 +57,8 @@ subroutine AuthorsAssign(handleLHS, handleRHS) &
       bind(C, name='AuthorsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AuthorsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function AuthorsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AuthorsRead
 end function AuthorsRead
@@ -92,7 +93,7 @@ function AuthorsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AuthorsWrite
 end function AuthorsWrite
@@ -236,7 +237,7 @@ subroutine AuthorsAuthorSetByName(handle, meta, metaSize, fieldHandle) &
       bind(C, name='AuthorsAuthorSetByName')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

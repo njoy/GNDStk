@@ -204,6 +204,10 @@ FissionComponentsFissionComponentSet(
       (CLASSNAME, CLASSNAME+"FissionComponentSet", self, extract::fissionComponent, index_, fissionComponent);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 FissionComponentsFissionComponentHasByLabel(
@@ -249,6 +253,10 @@ FissionComponentsFissionComponentSetByLabel(
        self, extract::fissionComponent, meta::label, label, fissionComponent);
 }
 
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
+
 // Has, by ENDF_MT
 int
 FissionComponentsFissionComponentHasByENDFMT(
@@ -293,6 +301,10 @@ FissionComponentsFissionComponentSetByENDFMT(
       (CLASSNAME, CLASSNAME+"FissionComponentSetByENDFMT",
        self, extract::fissionComponent, meta::ENDF_MT, ENDF_MT, fissionComponent);
 }
+
+// ------------------------
+// Re: metadatum fissionGenre
+// ------------------------
 
 // Has, by fissionGenre
 int

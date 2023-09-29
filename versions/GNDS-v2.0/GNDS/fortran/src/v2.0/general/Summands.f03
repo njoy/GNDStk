@@ -35,8 +35,8 @@ function SummandsCreateConst( &
       bind(C, name='SummandsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: addSize
-   type(c_ptr) :: add(addSize)
+   integer(c_size_t), intent(in), value :: addSize
+   type(c_ptr), intent(in) :: add(addSize)
    type(c_ptr) :: SummandsCreateConst
 end function SummandsCreateConst
 
@@ -47,8 +47,8 @@ function SummandsCreate( &
       bind(C, name='SummandsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: addSize
-   type(c_ptr) :: add(addSize)
+   integer(c_size_t), intent(in), value :: addSize
+   type(c_ptr), intent(in) :: add(addSize)
    type(c_ptr) :: SummandsCreate
 end function SummandsCreate
 
@@ -57,7 +57,8 @@ subroutine SummandsAssign(handleLHS, handleRHS) &
       bind(C, name='SummandsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SummandsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function SummandsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SummandsRead
 end function SummandsRead
@@ -92,7 +93,7 @@ function SummandsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SummandsWrite
 end function SummandsWrite
@@ -236,7 +237,7 @@ subroutine SummandsAddSetByHref(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SummandsAddSetByHref')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

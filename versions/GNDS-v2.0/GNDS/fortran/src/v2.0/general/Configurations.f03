@@ -35,8 +35,8 @@ function ConfigurationsCreateConst( &
       bind(C, name='ConfigurationsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: configurationSize
-   type(c_ptr) :: configuration(configurationSize)
+   integer(c_size_t), intent(in), value :: configurationSize
+   type(c_ptr), intent(in) :: configuration(configurationSize)
    type(c_ptr) :: ConfigurationsCreateConst
 end function ConfigurationsCreateConst
 
@@ -47,8 +47,8 @@ function ConfigurationsCreate( &
       bind(C, name='ConfigurationsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: configurationSize
-   type(c_ptr) :: configuration(configurationSize)
+   integer(c_size_t), intent(in), value :: configurationSize
+   type(c_ptr), intent(in) :: configuration(configurationSize)
    type(c_ptr) :: ConfigurationsCreate
 end function ConfigurationsCreate
 
@@ -57,7 +57,8 @@ subroutine ConfigurationsAssign(handleLHS, handleRHS) &
       bind(C, name='ConfigurationsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ConfigurationsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ConfigurationsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ConfigurationsRead
 end function ConfigurationsRead
@@ -92,7 +93,7 @@ function ConfigurationsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ConfigurationsWrite
 end function ConfigurationsWrite
@@ -236,7 +237,7 @@ subroutine ConfigurationsConfigurationSetBySubshell(handle, meta, metaSize, fiel
       bind(C, name='ConfigurationsConfigurationSetBySubshell')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function ConfigurationsConfigurationHasByElectronNumber(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: ConfigurationsConfigurationHasByElectronNumber
 end function ConfigurationsConfigurationHasByElectronNumber
 
@@ -262,7 +263,7 @@ function ConfigurationsConfigurationGetByElectronNumberConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: ConfigurationsConfigurationGetByElectronNumberConst
 end function ConfigurationsConfigurationGetByElectronNumberConst
 
@@ -272,7 +273,7 @@ function ConfigurationsConfigurationGetByElectronNumber(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: ConfigurationsConfigurationGetByElectronNumber
 end function ConfigurationsConfigurationGetByElectronNumber
 
@@ -281,8 +282,8 @@ subroutine ConfigurationsConfigurationSetByElectronNumber(handle, meta, fieldHan
       bind(C, name='ConfigurationsConfigurationSetByElectronNumber')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ConfigurationsConfigurationSetByElectronNumber
 

@@ -35,8 +35,8 @@ function AverageEnergiesCreateConst( &
       bind(C, name='AverageEnergiesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: averageEnergySize
-   type(c_ptr) :: averageEnergy(averageEnergySize)
+   integer(c_size_t), intent(in), value :: averageEnergySize
+   type(c_ptr), intent(in) :: averageEnergy(averageEnergySize)
    type(c_ptr) :: AverageEnergiesCreateConst
 end function AverageEnergiesCreateConst
 
@@ -47,8 +47,8 @@ function AverageEnergiesCreate( &
       bind(C, name='AverageEnergiesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: averageEnergySize
-   type(c_ptr) :: averageEnergy(averageEnergySize)
+   integer(c_size_t), intent(in), value :: averageEnergySize
+   type(c_ptr), intent(in) :: averageEnergy(averageEnergySize)
    type(c_ptr) :: AverageEnergiesCreate
 end function AverageEnergiesCreate
 
@@ -57,7 +57,8 @@ subroutine AverageEnergiesAssign(handleLHS, handleRHS) &
       bind(C, name='AverageEnergiesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AverageEnergiesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function AverageEnergiesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AverageEnergiesRead
 end function AverageEnergiesRead
@@ -92,7 +93,7 @@ function AverageEnergiesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AverageEnergiesWrite
 end function AverageEnergiesWrite
@@ -236,7 +237,7 @@ subroutine AverageEnergiesAverageEnergySetByLabel(handle, meta, metaSize, fieldH
       bind(C, name='AverageEnergiesAverageEnergySetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function AverageEnergiesAverageEnergyHasByValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: AverageEnergiesAverageEnergyHasByValue
 end function AverageEnergiesAverageEnergyHasByValue
 
@@ -262,7 +263,7 @@ function AverageEnergiesAverageEnergyGetByValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: AverageEnergiesAverageEnergyGetByValueConst
 end function AverageEnergiesAverageEnergyGetByValueConst
 
@@ -272,7 +273,7 @@ function AverageEnergiesAverageEnergyGetByValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: AverageEnergiesAverageEnergyGetByValue
 end function AverageEnergiesAverageEnergyGetByValue
 
@@ -281,8 +282,8 @@ subroutine AverageEnergiesAverageEnergySetByValue(handle, meta, fieldHandle) &
       bind(C, name='AverageEnergiesAverageEnergySetByValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AverageEnergiesAverageEnergySetByValue
 
@@ -328,7 +329,7 @@ subroutine AverageEnergiesAverageEnergySetByUnit(handle, meta, metaSize, fieldHa
       bind(C, name='AverageEnergiesAverageEnergySetByUnit')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

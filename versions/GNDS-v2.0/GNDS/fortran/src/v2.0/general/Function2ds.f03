@@ -35,8 +35,8 @@ function Function2dsCreateConst( &
       bind(C, name='Function2dsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: XYs2dSize
-   type(c_ptr) :: XYs2d(XYs2dSize)
+   integer(c_size_t), intent(in), value :: XYs2dSize
+   type(c_ptr), intent(in) :: XYs2d(XYs2dSize)
    type(c_ptr) :: Function2dsCreateConst
 end function Function2dsCreateConst
 
@@ -47,8 +47,8 @@ function Function2dsCreate( &
       bind(C, name='Function2dsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: XYs2dSize
-   type(c_ptr) :: XYs2d(XYs2dSize)
+   integer(c_size_t), intent(in), value :: XYs2dSize
+   type(c_ptr), intent(in) :: XYs2d(XYs2dSize)
    type(c_ptr) :: Function2dsCreate
 end function Function2dsCreate
 
@@ -57,7 +57,8 @@ subroutine Function2dsAssign(handleLHS, handleRHS) &
       bind(C, name='Function2dsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Function2dsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function Function2dsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Function2dsRead
 end function Function2dsRead
@@ -92,7 +93,7 @@ function Function2dsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Function2dsWrite
 end function Function2dsWrite
@@ -204,7 +205,7 @@ function Function2dsXYs2dHasByIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: Function2dsXYs2dHasByIndex
 end function Function2dsXYs2dHasByIndex
 
@@ -214,7 +215,7 @@ function Function2dsXYs2dGetByIndexConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: Function2dsXYs2dGetByIndexConst
 end function Function2dsXYs2dGetByIndexConst
 
@@ -224,7 +225,7 @@ function Function2dsXYs2dGetByIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: Function2dsXYs2dGetByIndex
 end function Function2dsXYs2dGetByIndex
 
@@ -233,8 +234,8 @@ subroutine Function2dsXYs2dSetByIndex(handle, meta, fieldHandle) &
       bind(C, name='Function2dsXYs2dSetByIndex')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Function2dsXYs2dSetByIndex
 
@@ -280,7 +281,7 @@ subroutine Function2dsXYs2dSetByInterpolation(handle, meta, metaSize, fieldHandl
       bind(C, name='Function2dsXYs2dSetByInterpolation')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -328,7 +329,7 @@ subroutine Function2dsXYs2dSetByInterpolationQualifier(handle, meta, metaSize, f
       bind(C, name='Function2dsXYs2dSetByInterpolationQualifier')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -344,7 +345,7 @@ function Function2dsXYs2dHasByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: Function2dsXYs2dHasByOuterDomainValue
 end function Function2dsXYs2dHasByOuterDomainValue
 
@@ -354,7 +355,7 @@ function Function2dsXYs2dGetByOuterDomainValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function2dsXYs2dGetByOuterDomainValueConst
 end function Function2dsXYs2dGetByOuterDomainValueConst
 
@@ -364,7 +365,7 @@ function Function2dsXYs2dGetByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function2dsXYs2dGetByOuterDomainValue
 end function Function2dsXYs2dGetByOuterDomainValue
 
@@ -373,8 +374,8 @@ subroutine Function2dsXYs2dSetByOuterDomainValue(handle, meta, fieldHandle) &
       bind(C, name='Function2dsXYs2dSetByOuterDomainValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Function2dsXYs2dSetByOuterDomainValue
 

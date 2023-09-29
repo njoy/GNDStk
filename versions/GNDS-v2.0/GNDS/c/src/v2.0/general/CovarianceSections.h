@@ -166,6 +166,10 @@ CovarianceSectionsCovarianceSectionSet(
    ConstHandle2ConstCovarianceSection covarianceSection
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 CovarianceSectionsCovarianceSectionHasByLabel(
@@ -194,6 +198,10 @@ CovarianceSectionsCovarianceSectionSetByLabel(
    const char *const label,
    ConstHandle2ConstCovarianceSection covarianceSection
 );
+
+// ------------------------
+// Re: metadatum crossTerm
+// ------------------------
 
 // +++ Has, by crossTerm
 extern_c int

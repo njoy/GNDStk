@@ -36,8 +36,8 @@ function PromptNeutronKECreateConst( &
       bind(C, name='PromptNeutronKECreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: polynomial1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: PromptNeutronKECreateConst
 end function PromptNeutronKECreateConst
 
@@ -49,8 +49,8 @@ function PromptNeutronKECreate( &
       bind(C, name='PromptNeutronKECreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: polynomial1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: PromptNeutronKECreate
 end function PromptNeutronKECreate
 
@@ -59,7 +59,8 @@ subroutine PromptNeutronKEAssign(handleLHS, handleRHS) &
       bind(C, name='PromptNeutronKEAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine PromptNeutronKEAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function PromptNeutronKERead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PromptNeutronKERead
 end function PromptNeutronKERead
@@ -94,7 +95,7 @@ function PromptNeutronKEWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PromptNeutronKEWrite
 end function PromptNeutronKEWrite
@@ -154,7 +155,7 @@ function PromptNeutronKEPolynomial1dGet(handle) &
       bind(C, name='PromptNeutronKEPolynomial1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PromptNeutronKEPolynomial1dGet
 end function PromptNeutronKEPolynomial1dGet
 
@@ -164,7 +165,7 @@ subroutine PromptNeutronKEPolynomial1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PromptNeutronKEPolynomial1dSet
 
 
@@ -195,7 +196,7 @@ function PromptNeutronKEXYs1dGet(handle) &
       bind(C, name='PromptNeutronKEXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PromptNeutronKEXYs1dGet
 end function PromptNeutronKEXYs1dGet
 
@@ -205,7 +206,7 @@ subroutine PromptNeutronKEXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PromptNeutronKEXYs1dSet
 
 

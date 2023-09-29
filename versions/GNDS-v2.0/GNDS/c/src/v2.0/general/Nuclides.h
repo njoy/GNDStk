@@ -166,6 +166,10 @@ NuclidesNuclideSet(
    ConstHandle2ConstNuclide nuclide
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 NuclidesNuclideHasById(

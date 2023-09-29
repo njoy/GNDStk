@@ -67,7 +67,8 @@ subroutine UnspecifiedAssign(handleLHS, handleRHS) &
       bind(C, name='UnspecifiedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine UnspecifiedAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function UnspecifiedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnspecifiedRead
 end function UnspecifiedRead
@@ -102,7 +103,7 @@ function UnspecifiedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnspecifiedWrite
 end function UnspecifiedWrite

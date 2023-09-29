@@ -47,11 +47,11 @@ function TabulatedWidthsCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: approximationSize
    character(c_char), intent(in) :: approximation(approximationSize)
-   logical(c_bool), value, intent(in) :: useForSelfShieldingOnly
-   type(c_ptr), value :: resonanceReactions
-   type(c_ptr), value :: Ls
-   type(c_ptr), value :: PoPs
-   type(c_ptr), value :: scatteringRadius
+   logical(c_bool), intent(in), value :: useForSelfShieldingOnly
+   type(c_ptr), intent(in), value :: resonanceReactions
+   type(c_ptr), intent(in), value :: Ls
+   type(c_ptr), intent(in), value :: PoPs
+   type(c_ptr), intent(in), value :: scatteringRadius
    type(c_ptr) :: TabulatedWidthsCreateConst
 end function TabulatedWidthsCreateConst
 
@@ -74,11 +74,11 @@ function TabulatedWidthsCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: approximationSize
    character(c_char), intent(in) :: approximation(approximationSize)
-   logical(c_bool), value, intent(in) :: useForSelfShieldingOnly
-   type(c_ptr), value :: resonanceReactions
-   type(c_ptr), value :: Ls
-   type(c_ptr), value :: PoPs
-   type(c_ptr), value :: scatteringRadius
+   logical(c_bool), intent(in), value :: useForSelfShieldingOnly
+   type(c_ptr), intent(in), value :: resonanceReactions
+   type(c_ptr), intent(in), value :: Ls
+   type(c_ptr), intent(in), value :: PoPs
+   type(c_ptr), intent(in), value :: scatteringRadius
    type(c_ptr) :: TabulatedWidthsCreate
 end function TabulatedWidthsCreate
 
@@ -87,7 +87,8 @@ subroutine TabulatedWidthsAssign(handleLHS, handleRHS) &
       bind(C, name='TabulatedWidthsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine TabulatedWidthsAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function TabulatedWidthsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: TabulatedWidthsRead
 end function TabulatedWidthsRead
@@ -122,7 +123,7 @@ function TabulatedWidthsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: TabulatedWidthsWrite
 end function TabulatedWidthsWrite
@@ -244,13 +245,12 @@ function TabulatedWidthsUseForSelfShieldingOnlyGet(handle) &
 end function TabulatedWidthsUseForSelfShieldingOnlyGet
 
 !! Set
-subroutine TabulatedWidthsUseForSelfShieldingOnlySet(handle, useForSelfShieldingOnly, useForSelfShieldingOnlySize) &
+subroutine TabulatedWidthsUseForSelfShieldingOnlySet(handle, useForSelfShieldingOnly) &
       bind(C, name='TabulatedWidthsUseForSelfShieldingOnlySet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: useForSelfShieldingOnlySize
-   character(c_char), intent(in) :: useForSelfShieldingOnly(useForSelfShieldingOnlySize)
+   logical(c_bool), intent(in), value :: useForSelfShieldingOnly
 end subroutine TabulatedWidthsUseForSelfShieldingOnlySet
 
 
@@ -281,7 +281,7 @@ function TabulatedWidthsResonanceReactionsGet(handle) &
       bind(C, name='TabulatedWidthsResonanceReactionsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TabulatedWidthsResonanceReactionsGet
 end function TabulatedWidthsResonanceReactionsGet
 
@@ -291,7 +291,7 @@ subroutine TabulatedWidthsResonanceReactionsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TabulatedWidthsResonanceReactionsSet
 
 
@@ -322,7 +322,7 @@ function TabulatedWidthsLsGet(handle) &
       bind(C, name='TabulatedWidthsLsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TabulatedWidthsLsGet
 end function TabulatedWidthsLsGet
 
@@ -332,7 +332,7 @@ subroutine TabulatedWidthsLsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TabulatedWidthsLsSet
 
 
@@ -363,7 +363,7 @@ function TabulatedWidthsPoPsGet(handle) &
       bind(C, name='TabulatedWidthsPoPsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TabulatedWidthsPoPsGet
 end function TabulatedWidthsPoPsGet
 
@@ -373,7 +373,7 @@ subroutine TabulatedWidthsPoPsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TabulatedWidthsPoPsSet
 
 
@@ -404,7 +404,7 @@ function TabulatedWidthsScatteringRadiusGet(handle) &
       bind(C, name='TabulatedWidthsScatteringRadiusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TabulatedWidthsScatteringRadiusGet
 end function TabulatedWidthsScatteringRadiusGet
 
@@ -414,7 +414,7 @@ subroutine TabulatedWidthsScatteringRadiusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TabulatedWidthsScatteringRadiusSet
 
 

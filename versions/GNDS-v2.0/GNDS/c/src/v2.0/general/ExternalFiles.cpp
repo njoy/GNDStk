@@ -204,6 +204,10 @@ ExternalFilesExternalFileSet(
       (CLASSNAME, CLASSNAME+"ExternalFileSet", self, extract::externalFile, index_, externalFile);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ExternalFilesExternalFileHasByLabel(
@@ -248,6 +252,10 @@ ExternalFilesExternalFileSetByLabel(
       (CLASSNAME, CLASSNAME+"ExternalFileSetByLabel",
        self, extract::externalFile, meta::label, label, externalFile);
 }
+
+// ------------------------
+// Re: metadatum path
+// ------------------------
 
 // Has, by path
 int
@@ -294,6 +302,10 @@ ExternalFilesExternalFileSetByPath(
        self, extract::externalFile, meta::path, path, externalFile);
 }
 
+// ------------------------
+// Re: metadatum checksum
+// ------------------------
+
 // Has, by checksum
 int
 ExternalFilesExternalFileHasByChecksum(
@@ -338,6 +350,10 @@ ExternalFilesExternalFileSetByChecksum(
       (CLASSNAME, CLASSNAME+"ExternalFileSetByChecksum",
        self, extract::externalFile, meta::checksum, checksum, externalFile);
 }
+
+// ------------------------
+// Re: metadatum algorithm
+// ------------------------
 
 // Has, by algorithm
 int

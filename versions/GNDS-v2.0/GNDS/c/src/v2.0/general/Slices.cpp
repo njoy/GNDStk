@@ -204,6 +204,10 @@ SlicesSliceSet(
       (CLASSNAME, CLASSNAME+"SliceSet", self, extract::slice, index_, slice);
 }
 
+// ------------------------
+// Re: metadatum dimension
+// ------------------------
+
 // Has, by dimension
 int
 SlicesSliceHasByDimension(
@@ -248,6 +252,10 @@ SlicesSliceSetByDimension(
       (CLASSNAME, CLASSNAME+"SliceSetByDimension",
        self, extract::slice, meta::dimension, dimension, slice);
 }
+
+// ------------------------
+// Re: metadatum domainValue
+// ------------------------
 
 // Has, by domainValue
 int
@@ -294,6 +302,10 @@ SlicesSliceSetByDomainValue(
        self, extract::slice, meta::domainValue, domainValue, slice);
 }
 
+// ------------------------
+// Re: metadatum domainMin
+// ------------------------
+
 // Has, by domainMin
 int
 SlicesSliceHasByDomainMin(
@@ -339,6 +351,10 @@ SlicesSliceSetByDomainMin(
        self, extract::slice, meta::domainMin, domainMin, slice);
 }
 
+// ------------------------
+// Re: metadatum domainMax
+// ------------------------
+
 // Has, by domainMax
 int
 SlicesSliceHasByDomainMax(
@@ -383,6 +399,10 @@ SlicesSliceSetByDomainMax(
       (CLASSNAME, CLASSNAME+"SliceSetByDomainMax",
        self, extract::slice, meta::domainMax, domainMax, slice);
 }
+
+// ------------------------
+// Re: metadatum domainUnit
+// ------------------------
 
 // Has, by domainUnit
 int

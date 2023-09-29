@@ -75,7 +75,8 @@ subroutine CrossSectionReconstructedAssign(handleLHS, handleRHS) &
       bind(C, name='CrossSectionReconstructedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CrossSectionReconstructedAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function CrossSectionReconstructedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionReconstructedRead
 end function CrossSectionReconstructedRead
@@ -110,7 +111,7 @@ function CrossSectionReconstructedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionReconstructedWrite
 end function CrossSectionReconstructedWrite

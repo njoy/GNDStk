@@ -35,8 +35,8 @@ function LeptonsCreateConst( &
       bind(C, name='LeptonsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: leptonSize
-   type(c_ptr) :: lepton(leptonSize)
+   integer(c_size_t), intent(in), value :: leptonSize
+   type(c_ptr), intent(in) :: lepton(leptonSize)
    type(c_ptr) :: LeptonsCreateConst
 end function LeptonsCreateConst
 
@@ -47,8 +47,8 @@ function LeptonsCreate( &
       bind(C, name='LeptonsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: leptonSize
-   type(c_ptr) :: lepton(leptonSize)
+   integer(c_size_t), intent(in), value :: leptonSize
+   type(c_ptr), intent(in) :: lepton(leptonSize)
    type(c_ptr) :: LeptonsCreate
 end function LeptonsCreate
 
@@ -57,7 +57,8 @@ subroutine LeptonsAssign(handleLHS, handleRHS) &
       bind(C, name='LeptonsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine LeptonsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function LeptonsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LeptonsRead
 end function LeptonsRead
@@ -92,7 +93,7 @@ function LeptonsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LeptonsWrite
 end function LeptonsWrite
@@ -236,7 +237,7 @@ subroutine LeptonsLeptonSetById(handle, meta, metaSize, fieldHandle) &
       bind(C, name='LeptonsLeptonSetById')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine LeptonsLeptonSetByGeneration(handle, meta, metaSize, fieldHandle) &
       bind(C, name='LeptonsLeptonSetByGeneration')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

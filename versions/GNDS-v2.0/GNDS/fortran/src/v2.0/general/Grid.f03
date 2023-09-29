@@ -45,7 +45,7 @@ function GridCreateConst( &
       bind(C, name='GridCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: unitSize
@@ -54,8 +54,8 @@ function GridCreateConst( &
    character(c_char), intent(in) :: style(styleSize)
    integer(c_size_t), intent(in), value :: interpolationSize
    character(c_char), intent(in) :: interpolation(interpolationSize)
-   type(c_ptr), value :: link
-   type(c_ptr), value :: values
+   type(c_ptr), intent(in), value :: link
+   type(c_ptr), intent(in), value :: values
    type(c_ptr) :: GridCreateConst
 end function GridCreateConst
 
@@ -76,7 +76,7 @@ function GridCreate( &
       bind(C, name='GridCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: unitSize
@@ -85,8 +85,8 @@ function GridCreate( &
    character(c_char), intent(in) :: style(styleSize)
    integer(c_size_t), intent(in), value :: interpolationSize
    character(c_char), intent(in) :: interpolation(interpolationSize)
-   type(c_ptr), value :: link
-   type(c_ptr), value :: values
+   type(c_ptr), intent(in), value :: link
+   type(c_ptr), intent(in), value :: values
    type(c_ptr) :: GridCreate
 end function GridCreate
 
@@ -95,7 +95,8 @@ subroutine GridAssign(handleLHS, handleRHS) &
       bind(C, name='GridAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine GridAssign
 
 !! Delete
@@ -119,7 +120,7 @@ function GridRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GridRead
 end function GridRead
@@ -130,7 +131,7 @@ function GridWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GridWrite
 end function GridWrite
@@ -186,13 +187,12 @@ function GridIndexGet(handle) &
 end function GridIndexGet
 
 !! Set
-subroutine GridIndexSet(handle, index, indexSize) &
+subroutine GridIndexSet(handle, index) &
       bind(C, name='GridIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: indexSize
-   character(c_char), intent(in) :: index(indexSize)
+   integer(c_int), intent(in), value :: index
 end subroutine GridIndexSet
 
 
@@ -355,7 +355,7 @@ function GridLinkGet(handle) &
       bind(C, name='GridLinkGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GridLinkGet
 end function GridLinkGet
 
@@ -365,7 +365,7 @@ subroutine GridLinkSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GridLinkSet
 
 
@@ -396,7 +396,7 @@ function GridValuesGet(handle) &
       bind(C, name='GridValuesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GridValuesGet
 end function GridValuesGet
 
@@ -406,7 +406,7 @@ subroutine GridValuesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GridValuesSet
 
 

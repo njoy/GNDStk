@@ -69,17 +69,17 @@ function ReactionSuiteCreateConst( &
    character(c_char), intent(in) :: projectileFrame(projectileFrameSize)
    integer(c_size_t), intent(in), value :: interactionSize
    character(c_char), intent(in) :: interaction(interactionSize)
-   type(c_ptr), value :: styles
-   type(c_ptr), value :: PoPs
-   type(c_ptr), value :: reactions
-   type(c_ptr), value :: applicationData
-   type(c_ptr), value :: externalFiles
-   type(c_ptr), value :: resonances
-   type(c_ptr), value :: sums
-   type(c_ptr), value :: productions
-   type(c_ptr), value :: fissionComponents
-   type(c_ptr), value :: orphanProducts
-   type(c_ptr), value :: incompleteReactions
+   type(c_ptr), intent(in), value :: styles
+   type(c_ptr), intent(in), value :: PoPs
+   type(c_ptr), intent(in), value :: reactions
+   type(c_ptr), intent(in), value :: applicationData
+   type(c_ptr), intent(in), value :: externalFiles
+   type(c_ptr), intent(in), value :: resonances
+   type(c_ptr), intent(in), value :: sums
+   type(c_ptr), intent(in), value :: productions
+   type(c_ptr), intent(in), value :: fissionComponents
+   type(c_ptr), intent(in), value :: orphanProducts
+   type(c_ptr), intent(in), value :: incompleteReactions
    type(c_ptr) :: ReactionSuiteCreateConst
 end function ReactionSuiteCreateConst
 
@@ -124,17 +124,17 @@ function ReactionSuiteCreate( &
    character(c_char), intent(in) :: projectileFrame(projectileFrameSize)
    integer(c_size_t), intent(in), value :: interactionSize
    character(c_char), intent(in) :: interaction(interactionSize)
-   type(c_ptr), value :: styles
-   type(c_ptr), value :: PoPs
-   type(c_ptr), value :: reactions
-   type(c_ptr), value :: applicationData
-   type(c_ptr), value :: externalFiles
-   type(c_ptr), value :: resonances
-   type(c_ptr), value :: sums
-   type(c_ptr), value :: productions
-   type(c_ptr), value :: fissionComponents
-   type(c_ptr), value :: orphanProducts
-   type(c_ptr), value :: incompleteReactions
+   type(c_ptr), intent(in), value :: styles
+   type(c_ptr), intent(in), value :: PoPs
+   type(c_ptr), intent(in), value :: reactions
+   type(c_ptr), intent(in), value :: applicationData
+   type(c_ptr), intent(in), value :: externalFiles
+   type(c_ptr), intent(in), value :: resonances
+   type(c_ptr), intent(in), value :: sums
+   type(c_ptr), intent(in), value :: productions
+   type(c_ptr), intent(in), value :: fissionComponents
+   type(c_ptr), intent(in), value :: orphanProducts
+   type(c_ptr), intent(in), value :: incompleteReactions
    type(c_ptr) :: ReactionSuiteCreate
 end function ReactionSuiteCreate
 
@@ -143,7 +143,8 @@ subroutine ReactionSuiteAssign(handleLHS, handleRHS) &
       bind(C, name='ReactionSuiteAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ReactionSuiteAssign
 
 !! Delete
@@ -167,7 +168,7 @@ function ReactionSuiteRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ReactionSuiteRead
 end function ReactionSuiteRead
@@ -178,7 +179,7 @@ function ReactionSuiteWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ReactionSuiteWrite
 end function ReactionSuiteWrite
@@ -436,7 +437,7 @@ function ReactionSuiteStylesGet(handle) &
       bind(C, name='ReactionSuiteStylesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteStylesGet
 end function ReactionSuiteStylesGet
 
@@ -446,7 +447,7 @@ subroutine ReactionSuiteStylesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteStylesSet
 
 
@@ -477,7 +478,7 @@ function ReactionSuitePoPsGet(handle) &
       bind(C, name='ReactionSuitePoPsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuitePoPsGet
 end function ReactionSuitePoPsGet
 
@@ -487,7 +488,7 @@ subroutine ReactionSuitePoPsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuitePoPsSet
 
 
@@ -518,7 +519,7 @@ function ReactionSuiteReactionsGet(handle) &
       bind(C, name='ReactionSuiteReactionsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteReactionsGet
 end function ReactionSuiteReactionsGet
 
@@ -528,7 +529,7 @@ subroutine ReactionSuiteReactionsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteReactionsSet
 
 
@@ -559,7 +560,7 @@ function ReactionSuiteApplicationDataGet(handle) &
       bind(C, name='ReactionSuiteApplicationDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteApplicationDataGet
 end function ReactionSuiteApplicationDataGet
 
@@ -569,7 +570,7 @@ subroutine ReactionSuiteApplicationDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteApplicationDataSet
 
 
@@ -600,7 +601,7 @@ function ReactionSuiteExternalFilesGet(handle) &
       bind(C, name='ReactionSuiteExternalFilesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteExternalFilesGet
 end function ReactionSuiteExternalFilesGet
 
@@ -610,7 +611,7 @@ subroutine ReactionSuiteExternalFilesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteExternalFilesSet
 
 
@@ -641,7 +642,7 @@ function ReactionSuiteResonancesGet(handle) &
       bind(C, name='ReactionSuiteResonancesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteResonancesGet
 end function ReactionSuiteResonancesGet
 
@@ -651,7 +652,7 @@ subroutine ReactionSuiteResonancesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteResonancesSet
 
 
@@ -682,7 +683,7 @@ function ReactionSuiteSumsGet(handle) &
       bind(C, name='ReactionSuiteSumsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteSumsGet
 end function ReactionSuiteSumsGet
 
@@ -692,7 +693,7 @@ subroutine ReactionSuiteSumsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteSumsSet
 
 
@@ -723,7 +724,7 @@ function ReactionSuiteProductionsGet(handle) &
       bind(C, name='ReactionSuiteProductionsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteProductionsGet
 end function ReactionSuiteProductionsGet
 
@@ -733,7 +734,7 @@ subroutine ReactionSuiteProductionsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteProductionsSet
 
 
@@ -764,7 +765,7 @@ function ReactionSuiteFissionComponentsGet(handle) &
       bind(C, name='ReactionSuiteFissionComponentsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteFissionComponentsGet
 end function ReactionSuiteFissionComponentsGet
 
@@ -774,7 +775,7 @@ subroutine ReactionSuiteFissionComponentsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteFissionComponentsSet
 
 
@@ -805,7 +806,7 @@ function ReactionSuiteOrphanProductsGet(handle) &
       bind(C, name='ReactionSuiteOrphanProductsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteOrphanProductsGet
 end function ReactionSuiteOrphanProductsGet
 
@@ -815,7 +816,7 @@ subroutine ReactionSuiteOrphanProductsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteOrphanProductsSet
 
 
@@ -846,7 +847,7 @@ function ReactionSuiteIncompleteReactionsGet(handle) &
       bind(C, name='ReactionSuiteIncompleteReactionsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionSuiteIncompleteReactionsGet
 end function ReactionSuiteIncompleteReactionsGet
 
@@ -856,7 +857,7 @@ subroutine ReactionSuiteIncompleteReactionsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionSuiteIncompleteReactionsSet
 
 

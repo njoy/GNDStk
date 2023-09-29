@@ -36,8 +36,8 @@ function Gridded2dCreateConst( &
       bind(C, name='Gridded2dCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: array
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: array
    type(c_ptr) :: Gridded2dCreateConst
 end function Gridded2dCreateConst
 
@@ -49,8 +49,8 @@ function Gridded2dCreate( &
       bind(C, name='Gridded2dCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: array
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: array
    type(c_ptr) :: Gridded2dCreate
 end function Gridded2dCreate
 
@@ -59,7 +59,8 @@ subroutine Gridded2dAssign(handleLHS, handleRHS) &
       bind(C, name='Gridded2dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Gridded2dAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function Gridded2dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Gridded2dRead
 end function Gridded2dRead
@@ -94,7 +95,7 @@ function Gridded2dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Gridded2dWrite
 end function Gridded2dWrite
@@ -154,7 +155,7 @@ function Gridded2dAxesGet(handle) &
       bind(C, name='Gridded2dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Gridded2dAxesGet
 end function Gridded2dAxesGet
 
@@ -164,7 +165,7 @@ subroutine Gridded2dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Gridded2dAxesSet
 
 
@@ -195,7 +196,7 @@ function Gridded2dArrayGet(handle) &
       bind(C, name='Gridded2dArrayGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Gridded2dArrayGet
 end function Gridded2dArrayGet
 
@@ -205,7 +206,7 @@ subroutine Gridded2dArraySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Gridded2dArraySet
 
 

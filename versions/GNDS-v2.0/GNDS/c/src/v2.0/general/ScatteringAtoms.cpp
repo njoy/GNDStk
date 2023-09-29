@@ -204,6 +204,10 @@ ScatteringAtomsScatteringAtomSet(
       (CLASSNAME, CLASSNAME+"ScatteringAtomSet", self, extract::scatteringAtom, index_, scatteringAtom);
 }
 
+// ------------------------
+// Re: metadatum pid
+// ------------------------
+
 // Has, by pid
 int
 ScatteringAtomsScatteringAtomHasByPid(
@@ -249,6 +253,10 @@ ScatteringAtomsScatteringAtomSetByPid(
        self, extract::scatteringAtom, meta::pid, pid, scatteringAtom);
 }
 
+// ------------------------
+// Re: metadatum numberPerMolecule
+// ------------------------
+
 // Has, by numberPerMolecule
 int
 ScatteringAtomsScatteringAtomHasByNumberPerMolecule(
@@ -293,6 +301,10 @@ ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
       (CLASSNAME, CLASSNAME+"ScatteringAtomSetByNumberPerMolecule",
        self, extract::scatteringAtom, meta::numberPerMolecule, numberPerMolecule, scatteringAtom);
 }
+
+// ------------------------
+// Re: metadatum primaryScatterer
+// ------------------------
 
 // Has, by primaryScatterer
 int

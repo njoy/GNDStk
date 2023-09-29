@@ -204,6 +204,10 @@ LeptonsLeptonSet(
       (CLASSNAME, CLASSNAME+"LeptonSet", self, extract::lepton, index_, lepton);
 }
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // Has, by id
 int
 LeptonsLeptonHasById(
@@ -248,6 +252,10 @@ LeptonsLeptonSetById(
       (CLASSNAME, CLASSNAME+"LeptonSetById",
        self, extract::lepton, meta::id, id, lepton);
 }
+
+// ------------------------
+// Re: metadatum generation
+// ------------------------
 
 // Has, by generation
 int

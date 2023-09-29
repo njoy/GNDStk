@@ -46,14 +46,14 @@ function ScatteringAtomCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   integer(c_int), value, intent(in) :: numberPerMolecule
-   logical(c_bool), value, intent(in) :: primaryScatterer
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: e_critical
-   type(c_ptr), value :: e_max
-   type(c_ptr), value :: boundAtomCrossSection
-   type(c_ptr), value :: selfScatteringKernel
-   type(c_ptr), value :: T_effective
+   integer(c_int), intent(in), value :: numberPerMolecule
+   logical(c_bool), intent(in), value :: primaryScatterer
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: e_critical
+   type(c_ptr), intent(in), value :: e_max
+   type(c_ptr), intent(in), value :: boundAtomCrossSection
+   type(c_ptr), intent(in), value :: selfScatteringKernel
+   type(c_ptr), intent(in), value :: T_effective
    type(c_ptr) :: ScatteringAtomCreateConst
 end function ScatteringAtomCreateConst
 
@@ -75,14 +75,14 @@ function ScatteringAtomCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   integer(c_int), value, intent(in) :: numberPerMolecule
-   logical(c_bool), value, intent(in) :: primaryScatterer
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: e_critical
-   type(c_ptr), value :: e_max
-   type(c_ptr), value :: boundAtomCrossSection
-   type(c_ptr), value :: selfScatteringKernel
-   type(c_ptr), value :: T_effective
+   integer(c_int), intent(in), value :: numberPerMolecule
+   logical(c_bool), intent(in), value :: primaryScatterer
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: e_critical
+   type(c_ptr), intent(in), value :: e_max
+   type(c_ptr), intent(in), value :: boundAtomCrossSection
+   type(c_ptr), intent(in), value :: selfScatteringKernel
+   type(c_ptr), intent(in), value :: T_effective
    type(c_ptr) :: ScatteringAtomCreate
 end function ScatteringAtomCreate
 
@@ -91,7 +91,8 @@ subroutine ScatteringAtomAssign(handleLHS, handleRHS) &
       bind(C, name='ScatteringAtomAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ScatteringAtomAssign
 
 !! Delete
@@ -115,7 +116,7 @@ function ScatteringAtomRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ScatteringAtomRead
 end function ScatteringAtomRead
@@ -126,7 +127,7 @@ function ScatteringAtomWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ScatteringAtomWrite
 end function ScatteringAtomWrite
@@ -215,13 +216,12 @@ function ScatteringAtomNumberPerMoleculeGet(handle) &
 end function ScatteringAtomNumberPerMoleculeGet
 
 !! Set
-subroutine ScatteringAtomNumberPerMoleculeSet(handle, numberPerMolecule, numberPerMoleculeSize) &
+subroutine ScatteringAtomNumberPerMoleculeSet(handle, numberPerMolecule) &
       bind(C, name='ScatteringAtomNumberPerMoleculeSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: numberPerMoleculeSize
-   character(c_char), intent(in) :: numberPerMolecule(numberPerMoleculeSize)
+   integer(c_int), intent(in), value :: numberPerMolecule
 end subroutine ScatteringAtomNumberPerMoleculeSet
 
 
@@ -248,13 +248,12 @@ function ScatteringAtomPrimaryScattererGet(handle) &
 end function ScatteringAtomPrimaryScattererGet
 
 !! Set
-subroutine ScatteringAtomPrimaryScattererSet(handle, primaryScatterer, primaryScattererSize) &
+subroutine ScatteringAtomPrimaryScattererSet(handle, primaryScatterer) &
       bind(C, name='ScatteringAtomPrimaryScattererSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: primaryScattererSize
-   character(c_char), intent(in) :: primaryScatterer(primaryScattererSize)
+   logical(c_bool), intent(in), value :: primaryScatterer
 end subroutine ScatteringAtomPrimaryScattererSet
 
 
@@ -285,7 +284,7 @@ function ScatteringAtomMassGet(handle) &
       bind(C, name='ScatteringAtomMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringAtomMassGet
 end function ScatteringAtomMassGet
 
@@ -295,7 +294,7 @@ subroutine ScatteringAtomMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomMassSet
 
 
@@ -326,7 +325,7 @@ function ScatteringAtomE_criticalGet(handle) &
       bind(C, name='ScatteringAtomE_criticalGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringAtomE_criticalGet
 end function ScatteringAtomE_criticalGet
 
@@ -336,7 +335,7 @@ subroutine ScatteringAtomE_criticalSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomE_criticalSet
 
 
@@ -367,7 +366,7 @@ function ScatteringAtomE_maxGet(handle) &
       bind(C, name='ScatteringAtomE_maxGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringAtomE_maxGet
 end function ScatteringAtomE_maxGet
 
@@ -377,7 +376,7 @@ subroutine ScatteringAtomE_maxSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomE_maxSet
 
 
@@ -408,7 +407,7 @@ function ScatteringAtomBoundAtomCrossSectionGet(handle) &
       bind(C, name='ScatteringAtomBoundAtomCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringAtomBoundAtomCrossSectionGet
 end function ScatteringAtomBoundAtomCrossSectionGet
 
@@ -418,7 +417,7 @@ subroutine ScatteringAtomBoundAtomCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomBoundAtomCrossSectionSet
 
 
@@ -449,7 +448,7 @@ function ScatteringAtomSelfScatteringKernelGet(handle) &
       bind(C, name='ScatteringAtomSelfScatteringKernelGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringAtomSelfScatteringKernelGet
 end function ScatteringAtomSelfScatteringKernelGet
 
@@ -459,7 +458,7 @@ subroutine ScatteringAtomSelfScatteringKernelSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomSelfScatteringKernelSet
 
 
@@ -490,7 +489,7 @@ function ScatteringAtomT_effectiveGet(handle) &
       bind(C, name='ScatteringAtomT_effectiveGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringAtomT_effectiveGet
 end function ScatteringAtomT_effectiveGet
 
@@ -500,7 +499,7 @@ subroutine ScatteringAtomT_effectiveSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringAtomT_effectiveSet
 
 

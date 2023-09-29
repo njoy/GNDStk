@@ -169,6 +169,10 @@ AxesAxisSet(
    ConstHandle2ConstAxis axis
 );
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // +++ Has, by index
 extern_c int
 AxesAxisHasByIndex(
@@ -198,6 +202,10 @@ AxesAxisSetByIndex(
    ConstHandle2ConstAxis axis
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 AxesAxisHasByLabel(
@@ -226,6 +234,10 @@ AxesAxisSetByLabel(
    const char *const label,
    ConstHandle2ConstAxis axis
 );
+
+// ------------------------
+// Re: metadatum unit
+// ------------------------
 
 // +++ Has, by unit
 extern_c int
@@ -293,6 +305,10 @@ AxesGridSet(
    ConstHandle2ConstGrid grid
 );
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // +++ Has, by index
 extern_c int
 AxesGridHasByIndex(
@@ -321,6 +337,10 @@ AxesGridSetByIndex(
    const int index,
    ConstHandle2ConstGrid grid
 );
+
+// ------------------------
+// Re: metadatum label
+// ------------------------
 
 // +++ Has, by label
 extern_c int
@@ -351,6 +371,10 @@ AxesGridSetByLabel(
    ConstHandle2ConstGrid grid
 );
 
+// ------------------------
+// Re: metadatum unit
+// ------------------------
+
 // +++ Has, by unit
 extern_c int
 AxesGridHasByUnit(
@@ -380,6 +404,10 @@ AxesGridSetByUnit(
    ConstHandle2ConstGrid grid
 );
 
+// ------------------------
+// Re: metadatum style
+// ------------------------
+
 // +++ Has, by style
 extern_c int
 AxesGridHasByStyle(
@@ -408,6 +436,10 @@ AxesGridSetByStyle(
    const char *const style,
    ConstHandle2ConstGrid grid
 );
+
+// ------------------------
+// Re: metadatum interpolation
+// ------------------------
 
 // +++ Has, by interpolation
 extern_c int

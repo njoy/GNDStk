@@ -36,8 +36,8 @@ function TimeCreateConst( &
       bind(C, name='TimeCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
-   type(c_ptr), value :: string
+   type(c_ptr), intent(in), value :: Double
+   type(c_ptr), intent(in), value :: string
    type(c_ptr) :: TimeCreateConst
 end function TimeCreateConst
 
@@ -49,8 +49,8 @@ function TimeCreate( &
       bind(C, name='TimeCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
-   type(c_ptr), value :: string
+   type(c_ptr), intent(in), value :: Double
+   type(c_ptr), intent(in), value :: string
    type(c_ptr) :: TimeCreate
 end function TimeCreate
 
@@ -59,7 +59,8 @@ subroutine TimeAssign(handleLHS, handleRHS) &
       bind(C, name='TimeAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine TimeAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function TimeRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: TimeRead
 end function TimeRead
@@ -94,7 +95,7 @@ function TimeWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: TimeWrite
 end function TimeWrite
@@ -154,7 +155,7 @@ function TimeDoubleGet(handle) &
       bind(C, name='TimeDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TimeDoubleGet
 end function TimeDoubleGet
 
@@ -164,7 +165,7 @@ subroutine TimeDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TimeDoubleSet
 
 
@@ -195,7 +196,7 @@ function TimeStringGet(handle) &
       bind(C, name='TimeStringGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TimeStringGet
 end function TimeStringGet
 
@@ -205,7 +206,7 @@ subroutine TimeStringSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TimeStringSet
 
 

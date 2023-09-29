@@ -169,6 +169,10 @@ Function1dsLegendreSet(
    ConstHandle2ConstLegendre Legendre
 );
 
+// ------------------------
+// Re: metadatum outerDomainValue
+// ------------------------
+
 // +++ Has, by outerDomainValue
 extern_c int
 Function1dsLegendreHasByOuterDomainValue(
@@ -235,6 +239,10 @@ Function1dsXYs1dSet(
    ConstHandle2ConstXYs1d XYs1d
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 Function1dsXYs1dHasByLabel(
@@ -263,6 +271,10 @@ Function1dsXYs1dSetByLabel(
    const char *const label,
    ConstHandle2ConstXYs1d XYs1d
 );
+
+// ------------------------
+// Re: metadatum index
+// ------------------------
 
 // +++ Has, by index
 extern_c int
@@ -293,6 +305,10 @@ Function1dsXYs1dSetByIndex(
    ConstHandle2ConstXYs1d XYs1d
 );
 
+// ------------------------
+// Re: metadatum interpolation
+// ------------------------
+
 // +++ Has, by interpolation
 extern_c int
 Function1dsXYs1dHasByInterpolation(
@@ -321,6 +337,10 @@ Function1dsXYs1dSetByInterpolation(
    const char *const interpolation,
    ConstHandle2ConstXYs1d XYs1d
 );
+
+// ------------------------
+// Re: metadatum outerDomainValue
+// ------------------------
 
 // +++ Has, by outerDomainValue
 extern_c int

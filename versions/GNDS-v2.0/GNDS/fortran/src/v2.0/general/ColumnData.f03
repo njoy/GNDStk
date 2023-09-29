@@ -43,7 +43,7 @@ function ColumnDataCreateConst( &
    character(c_char), intent(in) :: ENDF_MFMT(ENDF_MFMTSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: slices
+   type(c_ptr), intent(in), value :: slices
    type(c_ptr) :: ColumnDataCreateConst
 end function ColumnDataCreateConst
 
@@ -62,7 +62,7 @@ function ColumnDataCreate( &
    character(c_char), intent(in) :: ENDF_MFMT(ENDF_MFMTSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: slices
+   type(c_ptr), intent(in), value :: slices
    type(c_ptr) :: ColumnDataCreate
 end function ColumnDataCreate
 
@@ -71,7 +71,8 @@ subroutine ColumnDataAssign(handleLHS, handleRHS) &
       bind(C, name='ColumnDataAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ColumnDataAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function ColumnDataRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ColumnDataRead
 end function ColumnDataRead
@@ -106,7 +107,7 @@ function ColumnDataWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ColumnDataWrite
 end function ColumnDataWrite
@@ -232,7 +233,7 @@ function ColumnDataSlicesGet(handle) &
       bind(C, name='ColumnDataSlicesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ColumnDataSlicesGet
 end function ColumnDataSlicesGet
 
@@ -242,7 +243,7 @@ subroutine ColumnDataSlicesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ColumnDataSlicesSet
 
 

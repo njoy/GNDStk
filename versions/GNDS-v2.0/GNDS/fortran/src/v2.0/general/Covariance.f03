@@ -43,7 +43,7 @@ function CovarianceCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: array
+   type(c_ptr), intent(in), value :: array
    type(c_ptr) :: CovarianceCreateConst
 end function CovarianceCreateConst
 
@@ -62,7 +62,7 @@ function CovarianceCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: array
+   type(c_ptr), intent(in), value :: array
    type(c_ptr) :: CovarianceCreate
 end function CovarianceCreate
 
@@ -71,7 +71,8 @@ subroutine CovarianceAssign(handleLHS, handleRHS) &
       bind(C, name='CovarianceAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CovarianceAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function CovarianceRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceRead
 end function CovarianceRead
@@ -106,7 +107,7 @@ function CovarianceWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceWrite
 end function CovarianceWrite
@@ -232,7 +233,7 @@ function CovarianceArrayGet(handle) &
       bind(C, name='CovarianceArrayGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceArrayGet
 end function CovarianceArrayGet
 
@@ -242,7 +243,7 @@ subroutine CovarianceArraySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceArraySet
 
 

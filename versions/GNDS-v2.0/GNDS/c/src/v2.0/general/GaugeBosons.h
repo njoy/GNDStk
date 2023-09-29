@@ -166,6 +166,10 @@ GaugeBosonsGaugeBosonSet(
    ConstHandle2ConstGaugeBoson gaugeBoson
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 GaugeBosonsGaugeBosonHasById(

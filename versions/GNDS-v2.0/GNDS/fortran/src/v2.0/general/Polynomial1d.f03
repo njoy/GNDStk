@@ -43,11 +43,11 @@ function Polynomial1dCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: values
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: values
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: Polynomial1dCreateConst
 end function Polynomial1dCreateConst
 
@@ -66,11 +66,11 @@ function Polynomial1dCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: values
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: values
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: Polynomial1dCreate
 end function Polynomial1dCreate
 
@@ -79,7 +79,8 @@ subroutine Polynomial1dAssign(handleLHS, handleRHS) &
       bind(C, name='Polynomial1dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Polynomial1dAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function Polynomial1dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Polynomial1dRead
 end function Polynomial1dRead
@@ -114,7 +115,7 @@ function Polynomial1dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Polynomial1dWrite
 end function Polynomial1dWrite
@@ -203,13 +204,12 @@ function Polynomial1dDomainMinGet(handle) &
 end function Polynomial1dDomainMinGet
 
 !! Set
-subroutine Polynomial1dDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine Polynomial1dDomainMinSet(handle, domainMin) &
       bind(C, name='Polynomial1dDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine Polynomial1dDomainMinSet
 
 
@@ -236,13 +236,12 @@ function Polynomial1dDomainMaxGet(handle) &
 end function Polynomial1dDomainMaxGet
 
 !! Set
-subroutine Polynomial1dDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine Polynomial1dDomainMaxSet(handle, domainMax) &
       bind(C, name='Polynomial1dDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine Polynomial1dDomainMaxSet
 
 
@@ -273,7 +272,7 @@ function Polynomial1dAxesGet(handle) &
       bind(C, name='Polynomial1dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Polynomial1dAxesGet
 end function Polynomial1dAxesGet
 
@@ -283,7 +282,7 @@ subroutine Polynomial1dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Polynomial1dAxesSet
 
 
@@ -314,7 +313,7 @@ function Polynomial1dValuesGet(handle) &
       bind(C, name='Polynomial1dValuesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Polynomial1dValuesGet
 end function Polynomial1dValuesGet
 
@@ -324,7 +323,7 @@ subroutine Polynomial1dValuesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Polynomial1dValuesSet
 
 
@@ -355,7 +354,7 @@ function Polynomial1dUncertaintyGet(handle) &
       bind(C, name='Polynomial1dUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Polynomial1dUncertaintyGet
 end function Polynomial1dUncertaintyGet
 
@@ -365,7 +364,7 @@ subroutine Polynomial1dUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Polynomial1dUncertaintySet
 
 

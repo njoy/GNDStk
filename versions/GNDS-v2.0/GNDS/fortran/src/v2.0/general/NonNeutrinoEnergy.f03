@@ -35,7 +35,7 @@ function NonNeutrinoEnergyCreateConst( &
       bind(C, name='NonNeutrinoEnergyCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
+   type(c_ptr), intent(in), value :: polynomial1d
    type(c_ptr) :: NonNeutrinoEnergyCreateConst
 end function NonNeutrinoEnergyCreateConst
 
@@ -46,7 +46,7 @@ function NonNeutrinoEnergyCreate( &
       bind(C, name='NonNeutrinoEnergyCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
+   type(c_ptr), intent(in), value :: polynomial1d
    type(c_ptr) :: NonNeutrinoEnergyCreate
 end function NonNeutrinoEnergyCreate
 
@@ -55,7 +55,8 @@ subroutine NonNeutrinoEnergyAssign(handleLHS, handleRHS) &
       bind(C, name='NonNeutrinoEnergyAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine NonNeutrinoEnergyAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function NonNeutrinoEnergyRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NonNeutrinoEnergyRead
 end function NonNeutrinoEnergyRead
@@ -90,7 +91,7 @@ function NonNeutrinoEnergyWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NonNeutrinoEnergyWrite
 end function NonNeutrinoEnergyWrite
@@ -150,7 +151,7 @@ function NonNeutrinoEnergyPolynomial1dGet(handle) &
       bind(C, name='NonNeutrinoEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NonNeutrinoEnergyPolynomial1dGet
 end function NonNeutrinoEnergyPolynomial1dGet
 
@@ -160,7 +161,7 @@ subroutine NonNeutrinoEnergyPolynomial1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NonNeutrinoEnergyPolynomial1dSet
 
 

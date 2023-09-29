@@ -38,10 +38,10 @@ function TableCreateConst( &
       bind(C, name='TableCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: rows
-   integer(c_int), value, intent(in) :: columns
-   type(c_ptr), value :: columnHeaders
-   type(c_ptr), value :: data
+   integer(c_int), intent(in), value :: rows
+   integer(c_int), intent(in), value :: columns
+   type(c_ptr), intent(in), value :: columnHeaders
+   type(c_ptr), intent(in), value :: data
    type(c_ptr) :: TableCreateConst
 end function TableCreateConst
 
@@ -55,10 +55,10 @@ function TableCreate( &
       bind(C, name='TableCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: rows
-   integer(c_int), value, intent(in) :: columns
-   type(c_ptr), value :: columnHeaders
-   type(c_ptr), value :: data
+   integer(c_int), intent(in), value :: rows
+   integer(c_int), intent(in), value :: columns
+   type(c_ptr), intent(in), value :: columnHeaders
+   type(c_ptr), intent(in), value :: data
    type(c_ptr) :: TableCreate
 end function TableCreate
 
@@ -67,7 +67,8 @@ subroutine TableAssign(handleLHS, handleRHS) &
       bind(C, name='TableAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine TableAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function TableRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: TableRead
 end function TableRead
@@ -102,7 +103,7 @@ function TableWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: TableWrite
 end function TableWrite
@@ -158,13 +159,12 @@ function TableRowsGet(handle) &
 end function TableRowsGet
 
 !! Set
-subroutine TableRowsSet(handle, rows, rowsSize) &
+subroutine TableRowsSet(handle, rows) &
       bind(C, name='TableRowsSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: rowsSize
-   character(c_char), intent(in) :: rows(rowsSize)
+   integer(c_int), intent(in), value :: rows
 end subroutine TableRowsSet
 
 
@@ -191,13 +191,12 @@ function TableColumnsGet(handle) &
 end function TableColumnsGet
 
 !! Set
-subroutine TableColumnsSet(handle, columns, columnsSize) &
+subroutine TableColumnsSet(handle, columns) &
       bind(C, name='TableColumnsSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: columnsSize
-   character(c_char), intent(in) :: columns(columnsSize)
+   integer(c_int), intent(in), value :: columns
 end subroutine TableColumnsSet
 
 
@@ -228,7 +227,7 @@ function TableColumnHeadersGet(handle) &
       bind(C, name='TableColumnHeadersGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TableColumnHeadersGet
 end function TableColumnHeadersGet
 
@@ -238,7 +237,7 @@ subroutine TableColumnHeadersSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TableColumnHeadersSet
 
 
@@ -269,7 +268,7 @@ function TableDataGet(handle) &
       bind(C, name='TableDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: TableDataGet
 end function TableDataGet
 
@@ -279,7 +278,7 @@ subroutine TableDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine TableDataSet
 
 

@@ -40,9 +40,9 @@ function XYs3dCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: interpolationQualifierSize
    character(c_char), intent(in) :: interpolationQualifier(interpolationQualifierSize)
-   type(c_ptr), value :: axes
-   integer(c_size_t), value :: function2dsSize
-   type(c_ptr) :: function2ds(function2dsSize)
+   type(c_ptr), intent(in), value :: axes
+   integer(c_size_t), intent(in), value :: function2dsSize
+   type(c_ptr), intent(in) :: function2ds(function2dsSize)
    type(c_ptr) :: XYs3dCreateConst
 end function XYs3dCreateConst
 
@@ -58,9 +58,9 @@ function XYs3dCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: interpolationQualifierSize
    character(c_char), intent(in) :: interpolationQualifier(interpolationQualifierSize)
-   type(c_ptr), value :: axes
-   integer(c_size_t), value :: function2dsSize
-   type(c_ptr) :: function2ds(function2dsSize)
+   type(c_ptr), intent(in), value :: axes
+   integer(c_size_t), intent(in), value :: function2dsSize
+   type(c_ptr), intent(in) :: function2ds(function2dsSize)
    type(c_ptr) :: XYs3dCreate
 end function XYs3dCreate
 
@@ -69,7 +69,8 @@ subroutine XYs3dAssign(handleLHS, handleRHS) &
       bind(C, name='XYs3dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine XYs3dAssign
 
 !! Delete
@@ -93,7 +94,7 @@ function XYs3dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: XYs3dRead
 end function XYs3dRead
@@ -104,7 +105,7 @@ function XYs3dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: XYs3dWrite
 end function XYs3dWrite
@@ -197,7 +198,7 @@ function XYs3dAxesGet(handle) &
       bind(C, name='XYs3dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: XYs3dAxesGet
 end function XYs3dAxesGet
 
@@ -207,7 +208,7 @@ subroutine XYs3dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine XYs3dAxesSet
 
 

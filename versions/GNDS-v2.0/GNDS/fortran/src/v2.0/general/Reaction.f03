@@ -44,12 +44,12 @@ function ReactionCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
+   integer(c_int), intent(in), value :: ENDF_MT
    integer(c_size_t), intent(in), value :: fissionGenreSize
    character(c_char), intent(in) :: fissionGenre(fissionGenreSize)
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: outputChannel
-   type(c_ptr), value :: doubleDifferentialCrossSection
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: outputChannel
+   type(c_ptr), intent(in), value :: doubleDifferentialCrossSection
    type(c_ptr) :: ReactionCreateConst
 end function ReactionCreateConst
 
@@ -69,12 +69,12 @@ function ReactionCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
+   integer(c_int), intent(in), value :: ENDF_MT
    integer(c_size_t), intent(in), value :: fissionGenreSize
    character(c_char), intent(in) :: fissionGenre(fissionGenreSize)
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: outputChannel
-   type(c_ptr), value :: doubleDifferentialCrossSection
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: outputChannel
+   type(c_ptr), intent(in), value :: doubleDifferentialCrossSection
    type(c_ptr) :: ReactionCreate
 end function ReactionCreate
 
@@ -83,7 +83,8 @@ subroutine ReactionAssign(handleLHS, handleRHS) &
       bind(C, name='ReactionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ReactionAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function ReactionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ReactionRead
 end function ReactionRead
@@ -118,7 +119,7 @@ function ReactionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ReactionWrite
 end function ReactionWrite
@@ -207,13 +208,12 @@ function ReactionENDFMTGet(handle) &
 end function ReactionENDFMTGet
 
 !! Set
-subroutine ReactionENDFMTSet(handle, ENDF_MT, ENDF_MTSize) &
+subroutine ReactionENDFMTSet(handle, ENDF_MT) &
       bind(C, name='ReactionENDFMTSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ENDF_MTSize
-   character(c_char), intent(in) :: ENDF_MT(ENDF_MTSize)
+   integer(c_int), intent(in), value :: ENDF_MT
 end subroutine ReactionENDFMTSet
 
 
@@ -277,7 +277,7 @@ function ReactionCrossSectionGet(handle) &
       bind(C, name='ReactionCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionCrossSectionGet
 end function ReactionCrossSectionGet
 
@@ -287,7 +287,7 @@ subroutine ReactionCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionCrossSectionSet
 
 
@@ -318,7 +318,7 @@ function ReactionOutputChannelGet(handle) &
       bind(C, name='ReactionOutputChannelGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionOutputChannelGet
 end function ReactionOutputChannelGet
 
@@ -328,7 +328,7 @@ subroutine ReactionOutputChannelSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionOutputChannelSet
 
 
@@ -359,7 +359,7 @@ function ReactionDoubleDifferentialCrossSectionGet(handle) &
       bind(C, name='ReactionDoubleDifferentialCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ReactionDoubleDifferentialCrossSectionGet
 end function ReactionDoubleDifferentialCrossSectionGet
 
@@ -369,7 +369,7 @@ subroutine ReactionDoubleDifferentialCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionDoubleDifferentialCrossSectionSet
 
 

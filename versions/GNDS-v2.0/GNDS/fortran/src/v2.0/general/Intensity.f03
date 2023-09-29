@@ -36,8 +36,8 @@ function IntensityCreateConst( &
       bind(C, name='IntensityCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: value
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: IntensityCreateConst
 end function IntensityCreateConst
 
@@ -49,8 +49,8 @@ function IntensityCreate( &
       bind(C, name='IntensityCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: value
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: IntensityCreate
 end function IntensityCreate
 
@@ -59,7 +59,8 @@ subroutine IntensityAssign(handleLHS, handleRHS) &
       bind(C, name='IntensityAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IntensityAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function IntensityRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IntensityRead
 end function IntensityRead
@@ -94,7 +95,7 @@ function IntensityWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IntensityWrite
 end function IntensityWrite
@@ -150,13 +151,12 @@ function IntensityValueGet(handle) &
 end function IntensityValueGet
 
 !! Set
-subroutine IntensityValueSet(handle, value, valueSize) &
+subroutine IntensityValueSet(handle, value) &
       bind(C, name='IntensityValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine IntensityValueSet
 
 
@@ -187,7 +187,7 @@ function IntensityUncertaintyGet(handle) &
       bind(C, name='IntensityUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: IntensityUncertaintyGet
 end function IntensityUncertaintyGet
 
@@ -197,7 +197,7 @@ subroutine IntensityUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine IntensityUncertaintySet
 
 

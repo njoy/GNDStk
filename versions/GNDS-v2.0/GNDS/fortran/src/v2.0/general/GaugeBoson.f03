@@ -43,11 +43,11 @@ function GaugeBosonCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
    type(c_ptr) :: GaugeBosonCreateConst
 end function GaugeBosonCreateConst
 
@@ -66,11 +66,11 @@ function GaugeBosonCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
    type(c_ptr) :: GaugeBosonCreate
 end function GaugeBosonCreate
 
@@ -79,7 +79,8 @@ subroutine GaugeBosonAssign(handleLHS, handleRHS) &
       bind(C, name='GaugeBosonAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine GaugeBosonAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function GaugeBosonRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GaugeBosonRead
 end function GaugeBosonRead
@@ -114,7 +115,7 @@ function GaugeBosonWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GaugeBosonWrite
 end function GaugeBosonWrite
@@ -207,7 +208,7 @@ function GaugeBosonMassGet(handle) &
       bind(C, name='GaugeBosonMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GaugeBosonMassGet
 end function GaugeBosonMassGet
 
@@ -217,7 +218,7 @@ subroutine GaugeBosonMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GaugeBosonMassSet
 
 
@@ -248,7 +249,7 @@ function GaugeBosonSpinGet(handle) &
       bind(C, name='GaugeBosonSpinGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GaugeBosonSpinGet
 end function GaugeBosonSpinGet
 
@@ -258,7 +259,7 @@ subroutine GaugeBosonSpinSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GaugeBosonSpinSet
 
 
@@ -289,7 +290,7 @@ function GaugeBosonParityGet(handle) &
       bind(C, name='GaugeBosonParityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GaugeBosonParityGet
 end function GaugeBosonParityGet
 
@@ -299,7 +300,7 @@ subroutine GaugeBosonParitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GaugeBosonParitySet
 
 
@@ -330,7 +331,7 @@ function GaugeBosonChargeGet(handle) &
       bind(C, name='GaugeBosonChargeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GaugeBosonChargeGet
 end function GaugeBosonChargeGet
 
@@ -340,7 +341,7 @@ subroutine GaugeBosonChargeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GaugeBosonChargeSet
 
 
@@ -371,7 +372,7 @@ function GaugeBosonHalflifeGet(handle) &
       bind(C, name='GaugeBosonHalflifeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GaugeBosonHalflifeGet
 end function GaugeBosonHalflifeGet
 
@@ -381,7 +382,7 @@ subroutine GaugeBosonHalflifeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GaugeBosonHalflifeSet
 
 

@@ -204,6 +204,10 @@ ConfigurationsConfigurationSet(
       (CLASSNAME, CLASSNAME+"ConfigurationSet", self, extract::configuration, index_, configuration);
 }
 
+// ------------------------
+// Re: metadatum subshell
+// ------------------------
+
 // Has, by subshell
 int
 ConfigurationsConfigurationHasBySubshell(
@@ -248,6 +252,10 @@ ConfigurationsConfigurationSetBySubshell(
       (CLASSNAME, CLASSNAME+"ConfigurationSetBySubshell",
        self, extract::configuration, meta::subshell, subshell, configuration);
 }
+
+// ------------------------
+// Re: metadatum electronNumber
+// ------------------------
 
 // Has, by electronNumber
 int

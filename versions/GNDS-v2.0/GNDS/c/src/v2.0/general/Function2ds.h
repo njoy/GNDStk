@@ -166,6 +166,10 @@ Function2dsXYs2dSet(
    ConstHandle2ConstXYs2d XYs2d
 );
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // +++ Has, by index
 extern_c int
 Function2dsXYs2dHasByIndex(
@@ -194,6 +198,10 @@ Function2dsXYs2dSetByIndex(
    const int index,
    ConstHandle2ConstXYs2d XYs2d
 );
+
+// ------------------------
+// Re: metadatum interpolation
+// ------------------------
 
 // +++ Has, by interpolation
 extern_c int
@@ -224,6 +232,10 @@ Function2dsXYs2dSetByInterpolation(
    ConstHandle2ConstXYs2d XYs2d
 );
 
+// ------------------------
+// Re: metadatum interpolationQualifier
+// ------------------------
+
 // +++ Has, by interpolationQualifier
 extern_c int
 Function2dsXYs2dHasByInterpolationQualifier(
@@ -252,6 +264,10 @@ Function2dsXYs2dSetByInterpolationQualifier(
    const char *const interpolationQualifier,
    ConstHandle2ConstXYs2d XYs2d
 );
+
+// ------------------------
+// Re: metadatum outerDomainValue
+// ------------------------
 
 // +++ Has, by outerDomainValue
 extern_c int

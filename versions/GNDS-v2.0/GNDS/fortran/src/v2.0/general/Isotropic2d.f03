@@ -51,7 +51,8 @@ subroutine Isotropic2dAssign(handleLHS, handleRHS) &
       bind(C, name='Isotropic2dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Isotropic2dAssign
 
 !! Delete
@@ -75,7 +76,7 @@ function Isotropic2dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Isotropic2dRead
 end function Isotropic2dRead
@@ -86,7 +87,7 @@ function Isotropic2dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Isotropic2dWrite
 end function Isotropic2dWrite

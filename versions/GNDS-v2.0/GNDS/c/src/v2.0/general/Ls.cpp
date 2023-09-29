@@ -204,6 +204,10 @@ LsLSet(
       (CLASSNAME, CLASSNAME+"LSet", self, extract::L, index_, L);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 LsLHasByLabel(
@@ -248,6 +252,10 @@ LsLSetByLabel(
       (CLASSNAME, CLASSNAME+"LSetByLabel",
        self, extract::L, meta::label, label, L);
 }
+
+// ------------------------
+// Re: metadatum value
+// ------------------------
 
 // Has, by value
 int

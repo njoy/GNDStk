@@ -166,6 +166,10 @@ DelayedNeutronsDelayedNeutronSet(
    ConstHandle2ConstDelayedNeutron delayedNeutron
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 DelayedNeutronsDelayedNeutronHasByLabel(

@@ -51,7 +51,8 @@ subroutine EndfCompatibleAssign(handleLHS, handleRHS) &
       bind(C, name='EndfCompatibleAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine EndfCompatibleAssign
 
 !! Delete
@@ -75,7 +76,7 @@ function EndfCompatibleRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EndfCompatibleRead
 end function EndfCompatibleRead
@@ -86,7 +87,7 @@ function EndfCompatibleWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EndfCompatibleWrite
 end function EndfCompatibleWrite

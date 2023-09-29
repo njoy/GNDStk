@@ -41,9 +41,9 @@ function ProductionCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: outputChannel
+   integer(c_int), intent(in), value :: ENDF_MT
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: outputChannel
    type(c_ptr) :: ProductionCreateConst
 end function ProductionCreateConst
 
@@ -60,9 +60,9 @@ function ProductionCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: outputChannel
+   integer(c_int), intent(in), value :: ENDF_MT
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: outputChannel
    type(c_ptr) :: ProductionCreate
 end function ProductionCreate
 
@@ -71,7 +71,8 @@ subroutine ProductionAssign(handleLHS, handleRHS) &
       bind(C, name='ProductionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProductionAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function ProductionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductionRead
 end function ProductionRead
@@ -106,7 +107,7 @@ function ProductionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductionWrite
 end function ProductionWrite
@@ -195,13 +196,12 @@ function ProductionENDFMTGet(handle) &
 end function ProductionENDFMTGet
 
 !! Set
-subroutine ProductionENDFMTSet(handle, ENDF_MT, ENDF_MTSize) &
+subroutine ProductionENDFMTSet(handle, ENDF_MT) &
       bind(C, name='ProductionENDFMTSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ENDF_MTSize
-   character(c_char), intent(in) :: ENDF_MT(ENDF_MTSize)
+   integer(c_int), intent(in), value :: ENDF_MT
 end subroutine ProductionENDFMTSet
 
 
@@ -232,7 +232,7 @@ function ProductionCrossSectionGet(handle) &
       bind(C, name='ProductionCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductionCrossSectionGet
 end function ProductionCrossSectionGet
 
@@ -242,7 +242,7 @@ subroutine ProductionCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductionCrossSectionSet
 
 
@@ -273,7 +273,7 @@ function ProductionOutputChannelGet(handle) &
       bind(C, name='ProductionOutputChannelGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductionOutputChannelGet
 end function ProductionOutputChannelGet
 
@@ -283,7 +283,7 @@ subroutine ProductionOutputChannelSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductionOutputChannelSet
 
 

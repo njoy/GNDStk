@@ -40,8 +40,8 @@ function IncidentEnergyCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: energy
-   type(c_ptr), value :: yields
+   type(c_ptr), intent(in), value :: energy
+   type(c_ptr), intent(in), value :: yields
    type(c_ptr) :: IncidentEnergyCreateConst
 end function IncidentEnergyCreateConst
 
@@ -57,8 +57,8 @@ function IncidentEnergyCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: energy
-   type(c_ptr), value :: yields
+   type(c_ptr), intent(in), value :: energy
+   type(c_ptr), intent(in), value :: yields
    type(c_ptr) :: IncidentEnergyCreate
 end function IncidentEnergyCreate
 
@@ -67,7 +67,8 @@ subroutine IncidentEnergyAssign(handleLHS, handleRHS) &
       bind(C, name='IncidentEnergyAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IncidentEnergyAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function IncidentEnergyRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncidentEnergyRead
 end function IncidentEnergyRead
@@ -102,7 +103,7 @@ function IncidentEnergyWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncidentEnergyWrite
 end function IncidentEnergyWrite
@@ -195,7 +196,7 @@ function IncidentEnergyEnergyGet(handle) &
       bind(C, name='IncidentEnergyEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: IncidentEnergyEnergyGet
 end function IncidentEnergyEnergyGet
 
@@ -205,7 +206,7 @@ subroutine IncidentEnergyEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine IncidentEnergyEnergySet
 
 
@@ -236,7 +237,7 @@ function IncidentEnergyYieldsGet(handle) &
       bind(C, name='IncidentEnergyYieldsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: IncidentEnergyYieldsGet
 end function IncidentEnergyYieldsGet
 
@@ -246,7 +247,7 @@ subroutine IncidentEnergyYieldsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine IncidentEnergyYieldsSet
 
 

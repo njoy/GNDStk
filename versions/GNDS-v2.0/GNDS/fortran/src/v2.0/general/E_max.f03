@@ -37,7 +37,7 @@ function E_maxCreateConst( &
       bind(C, name='E_maxCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: E_maxCreateConst
@@ -52,7 +52,7 @@ function E_maxCreate( &
       bind(C, name='E_maxCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: E_maxCreate
@@ -63,7 +63,8 @@ subroutine E_maxAssign(handleLHS, handleRHS) &
       bind(C, name='E_maxAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine E_maxAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function E_maxRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: E_maxRead
 end function E_maxRead
@@ -98,7 +99,7 @@ function E_maxWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: E_maxWrite
 end function E_maxWrite
@@ -154,13 +155,12 @@ function E_maxValueGet(handle) &
 end function E_maxValueGet
 
 !! Set
-subroutine E_maxValueSet(handle, value, valueSize) &
+subroutine E_maxValueSet(handle, value) &
       bind(C, name='E_maxValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine E_maxValueSet
 
 

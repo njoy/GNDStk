@@ -53,9 +53,9 @@ function CoherentPhotonScatteringCreateConst( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: formFactor
-   type(c_ptr), value :: realAnomalousFactor
-   type(c_ptr), value :: imaginaryAnomalousFactor
+   type(c_ptr), intent(in), value :: formFactor
+   type(c_ptr), intent(in), value :: realAnomalousFactor
+   type(c_ptr), intent(in), value :: imaginaryAnomalousFactor
    type(c_ptr) :: CoherentPhotonScatteringCreateConst
 end function CoherentPhotonScatteringCreateConst
 
@@ -84,9 +84,9 @@ function CoherentPhotonScatteringCreate( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: formFactor
-   type(c_ptr), value :: realAnomalousFactor
-   type(c_ptr), value :: imaginaryAnomalousFactor
+   type(c_ptr), intent(in), value :: formFactor
+   type(c_ptr), intent(in), value :: realAnomalousFactor
+   type(c_ptr), intent(in), value :: imaginaryAnomalousFactor
    type(c_ptr) :: CoherentPhotonScatteringCreate
 end function CoherentPhotonScatteringCreate
 
@@ -95,7 +95,8 @@ subroutine CoherentPhotonScatteringAssign(handleLHS, handleRHS) &
       bind(C, name='CoherentPhotonScatteringAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CoherentPhotonScatteringAssign
 
 !! Delete
@@ -119,7 +120,7 @@ function CoherentPhotonScatteringRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CoherentPhotonScatteringRead
 end function CoherentPhotonScatteringRead
@@ -130,7 +131,7 @@ function CoherentPhotonScatteringWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CoherentPhotonScatteringWrite
 end function CoherentPhotonScatteringWrite
@@ -322,7 +323,7 @@ function CoherentPhotonScatteringFormFactorGet(handle) &
       bind(C, name='CoherentPhotonScatteringFormFactorGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CoherentPhotonScatteringFormFactorGet
 end function CoherentPhotonScatteringFormFactorGet
 
@@ -332,7 +333,7 @@ subroutine CoherentPhotonScatteringFormFactorSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CoherentPhotonScatteringFormFactorSet
 
 
@@ -363,7 +364,7 @@ function CoherentPhotonScatteringRealAnomalousFactorGet(handle) &
       bind(C, name='CoherentPhotonScatteringRealAnomalousFactorGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CoherentPhotonScatteringRealAnomalousFactorGet
 end function CoherentPhotonScatteringRealAnomalousFactorGet
 
@@ -373,7 +374,7 @@ subroutine CoherentPhotonScatteringRealAnomalousFactorSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CoherentPhotonScatteringRealAnomalousFactorSet
 
 
@@ -404,7 +405,7 @@ function CoherentPhotonScatteringImaginaryAnomalousFactorGet(handle) &
       bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CoherentPhotonScatteringImaginaryAnomalousFactorGet
 end function CoherentPhotonScatteringImaginaryAnomalousFactorGet
 
@@ -414,7 +415,7 @@ subroutine CoherentPhotonScatteringImaginaryAnomalousFactorSet(handle, fieldHand
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CoherentPhotonScatteringImaginaryAnomalousFactorSet
 
 

@@ -204,6 +204,10 @@ JsJSet(
       (CLASSNAME, CLASSNAME+"JSet", self, extract::J, index_, J);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 JsJHasByLabel(
@@ -248,6 +252,10 @@ JsJSetByLabel(
       (CLASSNAME, CLASSNAME+"JSetByLabel",
        self, extract::J, meta::label, label, J);
 }
+
+// ------------------------
+// Re: metadatum value
+// ------------------------
 
 // Has, by value
 int

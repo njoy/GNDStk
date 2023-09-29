@@ -35,8 +35,8 @@ function WidthsCreateConst( &
       bind(C, name='WidthsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: widthSize
-   type(c_ptr) :: width(widthSize)
+   integer(c_size_t), intent(in), value :: widthSize
+   type(c_ptr), intent(in) :: width(widthSize)
    type(c_ptr) :: WidthsCreateConst
 end function WidthsCreateConst
 
@@ -47,8 +47,8 @@ function WidthsCreate( &
       bind(C, name='WidthsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: widthSize
-   type(c_ptr) :: width(widthSize)
+   integer(c_size_t), intent(in), value :: widthSize
+   type(c_ptr), intent(in) :: width(widthSize)
    type(c_ptr) :: WidthsCreate
 end function WidthsCreate
 
@@ -57,7 +57,8 @@ subroutine WidthsAssign(handleLHS, handleRHS) &
       bind(C, name='WidthsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine WidthsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function WidthsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WidthsRead
 end function WidthsRead
@@ -92,7 +93,7 @@ function WidthsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WidthsWrite
 end function WidthsWrite
@@ -236,7 +237,7 @@ subroutine WidthsWidthSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='WidthsWidthSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine WidthsWidthSetByResonanceReaction(handle, meta, metaSize, fieldHandle
       bind(C, name='WidthsWidthSetByResonanceReaction')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -300,7 +301,7 @@ function WidthsWidthHasByDegreesOfFreedom(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: WidthsWidthHasByDegreesOfFreedom
 end function WidthsWidthHasByDegreesOfFreedom
 
@@ -310,7 +311,7 @@ function WidthsWidthGetByDegreesOfFreedomConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: WidthsWidthGetByDegreesOfFreedomConst
 end function WidthsWidthGetByDegreesOfFreedomConst
 
@@ -320,7 +321,7 @@ function WidthsWidthGetByDegreesOfFreedom(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: WidthsWidthGetByDegreesOfFreedom
 end function WidthsWidthGetByDegreesOfFreedom
 
@@ -329,8 +330,8 @@ subroutine WidthsWidthSetByDegreesOfFreedom(handle, meta, fieldHandle) &
       bind(C, name='WidthsWidthSetByDegreesOfFreedom')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine WidthsWidthSetByDegreesOfFreedom
 

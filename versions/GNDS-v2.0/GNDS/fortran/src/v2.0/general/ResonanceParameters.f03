@@ -35,7 +35,7 @@ function ResonanceParametersCreateConst( &
       bind(C, name='ResonanceParametersCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: table
+   type(c_ptr), intent(in), value :: table
    type(c_ptr) :: ResonanceParametersCreateConst
 end function ResonanceParametersCreateConst
 
@@ -46,7 +46,7 @@ function ResonanceParametersCreate( &
       bind(C, name='ResonanceParametersCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: table
+   type(c_ptr), intent(in), value :: table
    type(c_ptr) :: ResonanceParametersCreate
 end function ResonanceParametersCreate
 
@@ -55,7 +55,8 @@ subroutine ResonanceParametersAssign(handleLHS, handleRHS) &
       bind(C, name='ResonanceParametersAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResonanceParametersAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ResonanceParametersRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonanceParametersRead
 end function ResonanceParametersRead
@@ -90,7 +91,7 @@ function ResonanceParametersWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonanceParametersWrite
 end function ResonanceParametersWrite
@@ -150,7 +151,7 @@ function ResonanceParametersTableGet(handle) &
       bind(C, name='ResonanceParametersTableGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonanceParametersTableGet
 end function ResonanceParametersTableGet
 
@@ -160,7 +161,7 @@ subroutine ResonanceParametersTableSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonanceParametersTableSet
 
 

@@ -47,15 +47,15 @@ function FissionEnergyReleaseCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: promptProductKE
-   type(c_ptr), value :: promptNeutronKE
-   type(c_ptr), value :: delayedNeutronKE
-   type(c_ptr), value :: promptGammaEnergy
-   type(c_ptr), value :: delayedGammaEnergy
-   type(c_ptr), value :: delayedBetaEnergy
-   type(c_ptr), value :: neutrinoEnergy
-   type(c_ptr), value :: nonNeutrinoEnergy
-   type(c_ptr), value :: totalEnergy
+   type(c_ptr), intent(in), value :: promptProductKE
+   type(c_ptr), intent(in), value :: promptNeutronKE
+   type(c_ptr), intent(in), value :: delayedNeutronKE
+   type(c_ptr), intent(in), value :: promptGammaEnergy
+   type(c_ptr), intent(in), value :: delayedGammaEnergy
+   type(c_ptr), intent(in), value :: delayedBetaEnergy
+   type(c_ptr), intent(in), value :: neutrinoEnergy
+   type(c_ptr), intent(in), value :: nonNeutrinoEnergy
+   type(c_ptr), intent(in), value :: totalEnergy
    type(c_ptr) :: FissionEnergyReleaseCreateConst
 end function FissionEnergyReleaseCreateConst
 
@@ -78,15 +78,15 @@ function FissionEnergyReleaseCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: promptProductKE
-   type(c_ptr), value :: promptNeutronKE
-   type(c_ptr), value :: delayedNeutronKE
-   type(c_ptr), value :: promptGammaEnergy
-   type(c_ptr), value :: delayedGammaEnergy
-   type(c_ptr), value :: delayedBetaEnergy
-   type(c_ptr), value :: neutrinoEnergy
-   type(c_ptr), value :: nonNeutrinoEnergy
-   type(c_ptr), value :: totalEnergy
+   type(c_ptr), intent(in), value :: promptProductKE
+   type(c_ptr), intent(in), value :: promptNeutronKE
+   type(c_ptr), intent(in), value :: delayedNeutronKE
+   type(c_ptr), intent(in), value :: promptGammaEnergy
+   type(c_ptr), intent(in), value :: delayedGammaEnergy
+   type(c_ptr), intent(in), value :: delayedBetaEnergy
+   type(c_ptr), intent(in), value :: neutrinoEnergy
+   type(c_ptr), intent(in), value :: nonNeutrinoEnergy
+   type(c_ptr), intent(in), value :: totalEnergy
    type(c_ptr) :: FissionEnergyReleaseCreate
 end function FissionEnergyReleaseCreate
 
@@ -95,7 +95,8 @@ subroutine FissionEnergyReleaseAssign(handleLHS, handleRHS) &
       bind(C, name='FissionEnergyReleaseAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FissionEnergyReleaseAssign
 
 !! Delete
@@ -119,7 +120,7 @@ function FissionEnergyReleaseRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionEnergyReleaseRead
 end function FissionEnergyReleaseRead
@@ -130,7 +131,7 @@ function FissionEnergyReleaseWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionEnergyReleaseWrite
 end function FissionEnergyReleaseWrite
@@ -223,7 +224,7 @@ function FissionEnergyReleasePromptProductKEGet(handle) &
       bind(C, name='FissionEnergyReleasePromptProductKEGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleasePromptProductKEGet
 end function FissionEnergyReleasePromptProductKEGet
 
@@ -233,7 +234,7 @@ subroutine FissionEnergyReleasePromptProductKESet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleasePromptProductKESet
 
 
@@ -264,7 +265,7 @@ function FissionEnergyReleasePromptNeutronKEGet(handle) &
       bind(C, name='FissionEnergyReleasePromptNeutronKEGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleasePromptNeutronKEGet
 end function FissionEnergyReleasePromptNeutronKEGet
 
@@ -274,7 +275,7 @@ subroutine FissionEnergyReleasePromptNeutronKESet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleasePromptNeutronKESet
 
 
@@ -305,7 +306,7 @@ function FissionEnergyReleaseDelayedNeutronKEGet(handle) &
       bind(C, name='FissionEnergyReleaseDelayedNeutronKEGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleaseDelayedNeutronKEGet
 end function FissionEnergyReleaseDelayedNeutronKEGet
 
@@ -315,7 +316,7 @@ subroutine FissionEnergyReleaseDelayedNeutronKESet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleaseDelayedNeutronKESet
 
 
@@ -346,7 +347,7 @@ function FissionEnergyReleasePromptGammaEnergyGet(handle) &
       bind(C, name='FissionEnergyReleasePromptGammaEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleasePromptGammaEnergyGet
 end function FissionEnergyReleasePromptGammaEnergyGet
 
@@ -356,7 +357,7 @@ subroutine FissionEnergyReleasePromptGammaEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleasePromptGammaEnergySet
 
 
@@ -387,7 +388,7 @@ function FissionEnergyReleaseDelayedGammaEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseDelayedGammaEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleaseDelayedGammaEnergyGet
 end function FissionEnergyReleaseDelayedGammaEnergyGet
 
@@ -397,7 +398,7 @@ subroutine FissionEnergyReleaseDelayedGammaEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleaseDelayedGammaEnergySet
 
 
@@ -428,7 +429,7 @@ function FissionEnergyReleaseDelayedBetaEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseDelayedBetaEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleaseDelayedBetaEnergyGet
 end function FissionEnergyReleaseDelayedBetaEnergyGet
 
@@ -438,7 +439,7 @@ subroutine FissionEnergyReleaseDelayedBetaEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleaseDelayedBetaEnergySet
 
 
@@ -469,7 +470,7 @@ function FissionEnergyReleaseNeutrinoEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseNeutrinoEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleaseNeutrinoEnergyGet
 end function FissionEnergyReleaseNeutrinoEnergyGet
 
@@ -479,7 +480,7 @@ subroutine FissionEnergyReleaseNeutrinoEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleaseNeutrinoEnergySet
 
 
@@ -510,7 +511,7 @@ function FissionEnergyReleaseNonNeutrinoEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseNonNeutrinoEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleaseNonNeutrinoEnergyGet
 end function FissionEnergyReleaseNonNeutrinoEnergyGet
 
@@ -520,7 +521,7 @@ subroutine FissionEnergyReleaseNonNeutrinoEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleaseNonNeutrinoEnergySet
 
 
@@ -551,7 +552,7 @@ function FissionEnergyReleaseTotalEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseTotalEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionEnergyReleaseTotalEnergyGet
 end function FissionEnergyReleaseTotalEnergyGet
 
@@ -561,7 +562,7 @@ subroutine FissionEnergyReleaseTotalEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionEnergyReleaseTotalEnergySet
 
 

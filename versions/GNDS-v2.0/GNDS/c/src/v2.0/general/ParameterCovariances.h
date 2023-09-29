@@ -169,6 +169,10 @@ ParameterCovariancesParameterCovarianceSet(
    ConstHandle2ConstParameterCovariance parameterCovariance
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ParameterCovariancesParameterCovarianceHasByLabel(
@@ -235,6 +239,10 @@ ParameterCovariancesAverageParameterCovarianceSet(
    ConstHandle2ConstAverageParameterCovariance averageParameterCovariance
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ParameterCovariancesAverageParameterCovarianceHasByLabel(
@@ -263,6 +271,10 @@ ParameterCovariancesAverageParameterCovarianceSetByLabel(
    const char *const label,
    ConstHandle2ConstAverageParameterCovariance averageParameterCovariance
 );
+
+// ------------------------
+// Re: metadatum crossTerm
+// ------------------------
 
 // +++ Has, by crossTerm
 extern_c int

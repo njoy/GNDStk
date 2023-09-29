@@ -35,8 +35,8 @@ function BaryonsCreateConst( &
       bind(C, name='BaryonsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: baryonSize
-   type(c_ptr) :: baryon(baryonSize)
+   integer(c_size_t), intent(in), value :: baryonSize
+   type(c_ptr), intent(in) :: baryon(baryonSize)
    type(c_ptr) :: BaryonsCreateConst
 end function BaryonsCreateConst
 
@@ -47,8 +47,8 @@ function BaryonsCreate( &
       bind(C, name='BaryonsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: baryonSize
-   type(c_ptr) :: baryon(baryonSize)
+   integer(c_size_t), intent(in), value :: baryonSize
+   type(c_ptr), intent(in) :: baryon(baryonSize)
    type(c_ptr) :: BaryonsCreate
 end function BaryonsCreate
 
@@ -57,7 +57,8 @@ subroutine BaryonsAssign(handleLHS, handleRHS) &
       bind(C, name='BaryonsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine BaryonsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function BaryonsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BaryonsRead
 end function BaryonsRead
@@ -92,7 +93,7 @@ function BaryonsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BaryonsWrite
 end function BaryonsWrite
@@ -236,7 +237,7 @@ subroutine BaryonsBaryonSetById(handle, meta, metaSize, fieldHandle) &
       bind(C, name='BaryonsBaryonSetById')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

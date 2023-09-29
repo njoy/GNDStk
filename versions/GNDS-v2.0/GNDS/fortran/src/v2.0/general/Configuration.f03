@@ -41,10 +41,10 @@ function ConfigurationCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: subshellSize
    character(c_char), intent(in) :: subshell(subshellSize)
-   real(c_double), value, intent(in) :: electronNumber
-   type(c_ptr), value :: bindingEnergy
-   integer(c_size_t), value :: decayDataSize
-   type(c_ptr) :: decayData(decayDataSize)
+   real(c_double), intent(in), value :: electronNumber
+   type(c_ptr), intent(in), value :: bindingEnergy
+   integer(c_size_t), intent(in), value :: decayDataSize
+   type(c_ptr), intent(in) :: decayData(decayDataSize)
    type(c_ptr) :: ConfigurationCreateConst
 end function ConfigurationCreateConst
 
@@ -61,10 +61,10 @@ function ConfigurationCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: subshellSize
    character(c_char), intent(in) :: subshell(subshellSize)
-   real(c_double), value, intent(in) :: electronNumber
-   type(c_ptr), value :: bindingEnergy
-   integer(c_size_t), value :: decayDataSize
-   type(c_ptr) :: decayData(decayDataSize)
+   real(c_double), intent(in), value :: electronNumber
+   type(c_ptr), intent(in), value :: bindingEnergy
+   integer(c_size_t), intent(in), value :: decayDataSize
+   type(c_ptr), intent(in) :: decayData(decayDataSize)
    type(c_ptr) :: ConfigurationCreate
 end function ConfigurationCreate
 
@@ -73,7 +73,8 @@ subroutine ConfigurationAssign(handleLHS, handleRHS) &
       bind(C, name='ConfigurationAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ConfigurationAssign
 
 !! Delete
@@ -97,7 +98,7 @@ function ConfigurationRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ConfigurationRead
 end function ConfigurationRead
@@ -108,7 +109,7 @@ function ConfigurationWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ConfigurationWrite
 end function ConfigurationWrite
@@ -197,13 +198,12 @@ function ConfigurationElectronNumberGet(handle) &
 end function ConfigurationElectronNumberGet
 
 !! Set
-subroutine ConfigurationElectronNumberSet(handle, electronNumber, electronNumberSize) &
+subroutine ConfigurationElectronNumberSet(handle, electronNumber) &
       bind(C, name='ConfigurationElectronNumberSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: electronNumberSize
-   character(c_char), intent(in) :: electronNumber(electronNumberSize)
+   real(c_double), intent(in), value :: electronNumber
 end subroutine ConfigurationElectronNumberSet
 
 
@@ -234,7 +234,7 @@ function ConfigurationBindingEnergyGet(handle) &
       bind(C, name='ConfigurationBindingEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ConfigurationBindingEnergyGet
 end function ConfigurationBindingEnergyGet
 
@@ -244,7 +244,7 @@ subroutine ConfigurationBindingEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ConfigurationBindingEnergySet
 
 

@@ -204,6 +204,10 @@ IncompleteReactionsReactionSet(
       (CLASSNAME, CLASSNAME+"ReactionSet", self, extract::reaction, index_, reaction);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 IncompleteReactionsReactionHasByLabel(
@@ -249,6 +253,10 @@ IncompleteReactionsReactionSetByLabel(
        self, extract::reaction, meta::label, label, reaction);
 }
 
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
+
 // Has, by ENDF_MT
 int
 IncompleteReactionsReactionHasByENDFMT(
@@ -293,6 +301,10 @@ IncompleteReactionsReactionSetByENDFMT(
       (CLASSNAME, CLASSNAME+"ReactionSetByENDFMT",
        self, extract::reaction, meta::ENDF_MT, ENDF_MT, reaction);
 }
+
+// ------------------------
+// Re: metadatum fissionGenre
+// ------------------------
 
 // Has, by fissionGenre
 int

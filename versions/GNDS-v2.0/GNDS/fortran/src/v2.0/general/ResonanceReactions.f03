@@ -35,8 +35,8 @@ function ResonanceReactionsCreateConst( &
       bind(C, name='ResonanceReactionsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: resonanceReactionSize
-   type(c_ptr) :: resonanceReaction(resonanceReactionSize)
+   integer(c_size_t), intent(in), value :: resonanceReactionSize
+   type(c_ptr), intent(in) :: resonanceReaction(resonanceReactionSize)
    type(c_ptr) :: ResonanceReactionsCreateConst
 end function ResonanceReactionsCreateConst
 
@@ -47,8 +47,8 @@ function ResonanceReactionsCreate( &
       bind(C, name='ResonanceReactionsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: resonanceReactionSize
-   type(c_ptr) :: resonanceReaction(resonanceReactionSize)
+   integer(c_size_t), intent(in), value :: resonanceReactionSize
+   type(c_ptr), intent(in) :: resonanceReaction(resonanceReactionSize)
    type(c_ptr) :: ResonanceReactionsCreate
 end function ResonanceReactionsCreate
 
@@ -57,7 +57,8 @@ subroutine ResonanceReactionsAssign(handleLHS, handleRHS) &
       bind(C, name='ResonanceReactionsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResonanceReactionsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ResonanceReactionsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonanceReactionsRead
 end function ResonanceReactionsRead
@@ -92,7 +93,7 @@ function ResonanceReactionsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonanceReactionsWrite
 end function ResonanceReactionsWrite
@@ -236,7 +237,7 @@ subroutine ResonanceReactionsResonanceReactionSetByLabel(handle, meta, metaSize,
       bind(C, name='ResonanceReactionsResonanceReactionSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine ResonanceReactionsResonanceReactionSetByEjectile(handle, meta, metaSi
       bind(C, name='ResonanceReactionsResonanceReactionSetByEjectile')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -300,7 +301,7 @@ function ResonanceReactionsResonanceReactionHasByEliminated(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    integer(c_int) :: ResonanceReactionsResonanceReactionHasByEliminated
 end function ResonanceReactionsResonanceReactionHasByEliminated
 
@@ -310,7 +311,7 @@ function ResonanceReactionsResonanceReactionGetByEliminatedConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr) :: ResonanceReactionsResonanceReactionGetByEliminatedConst
 end function ResonanceReactionsResonanceReactionGetByEliminatedConst
 
@@ -320,7 +321,7 @@ function ResonanceReactionsResonanceReactionGetByEliminated(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr) :: ResonanceReactionsResonanceReactionGetByEliminated
 end function ResonanceReactionsResonanceReactionGetByEliminated
 
@@ -329,8 +330,8 @@ subroutine ResonanceReactionsResonanceReactionSetByEliminated(handle, meta, fiel
       bind(C, name='ResonanceReactionsResonanceReactionSetByEliminated')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonanceReactionsResonanceReactionSetByEliminated
 

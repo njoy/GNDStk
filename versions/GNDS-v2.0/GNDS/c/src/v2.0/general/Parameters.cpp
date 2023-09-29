@@ -204,6 +204,10 @@ ParametersParameterLinkSet(
       (CLASSNAME, CLASSNAME+"ParameterLinkSet", self, extract::parameterLink, index_, parameterLink);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ParametersParameterLinkHasByLabel(
@@ -248,6 +252,10 @@ ParametersParameterLinkSetByLabel(
       (CLASSNAME, CLASSNAME+"ParameterLinkSetByLabel",
        self, extract::parameterLink, meta::label, label, parameterLink);
 }
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // Has, by href
 int
@@ -294,6 +302,10 @@ ParametersParameterLinkSetByHref(
        self, extract::parameterLink, meta::href, href, parameterLink);
 }
 
+// ------------------------
+// Re: metadatum nParameters
+// ------------------------
+
 // Has, by nParameters
 int
 ParametersParameterLinkHasByNParameters(
@@ -338,6 +350,10 @@ ParametersParameterLinkSetByNParameters(
       (CLASSNAME, CLASSNAME+"ParameterLinkSetByNParameters",
        self, extract::parameterLink, meta::nParameters, nParameters, parameterLink);
 }
+
+// ------------------------
+// Re: metadatum matrixStartIndex
+// ------------------------
 
 // Has, by matrixStartIndex
 int

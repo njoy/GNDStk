@@ -209,6 +209,10 @@ SpectrumDiscreteSet(
    ConstHandle2ConstDiscrete discrete
 );
 
+// ------------------------
+// Re: metadatum type
+// ------------------------
+
 // +++ Has, by type
 extern_c int
 SpectrumDiscreteHasByType(

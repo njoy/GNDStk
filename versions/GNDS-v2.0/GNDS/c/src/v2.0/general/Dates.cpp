@@ -204,6 +204,10 @@ DatesDateSet(
       (CLASSNAME, CLASSNAME+"DateSet", self, extract::date, index_, date);
 }
 
+// ------------------------
+// Re: metadatum value
+// ------------------------
+
 // Has, by value
 int
 DatesDateHasByValue(
@@ -248,6 +252,10 @@ DatesDateSetByValue(
       (CLASSNAME, CLASSNAME+"DateSetByValue",
        self, extract::date, meta::value, value, date);
 }
+
+// ------------------------
+// Re: metadatum dateType
+// ------------------------
 
 // Has, by dateType
 int

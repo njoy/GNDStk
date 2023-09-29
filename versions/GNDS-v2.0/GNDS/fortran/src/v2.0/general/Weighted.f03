@@ -36,8 +36,8 @@ function WeightedCreateConst( &
       bind(C, name='WeightedCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: evaporation
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: evaporation
    type(c_ptr) :: WeightedCreateConst
 end function WeightedCreateConst
 
@@ -49,8 +49,8 @@ function WeightedCreate( &
       bind(C, name='WeightedCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: evaporation
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: evaporation
    type(c_ptr) :: WeightedCreate
 end function WeightedCreate
 
@@ -59,7 +59,8 @@ subroutine WeightedAssign(handleLHS, handleRHS) &
       bind(C, name='WeightedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine WeightedAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function WeightedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WeightedRead
 end function WeightedRead
@@ -94,7 +95,7 @@ function WeightedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WeightedWrite
 end function WeightedWrite
@@ -154,7 +155,7 @@ function WeightedXYs1dGet(handle) &
       bind(C, name='WeightedXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: WeightedXYs1dGet
 end function WeightedXYs1dGet
 
@@ -164,7 +165,7 @@ subroutine WeightedXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine WeightedXYs1dSet
 
 
@@ -195,7 +196,7 @@ function WeightedEvaporationGet(handle) &
       bind(C, name='WeightedEvaporationGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: WeightedEvaporationGet
 end function WeightedEvaporationGet
 
@@ -205,7 +206,7 @@ subroutine WeightedEvaporationSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine WeightedEvaporationSet
 
 

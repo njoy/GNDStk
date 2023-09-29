@@ -39,11 +39,11 @@ function DecayCreateConst( &
       bind(C, name='DecayCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: modeSize
    character(c_char), intent(in) :: mode(modeSize)
-   logical(c_bool), value, intent(in) :: complete
-   type(c_ptr), value :: products
+   logical(c_bool), intent(in), value :: complete
+   type(c_ptr), intent(in), value :: products
    type(c_ptr) :: DecayCreateConst
 end function DecayCreateConst
 
@@ -58,11 +58,11 @@ function DecayCreate( &
       bind(C, name='DecayCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: modeSize
    character(c_char), intent(in) :: mode(modeSize)
-   logical(c_bool), value, intent(in) :: complete
-   type(c_ptr), value :: products
+   logical(c_bool), intent(in), value :: complete
+   type(c_ptr), intent(in), value :: products
    type(c_ptr) :: DecayCreate
 end function DecayCreate
 
@@ -71,7 +71,8 @@ subroutine DecayAssign(handleLHS, handleRHS) &
       bind(C, name='DecayAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DecayAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function DecayRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayRead
 end function DecayRead
@@ -106,7 +107,7 @@ function DecayWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayWrite
 end function DecayWrite
@@ -162,13 +163,12 @@ function DecayIndexGet(handle) &
 end function DecayIndexGet
 
 !! Set
-subroutine DecayIndexSet(handle, index, indexSize) &
+subroutine DecayIndexSet(handle, index) &
       bind(C, name='DecayIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: indexSize
-   character(c_char), intent(in) :: index(indexSize)
+   integer(c_int), intent(in), value :: index
 end subroutine DecayIndexSet
 
 
@@ -228,13 +228,12 @@ function DecayCompleteGet(handle) &
 end function DecayCompleteGet
 
 !! Set
-subroutine DecayCompleteSet(handle, complete, completeSize) &
+subroutine DecayCompleteSet(handle, complete) &
       bind(C, name='DecayCompleteSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: completeSize
-   character(c_char), intent(in) :: complete(completeSize)
+   logical(c_bool), intent(in), value :: complete
 end subroutine DecayCompleteSet
 
 
@@ -265,7 +264,7 @@ function DecayProductsGet(handle) &
       bind(C, name='DecayProductsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayProductsGet
 end function DecayProductsGet
 
@@ -275,7 +274,7 @@ subroutine DecayProductsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayProductsSet
 
 

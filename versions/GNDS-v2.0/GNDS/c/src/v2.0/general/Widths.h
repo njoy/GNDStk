@@ -166,6 +166,10 @@ WidthsWidthSet(
    ConstHandle2ConstWidth width
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 WidthsWidthHasByLabel(
@@ -195,6 +199,10 @@ WidthsWidthSetByLabel(
    ConstHandle2ConstWidth width
 );
 
+// ------------------------
+// Re: metadatum resonanceReaction
+// ------------------------
+
 // +++ Has, by resonanceReaction
 extern_c int
 WidthsWidthHasByResonanceReaction(
@@ -223,6 +231,10 @@ WidthsWidthSetByResonanceReaction(
    const char *const resonanceReaction,
    ConstHandle2ConstWidth width
 );
+
+// ------------------------
+// Re: metadatum degreesOfFreedom
+// ------------------------
 
 // +++ Has, by degreesOfFreedom
 extern_c int

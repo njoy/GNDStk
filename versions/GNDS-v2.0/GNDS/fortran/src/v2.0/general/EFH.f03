@@ -37,7 +37,7 @@ function EFHCreateConst( &
       bind(C, name='EFHCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: EFHCreateConst
@@ -52,7 +52,7 @@ function EFHCreate( &
       bind(C, name='EFHCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: EFHCreate
@@ -63,7 +63,8 @@ subroutine EFHAssign(handleLHS, handleRHS) &
       bind(C, name='EFHAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine EFHAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function EFHRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EFHRead
 end function EFHRead
@@ -98,7 +99,7 @@ function EFHWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EFHWrite
 end function EFHWrite
@@ -154,13 +155,12 @@ function EFHValueGet(handle) &
 end function EFHValueGet
 
 !! Set
-subroutine EFHValueSet(handle, value, valueSize) &
+subroutine EFHValueSet(handle, value) &
       bind(C, name='EFHValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine EFHValueSet
 
 

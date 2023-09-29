@@ -39,7 +39,7 @@ function InstitutionCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: ENDFconversionFlags
+   type(c_ptr), intent(in), value :: ENDFconversionFlags
    type(c_ptr) :: InstitutionCreateConst
 end function InstitutionCreateConst
 
@@ -54,7 +54,7 @@ function InstitutionCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: ENDFconversionFlags
+   type(c_ptr), intent(in), value :: ENDFconversionFlags
    type(c_ptr) :: InstitutionCreate
 end function InstitutionCreate
 
@@ -63,7 +63,8 @@ subroutine InstitutionAssign(handleLHS, handleRHS) &
       bind(C, name='InstitutionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine InstitutionAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function InstitutionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: InstitutionRead
 end function InstitutionRead
@@ -98,7 +99,7 @@ function InstitutionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: InstitutionWrite
 end function InstitutionWrite
@@ -191,7 +192,7 @@ function InstitutionENDFconversionFlagsGet(handle) &
       bind(C, name='InstitutionENDFconversionFlagsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: InstitutionENDFconversionFlagsGet
 end function InstitutionENDFconversionFlagsGet
 
@@ -201,7 +202,7 @@ subroutine InstitutionENDFconversionFlagsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine InstitutionENDFconversionFlagsSet
 
 

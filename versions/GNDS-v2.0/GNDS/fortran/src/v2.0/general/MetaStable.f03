@@ -43,7 +43,7 @@ function MetaStableCreateConst( &
    character(c_char), intent(in) :: id(idSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   integer(c_int), value, intent(in) :: metaStableIndex
+   integer(c_int), intent(in), value :: metaStableIndex
    type(c_ptr) :: MetaStableCreateConst
 end function MetaStableCreateConst
 
@@ -62,7 +62,7 @@ function MetaStableCreate( &
    character(c_char), intent(in) :: id(idSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   integer(c_int), value, intent(in) :: metaStableIndex
+   integer(c_int), intent(in), value :: metaStableIndex
    type(c_ptr) :: MetaStableCreate
 end function MetaStableCreate
 
@@ -71,7 +71,8 @@ subroutine MetaStableAssign(handleLHS, handleRHS) &
       bind(C, name='MetaStableAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MetaStableAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function MetaStableRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MetaStableRead
 end function MetaStableRead
@@ -106,7 +107,7 @@ function MetaStableWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MetaStableWrite
 end function MetaStableWrite
@@ -228,13 +229,12 @@ function MetaStableMetaStableIndexGet(handle) &
 end function MetaStableMetaStableIndexGet
 
 !! Set
-subroutine MetaStableMetaStableIndexSet(handle, metaStableIndex, metaStableIndexSize) &
+subroutine MetaStableMetaStableIndexSet(handle, metaStableIndex) &
       bind(C, name='MetaStableMetaStableIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: metaStableIndexSize
-   character(c_char), intent(in) :: metaStableIndex(metaStableIndexSize)
+   integer(c_int), intent(in), value :: metaStableIndex
 end subroutine MetaStableMetaStableIndexSet
 
 

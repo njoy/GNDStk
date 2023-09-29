@@ -166,6 +166,10 @@ ElapsedTimesElapsedTimeSet(
    ConstHandle2ConstElapsedTime elapsedTime
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ElapsedTimesElapsedTimeHasByLabel(

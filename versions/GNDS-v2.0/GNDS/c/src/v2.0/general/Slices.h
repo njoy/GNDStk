@@ -166,6 +166,10 @@ SlicesSliceSet(
    ConstHandle2ConstSlice slice
 );
 
+// ------------------------
+// Re: metadatum dimension
+// ------------------------
+
 // +++ Has, by dimension
 extern_c int
 SlicesSliceHasByDimension(
@@ -194,6 +198,10 @@ SlicesSliceSetByDimension(
    const int dimension,
    ConstHandle2ConstSlice slice
 );
+
+// ------------------------
+// Re: metadatum domainValue
+// ------------------------
 
 // +++ Has, by domainValue
 extern_c int
@@ -224,6 +232,10 @@ SlicesSliceSetByDomainValue(
    ConstHandle2ConstSlice slice
 );
 
+// ------------------------
+// Re: metadatum domainMin
+// ------------------------
+
 // +++ Has, by domainMin
 extern_c int
 SlicesSliceHasByDomainMin(
@@ -253,6 +265,10 @@ SlicesSliceSetByDomainMin(
    ConstHandle2ConstSlice slice
 );
 
+// ------------------------
+// Re: metadatum domainMax
+// ------------------------
+
 // +++ Has, by domainMax
 extern_c int
 SlicesSliceHasByDomainMax(
@@ -281,6 +297,10 @@ SlicesSliceSetByDomainMax(
    const double domainMax,
    ConstHandle2ConstSlice slice
 );
+
+// ------------------------
+// Re: metadatum domainUnit
+// ------------------------
 
 // +++ Has, by domainUnit
 extern_c int

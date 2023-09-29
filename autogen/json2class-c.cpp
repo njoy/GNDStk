@@ -1,7 +1,6 @@
 
 // -----------------------------------------------------------------------------
-// C interface:
-// Helpers
+// For the C interface
 // -----------------------------------------------------------------------------
 
 // two
@@ -63,7 +62,7 @@ void sig(writer &hdr, writer &src, const bool hadFields = false)
 }
 
 // ctype_param
-// For the C interface: get metadata type for parameter
+// Get metadata type for parameter
 std::string ctype_param(const InfoMetadata &m)
 {
    return m.type == "std::string"
@@ -72,7 +71,7 @@ std::string ctype_param(const InfoMetadata &m)
 }
 
 // ctype_return
-// For the C interface: get metadata type for a return
+// Get metadata type for a return
 std::string ctype_return(const InfoMetadata &m)
 {
    return m.type == "std::string"
@@ -107,11 +106,9 @@ void section(writer &hdr, writer &src, const std::string &str, Ts &&...args)
 
 
 // -----------------------------------------------------------------------------
-// C interface:
-// fileCInterfaceCreate*
+// fileCInterfaceCreateParams
 // -----------------------------------------------------------------------------
 
-// fileCInterfaceCreateParams
 void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
 {
    int count = 0;
@@ -146,7 +143,11 @@ void fileCInterfaceCreateParams(writer &hdr, writer &src, const PerClass &per)
       two(hdr,src);
 }
 
+
+// -----------------------------------------------------------------------------
 // fileCInterfaceCreateCall
+// -----------------------------------------------------------------------------
+
 void fileCInterfaceCreateCall(writer &hdr, writer &src, const PerClass &per)
 {
    // metadata
@@ -186,16 +187,17 @@ void fileCInterfaceCreateCall(writer &hdr, writer &src, const PerClass &per)
 
 
 // -----------------------------------------------------------------------------
-// C interface:
 // fileCInterfaceBasics
 // -----------------------------------------------------------------------------
 
 void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
 {
    // section comment
-   section(hdr,src,
-           "// Basics\n"
-           "// Create, Assign, Delete");
+   section(
+      hdr,src,
+      "// Basics\n"
+      "// Create, Assign, Delete"
+   );
 
    // create: default, const
    MMM(hdr,src,"Create, default, const");
@@ -267,17 +269,18 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
 
 
 // -----------------------------------------------------------------------------
-// C interface:
 // fileCInterfaceIO
 // -----------------------------------------------------------------------------
 
 void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
 {
    // section comment
-   section(hdr,src,
-           "// I/O\n"
-           "// Read, Write, Print\n"
-           "// Each returns 0 if failure, 1 if success.");
+   section(
+      hdr,src,
+      "// I/O\n"
+      "// Read, Write, Print\n"
+      "// Each returns 0 if failure, 1 if success."
+   );
 
    // read from file
    PPP(hdr,src,"Read from file");
@@ -340,7 +343,6 @@ void fileCInterfaceIO(writer &hdr, writer &src, const PerClass &per)
 
 
 // -----------------------------------------------------------------------------
-// C interface:
 // fileCInterfaceVector
 // -----------------------------------------------------------------------------
 
@@ -465,7 +467,6 @@ void fileCInterfaceVector(
 
 
 // -----------------------------------------------------------------------------
-// C interface:
 // fileCInterfaceMeta
 // -----------------------------------------------------------------------------
 
@@ -516,7 +517,6 @@ void fileCInterfaceMeta(
 
 
 // -----------------------------------------------------------------------------
-// C interface:
 // fileCInterfaceChild
 // -----------------------------------------------------------------------------
 
@@ -579,6 +579,7 @@ void fileCInterfaceChild(
           Child, child, child);
       src("}");
 
+      // done with this child
       return;
    }
 
@@ -656,7 +657,12 @@ void fileCInterfaceChild(
        Child, child, child);
    src("}");
 
-   // for this child's metadata: has, get const, get, set
+   // ------------------------
+   // for this child's metadata:
+   // has, get const, get, set
+   // ------------------------
+
+   // first make sure that we know about this class
    const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
    if (it == specs.class2data.end()) {
       log::warning(
@@ -670,9 +676,16 @@ void fileCInterfaceChild(
       return;
    }
 
+   // has, get const, get, set
    for (const auto &m : it->second.metadata) {
       const std::string Meta = UpperCamel(m.name);
       const std::string meta = m.name;
+
+      // subsection header
+      two(hdr,src);
+      two(hdr,src,smallComment);
+      two(hdr,src,"// Re: metadatum @", meta);
+      two(hdr,src,smallComment);
 
       // has, by metadatum
       PPP(hdr,src,"Has, by @", meta);
@@ -861,7 +874,7 @@ void fileCInterfaceSource(
           c.name, c.name);
 
    // extract: variants
-   // todo Determine how the C interface should deal with C++ variants
+   // todo
 
    // extract: namespace end
    if (per.nfields()) src("}");

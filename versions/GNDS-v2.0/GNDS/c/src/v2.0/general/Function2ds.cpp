@@ -204,6 +204,10 @@ Function2dsXYs2dSet(
       (CLASSNAME, CLASSNAME+"XYs2dSet", self, extract::XYs2d, index_, XYs2d);
 }
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // Has, by index
 int
 Function2dsXYs2dHasByIndex(
@@ -248,6 +252,10 @@ Function2dsXYs2dSetByIndex(
       (CLASSNAME, CLASSNAME+"XYs2dSetByIndex",
        self, extract::XYs2d, meta::index, index, XYs2d);
 }
+
+// ------------------------
+// Re: metadatum interpolation
+// ------------------------
 
 // Has, by interpolation
 int
@@ -294,6 +302,10 @@ Function2dsXYs2dSetByInterpolation(
        self, extract::XYs2d, meta::interpolation, interpolation, XYs2d);
 }
 
+// ------------------------
+// Re: metadatum interpolationQualifier
+// ------------------------
+
 // Has, by interpolationQualifier
 int
 Function2dsXYs2dHasByInterpolationQualifier(
@@ -338,6 +350,10 @@ Function2dsXYs2dSetByInterpolationQualifier(
       (CLASSNAME, CLASSNAME+"XYs2dSetByInterpolationQualifier",
        self, extract::XYs2d, meta::interpolationQualifier, interpolationQualifier, XYs2d);
 }
+
+// ------------------------
+// Re: metadatum outerDomainValue
+// ------------------------
 
 // Has, by outerDomainValue
 int

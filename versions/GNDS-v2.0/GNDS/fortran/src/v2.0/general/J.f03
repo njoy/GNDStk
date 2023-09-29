@@ -41,9 +41,9 @@ function JCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: value
-   type(c_ptr), value :: levelSpacing
-   type(c_ptr), value :: widths
+   integer(c_int), intent(in), value :: value
+   type(c_ptr), intent(in), value :: levelSpacing
+   type(c_ptr), intent(in), value :: widths
    type(c_ptr) :: JCreateConst
 end function JCreateConst
 
@@ -60,9 +60,9 @@ function JCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: value
-   type(c_ptr), value :: levelSpacing
-   type(c_ptr), value :: widths
+   integer(c_int), intent(in), value :: value
+   type(c_ptr), intent(in), value :: levelSpacing
+   type(c_ptr), intent(in), value :: widths
    type(c_ptr) :: JCreate
 end function JCreate
 
@@ -71,7 +71,8 @@ subroutine JAssign(handleLHS, handleRHS) &
       bind(C, name='JAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine JAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function JRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: JRead
 end function JRead
@@ -106,7 +107,7 @@ function JWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: JWrite
 end function JWrite
@@ -195,13 +196,12 @@ function JValueGet(handle) &
 end function JValueGet
 
 !! Set
-subroutine JValueSet(handle, value, valueSize) &
+subroutine JValueSet(handle, value) &
       bind(C, name='JValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   integer(c_int), intent(in), value :: value
 end subroutine JValueSet
 
 
@@ -232,7 +232,7 @@ function JLevelSpacingGet(handle) &
       bind(C, name='JLevelSpacingGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: JLevelSpacingGet
 end function JLevelSpacingGet
 
@@ -242,7 +242,7 @@ subroutine JLevelSpacingSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine JLevelSpacingSet
 
 
@@ -273,7 +273,7 @@ function JWidthsGet(handle) &
       bind(C, name='JWidthsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: JWidthsGet
 end function JWidthsGet
 
@@ -283,7 +283,7 @@ subroutine JWidthsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine JWidthsSet
 
 

@@ -166,6 +166,10 @@ IsotopesIsotopeSet(
    ConstHandle2ConstIsotope isotope
 );
 
+// ------------------------
+// Re: metadatum symbol
+// ------------------------
+
 // +++ Has, by symbol
 extern_c int
 IsotopesIsotopeHasBySymbol(
@@ -194,6 +198,10 @@ IsotopesIsotopeSetBySymbol(
    const char *const symbol,
    ConstHandle2ConstIsotope isotope
 );
+
+// ------------------------
+// Re: metadatum A
+// ------------------------
 
 // +++ Has, by A
 extern_c int

@@ -36,8 +36,8 @@ function NBodyPhaseSpaceCreateConst( &
       bind(C, name='NBodyPhaseSpaceCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: numberOfProducts
-   type(c_ptr), value :: mass
+   integer(c_int), intent(in), value :: numberOfProducts
+   type(c_ptr), intent(in), value :: mass
    type(c_ptr) :: NBodyPhaseSpaceCreateConst
 end function NBodyPhaseSpaceCreateConst
 
@@ -49,8 +49,8 @@ function NBodyPhaseSpaceCreate( &
       bind(C, name='NBodyPhaseSpaceCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: numberOfProducts
-   type(c_ptr), value :: mass
+   integer(c_int), intent(in), value :: numberOfProducts
+   type(c_ptr), intent(in), value :: mass
    type(c_ptr) :: NBodyPhaseSpaceCreate
 end function NBodyPhaseSpaceCreate
 
@@ -59,7 +59,8 @@ subroutine NBodyPhaseSpaceAssign(handleLHS, handleRHS) &
       bind(C, name='NBodyPhaseSpaceAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine NBodyPhaseSpaceAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function NBodyPhaseSpaceRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NBodyPhaseSpaceRead
 end function NBodyPhaseSpaceRead
@@ -94,7 +95,7 @@ function NBodyPhaseSpaceWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NBodyPhaseSpaceWrite
 end function NBodyPhaseSpaceWrite
@@ -150,13 +151,12 @@ function NBodyPhaseSpaceNumberOfProductsGet(handle) &
 end function NBodyPhaseSpaceNumberOfProductsGet
 
 !! Set
-subroutine NBodyPhaseSpaceNumberOfProductsSet(handle, numberOfProducts, numberOfProductsSize) &
+subroutine NBodyPhaseSpaceNumberOfProductsSet(handle, numberOfProducts) &
       bind(C, name='NBodyPhaseSpaceNumberOfProductsSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: numberOfProductsSize
-   character(c_char), intent(in) :: numberOfProducts(numberOfProductsSize)
+   integer(c_int), intent(in), value :: numberOfProducts
 end subroutine NBodyPhaseSpaceNumberOfProductsSet
 
 
@@ -187,7 +187,7 @@ function NBodyPhaseSpaceMassGet(handle) &
       bind(C, name='NBodyPhaseSpaceMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NBodyPhaseSpaceMassGet
 end function NBodyPhaseSpaceMassGet
 
@@ -197,7 +197,7 @@ subroutine NBodyPhaseSpaceMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NBodyPhaseSpaceMassSet
 
 

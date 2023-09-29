@@ -45,9 +45,9 @@ function OutputChannelCreateConst( &
    character(c_char), intent(in) :: genre(genreSize)
    integer(c_size_t), intent(in), value :: processSize
    character(c_char), intent(in) :: process(processSize)
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: products
-   type(c_ptr), value :: fissionFragmentData
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: products
+   type(c_ptr), intent(in), value :: fissionFragmentData
    type(c_ptr) :: OutputChannelCreateConst
 end function OutputChannelCreateConst
 
@@ -68,9 +68,9 @@ function OutputChannelCreate( &
    character(c_char), intent(in) :: genre(genreSize)
    integer(c_size_t), intent(in), value :: processSize
    character(c_char), intent(in) :: process(processSize)
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: products
-   type(c_ptr), value :: fissionFragmentData
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: products
+   type(c_ptr), intent(in), value :: fissionFragmentData
    type(c_ptr) :: OutputChannelCreate
 end function OutputChannelCreate
 
@@ -79,7 +79,8 @@ subroutine OutputChannelAssign(handleLHS, handleRHS) &
       bind(C, name='OutputChannelAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine OutputChannelAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function OutputChannelRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: OutputChannelRead
 end function OutputChannelRead
@@ -114,7 +115,7 @@ function OutputChannelWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: OutputChannelWrite
 end function OutputChannelWrite
@@ -240,7 +241,7 @@ function OutputChannelQGet(handle) &
       bind(C, name='OutputChannelQGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: OutputChannelQGet
 end function OutputChannelQGet
 
@@ -250,7 +251,7 @@ subroutine OutputChannelQSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine OutputChannelQSet
 
 
@@ -281,7 +282,7 @@ function OutputChannelProductsGet(handle) &
       bind(C, name='OutputChannelProductsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: OutputChannelProductsGet
 end function OutputChannelProductsGet
 
@@ -291,7 +292,7 @@ subroutine OutputChannelProductsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine OutputChannelProductsSet
 
 
@@ -322,7 +323,7 @@ function OutputChannelFissionFragmentDataGet(handle) &
       bind(C, name='OutputChannelFissionFragmentDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: OutputChannelFissionFragmentDataGet
 end function OutputChannelFissionFragmentDataGet
 
@@ -332,7 +333,7 @@ subroutine OutputChannelFissionFragmentDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine OutputChannelFissionFragmentDataSet
 
 

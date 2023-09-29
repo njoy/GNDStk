@@ -36,8 +36,8 @@ function Gridded3dCreateConst( &
       bind(C, name='Gridded3dCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: array
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: array
    type(c_ptr) :: Gridded3dCreateConst
 end function Gridded3dCreateConst
 
@@ -49,8 +49,8 @@ function Gridded3dCreate( &
       bind(C, name='Gridded3dCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: array
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: array
    type(c_ptr) :: Gridded3dCreate
 end function Gridded3dCreate
 
@@ -59,7 +59,8 @@ subroutine Gridded3dAssign(handleLHS, handleRHS) &
       bind(C, name='Gridded3dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Gridded3dAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function Gridded3dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Gridded3dRead
 end function Gridded3dRead
@@ -94,7 +95,7 @@ function Gridded3dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Gridded3dWrite
 end function Gridded3dWrite
@@ -154,7 +155,7 @@ function Gridded3dAxesGet(handle) &
       bind(C, name='Gridded3dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Gridded3dAxesGet
 end function Gridded3dAxesGet
 
@@ -164,7 +165,7 @@ subroutine Gridded3dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Gridded3dAxesSet
 
 
@@ -195,7 +196,7 @@ function Gridded3dArrayGet(handle) &
       bind(C, name='Gridded3dArrayGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Gridded3dArrayGet
 end function Gridded3dArrayGet
 
@@ -205,7 +206,7 @@ subroutine Gridded3dArraySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Gridded3dArraySet
 
 

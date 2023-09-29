@@ -166,6 +166,10 @@ AverageEnergiesAverageEnergySet(
    ConstHandle2ConstAverageEnergy averageEnergy
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 AverageEnergiesAverageEnergyHasByLabel(
@@ -195,6 +199,10 @@ AverageEnergiesAverageEnergySetByLabel(
    ConstHandle2ConstAverageEnergy averageEnergy
 );
 
+// ------------------------
+// Re: metadatum value
+// ------------------------
+
 // +++ Has, by value
 extern_c int
 AverageEnergiesAverageEnergyHasByValue(
@@ -223,6 +231,10 @@ AverageEnergiesAverageEnergySetByValue(
    const double value,
    ConstHandle2ConstAverageEnergy averageEnergy
 );
+
+// ------------------------
+// Re: metadatum unit
+// ------------------------
 
 // +++ Has, by unit
 extern_c int

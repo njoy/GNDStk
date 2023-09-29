@@ -40,8 +40,8 @@ function ShellCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: value
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: value
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: ShellCreateConst
 end function ShellCreateConst
 
@@ -57,8 +57,8 @@ function ShellCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: value
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: value
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: ShellCreate
 end function ShellCreate
 
@@ -67,7 +67,8 @@ subroutine ShellAssign(handleLHS, handleRHS) &
       bind(C, name='ShellAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ShellAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function ShellRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ShellRead
 end function ShellRead
@@ -102,7 +103,7 @@ function ShellWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ShellWrite
 end function ShellWrite
@@ -191,13 +192,12 @@ function ShellValueGet(handle) &
 end function ShellValueGet
 
 !! Set
-subroutine ShellValueSet(handle, value, valueSize) &
+subroutine ShellValueSet(handle, value) &
       bind(C, name='ShellValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine ShellValueSet
 
 
@@ -228,7 +228,7 @@ function ShellUncertaintyGet(handle) &
       bind(C, name='ShellUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ShellUncertaintyGet
 end function ShellUncertaintyGet
 
@@ -238,7 +238,7 @@ subroutine ShellUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ShellUncertaintySet
 
 

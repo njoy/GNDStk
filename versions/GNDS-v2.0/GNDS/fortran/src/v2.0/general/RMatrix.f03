@@ -51,11 +51,11 @@ function RMatrixCreateConst( &
    character(c_char), intent(in) :: approximation(approximationSize)
    integer(c_size_t), intent(in), value :: boundaryConditionSize
    character(c_char), intent(in) :: boundaryCondition(boundaryConditionSize)
-   logical(c_bool), value, intent(in) :: calculateChannelRadius
-   logical(c_bool), value, intent(in) :: supportsAngularReconstruction
-   type(c_ptr), value :: PoPs
-   type(c_ptr), value :: resonanceReactions
-   type(c_ptr), value :: spinGroups
+   logical(c_bool), intent(in), value :: calculateChannelRadius
+   logical(c_bool), intent(in), value :: supportsAngularReconstruction
+   type(c_ptr), intent(in), value :: PoPs
+   type(c_ptr), intent(in), value :: resonanceReactions
+   type(c_ptr), intent(in), value :: spinGroups
    type(c_ptr) :: RMatrixCreateConst
 end function RMatrixCreateConst
 
@@ -82,11 +82,11 @@ function RMatrixCreate( &
    character(c_char), intent(in) :: approximation(approximationSize)
    integer(c_size_t), intent(in), value :: boundaryConditionSize
    character(c_char), intent(in) :: boundaryCondition(boundaryConditionSize)
-   logical(c_bool), value, intent(in) :: calculateChannelRadius
-   logical(c_bool), value, intent(in) :: supportsAngularReconstruction
-   type(c_ptr), value :: PoPs
-   type(c_ptr), value :: resonanceReactions
-   type(c_ptr), value :: spinGroups
+   logical(c_bool), intent(in), value :: calculateChannelRadius
+   logical(c_bool), intent(in), value :: supportsAngularReconstruction
+   type(c_ptr), intent(in), value :: PoPs
+   type(c_ptr), intent(in), value :: resonanceReactions
+   type(c_ptr), intent(in), value :: spinGroups
    type(c_ptr) :: RMatrixCreate
 end function RMatrixCreate
 
@@ -95,7 +95,8 @@ subroutine RMatrixAssign(handleLHS, handleRHS) &
       bind(C, name='RMatrixAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine RMatrixAssign
 
 !! Delete
@@ -119,7 +120,7 @@ function RMatrixRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RMatrixRead
 end function RMatrixRead
@@ -130,7 +131,7 @@ function RMatrixWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RMatrixWrite
 end function RMatrixWrite
@@ -285,13 +286,12 @@ function RMatrixCalculateChannelRadiusGet(handle) &
 end function RMatrixCalculateChannelRadiusGet
 
 !! Set
-subroutine RMatrixCalculateChannelRadiusSet(handle, calculateChannelRadius, calculateChannelRadiusSize) &
+subroutine RMatrixCalculateChannelRadiusSet(handle, calculateChannelRadius) &
       bind(C, name='RMatrixCalculateChannelRadiusSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: calculateChannelRadiusSize
-   character(c_char), intent(in) :: calculateChannelRadius(calculateChannelRadiusSize)
+   logical(c_bool), intent(in), value :: calculateChannelRadius
 end subroutine RMatrixCalculateChannelRadiusSet
 
 
@@ -318,13 +318,12 @@ function RMatrixSupportsAngularReconstructionGet(handle) &
 end function RMatrixSupportsAngularReconstructionGet
 
 !! Set
-subroutine RMatrixSupportsAngularReconstructionSet(handle, supportsAngularReconstruction, supportsAngularReconstructionSize) &
+subroutine RMatrixSupportsAngularReconstructionSet(handle, supportsAngularReconstruction) &
       bind(C, name='RMatrixSupportsAngularReconstructionSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: supportsAngularReconstructionSize
-   character(c_char), intent(in) :: supportsAngularReconstruction(supportsAngularReconstructionSize)
+   logical(c_bool), intent(in), value :: supportsAngularReconstruction
 end subroutine RMatrixSupportsAngularReconstructionSet
 
 
@@ -355,7 +354,7 @@ function RMatrixPoPsGet(handle) &
       bind(C, name='RMatrixPoPsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RMatrixPoPsGet
 end function RMatrixPoPsGet
 
@@ -365,7 +364,7 @@ subroutine RMatrixPoPsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RMatrixPoPsSet
 
 
@@ -396,7 +395,7 @@ function RMatrixResonanceReactionsGet(handle) &
       bind(C, name='RMatrixResonanceReactionsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RMatrixResonanceReactionsGet
 end function RMatrixResonanceReactionsGet
 
@@ -406,7 +405,7 @@ subroutine RMatrixResonanceReactionsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RMatrixResonanceReactionsSet
 
 
@@ -437,7 +436,7 @@ function RMatrixSpinGroupsGet(handle) &
       bind(C, name='RMatrixSpinGroupsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RMatrixSpinGroupsGet
 end function RMatrixSpinGroupsGet
 
@@ -447,7 +446,7 @@ subroutine RMatrixSpinGroupsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RMatrixSpinGroupsSet
 
 

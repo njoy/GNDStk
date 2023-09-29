@@ -204,6 +204,10 @@ CrossSectionSumsCrossSectionSumSet(
       (CLASSNAME, CLASSNAME+"CrossSectionSumSet", self, extract::crossSectionSum, index_, crossSectionSum);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 CrossSectionSumsCrossSectionSumHasByLabel(
@@ -248,6 +252,10 @@ CrossSectionSumsCrossSectionSumSetByLabel(
       (CLASSNAME, CLASSNAME+"CrossSectionSumSetByLabel",
        self, extract::crossSectionSum, meta::label, label, crossSectionSum);
 }
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // Has, by ENDF_MT
 int

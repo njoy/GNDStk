@@ -166,6 +166,10 @@ SpinGroupsSpinGroupSet(
    ConstHandle2ConstSpinGroup spinGroup
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 SpinGroupsSpinGroupHasByLabel(
@@ -195,6 +199,10 @@ SpinGroupsSpinGroupSetByLabel(
    ConstHandle2ConstSpinGroup spinGroup
 );
 
+// ------------------------
+// Re: metadatum spin
+// ------------------------
+
 // +++ Has, by spin
 extern_c int
 SpinGroupsSpinGroupHasBySpin(
@@ -223,6 +231,10 @@ SpinGroupsSpinGroupSetBySpin(
    const int spin,
    ConstHandle2ConstSpinGroup spinGroup
 );
+
+// ------------------------
+// Re: metadatum parity
+// ------------------------
 
 // +++ Has, by parity
 extern_c int

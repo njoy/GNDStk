@@ -166,6 +166,10 @@ MultiplicitySumsMultiplicitySumSet(
    ConstHandle2ConstMultiplicitySum multiplicitySum
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 MultiplicitySumsMultiplicitySumHasByLabel(
@@ -194,6 +198,10 @@ MultiplicitySumsMultiplicitySumSetByLabel(
    const char *const label,
    ConstHandle2ConstMultiplicitySum multiplicitySum
 );
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // +++ Has, by ENDF_MT
 extern_c int

@@ -204,6 +204,10 @@ MultiplicitySumsMultiplicitySumSet(
       (CLASSNAME, CLASSNAME+"MultiplicitySumSet", self, extract::multiplicitySum, index_, multiplicitySum);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 MultiplicitySumsMultiplicitySumHasByLabel(
@@ -248,6 +252,10 @@ MultiplicitySumsMultiplicitySumSetByLabel(
       (CLASSNAME, CLASSNAME+"MultiplicitySumSetByLabel",
        self, extract::multiplicitySum, meta::label, label, multiplicitySum);
 }
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // Has, by ENDF_MT
 int

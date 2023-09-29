@@ -37,9 +37,9 @@ function YieldsCreateConst( &
       bind(C, name='YieldsCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: nuclides
-   type(c_ptr), value :: values
-   type(c_ptr), value :: uncertainty
+   type(c_ptr), intent(in), value :: nuclides
+   type(c_ptr), intent(in), value :: values
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: YieldsCreateConst
 end function YieldsCreateConst
 
@@ -52,9 +52,9 @@ function YieldsCreate( &
       bind(C, name='YieldsCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: nuclides
-   type(c_ptr), value :: values
-   type(c_ptr), value :: uncertainty
+   type(c_ptr), intent(in), value :: nuclides
+   type(c_ptr), intent(in), value :: values
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: YieldsCreate
 end function YieldsCreate
 
@@ -63,7 +63,8 @@ subroutine YieldsAssign(handleLHS, handleRHS) &
       bind(C, name='YieldsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine YieldsAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function YieldsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: YieldsRead
 end function YieldsRead
@@ -98,7 +99,7 @@ function YieldsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: YieldsWrite
 end function YieldsWrite
@@ -158,7 +159,7 @@ function YieldsNuclidesGet(handle) &
       bind(C, name='YieldsNuclidesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: YieldsNuclidesGet
 end function YieldsNuclidesGet
 
@@ -168,7 +169,7 @@ subroutine YieldsNuclidesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine YieldsNuclidesSet
 
 
@@ -199,7 +200,7 @@ function YieldsValuesGet(handle) &
       bind(C, name='YieldsValuesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: YieldsValuesGet
 end function YieldsValuesGet
 
@@ -209,7 +210,7 @@ subroutine YieldsValuesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine YieldsValuesSet
 
 
@@ -240,7 +241,7 @@ function YieldsUncertaintyGet(handle) &
       bind(C, name='YieldsUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: YieldsUncertaintyGet
 end function YieldsUncertaintyGet
 
@@ -250,7 +251,7 @@ subroutine YieldsUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine YieldsUncertaintySet
 
 

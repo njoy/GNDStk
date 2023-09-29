@@ -35,7 +35,7 @@ function T_MCreateConst( &
       bind(C, name='T_MCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: T_MCreateConst
 end function T_MCreateConst
 
@@ -46,7 +46,7 @@ function T_MCreate( &
       bind(C, name='T_MCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: T_MCreate
 end function T_MCreate
 
@@ -55,7 +55,8 @@ subroutine T_MAssign(handleLHS, handleRHS) &
       bind(C, name='T_MAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine T_MAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function T_MRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: T_MRead
 end function T_MRead
@@ -90,7 +91,7 @@ function T_MWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: T_MWrite
 end function T_MWrite
@@ -150,7 +151,7 @@ function T_MXYs1dGet(handle) &
       bind(C, name='T_MXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: T_MXYs1dGet
 end function T_MXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine T_MXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine T_MXYs1dSet
 
 

@@ -35,7 +35,7 @@ function PhotonEmissionProbabilitiesCreateConst( &
       bind(C, name='PhotonEmissionProbabilitiesCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: shell
+   type(c_ptr), intent(in), value :: shell
    type(c_ptr) :: PhotonEmissionProbabilitiesCreateConst
 end function PhotonEmissionProbabilitiesCreateConst
 
@@ -46,7 +46,7 @@ function PhotonEmissionProbabilitiesCreate( &
       bind(C, name='PhotonEmissionProbabilitiesCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: shell
+   type(c_ptr), intent(in), value :: shell
    type(c_ptr) :: PhotonEmissionProbabilitiesCreate
 end function PhotonEmissionProbabilitiesCreate
 
@@ -55,7 +55,8 @@ subroutine PhotonEmissionProbabilitiesAssign(handleLHS, handleRHS) &
       bind(C, name='PhotonEmissionProbabilitiesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine PhotonEmissionProbabilitiesAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function PhotonEmissionProbabilitiesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PhotonEmissionProbabilitiesRead
 end function PhotonEmissionProbabilitiesRead
@@ -90,7 +91,7 @@ function PhotonEmissionProbabilitiesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PhotonEmissionProbabilitiesWrite
 end function PhotonEmissionProbabilitiesWrite
@@ -150,7 +151,7 @@ function PhotonEmissionProbabilitiesShellGet(handle) &
       bind(C, name='PhotonEmissionProbabilitiesShellGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PhotonEmissionProbabilitiesShellGet
 end function PhotonEmissionProbabilitiesShellGet
 
@@ -160,7 +161,7 @@ subroutine PhotonEmissionProbabilitiesShellSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PhotonEmissionProbabilitiesShellSet
 
 

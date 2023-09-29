@@ -204,6 +204,10 @@ FissionEnergyReleasesFissionEnergyReleaseSet(
       (CLASSNAME, CLASSNAME+"FissionEnergyReleaseSet", self, extract::fissionEnergyRelease, index_, fissionEnergyRelease);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 FissionEnergyReleasesFissionEnergyReleaseHasByLabel(

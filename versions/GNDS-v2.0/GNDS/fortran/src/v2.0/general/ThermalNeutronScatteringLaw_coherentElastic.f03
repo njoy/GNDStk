@@ -47,7 +47,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreateConst( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: S_table
+   type(c_ptr), intent(in), value :: S_table
    type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticCreateConst
 end function ThermalNeutronScatteringLaw_coherentElasticCreateConst
 
@@ -70,7 +70,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreate( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: S_table
+   type(c_ptr), intent(in), value :: S_table
    type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticCreate
 end function ThermalNeutronScatteringLaw_coherentElasticCreate
 
@@ -79,7 +79,8 @@ subroutine ThermalNeutronScatteringLaw_coherentElasticAssign(handleLHS, handleRH
       bind(C, name='ThermalNeutronScatteringLaw_coherentElasticAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ThermalNeutronScatteringLaw_coherentElasticAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function ThermalNeutronScatteringLaw_coherentElasticRead(handle, filename, filen
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticRead
 end function ThermalNeutronScatteringLaw_coherentElasticRead
@@ -114,7 +115,7 @@ function ThermalNeutronScatteringLaw_coherentElasticWrite(handle, filename, file
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLaw_coherentElasticWrite
 end function ThermalNeutronScatteringLaw_coherentElasticWrite
@@ -273,7 +274,7 @@ function ThermalNeutronScatteringLaw_coherentElasticS_tableGet(handle) &
       bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticS_tableGet
 end function ThermalNeutronScatteringLaw_coherentElasticS_tableGet
 
@@ -283,7 +284,7 @@ subroutine ThermalNeutronScatteringLaw_coherentElasticS_tableSet(handle, fieldHa
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ThermalNeutronScatteringLaw_coherentElasticS_tableSet
 
 

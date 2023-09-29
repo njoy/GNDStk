@@ -47,11 +47,11 @@ function DecayModeCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: modeSize
    character(c_char), intent(in) :: mode(modeSize)
-   type(c_ptr), value :: probability
-   type(c_ptr), value :: decayPath
-   type(c_ptr), value :: photonEmissionProbabilities
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: spectra
+   type(c_ptr), intent(in), value :: probability
+   type(c_ptr), intent(in), value :: decayPath
+   type(c_ptr), intent(in), value :: photonEmissionProbabilities
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: spectra
    type(c_ptr) :: DecayModeCreateConst
 end function DecayModeCreateConst
 
@@ -74,11 +74,11 @@ function DecayModeCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: modeSize
    character(c_char), intent(in) :: mode(modeSize)
-   type(c_ptr), value :: probability
-   type(c_ptr), value :: decayPath
-   type(c_ptr), value :: photonEmissionProbabilities
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: spectra
+   type(c_ptr), intent(in), value :: probability
+   type(c_ptr), intent(in), value :: decayPath
+   type(c_ptr), intent(in), value :: photonEmissionProbabilities
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: spectra
    type(c_ptr) :: DecayModeCreate
 end function DecayModeCreate
 
@@ -87,7 +87,8 @@ subroutine DecayModeAssign(handleLHS, handleRHS) &
       bind(C, name='DecayModeAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DecayModeAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function DecayModeRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayModeRead
 end function DecayModeRead
@@ -122,7 +123,7 @@ function DecayModeWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayModeWrite
 end function DecayModeWrite
@@ -248,7 +249,7 @@ function DecayModeProbabilityGet(handle) &
       bind(C, name='DecayModeProbabilityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayModeProbabilityGet
 end function DecayModeProbabilityGet
 
@@ -258,7 +259,7 @@ subroutine DecayModeProbabilitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayModeProbabilitySet
 
 
@@ -289,7 +290,7 @@ function DecayModeDecayPathGet(handle) &
       bind(C, name='DecayModeDecayPathGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayModeDecayPathGet
 end function DecayModeDecayPathGet
 
@@ -299,7 +300,7 @@ subroutine DecayModeDecayPathSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayModeDecayPathSet
 
 
@@ -330,7 +331,7 @@ function DecayModePhotonEmissionProbabilitiesGet(handle) &
       bind(C, name='DecayModePhotonEmissionProbabilitiesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayModePhotonEmissionProbabilitiesGet
 end function DecayModePhotonEmissionProbabilitiesGet
 
@@ -340,7 +341,7 @@ subroutine DecayModePhotonEmissionProbabilitiesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayModePhotonEmissionProbabilitiesSet
 
 
@@ -371,7 +372,7 @@ function DecayModeQGet(handle) &
       bind(C, name='DecayModeQGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayModeQGet
 end function DecayModeQGet
 
@@ -381,7 +382,7 @@ subroutine DecayModeQSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayModeQSet
 
 
@@ -412,7 +413,7 @@ function DecayModeSpectraGet(handle) &
       bind(C, name='DecayModeSpectraGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayModeSpectraGet
 end function DecayModeSpectraGet
 
@@ -422,7 +423,7 @@ subroutine DecayModeSpectraSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayModeSpectraSet
 
 

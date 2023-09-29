@@ -35,7 +35,7 @@ function SpinCreateConst( &
       bind(C, name='SpinCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: fraction
+   type(c_ptr), intent(in), value :: fraction
    type(c_ptr) :: SpinCreateConst
 end function SpinCreateConst
 
@@ -46,7 +46,7 @@ function SpinCreate( &
       bind(C, name='SpinCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: fraction
+   type(c_ptr), intent(in), value :: fraction
    type(c_ptr) :: SpinCreate
 end function SpinCreate
 
@@ -55,7 +55,8 @@ subroutine SpinAssign(handleLHS, handleRHS) &
       bind(C, name='SpinAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SpinAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function SpinRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpinRead
 end function SpinRead
@@ -90,7 +91,7 @@ function SpinWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpinWrite
 end function SpinWrite
@@ -150,7 +151,7 @@ function SpinFractionGet(handle) &
       bind(C, name='SpinFractionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SpinFractionGet
 end function SpinFractionGet
 
@@ -160,7 +161,7 @@ subroutine SpinFractionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SpinFractionSet
 
 

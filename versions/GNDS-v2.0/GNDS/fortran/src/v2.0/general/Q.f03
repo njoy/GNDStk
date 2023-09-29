@@ -36,8 +36,8 @@ function QCreateConst( &
       bind(C, name='QCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
-   type(c_ptr), value :: constant1d
+   type(c_ptr), intent(in), value :: Double
+   type(c_ptr), intent(in), value :: constant1d
    type(c_ptr) :: QCreateConst
 end function QCreateConst
 
@@ -49,8 +49,8 @@ function QCreate( &
       bind(C, name='QCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
-   type(c_ptr), value :: constant1d
+   type(c_ptr), intent(in), value :: Double
+   type(c_ptr), intent(in), value :: constant1d
    type(c_ptr) :: QCreate
 end function QCreate
 
@@ -59,7 +59,8 @@ subroutine QAssign(handleLHS, handleRHS) &
       bind(C, name='QAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine QAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function QRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: QRead
 end function QRead
@@ -94,7 +95,7 @@ function QWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: QWrite
 end function QWrite
@@ -154,7 +155,7 @@ function QDoubleGet(handle) &
       bind(C, name='QDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: QDoubleGet
 end function QDoubleGet
 
@@ -164,7 +165,7 @@ subroutine QDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine QDoubleSet
 
 
@@ -195,7 +196,7 @@ function QConstant1dGet(handle) &
       bind(C, name='QConstant1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: QConstant1dGet
 end function QConstant1dGet
 
@@ -205,7 +206,7 @@ subroutine QConstant1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine QConstant1dSet
 
 

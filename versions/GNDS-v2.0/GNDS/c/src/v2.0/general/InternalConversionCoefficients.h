@@ -166,6 +166,10 @@ InternalConversionCoefficientsShellSet(
    ConstHandle2ConstShell shell
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 InternalConversionCoefficientsShellHasByLabel(
@@ -194,6 +198,10 @@ InternalConversionCoefficientsShellSetByLabel(
    const char *const label,
    ConstHandle2ConstShell shell
 );
+
+// ------------------------
+// Re: metadatum value
+// ------------------------
 
 // +++ Has, by value
 extern_c int

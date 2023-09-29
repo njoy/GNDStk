@@ -35,7 +35,7 @@ function RateCreateConst( &
       bind(C, name='RateCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: RateCreateConst
 end function RateCreateConst
 
@@ -46,7 +46,7 @@ function RateCreate( &
       bind(C, name='RateCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: RateCreate
 end function RateCreate
 
@@ -55,7 +55,8 @@ subroutine RateAssign(handleLHS, handleRHS) &
       bind(C, name='RateAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine RateAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function RateRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RateRead
 end function RateRead
@@ -90,7 +91,7 @@ function RateWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RateWrite
 end function RateWrite
@@ -150,7 +151,7 @@ function RateDoubleGet(handle) &
       bind(C, name='RateDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RateDoubleGet
 end function RateDoubleGet
 
@@ -160,7 +161,7 @@ subroutine RateDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RateDoubleSet
 
 

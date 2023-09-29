@@ -38,10 +38,10 @@ function SelfScatteringKernelCreateConst( &
       bind(C, name='SelfScatteringKernelCreateConst')
    use iso_c_binding
    implicit none
-   logical(c_bool), value, intent(in) :: symmetric
-   type(c_ptr), value :: gridded3d
-   type(c_ptr), value :: SCTApproximation
-   type(c_ptr), value :: freeGasApproximation
+   logical(c_bool), intent(in), value :: symmetric
+   type(c_ptr), intent(in), value :: gridded3d
+   type(c_ptr), intent(in), value :: SCTApproximation
+   type(c_ptr), intent(in), value :: freeGasApproximation
    type(c_ptr) :: SelfScatteringKernelCreateConst
 end function SelfScatteringKernelCreateConst
 
@@ -55,10 +55,10 @@ function SelfScatteringKernelCreate( &
       bind(C, name='SelfScatteringKernelCreate')
    use iso_c_binding
    implicit none
-   logical(c_bool), value, intent(in) :: symmetric
-   type(c_ptr), value :: gridded3d
-   type(c_ptr), value :: SCTApproximation
-   type(c_ptr), value :: freeGasApproximation
+   logical(c_bool), intent(in), value :: symmetric
+   type(c_ptr), intent(in), value :: gridded3d
+   type(c_ptr), intent(in), value :: SCTApproximation
+   type(c_ptr), intent(in), value :: freeGasApproximation
    type(c_ptr) :: SelfScatteringKernelCreate
 end function SelfScatteringKernelCreate
 
@@ -67,7 +67,8 @@ subroutine SelfScatteringKernelAssign(handleLHS, handleRHS) &
       bind(C, name='SelfScatteringKernelAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SelfScatteringKernelAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function SelfScatteringKernelRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SelfScatteringKernelRead
 end function SelfScatteringKernelRead
@@ -102,7 +103,7 @@ function SelfScatteringKernelWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SelfScatteringKernelWrite
 end function SelfScatteringKernelWrite
@@ -158,13 +159,12 @@ function SelfScatteringKernelSymmetricGet(handle) &
 end function SelfScatteringKernelSymmetricGet
 
 !! Set
-subroutine SelfScatteringKernelSymmetricSet(handle, symmetric, symmetricSize) &
+subroutine SelfScatteringKernelSymmetricSet(handle, symmetric) &
       bind(C, name='SelfScatteringKernelSymmetricSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: symmetricSize
-   character(c_char), intent(in) :: symmetric(symmetricSize)
+   logical(c_bool), intent(in), value :: symmetric
 end subroutine SelfScatteringKernelSymmetricSet
 
 
@@ -195,7 +195,7 @@ function SelfScatteringKernelGridded3dGet(handle) &
       bind(C, name='SelfScatteringKernelGridded3dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SelfScatteringKernelGridded3dGet
 end function SelfScatteringKernelGridded3dGet
 
@@ -205,7 +205,7 @@ subroutine SelfScatteringKernelGridded3dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SelfScatteringKernelGridded3dSet
 
 
@@ -236,7 +236,7 @@ function SelfScatteringKernelSCTApproximationGet(handle) &
       bind(C, name='SelfScatteringKernelSCTApproximationGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SelfScatteringKernelSCTApproximationGet
 end function SelfScatteringKernelSCTApproximationGet
 
@@ -246,7 +246,7 @@ subroutine SelfScatteringKernelSCTApproximationSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SelfScatteringKernelSCTApproximationSet
 
 
@@ -277,7 +277,7 @@ function SelfScatteringKernelFreeGasApproximationGet(handle) &
       bind(C, name='SelfScatteringKernelFreeGasApproximationGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SelfScatteringKernelFreeGasApproximationGet
 end function SelfScatteringKernelFreeGasApproximationGet
 
@@ -287,7 +287,7 @@ subroutine SelfScatteringKernelFreeGasApproximationSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SelfScatteringKernelFreeGasApproximationSet
 
 

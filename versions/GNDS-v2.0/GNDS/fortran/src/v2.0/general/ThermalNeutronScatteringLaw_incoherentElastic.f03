@@ -48,8 +48,8 @@ function ThermalNeutronScatteringLaw_incoherentElasticCreateConst( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: boundAtomCrossSection
-   type(c_ptr), value :: DebyeWallerIntegral
+   type(c_ptr), intent(in), value :: boundAtomCrossSection
+   type(c_ptr), intent(in), value :: DebyeWallerIntegral
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentElasticCreateConst
 end function ThermalNeutronScatteringLaw_incoherentElasticCreateConst
 
@@ -73,8 +73,8 @@ function ThermalNeutronScatteringLaw_incoherentElasticCreate( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: boundAtomCrossSection
-   type(c_ptr), value :: DebyeWallerIntegral
+   type(c_ptr), intent(in), value :: boundAtomCrossSection
+   type(c_ptr), intent(in), value :: DebyeWallerIntegral
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentElasticCreate
 end function ThermalNeutronScatteringLaw_incoherentElasticCreate
 
@@ -83,7 +83,8 @@ subroutine ThermalNeutronScatteringLaw_incoherentElasticAssign(handleLHS, handle
       bind(C, name='ThermalNeutronScatteringLaw_incoherentElasticAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ThermalNeutronScatteringLaw_incoherentElasticAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function ThermalNeutronScatteringLaw_incoherentElasticRead(handle, filename, fil
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLaw_incoherentElasticRead
 end function ThermalNeutronScatteringLaw_incoherentElasticRead
@@ -118,7 +119,7 @@ function ThermalNeutronScatteringLaw_incoherentElasticWrite(handle, filename, fi
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLaw_incoherentElasticWrite
 end function ThermalNeutronScatteringLaw_incoherentElasticWrite
@@ -277,7 +278,7 @@ function ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet(h
       bind(C, name='ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet
 end function ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet
 
@@ -287,7 +288,7 @@ subroutine ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionSet
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionSet
 
 
@@ -318,7 +319,7 @@ function ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet(han
       bind(C, name='ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet
 end function ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet
 
@@ -328,7 +329,7 @@ subroutine ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralSet(h
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralSet
 
 

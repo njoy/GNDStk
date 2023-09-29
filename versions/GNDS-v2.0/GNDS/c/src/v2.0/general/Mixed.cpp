@@ -255,6 +255,10 @@ MixedCovarianceMatrixSet(
       (CLASSNAME, CLASSNAME+"CovarianceMatrixSet", self, extract::covarianceMatrix, index_, covarianceMatrix);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 MixedCovarianceMatrixHasByLabel(
@@ -300,6 +304,10 @@ MixedCovarianceMatrixSetByLabel(
        self, extract::covarianceMatrix, meta::label, label, covarianceMatrix);
 }
 
+// ------------------------
+// Re: metadatum type
+// ------------------------
+
 // Has, by type
 int
 MixedCovarianceMatrixHasByType(
@@ -344,6 +352,10 @@ MixedCovarianceMatrixSetByType(
       (CLASSNAME, CLASSNAME+"CovarianceMatrixSetByType",
        self, extract::covarianceMatrix, meta::type, type, covarianceMatrix);
 }
+
+// ------------------------
+// Re: metadatum productFrame
+// ------------------------
 
 // Has, by productFrame
 int
@@ -454,6 +466,10 @@ MixedSumSet(
       (CLASSNAME, CLASSNAME+"SumSet", self, extract::sum, index_, sum);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 MixedSumHasByLabel(
@@ -498,6 +514,10 @@ MixedSumSetByLabel(
       (CLASSNAME, CLASSNAME+"SumSetByLabel",
        self, extract::sum, meta::label, label, sum);
 }
+
+// ------------------------
+// Re: metadatum domainMin
+// ------------------------
 
 // Has, by domainMin
 int
@@ -544,6 +564,10 @@ MixedSumSetByDomainMin(
        self, extract::sum, meta::domainMin, domainMin, sum);
 }
 
+// ------------------------
+// Re: metadatum domainMax
+// ------------------------
+
 // Has, by domainMax
 int
 MixedSumHasByDomainMax(
@@ -588,6 +612,10 @@ MixedSumSetByDomainMax(
       (CLASSNAME, CLASSNAME+"SumSetByDomainMax",
        self, extract::sum, meta::domainMax, domainMax, sum);
 }
+
+// ------------------------
+// Re: metadatum domainUnit
+// ------------------------
 
 // Has, by domainUnit
 int

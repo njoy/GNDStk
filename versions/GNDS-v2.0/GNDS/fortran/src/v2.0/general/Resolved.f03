@@ -40,12 +40,12 @@ function ResolvedCreateConst( &
       bind(C, name='ResolvedCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   type(c_ptr), value :: BreitWigner
-   type(c_ptr), value :: RMatrix
+   type(c_ptr), intent(in), value :: BreitWigner
+   type(c_ptr), intent(in), value :: RMatrix
    type(c_ptr) :: ResolvedCreateConst
 end function ResolvedCreateConst
 
@@ -61,12 +61,12 @@ function ResolvedCreate( &
       bind(C, name='ResolvedCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   type(c_ptr), value :: BreitWigner
-   type(c_ptr), value :: RMatrix
+   type(c_ptr), intent(in), value :: BreitWigner
+   type(c_ptr), intent(in), value :: RMatrix
    type(c_ptr) :: ResolvedCreate
 end function ResolvedCreate
 
@@ -75,7 +75,8 @@ subroutine ResolvedAssign(handleLHS, handleRHS) &
       bind(C, name='ResolvedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResolvedAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function ResolvedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResolvedRead
 end function ResolvedRead
@@ -110,7 +111,7 @@ function ResolvedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResolvedWrite
 end function ResolvedWrite
@@ -166,13 +167,12 @@ function ResolvedDomainMinGet(handle) &
 end function ResolvedDomainMinGet
 
 !! Set
-subroutine ResolvedDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine ResolvedDomainMinSet(handle, domainMin) &
       bind(C, name='ResolvedDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine ResolvedDomainMinSet
 
 
@@ -199,13 +199,12 @@ function ResolvedDomainMaxGet(handle) &
 end function ResolvedDomainMaxGet
 
 !! Set
-subroutine ResolvedDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine ResolvedDomainMaxSet(handle, domainMax) &
       bind(C, name='ResolvedDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine ResolvedDomainMaxSet
 
 
@@ -269,7 +268,7 @@ function ResolvedBreitWignerGet(handle) &
       bind(C, name='ResolvedBreitWignerGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResolvedBreitWignerGet
 end function ResolvedBreitWignerGet
 
@@ -279,7 +278,7 @@ subroutine ResolvedBreitWignerSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResolvedBreitWignerSet
 
 
@@ -310,7 +309,7 @@ function ResolvedRMatrixGet(handle) &
       bind(C, name='ResolvedRMatrixGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResolvedRMatrixGet
 end function ResolvedRMatrixGet
 
@@ -320,7 +319,7 @@ subroutine ResolvedRMatrixSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResolvedRMatrixSet
 
 

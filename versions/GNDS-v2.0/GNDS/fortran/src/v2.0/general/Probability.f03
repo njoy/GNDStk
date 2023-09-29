@@ -35,7 +35,7 @@ function ProbabilityCreateConst( &
       bind(C, name='ProbabilityCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: ProbabilityCreateConst
 end function ProbabilityCreateConst
 
@@ -46,7 +46,7 @@ function ProbabilityCreate( &
       bind(C, name='ProbabilityCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: ProbabilityCreate
 end function ProbabilityCreate
 
@@ -55,7 +55,8 @@ subroutine ProbabilityAssign(handleLHS, handleRHS) &
       bind(C, name='ProbabilityAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProbabilityAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ProbabilityRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProbabilityRead
 end function ProbabilityRead
@@ -90,7 +91,7 @@ function ProbabilityWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProbabilityWrite
 end function ProbabilityWrite
@@ -150,7 +151,7 @@ function ProbabilityDoubleGet(handle) &
       bind(C, name='ProbabilityDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProbabilityDoubleGet
 end function ProbabilityDoubleGet
 
@@ -160,7 +161,7 @@ subroutine ProbabilityDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProbabilityDoubleSet
 
 

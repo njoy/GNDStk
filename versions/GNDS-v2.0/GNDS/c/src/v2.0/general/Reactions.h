@@ -166,6 +166,10 @@ ReactionsReactionSet(
    ConstHandle2ConstReaction reaction
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ReactionsReactionHasByLabel(
@@ -195,6 +199,10 @@ ReactionsReactionSetByLabel(
    ConstHandle2ConstReaction reaction
 );
 
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
+
 // +++ Has, by ENDF_MT
 extern_c int
 ReactionsReactionHasByENDFMT(
@@ -223,6 +231,10 @@ ReactionsReactionSetByENDFMT(
    const int ENDF_MT,
    ConstHandle2ConstReaction reaction
 );
+
+// ------------------------
+// Re: metadatum fissionGenre
+// ------------------------
 
 // +++ Has, by fissionGenre
 extern_c int

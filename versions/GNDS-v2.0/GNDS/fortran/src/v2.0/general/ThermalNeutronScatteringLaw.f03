@@ -67,7 +67,8 @@ subroutine ThermalNeutronScatteringLawAssign(handleLHS, handleRHS) &
       bind(C, name='ThermalNeutronScatteringLawAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ThermalNeutronScatteringLawAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function ThermalNeutronScatteringLawRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLawRead
 end function ThermalNeutronScatteringLawRead
@@ -102,7 +103,7 @@ function ThermalNeutronScatteringLawWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLawWrite
 end function ThermalNeutronScatteringLawWrite

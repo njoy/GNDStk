@@ -204,6 +204,10 @@ DecayModesDecayModeSet(
       (CLASSNAME, CLASSNAME+"DecayModeSet", self, extract::decayMode, index_, decayMode);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 DecayModesDecayModeHasByLabel(
@@ -248,6 +252,10 @@ DecayModesDecayModeSetByLabel(
       (CLASSNAME, CLASSNAME+"DecayModeSetByLabel",
        self, extract::decayMode, meta::label, label, decayMode);
 }
+
+// ------------------------
+// Re: metadatum mode
+// ------------------------
 
 // Has, by mode
 int

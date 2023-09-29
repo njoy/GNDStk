@@ -35,7 +35,7 @@ function StandardCreateConst( &
       bind(C, name='StandardCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: StandardCreateConst
 end function StandardCreateConst
 
@@ -46,7 +46,7 @@ function StandardCreate( &
       bind(C, name='StandardCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: StandardCreate
 end function StandardCreate
 
@@ -55,7 +55,8 @@ subroutine StandardAssign(handleLHS, handleRHS) &
       bind(C, name='StandardAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine StandardAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function StandardRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: StandardRead
 end function StandardRead
@@ -90,7 +91,7 @@ function StandardWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: StandardWrite
 end function StandardWrite
@@ -150,7 +151,7 @@ function StandardDoubleGet(handle) &
       bind(C, name='StandardDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: StandardDoubleGet
 end function StandardDoubleGet
 
@@ -160,7 +161,7 @@ subroutine StandardDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine StandardDoubleSet
 
 

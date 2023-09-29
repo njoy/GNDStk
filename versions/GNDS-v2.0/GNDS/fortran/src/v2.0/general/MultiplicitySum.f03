@@ -41,9 +41,9 @@ function MultiplicitySumCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
-   type(c_ptr), value :: multiplicity
-   type(c_ptr), value :: summands
+   integer(c_int), intent(in), value :: ENDF_MT
+   type(c_ptr), intent(in), value :: multiplicity
+   type(c_ptr), intent(in), value :: summands
    type(c_ptr) :: MultiplicitySumCreateConst
 end function MultiplicitySumCreateConst
 
@@ -60,9 +60,9 @@ function MultiplicitySumCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
-   type(c_ptr), value :: multiplicity
-   type(c_ptr), value :: summands
+   integer(c_int), intent(in), value :: ENDF_MT
+   type(c_ptr), intent(in), value :: multiplicity
+   type(c_ptr), intent(in), value :: summands
    type(c_ptr) :: MultiplicitySumCreate
 end function MultiplicitySumCreate
 
@@ -71,7 +71,8 @@ subroutine MultiplicitySumAssign(handleLHS, handleRHS) &
       bind(C, name='MultiplicitySumAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MultiplicitySumAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function MultiplicitySumRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MultiplicitySumRead
 end function MultiplicitySumRead
@@ -106,7 +107,7 @@ function MultiplicitySumWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MultiplicitySumWrite
 end function MultiplicitySumWrite
@@ -195,13 +196,12 @@ function MultiplicitySumENDFMTGet(handle) &
 end function MultiplicitySumENDFMTGet
 
 !! Set
-subroutine MultiplicitySumENDFMTSet(handle, ENDF_MT, ENDF_MTSize) &
+subroutine MultiplicitySumENDFMTSet(handle, ENDF_MT) &
       bind(C, name='MultiplicitySumENDFMTSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ENDF_MTSize
-   character(c_char), intent(in) :: ENDF_MT(ENDF_MTSize)
+   integer(c_int), intent(in), value :: ENDF_MT
 end subroutine MultiplicitySumENDFMTSet
 
 
@@ -232,7 +232,7 @@ function MultiplicitySumMultiplicityGet(handle) &
       bind(C, name='MultiplicitySumMultiplicityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicitySumMultiplicityGet
 end function MultiplicitySumMultiplicityGet
 
@@ -242,7 +242,7 @@ subroutine MultiplicitySumMultiplicitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicitySumMultiplicitySet
 
 
@@ -273,7 +273,7 @@ function MultiplicitySumSummandsGet(handle) &
       bind(C, name='MultiplicitySumSummandsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicitySumSummandsGet
 end function MultiplicitySumSummandsGet
 
@@ -283,7 +283,7 @@ subroutine MultiplicitySumSummandsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicitySumSummandsSet
 
 

@@ -204,6 +204,10 @@ BaryonsBaryonSet(
       (CLASSNAME, CLASSNAME+"BaryonSet", self, extract::baryon, index_, baryon);
 }
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // Has, by id
 int
 BaryonsBaryonHasById(

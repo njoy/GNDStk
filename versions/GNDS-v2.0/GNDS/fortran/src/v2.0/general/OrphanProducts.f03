@@ -35,8 +35,8 @@ function OrphanProductsCreateConst( &
       bind(C, name='OrphanProductsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: orphanProductSize
-   type(c_ptr) :: orphanProduct(orphanProductSize)
+   integer(c_size_t), intent(in), value :: orphanProductSize
+   type(c_ptr), intent(in) :: orphanProduct(orphanProductSize)
    type(c_ptr) :: OrphanProductsCreateConst
 end function OrphanProductsCreateConst
 
@@ -47,8 +47,8 @@ function OrphanProductsCreate( &
       bind(C, name='OrphanProductsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: orphanProductSize
-   type(c_ptr) :: orphanProduct(orphanProductSize)
+   integer(c_size_t), intent(in), value :: orphanProductSize
+   type(c_ptr), intent(in) :: orphanProduct(orphanProductSize)
    type(c_ptr) :: OrphanProductsCreate
 end function OrphanProductsCreate
 
@@ -57,7 +57,8 @@ subroutine OrphanProductsAssign(handleLHS, handleRHS) &
       bind(C, name='OrphanProductsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine OrphanProductsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function OrphanProductsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: OrphanProductsRead
 end function OrphanProductsRead
@@ -92,7 +93,7 @@ function OrphanProductsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: OrphanProductsWrite
 end function OrphanProductsWrite
@@ -236,7 +237,7 @@ subroutine OrphanProductsOrphanProductSetByLabel(handle, meta, metaSize, fieldHa
       bind(C, name='OrphanProductsOrphanProductSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function OrphanProductsOrphanProductHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: OrphanProductsOrphanProductHasByENDFMT
 end function OrphanProductsOrphanProductHasByENDFMT
 
@@ -262,7 +263,7 @@ function OrphanProductsOrphanProductGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: OrphanProductsOrphanProductGetByENDFMTConst
 end function OrphanProductsOrphanProductGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function OrphanProductsOrphanProductGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: OrphanProductsOrphanProductGetByENDFMT
 end function OrphanProductsOrphanProductGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine OrphanProductsOrphanProductSetByENDFMT(handle, meta, fieldHandle) &
       bind(C, name='OrphanProductsOrphanProductSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine OrphanProductsOrphanProductSetByENDFMT
 

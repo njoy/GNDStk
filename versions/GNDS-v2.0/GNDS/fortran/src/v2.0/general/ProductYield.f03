@@ -40,8 +40,8 @@ function ProductYieldCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: nuclides
-   type(c_ptr), value :: elapsedTimes
+   type(c_ptr), intent(in), value :: nuclides
+   type(c_ptr), intent(in), value :: elapsedTimes
    type(c_ptr) :: ProductYieldCreateConst
 end function ProductYieldCreateConst
 
@@ -57,8 +57,8 @@ function ProductYieldCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: nuclides
-   type(c_ptr), value :: elapsedTimes
+   type(c_ptr), intent(in), value :: nuclides
+   type(c_ptr), intent(in), value :: elapsedTimes
    type(c_ptr) :: ProductYieldCreate
 end function ProductYieldCreate
 
@@ -67,7 +67,8 @@ subroutine ProductYieldAssign(handleLHS, handleRHS) &
       bind(C, name='ProductYieldAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProductYieldAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function ProductYieldRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductYieldRead
 end function ProductYieldRead
@@ -102,7 +103,7 @@ function ProductYieldWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductYieldWrite
 end function ProductYieldWrite
@@ -195,7 +196,7 @@ function ProductYieldNuclidesGet(handle) &
       bind(C, name='ProductYieldNuclidesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductYieldNuclidesGet
 end function ProductYieldNuclidesGet
 
@@ -205,7 +206,7 @@ subroutine ProductYieldNuclidesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductYieldNuclidesSet
 
 
@@ -236,7 +237,7 @@ function ProductYieldElapsedTimesGet(handle) &
       bind(C, name='ProductYieldElapsedTimesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductYieldElapsedTimesGet
 end function ProductYieldElapsedTimesGet
 
@@ -246,7 +247,7 @@ subroutine ProductYieldElapsedTimesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductYieldElapsedTimesSet
 
 

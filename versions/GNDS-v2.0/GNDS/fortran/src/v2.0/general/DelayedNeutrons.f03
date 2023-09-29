@@ -35,8 +35,8 @@ function DelayedNeutronsCreateConst( &
       bind(C, name='DelayedNeutronsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: delayedNeutronSize
-   type(c_ptr) :: delayedNeutron(delayedNeutronSize)
+   integer(c_size_t), intent(in), value :: delayedNeutronSize
+   type(c_ptr), intent(in) :: delayedNeutron(delayedNeutronSize)
    type(c_ptr) :: DelayedNeutronsCreateConst
 end function DelayedNeutronsCreateConst
 
@@ -47,8 +47,8 @@ function DelayedNeutronsCreate( &
       bind(C, name='DelayedNeutronsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: delayedNeutronSize
-   type(c_ptr) :: delayedNeutron(delayedNeutronSize)
+   integer(c_size_t), intent(in), value :: delayedNeutronSize
+   type(c_ptr), intent(in) :: delayedNeutron(delayedNeutronSize)
    type(c_ptr) :: DelayedNeutronsCreate
 end function DelayedNeutronsCreate
 
@@ -57,7 +57,8 @@ subroutine DelayedNeutronsAssign(handleLHS, handleRHS) &
       bind(C, name='DelayedNeutronsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DelayedNeutronsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function DelayedNeutronsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DelayedNeutronsRead
 end function DelayedNeutronsRead
@@ -92,7 +93,7 @@ function DelayedNeutronsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DelayedNeutronsWrite
 end function DelayedNeutronsWrite
@@ -236,7 +237,7 @@ subroutine DelayedNeutronsDelayedNeutronSetByLabel(handle, meta, metaSize, field
       bind(C, name='DelayedNeutronsDelayedNeutronSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

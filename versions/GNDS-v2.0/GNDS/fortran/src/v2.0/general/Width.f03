@@ -46,10 +46,10 @@ function WidthCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: resonanceReactionSize
    character(c_char), intent(in) :: resonanceReaction(resonanceReactionSize)
-   integer(c_int), value, intent(in) :: degreesOfFreedom
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: constant1d
-   type(c_ptr), value :: regions1d
+   integer(c_int), intent(in), value :: degreesOfFreedom
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: constant1d
+   type(c_ptr), intent(in), value :: regions1d
    type(c_ptr) :: WidthCreateConst
 end function WidthCreateConst
 
@@ -71,10 +71,10 @@ function WidthCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: resonanceReactionSize
    character(c_char), intent(in) :: resonanceReaction(resonanceReactionSize)
-   integer(c_int), value, intent(in) :: degreesOfFreedom
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: constant1d
-   type(c_ptr), value :: regions1d
+   integer(c_int), intent(in), value :: degreesOfFreedom
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: constant1d
+   type(c_ptr), intent(in), value :: regions1d
    type(c_ptr) :: WidthCreate
 end function WidthCreate
 
@@ -83,7 +83,8 @@ subroutine WidthAssign(handleLHS, handleRHS) &
       bind(C, name='WidthAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine WidthAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function WidthRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WidthRead
 end function WidthRead
@@ -118,7 +119,7 @@ function WidthWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WidthWrite
 end function WidthWrite
@@ -240,13 +241,12 @@ function WidthDegreesOfFreedomGet(handle) &
 end function WidthDegreesOfFreedomGet
 
 !! Set
-subroutine WidthDegreesOfFreedomSet(handle, degreesOfFreedom, degreesOfFreedomSize) &
+subroutine WidthDegreesOfFreedomSet(handle, degreesOfFreedom) &
       bind(C, name='WidthDegreesOfFreedomSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: degreesOfFreedomSize
-   character(c_char), intent(in) :: degreesOfFreedom(degreesOfFreedomSize)
+   integer(c_int), intent(in), value :: degreesOfFreedom
 end subroutine WidthDegreesOfFreedomSet
 
 
@@ -277,7 +277,7 @@ function WidthXYs1dGet(handle) &
       bind(C, name='WidthXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: WidthXYs1dGet
 end function WidthXYs1dGet
 
@@ -287,7 +287,7 @@ subroutine WidthXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine WidthXYs1dSet
 
 
@@ -318,7 +318,7 @@ function WidthConstant1dGet(handle) &
       bind(C, name='WidthConstant1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: WidthConstant1dGet
 end function WidthConstant1dGet
 
@@ -328,7 +328,7 @@ subroutine WidthConstant1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine WidthConstant1dSet
 
 
@@ -359,7 +359,7 @@ function WidthRegions1dGet(handle) &
       bind(C, name='WidthRegions1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: WidthRegions1dGet
 end function WidthRegions1dGet
 
@@ -369,7 +369,7 @@ subroutine WidthRegions1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine WidthRegions1dSet
 
 

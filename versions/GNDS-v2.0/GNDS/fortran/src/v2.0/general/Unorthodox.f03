@@ -39,7 +39,7 @@ function UnorthodoxCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
+   type(c_ptr), intent(in), value :: mass
    type(c_ptr) :: UnorthodoxCreateConst
 end function UnorthodoxCreateConst
 
@@ -54,7 +54,7 @@ function UnorthodoxCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
+   type(c_ptr), intent(in), value :: mass
    type(c_ptr) :: UnorthodoxCreate
 end function UnorthodoxCreate
 
@@ -63,7 +63,8 @@ subroutine UnorthodoxAssign(handleLHS, handleRHS) &
       bind(C, name='UnorthodoxAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine UnorthodoxAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function UnorthodoxRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnorthodoxRead
 end function UnorthodoxRead
@@ -98,7 +99,7 @@ function UnorthodoxWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnorthodoxWrite
 end function UnorthodoxWrite
@@ -191,7 +192,7 @@ function UnorthodoxMassGet(handle) &
       bind(C, name='UnorthodoxMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: UnorthodoxMassGet
 end function UnorthodoxMassGet
 
@@ -201,7 +202,7 @@ subroutine UnorthodoxMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine UnorthodoxMassSet
 
 

@@ -204,6 +204,10 @@ SpectraSpectrumSet(
       (CLASSNAME, CLASSNAME+"SpectrumSet", self, extract::spectrum, index_, spectrum);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 SpectraSpectrumHasByLabel(
@@ -248,6 +252,10 @@ SpectraSpectrumSetByLabel(
       (CLASSNAME, CLASSNAME+"SpectrumSetByLabel",
        self, extract::spectrum, meta::label, label, spectrum);
 }
+
+// ------------------------
+// Re: metadatum pid
+// ------------------------
 
 // Has, by pid
 int

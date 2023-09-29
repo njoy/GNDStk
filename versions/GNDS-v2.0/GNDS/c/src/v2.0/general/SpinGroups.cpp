@@ -204,6 +204,10 @@ SpinGroupsSpinGroupSet(
       (CLASSNAME, CLASSNAME+"SpinGroupSet", self, extract::spinGroup, index_, spinGroup);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 SpinGroupsSpinGroupHasByLabel(
@@ -249,6 +253,10 @@ SpinGroupsSpinGroupSetByLabel(
        self, extract::spinGroup, meta::label, label, spinGroup);
 }
 
+// ------------------------
+// Re: metadatum spin
+// ------------------------
+
 // Has, by spin
 int
 SpinGroupsSpinGroupHasBySpin(
@@ -293,6 +301,10 @@ SpinGroupsSpinGroupSetBySpin(
       (CLASSNAME, CLASSNAME+"SpinGroupSetBySpin",
        self, extract::spinGroup, meta::spin, spin, spinGroup);
 }
+
+// ------------------------
+// Re: metadatum parity
+// ------------------------
 
 // Has, by parity
 int

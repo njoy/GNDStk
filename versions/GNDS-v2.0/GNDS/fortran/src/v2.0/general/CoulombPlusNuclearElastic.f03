@@ -54,10 +54,10 @@ function CoulombPlusNuclearElasticCreateConst( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   logical(c_bool), value, intent(in) :: identicalParticles
-   type(c_ptr), value :: RutherfordScattering
-   type(c_ptr), value :: nuclearAmplitudeExpansion
-   type(c_ptr), value :: nuclearPlusInterference
+   logical(c_bool), intent(in), value :: identicalParticles
+   type(c_ptr), intent(in), value :: RutherfordScattering
+   type(c_ptr), intent(in), value :: nuclearAmplitudeExpansion
+   type(c_ptr), intent(in), value :: nuclearPlusInterference
    type(c_ptr) :: CoulombPlusNuclearElasticCreateConst
 end function CoulombPlusNuclearElasticCreateConst
 
@@ -87,10 +87,10 @@ function CoulombPlusNuclearElasticCreate( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   logical(c_bool), value, intent(in) :: identicalParticles
-   type(c_ptr), value :: RutherfordScattering
-   type(c_ptr), value :: nuclearAmplitudeExpansion
-   type(c_ptr), value :: nuclearPlusInterference
+   logical(c_bool), intent(in), value :: identicalParticles
+   type(c_ptr), intent(in), value :: RutherfordScattering
+   type(c_ptr), intent(in), value :: nuclearAmplitudeExpansion
+   type(c_ptr), intent(in), value :: nuclearPlusInterference
    type(c_ptr) :: CoulombPlusNuclearElasticCreate
 end function CoulombPlusNuclearElasticCreate
 
@@ -99,7 +99,8 @@ subroutine CoulombPlusNuclearElasticAssign(handleLHS, handleRHS) &
       bind(C, name='CoulombPlusNuclearElasticAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CoulombPlusNuclearElasticAssign
 
 !! Delete
@@ -123,7 +124,7 @@ function CoulombPlusNuclearElasticRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CoulombPlusNuclearElasticRead
 end function CoulombPlusNuclearElasticRead
@@ -134,7 +135,7 @@ function CoulombPlusNuclearElasticWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CoulombPlusNuclearElasticWrite
 end function CoulombPlusNuclearElasticWrite
@@ -322,13 +323,12 @@ function CoulombPlusNuclearElasticIdenticalParticlesGet(handle) &
 end function CoulombPlusNuclearElasticIdenticalParticlesGet
 
 !! Set
-subroutine CoulombPlusNuclearElasticIdenticalParticlesSet(handle, identicalParticles, identicalParticlesSize) &
+subroutine CoulombPlusNuclearElasticIdenticalParticlesSet(handle, identicalParticles) &
       bind(C, name='CoulombPlusNuclearElasticIdenticalParticlesSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: identicalParticlesSize
-   character(c_char), intent(in) :: identicalParticles(identicalParticlesSize)
+   logical(c_bool), intent(in), value :: identicalParticles
 end subroutine CoulombPlusNuclearElasticIdenticalParticlesSet
 
 
@@ -359,7 +359,7 @@ function CoulombPlusNuclearElasticRutherfordScatteringGet(handle) &
       bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CoulombPlusNuclearElasticRutherfordScatteringGet
 end function CoulombPlusNuclearElasticRutherfordScatteringGet
 
@@ -369,7 +369,7 @@ subroutine CoulombPlusNuclearElasticRutherfordScatteringSet(handle, fieldHandle)
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CoulombPlusNuclearElasticRutherfordScatteringSet
 
 
@@ -400,7 +400,7 @@ function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(handle) &
       bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet
 end function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet
 
@@ -410,7 +410,7 @@ subroutine CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet(handle, fieldHa
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CoulombPlusNuclearElasticNuclearAmplitudeExpansionSet
 
 
@@ -441,7 +441,7 @@ function CoulombPlusNuclearElasticNuclearPlusInterferenceGet(handle) &
       bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CoulombPlusNuclearElasticNuclearPlusInterferenceGet
 end function CoulombPlusNuclearElasticNuclearPlusInterferenceGet
 
@@ -451,7 +451,7 @@ subroutine CoulombPlusNuclearElasticNuclearPlusInterferenceSet(handle, fieldHand
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CoulombPlusNuclearElasticNuclearPlusInterferenceSet
 
 

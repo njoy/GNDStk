@@ -53,13 +53,13 @@ function PoPsCreateConst( &
    character(c_char), intent(in) :: version(versionSize)
    integer(c_size_t), intent(in), value :: formatSize
    character(c_char), intent(in) :: format(formatSize)
-   type(c_ptr), value :: aliases
-   type(c_ptr), value :: baryons
-   type(c_ptr), value :: chemicalElements
-   type(c_ptr), value :: styles
-   type(c_ptr), value :: unorthodoxes
-   type(c_ptr), value :: gaugeBosons
-   type(c_ptr), value :: leptons
+   type(c_ptr), intent(in), value :: aliases
+   type(c_ptr), intent(in), value :: baryons
+   type(c_ptr), intent(in), value :: chemicalElements
+   type(c_ptr), intent(in), value :: styles
+   type(c_ptr), intent(in), value :: unorthodoxes
+   type(c_ptr), intent(in), value :: gaugeBosons
+   type(c_ptr), intent(in), value :: leptons
    type(c_ptr) :: PoPsCreateConst
 end function PoPsCreateConst
 
@@ -88,13 +88,13 @@ function PoPsCreate( &
    character(c_char), intent(in) :: version(versionSize)
    integer(c_size_t), intent(in), value :: formatSize
    character(c_char), intent(in) :: format(formatSize)
-   type(c_ptr), value :: aliases
-   type(c_ptr), value :: baryons
-   type(c_ptr), value :: chemicalElements
-   type(c_ptr), value :: styles
-   type(c_ptr), value :: unorthodoxes
-   type(c_ptr), value :: gaugeBosons
-   type(c_ptr), value :: leptons
+   type(c_ptr), intent(in), value :: aliases
+   type(c_ptr), intent(in), value :: baryons
+   type(c_ptr), intent(in), value :: chemicalElements
+   type(c_ptr), intent(in), value :: styles
+   type(c_ptr), intent(in), value :: unorthodoxes
+   type(c_ptr), intent(in), value :: gaugeBosons
+   type(c_ptr), intent(in), value :: leptons
    type(c_ptr) :: PoPsCreate
 end function PoPsCreate
 
@@ -103,7 +103,8 @@ subroutine PoPsAssign(handleLHS, handleRHS) &
       bind(C, name='PoPsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine PoPsAssign
 
 !! Delete
@@ -127,7 +128,7 @@ function PoPsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PoPsRead
 end function PoPsRead
@@ -138,7 +139,7 @@ function PoPsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PoPsWrite
 end function PoPsWrite
@@ -297,7 +298,7 @@ function PoPsAliasesGet(handle) &
       bind(C, name='PoPsAliasesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsAliasesGet
 end function PoPsAliasesGet
 
@@ -307,7 +308,7 @@ subroutine PoPsAliasesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsAliasesSet
 
 
@@ -338,7 +339,7 @@ function PoPsBaryonsGet(handle) &
       bind(C, name='PoPsBaryonsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsBaryonsGet
 end function PoPsBaryonsGet
 
@@ -348,7 +349,7 @@ subroutine PoPsBaryonsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsBaryonsSet
 
 
@@ -379,7 +380,7 @@ function PoPsChemicalElementsGet(handle) &
       bind(C, name='PoPsChemicalElementsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsChemicalElementsGet
 end function PoPsChemicalElementsGet
 
@@ -389,7 +390,7 @@ subroutine PoPsChemicalElementsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsChemicalElementsSet
 
 
@@ -420,7 +421,7 @@ function PoPsStylesGet(handle) &
       bind(C, name='PoPsStylesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsStylesGet
 end function PoPsStylesGet
 
@@ -430,7 +431,7 @@ subroutine PoPsStylesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsStylesSet
 
 
@@ -461,7 +462,7 @@ function PoPsUnorthodoxesGet(handle) &
       bind(C, name='PoPsUnorthodoxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsUnorthodoxesGet
 end function PoPsUnorthodoxesGet
 
@@ -471,7 +472,7 @@ subroutine PoPsUnorthodoxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsUnorthodoxesSet
 
 
@@ -502,7 +503,7 @@ function PoPsGaugeBosonsGet(handle) &
       bind(C, name='PoPsGaugeBosonsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsGaugeBosonsGet
 end function PoPsGaugeBosonsGet
 
@@ -512,7 +513,7 @@ subroutine PoPsGaugeBosonsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsGaugeBosonsSet
 
 
@@ -543,7 +544,7 @@ function PoPsLeptonsGet(handle) &
       bind(C, name='PoPsLeptonsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PoPsLeptonsGet
 end function PoPsLeptonsGet
 
@@ -553,7 +554,7 @@ subroutine PoPsLeptonsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PoPsLeptonsSet
 
 

@@ -35,8 +35,8 @@ function CovarianceSectionsCreateConst( &
       bind(C, name='CovarianceSectionsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: covarianceSectionSize
-   type(c_ptr) :: covarianceSection(covarianceSectionSize)
+   integer(c_size_t), intent(in), value :: covarianceSectionSize
+   type(c_ptr), intent(in) :: covarianceSection(covarianceSectionSize)
    type(c_ptr) :: CovarianceSectionsCreateConst
 end function CovarianceSectionsCreateConst
 
@@ -47,8 +47,8 @@ function CovarianceSectionsCreate( &
       bind(C, name='CovarianceSectionsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: covarianceSectionSize
-   type(c_ptr) :: covarianceSection(covarianceSectionSize)
+   integer(c_size_t), intent(in), value :: covarianceSectionSize
+   type(c_ptr), intent(in) :: covarianceSection(covarianceSectionSize)
    type(c_ptr) :: CovarianceSectionsCreate
 end function CovarianceSectionsCreate
 
@@ -57,7 +57,8 @@ subroutine CovarianceSectionsAssign(handleLHS, handleRHS) &
       bind(C, name='CovarianceSectionsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CovarianceSectionsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function CovarianceSectionsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceSectionsRead
 end function CovarianceSectionsRead
@@ -92,7 +93,7 @@ function CovarianceSectionsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceSectionsWrite
 end function CovarianceSectionsWrite
@@ -236,7 +237,7 @@ subroutine CovarianceSectionsCovarianceSectionSetByLabel(handle, meta, metaSize,
       bind(C, name='CovarianceSectionsCovarianceSectionSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function CovarianceSectionsCovarianceSectionHasByCrossTerm(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    integer(c_int) :: CovarianceSectionsCovarianceSectionHasByCrossTerm
 end function CovarianceSectionsCovarianceSectionHasByCrossTerm
 
@@ -262,7 +263,7 @@ function CovarianceSectionsCovarianceSectionGetByCrossTermConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByCrossTermConst
 end function CovarianceSectionsCovarianceSectionGetByCrossTermConst
 
@@ -272,7 +273,7 @@ function CovarianceSectionsCovarianceSectionGetByCrossTerm(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByCrossTerm
 end function CovarianceSectionsCovarianceSectionGetByCrossTerm
 
@@ -281,8 +282,8 @@ subroutine CovarianceSectionsCovarianceSectionSetByCrossTerm(handle, meta, field
       bind(C, name='CovarianceSectionsCovarianceSectionSetByCrossTerm')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionsCovarianceSectionSetByCrossTerm
 

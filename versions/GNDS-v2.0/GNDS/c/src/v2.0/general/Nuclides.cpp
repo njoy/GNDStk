@@ -204,6 +204,10 @@ NuclidesNuclideSet(
       (CLASSNAME, CLASSNAME+"NuclideSet", self, extract::nuclide, index_, nuclide);
 }
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // Has, by id
 int
 NuclidesNuclideHasById(

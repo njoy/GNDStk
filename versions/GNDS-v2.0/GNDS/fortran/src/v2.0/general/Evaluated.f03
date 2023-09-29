@@ -53,9 +53,9 @@ function EvaluatedCreateConst( &
    character(c_char), intent(in) :: library(librarySize)
    integer(c_size_t), intent(in), value :: versionSize
    character(c_char), intent(in) :: version(versionSize)
-   type(c_ptr), value :: documentation
-   type(c_ptr), value :: temperature
-   type(c_ptr), value :: projectileEnergyDomain
+   type(c_ptr), intent(in), value :: documentation
+   type(c_ptr), intent(in), value :: temperature
+   type(c_ptr), intent(in), value :: projectileEnergyDomain
    type(c_ptr) :: EvaluatedCreateConst
 end function EvaluatedCreateConst
 
@@ -84,9 +84,9 @@ function EvaluatedCreate( &
    character(c_char), intent(in) :: library(librarySize)
    integer(c_size_t), intent(in), value :: versionSize
    character(c_char), intent(in) :: version(versionSize)
-   type(c_ptr), value :: documentation
-   type(c_ptr), value :: temperature
-   type(c_ptr), value :: projectileEnergyDomain
+   type(c_ptr), intent(in), value :: documentation
+   type(c_ptr), intent(in), value :: temperature
+   type(c_ptr), intent(in), value :: projectileEnergyDomain
    type(c_ptr) :: EvaluatedCreate
 end function EvaluatedCreate
 
@@ -95,7 +95,8 @@ subroutine EvaluatedAssign(handleLHS, handleRHS) &
       bind(C, name='EvaluatedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine EvaluatedAssign
 
 !! Delete
@@ -119,7 +120,7 @@ function EvaluatedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EvaluatedRead
 end function EvaluatedRead
@@ -130,7 +131,7 @@ function EvaluatedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EvaluatedWrite
 end function EvaluatedWrite
@@ -322,7 +323,7 @@ function EvaluatedDocumentationGet(handle) &
       bind(C, name='EvaluatedDocumentationGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: EvaluatedDocumentationGet
 end function EvaluatedDocumentationGet
 
@@ -332,7 +333,7 @@ subroutine EvaluatedDocumentationSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine EvaluatedDocumentationSet
 
 
@@ -363,7 +364,7 @@ function EvaluatedTemperatureGet(handle) &
       bind(C, name='EvaluatedTemperatureGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: EvaluatedTemperatureGet
 end function EvaluatedTemperatureGet
 
@@ -373,7 +374,7 @@ subroutine EvaluatedTemperatureSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine EvaluatedTemperatureSet
 
 
@@ -404,7 +405,7 @@ function EvaluatedProjectileEnergyDomainGet(handle) &
       bind(C, name='EvaluatedProjectileEnergyDomainGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: EvaluatedProjectileEnergyDomainGet
 end function EvaluatedProjectileEnergyDomainGet
 
@@ -414,7 +415,7 @@ subroutine EvaluatedProjectileEnergyDomainSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine EvaluatedProjectileEnergyDomainSet
 
 

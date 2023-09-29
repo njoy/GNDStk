@@ -204,6 +204,10 @@ OrphanProductsOrphanProductSet(
       (CLASSNAME, CLASSNAME+"OrphanProductSet", self, extract::orphanProduct, index_, orphanProduct);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 OrphanProductsOrphanProductHasByLabel(
@@ -248,6 +252,10 @@ OrphanProductsOrphanProductSetByLabel(
       (CLASSNAME, CLASSNAME+"OrphanProductSetByLabel",
        self, extract::orphanProduct, meta::label, label, orphanProduct);
 }
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // Has, by ENDF_MT
 int

@@ -35,8 +35,8 @@ function WeightedFunctionalsCreateConst( &
       bind(C, name='WeightedFunctionalsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: weightedSize
-   type(c_ptr) :: weighted(weightedSize)
+   integer(c_size_t), intent(in), value :: weightedSize
+   type(c_ptr), intent(in) :: weighted(weightedSize)
    type(c_ptr) :: WeightedFunctionalsCreateConst
 end function WeightedFunctionalsCreateConst
 
@@ -47,8 +47,8 @@ function WeightedFunctionalsCreate( &
       bind(C, name='WeightedFunctionalsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: weightedSize
-   type(c_ptr) :: weighted(weightedSize)
+   integer(c_size_t), intent(in), value :: weightedSize
+   type(c_ptr), intent(in) :: weighted(weightedSize)
    type(c_ptr) :: WeightedFunctionalsCreate
 end function WeightedFunctionalsCreate
 
@@ -57,7 +57,8 @@ subroutine WeightedFunctionalsAssign(handleLHS, handleRHS) &
       bind(C, name='WeightedFunctionalsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine WeightedFunctionalsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function WeightedFunctionalsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WeightedFunctionalsRead
 end function WeightedFunctionalsRead
@@ -92,7 +93,7 @@ function WeightedFunctionalsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: WeightedFunctionalsWrite
 end function WeightedFunctionalsWrite

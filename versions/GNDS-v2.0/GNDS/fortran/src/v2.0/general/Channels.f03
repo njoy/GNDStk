@@ -35,8 +35,8 @@ function ChannelsCreateConst( &
       bind(C, name='ChannelsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: channelSize
-   type(c_ptr) :: channel(channelSize)
+   integer(c_size_t), intent(in), value :: channelSize
+   type(c_ptr), intent(in) :: channel(channelSize)
    type(c_ptr) :: ChannelsCreateConst
 end function ChannelsCreateConst
 
@@ -47,8 +47,8 @@ function ChannelsCreate( &
       bind(C, name='ChannelsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: channelSize
-   type(c_ptr) :: channel(channelSize)
+   integer(c_size_t), intent(in), value :: channelSize
+   type(c_ptr), intent(in) :: channel(channelSize)
    type(c_ptr) :: ChannelsCreate
 end function ChannelsCreate
 
@@ -57,7 +57,8 @@ subroutine ChannelsAssign(handleLHS, handleRHS) &
       bind(C, name='ChannelsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ChannelsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ChannelsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChannelsRead
 end function ChannelsRead
@@ -92,7 +93,7 @@ function ChannelsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChannelsWrite
 end function ChannelsWrite
@@ -236,7 +237,7 @@ subroutine ChannelsChannelSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='ChannelsChannelSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine ChannelsChannelSetByResonanceReaction(handle, meta, metaSize, fieldHa
       bind(C, name='ChannelsChannelSetByResonanceReaction')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -300,7 +301,7 @@ function ChannelsChannelHasByL(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ChannelsChannelHasByL
 end function ChannelsChannelHasByL
 
@@ -310,7 +311,7 @@ function ChannelsChannelGetByLConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChannelsChannelGetByLConst
 end function ChannelsChannelGetByLConst
 
@@ -320,7 +321,7 @@ function ChannelsChannelGetByL(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChannelsChannelGetByL
 end function ChannelsChannelGetByL
 
@@ -329,8 +330,8 @@ subroutine ChannelsChannelSetByL(handle, meta, fieldHandle) &
       bind(C, name='ChannelsChannelSetByL')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChannelsChannelSetByL
 
@@ -344,7 +345,7 @@ function ChannelsChannelHasByChannelSpin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ChannelsChannelHasByChannelSpin
 end function ChannelsChannelHasByChannelSpin
 
@@ -354,7 +355,7 @@ function ChannelsChannelGetByChannelSpinConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChannelsChannelGetByChannelSpinConst
 end function ChannelsChannelGetByChannelSpinConst
 
@@ -364,7 +365,7 @@ function ChannelsChannelGetByChannelSpin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChannelsChannelGetByChannelSpin
 end function ChannelsChannelGetByChannelSpin
 
@@ -373,8 +374,8 @@ subroutine ChannelsChannelSetByChannelSpin(handle, meta, fieldHandle) &
       bind(C, name='ChannelsChannelSetByChannelSpin')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChannelsChannelSetByChannelSpin
 
@@ -388,7 +389,7 @@ function ChannelsChannelHasByColumnIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ChannelsChannelHasByColumnIndex
 end function ChannelsChannelHasByColumnIndex
 
@@ -398,7 +399,7 @@ function ChannelsChannelGetByColumnIndexConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChannelsChannelGetByColumnIndexConst
 end function ChannelsChannelGetByColumnIndexConst
 
@@ -408,7 +409,7 @@ function ChannelsChannelGetByColumnIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChannelsChannelGetByColumnIndex
 end function ChannelsChannelGetByColumnIndex
 
@@ -417,8 +418,8 @@ subroutine ChannelsChannelSetByColumnIndex(handle, meta, fieldHandle) &
       bind(C, name='ChannelsChannelSetByColumnIndex')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChannelsChannelSetByColumnIndex
 

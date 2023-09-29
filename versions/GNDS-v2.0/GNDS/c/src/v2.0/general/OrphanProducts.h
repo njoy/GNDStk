@@ -166,6 +166,10 @@ OrphanProductsOrphanProductSet(
    ConstHandle2ConstOrphanProduct orphanProduct
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 OrphanProductsOrphanProductHasByLabel(
@@ -194,6 +198,10 @@ OrphanProductsOrphanProductSetByLabel(
    const char *const label,
    ConstHandle2ConstOrphanProduct orphanProduct
 );
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // +++ Has, by ENDF_MT
 extern_c int

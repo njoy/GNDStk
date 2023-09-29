@@ -36,8 +36,8 @@ function ResolvedRegionCreateConst( &
       bind(C, name='ResolvedRegionCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
    type(c_ptr) :: ResolvedRegionCreateConst
 end function ResolvedRegionCreateConst
 
@@ -49,8 +49,8 @@ function ResolvedRegionCreate( &
       bind(C, name='ResolvedRegionCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
    type(c_ptr) :: ResolvedRegionCreate
 end function ResolvedRegionCreate
 
@@ -59,7 +59,8 @@ subroutine ResolvedRegionAssign(handleLHS, handleRHS) &
       bind(C, name='ResolvedRegionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResolvedRegionAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function ResolvedRegionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResolvedRegionRead
 end function ResolvedRegionRead
@@ -94,7 +95,7 @@ function ResolvedRegionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResolvedRegionWrite
 end function ResolvedRegionWrite
@@ -154,7 +155,7 @@ function ResolvedRegionXYs1dGet(handle) &
       bind(C, name='ResolvedRegionXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResolvedRegionXYs1dGet
 end function ResolvedRegionXYs1dGet
 
@@ -164,7 +165,7 @@ subroutine ResolvedRegionXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResolvedRegionXYs1dSet
 
 
@@ -195,7 +196,7 @@ function ResolvedRegionRegions1dGet(handle) &
       bind(C, name='ResolvedRegionRegions1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResolvedRegionRegions1dGet
 end function ResolvedRegionRegions1dGet
 
@@ -205,7 +206,7 @@ subroutine ResolvedRegionRegions1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResolvedRegionRegions1dSet
 
 

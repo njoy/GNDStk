@@ -37,9 +37,9 @@ function NuclearPlusInterferenceCreateConst( &
       bind(C, name='NuclearPlusInterferenceCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: muCutoff
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: distribution
+   real(c_double), intent(in), value :: muCutoff
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: distribution
    type(c_ptr) :: NuclearPlusInterferenceCreateConst
 end function NuclearPlusInterferenceCreateConst
 
@@ -52,9 +52,9 @@ function NuclearPlusInterferenceCreate( &
       bind(C, name='NuclearPlusInterferenceCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: muCutoff
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: distribution
+   real(c_double), intent(in), value :: muCutoff
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: distribution
    type(c_ptr) :: NuclearPlusInterferenceCreate
 end function NuclearPlusInterferenceCreate
 
@@ -63,7 +63,8 @@ subroutine NuclearPlusInterferenceAssign(handleLHS, handleRHS) &
       bind(C, name='NuclearPlusInterferenceAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine NuclearPlusInterferenceAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function NuclearPlusInterferenceRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NuclearPlusInterferenceRead
 end function NuclearPlusInterferenceRead
@@ -98,7 +99,7 @@ function NuclearPlusInterferenceWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NuclearPlusInterferenceWrite
 end function NuclearPlusInterferenceWrite
@@ -154,13 +155,12 @@ function NuclearPlusInterferenceMuCutoffGet(handle) &
 end function NuclearPlusInterferenceMuCutoffGet
 
 !! Set
-subroutine NuclearPlusInterferenceMuCutoffSet(handle, muCutoff, muCutoffSize) &
+subroutine NuclearPlusInterferenceMuCutoffSet(handle, muCutoff) &
       bind(C, name='NuclearPlusInterferenceMuCutoffSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: muCutoffSize
-   character(c_char), intent(in) :: muCutoff(muCutoffSize)
+   real(c_double), intent(in), value :: muCutoff
 end subroutine NuclearPlusInterferenceMuCutoffSet
 
 
@@ -191,7 +191,7 @@ function NuclearPlusInterferenceCrossSectionGet(handle) &
       bind(C, name='NuclearPlusInterferenceCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclearPlusInterferenceCrossSectionGet
 end function NuclearPlusInterferenceCrossSectionGet
 
@@ -201,7 +201,7 @@ subroutine NuclearPlusInterferenceCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclearPlusInterferenceCrossSectionSet
 
 
@@ -232,7 +232,7 @@ function NuclearPlusInterferenceDistributionGet(handle) &
       bind(C, name='NuclearPlusInterferenceDistributionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclearPlusInterferenceDistributionGet
 end function NuclearPlusInterferenceDistributionGet
 
@@ -242,7 +242,7 @@ subroutine NuclearPlusInterferenceDistributionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclearPlusInterferenceDistributionSet
 
 

@@ -204,6 +204,10 @@ InternalConversionCoefficientsShellSet(
       (CLASSNAME, CLASSNAME+"ShellSet", self, extract::shell, index_, shell);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 InternalConversionCoefficientsShellHasByLabel(
@@ -248,6 +252,10 @@ InternalConversionCoefficientsShellSetByLabel(
       (CLASSNAME, CLASSNAME+"ShellSetByLabel",
        self, extract::shell, meta::label, label, shell);
 }
+
+// ------------------------
+// Re: metadatum value
+// ------------------------
 
 // Has, by value
 int

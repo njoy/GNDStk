@@ -204,6 +204,10 @@ ColumnHeadersColumnSet(
       (CLASSNAME, CLASSNAME+"ColumnSet", self, extract::column, index_, column);
 }
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // Has, by index
 int
 ColumnHeadersColumnHasByIndex(
@@ -249,6 +253,10 @@ ColumnHeadersColumnSetByIndex(
        self, extract::column, meta::index, index, column);
 }
 
+// ------------------------
+// Re: metadatum name
+// ------------------------
+
 // Has, by name
 int
 ColumnHeadersColumnHasByName(
@@ -293,6 +301,10 @@ ColumnHeadersColumnSetByName(
       (CLASSNAME, CLASSNAME+"ColumnSetByName",
        self, extract::column, meta::name, name, column);
 }
+
+// ------------------------
+// Re: metadatum unit
+// ------------------------
 
 // Has, by unit
 int

@@ -35,7 +35,7 @@ function FormFactorCreateConst( &
       bind(C, name='FormFactorCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: FormFactorCreateConst
 end function FormFactorCreateConst
 
@@ -46,7 +46,7 @@ function FormFactorCreate( &
       bind(C, name='FormFactorCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: FormFactorCreate
 end function FormFactorCreate
 
@@ -55,7 +55,8 @@ subroutine FormFactorAssign(handleLHS, handleRHS) &
       bind(C, name='FormFactorAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FormFactorAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function FormFactorRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FormFactorRead
 end function FormFactorRead
@@ -90,7 +91,7 @@ function FormFactorWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FormFactorWrite
 end function FormFactorWrite
@@ -150,7 +151,7 @@ function FormFactorXYs1dGet(handle) &
       bind(C, name='FormFactorXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FormFactorXYs1dGet
 end function FormFactorXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine FormFactorXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FormFactorXYs1dSet
 
 

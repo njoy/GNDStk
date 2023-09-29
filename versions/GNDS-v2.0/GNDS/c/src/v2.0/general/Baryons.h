@@ -166,6 +166,10 @@ BaryonsBaryonSet(
    ConstHandle2ConstBaryon baryon
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 BaryonsBaryonHasById(

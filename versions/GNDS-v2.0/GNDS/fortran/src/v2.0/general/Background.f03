@@ -37,9 +37,9 @@ function BackgroundCreateConst( &
       bind(C, name='BackgroundCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: resolvedRegion
-   type(c_ptr), value :: fastRegion
-   type(c_ptr), value :: unresolvedRegion
+   type(c_ptr), intent(in), value :: resolvedRegion
+   type(c_ptr), intent(in), value :: fastRegion
+   type(c_ptr), intent(in), value :: unresolvedRegion
    type(c_ptr) :: BackgroundCreateConst
 end function BackgroundCreateConst
 
@@ -52,9 +52,9 @@ function BackgroundCreate( &
       bind(C, name='BackgroundCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: resolvedRegion
-   type(c_ptr), value :: fastRegion
-   type(c_ptr), value :: unresolvedRegion
+   type(c_ptr), intent(in), value :: resolvedRegion
+   type(c_ptr), intent(in), value :: fastRegion
+   type(c_ptr), intent(in), value :: unresolvedRegion
    type(c_ptr) :: BackgroundCreate
 end function BackgroundCreate
 
@@ -63,7 +63,8 @@ subroutine BackgroundAssign(handleLHS, handleRHS) &
       bind(C, name='BackgroundAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine BackgroundAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function BackgroundRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BackgroundRead
 end function BackgroundRead
@@ -98,7 +99,7 @@ function BackgroundWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BackgroundWrite
 end function BackgroundWrite
@@ -158,7 +159,7 @@ function BackgroundResolvedRegionGet(handle) &
       bind(C, name='BackgroundResolvedRegionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BackgroundResolvedRegionGet
 end function BackgroundResolvedRegionGet
 
@@ -168,7 +169,7 @@ subroutine BackgroundResolvedRegionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BackgroundResolvedRegionSet
 
 
@@ -199,7 +200,7 @@ function BackgroundFastRegionGet(handle) &
       bind(C, name='BackgroundFastRegionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BackgroundFastRegionGet
 end function BackgroundFastRegionGet
 
@@ -209,7 +210,7 @@ subroutine BackgroundFastRegionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BackgroundFastRegionSet
 
 
@@ -240,7 +241,7 @@ function BackgroundUnresolvedRegionGet(handle) &
       bind(C, name='BackgroundUnresolvedRegionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BackgroundUnresolvedRegionGet
 end function BackgroundUnresolvedRegionGet
 
@@ -250,7 +251,7 @@ subroutine BackgroundUnresolvedRegionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BackgroundUnresolvedRegionSet
 
 

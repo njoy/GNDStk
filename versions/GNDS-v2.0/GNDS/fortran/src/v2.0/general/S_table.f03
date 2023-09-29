@@ -35,7 +35,7 @@ function S_tableCreateConst( &
       bind(C, name='S_tableCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: gridded2d
+   type(c_ptr), intent(in), value :: gridded2d
    type(c_ptr) :: S_tableCreateConst
 end function S_tableCreateConst
 
@@ -46,7 +46,7 @@ function S_tableCreate( &
       bind(C, name='S_tableCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: gridded2d
+   type(c_ptr), intent(in), value :: gridded2d
    type(c_ptr) :: S_tableCreate
 end function S_tableCreate
 
@@ -55,7 +55,8 @@ subroutine S_tableAssign(handleLHS, handleRHS) &
       bind(C, name='S_tableAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine S_tableAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function S_tableRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: S_tableRead
 end function S_tableRead
@@ -90,7 +91,7 @@ function S_tableWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: S_tableWrite
 end function S_tableWrite
@@ -150,7 +151,7 @@ function S_tableGridded2dGet(handle) &
       bind(C, name='S_tableGridded2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: S_tableGridded2dGet
 end function S_tableGridded2dGet
 
@@ -160,7 +161,7 @@ subroutine S_tableGridded2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine S_tableGridded2dSet
 
 

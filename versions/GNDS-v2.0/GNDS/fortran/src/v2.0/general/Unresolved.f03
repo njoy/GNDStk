@@ -39,11 +39,11 @@ function UnresolvedCreateConst( &
       bind(C, name='UnresolvedCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   type(c_ptr), value :: tabulatedWidths
+   type(c_ptr), intent(in), value :: tabulatedWidths
    type(c_ptr) :: UnresolvedCreateConst
 end function UnresolvedCreateConst
 
@@ -58,11 +58,11 @@ function UnresolvedCreate( &
       bind(C, name='UnresolvedCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   type(c_ptr), value :: tabulatedWidths
+   type(c_ptr), intent(in), value :: tabulatedWidths
    type(c_ptr) :: UnresolvedCreate
 end function UnresolvedCreate
 
@@ -71,7 +71,8 @@ subroutine UnresolvedAssign(handleLHS, handleRHS) &
       bind(C, name='UnresolvedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine UnresolvedAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function UnresolvedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnresolvedRead
 end function UnresolvedRead
@@ -106,7 +107,7 @@ function UnresolvedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnresolvedWrite
 end function UnresolvedWrite
@@ -162,13 +163,12 @@ function UnresolvedDomainMinGet(handle) &
 end function UnresolvedDomainMinGet
 
 !! Set
-subroutine UnresolvedDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine UnresolvedDomainMinSet(handle, domainMin) &
       bind(C, name='UnresolvedDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine UnresolvedDomainMinSet
 
 
@@ -195,13 +195,12 @@ function UnresolvedDomainMaxGet(handle) &
 end function UnresolvedDomainMaxGet
 
 !! Set
-subroutine UnresolvedDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine UnresolvedDomainMaxSet(handle, domainMax) &
       bind(C, name='UnresolvedDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine UnresolvedDomainMaxSet
 
 
@@ -265,7 +264,7 @@ function UnresolvedTabulatedWidthsGet(handle) &
       bind(C, name='UnresolvedTabulatedWidthsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: UnresolvedTabulatedWidthsGet
 end function UnresolvedTabulatedWidthsGet
 
@@ -275,7 +274,7 @@ subroutine UnresolvedTabulatedWidthsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine UnresolvedTabulatedWidthsSet
 
 

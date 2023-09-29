@@ -280,6 +280,10 @@ SpectrumDiscreteSet(
       (CLASSNAME, CLASSNAME+"DiscreteSet", self, extract::discrete, index_, discrete);
 }
 
+// ------------------------
+// Re: metadatum type
+// ------------------------
+
 // Has, by type
 int
 SpectrumDiscreteHasByType(

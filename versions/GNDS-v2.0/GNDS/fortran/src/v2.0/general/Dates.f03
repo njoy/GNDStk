@@ -35,8 +35,8 @@ function DatesCreateConst( &
       bind(C, name='DatesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: dateSize
-   type(c_ptr) :: date(dateSize)
+   integer(c_size_t), intent(in), value :: dateSize
+   type(c_ptr), intent(in) :: date(dateSize)
    type(c_ptr) :: DatesCreateConst
 end function DatesCreateConst
 
@@ -47,8 +47,8 @@ function DatesCreate( &
       bind(C, name='DatesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: dateSize
-   type(c_ptr) :: date(dateSize)
+   integer(c_size_t), intent(in), value :: dateSize
+   type(c_ptr), intent(in) :: date(dateSize)
    type(c_ptr) :: DatesCreate
 end function DatesCreate
 
@@ -57,7 +57,8 @@ subroutine DatesAssign(handleLHS, handleRHS) &
       bind(C, name='DatesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DatesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function DatesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DatesRead
 end function DatesRead
@@ -92,7 +93,7 @@ function DatesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DatesWrite
 end function DatesWrite
@@ -236,7 +237,7 @@ subroutine DatesDateSetByValue(handle, meta, metaSize, fieldHandle) &
       bind(C, name='DatesDateSetByValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine DatesDateSetByDateType(handle, meta, metaSize, fieldHandle) &
       bind(C, name='DatesDateSetByDateType')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

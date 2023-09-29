@@ -204,6 +204,10 @@ ProductsProductSet(
       (CLASSNAME, CLASSNAME+"ProductSet", self, extract::product, index_, product);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ProductsProductHasByLabel(
@@ -248,6 +252,10 @@ ProductsProductSetByLabel(
       (CLASSNAME, CLASSNAME+"ProductSetByLabel",
        self, extract::product, meta::label, label, product);
 }
+
+// ------------------------
+// Re: metadatum pid
+// ------------------------
 
 // Has, by pid
 int

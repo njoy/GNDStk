@@ -36,8 +36,8 @@ function EvaporationCreateConst( &
       bind(C, name='EvaporationCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: U
-   type(c_ptr), value :: theta
+   type(c_ptr), intent(in), value :: U
+   type(c_ptr), intent(in), value :: theta
    type(c_ptr) :: EvaporationCreateConst
 end function EvaporationCreateConst
 
@@ -49,8 +49,8 @@ function EvaporationCreate( &
       bind(C, name='EvaporationCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: U
-   type(c_ptr), value :: theta
+   type(c_ptr), intent(in), value :: U
+   type(c_ptr), intent(in), value :: theta
    type(c_ptr) :: EvaporationCreate
 end function EvaporationCreate
 
@@ -59,7 +59,8 @@ subroutine EvaporationAssign(handleLHS, handleRHS) &
       bind(C, name='EvaporationAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine EvaporationAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function EvaporationRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EvaporationRead
 end function EvaporationRead
@@ -94,7 +95,7 @@ function EvaporationWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EvaporationWrite
 end function EvaporationWrite
@@ -154,7 +155,7 @@ function EvaporationUGet(handle) &
       bind(C, name='EvaporationUGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: EvaporationUGet
 end function EvaporationUGet
 
@@ -164,7 +165,7 @@ subroutine EvaporationUSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine EvaporationUSet
 
 
@@ -195,7 +196,7 @@ function EvaporationThetaGet(handle) &
       bind(C, name='EvaporationThetaGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: EvaporationThetaGet
 end function EvaporationThetaGet
 
@@ -205,7 +206,7 @@ subroutine EvaporationThetaSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine EvaporationThetaSet
 
 

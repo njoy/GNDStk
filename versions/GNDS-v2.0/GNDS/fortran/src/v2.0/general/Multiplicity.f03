@@ -42,14 +42,14 @@ function MultiplicityCreateConst( &
       bind(C, name='MultiplicityCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: constant1d
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
-   type(c_ptr), value :: polynomial1d
-   type(c_ptr), value :: reference
-   type(c_ptr), value :: branching1d
-   type(c_ptr), value :: branching3d
-   type(c_ptr), value :: unspecified
+   type(c_ptr), intent(in), value :: constant1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
+   type(c_ptr), intent(in), value :: polynomial1d
+   type(c_ptr), intent(in), value :: reference
+   type(c_ptr), intent(in), value :: branching1d
+   type(c_ptr), intent(in), value :: branching3d
+   type(c_ptr), intent(in), value :: unspecified
    type(c_ptr) :: MultiplicityCreateConst
 end function MultiplicityCreateConst
 
@@ -67,14 +67,14 @@ function MultiplicityCreate( &
       bind(C, name='MultiplicityCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: constant1d
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
-   type(c_ptr), value :: polynomial1d
-   type(c_ptr), value :: reference
-   type(c_ptr), value :: branching1d
-   type(c_ptr), value :: branching3d
-   type(c_ptr), value :: unspecified
+   type(c_ptr), intent(in), value :: constant1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
+   type(c_ptr), intent(in), value :: polynomial1d
+   type(c_ptr), intent(in), value :: reference
+   type(c_ptr), intent(in), value :: branching1d
+   type(c_ptr), intent(in), value :: branching3d
+   type(c_ptr), intent(in), value :: unspecified
    type(c_ptr) :: MultiplicityCreate
 end function MultiplicityCreate
 
@@ -83,7 +83,8 @@ subroutine MultiplicityAssign(handleLHS, handleRHS) &
       bind(C, name='MultiplicityAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MultiplicityAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function MultiplicityRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MultiplicityRead
 end function MultiplicityRead
@@ -118,7 +119,7 @@ function MultiplicityWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MultiplicityWrite
 end function MultiplicityWrite
@@ -178,7 +179,7 @@ function MultiplicityConstant1dGet(handle) &
       bind(C, name='MultiplicityConstant1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityConstant1dGet
 end function MultiplicityConstant1dGet
 
@@ -188,7 +189,7 @@ subroutine MultiplicityConstant1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityConstant1dSet
 
 
@@ -219,7 +220,7 @@ function MultiplicityXYs1dGet(handle) &
       bind(C, name='MultiplicityXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityXYs1dGet
 end function MultiplicityXYs1dGet
 
@@ -229,7 +230,7 @@ subroutine MultiplicityXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityXYs1dSet
 
 
@@ -260,7 +261,7 @@ function MultiplicityRegions1dGet(handle) &
       bind(C, name='MultiplicityRegions1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityRegions1dGet
 end function MultiplicityRegions1dGet
 
@@ -270,7 +271,7 @@ subroutine MultiplicityRegions1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityRegions1dSet
 
 
@@ -301,7 +302,7 @@ function MultiplicityPolynomial1dGet(handle) &
       bind(C, name='MultiplicityPolynomial1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityPolynomial1dGet
 end function MultiplicityPolynomial1dGet
 
@@ -311,7 +312,7 @@ subroutine MultiplicityPolynomial1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityPolynomial1dSet
 
 
@@ -342,7 +343,7 @@ function MultiplicityReferenceGet(handle) &
       bind(C, name='MultiplicityReferenceGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityReferenceGet
 end function MultiplicityReferenceGet
 
@@ -352,7 +353,7 @@ subroutine MultiplicityReferenceSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityReferenceSet
 
 
@@ -383,7 +384,7 @@ function MultiplicityBranching1dGet(handle) &
       bind(C, name='MultiplicityBranching1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityBranching1dGet
 end function MultiplicityBranching1dGet
 
@@ -393,7 +394,7 @@ subroutine MultiplicityBranching1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityBranching1dSet
 
 
@@ -424,7 +425,7 @@ function MultiplicityBranching3dGet(handle) &
       bind(C, name='MultiplicityBranching3dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityBranching3dGet
 end function MultiplicityBranching3dGet
 
@@ -434,7 +435,7 @@ subroutine MultiplicityBranching3dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityBranching3dSet
 
 
@@ -465,7 +466,7 @@ function MultiplicityUnspecifiedGet(handle) &
       bind(C, name='MultiplicityUnspecifiedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MultiplicityUnspecifiedGet
 end function MultiplicityUnspecifiedGet
 
@@ -475,7 +476,7 @@ subroutine MultiplicityUnspecifiedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicityUnspecifiedSet
 
 

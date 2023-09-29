@@ -204,6 +204,10 @@ DelayedNeutronsDelayedNeutronSet(
       (CLASSNAME, CLASSNAME+"DelayedNeutronSet", self, extract::delayedNeutron, index_, delayedNeutron);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 DelayedNeutronsDelayedNeutronHasByLabel(

@@ -214,6 +214,10 @@ Function1dsLegendreSet(
       (CLASSNAME, CLASSNAME+"LegendreSet", self, extract::Legendre, index_, Legendre);
 }
 
+// ------------------------
+// Re: metadatum outerDomainValue
+// ------------------------
+
 // Has, by outerDomainValue
 int
 Function1dsLegendreHasByOuterDomainValue(
@@ -323,6 +327,10 @@ Function1dsXYs1dSet(
       (CLASSNAME, CLASSNAME+"XYs1dSet", self, extract::XYs1d, index_, XYs1d);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 Function1dsXYs1dHasByLabel(
@@ -367,6 +375,10 @@ Function1dsXYs1dSetByLabel(
       (CLASSNAME, CLASSNAME+"XYs1dSetByLabel",
        self, extract::XYs1d, meta::label, label, XYs1d);
 }
+
+// ------------------------
+// Re: metadatum index
+// ------------------------
 
 // Has, by index
 int
@@ -413,6 +425,10 @@ Function1dsXYs1dSetByIndex(
        self, extract::XYs1d, meta::index, index, XYs1d);
 }
 
+// ------------------------
+// Re: metadatum interpolation
+// ------------------------
+
 // Has, by interpolation
 int
 Function1dsXYs1dHasByInterpolation(
@@ -457,6 +473,10 @@ Function1dsXYs1dSetByInterpolation(
       (CLASSNAME, CLASSNAME+"XYs1dSetByInterpolation",
        self, extract::XYs1d, meta::interpolation, interpolation, XYs1d);
 }
+
+// ------------------------
+// Re: metadatum outerDomainValue
+// ------------------------
 
 // Has, by outerDomainValue
 int

@@ -166,6 +166,10 @@ ParametersParameterLinkSet(
    ConstHandle2ConstParameterLink parameterLink
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ParametersParameterLinkHasByLabel(
@@ -194,6 +198,10 @@ ParametersParameterLinkSetByLabel(
    const char *const label,
    ConstHandle2ConstParameterLink parameterLink
 );
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // +++ Has, by href
 extern_c int
@@ -224,6 +232,10 @@ ParametersParameterLinkSetByHref(
    ConstHandle2ConstParameterLink parameterLink
 );
 
+// ------------------------
+// Re: metadatum nParameters
+// ------------------------
+
 // +++ Has, by nParameters
 extern_c int
 ParametersParameterLinkHasByNParameters(
@@ -252,6 +264,10 @@ ParametersParameterLinkSetByNParameters(
    const int nParameters,
    ConstHandle2ConstParameterLink parameterLink
 );
+
+// ------------------------
+// Re: metadatum matrixStartIndex
+// ------------------------
 
 // +++ Has, by matrixStartIndex
 extern_c int

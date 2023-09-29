@@ -36,8 +36,8 @@ function SimpleMaxwellianFissionCreateConst( &
       bind(C, name='SimpleMaxwellianFissionCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: U
-   type(c_ptr), value :: theta
+   type(c_ptr), intent(in), value :: U
+   type(c_ptr), intent(in), value :: theta
    type(c_ptr) :: SimpleMaxwellianFissionCreateConst
 end function SimpleMaxwellianFissionCreateConst
 
@@ -49,8 +49,8 @@ function SimpleMaxwellianFissionCreate( &
       bind(C, name='SimpleMaxwellianFissionCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: U
-   type(c_ptr), value :: theta
+   type(c_ptr), intent(in), value :: U
+   type(c_ptr), intent(in), value :: theta
    type(c_ptr) :: SimpleMaxwellianFissionCreate
 end function SimpleMaxwellianFissionCreate
 
@@ -59,7 +59,8 @@ subroutine SimpleMaxwellianFissionAssign(handleLHS, handleRHS) &
       bind(C, name='SimpleMaxwellianFissionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SimpleMaxwellianFissionAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function SimpleMaxwellianFissionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SimpleMaxwellianFissionRead
 end function SimpleMaxwellianFissionRead
@@ -94,7 +95,7 @@ function SimpleMaxwellianFissionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SimpleMaxwellianFissionWrite
 end function SimpleMaxwellianFissionWrite
@@ -154,7 +155,7 @@ function SimpleMaxwellianFissionUGet(handle) &
       bind(C, name='SimpleMaxwellianFissionUGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SimpleMaxwellianFissionUGet
 end function SimpleMaxwellianFissionUGet
 
@@ -164,7 +165,7 @@ subroutine SimpleMaxwellianFissionUSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SimpleMaxwellianFissionUSet
 
 
@@ -195,7 +196,7 @@ function SimpleMaxwellianFissionThetaGet(handle) &
       bind(C, name='SimpleMaxwellianFissionThetaGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SimpleMaxwellianFissionThetaGet
 end function SimpleMaxwellianFissionThetaGet
 
@@ -205,7 +206,7 @@ subroutine SimpleMaxwellianFissionThetaSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SimpleMaxwellianFissionThetaSet
 
 

@@ -35,8 +35,8 @@ function UnorthodoxesCreateConst( &
       bind(C, name='UnorthodoxesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: unorthodoxSize
-   type(c_ptr) :: unorthodox(unorthodoxSize)
+   integer(c_size_t), intent(in), value :: unorthodoxSize
+   type(c_ptr), intent(in) :: unorthodox(unorthodoxSize)
    type(c_ptr) :: UnorthodoxesCreateConst
 end function UnorthodoxesCreateConst
 
@@ -47,8 +47,8 @@ function UnorthodoxesCreate( &
       bind(C, name='UnorthodoxesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: unorthodoxSize
-   type(c_ptr) :: unorthodox(unorthodoxSize)
+   integer(c_size_t), intent(in), value :: unorthodoxSize
+   type(c_ptr), intent(in) :: unorthodox(unorthodoxSize)
    type(c_ptr) :: UnorthodoxesCreate
 end function UnorthodoxesCreate
 
@@ -57,7 +57,8 @@ subroutine UnorthodoxesAssign(handleLHS, handleRHS) &
       bind(C, name='UnorthodoxesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine UnorthodoxesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function UnorthodoxesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnorthodoxesRead
 end function UnorthodoxesRead
@@ -92,7 +93,7 @@ function UnorthodoxesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UnorthodoxesWrite
 end function UnorthodoxesWrite
@@ -236,7 +237,7 @@ subroutine UnorthodoxesUnorthodoxSetById(handle, meta, metaSize, fieldHandle) &
       bind(C, name='UnorthodoxesUnorthodoxSetById')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

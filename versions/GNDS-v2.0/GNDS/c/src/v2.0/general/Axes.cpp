@@ -214,6 +214,10 @@ AxesAxisSet(
       (CLASSNAME, CLASSNAME+"AxisSet", self, extract::axis, index_, axis);
 }
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // Has, by index
 int
 AxesAxisHasByIndex(
@@ -259,6 +263,10 @@ AxesAxisSetByIndex(
        self, extract::axis, meta::index, index, axis);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 AxesAxisHasByLabel(
@@ -303,6 +311,10 @@ AxesAxisSetByLabel(
       (CLASSNAME, CLASSNAME+"AxisSetByLabel",
        self, extract::axis, meta::label, label, axis);
 }
+
+// ------------------------
+// Re: metadatum unit
+// ------------------------
 
 // Has, by unit
 int
@@ -413,6 +425,10 @@ AxesGridSet(
       (CLASSNAME, CLASSNAME+"GridSet", self, extract::grid, index_, grid);
 }
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // Has, by index
 int
 AxesGridHasByIndex(
@@ -457,6 +473,10 @@ AxesGridSetByIndex(
       (CLASSNAME, CLASSNAME+"GridSetByIndex",
        self, extract::grid, meta::index, index, grid);
 }
+
+// ------------------------
+// Re: metadatum label
+// ------------------------
 
 // Has, by label
 int
@@ -503,6 +523,10 @@ AxesGridSetByLabel(
        self, extract::grid, meta::label, label, grid);
 }
 
+// ------------------------
+// Re: metadatum unit
+// ------------------------
+
 // Has, by unit
 int
 AxesGridHasByUnit(
@@ -548,6 +572,10 @@ AxesGridSetByUnit(
        self, extract::grid, meta::unit, unit, grid);
 }
 
+// ------------------------
+// Re: metadatum style
+// ------------------------
+
 // Has, by style
 int
 AxesGridHasByStyle(
@@ -592,6 +620,10 @@ AxesGridSetByStyle(
       (CLASSNAME, CLASSNAME+"GridSetByStyle",
        self, extract::grid, meta::style, style, grid);
 }
+
+// ------------------------
+// Re: metadatum interpolation
+// ------------------------
 
 // Has, by interpolation
 int

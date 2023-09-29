@@ -166,6 +166,10 @@ ChemicalElementsChemicalElementSet(
    ConstHandle2ConstChemicalElement chemicalElement
 );
 
+// ------------------------
+// Re: metadatum symbol
+// ------------------------
+
 // +++ Has, by symbol
 extern_c int
 ChemicalElementsChemicalElementHasBySymbol(
@@ -195,6 +199,10 @@ ChemicalElementsChemicalElementSetBySymbol(
    ConstHandle2ConstChemicalElement chemicalElement
 );
 
+// ------------------------
+// Re: metadatum Z
+// ------------------------
+
 // +++ Has, by Z
 extern_c int
 ChemicalElementsChemicalElementHasByZ(
@@ -223,6 +231,10 @@ ChemicalElementsChemicalElementSetByZ(
    const int Z,
    ConstHandle2ConstChemicalElement chemicalElement
 );
+
+// ------------------------
+// Re: metadatum name
+// ------------------------
 
 // +++ Has, by name
 extern_c int

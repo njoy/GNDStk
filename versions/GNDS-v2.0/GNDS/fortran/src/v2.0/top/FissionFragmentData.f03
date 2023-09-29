@@ -37,9 +37,9 @@ function FissionFragmentDataCreateConst( &
       bind(C, name='FissionFragmentDataCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: productYields
-   type(c_ptr), value :: delayedNeutrons
-   type(c_ptr), value :: fissionEnergyReleases
+   type(c_ptr), intent(in), value :: productYields
+   type(c_ptr), intent(in), value :: delayedNeutrons
+   type(c_ptr), intent(in), value :: fissionEnergyReleases
    type(c_ptr) :: FissionFragmentDataCreateConst
 end function FissionFragmentDataCreateConst
 
@@ -52,9 +52,9 @@ function FissionFragmentDataCreate( &
       bind(C, name='FissionFragmentDataCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: productYields
-   type(c_ptr), value :: delayedNeutrons
-   type(c_ptr), value :: fissionEnergyReleases
+   type(c_ptr), intent(in), value :: productYields
+   type(c_ptr), intent(in), value :: delayedNeutrons
+   type(c_ptr), intent(in), value :: fissionEnergyReleases
    type(c_ptr) :: FissionFragmentDataCreate
 end function FissionFragmentDataCreate
 
@@ -63,7 +63,8 @@ subroutine FissionFragmentDataAssign(handleLHS, handleRHS) &
       bind(C, name='FissionFragmentDataAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FissionFragmentDataAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function FissionFragmentDataRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionFragmentDataRead
 end function FissionFragmentDataRead
@@ -98,7 +99,7 @@ function FissionFragmentDataWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionFragmentDataWrite
 end function FissionFragmentDataWrite
@@ -158,7 +159,7 @@ function FissionFragmentDataProductYieldsGet(handle) &
       bind(C, name='FissionFragmentDataProductYieldsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionFragmentDataProductYieldsGet
 end function FissionFragmentDataProductYieldsGet
 
@@ -168,7 +169,7 @@ subroutine FissionFragmentDataProductYieldsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionFragmentDataProductYieldsSet
 
 
@@ -199,7 +200,7 @@ function FissionFragmentDataDelayedNeutronsGet(handle) &
       bind(C, name='FissionFragmentDataDelayedNeutronsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionFragmentDataDelayedNeutronsGet
 end function FissionFragmentDataDelayedNeutronsGet
 
@@ -209,7 +210,7 @@ subroutine FissionFragmentDataDelayedNeutronsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionFragmentDataDelayedNeutronsSet
 
 
@@ -240,7 +241,7 @@ function FissionFragmentDataFissionEnergyReleasesGet(handle) &
       bind(C, name='FissionFragmentDataFissionEnergyReleasesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionFragmentDataFissionEnergyReleasesGet
 end function FissionFragmentDataFissionEnergyReleasesGet
 
@@ -250,7 +251,7 @@ subroutine FissionFragmentDataFissionEnergyReleasesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionFragmentDataFissionEnergyReleasesSet
 
 

@@ -169,6 +169,10 @@ AliasesAliasSet(
    ConstHandle2ConstAlias alias
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 AliasesAliasHasById(
@@ -197,6 +201,10 @@ AliasesAliasSetById(
    const char *const id,
    ConstHandle2ConstAlias alias
 );
+
+// ------------------------
+// Re: metadatum pid
+// ------------------------
 
 // +++ Has, by pid
 extern_c int
@@ -264,6 +272,10 @@ AliasesMetaStableSet(
    ConstHandle2ConstMetaStable metaStable
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 AliasesMetaStableHasById(
@@ -293,6 +305,10 @@ AliasesMetaStableSetById(
    ConstHandle2ConstMetaStable metaStable
 );
 
+// ------------------------
+// Re: metadatum pid
+// ------------------------
+
 // +++ Has, by pid
 extern_c int
 AliasesMetaStableHasByPid(
@@ -321,6 +337,10 @@ AliasesMetaStableSetByPid(
    const char *const pid,
    ConstHandle2ConstMetaStable metaStable
 );
+
+// ------------------------
+// Re: metadatum metaStableIndex
+// ------------------------
 
 // +++ Has, by metaStableIndex
 extern_c int

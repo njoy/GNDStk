@@ -42,10 +42,10 @@ function CrossSectionSumCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
-   type(c_ptr), value :: summands
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: crossSection
+   integer(c_int), intent(in), value :: ENDF_MT
+   type(c_ptr), intent(in), value :: summands
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: crossSection
    type(c_ptr) :: CrossSectionSumCreateConst
 end function CrossSectionSumCreateConst
 
@@ -63,10 +63,10 @@ function CrossSectionSumCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
-   type(c_ptr), value :: summands
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: crossSection
+   integer(c_int), intent(in), value :: ENDF_MT
+   type(c_ptr), intent(in), value :: summands
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: crossSection
    type(c_ptr) :: CrossSectionSumCreate
 end function CrossSectionSumCreate
 
@@ -75,7 +75,8 @@ subroutine CrossSectionSumAssign(handleLHS, handleRHS) &
       bind(C, name='CrossSectionSumAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CrossSectionSumAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function CrossSectionSumRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionSumRead
 end function CrossSectionSumRead
@@ -110,7 +111,7 @@ function CrossSectionSumWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionSumWrite
 end function CrossSectionSumWrite
@@ -199,13 +200,12 @@ function CrossSectionSumENDFMTGet(handle) &
 end function CrossSectionSumENDFMTGet
 
 !! Set
-subroutine CrossSectionSumENDFMTSet(handle, ENDF_MT, ENDF_MTSize) &
+subroutine CrossSectionSumENDFMTSet(handle, ENDF_MT) &
       bind(C, name='CrossSectionSumENDFMTSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ENDF_MTSize
-   character(c_char), intent(in) :: ENDF_MT(ENDF_MTSize)
+   integer(c_int), intent(in), value :: ENDF_MT
 end subroutine CrossSectionSumENDFMTSet
 
 
@@ -236,7 +236,7 @@ function CrossSectionSumSummandsGet(handle) &
       bind(C, name='CrossSectionSumSummandsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CrossSectionSumSummandsGet
 end function CrossSectionSumSummandsGet
 
@@ -246,7 +246,7 @@ subroutine CrossSectionSumSummandsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionSumSummandsSet
 
 
@@ -277,7 +277,7 @@ function CrossSectionSumQGet(handle) &
       bind(C, name='CrossSectionSumQGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CrossSectionSumQGet
 end function CrossSectionSumQGet
 
@@ -287,7 +287,7 @@ subroutine CrossSectionSumQSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionSumQSet
 
 
@@ -318,7 +318,7 @@ function CrossSectionSumCrossSectionGet(handle) &
       bind(C, name='CrossSectionSumCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CrossSectionSumCrossSectionGet
 end function CrossSectionSumCrossSectionGet
 
@@ -328,7 +328,7 @@ subroutine CrossSectionSumCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionSumCrossSectionSet
 
 

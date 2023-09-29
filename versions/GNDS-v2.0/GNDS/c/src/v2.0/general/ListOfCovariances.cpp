@@ -204,6 +204,10 @@ ListOfCovariancesCovarianceSet(
       (CLASSNAME, CLASSNAME+"CovarianceSet", self, extract::covariance, index_, covariance);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ListOfCovariancesCovarianceHasByLabel(
@@ -248,6 +252,10 @@ ListOfCovariancesCovarianceSetByLabel(
       (CLASSNAME, CLASSNAME+"CovarianceSetByLabel",
        self, extract::covariance, meta::label, label, covariance);
 }
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // Has, by href
 int

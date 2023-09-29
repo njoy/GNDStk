@@ -42,10 +42,10 @@ function AverageParameterCovarianceCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   logical(c_bool), value, intent(in) :: crossTerm
-   type(c_ptr), value :: covarianceMatrix
-   type(c_ptr), value :: rowData
-   type(c_ptr), value :: columnData
+   logical(c_bool), intent(in), value :: crossTerm
+   type(c_ptr), intent(in), value :: covarianceMatrix
+   type(c_ptr), intent(in), value :: rowData
+   type(c_ptr), intent(in), value :: columnData
    type(c_ptr) :: AverageParameterCovarianceCreateConst
 end function AverageParameterCovarianceCreateConst
 
@@ -63,10 +63,10 @@ function AverageParameterCovarianceCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   logical(c_bool), value, intent(in) :: crossTerm
-   type(c_ptr), value :: covarianceMatrix
-   type(c_ptr), value :: rowData
-   type(c_ptr), value :: columnData
+   logical(c_bool), intent(in), value :: crossTerm
+   type(c_ptr), intent(in), value :: covarianceMatrix
+   type(c_ptr), intent(in), value :: rowData
+   type(c_ptr), intent(in), value :: columnData
    type(c_ptr) :: AverageParameterCovarianceCreate
 end function AverageParameterCovarianceCreate
 
@@ -75,7 +75,8 @@ subroutine AverageParameterCovarianceAssign(handleLHS, handleRHS) &
       bind(C, name='AverageParameterCovarianceAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AverageParameterCovarianceAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function AverageParameterCovarianceRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AverageParameterCovarianceRead
 end function AverageParameterCovarianceRead
@@ -110,7 +111,7 @@ function AverageParameterCovarianceWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AverageParameterCovarianceWrite
 end function AverageParameterCovarianceWrite
@@ -199,13 +200,12 @@ function AverageParameterCovarianceCrossTermGet(handle) &
 end function AverageParameterCovarianceCrossTermGet
 
 !! Set
-subroutine AverageParameterCovarianceCrossTermSet(handle, crossTerm, crossTermSize) &
+subroutine AverageParameterCovarianceCrossTermSet(handle, crossTerm) &
       bind(C, name='AverageParameterCovarianceCrossTermSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: crossTermSize
-   character(c_char), intent(in) :: crossTerm(crossTermSize)
+   logical(c_bool), intent(in), value :: crossTerm
 end subroutine AverageParameterCovarianceCrossTermSet
 
 
@@ -236,7 +236,7 @@ function AverageParameterCovarianceCovarianceMatrixGet(handle) &
       bind(C, name='AverageParameterCovarianceCovarianceMatrixGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AverageParameterCovarianceCovarianceMatrixGet
 end function AverageParameterCovarianceCovarianceMatrixGet
 
@@ -246,7 +246,7 @@ subroutine AverageParameterCovarianceCovarianceMatrixSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AverageParameterCovarianceCovarianceMatrixSet
 
 
@@ -277,7 +277,7 @@ function AverageParameterCovarianceRowDataGet(handle) &
       bind(C, name='AverageParameterCovarianceRowDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AverageParameterCovarianceRowDataGet
 end function AverageParameterCovarianceRowDataGet
 
@@ -287,7 +287,7 @@ subroutine AverageParameterCovarianceRowDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AverageParameterCovarianceRowDataSet
 
 
@@ -318,7 +318,7 @@ function AverageParameterCovarianceColumnDataGet(handle) &
       bind(C, name='AverageParameterCovarianceColumnDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AverageParameterCovarianceColumnDataGet
 end function AverageParameterCovarianceColumnDataGet
 
@@ -328,7 +328,7 @@ subroutine AverageParameterCovarianceColumnDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AverageParameterCovarianceColumnDataSet
 
 

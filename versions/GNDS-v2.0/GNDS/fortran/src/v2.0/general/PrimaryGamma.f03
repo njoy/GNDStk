@@ -38,10 +38,10 @@ function PrimaryGammaCreateConst( &
       bind(C, name='PrimaryGammaCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
-   type(c_ptr), value :: axes
+   real(c_double), intent(in), value :: value
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
+   type(c_ptr), intent(in), value :: axes
    type(c_ptr) :: PrimaryGammaCreateConst
 end function PrimaryGammaCreateConst
 
@@ -55,10 +55,10 @@ function PrimaryGammaCreate( &
       bind(C, name='PrimaryGammaCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
-   type(c_ptr), value :: axes
+   real(c_double), intent(in), value :: value
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
+   type(c_ptr), intent(in), value :: axes
    type(c_ptr) :: PrimaryGammaCreate
 end function PrimaryGammaCreate
 
@@ -67,7 +67,8 @@ subroutine PrimaryGammaAssign(handleLHS, handleRHS) &
       bind(C, name='PrimaryGammaAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine PrimaryGammaAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function PrimaryGammaRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PrimaryGammaRead
 end function PrimaryGammaRead
@@ -102,7 +103,7 @@ function PrimaryGammaWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PrimaryGammaWrite
 end function PrimaryGammaWrite
@@ -158,13 +159,12 @@ function PrimaryGammaValueGet(handle) &
 end function PrimaryGammaValueGet
 
 !! Set
-subroutine PrimaryGammaValueSet(handle, value, valueSize) &
+subroutine PrimaryGammaValueSet(handle, value) &
       bind(C, name='PrimaryGammaValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine PrimaryGammaValueSet
 
 
@@ -191,13 +191,12 @@ function PrimaryGammaDomainMinGet(handle) &
 end function PrimaryGammaDomainMinGet
 
 !! Set
-subroutine PrimaryGammaDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine PrimaryGammaDomainMinSet(handle, domainMin) &
       bind(C, name='PrimaryGammaDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine PrimaryGammaDomainMinSet
 
 
@@ -224,13 +223,12 @@ function PrimaryGammaDomainMaxGet(handle) &
 end function PrimaryGammaDomainMaxGet
 
 !! Set
-subroutine PrimaryGammaDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine PrimaryGammaDomainMaxSet(handle, domainMax) &
       bind(C, name='PrimaryGammaDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine PrimaryGammaDomainMaxSet
 
 
@@ -261,7 +259,7 @@ function PrimaryGammaAxesGet(handle) &
       bind(C, name='PrimaryGammaAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PrimaryGammaAxesGet
 end function PrimaryGammaAxesGet
 
@@ -271,7 +269,7 @@ subroutine PrimaryGammaAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PrimaryGammaAxesSet
 
 

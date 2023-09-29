@@ -35,8 +35,8 @@ function JsCreateConst( &
       bind(C, name='JsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: JSize
-   type(c_ptr) :: J(JSize)
+   integer(c_size_t), intent(in), value :: JSize
+   type(c_ptr), intent(in) :: J(JSize)
    type(c_ptr) :: JsCreateConst
 end function JsCreateConst
 
@@ -47,8 +47,8 @@ function JsCreate( &
       bind(C, name='JsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: JSize
-   type(c_ptr) :: J(JSize)
+   integer(c_size_t), intent(in), value :: JSize
+   type(c_ptr), intent(in) :: J(JSize)
    type(c_ptr) :: JsCreate
 end function JsCreate
 
@@ -57,7 +57,8 @@ subroutine JsAssign(handleLHS, handleRHS) &
       bind(C, name='JsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine JsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function JsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: JsRead
 end function JsRead
@@ -92,7 +93,7 @@ function JsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: JsWrite
 end function JsWrite
@@ -236,7 +237,7 @@ subroutine JsJSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='JsJSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function JsJHasByValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: JsJHasByValue
 end function JsJHasByValue
 
@@ -262,7 +263,7 @@ function JsJGetByValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: JsJGetByValueConst
 end function JsJGetByValueConst
 
@@ -272,7 +273,7 @@ function JsJGetByValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: JsJGetByValue
 end function JsJGetByValue
 
@@ -281,8 +282,8 @@ subroutine JsJSetByValue(handle, meta, fieldHandle) &
       bind(C, name='JsJSetByValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine JsJSetByValue
 

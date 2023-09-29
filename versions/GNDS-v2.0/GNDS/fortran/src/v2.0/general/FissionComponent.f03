@@ -43,11 +43,11 @@ function FissionComponentCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
+   integer(c_int), intent(in), value :: ENDF_MT
    integer(c_size_t), intent(in), value :: fissionGenreSize
    character(c_char), intent(in) :: fissionGenre(fissionGenreSize)
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: outputChannel
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: outputChannel
    type(c_ptr) :: FissionComponentCreateConst
 end function FissionComponentCreateConst
 
@@ -66,11 +66,11 @@ function FissionComponentCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: ENDF_MT
+   integer(c_int), intent(in), value :: ENDF_MT
    integer(c_size_t), intent(in), value :: fissionGenreSize
    character(c_char), intent(in) :: fissionGenre(fissionGenreSize)
-   type(c_ptr), value :: crossSection
-   type(c_ptr), value :: outputChannel
+   type(c_ptr), intent(in), value :: crossSection
+   type(c_ptr), intent(in), value :: outputChannel
    type(c_ptr) :: FissionComponentCreate
 end function FissionComponentCreate
 
@@ -79,7 +79,8 @@ subroutine FissionComponentAssign(handleLHS, handleRHS) &
       bind(C, name='FissionComponentAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FissionComponentAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function FissionComponentRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionComponentRead
 end function FissionComponentRead
@@ -114,7 +115,7 @@ function FissionComponentWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionComponentWrite
 end function FissionComponentWrite
@@ -203,13 +204,12 @@ function FissionComponentENDFMTGet(handle) &
 end function FissionComponentENDFMTGet
 
 !! Set
-subroutine FissionComponentENDFMTSet(handle, ENDF_MT, ENDF_MTSize) &
+subroutine FissionComponentENDFMTSet(handle, ENDF_MT) &
       bind(C, name='FissionComponentENDFMTSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ENDF_MTSize
-   character(c_char), intent(in) :: ENDF_MT(ENDF_MTSize)
+   integer(c_int), intent(in), value :: ENDF_MT
 end subroutine FissionComponentENDFMTSet
 
 
@@ -273,7 +273,7 @@ function FissionComponentCrossSectionGet(handle) &
       bind(C, name='FissionComponentCrossSectionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionComponentCrossSectionGet
 end function FissionComponentCrossSectionGet
 
@@ -283,7 +283,7 @@ subroutine FissionComponentCrossSectionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionComponentCrossSectionSet
 
 
@@ -314,7 +314,7 @@ function FissionComponentOutputChannelGet(handle) &
       bind(C, name='FissionComponentOutputChannelGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FissionComponentOutputChannelGet
 end function FissionComponentOutputChannelGet
 
@@ -324,7 +324,7 @@ subroutine FissionComponentOutputChannelSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionComponentOutputChannelSet
 
 

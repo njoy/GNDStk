@@ -214,6 +214,10 @@ ParameterCovariancesParameterCovarianceSet(
       (CLASSNAME, CLASSNAME+"ParameterCovarianceSet", self, extract::parameterCovariance, index_, parameterCovariance);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ParameterCovariancesParameterCovarianceHasByLabel(
@@ -323,6 +327,10 @@ ParameterCovariancesAverageParameterCovarianceSet(
       (CLASSNAME, CLASSNAME+"AverageParameterCovarianceSet", self, extract::averageParameterCovariance, index_, averageParameterCovariance);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ParameterCovariancesAverageParameterCovarianceHasByLabel(
@@ -367,6 +375,10 @@ ParameterCovariancesAverageParameterCovarianceSetByLabel(
       (CLASSNAME, CLASSNAME+"AverageParameterCovarianceSetByLabel",
        self, extract::averageParameterCovariance, meta::label, label, averageParameterCovariance);
 }
+
+// ------------------------
+// Re: metadatum crossTerm
+// ------------------------
 
 // Has, by crossTerm
 int

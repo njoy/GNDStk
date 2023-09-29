@@ -35,8 +35,8 @@ function FissionEnergyReleasesCreateConst( &
       bind(C, name='FissionEnergyReleasesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: fissionEnergyReleaseSize
-   type(c_ptr) :: fissionEnergyRelease(fissionEnergyReleaseSize)
+   integer(c_size_t), intent(in), value :: fissionEnergyReleaseSize
+   type(c_ptr), intent(in) :: fissionEnergyRelease(fissionEnergyReleaseSize)
    type(c_ptr) :: FissionEnergyReleasesCreateConst
 end function FissionEnergyReleasesCreateConst
 
@@ -47,8 +47,8 @@ function FissionEnergyReleasesCreate( &
       bind(C, name='FissionEnergyReleasesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: fissionEnergyReleaseSize
-   type(c_ptr) :: fissionEnergyRelease(fissionEnergyReleaseSize)
+   integer(c_size_t), intent(in), value :: fissionEnergyReleaseSize
+   type(c_ptr), intent(in) :: fissionEnergyRelease(fissionEnergyReleaseSize)
    type(c_ptr) :: FissionEnergyReleasesCreate
 end function FissionEnergyReleasesCreate
 
@@ -57,7 +57,8 @@ subroutine FissionEnergyReleasesAssign(handleLHS, handleRHS) &
       bind(C, name='FissionEnergyReleasesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FissionEnergyReleasesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function FissionEnergyReleasesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionEnergyReleasesRead
 end function FissionEnergyReleasesRead
@@ -92,7 +93,7 @@ function FissionEnergyReleasesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionEnergyReleasesWrite
 end function FissionEnergyReleasesWrite
@@ -236,7 +237,7 @@ subroutine FissionEnergyReleasesFissionEnergyReleaseSetByLabel(handle, meta, met
       bind(C, name='FissionEnergyReleasesFissionEnergyReleaseSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

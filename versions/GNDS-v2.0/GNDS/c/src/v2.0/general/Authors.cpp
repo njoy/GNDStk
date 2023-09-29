@@ -204,6 +204,10 @@ AuthorsAuthorSet(
       (CLASSNAME, CLASSNAME+"AuthorSet", self, extract::author, index_, author);
 }
 
+// ------------------------
+// Re: metadatum name
+// ------------------------
+
 // Has, by name
 int
 AuthorsAuthorHasByName(

@@ -36,8 +36,8 @@ function StylesCreateConst( &
       bind(C, name='StylesCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: evaluated
-   type(c_ptr), value :: crossSectionReconstructed
+   type(c_ptr), intent(in), value :: evaluated
+   type(c_ptr), intent(in), value :: crossSectionReconstructed
    type(c_ptr) :: StylesCreateConst
 end function StylesCreateConst
 
@@ -49,8 +49,8 @@ function StylesCreate( &
       bind(C, name='StylesCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: evaluated
-   type(c_ptr), value :: crossSectionReconstructed
+   type(c_ptr), intent(in), value :: evaluated
+   type(c_ptr), intent(in), value :: crossSectionReconstructed
    type(c_ptr) :: StylesCreate
 end function StylesCreate
 
@@ -59,7 +59,8 @@ subroutine StylesAssign(handleLHS, handleRHS) &
       bind(C, name='StylesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine StylesAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function StylesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: StylesRead
 end function StylesRead
@@ -94,7 +95,7 @@ function StylesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: StylesWrite
 end function StylesWrite
@@ -154,7 +155,7 @@ function StylesEvaluatedGet(handle) &
       bind(C, name='StylesEvaluatedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: StylesEvaluatedGet
 end function StylesEvaluatedGet
 
@@ -164,7 +165,7 @@ subroutine StylesEvaluatedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine StylesEvaluatedSet
 
 
@@ -195,7 +196,7 @@ function StylesCrossSectionReconstructedGet(handle) &
       bind(C, name='StylesCrossSectionReconstructedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: StylesCrossSectionReconstructedGet
 end function StylesCrossSectionReconstructedGet
 
@@ -205,7 +206,7 @@ subroutine StylesCrossSectionReconstructedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine StylesCrossSectionReconstructedSet
 
 

@@ -36,8 +36,8 @@ function DelayedNeutronKECreateConst( &
       bind(C, name='DelayedNeutronKECreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: polynomial1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: DelayedNeutronKECreateConst
 end function DelayedNeutronKECreateConst
 
@@ -49,8 +49,8 @@ function DelayedNeutronKECreate( &
       bind(C, name='DelayedNeutronKECreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: polynomial1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: DelayedNeutronKECreate
 end function DelayedNeutronKECreate
 
@@ -59,7 +59,8 @@ subroutine DelayedNeutronKEAssign(handleLHS, handleRHS) &
       bind(C, name='DelayedNeutronKEAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DelayedNeutronKEAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function DelayedNeutronKERead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DelayedNeutronKERead
 end function DelayedNeutronKERead
@@ -94,7 +95,7 @@ function DelayedNeutronKEWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DelayedNeutronKEWrite
 end function DelayedNeutronKEWrite
@@ -154,7 +155,7 @@ function DelayedNeutronKEPolynomial1dGet(handle) &
       bind(C, name='DelayedNeutronKEPolynomial1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DelayedNeutronKEPolynomial1dGet
 end function DelayedNeutronKEPolynomial1dGet
 
@@ -164,7 +165,7 @@ subroutine DelayedNeutronKEPolynomial1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DelayedNeutronKEPolynomial1dSet
 
 
@@ -195,7 +196,7 @@ function DelayedNeutronKEXYs1dGet(handle) &
       bind(C, name='DelayedNeutronKEXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DelayedNeutronKEXYs1dGet
 end function DelayedNeutronKEXYs1dGet
 
@@ -205,7 +206,7 @@ subroutine DelayedNeutronKEXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DelayedNeutronKEXYs1dSet
 
 

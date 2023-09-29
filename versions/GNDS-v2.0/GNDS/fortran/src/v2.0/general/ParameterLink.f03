@@ -44,8 +44,8 @@ function ParameterLinkCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   integer(c_int), value, intent(in) :: nParameters
-   integer(c_int), value, intent(in) :: matrixStartIndex
+   integer(c_int), intent(in), value :: nParameters
+   integer(c_int), intent(in), value :: matrixStartIndex
    type(c_ptr) :: ParameterLinkCreateConst
 end function ParameterLinkCreateConst
 
@@ -65,8 +65,8 @@ function ParameterLinkCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   integer(c_int), value, intent(in) :: nParameters
-   integer(c_int), value, intent(in) :: matrixStartIndex
+   integer(c_int), intent(in), value :: nParameters
+   integer(c_int), intent(in), value :: matrixStartIndex
    type(c_ptr) :: ParameterLinkCreate
 end function ParameterLinkCreate
 
@@ -75,7 +75,8 @@ subroutine ParameterLinkAssign(handleLHS, handleRHS) &
       bind(C, name='ParameterLinkAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ParameterLinkAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function ParameterLinkRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParameterLinkRead
 end function ParameterLinkRead
@@ -110,7 +111,7 @@ function ParameterLinkWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParameterLinkWrite
 end function ParameterLinkWrite
@@ -232,13 +233,12 @@ function ParameterLinkNParametersGet(handle) &
 end function ParameterLinkNParametersGet
 
 !! Set
-subroutine ParameterLinkNParametersSet(handle, nParameters, nParametersSize) &
+subroutine ParameterLinkNParametersSet(handle, nParameters) &
       bind(C, name='ParameterLinkNParametersSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: nParametersSize
-   character(c_char), intent(in) :: nParameters(nParametersSize)
+   integer(c_int), intent(in), value :: nParameters
 end subroutine ParameterLinkNParametersSet
 
 
@@ -265,13 +265,12 @@ function ParameterLinkMatrixStartIndexGet(handle) &
 end function ParameterLinkMatrixStartIndexGet
 
 !! Set
-subroutine ParameterLinkMatrixStartIndexSet(handle, matrixStartIndex, matrixStartIndexSize) &
+subroutine ParameterLinkMatrixStartIndexSet(handle, matrixStartIndex) &
       bind(C, name='ParameterLinkMatrixStartIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: matrixStartIndexSize
-   character(c_char), intent(in) :: matrixStartIndex(matrixStartIndexSize)
+   integer(c_int), intent(in), value :: matrixStartIndex
 end subroutine ParameterLinkMatrixStartIndexSet
 
 

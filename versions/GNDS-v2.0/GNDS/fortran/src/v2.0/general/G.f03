@@ -35,7 +35,7 @@ function GCreateConst( &
       bind(C, name='GCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: GCreateConst
 end function GCreateConst
 
@@ -46,7 +46,7 @@ function GCreate( &
       bind(C, name='GCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: GCreate
 end function GCreate
 
@@ -55,7 +55,8 @@ subroutine GAssign(handleLHS, handleRHS) &
       bind(C, name='GAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine GAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function GRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GRead
 end function GRead
@@ -90,7 +91,7 @@ function GWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GWrite
 end function GWrite
@@ -150,7 +151,7 @@ function GXYs1dGet(handle) &
       bind(C, name='GXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: GXYs1dGet
 end function GXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine GXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine GXYs1dSet
 
 

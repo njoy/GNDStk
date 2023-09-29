@@ -43,11 +43,11 @@ function NuclideCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: nucleus
-   type(c_ptr), value :: decayData
-   type(c_ptr), value :: fissionFragmentData
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: nucleus
+   type(c_ptr), intent(in), value :: decayData
+   type(c_ptr), intent(in), value :: fissionFragmentData
    type(c_ptr) :: NuclideCreateConst
 end function NuclideCreateConst
 
@@ -66,11 +66,11 @@ function NuclideCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: nucleus
-   type(c_ptr), value :: decayData
-   type(c_ptr), value :: fissionFragmentData
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: nucleus
+   type(c_ptr), intent(in), value :: decayData
+   type(c_ptr), intent(in), value :: fissionFragmentData
    type(c_ptr) :: NuclideCreate
 end function NuclideCreate
 
@@ -79,7 +79,8 @@ subroutine NuclideAssign(handleLHS, handleRHS) &
       bind(C, name='NuclideAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine NuclideAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function NuclideRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NuclideRead
 end function NuclideRead
@@ -114,7 +115,7 @@ function NuclideWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NuclideWrite
 end function NuclideWrite
@@ -207,7 +208,7 @@ function NuclideMassGet(handle) &
       bind(C, name='NuclideMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclideMassGet
 end function NuclideMassGet
 
@@ -217,7 +218,7 @@ subroutine NuclideMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclideMassSet
 
 
@@ -248,7 +249,7 @@ function NuclideChargeGet(handle) &
       bind(C, name='NuclideChargeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclideChargeGet
 end function NuclideChargeGet
 
@@ -258,7 +259,7 @@ subroutine NuclideChargeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclideChargeSet
 
 
@@ -289,7 +290,7 @@ function NuclideNucleusGet(handle) &
       bind(C, name='NuclideNucleusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclideNucleusGet
 end function NuclideNucleusGet
 
@@ -299,7 +300,7 @@ subroutine NuclideNucleusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclideNucleusSet
 
 
@@ -330,7 +331,7 @@ function NuclideDecayDataGet(handle) &
       bind(C, name='NuclideDecayDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclideDecayDataGet
 end function NuclideDecayDataGet
 
@@ -340,7 +341,7 @@ subroutine NuclideDecayDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclideDecayDataSet
 
 
@@ -371,7 +372,7 @@ function NuclideFissionFragmentDataGet(handle) &
       bind(C, name='NuclideFissionFragmentDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclideFissionFragmentDataGet
 end function NuclideFissionFragmentDataGet
 
@@ -381,7 +382,7 @@ subroutine NuclideFissionFragmentDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclideFissionFragmentDataSet
 
 

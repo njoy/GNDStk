@@ -204,6 +204,10 @@ GaugeBosonsGaugeBosonSet(
       (CLASSNAME, CLASSNAME+"GaugeBosonSet", self, extract::gaugeBoson, index_, gaugeBoson);
 }
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // Has, by id
 int
 GaugeBosonsGaugeBosonHasById(

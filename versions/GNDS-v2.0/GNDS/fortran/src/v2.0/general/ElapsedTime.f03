@@ -41,9 +41,9 @@ function ElapsedTimeCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: time
-   type(c_ptr), value :: yields
-   type(c_ptr), value :: incidentEnergies
+   type(c_ptr), intent(in), value :: time
+   type(c_ptr), intent(in), value :: yields
+   type(c_ptr), intent(in), value :: incidentEnergies
    type(c_ptr) :: ElapsedTimeCreateConst
 end function ElapsedTimeCreateConst
 
@@ -60,9 +60,9 @@ function ElapsedTimeCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: time
-   type(c_ptr), value :: yields
-   type(c_ptr), value :: incidentEnergies
+   type(c_ptr), intent(in), value :: time
+   type(c_ptr), intent(in), value :: yields
+   type(c_ptr), intent(in), value :: incidentEnergies
    type(c_ptr) :: ElapsedTimeCreate
 end function ElapsedTimeCreate
 
@@ -71,7 +71,8 @@ subroutine ElapsedTimeAssign(handleLHS, handleRHS) &
       bind(C, name='ElapsedTimeAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ElapsedTimeAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function ElapsedTimeRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ElapsedTimeRead
 end function ElapsedTimeRead
@@ -106,7 +107,7 @@ function ElapsedTimeWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ElapsedTimeWrite
 end function ElapsedTimeWrite
@@ -199,7 +200,7 @@ function ElapsedTimeTimeGet(handle) &
       bind(C, name='ElapsedTimeTimeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ElapsedTimeTimeGet
 end function ElapsedTimeTimeGet
 
@@ -209,7 +210,7 @@ subroutine ElapsedTimeTimeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ElapsedTimeTimeSet
 
 
@@ -240,7 +241,7 @@ function ElapsedTimeYieldsGet(handle) &
       bind(C, name='ElapsedTimeYieldsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ElapsedTimeYieldsGet
 end function ElapsedTimeYieldsGet
 
@@ -250,7 +251,7 @@ subroutine ElapsedTimeYieldsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ElapsedTimeYieldsSet
 
 
@@ -281,7 +282,7 @@ function ElapsedTimeIncidentEnergiesGet(handle) &
       bind(C, name='ElapsedTimeIncidentEnergiesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ElapsedTimeIncidentEnergiesGet
 end function ElapsedTimeIncidentEnergiesGet
 
@@ -291,7 +292,7 @@ subroutine ElapsedTimeIncidentEnergiesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ElapsedTimeIncidentEnergiesSet
 
 

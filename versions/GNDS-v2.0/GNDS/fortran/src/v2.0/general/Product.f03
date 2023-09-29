@@ -46,10 +46,10 @@ function ProductCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   type(c_ptr), value :: multiplicity
-   type(c_ptr), value :: distribution
-   type(c_ptr), value :: outputChannel
-   type(c_ptr), value :: averageProductEnergy
+   type(c_ptr), intent(in), value :: multiplicity
+   type(c_ptr), intent(in), value :: distribution
+   type(c_ptr), intent(in), value :: outputChannel
+   type(c_ptr), intent(in), value :: averageProductEnergy
    type(c_ptr) :: ProductCreateConst
 end function ProductCreateConst
 
@@ -71,10 +71,10 @@ function ProductCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   type(c_ptr), value :: multiplicity
-   type(c_ptr), value :: distribution
-   type(c_ptr), value :: outputChannel
-   type(c_ptr), value :: averageProductEnergy
+   type(c_ptr), intent(in), value :: multiplicity
+   type(c_ptr), intent(in), value :: distribution
+   type(c_ptr), intent(in), value :: outputChannel
+   type(c_ptr), intent(in), value :: averageProductEnergy
    type(c_ptr) :: ProductCreate
 end function ProductCreate
 
@@ -83,7 +83,8 @@ subroutine ProductAssign(handleLHS, handleRHS) &
       bind(C, name='ProductAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProductAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function ProductRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductRead
 end function ProductRead
@@ -118,7 +119,7 @@ function ProductWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductWrite
 end function ProductWrite
@@ -244,7 +245,7 @@ function ProductMultiplicityGet(handle) &
       bind(C, name='ProductMultiplicityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductMultiplicityGet
 end function ProductMultiplicityGet
 
@@ -254,7 +255,7 @@ subroutine ProductMultiplicitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductMultiplicitySet
 
 
@@ -285,7 +286,7 @@ function ProductDistributionGet(handle) &
       bind(C, name='ProductDistributionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductDistributionGet
 end function ProductDistributionGet
 
@@ -295,7 +296,7 @@ subroutine ProductDistributionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductDistributionSet
 
 
@@ -326,7 +327,7 @@ function ProductOutputChannelGet(handle) &
       bind(C, name='ProductOutputChannelGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductOutputChannelGet
 end function ProductOutputChannelGet
 
@@ -336,7 +337,7 @@ subroutine ProductOutputChannelSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductOutputChannelSet
 
 
@@ -367,7 +368,7 @@ function ProductAverageProductEnergyGet(handle) &
       bind(C, name='ProductAverageProductEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ProductAverageProductEnergyGet
 end function ProductAverageProductEnergyGet
 
@@ -377,7 +378,7 @@ subroutine ProductAverageProductEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductAverageProductEnergySet
 
 

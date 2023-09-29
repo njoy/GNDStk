@@ -166,6 +166,10 @@ DatesDateSet(
    ConstHandle2ConstDate date
 );
 
+// ------------------------
+// Re: metadatum value
+// ------------------------
+
 // +++ Has, by value
 extern_c int
 DatesDateHasByValue(
@@ -194,6 +198,10 @@ DatesDateSetByValue(
    const char *const value,
    ConstHandle2ConstDate date
 );
+
+// ------------------------
+// Re: metadatum dateType
+// ------------------------
 
 // +++ Has, by dateType
 extern_c int

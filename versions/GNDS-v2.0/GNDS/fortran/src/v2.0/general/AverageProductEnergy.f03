@@ -35,7 +35,7 @@ function AverageProductEnergyCreateConst( &
       bind(C, name='AverageProductEnergyCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: AverageProductEnergyCreateConst
 end function AverageProductEnergyCreateConst
 
@@ -46,7 +46,7 @@ function AverageProductEnergyCreate( &
       bind(C, name='AverageProductEnergyCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: AverageProductEnergyCreate
 end function AverageProductEnergyCreate
 
@@ -55,7 +55,8 @@ subroutine AverageProductEnergyAssign(handleLHS, handleRHS) &
       bind(C, name='AverageProductEnergyAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AverageProductEnergyAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function AverageProductEnergyRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AverageProductEnergyRead
 end function AverageProductEnergyRead
@@ -90,7 +91,7 @@ function AverageProductEnergyWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AverageProductEnergyWrite
 end function AverageProductEnergyWrite
@@ -150,7 +151,7 @@ function AverageProductEnergyXYs1dGet(handle) &
       bind(C, name='AverageProductEnergyXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AverageProductEnergyXYs1dGet
 end function AverageProductEnergyXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine AverageProductEnergyXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AverageProductEnergyXYs1dSet
 
 

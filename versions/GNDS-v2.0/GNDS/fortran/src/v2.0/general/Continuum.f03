@@ -35,7 +35,7 @@ function ContinuumCreateConst( &
       bind(C, name='ContinuumCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: ContinuumCreateConst
 end function ContinuumCreateConst
 
@@ -46,7 +46,7 @@ function ContinuumCreate( &
       bind(C, name='ContinuumCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: ContinuumCreate
 end function ContinuumCreate
 
@@ -55,7 +55,8 @@ subroutine ContinuumAssign(handleLHS, handleRHS) &
       bind(C, name='ContinuumAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ContinuumAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ContinuumRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ContinuumRead
 end function ContinuumRead
@@ -90,7 +91,7 @@ function ContinuumWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ContinuumWrite
 end function ContinuumWrite
@@ -150,7 +151,7 @@ function ContinuumXYs1dGet(handle) &
       bind(C, name='ContinuumXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ContinuumXYs1dGet
 end function ContinuumXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine ContinuumXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ContinuumXYs1dSet
 
 

@@ -35,8 +35,8 @@ function IncompleteReactionsCreateConst( &
       bind(C, name='IncompleteReactionsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: reactionSize
-   type(c_ptr) :: reaction(reactionSize)
+   integer(c_size_t), intent(in), value :: reactionSize
+   type(c_ptr), intent(in) :: reaction(reactionSize)
    type(c_ptr) :: IncompleteReactionsCreateConst
 end function IncompleteReactionsCreateConst
 
@@ -47,8 +47,8 @@ function IncompleteReactionsCreate( &
       bind(C, name='IncompleteReactionsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: reactionSize
-   type(c_ptr) :: reaction(reactionSize)
+   integer(c_size_t), intent(in), value :: reactionSize
+   type(c_ptr), intent(in) :: reaction(reactionSize)
    type(c_ptr) :: IncompleteReactionsCreate
 end function IncompleteReactionsCreate
 
@@ -57,7 +57,8 @@ subroutine IncompleteReactionsAssign(handleLHS, handleRHS) &
       bind(C, name='IncompleteReactionsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IncompleteReactionsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function IncompleteReactionsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncompleteReactionsRead
 end function IncompleteReactionsRead
@@ -92,7 +93,7 @@ function IncompleteReactionsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncompleteReactionsWrite
 end function IncompleteReactionsWrite
@@ -236,7 +237,7 @@ subroutine IncompleteReactionsReactionSetByLabel(handle, meta, metaSize, fieldHa
       bind(C, name='IncompleteReactionsReactionSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function IncompleteReactionsReactionHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: IncompleteReactionsReactionHasByENDFMT
 end function IncompleteReactionsReactionHasByENDFMT
 
@@ -262,7 +263,7 @@ function IncompleteReactionsReactionGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: IncompleteReactionsReactionGetByENDFMTConst
 end function IncompleteReactionsReactionGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function IncompleteReactionsReactionGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: IncompleteReactionsReactionGetByENDFMT
 end function IncompleteReactionsReactionGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine IncompleteReactionsReactionSetByENDFMT(handle, meta, fieldHandle) &
       bind(C, name='IncompleteReactionsReactionSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine IncompleteReactionsReactionSetByENDFMT
 
@@ -328,7 +329,7 @@ subroutine IncompleteReactionsReactionSetByFissionGenre(handle, meta, metaSize, 
       bind(C, name='IncompleteReactionsReactionSetByFissionGenre')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

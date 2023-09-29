@@ -274,6 +274,10 @@ ENDFconversionFlagsConversionSet(
       (CLASSNAME, CLASSNAME+"ConversionSet", self, extract::conversion, index_, conversion);
 }
 
+// ------------------------
+// Re: metadatum flags
+// ------------------------
+
 // Has, by flags
 int
 ENDFconversionFlagsConversionHasByFlags(
@@ -318,6 +322,10 @@ ENDFconversionFlagsConversionSetByFlags(
       (CLASSNAME, CLASSNAME+"ConversionSetByFlags",
        self, extract::conversion, meta::flags, flags, conversion);
 }
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // Has, by href
 int

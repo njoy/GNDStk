@@ -43,8 +43,8 @@ function ENDFconversionFlagsCreateConst( &
    character(c_char), intent(in) :: flags(flagsSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   integer(c_size_t), value :: conversionSize
-   type(c_ptr) :: conversion(conversionSize)
+   integer(c_size_t), intent(in), value :: conversionSize
+   type(c_ptr), intent(in) :: conversion(conversionSize)
    type(c_ptr) :: ENDFconversionFlagsCreateConst
 end function ENDFconversionFlagsCreateConst
 
@@ -63,8 +63,8 @@ function ENDFconversionFlagsCreate( &
    character(c_char), intent(in) :: flags(flagsSize)
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   integer(c_size_t), value :: conversionSize
-   type(c_ptr) :: conversion(conversionSize)
+   integer(c_size_t), intent(in), value :: conversionSize
+   type(c_ptr), intent(in) :: conversion(conversionSize)
    type(c_ptr) :: ENDFconversionFlagsCreate
 end function ENDFconversionFlagsCreate
 
@@ -73,7 +73,8 @@ subroutine ENDFconversionFlagsAssign(handleLHS, handleRHS) &
       bind(C, name='ENDFconversionFlagsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ENDFconversionFlagsAssign
 
 !! Delete
@@ -97,7 +98,7 @@ function ENDFconversionFlagsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ENDFconversionFlagsRead
 end function ENDFconversionFlagsRead
@@ -108,7 +109,7 @@ function ENDFconversionFlagsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ENDFconversionFlagsWrite
 end function ENDFconversionFlagsWrite
@@ -318,7 +319,7 @@ subroutine ENDFconversionFlagsConversionSetByFlags(handle, meta, metaSize, field
       bind(C, name='ENDFconversionFlagsConversionSetByFlags')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -366,7 +367,7 @@ subroutine ENDFconversionFlagsConversionSetByHref(handle, meta, metaSize, fieldH
       bind(C, name='ENDFconversionFlagsConversionSetByHref')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

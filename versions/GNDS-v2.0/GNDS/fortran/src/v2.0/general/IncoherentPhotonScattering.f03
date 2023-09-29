@@ -51,7 +51,7 @@ function IncoherentPhotonScatteringCreateConst( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: scatteringFactor
+   type(c_ptr), intent(in), value :: scatteringFactor
    type(c_ptr) :: IncoherentPhotonScatteringCreateConst
 end function IncoherentPhotonScatteringCreateConst
 
@@ -78,7 +78,7 @@ function IncoherentPhotonScatteringCreate( &
    character(c_char), intent(in) :: pid(pidSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: scatteringFactor
+   type(c_ptr), intent(in), value :: scatteringFactor
    type(c_ptr) :: IncoherentPhotonScatteringCreate
 end function IncoherentPhotonScatteringCreate
 
@@ -87,7 +87,8 @@ subroutine IncoherentPhotonScatteringAssign(handleLHS, handleRHS) &
       bind(C, name='IncoherentPhotonScatteringAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IncoherentPhotonScatteringAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function IncoherentPhotonScatteringRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncoherentPhotonScatteringRead
 end function IncoherentPhotonScatteringRead
@@ -122,7 +123,7 @@ function IncoherentPhotonScatteringWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncoherentPhotonScatteringWrite
 end function IncoherentPhotonScatteringWrite
@@ -314,7 +315,7 @@ function IncoherentPhotonScatteringScatteringFactorGet(handle) &
       bind(C, name='IncoherentPhotonScatteringScatteringFactorGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: IncoherentPhotonScatteringScatteringFactorGet
 end function IncoherentPhotonScatteringScatteringFactorGet
 
@@ -324,7 +325,7 @@ subroutine IncoherentPhotonScatteringScatteringFactorSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine IncoherentPhotonScatteringScatteringFactorSet
 
 

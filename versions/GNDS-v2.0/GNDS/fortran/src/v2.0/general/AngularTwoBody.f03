@@ -46,10 +46,10 @@ function AngularTwoBodyCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: XYs2d
-   type(c_ptr), value :: regions2d
-   type(c_ptr), value :: recoil
-   type(c_ptr), value :: isotropic2d
+   type(c_ptr), intent(in), value :: XYs2d
+   type(c_ptr), intent(in), value :: regions2d
+   type(c_ptr), intent(in), value :: recoil
+   type(c_ptr), intent(in), value :: isotropic2d
    type(c_ptr) :: AngularTwoBodyCreateConst
 end function AngularTwoBodyCreateConst
 
@@ -71,10 +71,10 @@ function AngularTwoBodyCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: XYs2d
-   type(c_ptr), value :: regions2d
-   type(c_ptr), value :: recoil
-   type(c_ptr), value :: isotropic2d
+   type(c_ptr), intent(in), value :: XYs2d
+   type(c_ptr), intent(in), value :: regions2d
+   type(c_ptr), intent(in), value :: recoil
+   type(c_ptr), intent(in), value :: isotropic2d
    type(c_ptr) :: AngularTwoBodyCreate
 end function AngularTwoBodyCreate
 
@@ -83,7 +83,8 @@ subroutine AngularTwoBodyAssign(handleLHS, handleRHS) &
       bind(C, name='AngularTwoBodyAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AngularTwoBodyAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function AngularTwoBodyRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AngularTwoBodyRead
 end function AngularTwoBodyRead
@@ -118,7 +119,7 @@ function AngularTwoBodyWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AngularTwoBodyWrite
 end function AngularTwoBodyWrite
@@ -244,7 +245,7 @@ function AngularTwoBodyXYs2dGet(handle) &
       bind(C, name='AngularTwoBodyXYs2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularTwoBodyXYs2dGet
 end function AngularTwoBodyXYs2dGet
 
@@ -254,7 +255,7 @@ subroutine AngularTwoBodyXYs2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularTwoBodyXYs2dSet
 
 
@@ -285,7 +286,7 @@ function AngularTwoBodyRegions2dGet(handle) &
       bind(C, name='AngularTwoBodyRegions2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularTwoBodyRegions2dGet
 end function AngularTwoBodyRegions2dGet
 
@@ -295,7 +296,7 @@ subroutine AngularTwoBodyRegions2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularTwoBodyRegions2dSet
 
 
@@ -326,7 +327,7 @@ function AngularTwoBodyRecoilGet(handle) &
       bind(C, name='AngularTwoBodyRecoilGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularTwoBodyRecoilGet
 end function AngularTwoBodyRecoilGet
 
@@ -336,7 +337,7 @@ subroutine AngularTwoBodyRecoilSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularTwoBodyRecoilSet
 
 
@@ -367,7 +368,7 @@ function AngularTwoBodyIsotropic2dGet(handle) &
       bind(C, name='AngularTwoBodyIsotropic2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularTwoBodyIsotropic2dGet
 end function AngularTwoBodyIsotropic2dGet
 
@@ -377,7 +378,7 @@ subroutine AngularTwoBodyIsotropic2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularTwoBodyIsotropic2dSet
 
 

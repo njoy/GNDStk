@@ -166,6 +166,10 @@ LsLSet(
    ConstHandle2ConstL L
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 LsLHasByLabel(
@@ -194,6 +198,10 @@ LsLSetByLabel(
    const char *const label,
    ConstHandle2ConstL L
 );
+
+// ------------------------
+// Re: metadatum value
+// ------------------------
 
 // +++ Has, by value
 extern_c int

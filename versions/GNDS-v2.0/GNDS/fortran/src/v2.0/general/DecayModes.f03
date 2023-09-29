@@ -35,8 +35,8 @@ function DecayModesCreateConst( &
       bind(C, name='DecayModesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: decayModeSize
-   type(c_ptr) :: decayMode(decayModeSize)
+   integer(c_size_t), intent(in), value :: decayModeSize
+   type(c_ptr), intent(in) :: decayMode(decayModeSize)
    type(c_ptr) :: DecayModesCreateConst
 end function DecayModesCreateConst
 
@@ -47,8 +47,8 @@ function DecayModesCreate( &
       bind(C, name='DecayModesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: decayModeSize
-   type(c_ptr) :: decayMode(decayModeSize)
+   integer(c_size_t), intent(in), value :: decayModeSize
+   type(c_ptr), intent(in) :: decayMode(decayModeSize)
    type(c_ptr) :: DecayModesCreate
 end function DecayModesCreate
 
@@ -57,7 +57,8 @@ subroutine DecayModesAssign(handleLHS, handleRHS) &
       bind(C, name='DecayModesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DecayModesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function DecayModesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayModesRead
 end function DecayModesRead
@@ -92,7 +93,7 @@ function DecayModesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayModesWrite
 end function DecayModesWrite
@@ -236,7 +237,7 @@ subroutine DecayModesDecayModeSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='DecayModesDecayModeSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine DecayModesDecayModeSetByMode(handle, meta, metaSize, fieldHandle) &
       bind(C, name='DecayModesDecayModeSetByMode')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

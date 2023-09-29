@@ -166,6 +166,10 @@ CrossSectionSumsCrossSectionSumSet(
    ConstHandle2ConstCrossSectionSum crossSectionSum
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 CrossSectionSumsCrossSectionSumHasByLabel(
@@ -194,6 +198,10 @@ CrossSectionSumsCrossSectionSumSetByLabel(
    const char *const label,
    ConstHandle2ConstCrossSectionSum crossSectionSum
 );
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // +++ Has, by ENDF_MT
 extern_c int

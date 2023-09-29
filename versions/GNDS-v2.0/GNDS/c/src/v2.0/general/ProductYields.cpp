@@ -204,6 +204,10 @@ ProductYieldsProductYieldSet(
       (CLASSNAME, CLASSNAME+"ProductYieldSet", self, extract::productYield, index_, productYield);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ProductYieldsProductYieldHasByLabel(

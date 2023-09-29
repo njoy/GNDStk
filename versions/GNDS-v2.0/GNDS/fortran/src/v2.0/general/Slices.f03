@@ -35,8 +35,8 @@ function SlicesCreateConst( &
       bind(C, name='SlicesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: sliceSize
-   type(c_ptr) :: slice(sliceSize)
+   integer(c_size_t), intent(in), value :: sliceSize
+   type(c_ptr), intent(in) :: slice(sliceSize)
    type(c_ptr) :: SlicesCreateConst
 end function SlicesCreateConst
 
@@ -47,8 +47,8 @@ function SlicesCreate( &
       bind(C, name='SlicesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: sliceSize
-   type(c_ptr) :: slice(sliceSize)
+   integer(c_size_t), intent(in), value :: sliceSize
+   type(c_ptr), intent(in) :: slice(sliceSize)
    type(c_ptr) :: SlicesCreate
 end function SlicesCreate
 
@@ -57,7 +57,8 @@ subroutine SlicesAssign(handleLHS, handleRHS) &
       bind(C, name='SlicesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SlicesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function SlicesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SlicesRead
 end function SlicesRead
@@ -92,7 +93,7 @@ function SlicesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SlicesWrite
 end function SlicesWrite
@@ -204,7 +205,7 @@ function SlicesSliceHasByDimension(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: SlicesSliceHasByDimension
 end function SlicesSliceHasByDimension
 
@@ -214,7 +215,7 @@ function SlicesSliceGetByDimensionConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDimensionConst
 end function SlicesSliceGetByDimensionConst
 
@@ -224,7 +225,7 @@ function SlicesSliceGetByDimension(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDimension
 end function SlicesSliceGetByDimension
 
@@ -233,8 +234,8 @@ subroutine SlicesSliceSetByDimension(handle, meta, fieldHandle) &
       bind(C, name='SlicesSliceSetByDimension')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SlicesSliceSetByDimension
 
@@ -248,7 +249,7 @@ function SlicesSliceHasByDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: SlicesSliceHasByDomainValue
 end function SlicesSliceHasByDomainValue
 
@@ -258,7 +259,7 @@ function SlicesSliceGetByDomainValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDomainValueConst
 end function SlicesSliceGetByDomainValueConst
 
@@ -268,7 +269,7 @@ function SlicesSliceGetByDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDomainValue
 end function SlicesSliceGetByDomainValue
 
@@ -277,8 +278,8 @@ subroutine SlicesSliceSetByDomainValue(handle, meta, fieldHandle) &
       bind(C, name='SlicesSliceSetByDomainValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SlicesSliceSetByDomainValue
 
@@ -292,7 +293,7 @@ function SlicesSliceHasByDomainMin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: SlicesSliceHasByDomainMin
 end function SlicesSliceHasByDomainMin
 
@@ -302,7 +303,7 @@ function SlicesSliceGetByDomainMinConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDomainMinConst
 end function SlicesSliceGetByDomainMinConst
 
@@ -312,7 +313,7 @@ function SlicesSliceGetByDomainMin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDomainMin
 end function SlicesSliceGetByDomainMin
 
@@ -321,8 +322,8 @@ subroutine SlicesSliceSetByDomainMin(handle, meta, fieldHandle) &
       bind(C, name='SlicesSliceSetByDomainMin')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SlicesSliceSetByDomainMin
 
@@ -336,7 +337,7 @@ function SlicesSliceHasByDomainMax(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: SlicesSliceHasByDomainMax
 end function SlicesSliceHasByDomainMax
 
@@ -346,7 +347,7 @@ function SlicesSliceGetByDomainMaxConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDomainMaxConst
 end function SlicesSliceGetByDomainMaxConst
 
@@ -356,7 +357,7 @@ function SlicesSliceGetByDomainMax(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: SlicesSliceGetByDomainMax
 end function SlicesSliceGetByDomainMax
 
@@ -365,8 +366,8 @@ subroutine SlicesSliceSetByDomainMax(handle, meta, fieldHandle) &
       bind(C, name='SlicesSliceSetByDomainMax')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SlicesSliceSetByDomainMax
 
@@ -412,7 +413,7 @@ subroutine SlicesSliceSetByDomainUnit(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SlicesSliceSetByDomainUnit')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

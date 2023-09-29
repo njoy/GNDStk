@@ -40,10 +40,10 @@ function SliceCreateConst( &
       bind(C, name='SliceCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: dimension
-   integer(c_int), value, intent(in) :: domainValue
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   integer(c_int), intent(in), value :: dimension
+   integer(c_int), intent(in), value :: domainValue
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
    type(c_ptr) :: SliceCreateConst
@@ -61,10 +61,10 @@ function SliceCreate( &
       bind(C, name='SliceCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: dimension
-   integer(c_int), value, intent(in) :: domainValue
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   integer(c_int), intent(in), value :: dimension
+   integer(c_int), intent(in), value :: domainValue
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
    type(c_ptr) :: SliceCreate
@@ -75,7 +75,8 @@ subroutine SliceAssign(handleLHS, handleRHS) &
       bind(C, name='SliceAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SliceAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function SliceRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SliceRead
 end function SliceRead
@@ -110,7 +111,7 @@ function SliceWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SliceWrite
 end function SliceWrite
@@ -166,13 +167,12 @@ function SliceDimensionGet(handle) &
 end function SliceDimensionGet
 
 !! Set
-subroutine SliceDimensionSet(handle, dimension, dimensionSize) &
+subroutine SliceDimensionSet(handle, dimension) &
       bind(C, name='SliceDimensionSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: dimensionSize
-   character(c_char), intent(in) :: dimension(dimensionSize)
+   integer(c_int), intent(in), value :: dimension
 end subroutine SliceDimensionSet
 
 
@@ -199,13 +199,12 @@ function SliceDomainValueGet(handle) &
 end function SliceDomainValueGet
 
 !! Set
-subroutine SliceDomainValueSet(handle, domainValue, domainValueSize) &
+subroutine SliceDomainValueSet(handle, domainValue) &
       bind(C, name='SliceDomainValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainValueSize
-   character(c_char), intent(in) :: domainValue(domainValueSize)
+   integer(c_int), intent(in), value :: domainValue
 end subroutine SliceDomainValueSet
 
 
@@ -232,13 +231,12 @@ function SliceDomainMinGet(handle) &
 end function SliceDomainMinGet
 
 !! Set
-subroutine SliceDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine SliceDomainMinSet(handle, domainMin) &
       bind(C, name='SliceDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine SliceDomainMinSet
 
 
@@ -265,13 +263,12 @@ function SliceDomainMaxGet(handle) &
 end function SliceDomainMaxGet
 
 !! Set
-subroutine SliceDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine SliceDomainMaxSet(handle, domainMax) &
       bind(C, name='SliceDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine SliceDomainMaxSet
 
 

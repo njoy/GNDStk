@@ -37,12 +37,12 @@ function Function1dsCreateConst( &
       bind(C, name='Function1dsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: LegendreSize
-   type(c_ptr) :: Legendre(LegendreSize)
-   integer(c_size_t), value :: XYs1dSize
-   type(c_ptr) :: XYs1d(XYs1dSize)
-   integer(c_size_t), value :: regions1dSize
-   type(c_ptr) :: regions1d(regions1dSize)
+   integer(c_size_t), intent(in), value :: LegendreSize
+   type(c_ptr), intent(in) :: Legendre(LegendreSize)
+   integer(c_size_t), intent(in), value :: XYs1dSize
+   type(c_ptr), intent(in) :: XYs1d(XYs1dSize)
+   integer(c_size_t), intent(in), value :: regions1dSize
+   type(c_ptr), intent(in) :: regions1d(regions1dSize)
    type(c_ptr) :: Function1dsCreateConst
 end function Function1dsCreateConst
 
@@ -55,12 +55,12 @@ function Function1dsCreate( &
       bind(C, name='Function1dsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: LegendreSize
-   type(c_ptr) :: Legendre(LegendreSize)
-   integer(c_size_t), value :: XYs1dSize
-   type(c_ptr) :: XYs1d(XYs1dSize)
-   integer(c_size_t), value :: regions1dSize
-   type(c_ptr) :: regions1d(regions1dSize)
+   integer(c_size_t), intent(in), value :: LegendreSize
+   type(c_ptr), intent(in) :: Legendre(LegendreSize)
+   integer(c_size_t), intent(in), value :: XYs1dSize
+   type(c_ptr), intent(in) :: XYs1d(XYs1dSize)
+   integer(c_size_t), intent(in), value :: regions1dSize
+   type(c_ptr), intent(in) :: regions1d(regions1dSize)
    type(c_ptr) :: Function1dsCreate
 end function Function1dsCreate
 
@@ -69,7 +69,8 @@ subroutine Function1dsAssign(handleLHS, handleRHS) &
       bind(C, name='Function1dsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Function1dsAssign
 
 !! Delete
@@ -93,7 +94,7 @@ function Function1dsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Function1dsRead
 end function Function1dsRead
@@ -104,7 +105,7 @@ function Function1dsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Function1dsWrite
 end function Function1dsWrite
@@ -216,7 +217,7 @@ function Function1dsLegendreHasByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: Function1dsLegendreHasByOuterDomainValue
 end function Function1dsLegendreHasByOuterDomainValue
 
@@ -226,7 +227,7 @@ function Function1dsLegendreGetByOuterDomainValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function1dsLegendreGetByOuterDomainValueConst
 end function Function1dsLegendreGetByOuterDomainValueConst
 
@@ -236,7 +237,7 @@ function Function1dsLegendreGetByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function1dsLegendreGetByOuterDomainValue
 end function Function1dsLegendreGetByOuterDomainValue
 
@@ -245,8 +246,8 @@ subroutine Function1dsLegendreSetByOuterDomainValue(handle, meta, fieldHandle) &
       bind(C, name='Function1dsLegendreSetByOuterDomainValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Function1dsLegendreSetByOuterDomainValue
 
@@ -362,7 +363,7 @@ subroutine Function1dsXYs1dSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='Function1dsXYs1dSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -378,7 +379,7 @@ function Function1dsXYs1dHasByIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: Function1dsXYs1dHasByIndex
 end function Function1dsXYs1dHasByIndex
 
@@ -388,7 +389,7 @@ function Function1dsXYs1dGetByIndexConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: Function1dsXYs1dGetByIndexConst
 end function Function1dsXYs1dGetByIndexConst
 
@@ -398,7 +399,7 @@ function Function1dsXYs1dGetByIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: Function1dsXYs1dGetByIndex
 end function Function1dsXYs1dGetByIndex
 
@@ -407,8 +408,8 @@ subroutine Function1dsXYs1dSetByIndex(handle, meta, fieldHandle) &
       bind(C, name='Function1dsXYs1dSetByIndex')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Function1dsXYs1dSetByIndex
 
@@ -454,7 +455,7 @@ subroutine Function1dsXYs1dSetByInterpolation(handle, meta, metaSize, fieldHandl
       bind(C, name='Function1dsXYs1dSetByInterpolation')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -470,7 +471,7 @@ function Function1dsXYs1dHasByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: Function1dsXYs1dHasByOuterDomainValue
 end function Function1dsXYs1dHasByOuterDomainValue
 
@@ -480,7 +481,7 @@ function Function1dsXYs1dGetByOuterDomainValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function1dsXYs1dGetByOuterDomainValueConst
 end function Function1dsXYs1dGetByOuterDomainValueConst
 
@@ -490,7 +491,7 @@ function Function1dsXYs1dGetByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function1dsXYs1dGetByOuterDomainValue
 end function Function1dsXYs1dGetByOuterDomainValue
 
@@ -499,8 +500,8 @@ subroutine Function1dsXYs1dSetByOuterDomainValue(handle, meta, fieldHandle) &
       bind(C, name='Function1dsXYs1dSetByOuterDomainValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Function1dsXYs1dSetByOuterDomainValue
 
@@ -616,7 +617,7 @@ subroutine Function1dsRegions1dSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='Function1dsRegions1dSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -632,7 +633,7 @@ function Function1dsRegions1dHasByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: Function1dsRegions1dHasByOuterDomainValue
 end function Function1dsRegions1dHasByOuterDomainValue
 
@@ -642,7 +643,7 @@ function Function1dsRegions1dGetByOuterDomainValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function1dsRegions1dGetByOuterDomainValueConst
 end function Function1dsRegions1dGetByOuterDomainValueConst
 
@@ -652,7 +653,7 @@ function Function1dsRegions1dGetByOuterDomainValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: Function1dsRegions1dGetByOuterDomainValue
 end function Function1dsRegions1dGetByOuterDomainValue
 
@@ -661,8 +662,8 @@ subroutine Function1dsRegions1dSetByOuterDomainValue(handle, meta, fieldHandle) 
       bind(C, name='Function1dsRegions1dSetByOuterDomainValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Function1dsRegions1dSetByOuterDomainValue
 

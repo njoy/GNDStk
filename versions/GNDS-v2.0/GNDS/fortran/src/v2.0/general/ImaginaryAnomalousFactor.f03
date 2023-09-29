@@ -35,7 +35,7 @@ function ImaginaryAnomalousFactorCreateConst( &
       bind(C, name='ImaginaryAnomalousFactorCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: ImaginaryAnomalousFactorCreateConst
 end function ImaginaryAnomalousFactorCreateConst
 
@@ -46,7 +46,7 @@ function ImaginaryAnomalousFactorCreate( &
       bind(C, name='ImaginaryAnomalousFactorCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: ImaginaryAnomalousFactorCreate
 end function ImaginaryAnomalousFactorCreate
 
@@ -55,7 +55,8 @@ subroutine ImaginaryAnomalousFactorAssign(handleLHS, handleRHS) &
       bind(C, name='ImaginaryAnomalousFactorAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ImaginaryAnomalousFactorAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ImaginaryAnomalousFactorRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ImaginaryAnomalousFactorRead
 end function ImaginaryAnomalousFactorRead
@@ -90,7 +91,7 @@ function ImaginaryAnomalousFactorWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ImaginaryAnomalousFactorWrite
 end function ImaginaryAnomalousFactorWrite
@@ -150,7 +151,7 @@ function ImaginaryAnomalousFactorXYs1dGet(handle) &
       bind(C, name='ImaginaryAnomalousFactorXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ImaginaryAnomalousFactorXYs1dGet
 end function ImaginaryAnomalousFactorXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine ImaginaryAnomalousFactorXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ImaginaryAnomalousFactorXYs1dSet
 
 

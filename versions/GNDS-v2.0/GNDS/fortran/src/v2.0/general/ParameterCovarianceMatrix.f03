@@ -44,8 +44,8 @@ function ParameterCovarianceMatrixCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: type1Size
    character(c_char), intent(in) :: type1(type1Size)
-   type(c_ptr), value :: array
-   type(c_ptr), value :: parameters
+   type(c_ptr), intent(in), value :: array
+   type(c_ptr), intent(in), value :: parameters
    type(c_ptr) :: ParameterCovarianceMatrixCreateConst
 end function ParameterCovarianceMatrixCreateConst
 
@@ -65,8 +65,8 @@ function ParameterCovarianceMatrixCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: type1Size
    character(c_char), intent(in) :: type1(type1Size)
-   type(c_ptr), value :: array
-   type(c_ptr), value :: parameters
+   type(c_ptr), intent(in), value :: array
+   type(c_ptr), intent(in), value :: parameters
    type(c_ptr) :: ParameterCovarianceMatrixCreate
 end function ParameterCovarianceMatrixCreate
 
@@ -75,7 +75,8 @@ subroutine ParameterCovarianceMatrixAssign(handleLHS, handleRHS) &
       bind(C, name='ParameterCovarianceMatrixAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ParameterCovarianceMatrixAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function ParameterCovarianceMatrixRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParameterCovarianceMatrixRead
 end function ParameterCovarianceMatrixRead
@@ -110,7 +111,7 @@ function ParameterCovarianceMatrixWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParameterCovarianceMatrixWrite
 end function ParameterCovarianceMatrixWrite
@@ -236,7 +237,7 @@ function ParameterCovarianceMatrixArrayGet(handle) &
       bind(C, name='ParameterCovarianceMatrixArrayGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ParameterCovarianceMatrixArrayGet
 end function ParameterCovarianceMatrixArrayGet
 
@@ -246,7 +247,7 @@ subroutine ParameterCovarianceMatrixArraySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParameterCovarianceMatrixArraySet
 
 
@@ -277,7 +278,7 @@ function ParameterCovarianceMatrixParametersGet(handle) &
       bind(C, name='ParameterCovarianceMatrixParametersGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ParameterCovarianceMatrixParametersGet
 end function ParameterCovarianceMatrixParametersGet
 
@@ -287,7 +288,7 @@ subroutine ParameterCovarianceMatrixParametersSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParameterCovarianceMatrixParametersSet
 
 

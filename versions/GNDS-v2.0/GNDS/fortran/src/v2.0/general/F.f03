@@ -35,7 +35,7 @@ function FCreateConst( &
       bind(C, name='FCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: FCreateConst
 end function FCreateConst
 
@@ -46,7 +46,7 @@ function FCreate( &
       bind(C, name='FCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: FCreate
 end function FCreate
 
@@ -55,7 +55,8 @@ subroutine FAssign(handleLHS, handleRHS) &
       bind(C, name='FAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function FRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FRead
 end function FRead
@@ -90,7 +91,7 @@ function FWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FWrite
 end function FWrite
@@ -150,7 +151,7 @@ function FXYs2dGet(handle) &
       bind(C, name='FXYs2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: FXYs2dGet
 end function FXYs2dGet
 
@@ -160,7 +161,7 @@ subroutine FXYs2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FXYs2dSet
 
 

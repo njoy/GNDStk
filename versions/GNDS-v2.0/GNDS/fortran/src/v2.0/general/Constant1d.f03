@@ -42,10 +42,10 @@ function Constant1dCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: value
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
-   type(c_ptr), value :: axes
+   real(c_double), intent(in), value :: value
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
+   type(c_ptr), intent(in), value :: axes
    type(c_ptr) :: Constant1dCreateConst
 end function Constant1dCreateConst
 
@@ -63,10 +63,10 @@ function Constant1dCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: value
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
-   type(c_ptr), value :: axes
+   real(c_double), intent(in), value :: value
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
+   type(c_ptr), intent(in), value :: axes
    type(c_ptr) :: Constant1dCreate
 end function Constant1dCreate
 
@@ -75,7 +75,8 @@ subroutine Constant1dAssign(handleLHS, handleRHS) &
       bind(C, name='Constant1dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Constant1dAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function Constant1dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Constant1dRead
 end function Constant1dRead
@@ -110,7 +111,7 @@ function Constant1dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Constant1dWrite
 end function Constant1dWrite
@@ -199,13 +200,12 @@ function Constant1dValueGet(handle) &
 end function Constant1dValueGet
 
 !! Set
-subroutine Constant1dValueSet(handle, value, valueSize) &
+subroutine Constant1dValueSet(handle, value) &
       bind(C, name='Constant1dValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine Constant1dValueSet
 
 
@@ -232,13 +232,12 @@ function Constant1dDomainMinGet(handle) &
 end function Constant1dDomainMinGet
 
 !! Set
-subroutine Constant1dDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine Constant1dDomainMinSet(handle, domainMin) &
       bind(C, name='Constant1dDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine Constant1dDomainMinSet
 
 
@@ -265,13 +264,12 @@ function Constant1dDomainMaxGet(handle) &
 end function Constant1dDomainMaxGet
 
 !! Set
-subroutine Constant1dDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine Constant1dDomainMaxSet(handle, domainMax) &
       bind(C, name='Constant1dDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine Constant1dDomainMaxSet
 
 
@@ -302,7 +300,7 @@ function Constant1dAxesGet(handle) &
       bind(C, name='Constant1dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Constant1dAxesGet
 end function Constant1dAxesGet
 
@@ -312,7 +310,7 @@ subroutine Constant1dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Constant1dAxesSet
 
 

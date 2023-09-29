@@ -42,10 +42,10 @@ function Regions1dCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: outerDomainValue
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: uncertainty
-   type(c_ptr), value :: function1ds
+   real(c_double), intent(in), value :: outerDomainValue
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: uncertainty
+   type(c_ptr), intent(in), value :: function1ds
    type(c_ptr) :: Regions1dCreateConst
 end function Regions1dCreateConst
 
@@ -63,10 +63,10 @@ function Regions1dCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: outerDomainValue
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: uncertainty
-   type(c_ptr), value :: function1ds
+   real(c_double), intent(in), value :: outerDomainValue
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: uncertainty
+   type(c_ptr), intent(in), value :: function1ds
    type(c_ptr) :: Regions1dCreate
 end function Regions1dCreate
 
@@ -75,7 +75,8 @@ subroutine Regions1dAssign(handleLHS, handleRHS) &
       bind(C, name='Regions1dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine Regions1dAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function Regions1dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Regions1dRead
 end function Regions1dRead
@@ -110,7 +111,7 @@ function Regions1dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: Regions1dWrite
 end function Regions1dWrite
@@ -199,13 +200,12 @@ function Regions1dOuterDomainValueGet(handle) &
 end function Regions1dOuterDomainValueGet
 
 !! Set
-subroutine Regions1dOuterDomainValueSet(handle, outerDomainValue, outerDomainValueSize) &
+subroutine Regions1dOuterDomainValueSet(handle, outerDomainValue) &
       bind(C, name='Regions1dOuterDomainValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: outerDomainValueSize
-   character(c_char), intent(in) :: outerDomainValue(outerDomainValueSize)
+   real(c_double), intent(in), value :: outerDomainValue
 end subroutine Regions1dOuterDomainValueSet
 
 
@@ -236,7 +236,7 @@ function Regions1dAxesGet(handle) &
       bind(C, name='Regions1dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Regions1dAxesGet
 end function Regions1dAxesGet
 
@@ -246,7 +246,7 @@ subroutine Regions1dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Regions1dAxesSet
 
 
@@ -277,7 +277,7 @@ function Regions1dUncertaintyGet(handle) &
       bind(C, name='Regions1dUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Regions1dUncertaintyGet
 end function Regions1dUncertaintyGet
 
@@ -287,7 +287,7 @@ subroutine Regions1dUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Regions1dUncertaintySet
 
 
@@ -318,7 +318,7 @@ function Regions1dFunction1dsGet(handle) &
       bind(C, name='Regions1dFunction1dsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: Regions1dFunction1dsGet
 end function Regions1dFunction1dsGet
 
@@ -328,7 +328,7 @@ subroutine Regions1dFunction1dsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine Regions1dFunction1dsSet
 
 

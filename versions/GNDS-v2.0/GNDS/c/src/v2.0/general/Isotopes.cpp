@@ -204,6 +204,10 @@ IsotopesIsotopeSet(
       (CLASSNAME, CLASSNAME+"IsotopeSet", self, extract::isotope, index_, isotope);
 }
 
+// ------------------------
+// Re: metadatum symbol
+// ------------------------
+
 // Has, by symbol
 int
 IsotopesIsotopeHasBySymbol(
@@ -248,6 +252,10 @@ IsotopesIsotopeSetBySymbol(
       (CLASSNAME, CLASSNAME+"IsotopeSetBySymbol",
        self, extract::isotope, meta::symbol, symbol, isotope);
 }
+
+// ------------------------
+// Re: metadatum A
+// ------------------------
 
 // Has, by A
 int

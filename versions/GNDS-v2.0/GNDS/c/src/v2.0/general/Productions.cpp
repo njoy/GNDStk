@@ -204,6 +204,10 @@ ProductionsProductionSet(
       (CLASSNAME, CLASSNAME+"ProductionSet", self, extract::production, index_, production);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ProductionsProductionHasByLabel(
@@ -248,6 +252,10 @@ ProductionsProductionSetByLabel(
       (CLASSNAME, CLASSNAME+"ProductionSetByLabel",
        self, extract::production, meta::label, label, production);
 }
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // Has, by ENDF_MT
 int

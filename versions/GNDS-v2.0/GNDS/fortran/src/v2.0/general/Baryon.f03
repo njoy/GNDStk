@@ -44,12 +44,12 @@ function BaryonCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
-   type(c_ptr), value :: decayData
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
+   type(c_ptr), intent(in), value :: decayData
    type(c_ptr) :: BaryonCreateConst
 end function BaryonCreateConst
 
@@ -69,12 +69,12 @@ function BaryonCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
-   type(c_ptr), value :: decayData
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
+   type(c_ptr), intent(in), value :: decayData
    type(c_ptr) :: BaryonCreate
 end function BaryonCreate
 
@@ -83,7 +83,8 @@ subroutine BaryonAssign(handleLHS, handleRHS) &
       bind(C, name='BaryonAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine BaryonAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function BaryonRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BaryonRead
 end function BaryonRead
@@ -118,7 +119,7 @@ function BaryonWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BaryonWrite
 end function BaryonWrite
@@ -211,7 +212,7 @@ function BaryonMassGet(handle) &
       bind(C, name='BaryonMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BaryonMassGet
 end function BaryonMassGet
 
@@ -221,7 +222,7 @@ subroutine BaryonMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BaryonMassSet
 
 
@@ -252,7 +253,7 @@ function BaryonSpinGet(handle) &
       bind(C, name='BaryonSpinGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BaryonSpinGet
 end function BaryonSpinGet
 
@@ -262,7 +263,7 @@ subroutine BaryonSpinSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BaryonSpinSet
 
 
@@ -293,7 +294,7 @@ function BaryonParityGet(handle) &
       bind(C, name='BaryonParityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BaryonParityGet
 end function BaryonParityGet
 
@@ -303,7 +304,7 @@ subroutine BaryonParitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BaryonParitySet
 
 
@@ -334,7 +335,7 @@ function BaryonChargeGet(handle) &
       bind(C, name='BaryonChargeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BaryonChargeGet
 end function BaryonChargeGet
 
@@ -344,7 +345,7 @@ subroutine BaryonChargeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BaryonChargeSet
 
 
@@ -375,7 +376,7 @@ function BaryonHalflifeGet(handle) &
       bind(C, name='BaryonHalflifeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BaryonHalflifeGet
 end function BaryonHalflifeGet
 
@@ -385,7 +386,7 @@ subroutine BaryonHalflifeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BaryonHalflifeSet
 
 
@@ -416,7 +417,7 @@ function BaryonDecayDataGet(handle) &
       bind(C, name='BaryonDecayDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: BaryonDecayDataGet
 end function BaryonDecayDataGet
 
@@ -426,7 +427,7 @@ subroutine BaryonDecayDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine BaryonDecayDataSet
 
 

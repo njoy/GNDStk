@@ -47,11 +47,11 @@ function ResonanceReactionCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: ejectileSize
    character(c_char), intent(in) :: ejectile(ejectileSize)
-   logical(c_bool), value, intent(in) :: eliminated
-   type(c_ptr), value :: link
-   type(c_ptr), value :: hardSphereRadius
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: scatteringRadius
+   logical(c_bool), intent(in), value :: eliminated
+   type(c_ptr), intent(in), value :: link
+   type(c_ptr), intent(in), value :: hardSphereRadius
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: scatteringRadius
    type(c_ptr) :: ResonanceReactionCreateConst
 end function ResonanceReactionCreateConst
 
@@ -74,11 +74,11 @@ function ResonanceReactionCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: ejectileSize
    character(c_char), intent(in) :: ejectile(ejectileSize)
-   logical(c_bool), value, intent(in) :: eliminated
-   type(c_ptr), value :: link
-   type(c_ptr), value :: hardSphereRadius
-   type(c_ptr), value :: Q
-   type(c_ptr), value :: scatteringRadius
+   logical(c_bool), intent(in), value :: eliminated
+   type(c_ptr), intent(in), value :: link
+   type(c_ptr), intent(in), value :: hardSphereRadius
+   type(c_ptr), intent(in), value :: Q
+   type(c_ptr), intent(in), value :: scatteringRadius
    type(c_ptr) :: ResonanceReactionCreate
 end function ResonanceReactionCreate
 
@@ -87,7 +87,8 @@ subroutine ResonanceReactionAssign(handleLHS, handleRHS) &
       bind(C, name='ResonanceReactionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResonanceReactionAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function ResonanceReactionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonanceReactionRead
 end function ResonanceReactionRead
@@ -122,7 +123,7 @@ function ResonanceReactionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonanceReactionWrite
 end function ResonanceReactionWrite
@@ -244,13 +245,12 @@ function ResonanceReactionEliminatedGet(handle) &
 end function ResonanceReactionEliminatedGet
 
 !! Set
-subroutine ResonanceReactionEliminatedSet(handle, eliminated, eliminatedSize) &
+subroutine ResonanceReactionEliminatedSet(handle, eliminated) &
       bind(C, name='ResonanceReactionEliminatedSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: eliminatedSize
-   character(c_char), intent(in) :: eliminated(eliminatedSize)
+   logical(c_bool), intent(in), value :: eliminated
 end subroutine ResonanceReactionEliminatedSet
 
 
@@ -281,7 +281,7 @@ function ResonanceReactionLinkGet(handle) &
       bind(C, name='ResonanceReactionLinkGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonanceReactionLinkGet
 end function ResonanceReactionLinkGet
 
@@ -291,7 +291,7 @@ subroutine ResonanceReactionLinkSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonanceReactionLinkSet
 
 
@@ -322,7 +322,7 @@ function ResonanceReactionHardSphereRadiusGet(handle) &
       bind(C, name='ResonanceReactionHardSphereRadiusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonanceReactionHardSphereRadiusGet
 end function ResonanceReactionHardSphereRadiusGet
 
@@ -332,7 +332,7 @@ subroutine ResonanceReactionHardSphereRadiusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonanceReactionHardSphereRadiusSet
 
 
@@ -363,7 +363,7 @@ function ResonanceReactionQGet(handle) &
       bind(C, name='ResonanceReactionQGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonanceReactionQGet
 end function ResonanceReactionQGet
 
@@ -373,7 +373,7 @@ subroutine ResonanceReactionQSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonanceReactionQSet
 
 
@@ -404,7 +404,7 @@ function ResonanceReactionScatteringRadiusGet(handle) &
       bind(C, name='ResonanceReactionScatteringRadiusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonanceReactionScatteringRadiusGet
 end function ResonanceReactionScatteringRadiusGet
 
@@ -414,7 +414,7 @@ subroutine ResonanceReactionScatteringRadiusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonanceReactionScatteringRadiusSet
 
 

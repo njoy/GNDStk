@@ -40,8 +40,8 @@ function LCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: value
-   type(c_ptr), value :: Js
+   integer(c_int), intent(in), value :: value
+   type(c_ptr), intent(in), value :: Js
    type(c_ptr) :: LCreateConst
 end function LCreateConst
 
@@ -57,8 +57,8 @@ function LCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: value
-   type(c_ptr), value :: Js
+   integer(c_int), intent(in), value :: value
+   type(c_ptr), intent(in), value :: Js
    type(c_ptr) :: LCreate
 end function LCreate
 
@@ -67,7 +67,8 @@ subroutine LAssign(handleLHS, handleRHS) &
       bind(C, name='LAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine LAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function LRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LRead
 end function LRead
@@ -102,7 +103,7 @@ function LWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LWrite
 end function LWrite
@@ -191,13 +192,12 @@ function LValueGet(handle) &
 end function LValueGet
 
 !! Set
-subroutine LValueSet(handle, value, valueSize) &
+subroutine LValueSet(handle, value) &
       bind(C, name='LValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   integer(c_int), intent(in), value :: value
 end subroutine LValueSet
 
 
@@ -228,7 +228,7 @@ function LJsGet(handle) &
       bind(C, name='LJsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LJsGet
 end function LJsGet
 
@@ -238,7 +238,7 @@ subroutine LJsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LJsSet
 
 

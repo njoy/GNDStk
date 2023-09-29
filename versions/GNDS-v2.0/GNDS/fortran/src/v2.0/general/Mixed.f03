@@ -41,11 +41,11 @@ function MixedCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_size_t), value :: covarianceMatrixSize
-   type(c_ptr) :: covarianceMatrix(covarianceMatrixSize)
-   integer(c_size_t), value :: sumSize
-   type(c_ptr) :: sum(sumSize)
-   type(c_ptr), value :: shortRangeSelfScalingVariance
+   integer(c_size_t), intent(in), value :: covarianceMatrixSize
+   type(c_ptr), intent(in) :: covarianceMatrix(covarianceMatrixSize)
+   integer(c_size_t), intent(in), value :: sumSize
+   type(c_ptr), intent(in) :: sum(sumSize)
+   type(c_ptr), intent(in), value :: shortRangeSelfScalingVariance
    type(c_ptr) :: MixedCreateConst
 end function MixedCreateConst
 
@@ -62,11 +62,11 @@ function MixedCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_size_t), value :: covarianceMatrixSize
-   type(c_ptr) :: covarianceMatrix(covarianceMatrixSize)
-   integer(c_size_t), value :: sumSize
-   type(c_ptr) :: sum(sumSize)
-   type(c_ptr), value :: shortRangeSelfScalingVariance
+   integer(c_size_t), intent(in), value :: covarianceMatrixSize
+   type(c_ptr), intent(in) :: covarianceMatrix(covarianceMatrixSize)
+   integer(c_size_t), intent(in), value :: sumSize
+   type(c_ptr), intent(in) :: sum(sumSize)
+   type(c_ptr), intent(in), value :: shortRangeSelfScalingVariance
    type(c_ptr) :: MixedCreate
 end function MixedCreate
 
@@ -75,7 +75,8 @@ subroutine MixedAssign(handleLHS, handleRHS) &
       bind(C, name='MixedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MixedAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function MixedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MixedRead
 end function MixedRead
@@ -110,7 +111,7 @@ function MixedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MixedWrite
 end function MixedWrite
@@ -287,7 +288,7 @@ subroutine MixedCovarianceMatrixSetByLabel(handle, meta, metaSize, fieldHandle) 
       bind(C, name='MixedCovarianceMatrixSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -335,7 +336,7 @@ subroutine MixedCovarianceMatrixSetByType(handle, meta, metaSize, fieldHandle) &
       bind(C, name='MixedCovarianceMatrixSetByType')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -383,7 +384,7 @@ subroutine MixedCovarianceMatrixSetByProductFrame(handle, meta, metaSize, fieldH
       bind(C, name='MixedCovarianceMatrixSetByProductFrame')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -501,7 +502,7 @@ subroutine MixedSumSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='MixedSumSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -517,7 +518,7 @@ function MixedSumHasByDomainMin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: MixedSumHasByDomainMin
 end function MixedSumHasByDomainMin
 
@@ -527,7 +528,7 @@ function MixedSumGetByDomainMinConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: MixedSumGetByDomainMinConst
 end function MixedSumGetByDomainMinConst
 
@@ -537,7 +538,7 @@ function MixedSumGetByDomainMin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: MixedSumGetByDomainMin
 end function MixedSumGetByDomainMin
 
@@ -546,8 +547,8 @@ subroutine MixedSumSetByDomainMin(handle, meta, fieldHandle) &
       bind(C, name='MixedSumSetByDomainMin')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MixedSumSetByDomainMin
 
@@ -561,7 +562,7 @@ function MixedSumHasByDomainMax(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: MixedSumHasByDomainMax
 end function MixedSumHasByDomainMax
 
@@ -571,7 +572,7 @@ function MixedSumGetByDomainMaxConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: MixedSumGetByDomainMaxConst
 end function MixedSumGetByDomainMaxConst
 
@@ -581,7 +582,7 @@ function MixedSumGetByDomainMax(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: MixedSumGetByDomainMax
 end function MixedSumGetByDomainMax
 
@@ -590,8 +591,8 @@ subroutine MixedSumSetByDomainMax(handle, meta, fieldHandle) &
       bind(C, name='MixedSumSetByDomainMax')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MixedSumSetByDomainMax
 
@@ -637,7 +638,7 @@ subroutine MixedSumSetByDomainUnit(handle, meta, metaSize, fieldHandle) &
       bind(C, name='MixedSumSetByDomainUnit')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -671,7 +672,7 @@ function MixedShortRangeSelfScalingVarianceGet(handle) &
       bind(C, name='MixedShortRangeSelfScalingVarianceGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MixedShortRangeSelfScalingVarianceGet
 end function MixedShortRangeSelfScalingVarianceGet
 
@@ -681,7 +682,7 @@ subroutine MixedShortRangeSelfScalingVarianceSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MixedShortRangeSelfScalingVarianceSet
 
 

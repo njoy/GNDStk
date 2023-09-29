@@ -35,7 +35,7 @@ function ApplicationDataCreateConst( &
       bind(C, name='ApplicationDataCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: institution
+   type(c_ptr), intent(in), value :: institution
    type(c_ptr) :: ApplicationDataCreateConst
 end function ApplicationDataCreateConst
 
@@ -46,7 +46,7 @@ function ApplicationDataCreate( &
       bind(C, name='ApplicationDataCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: institution
+   type(c_ptr), intent(in), value :: institution
    type(c_ptr) :: ApplicationDataCreate
 end function ApplicationDataCreate
 
@@ -55,7 +55,8 @@ subroutine ApplicationDataAssign(handleLHS, handleRHS) &
       bind(C, name='ApplicationDataAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ApplicationDataAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ApplicationDataRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ApplicationDataRead
 end function ApplicationDataRead
@@ -90,7 +91,7 @@ function ApplicationDataWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ApplicationDataWrite
 end function ApplicationDataWrite
@@ -150,7 +151,7 @@ function ApplicationDataInstitutionGet(handle) &
       bind(C, name='ApplicationDataInstitutionGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ApplicationDataInstitutionGet
 end function ApplicationDataInstitutionGet
 
@@ -160,7 +161,7 @@ subroutine ApplicationDataInstitutionSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ApplicationDataInstitutionSet
 
 

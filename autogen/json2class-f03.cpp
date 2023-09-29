@@ -48,20 +48,18 @@ std::string ftype(const std::string &type)
 
 
 // -----------------------------------------------------------------------------
-// Helpers
+// fileF03InterfaceCreateParams
 // -----------------------------------------------------------------------------
 
-// fileF03InterfaceCreateParams
 void fileF03InterfaceCreateParams(writer &src, const PerClass &per)
 {
    int count = 0;
    const int total = per.nfields();
    std::vector<std::string> sizes;
 
-   // Determine what parameters will have sizes that appear at the end of the
-   // parameter list. This is determined in advance for convenience, and also
-   // because the presence or absence of additional size parameters will affect
-   // whether or not commas are needed after parameters.
+   // Determine if any parameters will need need to have their sizes at the
+   // end of the parameter list. This is determined here because it affects
+   // whether or not commas may be needed earlier, after other parameters.
    bool hasSizes = false;
    for (const auto &m : per.metadata)
       if (m.type == "std::string")
@@ -71,7 +69,7 @@ void fileF03InterfaceCreateParams(writer &src, const PerClass &per)
    for (const auto &m : per.metadata) {
       const std::string varname = fname(m.name);
       src();
-      src(1,"@@", varname, ++count < total || hasSizes ? ", &" : " &", false);
+      src(1,"@@ &", varname, ++count < total || hasSizes ? "," : "", false);
       if (m.type == "std::string")
          sizes.push_back(varname+"Size");
    }
@@ -81,10 +79,10 @@ void fileF03InterfaceCreateParams(writer &src, const PerClass &per)
       const std::string varname = fname(c.name);
       src();
       c.isVector
-         ? src(1,"@, @Size@", varname, varname,
-               ++count < total || hasSizes ? ", &" : " &", false)
-         : src(1,"@@", varname,
-               ++count < total || hasSizes ? ", &" : " &", false);
+         ? src(1,"@, @Size@ &", varname, varname,
+               ++count < total || hasSizes ? "," : "", false)
+         : src(1,"@@ &", varname,
+               ++count < total || hasSizes ? "," : "", false);
    }
 
    // variants
@@ -95,10 +93,14 @@ void fileF03InterfaceCreateParams(writer &src, const PerClass &per)
    // sizes
    count = 0;
    for (const std::string &s : sizes)
-      src(1,"@@", s, ++count < sizes.size() ? ", &" : " &");
+      src(1,"@@ &", s, ++count < sizes.size() ? "," : "");
 }
 
+
+// -----------------------------------------------------------------------------
 // fileF03InterfaceDeclareParams
+// -----------------------------------------------------------------------------
+
 void fileF03InterfaceDeclareParams(writer &src, const PerClass &per)
 {
    // metadata
@@ -108,17 +110,17 @@ void fileF03InterfaceDeclareParams(writer &src, const PerClass &per)
          src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
          src(1,"character(c_char), intent(in) :: @(@Size)", varname, varname);
       } else
-         src(1,"@, value, intent(in) :: @", ftype(m.type), varname);
+         src(1,"@, intent(in), value :: @", ftype(m.type), varname);
    }
 
    // children
    for (const auto &c : per.children) {
       const std::string varname = fname(c.name);
       if (c.isVector) {
-         src(1,"integer(c_size_t), value :: @Size", varname);
-         src(1,"type(c_ptr) :: @(@Size)", varname, varname);
+         src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
+         src(1,"type(c_ptr), intent(in) :: @(@Size)", varname, varname);
       } else
-         src(1,"type(c_ptr), value :: @", varname);
+         src(1,"type(c_ptr), intent(in), value :: @", varname);
    }
 
    // variants
@@ -199,7 +201,8 @@ void fileF03InterfaceBasics(writer &src, const PerClass &per)
    src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
-   src(1,"type(c_ptr), value :: handleLHS, handleRHS");
+   src(1,"type(c_ptr), value :: handleLHS");
+   src(1,"type(c_ptr), intent(in), value :: handleRHS");
    src("end subroutine @", sub);
 
    // delete
@@ -240,7 +243,7 @@ void fileF03InterfaceIO(writer &src, const PerClass &per)
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
-   src(1,"integer(c_size_t), value :: filenameSize");
+   src(1,"integer(c_size_t), intent(in), value :: filenameSize");
    src(1,"character(c_char), intent(in) :: filename(filenameSize)");
    src(1,"integer(c_int) :: @", sub);
    src("end function @", sub);
@@ -254,7 +257,7 @@ void fileF03InterfaceIO(writer &src, const PerClass &per)
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), intent(in), value :: handle");
-   src(1,"integer(c_size_t), value :: filenameSize");
+   src(1,"integer(c_size_t), intent(in), value :: filenameSize");
    src(1,"character(c_char), intent(in) :: filename(filenameSize)");
    src(1,"integer(c_int) :: @", sub);
    src("end function @", sub);
@@ -379,6 +382,15 @@ void fileF03InterfaceVector(
    src("end function @", sub);
 
    // set value
+   // Note: the type == std::string case occurs when we're dealing with
+   // basically an "array of strings", as would appear in XML as something
+   // like <node>foo bar baz</node>. Here, we're sending the array index,
+   // for example 1 for bar (always 0-indexed, even for Fortran, because
+   // we're interfacing down to C and then C++). The "valueAtIndexSize"
+   // parameter is, here, what its name suggests: the size of the to-be-set
+   // string value, for example 6 if we're replacing "bar" with "abcdef".
+   // It should not be confused with the size of the <node> array. If it
+   // were that, then we'd call it arraySize, not valueAtIndexSize.
    sub = Class + Types + "Set";
    src();
    src("!! Set value");
@@ -439,7 +451,7 @@ void fileF03InterfaceVector(
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), value :: handle");
-      src(1,"integer(c_size_t), value :: valuesSize");
+      src(1,"integer(c_size_t), intent(in), value :: valuesSize");
       src(1,"@, intent(in) :: values(valuesSize)", ftype(type));
       src("end subroutine @", sub);
    }
@@ -490,13 +502,18 @@ void fileF03InterfaceMeta(
    sub = Class + Meta + "Set";
    src();
    src("!! Set");
-   src("subroutine @(handle, @, @Size) &", sub, varname, varname);
+   m.type == "std::string"
+      ? src("subroutine @(handle, @, @Size) &", sub, varname, varname)
+      : src("subroutine @(handle, @) &", sub, varname);
    src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
    src(1,"implicit none");
    src(1,"type(c_ptr), value :: handle");
-   src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
-   src(1,"character(c_char), intent(in) :: @(@Size)", varname, varname);
+   if (m.type == "std::string") {
+      src(1,"integer(c_size_t), intent(in), value :: @Size", varname);
+      src(1,"character(c_char), intent(in) :: @(@Size)", varname, varname);
+   } else
+      src(1,"@, intent(in), value :: @", ftype(m.type), varname);
    src("end subroutine @", sub);
 }
 
@@ -556,7 +573,7 @@ void fileF03InterfaceChild(
       src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
-      src(1,"type(c_ptr), intent(in), value :: handle");
+      src(1,"type(c_ptr), value :: handle");
       src(1,"type(c_ptr) :: @", sub);
       src("end function @", sub);
 
@@ -569,9 +586,10 @@ void fileF03InterfaceChild(
       src(1,"use iso_c_binding");
       src(1,"implicit none");
       src(1,"type(c_ptr), value :: handle");
-      src(1,"type(c_ptr), value :: fieldHandle");
+      src(1,"type(c_ptr), intent(in), value :: fieldHandle");
       src("end subroutine @", sub);
 
+      // done with this child
       return;
    }
 
@@ -653,7 +671,12 @@ void fileF03InterfaceChild(
    src(1,"type(c_ptr), intent(in), value :: fieldHandle");
    src("end subroutine @", sub);
 
-   // for this child's metadata: has, get const, get, set
+   // ------------------------
+   // for this child's metadata:
+   // has, get const, get, set
+   // ------------------------
+
+   // first make sure that we know about this class
    const auto it = specs.class2data.find(NamespaceAndClass(c.ns,c.plain));
    if (it == specs.class2data.end()) {
       log::warning(
@@ -667,11 +690,12 @@ void fileF03InterfaceChild(
       return;
    }
 
+   // has, get const, get, set
    for (const auto &m : it->second.metadata) {
       const std::string Meta = UpperCamel(m.name);
       const std::string meta = m.name;
 
-      // qqq Probably put this subsection header into the C interface too...
+      // subsection header
       src();
       src(smallFortran);
       src("!! Re: metadatum @", meta);
@@ -692,7 +716,7 @@ void fileF03InterfaceChild(
          src(1,"integer(c_size_t), intent(in), value :: metaSize");
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
-         src(1,"@, value, intent(in) :: meta", ftype(m.type));
+         src(1,"@, intent(in), value :: meta", ftype(m.type));
       src(1,"integer(c_int) :: @", sub);
       src("end function @", sub);
 
@@ -711,7 +735,7 @@ void fileF03InterfaceChild(
          src(1,"integer(c_size_t), intent(in), value :: metaSize");
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
-         src(1,"@, value, intent(in) :: meta", ftype(m.type));
+         src(1,"@, intent(in), value :: meta", ftype(m.type));
       src(1,"type(c_ptr) :: @", sub);
       src("end function @", sub);
 
@@ -730,7 +754,7 @@ void fileF03InterfaceChild(
          src(1,"integer(c_size_t), intent(in), value :: metaSize");
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
-         src(1,"@, value, intent(in) :: meta", ftype(m.type));
+         src(1,"@, intent(in), value :: meta", ftype(m.type));
       src(1,"type(c_ptr) :: @", sub);
       src("end function @", sub);
 
@@ -744,12 +768,12 @@ void fileF03InterfaceChild(
       src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
       src(1,"implicit none");
-      src(1,"type(c_ptr), intent(in), value :: handle");
+      src(1,"type(c_ptr), value :: handle");
       if (m.type == "std::string") {
          src(1,"integer(c_size_t), intent(in), value :: metaSize");
          src(1,"character(c_char), intent(in) :: meta(metaSize)");
       } else
-         src(1,"@, value, intent(in) :: meta", ftype(m.type));
+         src(1,"@, intent(in), value :: meta", ftype(m.type));
       src(1,"type(c_ptr), intent(in), value :: fieldHandle");
       src("end subroutine @", sub);
    } // metadata

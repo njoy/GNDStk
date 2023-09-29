@@ -44,12 +44,12 @@ function CovarianceSectionCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   logical(c_bool), value, intent(in) :: crossTerm
-   type(c_ptr), value :: rowData
-   type(c_ptr), value :: columnData
-   type(c_ptr), value :: covarianceMatrix
-   type(c_ptr), value :: mixed
-   type(c_ptr), value :: sum
+   logical(c_bool), intent(in), value :: crossTerm
+   type(c_ptr), intent(in), value :: rowData
+   type(c_ptr), intent(in), value :: columnData
+   type(c_ptr), intent(in), value :: covarianceMatrix
+   type(c_ptr), intent(in), value :: mixed
+   type(c_ptr), intent(in), value :: sum
    type(c_ptr) :: CovarianceSectionCreateConst
 end function CovarianceSectionCreateConst
 
@@ -69,12 +69,12 @@ function CovarianceSectionCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   logical(c_bool), value, intent(in) :: crossTerm
-   type(c_ptr), value :: rowData
-   type(c_ptr), value :: columnData
-   type(c_ptr), value :: covarianceMatrix
-   type(c_ptr), value :: mixed
-   type(c_ptr), value :: sum
+   logical(c_bool), intent(in), value :: crossTerm
+   type(c_ptr), intent(in), value :: rowData
+   type(c_ptr), intent(in), value :: columnData
+   type(c_ptr), intent(in), value :: covarianceMatrix
+   type(c_ptr), intent(in), value :: mixed
+   type(c_ptr), intent(in), value :: sum
    type(c_ptr) :: CovarianceSectionCreate
 end function CovarianceSectionCreate
 
@@ -83,7 +83,8 @@ subroutine CovarianceSectionAssign(handleLHS, handleRHS) &
       bind(C, name='CovarianceSectionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CovarianceSectionAssign
 
 !! Delete
@@ -107,7 +108,7 @@ function CovarianceSectionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceSectionRead
 end function CovarianceSectionRead
@@ -118,7 +119,7 @@ function CovarianceSectionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceSectionWrite
 end function CovarianceSectionWrite
@@ -207,13 +208,12 @@ function CovarianceSectionCrossTermGet(handle) &
 end function CovarianceSectionCrossTermGet
 
 !! Set
-subroutine CovarianceSectionCrossTermSet(handle, crossTerm, crossTermSize) &
+subroutine CovarianceSectionCrossTermSet(handle, crossTerm) &
       bind(C, name='CovarianceSectionCrossTermSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: crossTermSize
-   character(c_char), intent(in) :: crossTerm(crossTermSize)
+   logical(c_bool), intent(in), value :: crossTerm
 end subroutine CovarianceSectionCrossTermSet
 
 
@@ -244,7 +244,7 @@ function CovarianceSectionRowDataGet(handle) &
       bind(C, name='CovarianceSectionRowDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSectionRowDataGet
 end function CovarianceSectionRowDataGet
 
@@ -254,7 +254,7 @@ subroutine CovarianceSectionRowDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionRowDataSet
 
 
@@ -285,7 +285,7 @@ function CovarianceSectionColumnDataGet(handle) &
       bind(C, name='CovarianceSectionColumnDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSectionColumnDataGet
 end function CovarianceSectionColumnDataGet
 
@@ -295,7 +295,7 @@ subroutine CovarianceSectionColumnDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionColumnDataSet
 
 
@@ -326,7 +326,7 @@ function CovarianceSectionCovarianceMatrixGet(handle) &
       bind(C, name='CovarianceSectionCovarianceMatrixGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSectionCovarianceMatrixGet
 end function CovarianceSectionCovarianceMatrixGet
 
@@ -336,7 +336,7 @@ subroutine CovarianceSectionCovarianceMatrixSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionCovarianceMatrixSet
 
 
@@ -367,7 +367,7 @@ function CovarianceSectionMixedGet(handle) &
       bind(C, name='CovarianceSectionMixedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSectionMixedGet
 end function CovarianceSectionMixedGet
 
@@ -377,7 +377,7 @@ subroutine CovarianceSectionMixedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionMixedSet
 
 
@@ -408,7 +408,7 @@ function CovarianceSectionSumGet(handle) &
       bind(C, name='CovarianceSectionSumGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSectionSumGet
 end function CovarianceSectionSumGet
 
@@ -418,7 +418,7 @@ subroutine CovarianceSectionSumSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSectionSumSet
 
 

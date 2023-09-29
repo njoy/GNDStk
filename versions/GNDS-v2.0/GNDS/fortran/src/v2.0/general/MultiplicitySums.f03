@@ -35,8 +35,8 @@ function MultiplicitySumsCreateConst( &
       bind(C, name='MultiplicitySumsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: multiplicitySumSize
-   type(c_ptr) :: multiplicitySum(multiplicitySumSize)
+   integer(c_size_t), intent(in), value :: multiplicitySumSize
+   type(c_ptr), intent(in) :: multiplicitySum(multiplicitySumSize)
    type(c_ptr) :: MultiplicitySumsCreateConst
 end function MultiplicitySumsCreateConst
 
@@ -47,8 +47,8 @@ function MultiplicitySumsCreate( &
       bind(C, name='MultiplicitySumsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: multiplicitySumSize
-   type(c_ptr) :: multiplicitySum(multiplicitySumSize)
+   integer(c_size_t), intent(in), value :: multiplicitySumSize
+   type(c_ptr), intent(in) :: multiplicitySum(multiplicitySumSize)
    type(c_ptr) :: MultiplicitySumsCreate
 end function MultiplicitySumsCreate
 
@@ -57,7 +57,8 @@ subroutine MultiplicitySumsAssign(handleLHS, handleRHS) &
       bind(C, name='MultiplicitySumsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MultiplicitySumsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function MultiplicitySumsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MultiplicitySumsRead
 end function MultiplicitySumsRead
@@ -92,7 +93,7 @@ function MultiplicitySumsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MultiplicitySumsWrite
 end function MultiplicitySumsWrite
@@ -236,7 +237,7 @@ subroutine MultiplicitySumsMultiplicitySumSetByLabel(handle, meta, metaSize, fie
       bind(C, name='MultiplicitySumsMultiplicitySumSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function MultiplicitySumsMultiplicitySumHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: MultiplicitySumsMultiplicitySumHasByENDFMT
 end function MultiplicitySumsMultiplicitySumHasByENDFMT
 
@@ -262,7 +263,7 @@ function MultiplicitySumsMultiplicitySumGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByENDFMTConst
 end function MultiplicitySumsMultiplicitySumGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function MultiplicitySumsMultiplicitySumGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByENDFMT
 end function MultiplicitySumsMultiplicitySumGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine MultiplicitySumsMultiplicitySumSetByENDFMT(handle, meta, fieldHandle)
       bind(C, name='MultiplicitySumsMultiplicitySumSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MultiplicitySumsMultiplicitySumSetByENDFMT
 

@@ -36,8 +36,8 @@ function LevelSpacingCreateConst( &
       bind(C, name='LevelSpacingCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: constant1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: constant1d
    type(c_ptr) :: LevelSpacingCreateConst
 end function LevelSpacingCreateConst
 
@@ -49,8 +49,8 @@ function LevelSpacingCreate( &
       bind(C, name='LevelSpacingCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: constant1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: constant1d
    type(c_ptr) :: LevelSpacingCreate
 end function LevelSpacingCreate
 
@@ -59,7 +59,8 @@ subroutine LevelSpacingAssign(handleLHS, handleRHS) &
       bind(C, name='LevelSpacingAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine LevelSpacingAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function LevelSpacingRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LevelSpacingRead
 end function LevelSpacingRead
@@ -94,7 +95,7 @@ function LevelSpacingWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LevelSpacingWrite
 end function LevelSpacingWrite
@@ -154,7 +155,7 @@ function LevelSpacingXYs1dGet(handle) &
       bind(C, name='LevelSpacingXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LevelSpacingXYs1dGet
 end function LevelSpacingXYs1dGet
 
@@ -164,7 +165,7 @@ subroutine LevelSpacingXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LevelSpacingXYs1dSet
 
 
@@ -195,7 +196,7 @@ function LevelSpacingConstant1dGet(handle) &
       bind(C, name='LevelSpacingConstant1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LevelSpacingConstant1dGet
 end function LevelSpacingConstant1dGet
 
@@ -205,7 +206,7 @@ subroutine LevelSpacingConstant1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LevelSpacingConstant1dSet
 
 

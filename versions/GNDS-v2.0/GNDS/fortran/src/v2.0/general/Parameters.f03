@@ -35,8 +35,8 @@ function ParametersCreateConst( &
       bind(C, name='ParametersCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: parameterLinkSize
-   type(c_ptr) :: parameterLink(parameterLinkSize)
+   integer(c_size_t), intent(in), value :: parameterLinkSize
+   type(c_ptr), intent(in) :: parameterLink(parameterLinkSize)
    type(c_ptr) :: ParametersCreateConst
 end function ParametersCreateConst
 
@@ -47,8 +47,8 @@ function ParametersCreate( &
       bind(C, name='ParametersCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: parameterLinkSize
-   type(c_ptr) :: parameterLink(parameterLinkSize)
+   integer(c_size_t), intent(in), value :: parameterLinkSize
+   type(c_ptr), intent(in) :: parameterLink(parameterLinkSize)
    type(c_ptr) :: ParametersCreate
 end function ParametersCreate
 
@@ -57,7 +57,8 @@ subroutine ParametersAssign(handleLHS, handleRHS) &
       bind(C, name='ParametersAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ParametersAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ParametersRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParametersRead
 end function ParametersRead
@@ -92,7 +93,7 @@ function ParametersWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParametersWrite
 end function ParametersWrite
@@ -236,7 +237,7 @@ subroutine ParametersParameterLinkSetByLabel(handle, meta, metaSize, fieldHandle
       bind(C, name='ParametersParameterLinkSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine ParametersParameterLinkSetByHref(handle, meta, metaSize, fieldHandle)
       bind(C, name='ParametersParameterLinkSetByHref')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -300,7 +301,7 @@ function ParametersParameterLinkHasByNParameters(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ParametersParameterLinkHasByNParameters
 end function ParametersParameterLinkHasByNParameters
 
@@ -310,7 +311,7 @@ function ParametersParameterLinkGetByNParametersConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ParametersParameterLinkGetByNParametersConst
 end function ParametersParameterLinkGetByNParametersConst
 
@@ -320,7 +321,7 @@ function ParametersParameterLinkGetByNParameters(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ParametersParameterLinkGetByNParameters
 end function ParametersParameterLinkGetByNParameters
 
@@ -329,8 +330,8 @@ subroutine ParametersParameterLinkSetByNParameters(handle, meta, fieldHandle) &
       bind(C, name='ParametersParameterLinkSetByNParameters')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParametersParameterLinkSetByNParameters
 
@@ -344,7 +345,7 @@ function ParametersParameterLinkHasByMatrixStartIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ParametersParameterLinkHasByMatrixStartIndex
 end function ParametersParameterLinkHasByMatrixStartIndex
 
@@ -354,7 +355,7 @@ function ParametersParameterLinkGetByMatrixStartIndexConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ParametersParameterLinkGetByMatrixStartIndexConst
 end function ParametersParameterLinkGetByMatrixStartIndexConst
 
@@ -364,7 +365,7 @@ function ParametersParameterLinkGetByMatrixStartIndex(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ParametersParameterLinkGetByMatrixStartIndex
 end function ParametersParameterLinkGetByMatrixStartIndex
 
@@ -373,8 +374,8 @@ subroutine ParametersParameterLinkSetByMatrixStartIndex(handle, meta, fieldHandl
       bind(C, name='ParametersParameterLinkSetByMatrixStartIndex')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParametersParameterLinkSetByMatrixStartIndex
 

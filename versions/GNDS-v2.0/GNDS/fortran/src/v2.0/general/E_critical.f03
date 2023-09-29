@@ -37,7 +37,7 @@ function E_criticalCreateConst( &
       bind(C, name='E_criticalCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: E_criticalCreateConst
@@ -52,7 +52,7 @@ function E_criticalCreate( &
       bind(C, name='E_criticalCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: E_criticalCreate
@@ -63,7 +63,8 @@ subroutine E_criticalAssign(handleLHS, handleRHS) &
       bind(C, name='E_criticalAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine E_criticalAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function E_criticalRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: E_criticalRead
 end function E_criticalRead
@@ -98,7 +99,7 @@ function E_criticalWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: E_criticalWrite
 end function E_criticalWrite
@@ -154,13 +155,12 @@ function E_criticalValueGet(handle) &
 end function E_criticalValueGet
 
 !! Set
-subroutine E_criticalValueSet(handle, value, valueSize) &
+subroutine E_criticalValueSet(handle, value) &
       bind(C, name='E_criticalValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine E_criticalValueSet
 
 

@@ -37,9 +37,9 @@ function NuclearAmplitudeExpansionCreateConst( &
       bind(C, name='NuclearAmplitudeExpansionCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: nuclearTerm
-   type(c_ptr), value :: realInterferenceTerm
-   type(c_ptr), value :: imaginaryInterferenceTerm
+   type(c_ptr), intent(in), value :: nuclearTerm
+   type(c_ptr), intent(in), value :: realInterferenceTerm
+   type(c_ptr), intent(in), value :: imaginaryInterferenceTerm
    type(c_ptr) :: NuclearAmplitudeExpansionCreateConst
 end function NuclearAmplitudeExpansionCreateConst
 
@@ -52,9 +52,9 @@ function NuclearAmplitudeExpansionCreate( &
       bind(C, name='NuclearAmplitudeExpansionCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: nuclearTerm
-   type(c_ptr), value :: realInterferenceTerm
-   type(c_ptr), value :: imaginaryInterferenceTerm
+   type(c_ptr), intent(in), value :: nuclearTerm
+   type(c_ptr), intent(in), value :: realInterferenceTerm
+   type(c_ptr), intent(in), value :: imaginaryInterferenceTerm
    type(c_ptr) :: NuclearAmplitudeExpansionCreate
 end function NuclearAmplitudeExpansionCreate
 
@@ -63,7 +63,8 @@ subroutine NuclearAmplitudeExpansionAssign(handleLHS, handleRHS) &
       bind(C, name='NuclearAmplitudeExpansionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine NuclearAmplitudeExpansionAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function NuclearAmplitudeExpansionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NuclearAmplitudeExpansionRead
 end function NuclearAmplitudeExpansionRead
@@ -98,7 +99,7 @@ function NuclearAmplitudeExpansionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NuclearAmplitudeExpansionWrite
 end function NuclearAmplitudeExpansionWrite
@@ -158,7 +159,7 @@ function NuclearAmplitudeExpansionNuclearTermGet(handle) &
       bind(C, name='NuclearAmplitudeExpansionNuclearTermGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclearAmplitudeExpansionNuclearTermGet
 end function NuclearAmplitudeExpansionNuclearTermGet
 
@@ -168,7 +169,7 @@ subroutine NuclearAmplitudeExpansionNuclearTermSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclearAmplitudeExpansionNuclearTermSet
 
 
@@ -199,7 +200,7 @@ function NuclearAmplitudeExpansionRealInterferenceTermGet(handle) &
       bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclearAmplitudeExpansionRealInterferenceTermGet
 end function NuclearAmplitudeExpansionRealInterferenceTermGet
 
@@ -209,7 +210,7 @@ subroutine NuclearAmplitudeExpansionRealInterferenceTermSet(handle, fieldHandle)
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclearAmplitudeExpansionRealInterferenceTermSet
 
 
@@ -240,7 +241,7 @@ function NuclearAmplitudeExpansionImaginaryInterferenceTermGet(handle) &
       bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NuclearAmplitudeExpansionImaginaryInterferenceTermGet
 end function NuclearAmplitudeExpansionImaginaryInterferenceTermGet
 
@@ -250,7 +251,7 @@ subroutine NuclearAmplitudeExpansionImaginaryInterferenceTermSet(handle, fieldHa
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NuclearAmplitudeExpansionImaginaryInterferenceTermSet
 
 

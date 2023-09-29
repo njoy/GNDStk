@@ -36,8 +36,8 @@ function DecayDataCreateConst( &
       bind(C, name='DecayDataCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: decayModes
-   type(c_ptr), value :: averageEnergies
+   type(c_ptr), intent(in), value :: decayModes
+   type(c_ptr), intent(in), value :: averageEnergies
    type(c_ptr) :: DecayDataCreateConst
 end function DecayDataCreateConst
 
@@ -49,8 +49,8 @@ function DecayDataCreate( &
       bind(C, name='DecayDataCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: decayModes
-   type(c_ptr), value :: averageEnergies
+   type(c_ptr), intent(in), value :: decayModes
+   type(c_ptr), intent(in), value :: averageEnergies
    type(c_ptr) :: DecayDataCreate
 end function DecayDataCreate
 
@@ -59,7 +59,8 @@ subroutine DecayDataAssign(handleLHS, handleRHS) &
       bind(C, name='DecayDataAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DecayDataAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function DecayDataRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayDataRead
 end function DecayDataRead
@@ -94,7 +95,7 @@ function DecayDataWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DecayDataWrite
 end function DecayDataWrite
@@ -154,7 +155,7 @@ function DecayDataDecayModesGet(handle) &
       bind(C, name='DecayDataDecayModesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayDataDecayModesGet
 end function DecayDataDecayModesGet
 
@@ -164,7 +165,7 @@ subroutine DecayDataDecayModesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayDataDecayModesSet
 
 
@@ -195,7 +196,7 @@ function DecayDataAverageEnergiesGet(handle) &
       bind(C, name='DecayDataAverageEnergiesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DecayDataAverageEnergiesGet
 end function DecayDataAverageEnergiesGet
 
@@ -205,7 +206,7 @@ subroutine DecayDataAverageEnergiesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DecayDataAverageEnergiesSet
 
 

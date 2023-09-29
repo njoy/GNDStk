@@ -344,6 +344,10 @@ SumSummandSet(
       (CLASSNAME, CLASSNAME+"SummandSet", self, extract::summand, index_, summand);
 }
 
+// ------------------------
+// Re: metadatum ENDF_MFMT
+// ------------------------
+
 // Has, by ENDF_MFMT
 int
 SumSummandHasByENDFMFMT(
@@ -389,6 +393,10 @@ SumSummandSetByENDFMFMT(
        self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT, summand);
 }
 
+// ------------------------
+// Re: metadatum coefficient
+// ------------------------
+
 // Has, by coefficient
 int
 SumSummandHasByCoefficient(
@@ -433,6 +441,10 @@ SumSummandSetByCoefficient(
       (CLASSNAME, CLASSNAME+"SummandSetByCoefficient",
        self, extract::summand, meta::coefficient, coefficient, summand);
 }
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // Has, by href
 int

@@ -166,6 +166,10 @@ SummandsAddSet(
    ConstHandle2ConstAdd add
 );
 
+// ------------------------
+// Re: metadatum href
+// ------------------------
+
 // +++ Has, by href
 extern_c int
 SummandsAddHasByHref(

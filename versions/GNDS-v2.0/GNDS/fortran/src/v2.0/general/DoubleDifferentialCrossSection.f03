@@ -40,12 +40,12 @@ function DoubleDifferentialCrossSectionCreateConst( &
       bind(C, name='DoubleDifferentialCrossSectionCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: CoulombPlusNuclearElastic
-   type(c_ptr), value :: coherentPhotonScattering
-   type(c_ptr), value :: incoherentPhotonScattering
-   type(c_ptr), value :: thermalNeutronScatteringLaw_coherentElastic
-   type(c_ptr), value :: thermalNeutronScatteringLaw_incoherentElastic
-   type(c_ptr), value :: thermalNeutronScatteringLaw_incoherentInelastic
+   type(c_ptr), intent(in), value :: CoulombPlusNuclearElastic
+   type(c_ptr), intent(in), value :: coherentPhotonScattering
+   type(c_ptr), intent(in), value :: incoherentPhotonScattering
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw_coherentElastic
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw_incoherentElastic
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw_incoherentInelastic
    type(c_ptr) :: DoubleDifferentialCrossSectionCreateConst
 end function DoubleDifferentialCrossSectionCreateConst
 
@@ -61,12 +61,12 @@ function DoubleDifferentialCrossSectionCreate( &
       bind(C, name='DoubleDifferentialCrossSectionCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: CoulombPlusNuclearElastic
-   type(c_ptr), value :: coherentPhotonScattering
-   type(c_ptr), value :: incoherentPhotonScattering
-   type(c_ptr), value :: thermalNeutronScatteringLaw_coherentElastic
-   type(c_ptr), value :: thermalNeutronScatteringLaw_incoherentElastic
-   type(c_ptr), value :: thermalNeutronScatteringLaw_incoherentInelastic
+   type(c_ptr), intent(in), value :: CoulombPlusNuclearElastic
+   type(c_ptr), intent(in), value :: coherentPhotonScattering
+   type(c_ptr), intent(in), value :: incoherentPhotonScattering
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw_coherentElastic
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw_incoherentElastic
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw_incoherentInelastic
    type(c_ptr) :: DoubleDifferentialCrossSectionCreate
 end function DoubleDifferentialCrossSectionCreate
 
@@ -75,7 +75,8 @@ subroutine DoubleDifferentialCrossSectionAssign(handleLHS, handleRHS) &
       bind(C, name='DoubleDifferentialCrossSectionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DoubleDifferentialCrossSectionAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function DoubleDifferentialCrossSectionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DoubleDifferentialCrossSectionRead
 end function DoubleDifferentialCrossSectionRead
@@ -110,7 +111,7 @@ function DoubleDifferentialCrossSectionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DoubleDifferentialCrossSectionWrite
 end function DoubleDifferentialCrossSectionWrite
@@ -170,7 +171,7 @@ function DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet
 end function DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet
 
@@ -180,7 +181,7 @@ subroutine DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet(handle, fi
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleDifferentialCrossSectionCoulombPlusNuclearElasticSet
 
 
@@ -211,7 +212,7 @@ function DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionCoherentPhotonScatteringGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleDifferentialCrossSectionCoherentPhotonScatteringGet
 end function DoubleDifferentialCrossSectionCoherentPhotonScatteringGet
 
@@ -221,7 +222,7 @@ subroutine DoubleDifferentialCrossSectionCoherentPhotonScatteringSet(handle, fie
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleDifferentialCrossSectionCoherentPhotonScatteringSet
 
 
@@ -252,7 +253,7 @@ function DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet
 end function DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet
 
@@ -262,7 +263,7 @@ subroutine DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet(handle, f
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleDifferentialCrossSectionIncoherentPhotonScatteringSet
 
 
@@ -293,7 +294,7 @@ function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElast
       bind(C, name='DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet
 end function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet
 
@@ -303,7 +304,7 @@ subroutine DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentEla
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticSet
 
 
@@ -334,7 +335,7 @@ function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentEla
       bind(C, name='DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet
 end function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet
 
@@ -344,7 +345,7 @@ subroutine DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentE
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticSet
 
 
@@ -375,7 +376,7 @@ function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentIne
       bind(C, name='DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet
 end function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet
 
@@ -385,7 +386,7 @@ subroutine DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentI
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticSet
 
 

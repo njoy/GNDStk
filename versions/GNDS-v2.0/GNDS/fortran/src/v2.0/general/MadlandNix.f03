@@ -37,9 +37,9 @@ function MadlandNixCreateConst( &
       bind(C, name='MadlandNixCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: EFL
-   type(c_ptr), value :: EFH
-   type(c_ptr), value :: T_M
+   type(c_ptr), intent(in), value :: EFL
+   type(c_ptr), intent(in), value :: EFH
+   type(c_ptr), intent(in), value :: T_M
    type(c_ptr) :: MadlandNixCreateConst
 end function MadlandNixCreateConst
 
@@ -52,9 +52,9 @@ function MadlandNixCreate( &
       bind(C, name='MadlandNixCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: EFL
-   type(c_ptr), value :: EFH
-   type(c_ptr), value :: T_M
+   type(c_ptr), intent(in), value :: EFL
+   type(c_ptr), intent(in), value :: EFH
+   type(c_ptr), intent(in), value :: T_M
    type(c_ptr) :: MadlandNixCreate
 end function MadlandNixCreate
 
@@ -63,7 +63,8 @@ subroutine MadlandNixAssign(handleLHS, handleRHS) &
       bind(C, name='MadlandNixAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MadlandNixAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function MadlandNixRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MadlandNixRead
 end function MadlandNixRead
@@ -98,7 +99,7 @@ function MadlandNixWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MadlandNixWrite
 end function MadlandNixWrite
@@ -158,7 +159,7 @@ function MadlandNixEFLGet(handle) &
       bind(C, name='MadlandNixEFLGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MadlandNixEFLGet
 end function MadlandNixEFLGet
 
@@ -168,7 +169,7 @@ subroutine MadlandNixEFLSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MadlandNixEFLSet
 
 
@@ -199,7 +200,7 @@ function MadlandNixEFHGet(handle) &
       bind(C, name='MadlandNixEFHGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MadlandNixEFHGet
 end function MadlandNixEFHGet
 
@@ -209,7 +210,7 @@ subroutine MadlandNixEFHSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MadlandNixEFHSet
 
 
@@ -240,7 +241,7 @@ function MadlandNixT_MGet(handle) &
       bind(C, name='MadlandNixT_MGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MadlandNixT_MGet
 end function MadlandNixT_MGet
 
@@ -250,7 +251,7 @@ subroutine MadlandNixT_MSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MadlandNixT_MSet
 
 

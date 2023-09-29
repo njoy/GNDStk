@@ -204,6 +204,10 @@ WidthsWidthSet(
       (CLASSNAME, CLASSNAME+"WidthSet", self, extract::width, index_, width);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 WidthsWidthHasByLabel(
@@ -249,6 +253,10 @@ WidthsWidthSetByLabel(
        self, extract::width, meta::label, label, width);
 }
 
+// ------------------------
+// Re: metadatum resonanceReaction
+// ------------------------
+
 // Has, by resonanceReaction
 int
 WidthsWidthHasByResonanceReaction(
@@ -293,6 +301,10 @@ WidthsWidthSetByResonanceReaction(
       (CLASSNAME, CLASSNAME+"WidthSetByResonanceReaction",
        self, extract::width, meta::resonanceReaction, resonanceReaction, width);
 }
+
+// ------------------------
+// Re: metadatum degreesOfFreedom
+// ------------------------
 
 // Has, by degreesOfFreedom
 int

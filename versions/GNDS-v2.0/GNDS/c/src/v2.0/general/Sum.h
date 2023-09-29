@@ -246,6 +246,10 @@ SumSummandSet(
    ConstHandle2ConstSummand summand
 );
 
+// ------------------------
+// Re: metadatum ENDF_MFMT
+// ------------------------
+
 // +++ Has, by ENDF_MFMT
 extern_c int
 SumSummandHasByENDFMFMT(
@@ -275,6 +279,10 @@ SumSummandSetByENDFMFMT(
    ConstHandle2ConstSummand summand
 );
 
+// ------------------------
+// Re: metadatum coefficient
+// ------------------------
+
 // +++ Has, by coefficient
 extern_c int
 SumSummandHasByCoefficient(
@@ -303,6 +311,10 @@ SumSummandSetByCoefficient(
    const char *const coefficient,
    ConstHandle2ConstSummand summand
 );
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // +++ Has, by href
 extern_c int

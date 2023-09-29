@@ -35,7 +35,7 @@ function T_effectiveCreateConst( &
       bind(C, name='T_effectiveCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: T_effectiveCreateConst
 end function T_effectiveCreateConst
 
@@ -46,7 +46,7 @@ function T_effectiveCreate( &
       bind(C, name='T_effectiveCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: T_effectiveCreate
 end function T_effectiveCreate
 
@@ -55,7 +55,8 @@ subroutine T_effectiveAssign(handleLHS, handleRHS) &
       bind(C, name='T_effectiveAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine T_effectiveAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function T_effectiveRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: T_effectiveRead
 end function T_effectiveRead
@@ -90,7 +91,7 @@ function T_effectiveWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: T_effectiveWrite
 end function T_effectiveWrite
@@ -150,7 +151,7 @@ function T_effectiveXYs1dGet(handle) &
       bind(C, name='T_effectiveXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: T_effectiveXYs1dGet
 end function T_effectiveXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine T_effectiveXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine T_effectiveXYs1dSet
 
 

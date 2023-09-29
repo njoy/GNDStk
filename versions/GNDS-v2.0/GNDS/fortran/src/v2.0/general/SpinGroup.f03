@@ -42,10 +42,10 @@ function SpinGroupCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: spin
-   integer(c_int), value, intent(in) :: parity
-   type(c_ptr), value :: channels
-   type(c_ptr), value :: resonanceParameters
+   integer(c_int), intent(in), value :: spin
+   integer(c_int), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: channels
+   type(c_ptr), intent(in), value :: resonanceParameters
    type(c_ptr) :: SpinGroupCreateConst
 end function SpinGroupCreateConst
 
@@ -63,10 +63,10 @@ function SpinGroupCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: spin
-   integer(c_int), value, intent(in) :: parity
-   type(c_ptr), value :: channels
-   type(c_ptr), value :: resonanceParameters
+   integer(c_int), intent(in), value :: spin
+   integer(c_int), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: channels
+   type(c_ptr), intent(in), value :: resonanceParameters
    type(c_ptr) :: SpinGroupCreate
 end function SpinGroupCreate
 
@@ -75,7 +75,8 @@ subroutine SpinGroupAssign(handleLHS, handleRHS) &
       bind(C, name='SpinGroupAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SpinGroupAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function SpinGroupRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpinGroupRead
 end function SpinGroupRead
@@ -110,7 +111,7 @@ function SpinGroupWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpinGroupWrite
 end function SpinGroupWrite
@@ -199,13 +200,12 @@ function SpinGroupSpinGet(handle) &
 end function SpinGroupSpinGet
 
 !! Set
-subroutine SpinGroupSpinSet(handle, spin, spinSize) &
+subroutine SpinGroupSpinSet(handle, spin) &
       bind(C, name='SpinGroupSpinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: spinSize
-   character(c_char), intent(in) :: spin(spinSize)
+   integer(c_int), intent(in), value :: spin
 end subroutine SpinGroupSpinSet
 
 
@@ -232,13 +232,12 @@ function SpinGroupParityGet(handle) &
 end function SpinGroupParityGet
 
 !! Set
-subroutine SpinGroupParitySet(handle, parity, paritySize) &
+subroutine SpinGroupParitySet(handle, parity) &
       bind(C, name='SpinGroupParitySet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: paritySize
-   character(c_char), intent(in) :: parity(paritySize)
+   integer(c_int), intent(in), value :: parity
 end subroutine SpinGroupParitySet
 
 
@@ -269,7 +268,7 @@ function SpinGroupChannelsGet(handle) &
       bind(C, name='SpinGroupChannelsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SpinGroupChannelsGet
 end function SpinGroupChannelsGet
 
@@ -279,7 +278,7 @@ subroutine SpinGroupChannelsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SpinGroupChannelsSet
 
 
@@ -310,7 +309,7 @@ function SpinGroupResonanceParametersGet(handle) &
       bind(C, name='SpinGroupResonanceParametersGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SpinGroupResonanceParametersGet
 end function SpinGroupResonanceParametersGet
 
@@ -320,7 +319,7 @@ subroutine SpinGroupResonanceParametersSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SpinGroupResonanceParametersSet
 
 

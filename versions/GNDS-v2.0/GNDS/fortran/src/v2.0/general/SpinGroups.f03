@@ -35,8 +35,8 @@ function SpinGroupsCreateConst( &
       bind(C, name='SpinGroupsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: spinGroupSize
-   type(c_ptr) :: spinGroup(spinGroupSize)
+   integer(c_size_t), intent(in), value :: spinGroupSize
+   type(c_ptr), intent(in) :: spinGroup(spinGroupSize)
    type(c_ptr) :: SpinGroupsCreateConst
 end function SpinGroupsCreateConst
 
@@ -47,8 +47,8 @@ function SpinGroupsCreate( &
       bind(C, name='SpinGroupsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: spinGroupSize
-   type(c_ptr) :: spinGroup(spinGroupSize)
+   integer(c_size_t), intent(in), value :: spinGroupSize
+   type(c_ptr), intent(in) :: spinGroup(spinGroupSize)
    type(c_ptr) :: SpinGroupsCreate
 end function SpinGroupsCreate
 
@@ -57,7 +57,8 @@ subroutine SpinGroupsAssign(handleLHS, handleRHS) &
       bind(C, name='SpinGroupsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SpinGroupsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function SpinGroupsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpinGroupsRead
 end function SpinGroupsRead
@@ -92,7 +93,7 @@ function SpinGroupsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpinGroupsWrite
 end function SpinGroupsWrite
@@ -236,7 +237,7 @@ subroutine SpinGroupsSpinGroupSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SpinGroupsSpinGroupSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function SpinGroupsSpinGroupHasBySpin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: SpinGroupsSpinGroupHasBySpin
 end function SpinGroupsSpinGroupHasBySpin
 
@@ -262,7 +263,7 @@ function SpinGroupsSpinGroupGetBySpinConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SpinGroupsSpinGroupGetBySpinConst
 end function SpinGroupsSpinGroupGetBySpinConst
 
@@ -272,7 +273,7 @@ function SpinGroupsSpinGroupGetBySpin(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SpinGroupsSpinGroupGetBySpin
 end function SpinGroupsSpinGroupGetBySpin
 
@@ -281,8 +282,8 @@ subroutine SpinGroupsSpinGroupSetBySpin(handle, meta, fieldHandle) &
       bind(C, name='SpinGroupsSpinGroupSetBySpin')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SpinGroupsSpinGroupSetBySpin
 
@@ -296,7 +297,7 @@ function SpinGroupsSpinGroupHasByParity(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: SpinGroupsSpinGroupHasByParity
 end function SpinGroupsSpinGroupHasByParity
 
@@ -306,7 +307,7 @@ function SpinGroupsSpinGroupGetByParityConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SpinGroupsSpinGroupGetByParityConst
 end function SpinGroupsSpinGroupGetByParityConst
 
@@ -316,7 +317,7 @@ function SpinGroupsSpinGroupGetByParity(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: SpinGroupsSpinGroupGetByParity
 end function SpinGroupsSpinGroupGetByParity
 
@@ -325,8 +326,8 @@ subroutine SpinGroupsSpinGroupSetByParity(handle, meta, fieldHandle) &
       bind(C, name='SpinGroupsSpinGroupSetByParity')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SpinGroupsSpinGroupSetByParity
 

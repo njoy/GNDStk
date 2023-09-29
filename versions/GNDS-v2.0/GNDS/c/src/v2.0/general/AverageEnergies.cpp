@@ -204,6 +204,10 @@ AverageEnergiesAverageEnergySet(
       (CLASSNAME, CLASSNAME+"AverageEnergySet", self, extract::averageEnergy, index_, averageEnergy);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 AverageEnergiesAverageEnergyHasByLabel(
@@ -249,6 +253,10 @@ AverageEnergiesAverageEnergySetByLabel(
        self, extract::averageEnergy, meta::label, label, averageEnergy);
 }
 
+// ------------------------
+// Re: metadatum value
+// ------------------------
+
 // Has, by value
 int
 AverageEnergiesAverageEnergyHasByValue(
@@ -293,6 +301,10 @@ AverageEnergiesAverageEnergySetByValue(
       (CLASSNAME, CLASSNAME+"AverageEnergySetByValue",
        self, extract::averageEnergy, meta::value, value, averageEnergy);
 }
+
+// ------------------------
+// Re: metadatum unit
+// ------------------------
 
 // Has, by unit
 int

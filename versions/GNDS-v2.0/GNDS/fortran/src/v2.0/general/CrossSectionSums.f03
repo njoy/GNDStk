@@ -35,8 +35,8 @@ function CrossSectionSumsCreateConst( &
       bind(C, name='CrossSectionSumsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: crossSectionSumSize
-   type(c_ptr) :: crossSectionSum(crossSectionSumSize)
+   integer(c_size_t), intent(in), value :: crossSectionSumSize
+   type(c_ptr), intent(in) :: crossSectionSum(crossSectionSumSize)
    type(c_ptr) :: CrossSectionSumsCreateConst
 end function CrossSectionSumsCreateConst
 
@@ -47,8 +47,8 @@ function CrossSectionSumsCreate( &
       bind(C, name='CrossSectionSumsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: crossSectionSumSize
-   type(c_ptr) :: crossSectionSum(crossSectionSumSize)
+   integer(c_size_t), intent(in), value :: crossSectionSumSize
+   type(c_ptr), intent(in) :: crossSectionSum(crossSectionSumSize)
    type(c_ptr) :: CrossSectionSumsCreate
 end function CrossSectionSumsCreate
 
@@ -57,7 +57,8 @@ subroutine CrossSectionSumsAssign(handleLHS, handleRHS) &
       bind(C, name='CrossSectionSumsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CrossSectionSumsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function CrossSectionSumsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionSumsRead
 end function CrossSectionSumsRead
@@ -92,7 +93,7 @@ function CrossSectionSumsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionSumsWrite
 end function CrossSectionSumsWrite
@@ -236,7 +237,7 @@ subroutine CrossSectionSumsCrossSectionSumSetByLabel(handle, meta, metaSize, fie
       bind(C, name='CrossSectionSumsCrossSectionSumSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function CrossSectionSumsCrossSectionSumHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: CrossSectionSumsCrossSectionSumHasByENDFMT
 end function CrossSectionSumsCrossSectionSumHasByENDFMT
 
@@ -262,7 +263,7 @@ function CrossSectionSumsCrossSectionSumGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: CrossSectionSumsCrossSectionSumGetByENDFMTConst
 end function CrossSectionSumsCrossSectionSumGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function CrossSectionSumsCrossSectionSumGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: CrossSectionSumsCrossSectionSumGetByENDFMT
 end function CrossSectionSumsCrossSectionSumGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine CrossSectionSumsCrossSectionSumSetByENDFMT(handle, meta, fieldHandle)
       bind(C, name='CrossSectionSumsCrossSectionSumSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionSumsCrossSectionSumSetByENDFMT
 

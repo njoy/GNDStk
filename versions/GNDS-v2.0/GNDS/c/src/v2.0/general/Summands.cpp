@@ -204,6 +204,10 @@ SummandsAddSet(
       (CLASSNAME, CLASSNAME+"AddSet", self, extract::add, index_, add);
 }
 
+// ------------------------
+// Re: metadatum href
+// ------------------------
+
 // Has, by href
 int
 SummandsAddHasByHref(

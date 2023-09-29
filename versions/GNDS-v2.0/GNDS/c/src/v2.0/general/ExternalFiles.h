@@ -166,6 +166,10 @@ ExternalFilesExternalFileSet(
    ConstHandle2ConstExternalFile externalFile
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ExternalFilesExternalFileHasByLabel(
@@ -194,6 +198,10 @@ ExternalFilesExternalFileSetByLabel(
    const char *const label,
    ConstHandle2ConstExternalFile externalFile
 );
+
+// ------------------------
+// Re: metadatum path
+// ------------------------
 
 // +++ Has, by path
 extern_c int
@@ -224,6 +232,10 @@ ExternalFilesExternalFileSetByPath(
    ConstHandle2ConstExternalFile externalFile
 );
 
+// ------------------------
+// Re: metadatum checksum
+// ------------------------
+
 // +++ Has, by checksum
 extern_c int
 ExternalFilesExternalFileHasByChecksum(
@@ -252,6 +264,10 @@ ExternalFilesExternalFileSetByChecksum(
    const char *const checksum,
    ConstHandle2ConstExternalFile externalFile
 );
+
+// ------------------------
+// Re: metadatum algorithm
+// ------------------------
 
 // +++ Has, by algorithm
 extern_c int

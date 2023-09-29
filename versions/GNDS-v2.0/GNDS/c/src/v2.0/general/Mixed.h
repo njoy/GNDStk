@@ -192,6 +192,10 @@ MixedCovarianceMatrixSet(
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 MixedCovarianceMatrixHasByLabel(
@@ -221,6 +225,10 @@ MixedCovarianceMatrixSetByLabel(
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
 
+// ------------------------
+// Re: metadatum type
+// ------------------------
+
 // +++ Has, by type
 extern_c int
 MixedCovarianceMatrixHasByType(
@@ -249,6 +257,10 @@ MixedCovarianceMatrixSetByType(
    const char *const type,
    ConstHandle2ConstCovarianceMatrix covarianceMatrix
 );
+
+// ------------------------
+// Re: metadatum productFrame
+// ------------------------
 
 // +++ Has, by productFrame
 extern_c int
@@ -316,6 +328,10 @@ MixedSumSet(
    ConstHandle2ConstSum sum
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 MixedSumHasByLabel(
@@ -344,6 +360,10 @@ MixedSumSetByLabel(
    const char *const label,
    ConstHandle2ConstSum sum
 );
+
+// ------------------------
+// Re: metadatum domainMin
+// ------------------------
 
 // +++ Has, by domainMin
 extern_c int
@@ -374,6 +394,10 @@ MixedSumSetByDomainMin(
    ConstHandle2ConstSum sum
 );
 
+// ------------------------
+// Re: metadatum domainMax
+// ------------------------
+
 // +++ Has, by domainMax
 extern_c int
 MixedSumHasByDomainMax(
@@ -402,6 +426,10 @@ MixedSumSetByDomainMax(
    const double domainMax,
    ConstHandle2ConstSum sum
 );
+
+// ------------------------
+// Re: metadatum domainUnit
+// ------------------------
 
 // +++ Has, by domainUnit
 extern_c int

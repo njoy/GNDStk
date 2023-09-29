@@ -36,8 +36,8 @@ function PositronEmissionIntensityCreateConst( &
       bind(C, name='PositronEmissionIntensityCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: value
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: PositronEmissionIntensityCreateConst
 end function PositronEmissionIntensityCreateConst
 
@@ -49,8 +49,8 @@ function PositronEmissionIntensityCreate( &
       bind(C, name='PositronEmissionIntensityCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: value
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: PositronEmissionIntensityCreate
 end function PositronEmissionIntensityCreate
 
@@ -59,7 +59,8 @@ subroutine PositronEmissionIntensityAssign(handleLHS, handleRHS) &
       bind(C, name='PositronEmissionIntensityAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine PositronEmissionIntensityAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function PositronEmissionIntensityRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PositronEmissionIntensityRead
 end function PositronEmissionIntensityRead
@@ -94,7 +95,7 @@ function PositronEmissionIntensityWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: PositronEmissionIntensityWrite
 end function PositronEmissionIntensityWrite
@@ -150,13 +151,12 @@ function PositronEmissionIntensityValueGet(handle) &
 end function PositronEmissionIntensityValueGet
 
 !! Set
-subroutine PositronEmissionIntensityValueSet(handle, value, valueSize) &
+subroutine PositronEmissionIntensityValueSet(handle, value) &
       bind(C, name='PositronEmissionIntensityValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine PositronEmissionIntensityValueSet
 
 
@@ -187,7 +187,7 @@ function PositronEmissionIntensityUncertaintyGet(handle) &
       bind(C, name='PositronEmissionIntensityUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: PositronEmissionIntensityUncertaintyGet
 end function PositronEmissionIntensityUncertaintyGet
 
@@ -197,7 +197,7 @@ subroutine PositronEmissionIntensityUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine PositronEmissionIntensityUncertaintySet
 
 

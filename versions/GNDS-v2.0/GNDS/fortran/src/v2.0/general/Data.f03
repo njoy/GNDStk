@@ -51,7 +51,8 @@ subroutine DataAssign(handleLHS, handleRHS) &
       bind(C, name='DataAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DataAssign
 
 !! Delete
@@ -75,7 +76,7 @@ function DataRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DataRead
 end function DataRead
@@ -86,7 +87,7 @@ function DataWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DataWrite
 end function DataWrite
@@ -186,7 +187,7 @@ subroutine DataDoublesSetArray(handle, values, valuesSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: valuesSize
+   integer(c_size_t), intent(in), value :: valuesSize
    real(c_double), intent(in) :: values(valuesSize)
 end subroutine DataDoublesSetArray
 

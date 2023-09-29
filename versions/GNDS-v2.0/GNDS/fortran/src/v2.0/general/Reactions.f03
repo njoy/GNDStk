@@ -35,8 +35,8 @@ function ReactionsCreateConst( &
       bind(C, name='ReactionsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: reactionSize
-   type(c_ptr) :: reaction(reactionSize)
+   integer(c_size_t), intent(in), value :: reactionSize
+   type(c_ptr), intent(in) :: reaction(reactionSize)
    type(c_ptr) :: ReactionsCreateConst
 end function ReactionsCreateConst
 
@@ -47,8 +47,8 @@ function ReactionsCreate( &
       bind(C, name='ReactionsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: reactionSize
-   type(c_ptr) :: reaction(reactionSize)
+   integer(c_size_t), intent(in), value :: reactionSize
+   type(c_ptr), intent(in) :: reaction(reactionSize)
    type(c_ptr) :: ReactionsCreate
 end function ReactionsCreate
 
@@ -57,7 +57,8 @@ subroutine ReactionsAssign(handleLHS, handleRHS) &
       bind(C, name='ReactionsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ReactionsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ReactionsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ReactionsRead
 end function ReactionsRead
@@ -92,7 +93,7 @@ function ReactionsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ReactionsWrite
 end function ReactionsWrite
@@ -236,7 +237,7 @@ subroutine ReactionsReactionSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='ReactionsReactionSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function ReactionsReactionHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ReactionsReactionHasByENDFMT
 end function ReactionsReactionHasByENDFMT
 
@@ -262,7 +263,7 @@ function ReactionsReactionGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ReactionsReactionGetByENDFMTConst
 end function ReactionsReactionGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function ReactionsReactionGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ReactionsReactionGetByENDFMT
 end function ReactionsReactionGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine ReactionsReactionSetByENDFMT(handle, meta, fieldHandle) &
       bind(C, name='ReactionsReactionSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ReactionsReactionSetByENDFMT
 
@@ -328,7 +329,7 @@ subroutine ReactionsReactionSetByFissionGenre(handle, meta, metaSize, fieldHandl
       bind(C, name='ReactionsReactionSetByFissionGenre')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

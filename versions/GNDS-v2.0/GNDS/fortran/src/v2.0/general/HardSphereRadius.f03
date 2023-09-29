@@ -35,7 +35,7 @@ function HardSphereRadiusCreateConst( &
       bind(C, name='HardSphereRadiusCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: constant1d
+   type(c_ptr), intent(in), value :: constant1d
    type(c_ptr) :: HardSphereRadiusCreateConst
 end function HardSphereRadiusCreateConst
 
@@ -46,7 +46,7 @@ function HardSphereRadiusCreate( &
       bind(C, name='HardSphereRadiusCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: constant1d
+   type(c_ptr), intent(in), value :: constant1d
    type(c_ptr) :: HardSphereRadiusCreate
 end function HardSphereRadiusCreate
 
@@ -55,7 +55,8 @@ subroutine HardSphereRadiusAssign(handleLHS, handleRHS) &
       bind(C, name='HardSphereRadiusAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine HardSphereRadiusAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function HardSphereRadiusRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: HardSphereRadiusRead
 end function HardSphereRadiusRead
@@ -90,7 +91,7 @@ function HardSphereRadiusWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: HardSphereRadiusWrite
 end function HardSphereRadiusWrite
@@ -150,7 +151,7 @@ function HardSphereRadiusConstant1dGet(handle) &
       bind(C, name='HardSphereRadiusConstant1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: HardSphereRadiusConstant1dGet
 end function HardSphereRadiusConstant1dGet
 
@@ -160,7 +161,7 @@ subroutine HardSphereRadiusConstant1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine HardSphereRadiusConstant1dSet
 
 

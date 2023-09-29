@@ -47,11 +47,11 @@ function ChannelCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: resonanceReactionSize
    character(c_char), intent(in) :: resonanceReaction(resonanceReactionSize)
-   integer(c_int), value, intent(in) :: L
-   integer(c_int), value, intent(in) :: channelSpin
-   integer(c_int), value, intent(in) :: columnIndex
-   type(c_ptr), value :: scatteringRadius
-   type(c_ptr), value :: hardSphereRadius
+   integer(c_int), intent(in), value :: L
+   integer(c_int), intent(in), value :: channelSpin
+   integer(c_int), intent(in), value :: columnIndex
+   type(c_ptr), intent(in), value :: scatteringRadius
+   type(c_ptr), intent(in), value :: hardSphereRadius
    type(c_ptr) :: ChannelCreateConst
 end function ChannelCreateConst
 
@@ -74,11 +74,11 @@ function ChannelCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: resonanceReactionSize
    character(c_char), intent(in) :: resonanceReaction(resonanceReactionSize)
-   integer(c_int), value, intent(in) :: L
-   integer(c_int), value, intent(in) :: channelSpin
-   integer(c_int), value, intent(in) :: columnIndex
-   type(c_ptr), value :: scatteringRadius
-   type(c_ptr), value :: hardSphereRadius
+   integer(c_int), intent(in), value :: L
+   integer(c_int), intent(in), value :: channelSpin
+   integer(c_int), intent(in), value :: columnIndex
+   type(c_ptr), intent(in), value :: scatteringRadius
+   type(c_ptr), intent(in), value :: hardSphereRadius
    type(c_ptr) :: ChannelCreate
 end function ChannelCreate
 
@@ -87,7 +87,8 @@ subroutine ChannelAssign(handleLHS, handleRHS) &
       bind(C, name='ChannelAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ChannelAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function ChannelRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChannelRead
 end function ChannelRead
@@ -122,7 +123,7 @@ function ChannelWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChannelWrite
 end function ChannelWrite
@@ -244,13 +245,12 @@ function ChannelLGet(handle) &
 end function ChannelLGet
 
 !! Set
-subroutine ChannelLSet(handle, L, LSize) &
+subroutine ChannelLSet(handle, L) &
       bind(C, name='ChannelLSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: LSize
-   character(c_char), intent(in) :: L(LSize)
+   integer(c_int), intent(in), value :: L
 end subroutine ChannelLSet
 
 
@@ -277,13 +277,12 @@ function ChannelChannelSpinGet(handle) &
 end function ChannelChannelSpinGet
 
 !! Set
-subroutine ChannelChannelSpinSet(handle, channelSpin, channelSpinSize) &
+subroutine ChannelChannelSpinSet(handle, channelSpin) &
       bind(C, name='ChannelChannelSpinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: channelSpinSize
-   character(c_char), intent(in) :: channelSpin(channelSpinSize)
+   integer(c_int), intent(in), value :: channelSpin
 end subroutine ChannelChannelSpinSet
 
 
@@ -310,13 +309,12 @@ function ChannelColumnIndexGet(handle) &
 end function ChannelColumnIndexGet
 
 !! Set
-subroutine ChannelColumnIndexSet(handle, columnIndex, columnIndexSize) &
+subroutine ChannelColumnIndexSet(handle, columnIndex) &
       bind(C, name='ChannelColumnIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: columnIndexSize
-   character(c_char), intent(in) :: columnIndex(columnIndexSize)
+   integer(c_int), intent(in), value :: columnIndex
 end subroutine ChannelColumnIndexSet
 
 
@@ -347,7 +345,7 @@ function ChannelScatteringRadiusGet(handle) &
       bind(C, name='ChannelScatteringRadiusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ChannelScatteringRadiusGet
 end function ChannelScatteringRadiusGet
 
@@ -357,7 +355,7 @@ subroutine ChannelScatteringRadiusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChannelScatteringRadiusSet
 
 
@@ -388,7 +386,7 @@ function ChannelHardSphereRadiusGet(handle) &
       bind(C, name='ChannelHardSphereRadiusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ChannelHardSphereRadiusGet
 end function ChannelHardSphereRadiusGet
 
@@ -398,7 +396,7 @@ subroutine ChannelHardSphereRadiusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChannelHardSphereRadiusSet
 
 

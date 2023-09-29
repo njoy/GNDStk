@@ -38,10 +38,10 @@ function MassCreateConst( &
       bind(C, name='MassCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: MassCreateConst
 end function MassCreateConst
 
@@ -55,10 +55,10 @@ function MassCreate( &
       bind(C, name='MassCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: MassCreate
 end function MassCreate
 
@@ -67,7 +67,8 @@ subroutine MassAssign(handleLHS, handleRHS) &
       bind(C, name='MassAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine MassAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function MassRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MassRead
 end function MassRead
@@ -102,7 +103,7 @@ function MassWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: MassWrite
 end function MassWrite
@@ -158,13 +159,12 @@ function MassValueGet(handle) &
 end function MassValueGet
 
 !! Set
-subroutine MassValueSet(handle, value, valueSize) &
+subroutine MassValueSet(handle, value) &
       bind(C, name='MassValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine MassValueSet
 
 
@@ -228,7 +228,7 @@ function MassDoubleGet(handle) &
       bind(C, name='MassDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: MassDoubleGet
 end function MassDoubleGet
 
@@ -238,7 +238,7 @@ subroutine MassDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine MassDoubleSet
 
 

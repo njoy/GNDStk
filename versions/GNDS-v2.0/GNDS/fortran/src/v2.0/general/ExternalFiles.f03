@@ -35,8 +35,8 @@ function ExternalFilesCreateConst( &
       bind(C, name='ExternalFilesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: externalFileSize
-   type(c_ptr) :: externalFile(externalFileSize)
+   integer(c_size_t), intent(in), value :: externalFileSize
+   type(c_ptr), intent(in) :: externalFile(externalFileSize)
    type(c_ptr) :: ExternalFilesCreateConst
 end function ExternalFilesCreateConst
 
@@ -47,8 +47,8 @@ function ExternalFilesCreate( &
       bind(C, name='ExternalFilesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: externalFileSize
-   type(c_ptr) :: externalFile(externalFileSize)
+   integer(c_size_t), intent(in), value :: externalFileSize
+   type(c_ptr), intent(in) :: externalFile(externalFileSize)
    type(c_ptr) :: ExternalFilesCreate
 end function ExternalFilesCreate
 
@@ -57,7 +57,8 @@ subroutine ExternalFilesAssign(handleLHS, handleRHS) &
       bind(C, name='ExternalFilesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ExternalFilesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ExternalFilesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ExternalFilesRead
 end function ExternalFilesRead
@@ -92,7 +93,7 @@ function ExternalFilesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ExternalFilesWrite
 end function ExternalFilesWrite
@@ -236,7 +237,7 @@ subroutine ExternalFilesExternalFileSetByLabel(handle, meta, metaSize, fieldHand
       bind(C, name='ExternalFilesExternalFileSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine ExternalFilesExternalFileSetByPath(handle, meta, metaSize, fieldHandl
       bind(C, name='ExternalFilesExternalFileSetByPath')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -332,7 +333,7 @@ subroutine ExternalFilesExternalFileSetByChecksum(handle, meta, metaSize, fieldH
       bind(C, name='ExternalFilesExternalFileSetByChecksum')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -380,7 +381,7 @@ subroutine ExternalFilesExternalFileSetByAlgorithm(handle, meta, metaSize, field
       bind(C, name='ExternalFilesExternalFileSetByAlgorithm')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

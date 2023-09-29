@@ -35,8 +35,8 @@ function ChemicalElementsCreateConst( &
       bind(C, name='ChemicalElementsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: chemicalElementSize
-   type(c_ptr) :: chemicalElement(chemicalElementSize)
+   integer(c_size_t), intent(in), value :: chemicalElementSize
+   type(c_ptr), intent(in) :: chemicalElement(chemicalElementSize)
    type(c_ptr) :: ChemicalElementsCreateConst
 end function ChemicalElementsCreateConst
 
@@ -47,8 +47,8 @@ function ChemicalElementsCreate( &
       bind(C, name='ChemicalElementsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: chemicalElementSize
-   type(c_ptr) :: chemicalElement(chemicalElementSize)
+   integer(c_size_t), intent(in), value :: chemicalElementSize
+   type(c_ptr), intent(in) :: chemicalElement(chemicalElementSize)
    type(c_ptr) :: ChemicalElementsCreate
 end function ChemicalElementsCreate
 
@@ -57,7 +57,8 @@ subroutine ChemicalElementsAssign(handleLHS, handleRHS) &
       bind(C, name='ChemicalElementsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ChemicalElementsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ChemicalElementsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChemicalElementsRead
 end function ChemicalElementsRead
@@ -92,7 +93,7 @@ function ChemicalElementsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChemicalElementsWrite
 end function ChemicalElementsWrite
@@ -236,7 +237,7 @@ subroutine ChemicalElementsChemicalElementSetBySymbol(handle, meta, metaSize, fi
       bind(C, name='ChemicalElementsChemicalElementSetBySymbol')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function ChemicalElementsChemicalElementHasByZ(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ChemicalElementsChemicalElementHasByZ
 end function ChemicalElementsChemicalElementHasByZ
 
@@ -262,7 +263,7 @@ function ChemicalElementsChemicalElementGetByZConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChemicalElementsChemicalElementGetByZConst
 end function ChemicalElementsChemicalElementGetByZConst
 
@@ -272,7 +273,7 @@ function ChemicalElementsChemicalElementGetByZ(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ChemicalElementsChemicalElementGetByZ
 end function ChemicalElementsChemicalElementGetByZ
 
@@ -281,8 +282,8 @@ subroutine ChemicalElementsChemicalElementSetByZ(handle, meta, fieldHandle) &
       bind(C, name='ChemicalElementsChemicalElementSetByZ')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChemicalElementsChemicalElementSetByZ
 
@@ -328,7 +329,7 @@ subroutine ChemicalElementsChemicalElementSetByName(handle, meta, metaSize, fiel
       bind(C, name='ChemicalElementsChemicalElementSetByName')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

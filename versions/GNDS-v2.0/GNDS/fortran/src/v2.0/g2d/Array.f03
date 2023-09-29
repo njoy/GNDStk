@@ -47,7 +47,7 @@ function ArrayCreateConst( &
    character(c_char), intent(in) :: compression(compressionSize)
    integer(c_size_t), intent(in), value :: symmetrySize
    character(c_char), intent(in) :: symmetry(symmetrySize)
-   type(c_ptr), value :: values
+   type(c_ptr), intent(in), value :: values
    type(c_ptr) :: ArrayCreateConst
 end function ArrayCreateConst
 
@@ -70,7 +70,7 @@ function ArrayCreate( &
    character(c_char), intent(in) :: compression(compressionSize)
    integer(c_size_t), intent(in), value :: symmetrySize
    character(c_char), intent(in) :: symmetry(symmetrySize)
-   type(c_ptr), value :: values
+   type(c_ptr), intent(in), value :: values
    type(c_ptr) :: ArrayCreate
 end function ArrayCreate
 
@@ -79,7 +79,8 @@ subroutine ArrayAssign(handleLHS, handleRHS) &
       bind(C, name='ArrayAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ArrayAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function ArrayRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ArrayRead
 end function ArrayRead
@@ -114,7 +115,7 @@ function ArrayWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ArrayWrite
 end function ArrayWrite
@@ -273,7 +274,7 @@ function ArrayValuesGet(handle) &
       bind(C, name='ArrayValuesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ArrayValuesGet
 end function ArrayValuesGet
 
@@ -283,7 +284,7 @@ subroutine ArrayValuesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ArrayValuesSet
 
 

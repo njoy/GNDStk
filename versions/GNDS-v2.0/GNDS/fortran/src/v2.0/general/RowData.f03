@@ -42,10 +42,10 @@ function RowDataCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
    character(c_char), intent(in) :: ENDF_MFMT(ENDF_MFMTSize)
-   integer(c_int), value, intent(in) :: dimension
+   integer(c_int), intent(in), value :: dimension
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: slices
+   type(c_ptr), intent(in), value :: slices
    type(c_ptr) :: RowDataCreateConst
 end function RowDataCreateConst
 
@@ -63,10 +63,10 @@ function RowDataCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: ENDF_MFMTSize
    character(c_char), intent(in) :: ENDF_MFMT(ENDF_MFMTSize)
-   integer(c_int), value, intent(in) :: dimension
+   integer(c_int), intent(in), value :: dimension
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: slices
+   type(c_ptr), intent(in), value :: slices
    type(c_ptr) :: RowDataCreate
 end function RowDataCreate
 
@@ -75,7 +75,8 @@ subroutine RowDataAssign(handleLHS, handleRHS) &
       bind(C, name='RowDataAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine RowDataAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function RowDataRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RowDataRead
 end function RowDataRead
@@ -110,7 +111,7 @@ function RowDataWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RowDataWrite
 end function RowDataWrite
@@ -199,13 +200,12 @@ function RowDataDimensionGet(handle) &
 end function RowDataDimensionGet
 
 !! Set
-subroutine RowDataDimensionSet(handle, dimension, dimensionSize) &
+subroutine RowDataDimensionSet(handle, dimension) &
       bind(C, name='RowDataDimensionSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: dimensionSize
-   character(c_char), intent(in) :: dimension(dimensionSize)
+   integer(c_int), intent(in), value :: dimension
 end subroutine RowDataDimensionSet
 
 
@@ -269,7 +269,7 @@ function RowDataSlicesGet(handle) &
       bind(C, name='RowDataSlicesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RowDataSlicesGet
 end function RowDataSlicesGet
 
@@ -279,7 +279,7 @@ subroutine RowDataSlicesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RowDataSlicesSet
 
 

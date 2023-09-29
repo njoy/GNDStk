@@ -166,6 +166,10 @@ IncidentEnergiesIncidentEnergySet(
    ConstHandle2ConstIncidentEnergy incidentEnergy
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 IncidentEnergiesIncidentEnergyHasByLabel(

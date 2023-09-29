@@ -44,8 +44,8 @@ function KalbachMannCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: f
-   type(c_ptr), value :: r
+   type(c_ptr), intent(in), value :: f
+   type(c_ptr), intent(in), value :: r
    type(c_ptr) :: KalbachMannCreateConst
 end function KalbachMannCreateConst
 
@@ -65,8 +65,8 @@ function KalbachMannCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: f
-   type(c_ptr), value :: r
+   type(c_ptr), intent(in), value :: f
+   type(c_ptr), intent(in), value :: r
    type(c_ptr) :: KalbachMannCreate
 end function KalbachMannCreate
 
@@ -75,7 +75,8 @@ subroutine KalbachMannAssign(handleLHS, handleRHS) &
       bind(C, name='KalbachMannAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine KalbachMannAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function KalbachMannRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: KalbachMannRead
 end function KalbachMannRead
@@ -110,7 +111,7 @@ function KalbachMannWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: KalbachMannWrite
 end function KalbachMannWrite
@@ -236,7 +237,7 @@ function KalbachMannFGet(handle) &
       bind(C, name='KalbachMannFGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: KalbachMannFGet
 end function KalbachMannFGet
 
@@ -246,7 +247,7 @@ subroutine KalbachMannFSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine KalbachMannFSet
 
 
@@ -277,7 +278,7 @@ function KalbachMannRGet(handle) &
       bind(C, name='KalbachMannRGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: KalbachMannRGet
 end function KalbachMannRGet
 
@@ -287,7 +288,7 @@ subroutine KalbachMannRSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine KalbachMannRSet
 
 

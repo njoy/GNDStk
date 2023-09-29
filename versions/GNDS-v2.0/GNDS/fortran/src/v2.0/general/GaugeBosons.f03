@@ -35,8 +35,8 @@ function GaugeBosonsCreateConst( &
       bind(C, name='GaugeBosonsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: gaugeBosonSize
-   type(c_ptr) :: gaugeBoson(gaugeBosonSize)
+   integer(c_size_t), intent(in), value :: gaugeBosonSize
+   type(c_ptr), intent(in) :: gaugeBoson(gaugeBosonSize)
    type(c_ptr) :: GaugeBosonsCreateConst
 end function GaugeBosonsCreateConst
 
@@ -47,8 +47,8 @@ function GaugeBosonsCreate( &
       bind(C, name='GaugeBosonsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: gaugeBosonSize
-   type(c_ptr) :: gaugeBoson(gaugeBosonSize)
+   integer(c_size_t), intent(in), value :: gaugeBosonSize
+   type(c_ptr), intent(in) :: gaugeBoson(gaugeBosonSize)
    type(c_ptr) :: GaugeBosonsCreate
 end function GaugeBosonsCreate
 
@@ -57,7 +57,8 @@ subroutine GaugeBosonsAssign(handleLHS, handleRHS) &
       bind(C, name='GaugeBosonsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine GaugeBosonsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function GaugeBosonsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GaugeBosonsRead
 end function GaugeBosonsRead
@@ -92,7 +93,7 @@ function GaugeBosonsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: GaugeBosonsWrite
 end function GaugeBosonsWrite
@@ -236,7 +237,7 @@ subroutine GaugeBosonsGaugeBosonSetById(handle, meta, metaSize, fieldHandle) &
       bind(C, name='GaugeBosonsGaugeBosonSetById')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

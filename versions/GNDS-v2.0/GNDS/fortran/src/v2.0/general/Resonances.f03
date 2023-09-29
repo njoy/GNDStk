@@ -41,9 +41,9 @@ function ResonancesCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: scatteringRadius
-   type(c_ptr), value :: resolved
-   type(c_ptr), value :: unresolved
+   type(c_ptr), intent(in), value :: scatteringRadius
+   type(c_ptr), intent(in), value :: resolved
+   type(c_ptr), intent(in), value :: unresolved
    type(c_ptr) :: ResonancesCreateConst
 end function ResonancesCreateConst
 
@@ -60,9 +60,9 @@ function ResonancesCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: hrefSize
    character(c_char), intent(in) :: href(hrefSize)
-   type(c_ptr), value :: scatteringRadius
-   type(c_ptr), value :: resolved
-   type(c_ptr), value :: unresolved
+   type(c_ptr), intent(in), value :: scatteringRadius
+   type(c_ptr), intent(in), value :: resolved
+   type(c_ptr), intent(in), value :: unresolved
    type(c_ptr) :: ResonancesCreate
 end function ResonancesCreate
 
@@ -71,7 +71,8 @@ subroutine ResonancesAssign(handleLHS, handleRHS) &
       bind(C, name='ResonancesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResonancesAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function ResonancesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonancesRead
 end function ResonancesRead
@@ -106,7 +107,7 @@ function ResonancesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonancesWrite
 end function ResonancesWrite
@@ -199,7 +200,7 @@ function ResonancesScatteringRadiusGet(handle) &
       bind(C, name='ResonancesScatteringRadiusGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonancesScatteringRadiusGet
 end function ResonancesScatteringRadiusGet
 
@@ -209,7 +210,7 @@ subroutine ResonancesScatteringRadiusSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonancesScatteringRadiusSet
 
 
@@ -240,7 +241,7 @@ function ResonancesResolvedGet(handle) &
       bind(C, name='ResonancesResolvedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonancesResolvedGet
 end function ResonancesResolvedGet
 
@@ -250,7 +251,7 @@ subroutine ResonancesResolvedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonancesResolvedSet
 
 
@@ -281,7 +282,7 @@ function ResonancesUnresolvedGet(handle) &
       bind(C, name='ResonancesUnresolvedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonancesUnresolvedGet
 end function ResonancesUnresolvedGet
 
@@ -291,7 +292,7 @@ subroutine ResonancesUnresolvedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonancesUnresolvedSet
 
 

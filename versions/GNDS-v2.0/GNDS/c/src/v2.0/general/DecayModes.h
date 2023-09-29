@@ -166,6 +166,10 @@ DecayModesDecayModeSet(
    ConstHandle2ConstDecayMode decayMode
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 DecayModesDecayModeHasByLabel(
@@ -194,6 +198,10 @@ DecayModesDecayModeSetByLabel(
    const char *const label,
    ConstHandle2ConstDecayMode decayMode
 );
+
+// ------------------------
+// Re: metadatum mode
+// ------------------------
 
 // +++ Has, by mode
 extern_c int

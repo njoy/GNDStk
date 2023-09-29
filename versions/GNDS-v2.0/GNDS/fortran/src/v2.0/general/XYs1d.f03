@@ -45,13 +45,13 @@ function XYs1dCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: interpolationSize
    character(c_char), intent(in) :: interpolation(interpolationSize)
-   real(c_double), value, intent(in) :: outerDomainValue
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: values
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: outerDomainValue
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: values
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: XYs1dCreateConst
 end function XYs1dCreateConst
 
@@ -72,13 +72,13 @@ function XYs1dCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: interpolationSize
    character(c_char), intent(in) :: interpolation(interpolationSize)
-   real(c_double), value, intent(in) :: outerDomainValue
-   type(c_ptr), value :: axes
-   type(c_ptr), value :: values
-   type(c_ptr), value :: uncertainty
+   real(c_double), intent(in), value :: outerDomainValue
+   type(c_ptr), intent(in), value :: axes
+   type(c_ptr), intent(in), value :: values
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: XYs1dCreate
 end function XYs1dCreate
 
@@ -87,7 +87,8 @@ subroutine XYs1dAssign(handleLHS, handleRHS) &
       bind(C, name='XYs1dAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine XYs1dAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function XYs1dRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: XYs1dRead
 end function XYs1dRead
@@ -122,7 +123,7 @@ function XYs1dWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: XYs1dWrite
 end function XYs1dWrite
@@ -211,13 +212,12 @@ function XYs1dIndexGet(handle) &
 end function XYs1dIndexGet
 
 !! Set
-subroutine XYs1dIndexSet(handle, index, indexSize) &
+subroutine XYs1dIndexSet(handle, index) &
       bind(C, name='XYs1dIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: indexSize
-   character(c_char), intent(in) :: index(indexSize)
+   integer(c_int), intent(in), value :: index
 end subroutine XYs1dIndexSet
 
 
@@ -277,13 +277,12 @@ function XYs1dOuterDomainValueGet(handle) &
 end function XYs1dOuterDomainValueGet
 
 !! Set
-subroutine XYs1dOuterDomainValueSet(handle, outerDomainValue, outerDomainValueSize) &
+subroutine XYs1dOuterDomainValueSet(handle, outerDomainValue) &
       bind(C, name='XYs1dOuterDomainValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: outerDomainValueSize
-   character(c_char), intent(in) :: outerDomainValue(outerDomainValueSize)
+   real(c_double), intent(in), value :: outerDomainValue
 end subroutine XYs1dOuterDomainValueSet
 
 
@@ -314,7 +313,7 @@ function XYs1dAxesGet(handle) &
       bind(C, name='XYs1dAxesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: XYs1dAxesGet
 end function XYs1dAxesGet
 
@@ -324,7 +323,7 @@ subroutine XYs1dAxesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine XYs1dAxesSet
 
 
@@ -355,7 +354,7 @@ function XYs1dValuesGet(handle) &
       bind(C, name='XYs1dValuesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: XYs1dValuesGet
 end function XYs1dValuesGet
 
@@ -365,7 +364,7 @@ subroutine XYs1dValuesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine XYs1dValuesSet
 
 
@@ -396,7 +395,7 @@ function XYs1dUncertaintyGet(handle) &
       bind(C, name='XYs1dUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: XYs1dUncertaintyGet
 end function XYs1dUncertaintyGet
 
@@ -406,7 +405,7 @@ subroutine XYs1dUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine XYs1dUncertaintySet
 
 

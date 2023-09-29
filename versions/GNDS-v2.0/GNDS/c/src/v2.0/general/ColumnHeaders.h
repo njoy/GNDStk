@@ -166,6 +166,10 @@ ColumnHeadersColumnSet(
    ConstHandle2ConstColumn column
 );
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // +++ Has, by index
 extern_c int
 ColumnHeadersColumnHasByIndex(
@@ -195,6 +199,10 @@ ColumnHeadersColumnSetByIndex(
    ConstHandle2ConstColumn column
 );
 
+// ------------------------
+// Re: metadatum name
+// ------------------------
+
 // +++ Has, by name
 extern_c int
 ColumnHeadersColumnHasByName(
@@ -223,6 +231,10 @@ ColumnHeadersColumnSetByName(
    const char *const name,
    ConstHandle2ConstColumn column
 );
+
+// ------------------------
+// Re: metadatum unit
+// ------------------------
 
 // +++ Has, by unit
 extern_c int

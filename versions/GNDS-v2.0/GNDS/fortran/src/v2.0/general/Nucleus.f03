@@ -46,14 +46,14 @@ function NucleusCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   integer(c_int), value, intent(in) :: index
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
-   type(c_ptr), value :: energy
-   type(c_ptr), value :: decayData
+   integer(c_int), intent(in), value :: index
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
+   type(c_ptr), intent(in), value :: energy
+   type(c_ptr), intent(in), value :: decayData
    type(c_ptr) :: NucleusCreateConst
 end function NucleusCreateConst
 
@@ -75,14 +75,14 @@ function NucleusCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: idSize
    character(c_char), intent(in) :: id(idSize)
-   integer(c_int), value, intent(in) :: index
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
-   type(c_ptr), value :: energy
-   type(c_ptr), value :: decayData
+   integer(c_int), intent(in), value :: index
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
+   type(c_ptr), intent(in), value :: energy
+   type(c_ptr), intent(in), value :: decayData
    type(c_ptr) :: NucleusCreate
 end function NucleusCreate
 
@@ -91,7 +91,8 @@ subroutine NucleusAssign(handleLHS, handleRHS) &
       bind(C, name='NucleusAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine NucleusAssign
 
 !! Delete
@@ -115,7 +116,7 @@ function NucleusRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NucleusRead
 end function NucleusRead
@@ -126,7 +127,7 @@ function NucleusWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: NucleusWrite
 end function NucleusWrite
@@ -215,13 +216,12 @@ function NucleusIndexGet(handle) &
 end function NucleusIndexGet
 
 !! Set
-subroutine NucleusIndexSet(handle, index, indexSize) &
+subroutine NucleusIndexSet(handle, index) &
       bind(C, name='NucleusIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: indexSize
-   character(c_char), intent(in) :: index(indexSize)
+   integer(c_int), intent(in), value :: index
 end subroutine NucleusIndexSet
 
 
@@ -252,7 +252,7 @@ function NucleusMassGet(handle) &
       bind(C, name='NucleusMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusMassGet
 end function NucleusMassGet
 
@@ -262,7 +262,7 @@ subroutine NucleusMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusMassSet
 
 
@@ -293,7 +293,7 @@ function NucleusSpinGet(handle) &
       bind(C, name='NucleusSpinGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusSpinGet
 end function NucleusSpinGet
 
@@ -303,7 +303,7 @@ subroutine NucleusSpinSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusSpinSet
 
 
@@ -334,7 +334,7 @@ function NucleusParityGet(handle) &
       bind(C, name='NucleusParityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusParityGet
 end function NucleusParityGet
 
@@ -344,7 +344,7 @@ subroutine NucleusParitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusParitySet
 
 
@@ -375,7 +375,7 @@ function NucleusChargeGet(handle) &
       bind(C, name='NucleusChargeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusChargeGet
 end function NucleusChargeGet
 
@@ -385,7 +385,7 @@ subroutine NucleusChargeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusChargeSet
 
 
@@ -416,7 +416,7 @@ function NucleusHalflifeGet(handle) &
       bind(C, name='NucleusHalflifeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusHalflifeGet
 end function NucleusHalflifeGet
 
@@ -426,7 +426,7 @@ subroutine NucleusHalflifeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusHalflifeSet
 
 
@@ -457,7 +457,7 @@ function NucleusEnergyGet(handle) &
       bind(C, name='NucleusEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusEnergyGet
 end function NucleusEnergyGet
 
@@ -467,7 +467,7 @@ subroutine NucleusEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusEnergySet
 
 
@@ -498,7 +498,7 @@ function NucleusDecayDataGet(handle) &
       bind(C, name='NucleusDecayDataGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: NucleusDecayDataGet
 end function NucleusDecayDataGet
 
@@ -508,7 +508,7 @@ subroutine NucleusDecayDataSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine NucleusDecayDataSet
 
 

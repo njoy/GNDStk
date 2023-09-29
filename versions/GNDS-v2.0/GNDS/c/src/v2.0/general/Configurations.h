@@ -166,6 +166,10 @@ ConfigurationsConfigurationSet(
    ConstHandle2ConstConfiguration configuration
 );
 
+// ------------------------
+// Re: metadatum subshell
+// ------------------------
+
 // +++ Has, by subshell
 extern_c int
 ConfigurationsConfigurationHasBySubshell(
@@ -194,6 +198,10 @@ ConfigurationsConfigurationSetBySubshell(
    const char *const subshell,
    ConstHandle2ConstConfiguration configuration
 );
+
+// ------------------------
+// Re: metadatum electronNumber
+// ------------------------
 
 // +++ Has, by electronNumber
 extern_c int

@@ -41,7 +41,7 @@ function IntegerCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: value
+   integer(c_int), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: IntegerCreateConst
@@ -60,7 +60,7 @@ function IntegerCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   integer(c_int), value, intent(in) :: value
+   integer(c_int), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: IntegerCreate
@@ -71,7 +71,8 @@ subroutine IntegerAssign(handleLHS, handleRHS) &
       bind(C, name='IntegerAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IntegerAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function IntegerRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IntegerRead
 end function IntegerRead
@@ -106,7 +107,7 @@ function IntegerWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IntegerWrite
 end function IntegerWrite
@@ -195,13 +196,12 @@ function IntegerValueGet(handle) &
 end function IntegerValueGet
 
 !! Set
-subroutine IntegerValueSet(handle, value, valueSize) &
+subroutine IntegerValueSet(handle, value) &
       bind(C, name='IntegerValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   integer(c_int), intent(in), value :: value
 end subroutine IntegerValueSet
 
 

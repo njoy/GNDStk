@@ -43,7 +43,7 @@ function EnergyAngularCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: XYs3d
+   type(c_ptr), intent(in), value :: XYs3d
    type(c_ptr) :: EnergyAngularCreateConst
 end function EnergyAngularCreateConst
 
@@ -62,7 +62,7 @@ function EnergyAngularCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: XYs3d
+   type(c_ptr), intent(in), value :: XYs3d
    type(c_ptr) :: EnergyAngularCreate
 end function EnergyAngularCreate
 
@@ -71,7 +71,8 @@ subroutine EnergyAngularAssign(handleLHS, handleRHS) &
       bind(C, name='EnergyAngularAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine EnergyAngularAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function EnergyAngularRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EnergyAngularRead
 end function EnergyAngularRead
@@ -106,7 +107,7 @@ function EnergyAngularWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: EnergyAngularWrite
 end function EnergyAngularWrite
@@ -232,7 +233,7 @@ function EnergyAngularXYs3dGet(handle) &
       bind(C, name='EnergyAngularXYs3dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: EnergyAngularXYs3dGet
 end function EnergyAngularXYs3dGet
 
@@ -242,7 +243,7 @@ subroutine EnergyAngularXYs3dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine EnergyAngularXYs3dSet
 
 

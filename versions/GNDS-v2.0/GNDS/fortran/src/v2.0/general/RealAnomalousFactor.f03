@@ -35,7 +35,7 @@ function RealAnomalousFactorCreateConst( &
       bind(C, name='RealAnomalousFactorCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: RealAnomalousFactorCreateConst
 end function RealAnomalousFactorCreateConst
 
@@ -46,7 +46,7 @@ function RealAnomalousFactorCreate( &
       bind(C, name='RealAnomalousFactorCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: RealAnomalousFactorCreate
 end function RealAnomalousFactorCreate
 
@@ -55,7 +55,8 @@ subroutine RealAnomalousFactorAssign(handleLHS, handleRHS) &
       bind(C, name='RealAnomalousFactorAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine RealAnomalousFactorAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function RealAnomalousFactorRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RealAnomalousFactorRead
 end function RealAnomalousFactorRead
@@ -90,7 +91,7 @@ function RealAnomalousFactorWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RealAnomalousFactorWrite
 end function RealAnomalousFactorWrite
@@ -150,7 +151,7 @@ function RealAnomalousFactorXYs1dGet(handle) &
       bind(C, name='RealAnomalousFactorXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RealAnomalousFactorXYs1dGet
 end function RealAnomalousFactorXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine RealAnomalousFactorXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RealAnomalousFactorXYs1dSet
 
 

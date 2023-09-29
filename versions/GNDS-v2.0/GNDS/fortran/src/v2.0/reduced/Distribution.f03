@@ -39,11 +39,11 @@ function DistributionCreateConst( &
       bind(C, name='DistributionCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: thermalNeutronScatteringLaw
-   type(c_ptr), value :: uncorrelated
-   type(c_ptr), value :: unspecified
-   type(c_ptr), value :: XYs2d
-   type(c_ptr), value :: branching3d
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw
+   type(c_ptr), intent(in), value :: uncorrelated
+   type(c_ptr), intent(in), value :: unspecified
+   type(c_ptr), intent(in), value :: XYs2d
+   type(c_ptr), intent(in), value :: branching3d
    type(c_ptr) :: DistributionCreateConst
 end function DistributionCreateConst
 
@@ -58,11 +58,11 @@ function DistributionCreate( &
       bind(C, name='DistributionCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: thermalNeutronScatteringLaw
-   type(c_ptr), value :: uncorrelated
-   type(c_ptr), value :: unspecified
-   type(c_ptr), value :: XYs2d
-   type(c_ptr), value :: branching3d
+   type(c_ptr), intent(in), value :: thermalNeutronScatteringLaw
+   type(c_ptr), intent(in), value :: uncorrelated
+   type(c_ptr), intent(in), value :: unspecified
+   type(c_ptr), intent(in), value :: XYs2d
+   type(c_ptr), intent(in), value :: branching3d
    type(c_ptr) :: DistributionCreate
 end function DistributionCreate
 
@@ -71,7 +71,8 @@ subroutine DistributionAssign(handleLHS, handleRHS) &
       bind(C, name='DistributionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DistributionAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function DistributionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DistributionRead
 end function DistributionRead
@@ -106,7 +107,7 @@ function DistributionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DistributionWrite
 end function DistributionWrite
@@ -166,7 +167,7 @@ function DistributionThermalNeutronScatteringLawGet(handle) &
       bind(C, name='DistributionThermalNeutronScatteringLawGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DistributionThermalNeutronScatteringLawGet
 end function DistributionThermalNeutronScatteringLawGet
 
@@ -176,7 +177,7 @@ subroutine DistributionThermalNeutronScatteringLawSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DistributionThermalNeutronScatteringLawSet
 
 
@@ -207,7 +208,7 @@ function DistributionUncorrelatedGet(handle) &
       bind(C, name='DistributionUncorrelatedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DistributionUncorrelatedGet
 end function DistributionUncorrelatedGet
 
@@ -217,7 +218,7 @@ subroutine DistributionUncorrelatedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DistributionUncorrelatedSet
 
 
@@ -248,7 +249,7 @@ function DistributionUnspecifiedGet(handle) &
       bind(C, name='DistributionUnspecifiedGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DistributionUnspecifiedGet
 end function DistributionUnspecifiedGet
 
@@ -258,7 +259,7 @@ subroutine DistributionUnspecifiedSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DistributionUnspecifiedSet
 
 
@@ -289,7 +290,7 @@ function DistributionXYs2dGet(handle) &
       bind(C, name='DistributionXYs2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DistributionXYs2dGet
 end function DistributionXYs2dGet
 
@@ -299,7 +300,7 @@ subroutine DistributionXYs2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DistributionXYs2dSet
 
 
@@ -330,7 +331,7 @@ function DistributionBranching3dGet(handle) &
       bind(C, name='DistributionBranching3dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DistributionBranching3dGet
 end function DistributionBranching3dGet
 
@@ -340,7 +341,7 @@ subroutine DistributionBranching3dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DistributionBranching3dSet
 
 

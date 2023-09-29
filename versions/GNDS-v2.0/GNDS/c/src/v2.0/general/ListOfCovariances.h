@@ -166,6 +166,10 @@ ListOfCovariancesCovarianceSet(
    ConstHandle2ConstCovariance covariance
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ListOfCovariancesCovarianceHasByLabel(
@@ -194,6 +198,10 @@ ListOfCovariancesCovarianceSetByLabel(
    const char *const label,
    ConstHandle2ConstCovariance covariance
 );
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // +++ Has, by href
 extern_c int

@@ -40,8 +40,8 @@ function IsotopeCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: symbolSize
    character(c_char), intent(in) :: symbol(symbolSize)
-   integer(c_int), value, intent(in) :: A
-   type(c_ptr), value :: nuclides
+   integer(c_int), intent(in), value :: A
+   type(c_ptr), intent(in), value :: nuclides
    type(c_ptr) :: IsotopeCreateConst
 end function IsotopeCreateConst
 
@@ -57,8 +57,8 @@ function IsotopeCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: symbolSize
    character(c_char), intent(in) :: symbol(symbolSize)
-   integer(c_int), value, intent(in) :: A
-   type(c_ptr), value :: nuclides
+   integer(c_int), intent(in), value :: A
+   type(c_ptr), intent(in), value :: nuclides
    type(c_ptr) :: IsotopeCreate
 end function IsotopeCreate
 
@@ -67,7 +67,8 @@ subroutine IsotopeAssign(handleLHS, handleRHS) &
       bind(C, name='IsotopeAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IsotopeAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function IsotopeRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IsotopeRead
 end function IsotopeRead
@@ -102,7 +103,7 @@ function IsotopeWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IsotopeWrite
 end function IsotopeWrite
@@ -191,13 +192,12 @@ function IsotopeAGet(handle) &
 end function IsotopeAGet
 
 !! Set
-subroutine IsotopeASet(handle, A, ASize) &
+subroutine IsotopeASet(handle, A) &
       bind(C, name='IsotopeASet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ASize
-   character(c_char), intent(in) :: A(ASize)
+   integer(c_int), intent(in), value :: A
 end subroutine IsotopeASet
 
 
@@ -228,7 +228,7 @@ function IsotopeNuclidesGet(handle) &
       bind(C, name='IsotopeNuclidesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: IsotopeNuclidesGet
 end function IsotopeNuclidesGet
 
@@ -238,7 +238,7 @@ subroutine IsotopeNuclidesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine IsotopeNuclidesSet
 
 

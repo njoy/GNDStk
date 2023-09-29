@@ -35,7 +35,7 @@ function RCreateConst( &
       bind(C, name='RCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: RCreateConst
 end function RCreateConst
 
@@ -46,7 +46,7 @@ function RCreate( &
       bind(C, name='RCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: RCreate
 end function RCreate
 
@@ -55,7 +55,8 @@ subroutine RAssign(handleLHS, handleRHS) &
       bind(C, name='RAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine RAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function RRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RRead
 end function RRead
@@ -90,7 +91,7 @@ function RWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RWrite
 end function RWrite
@@ -150,7 +151,7 @@ function RXYs2dGet(handle) &
       bind(C, name='RXYs2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RXYs2dGet
 end function RXYs2dGet
 
@@ -160,7 +161,7 @@ subroutine RXYs2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RXYs2dSet
 
 

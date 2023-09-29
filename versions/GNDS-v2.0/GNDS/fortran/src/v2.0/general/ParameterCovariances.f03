@@ -36,10 +36,10 @@ function ParameterCovariancesCreateConst( &
       bind(C, name='ParameterCovariancesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: parameterCovarianceSize
-   type(c_ptr) :: parameterCovariance(parameterCovarianceSize)
-   integer(c_size_t), value :: averageParameterCovarianceSize
-   type(c_ptr) :: averageParameterCovariance(averageParameterCovarianceSize)
+   integer(c_size_t), intent(in), value :: parameterCovarianceSize
+   type(c_ptr), intent(in) :: parameterCovariance(parameterCovarianceSize)
+   integer(c_size_t), intent(in), value :: averageParameterCovarianceSize
+   type(c_ptr), intent(in) :: averageParameterCovariance(averageParameterCovarianceSize)
    type(c_ptr) :: ParameterCovariancesCreateConst
 end function ParameterCovariancesCreateConst
 
@@ -51,10 +51,10 @@ function ParameterCovariancesCreate( &
       bind(C, name='ParameterCovariancesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: parameterCovarianceSize
-   type(c_ptr) :: parameterCovariance(parameterCovarianceSize)
-   integer(c_size_t), value :: averageParameterCovarianceSize
-   type(c_ptr) :: averageParameterCovariance(averageParameterCovarianceSize)
+   integer(c_size_t), intent(in), value :: parameterCovarianceSize
+   type(c_ptr), intent(in) :: parameterCovariance(parameterCovarianceSize)
+   integer(c_size_t), intent(in), value :: averageParameterCovarianceSize
+   type(c_ptr), intent(in) :: averageParameterCovariance(averageParameterCovarianceSize)
    type(c_ptr) :: ParameterCovariancesCreate
 end function ParameterCovariancesCreate
 
@@ -63,7 +63,8 @@ subroutine ParameterCovariancesAssign(handleLHS, handleRHS) &
       bind(C, name='ParameterCovariancesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ParameterCovariancesAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function ParameterCovariancesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParameterCovariancesRead
 end function ParameterCovariancesRead
@@ -98,7 +99,7 @@ function ParameterCovariancesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParameterCovariancesWrite
 end function ParameterCovariancesWrite
@@ -242,7 +243,7 @@ subroutine ParameterCovariancesParameterCovarianceSetByLabel(handle, meta, metaS
       bind(C, name='ParameterCovariancesParameterCovarianceSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -360,7 +361,7 @@ subroutine ParameterCovariancesAverageParameterCovarianceSetByLabel(handle, meta
       bind(C, name='ParameterCovariancesAverageParameterCovarianceSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -376,7 +377,7 @@ function ParameterCovariancesAverageParameterCovarianceHasByCrossTerm(handle, me
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    integer(c_int) :: ParameterCovariancesAverageParameterCovarianceHasByCrossTerm
 end function ParameterCovariancesAverageParameterCovarianceHasByCrossTerm
 
@@ -386,7 +387,7 @@ function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(handl
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 
@@ -396,7 +397,7 @@ function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(handle, me
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByCrossTerm
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm
 
@@ -405,8 +406,8 @@ subroutine ParameterCovariancesAverageParameterCovarianceSetByCrossTerm(handle, 
       bind(C, name='ParameterCovariancesAverageParameterCovarianceSetByCrossTerm')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   logical(c_bool), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   logical(c_bool), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParameterCovariancesAverageParameterCovarianceSetByCrossTerm
 

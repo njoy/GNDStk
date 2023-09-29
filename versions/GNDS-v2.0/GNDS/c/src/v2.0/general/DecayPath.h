@@ -166,6 +166,10 @@ DecayPathDecaySet(
    ConstHandle2ConstDecay decay
 );
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // +++ Has, by index
 extern_c int
 DecayPathDecayHasByIndex(
@@ -195,6 +199,10 @@ DecayPathDecaySetByIndex(
    ConstHandle2ConstDecay decay
 );
 
+// ------------------------
+// Re: metadatum mode
+// ------------------------
+
 // +++ Has, by mode
 extern_c int
 DecayPathDecayHasByMode(
@@ -223,6 +231,10 @@ DecayPathDecaySetByMode(
    const char *const mode,
    ConstHandle2ConstDecay decay
 );
+
+// ------------------------
+// Re: metadatum complete
+// ------------------------
 
 // +++ Has, by complete
 extern_c int

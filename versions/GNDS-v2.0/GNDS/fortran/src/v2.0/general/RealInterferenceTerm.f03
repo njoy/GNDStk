@@ -36,8 +36,8 @@ function RealInterferenceTermCreateConst( &
       bind(C, name='RealInterferenceTermCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: regions2d
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: regions2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: RealInterferenceTermCreateConst
 end function RealInterferenceTermCreateConst
 
@@ -49,8 +49,8 @@ function RealInterferenceTermCreate( &
       bind(C, name='RealInterferenceTermCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: regions2d
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: regions2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: RealInterferenceTermCreate
 end function RealInterferenceTermCreate
 
@@ -59,7 +59,8 @@ subroutine RealInterferenceTermAssign(handleLHS, handleRHS) &
       bind(C, name='RealInterferenceTermAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine RealInterferenceTermAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function RealInterferenceTermRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RealInterferenceTermRead
 end function RealInterferenceTermRead
@@ -94,7 +95,7 @@ function RealInterferenceTermWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: RealInterferenceTermWrite
 end function RealInterferenceTermWrite
@@ -154,7 +155,7 @@ function RealInterferenceTermRegions2dGet(handle) &
       bind(C, name='RealInterferenceTermRegions2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RealInterferenceTermRegions2dGet
 end function RealInterferenceTermRegions2dGet
 
@@ -164,7 +165,7 @@ subroutine RealInterferenceTermRegions2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RealInterferenceTermRegions2dSet
 
 
@@ -195,7 +196,7 @@ function RealInterferenceTermXYs2dGet(handle) &
       bind(C, name='RealInterferenceTermXYs2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: RealInterferenceTermXYs2dGet
 end function RealInterferenceTermXYs2dGet
 
@@ -205,7 +206,7 @@ subroutine RealInterferenceTermXYs2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine RealInterferenceTermXYs2dSet
 
 

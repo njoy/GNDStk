@@ -36,8 +36,8 @@ function ThetaCreateConst( &
       bind(C, name='ThetaCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
    type(c_ptr) :: ThetaCreateConst
 end function ThetaCreateConst
 
@@ -49,8 +49,8 @@ function ThetaCreate( &
       bind(C, name='ThetaCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
    type(c_ptr) :: ThetaCreate
 end function ThetaCreate
 
@@ -59,7 +59,8 @@ subroutine ThetaAssign(handleLHS, handleRHS) &
       bind(C, name='ThetaAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ThetaAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function ThetaRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThetaRead
 end function ThetaRead
@@ -94,7 +95,7 @@ function ThetaWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThetaWrite
 end function ThetaWrite
@@ -154,7 +155,7 @@ function ThetaXYs1dGet(handle) &
       bind(C, name='ThetaXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ThetaXYs1dGet
 end function ThetaXYs1dGet
 
@@ -164,7 +165,7 @@ subroutine ThetaXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ThetaXYs1dSet
 
 
@@ -195,7 +196,7 @@ function ThetaRegions1dGet(handle) &
       bind(C, name='ThetaRegions1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ThetaRegions1dGet
 end function ThetaRegions1dGet
 
@@ -205,7 +206,7 @@ subroutine ThetaRegions1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ThetaRegions1dSet
 
 

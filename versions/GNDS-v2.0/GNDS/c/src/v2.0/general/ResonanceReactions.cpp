@@ -204,6 +204,10 @@ ResonanceReactionsResonanceReactionSet(
       (CLASSNAME, CLASSNAME+"ResonanceReactionSet", self, extract::resonanceReaction, index_, resonanceReaction);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ResonanceReactionsResonanceReactionHasByLabel(
@@ -249,6 +253,10 @@ ResonanceReactionsResonanceReactionSetByLabel(
        self, extract::resonanceReaction, meta::label, label, resonanceReaction);
 }
 
+// ------------------------
+// Re: metadatum ejectile
+// ------------------------
+
 // Has, by ejectile
 int
 ResonanceReactionsResonanceReactionHasByEjectile(
@@ -293,6 +301,10 @@ ResonanceReactionsResonanceReactionSetByEjectile(
       (CLASSNAME, CLASSNAME+"ResonanceReactionSetByEjectile",
        self, extract::resonanceReaction, meta::ejectile, ejectile, resonanceReaction);
 }
+
+// ------------------------
+// Re: metadatum eliminated
+// ------------------------
 
 // Has, by eliminated
 int

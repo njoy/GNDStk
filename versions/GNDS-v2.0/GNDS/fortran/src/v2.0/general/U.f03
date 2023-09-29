@@ -37,7 +37,7 @@ function UCreateConst( &
       bind(C, name='UCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: UCreateConst
@@ -52,7 +52,7 @@ function UCreate( &
       bind(C, name='UCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: UCreate
@@ -63,7 +63,8 @@ subroutine UAssign(handleLHS, handleRHS) &
       bind(C, name='UAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine UAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function URead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: URead
 end function URead
@@ -98,7 +99,7 @@ function UWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UWrite
 end function UWrite
@@ -154,13 +155,12 @@ function UValueGet(handle) &
 end function UValueGet
 
 !! Set
-subroutine UValueSet(handle, value, valueSize) &
+subroutine UValueSet(handle, value) &
       bind(C, name='UValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine UValueSet
 
 

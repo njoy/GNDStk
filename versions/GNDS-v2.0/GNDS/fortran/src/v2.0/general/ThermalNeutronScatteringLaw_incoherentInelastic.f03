@@ -52,8 +52,8 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCreateConst( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    integer(c_size_t), intent(in), value :: primaryScattererSize
    character(c_char), intent(in) :: primaryScatterer(primaryScattererSize)
-   logical(c_bool), value, intent(in) :: calculatedAtThermal
-   type(c_ptr), value :: scatteringAtoms
+   logical(c_bool), intent(in), value :: calculatedAtThermal
+   type(c_ptr), intent(in), value :: scatteringAtoms
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentInelasticCreateConst
 end function ThermalNeutronScatteringLaw_incoherentInelasticCreateConst
 
@@ -81,8 +81,8 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCreate( &
    character(c_char), intent(in) :: productFrame(productFrameSize)
    integer(c_size_t), intent(in), value :: primaryScattererSize
    character(c_char), intent(in) :: primaryScatterer(primaryScattererSize)
-   logical(c_bool), value, intent(in) :: calculatedAtThermal
-   type(c_ptr), value :: scatteringAtoms
+   logical(c_bool), intent(in), value :: calculatedAtThermal
+   type(c_ptr), intent(in), value :: scatteringAtoms
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentInelasticCreate
 end function ThermalNeutronScatteringLaw_incoherentInelasticCreate
 
@@ -91,7 +91,8 @@ subroutine ThermalNeutronScatteringLaw_incoherentInelasticAssign(handleLHS, hand
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ThermalNeutronScatteringLaw_incoherentInelasticAssign
 
 !! Delete
@@ -115,7 +116,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticRead(handle, filename, f
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLaw_incoherentInelasticRead
 end function ThermalNeutronScatteringLaw_incoherentInelasticRead
@@ -126,7 +127,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticWrite(handle, filename, 
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ThermalNeutronScatteringLaw_incoherentInelasticWrite
 end function ThermalNeutronScatteringLaw_incoherentInelasticWrite
@@ -314,13 +315,12 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalGet(h
 end function ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalGet
 
 !! Set
-subroutine ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet(handle, calculatedAtThermal, calculatedAtThermalSize) &
+subroutine ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet(handle, calculatedAtThermal) &
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: calculatedAtThermalSize
-   character(c_char), intent(in) :: calculatedAtThermal(calculatedAtThermalSize)
+   logical(c_bool), intent(in), value :: calculatedAtThermal
 end subroutine ThermalNeutronScatteringLaw_incoherentInelasticCalculatedAtThermalSet
 
 
@@ -351,7 +351,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(handl
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet
 end function ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet
 
@@ -361,7 +361,7 @@ subroutine ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsSet(han
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsSet
 
 

@@ -166,6 +166,10 @@ FissionComponentsFissionComponentSet(
    ConstHandle2ConstFissionComponent fissionComponent
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 FissionComponentsFissionComponentHasByLabel(
@@ -195,6 +199,10 @@ FissionComponentsFissionComponentSetByLabel(
    ConstHandle2ConstFissionComponent fissionComponent
 );
 
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
+
 // +++ Has, by ENDF_MT
 extern_c int
 FissionComponentsFissionComponentHasByENDFMT(
@@ -223,6 +231,10 @@ FissionComponentsFissionComponentSetByENDFMT(
    const int ENDF_MT,
    ConstHandle2ConstFissionComponent fissionComponent
 );
+
+// ------------------------
+// Re: metadatum fissionGenre
+// ------------------------
 
 // +++ Has, by fissionGenre
 extern_c int

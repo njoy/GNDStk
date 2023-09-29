@@ -214,6 +214,10 @@ AliasesAliasSet(
       (CLASSNAME, CLASSNAME+"AliasSet", self, extract::alias, index_, alias);
 }
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // Has, by id
 int
 AliasesAliasHasById(
@@ -258,6 +262,10 @@ AliasesAliasSetById(
       (CLASSNAME, CLASSNAME+"AliasSetById",
        self, extract::alias, meta::id, id, alias);
 }
+
+// ------------------------
+// Re: metadatum pid
+// ------------------------
 
 // Has, by pid
 int
@@ -368,6 +376,10 @@ AliasesMetaStableSet(
       (CLASSNAME, CLASSNAME+"MetaStableSet", self, extract::metaStable, index_, metaStable);
 }
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // Has, by id
 int
 AliasesMetaStableHasById(
@@ -413,6 +425,10 @@ AliasesMetaStableSetById(
        self, extract::metaStable, meta::id, id, metaStable);
 }
 
+// ------------------------
+// Re: metadatum pid
+// ------------------------
+
 // Has, by pid
 int
 AliasesMetaStableHasByPid(
@@ -457,6 +473,10 @@ AliasesMetaStableSetByPid(
       (CLASSNAME, CLASSNAME+"MetaStableSetByPid",
        self, extract::metaStable, meta::pid, pid, metaStable);
 }
+
+// ------------------------
+// Re: metadatum metaStableIndex
+// ------------------------
 
 // Has, by metaStableIndex
 int

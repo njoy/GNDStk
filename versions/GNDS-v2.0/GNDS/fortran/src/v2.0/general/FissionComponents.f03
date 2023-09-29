@@ -35,8 +35,8 @@ function FissionComponentsCreateConst( &
       bind(C, name='FissionComponentsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: fissionComponentSize
-   type(c_ptr) :: fissionComponent(fissionComponentSize)
+   integer(c_size_t), intent(in), value :: fissionComponentSize
+   type(c_ptr), intent(in) :: fissionComponent(fissionComponentSize)
    type(c_ptr) :: FissionComponentsCreateConst
 end function FissionComponentsCreateConst
 
@@ -47,8 +47,8 @@ function FissionComponentsCreate( &
       bind(C, name='FissionComponentsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: fissionComponentSize
-   type(c_ptr) :: fissionComponent(fissionComponentSize)
+   integer(c_size_t), intent(in), value :: fissionComponentSize
+   type(c_ptr), intent(in) :: fissionComponent(fissionComponentSize)
    type(c_ptr) :: FissionComponentsCreate
 end function FissionComponentsCreate
 
@@ -57,7 +57,8 @@ subroutine FissionComponentsAssign(handleLHS, handleRHS) &
       bind(C, name='FissionComponentsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine FissionComponentsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function FissionComponentsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionComponentsRead
 end function FissionComponentsRead
@@ -92,7 +93,7 @@ function FissionComponentsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: FissionComponentsWrite
 end function FissionComponentsWrite
@@ -236,7 +237,7 @@ subroutine FissionComponentsFissionComponentSetByLabel(handle, meta, metaSize, f
       bind(C, name='FissionComponentsFissionComponentSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function FissionComponentsFissionComponentHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: FissionComponentsFissionComponentHasByENDFMT
 end function FissionComponentsFissionComponentHasByENDFMT
 
@@ -262,7 +263,7 @@ function FissionComponentsFissionComponentGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: FissionComponentsFissionComponentGetByENDFMTConst
 end function FissionComponentsFissionComponentGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function FissionComponentsFissionComponentGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: FissionComponentsFissionComponentGetByENDFMT
 end function FissionComponentsFissionComponentGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine FissionComponentsFissionComponentSetByENDFMT(handle, meta, fieldHandl
       bind(C, name='FissionComponentsFissionComponentSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine FissionComponentsFissionComponentSetByENDFMT
 
@@ -328,7 +329,7 @@ subroutine FissionComponentsFissionComponentSetByFissionGenre(handle, meta, meta
       bind(C, name='FissionComponentsFissionComponentSetByFissionGenre')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

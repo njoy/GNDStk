@@ -35,7 +35,7 @@ function DebyeWallerIntegralCreateConst( &
       bind(C, name='DebyeWallerIntegralCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: DebyeWallerIntegralCreateConst
 end function DebyeWallerIntegralCreateConst
 
@@ -46,7 +46,7 @@ function DebyeWallerIntegralCreate( &
       bind(C, name='DebyeWallerIntegralCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: DebyeWallerIntegralCreate
 end function DebyeWallerIntegralCreate
 
@@ -55,7 +55,8 @@ subroutine DebyeWallerIntegralAssign(handleLHS, handleRHS) &
       bind(C, name='DebyeWallerIntegralAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DebyeWallerIntegralAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function DebyeWallerIntegralRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DebyeWallerIntegralRead
 end function DebyeWallerIntegralRead
@@ -90,7 +91,7 @@ function DebyeWallerIntegralWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DebyeWallerIntegralWrite
 end function DebyeWallerIntegralWrite
@@ -150,7 +151,7 @@ function DebyeWallerIntegralXYs1dGet(handle) &
       bind(C, name='DebyeWallerIntegralXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DebyeWallerIntegralXYs1dGet
 end function DebyeWallerIntegralXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine DebyeWallerIntegralXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DebyeWallerIntegralXYs1dSet
 
 

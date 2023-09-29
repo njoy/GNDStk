@@ -35,7 +35,7 @@ function ScatteringFactorCreateConst( &
       bind(C, name='ScatteringFactorCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: ScatteringFactorCreateConst
 end function ScatteringFactorCreateConst
 
@@ -46,7 +46,7 @@ function ScatteringFactorCreate( &
       bind(C, name='ScatteringFactorCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
+   type(c_ptr), intent(in), value :: XYs1d
    type(c_ptr) :: ScatteringFactorCreate
 end function ScatteringFactorCreate
 
@@ -55,7 +55,8 @@ subroutine ScatteringFactorAssign(handleLHS, handleRHS) &
       bind(C, name='ScatteringFactorAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ScatteringFactorAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ScatteringFactorRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ScatteringFactorRead
 end function ScatteringFactorRead
@@ -90,7 +91,7 @@ function ScatteringFactorWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ScatteringFactorWrite
 end function ScatteringFactorWrite
@@ -150,7 +151,7 @@ function ScatteringFactorXYs1dGet(handle) &
       bind(C, name='ScatteringFactorXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ScatteringFactorXYs1dGet
 end function ScatteringFactorXYs1dGet
 
@@ -160,7 +161,7 @@ subroutine ScatteringFactorXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ScatteringFactorXYs1dSet
 
 

@@ -43,12 +43,12 @@ function SumCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   integer(c_size_t), value :: summandSize
-   type(c_ptr) :: summand(summandSize)
+   integer(c_size_t), intent(in), value :: summandSize
+   type(c_ptr), intent(in) :: summand(summandSize)
    type(c_ptr) :: SumCreateConst
 end function SumCreateConst
 
@@ -67,12 +67,12 @@ function SumCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: domainMin
-   real(c_double), value, intent(in) :: domainMax
+   real(c_double), intent(in), value :: domainMin
+   real(c_double), intent(in), value :: domainMax
    integer(c_size_t), intent(in), value :: domainUnitSize
    character(c_char), intent(in) :: domainUnit(domainUnitSize)
-   integer(c_size_t), value :: summandSize
-   type(c_ptr) :: summand(summandSize)
+   integer(c_size_t), intent(in), value :: summandSize
+   type(c_ptr), intent(in) :: summand(summandSize)
    type(c_ptr) :: SumCreate
 end function SumCreate
 
@@ -81,7 +81,8 @@ subroutine SumAssign(handleLHS, handleRHS) &
       bind(C, name='SumAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SumAssign
 
 !! Delete
@@ -105,7 +106,7 @@ function SumRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SumRead
 end function SumRead
@@ -116,7 +117,7 @@ function SumWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SumWrite
 end function SumWrite
@@ -205,13 +206,12 @@ function SumDomainMinGet(handle) &
 end function SumDomainMinGet
 
 !! Set
-subroutine SumDomainMinSet(handle, domainMin, domainMinSize) &
+subroutine SumDomainMinSet(handle, domainMin) &
       bind(C, name='SumDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMinSize
-   character(c_char), intent(in) :: domainMin(domainMinSize)
+   real(c_double), intent(in), value :: domainMin
 end subroutine SumDomainMinSet
 
 
@@ -238,13 +238,12 @@ function SumDomainMaxGet(handle) &
 end function SumDomainMaxGet
 
 !! Set
-subroutine SumDomainMaxSet(handle, domainMax, domainMaxSize) &
+subroutine SumDomainMaxSet(handle, domainMax) &
       bind(C, name='SumDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: domainMaxSize
-   character(c_char), intent(in) :: domainMax(domainMaxSize)
+   real(c_double), intent(in), value :: domainMax
 end subroutine SumDomainMaxSet
 
 
@@ -392,7 +391,7 @@ subroutine SumSummandSetByENDFMFMT(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SumSummandSetByENDFMFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -440,7 +439,7 @@ subroutine SumSummandSetByCoefficient(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SumSummandSetByCoefficient')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -488,7 +487,7 @@ subroutine SumSummandSetByHref(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SumSummandSetByHref')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

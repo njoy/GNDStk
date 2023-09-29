@@ -37,9 +37,9 @@ function CrossSectionCreateConst( &
       bind(C, name='CrossSectionCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
-   type(c_ptr), value :: reference
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
+   type(c_ptr), intent(in), value :: reference
    type(c_ptr) :: CrossSectionCreateConst
 end function CrossSectionCreateConst
 
@@ -52,9 +52,9 @@ function CrossSectionCreate( &
       bind(C, name='CrossSectionCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: XYs1d
-   type(c_ptr), value :: regions1d
-   type(c_ptr), value :: reference
+   type(c_ptr), intent(in), value :: XYs1d
+   type(c_ptr), intent(in), value :: regions1d
+   type(c_ptr), intent(in), value :: reference
    type(c_ptr) :: CrossSectionCreate
 end function CrossSectionCreate
 
@@ -63,7 +63,8 @@ subroutine CrossSectionAssign(handleLHS, handleRHS) &
       bind(C, name='CrossSectionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CrossSectionAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function CrossSectionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionRead
 end function CrossSectionRead
@@ -98,7 +99,7 @@ function CrossSectionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CrossSectionWrite
 end function CrossSectionWrite
@@ -158,7 +159,7 @@ function CrossSectionXYs1dGet(handle) &
       bind(C, name='CrossSectionXYs1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CrossSectionXYs1dGet
 end function CrossSectionXYs1dGet
 
@@ -168,7 +169,7 @@ subroutine CrossSectionXYs1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionXYs1dSet
 
 
@@ -199,7 +200,7 @@ function CrossSectionRegions1dGet(handle) &
       bind(C, name='CrossSectionRegions1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CrossSectionRegions1dGet
 end function CrossSectionRegions1dGet
 
@@ -209,7 +210,7 @@ subroutine CrossSectionRegions1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionRegions1dSet
 
 
@@ -240,7 +241,7 @@ function CrossSectionReferenceGet(handle) &
       bind(C, name='CrossSectionReferenceGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CrossSectionReferenceGet
 end function CrossSectionReferenceGet
 
@@ -250,7 +251,7 @@ subroutine CrossSectionReferenceSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CrossSectionReferenceSet
 
 

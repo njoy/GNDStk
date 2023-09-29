@@ -38,8 +38,8 @@ function ProjectileEnergyDomainCreateConst( &
       bind(C, name='ProjectileEnergyDomainCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: min
-   real(c_double), value, intent(in) :: max
+   real(c_double), intent(in), value :: min
+   real(c_double), intent(in), value :: max
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: ProjectileEnergyDomainCreateConst
@@ -55,8 +55,8 @@ function ProjectileEnergyDomainCreate( &
       bind(C, name='ProjectileEnergyDomainCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: min
-   real(c_double), value, intent(in) :: max
+   real(c_double), intent(in), value :: min
+   real(c_double), intent(in), value :: max
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: ProjectileEnergyDomainCreate
@@ -67,7 +67,8 @@ subroutine ProjectileEnergyDomainAssign(handleLHS, handleRHS) &
       bind(C, name='ProjectileEnergyDomainAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProjectileEnergyDomainAssign
 
 !! Delete
@@ -91,7 +92,7 @@ function ProjectileEnergyDomainRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProjectileEnergyDomainRead
 end function ProjectileEnergyDomainRead
@@ -102,7 +103,7 @@ function ProjectileEnergyDomainWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProjectileEnergyDomainWrite
 end function ProjectileEnergyDomainWrite
@@ -158,13 +159,12 @@ function ProjectileEnergyDomainMinGet(handle) &
 end function ProjectileEnergyDomainMinGet
 
 !! Set
-subroutine ProjectileEnergyDomainMinSet(handle, min, minSize) &
+subroutine ProjectileEnergyDomainMinSet(handle, min) &
       bind(C, name='ProjectileEnergyDomainMinSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: minSize
-   character(c_char), intent(in) :: min(minSize)
+   real(c_double), intent(in), value :: min
 end subroutine ProjectileEnergyDomainMinSet
 
 
@@ -191,13 +191,12 @@ function ProjectileEnergyDomainMaxGet(handle) &
 end function ProjectileEnergyDomainMaxGet
 
 !! Set
-subroutine ProjectileEnergyDomainMaxSet(handle, max, maxSize) &
+subroutine ProjectileEnergyDomainMaxSet(handle, max) &
       bind(C, name='ProjectileEnergyDomainMaxSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: maxSize
-   character(c_char), intent(in) :: max(maxSize)
+   real(c_double), intent(in), value :: max
 end subroutine ProjectileEnergyDomainMaxSet
 
 

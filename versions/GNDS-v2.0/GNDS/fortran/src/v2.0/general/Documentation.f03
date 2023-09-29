@@ -39,11 +39,11 @@ function DocumentationCreateConst( &
       bind(C, name='DocumentationCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: authors
-   type(c_ptr), value :: dates
-   type(c_ptr), value :: title
-   type(c_ptr), value :: body
-   type(c_ptr), value :: endfCompatible
+   type(c_ptr), intent(in), value :: authors
+   type(c_ptr), intent(in), value :: dates
+   type(c_ptr), intent(in), value :: title
+   type(c_ptr), intent(in), value :: body
+   type(c_ptr), intent(in), value :: endfCompatible
    type(c_ptr) :: DocumentationCreateConst
 end function DocumentationCreateConst
 
@@ -58,11 +58,11 @@ function DocumentationCreate( &
       bind(C, name='DocumentationCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: authors
-   type(c_ptr), value :: dates
-   type(c_ptr), value :: title
-   type(c_ptr), value :: body
-   type(c_ptr), value :: endfCompatible
+   type(c_ptr), intent(in), value :: authors
+   type(c_ptr), intent(in), value :: dates
+   type(c_ptr), intent(in), value :: title
+   type(c_ptr), intent(in), value :: body
+   type(c_ptr), intent(in), value :: endfCompatible
    type(c_ptr) :: DocumentationCreate
 end function DocumentationCreate
 
@@ -71,7 +71,8 @@ subroutine DocumentationAssign(handleLHS, handleRHS) &
       bind(C, name='DocumentationAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DocumentationAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function DocumentationRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DocumentationRead
 end function DocumentationRead
@@ -106,7 +107,7 @@ function DocumentationWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DocumentationWrite
 end function DocumentationWrite
@@ -166,7 +167,7 @@ function DocumentationAuthorsGet(handle) &
       bind(C, name='DocumentationAuthorsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DocumentationAuthorsGet
 end function DocumentationAuthorsGet
 
@@ -176,7 +177,7 @@ subroutine DocumentationAuthorsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DocumentationAuthorsSet
 
 
@@ -207,7 +208,7 @@ function DocumentationDatesGet(handle) &
       bind(C, name='DocumentationDatesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DocumentationDatesGet
 end function DocumentationDatesGet
 
@@ -217,7 +218,7 @@ subroutine DocumentationDatesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DocumentationDatesSet
 
 
@@ -248,7 +249,7 @@ function DocumentationTitleGet(handle) &
       bind(C, name='DocumentationTitleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DocumentationTitleGet
 end function DocumentationTitleGet
 
@@ -258,7 +259,7 @@ subroutine DocumentationTitleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DocumentationTitleSet
 
 
@@ -289,7 +290,7 @@ function DocumentationBodyGet(handle) &
       bind(C, name='DocumentationBodyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DocumentationBodyGet
 end function DocumentationBodyGet
 
@@ -299,7 +300,7 @@ subroutine DocumentationBodySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DocumentationBodySet
 
 
@@ -330,7 +331,7 @@ function DocumentationEndfCompatibleGet(handle) &
       bind(C, name='DocumentationEndfCompatibleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DocumentationEndfCompatibleGet
 end function DocumentationEndfCompatibleGet
 
@@ -340,7 +341,7 @@ subroutine DocumentationEndfCompatibleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DocumentationEndfCompatibleSet
 
 

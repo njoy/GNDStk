@@ -35,8 +35,8 @@ function ListOfCovariancesCreateConst( &
       bind(C, name='ListOfCovariancesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: covarianceSize
-   type(c_ptr) :: covariance(covarianceSize)
+   integer(c_size_t), intent(in), value :: covarianceSize
+   type(c_ptr), intent(in) :: covariance(covarianceSize)
    type(c_ptr) :: ListOfCovariancesCreateConst
 end function ListOfCovariancesCreateConst
 
@@ -47,8 +47,8 @@ function ListOfCovariancesCreate( &
       bind(C, name='ListOfCovariancesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: covarianceSize
-   type(c_ptr) :: covariance(covarianceSize)
+   integer(c_size_t), intent(in), value :: covarianceSize
+   type(c_ptr), intent(in) :: covariance(covarianceSize)
    type(c_ptr) :: ListOfCovariancesCreate
 end function ListOfCovariancesCreate
 
@@ -57,7 +57,8 @@ subroutine ListOfCovariancesAssign(handleLHS, handleRHS) &
       bind(C, name='ListOfCovariancesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ListOfCovariancesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ListOfCovariancesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ListOfCovariancesRead
 end function ListOfCovariancesRead
@@ -92,7 +93,7 @@ function ListOfCovariancesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ListOfCovariancesWrite
 end function ListOfCovariancesWrite
@@ -236,7 +237,7 @@ subroutine ListOfCovariancesCovarianceSetByLabel(handle, meta, metaSize, fieldHa
       bind(C, name='ListOfCovariancesCovarianceSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine ListOfCovariancesCovarianceSetByHref(handle, meta, metaSize, fieldHan
       bind(C, name='ListOfCovariancesCovarianceSetByHref')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

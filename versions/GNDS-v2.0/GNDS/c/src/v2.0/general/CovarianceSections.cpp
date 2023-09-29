@@ -204,6 +204,10 @@ CovarianceSectionsCovarianceSectionSet(
       (CLASSNAME, CLASSNAME+"CovarianceSectionSet", self, extract::covarianceSection, index_, covarianceSection);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 CovarianceSectionsCovarianceSectionHasByLabel(
@@ -248,6 +252,10 @@ CovarianceSectionsCovarianceSectionSetByLabel(
       (CLASSNAME, CLASSNAME+"CovarianceSectionSetByLabel",
        self, extract::covarianceSection, meta::label, label, covarianceSection);
 }
+
+// ------------------------
+// Re: metadatum crossTerm
+// ------------------------
 
 // Has, by crossTerm
 int

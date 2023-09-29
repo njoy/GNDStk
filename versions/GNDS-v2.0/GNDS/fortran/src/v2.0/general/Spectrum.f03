@@ -44,9 +44,9 @@ function SpectrumCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   integer(c_size_t), value :: discreteSize
-   type(c_ptr) :: discrete(discreteSize)
-   type(c_ptr), value :: continuum
+   integer(c_size_t), intent(in), value :: discreteSize
+   type(c_ptr), intent(in) :: discrete(discreteSize)
+   type(c_ptr), intent(in), value :: continuum
    type(c_ptr) :: SpectrumCreateConst
 end function SpectrumCreateConst
 
@@ -66,9 +66,9 @@ function SpectrumCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: pidSize
    character(c_char), intent(in) :: pid(pidSize)
-   integer(c_size_t), value :: discreteSize
-   type(c_ptr) :: discrete(discreteSize)
-   type(c_ptr), value :: continuum
+   integer(c_size_t), intent(in), value :: discreteSize
+   type(c_ptr), intent(in) :: discrete(discreteSize)
+   type(c_ptr), intent(in), value :: continuum
    type(c_ptr) :: SpectrumCreate
 end function SpectrumCreate
 
@@ -77,7 +77,8 @@ subroutine SpectrumAssign(handleLHS, handleRHS) &
       bind(C, name='SpectrumAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine SpectrumAssign
 
 !! Delete
@@ -101,7 +102,7 @@ function SpectrumRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpectrumRead
 end function SpectrumRead
@@ -112,7 +113,7 @@ function SpectrumWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: SpectrumWrite
 end function SpectrumWrite
@@ -322,7 +323,7 @@ subroutine SpectrumDiscreteSetByType(handle, meta, metaSize, fieldHandle) &
       bind(C, name='SpectrumDiscreteSetByType')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -356,7 +357,7 @@ function SpectrumContinuumGet(handle) &
       bind(C, name='SpectrumContinuumGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: SpectrumContinuumGet
 end function SpectrumContinuumGet
 
@@ -366,7 +367,7 @@ subroutine SpectrumContinuumSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine SpectrumContinuumSet
 
 

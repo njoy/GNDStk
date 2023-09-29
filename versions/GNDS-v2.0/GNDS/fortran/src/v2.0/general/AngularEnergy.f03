@@ -43,7 +43,7 @@ function AngularEnergyCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: XYs3d
+   type(c_ptr), intent(in), value :: XYs3d
    type(c_ptr) :: AngularEnergyCreateConst
 end function AngularEnergyCreateConst
 
@@ -62,7 +62,7 @@ function AngularEnergyCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: XYs3d
+   type(c_ptr), intent(in), value :: XYs3d
    type(c_ptr) :: AngularEnergyCreate
 end function AngularEnergyCreate
 
@@ -71,7 +71,8 @@ subroutine AngularEnergyAssign(handleLHS, handleRHS) &
       bind(C, name='AngularEnergyAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AngularEnergyAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function AngularEnergyRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AngularEnergyRead
 end function AngularEnergyRead
@@ -106,7 +107,7 @@ function AngularEnergyWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AngularEnergyWrite
 end function AngularEnergyWrite
@@ -232,7 +233,7 @@ function AngularEnergyXYs3dGet(handle) &
       bind(C, name='AngularEnergyXYs3dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularEnergyXYs3dGet
 end function AngularEnergyXYs3dGet
 
@@ -242,7 +243,7 @@ subroutine AngularEnergyXYs3dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularEnergyXYs3dSet
 
 

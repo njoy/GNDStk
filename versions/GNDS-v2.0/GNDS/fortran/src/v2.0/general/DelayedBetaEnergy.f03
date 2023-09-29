@@ -35,7 +35,7 @@ function DelayedBetaEnergyCreateConst( &
       bind(C, name='DelayedBetaEnergyCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
+   type(c_ptr), intent(in), value :: polynomial1d
    type(c_ptr) :: DelayedBetaEnergyCreateConst
 end function DelayedBetaEnergyCreateConst
 
@@ -46,7 +46,7 @@ function DelayedBetaEnergyCreate( &
       bind(C, name='DelayedBetaEnergyCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: polynomial1d
+   type(c_ptr), intent(in), value :: polynomial1d
    type(c_ptr) :: DelayedBetaEnergyCreate
 end function DelayedBetaEnergyCreate
 
@@ -55,7 +55,8 @@ subroutine DelayedBetaEnergyAssign(handleLHS, handleRHS) &
       bind(C, name='DelayedBetaEnergyAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DelayedBetaEnergyAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function DelayedBetaEnergyRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DelayedBetaEnergyRead
 end function DelayedBetaEnergyRead
@@ -90,7 +91,7 @@ function DelayedBetaEnergyWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DelayedBetaEnergyWrite
 end function DelayedBetaEnergyWrite
@@ -150,7 +151,7 @@ function DelayedBetaEnergyPolynomial1dGet(handle) &
       bind(C, name='DelayedBetaEnergyPolynomial1dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DelayedBetaEnergyPolynomial1dGet
 end function DelayedBetaEnergyPolynomial1dGet
 
@@ -160,7 +161,7 @@ subroutine DelayedBetaEnergyPolynomial1dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DelayedBetaEnergyPolynomial1dSet
 
 

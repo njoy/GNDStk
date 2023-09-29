@@ -204,6 +204,10 @@ ChemicalElementsChemicalElementSet(
       (CLASSNAME, CLASSNAME+"ChemicalElementSet", self, extract::chemicalElement, index_, chemicalElement);
 }
 
+// ------------------------
+// Re: metadatum symbol
+// ------------------------
+
 // Has, by symbol
 int
 ChemicalElementsChemicalElementHasBySymbol(
@@ -249,6 +253,10 @@ ChemicalElementsChemicalElementSetBySymbol(
        self, extract::chemicalElement, meta::symbol, symbol, chemicalElement);
 }
 
+// ------------------------
+// Re: metadatum Z
+// ------------------------
+
 // Has, by Z
 int
 ChemicalElementsChemicalElementHasByZ(
@@ -293,6 +301,10 @@ ChemicalElementsChemicalElementSetByZ(
       (CLASSNAME, CLASSNAME+"ChemicalElementSetByZ",
        self, extract::chemicalElement, meta::Z, Z, chemicalElement);
 }
+
+// ------------------------
+// Re: metadatum name
+// ------------------------
 
 // Has, by name
 int

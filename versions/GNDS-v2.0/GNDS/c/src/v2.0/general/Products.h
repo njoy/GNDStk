@@ -166,6 +166,10 @@ ProductsProductSet(
    ConstHandle2ConstProduct product
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ProductsProductHasByLabel(
@@ -194,6 +198,10 @@ ProductsProductSetByLabel(
    const char *const label,
    ConstHandle2ConstProduct product
 );
+
+// ------------------------
+// Re: metadatum pid
+// ------------------------
 
 // +++ Has, by pid
 extern_c int

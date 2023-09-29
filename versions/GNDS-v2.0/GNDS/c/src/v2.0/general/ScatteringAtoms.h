@@ -166,6 +166,10 @@ ScatteringAtomsScatteringAtomSet(
    ConstHandle2ConstScatteringAtom scatteringAtom
 );
 
+// ------------------------
+// Re: metadatum pid
+// ------------------------
+
 // +++ Has, by pid
 extern_c int
 ScatteringAtomsScatteringAtomHasByPid(
@@ -195,6 +199,10 @@ ScatteringAtomsScatteringAtomSetByPid(
    ConstHandle2ConstScatteringAtom scatteringAtom
 );
 
+// ------------------------
+// Re: metadatum numberPerMolecule
+// ------------------------
+
 // +++ Has, by numberPerMolecule
 extern_c int
 ScatteringAtomsScatteringAtomHasByNumberPerMolecule(
@@ -223,6 +231,10 @@ ScatteringAtomsScatteringAtomSetByNumberPerMolecule(
    const int numberPerMolecule,
    ConstHandle2ConstScatteringAtom scatteringAtom
 );
+
+// ------------------------
+// Re: metadatum primaryScatterer
+// ------------------------
 
 // +++ Has, by primaryScatterer
 extern_c int

@@ -166,6 +166,10 @@ ResonanceReactionsResonanceReactionSet(
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ResonanceReactionsResonanceReactionHasByLabel(
@@ -195,6 +199,10 @@ ResonanceReactionsResonanceReactionSetByLabel(
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
 
+// ------------------------
+// Re: metadatum ejectile
+// ------------------------
+
 // +++ Has, by ejectile
 extern_c int
 ResonanceReactionsResonanceReactionHasByEjectile(
@@ -223,6 +231,10 @@ ResonanceReactionsResonanceReactionSetByEjectile(
    const char *const ejectile,
    ConstHandle2ConstResonanceReaction resonanceReaction
 );
+
+// ------------------------
+// Re: metadatum eliminated
+// ------------------------
 
 // +++ Has, by eliminated
 extern_c int

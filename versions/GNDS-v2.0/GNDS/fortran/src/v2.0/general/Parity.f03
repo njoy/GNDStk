@@ -35,7 +35,7 @@ function ParityCreateConst( &
       bind(C, name='ParityCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: integer
+   type(c_ptr), intent(in), value :: integer
    type(c_ptr) :: ParityCreateConst
 end function ParityCreateConst
 
@@ -46,7 +46,7 @@ function ParityCreate( &
       bind(C, name='ParityCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: integer
+   type(c_ptr), intent(in), value :: integer
    type(c_ptr) :: ParityCreate
 end function ParityCreate
 
@@ -55,7 +55,8 @@ subroutine ParityAssign(handleLHS, handleRHS) &
       bind(C, name='ParityAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ParityAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ParityRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParityRead
 end function ParityRead
@@ -90,7 +91,7 @@ function ParityWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ParityWrite
 end function ParityWrite
@@ -150,7 +151,7 @@ function ParityIntegerGet(handle) &
       bind(C, name='ParityIntegerGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ParityIntegerGet
 end function ParityIntegerGet
 
@@ -160,7 +161,7 @@ subroutine ParityIntegerSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ParityIntegerSet
 
 

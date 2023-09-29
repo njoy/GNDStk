@@ -47,7 +47,7 @@ function CovarianceMatrixCreateConst( &
    character(c_char), intent(in) :: type1(type1Size)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: gridded2d
+   type(c_ptr), intent(in), value :: gridded2d
    type(c_ptr) :: CovarianceMatrixCreateConst
 end function CovarianceMatrixCreateConst
 
@@ -70,7 +70,7 @@ function CovarianceMatrixCreate( &
    character(c_char), intent(in) :: type1(type1Size)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: gridded2d
+   type(c_ptr), intent(in), value :: gridded2d
    type(c_ptr) :: CovarianceMatrixCreate
 end function CovarianceMatrixCreate
 
@@ -79,7 +79,8 @@ subroutine CovarianceMatrixAssign(handleLHS, handleRHS) &
       bind(C, name='CovarianceMatrixAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CovarianceMatrixAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function CovarianceMatrixRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceMatrixRead
 end function CovarianceMatrixRead
@@ -114,7 +115,7 @@ function CovarianceMatrixWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceMatrixWrite
 end function CovarianceMatrixWrite
@@ -273,7 +274,7 @@ function CovarianceMatrixGridded2dGet(handle) &
       bind(C, name='CovarianceMatrixGridded2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceMatrixGridded2dGet
 end function CovarianceMatrixGridded2dGet
 
@@ -283,7 +284,7 @@ subroutine CovarianceMatrixGridded2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceMatrixGridded2dSet
 
 

@@ -47,11 +47,11 @@ function LeptonCreateConst( &
    character(c_char), intent(in) :: id(idSize)
    integer(c_size_t), intent(in), value :: generationSize
    character(c_char), intent(in) :: generation(generationSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
    type(c_ptr) :: LeptonCreateConst
 end function LeptonCreateConst
 
@@ -74,11 +74,11 @@ function LeptonCreate( &
    character(c_char), intent(in) :: id(idSize)
    integer(c_size_t), intent(in), value :: generationSize
    character(c_char), intent(in) :: generation(generationSize)
-   type(c_ptr), value :: mass
-   type(c_ptr), value :: spin
-   type(c_ptr), value :: parity
-   type(c_ptr), value :: charge
-   type(c_ptr), value :: halflife
+   type(c_ptr), intent(in), value :: mass
+   type(c_ptr), intent(in), value :: spin
+   type(c_ptr), intent(in), value :: parity
+   type(c_ptr), intent(in), value :: charge
+   type(c_ptr), intent(in), value :: halflife
    type(c_ptr) :: LeptonCreate
 end function LeptonCreate
 
@@ -87,7 +87,8 @@ subroutine LeptonAssign(handleLHS, handleRHS) &
       bind(C, name='LeptonAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine LeptonAssign
 
 !! Delete
@@ -111,7 +112,7 @@ function LeptonRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LeptonRead
 end function LeptonRead
@@ -122,7 +123,7 @@ function LeptonWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: LeptonWrite
 end function LeptonWrite
@@ -248,7 +249,7 @@ function LeptonMassGet(handle) &
       bind(C, name='LeptonMassGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LeptonMassGet
 end function LeptonMassGet
 
@@ -258,7 +259,7 @@ subroutine LeptonMassSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LeptonMassSet
 
 
@@ -289,7 +290,7 @@ function LeptonSpinGet(handle) &
       bind(C, name='LeptonSpinGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LeptonSpinGet
 end function LeptonSpinGet
 
@@ -299,7 +300,7 @@ subroutine LeptonSpinSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LeptonSpinSet
 
 
@@ -330,7 +331,7 @@ function LeptonParityGet(handle) &
       bind(C, name='LeptonParityGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LeptonParityGet
 end function LeptonParityGet
 
@@ -340,7 +341,7 @@ subroutine LeptonParitySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LeptonParitySet
 
 
@@ -371,7 +372,7 @@ function LeptonChargeGet(handle) &
       bind(C, name='LeptonChargeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LeptonChargeGet
 end function LeptonChargeGet
 
@@ -381,7 +382,7 @@ subroutine LeptonChargeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LeptonChargeSet
 
 
@@ -412,7 +413,7 @@ function LeptonHalflifeGet(handle) &
       bind(C, name='LeptonHalflifeGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: LeptonHalflifeGet
 end function LeptonHalflifeGet
 
@@ -422,7 +423,7 @@ subroutine LeptonHalflifeSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine LeptonHalflifeSet
 
 

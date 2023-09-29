@@ -58,10 +58,10 @@ function CovarianceSuiteCreateConst( &
    character(c_char), intent(in) :: interaction(interactionSize)
    integer(c_size_t), intent(in), value :: formatSize
    character(c_char), intent(in) :: format(formatSize)
-   type(c_ptr), value :: externalFiles
-   type(c_ptr), value :: styles
-   type(c_ptr), value :: covarianceSections
-   type(c_ptr), value :: parameterCovariances
+   type(c_ptr), intent(in), value :: externalFiles
+   type(c_ptr), intent(in), value :: styles
+   type(c_ptr), intent(in), value :: covarianceSections
+   type(c_ptr), intent(in), value :: parameterCovariances
    type(c_ptr) :: CovarianceSuiteCreateConst
 end function CovarianceSuiteCreateConst
 
@@ -95,10 +95,10 @@ function CovarianceSuiteCreate( &
    character(c_char), intent(in) :: interaction(interactionSize)
    integer(c_size_t), intent(in), value :: formatSize
    character(c_char), intent(in) :: format(formatSize)
-   type(c_ptr), value :: externalFiles
-   type(c_ptr), value :: styles
-   type(c_ptr), value :: covarianceSections
-   type(c_ptr), value :: parameterCovariances
+   type(c_ptr), intent(in), value :: externalFiles
+   type(c_ptr), intent(in), value :: styles
+   type(c_ptr), intent(in), value :: covarianceSections
+   type(c_ptr), intent(in), value :: parameterCovariances
    type(c_ptr) :: CovarianceSuiteCreate
 end function CovarianceSuiteCreate
 
@@ -107,7 +107,8 @@ subroutine CovarianceSuiteAssign(handleLHS, handleRHS) &
       bind(C, name='CovarianceSuiteAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine CovarianceSuiteAssign
 
 !! Delete
@@ -131,7 +132,7 @@ function CovarianceSuiteRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceSuiteRead
 end function CovarianceSuiteRead
@@ -142,7 +143,7 @@ function CovarianceSuiteWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: CovarianceSuiteWrite
 end function CovarianceSuiteWrite
@@ -367,7 +368,7 @@ function CovarianceSuiteExternalFilesGet(handle) &
       bind(C, name='CovarianceSuiteExternalFilesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSuiteExternalFilesGet
 end function CovarianceSuiteExternalFilesGet
 
@@ -377,7 +378,7 @@ subroutine CovarianceSuiteExternalFilesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSuiteExternalFilesSet
 
 
@@ -408,7 +409,7 @@ function CovarianceSuiteStylesGet(handle) &
       bind(C, name='CovarianceSuiteStylesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSuiteStylesGet
 end function CovarianceSuiteStylesGet
 
@@ -418,7 +419,7 @@ subroutine CovarianceSuiteStylesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSuiteStylesSet
 
 
@@ -449,7 +450,7 @@ function CovarianceSuiteCovarianceSectionsGet(handle) &
       bind(C, name='CovarianceSuiteCovarianceSectionsGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSuiteCovarianceSectionsGet
 end function CovarianceSuiteCovarianceSectionsGet
 
@@ -459,7 +460,7 @@ subroutine CovarianceSuiteCovarianceSectionsSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSuiteCovarianceSectionsSet
 
 
@@ -490,7 +491,7 @@ function CovarianceSuiteParameterCovariancesGet(handle) &
       bind(C, name='CovarianceSuiteParameterCovariancesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: CovarianceSuiteParameterCovariancesGet
 end function CovarianceSuiteParameterCovariancesGet
 
@@ -500,7 +501,7 @@ subroutine CovarianceSuiteParameterCovariancesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine CovarianceSuiteParameterCovariancesSet
 
 

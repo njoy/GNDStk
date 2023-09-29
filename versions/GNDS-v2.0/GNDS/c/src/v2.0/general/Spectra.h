@@ -166,6 +166,10 @@ SpectraSpectrumSet(
    ConstHandle2ConstSpectrum spectrum
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 SpectraSpectrumHasByLabel(
@@ -194,6 +198,10 @@ SpectraSpectrumSetByLabel(
    const char *const label,
    ConstHandle2ConstSpectrum spectrum
 );
+
+// ------------------------
+// Re: metadatum pid
+// ------------------------
 
 // +++ Has, by pid
 extern_c int

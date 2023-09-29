@@ -206,6 +206,10 @@ ENDFconversionFlagsConversionSet(
    ConstHandle2ConstConversion conversion
 );
 
+// ------------------------
+// Re: metadatum flags
+// ------------------------
+
 // +++ Has, by flags
 extern_c int
 ENDFconversionFlagsConversionHasByFlags(
@@ -234,6 +238,10 @@ ENDFconversionFlagsConversionSetByFlags(
    const char *const flags,
    ConstHandle2ConstConversion conversion
 );
+
+// ------------------------
+// Re: metadatum href
+// ------------------------
 
 // +++ Has, by href
 extern_c int

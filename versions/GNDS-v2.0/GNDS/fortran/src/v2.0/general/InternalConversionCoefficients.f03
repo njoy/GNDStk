@@ -35,8 +35,8 @@ function InternalConversionCoefficientsCreateConst( &
       bind(C, name='InternalConversionCoefficientsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: shellSize
-   type(c_ptr) :: shell(shellSize)
+   integer(c_size_t), intent(in), value :: shellSize
+   type(c_ptr), intent(in) :: shell(shellSize)
    type(c_ptr) :: InternalConversionCoefficientsCreateConst
 end function InternalConversionCoefficientsCreateConst
 
@@ -47,8 +47,8 @@ function InternalConversionCoefficientsCreate( &
       bind(C, name='InternalConversionCoefficientsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: shellSize
-   type(c_ptr) :: shell(shellSize)
+   integer(c_size_t), intent(in), value :: shellSize
+   type(c_ptr), intent(in) :: shell(shellSize)
    type(c_ptr) :: InternalConversionCoefficientsCreate
 end function InternalConversionCoefficientsCreate
 
@@ -57,7 +57,8 @@ subroutine InternalConversionCoefficientsAssign(handleLHS, handleRHS) &
       bind(C, name='InternalConversionCoefficientsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine InternalConversionCoefficientsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function InternalConversionCoefficientsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: InternalConversionCoefficientsRead
 end function InternalConversionCoefficientsRead
@@ -92,7 +93,7 @@ function InternalConversionCoefficientsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: InternalConversionCoefficientsWrite
 end function InternalConversionCoefficientsWrite
@@ -236,7 +237,7 @@ subroutine InternalConversionCoefficientsShellSetByLabel(handle, meta, metaSize,
       bind(C, name='InternalConversionCoefficientsShellSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function InternalConversionCoefficientsShellHasByValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    integer(c_int) :: InternalConversionCoefficientsShellHasByValue
 end function InternalConversionCoefficientsShellHasByValue
 
@@ -262,7 +263,7 @@ function InternalConversionCoefficientsShellGetByValueConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: InternalConversionCoefficientsShellGetByValueConst
 end function InternalConversionCoefficientsShellGetByValueConst
 
@@ -272,7 +273,7 @@ function InternalConversionCoefficientsShellGetByValue(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   real(c_double), value, intent(in) :: meta
+   real(c_double), intent(in), value :: meta
    type(c_ptr) :: InternalConversionCoefficientsShellGetByValue
 end function InternalConversionCoefficientsShellGetByValue
 
@@ -281,8 +282,8 @@ subroutine InternalConversionCoefficientsShellSetByValue(handle, meta, fieldHand
       bind(C, name='InternalConversionCoefficientsShellSetByValue')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   real(c_double), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   real(c_double), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine InternalConversionCoefficientsShellSetByValue
 

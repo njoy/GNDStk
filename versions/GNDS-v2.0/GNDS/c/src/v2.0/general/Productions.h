@@ -166,6 +166,10 @@ ProductionsProductionSet(
    ConstHandle2ConstProduction production
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ProductionsProductionHasByLabel(
@@ -194,6 +198,10 @@ ProductionsProductionSetByLabel(
    const char *const label,
    ConstHandle2ConstProduction production
 );
+
+// ------------------------
+// Re: metadatum ENDF_MT
+// ------------------------
 
 // +++ Has, by ENDF_MT
 extern_c int

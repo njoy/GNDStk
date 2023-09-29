@@ -39,7 +39,7 @@ function AxisCreateConst( &
       bind(C, name='AxisCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: unitSize
@@ -58,7 +58,7 @@ function AxisCreate( &
       bind(C, name='AxisCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: unitSize
@@ -71,7 +71,8 @@ subroutine AxisAssign(handleLHS, handleRHS) &
       bind(C, name='AxisAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AxisAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function AxisRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AxisRead
 end function AxisRead
@@ -106,7 +107,7 @@ function AxisWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AxisWrite
 end function AxisWrite
@@ -162,13 +163,12 @@ function AxisIndexGet(handle) &
 end function AxisIndexGet
 
 !! Set
-subroutine AxisIndexSet(handle, index, indexSize) &
+subroutine AxisIndexSet(handle, index) &
       bind(C, name='AxisIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: indexSize
-   character(c_char), intent(in) :: index(indexSize)
+   integer(c_int), intent(in), value :: index
 end subroutine AxisIndexSet
 
 

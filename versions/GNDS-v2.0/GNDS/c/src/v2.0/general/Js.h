@@ -166,6 +166,10 @@ JsJSet(
    ConstHandle2ConstJ J
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 JsJHasByLabel(
@@ -194,6 +198,10 @@ JsJSetByLabel(
    const char *const label,
    ConstHandle2ConstJ J
 );
+
+// ------------------------
+// Re: metadatum value
+// ------------------------
 
 // +++ Has, by value
 extern_c int

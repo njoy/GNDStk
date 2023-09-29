@@ -36,8 +36,8 @@ function AngularCreateConst( &
       bind(C, name='AngularCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: isotropic2d
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: isotropic2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: AngularCreateConst
 end function AngularCreateConst
 
@@ -49,8 +49,8 @@ function AngularCreate( &
       bind(C, name='AngularCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: isotropic2d
-   type(c_ptr), value :: XYs2d
+   type(c_ptr), intent(in), value :: isotropic2d
+   type(c_ptr), intent(in), value :: XYs2d
    type(c_ptr) :: AngularCreate
 end function AngularCreate
 
@@ -59,7 +59,8 @@ subroutine AngularAssign(handleLHS, handleRHS) &
       bind(C, name='AngularAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine AngularAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function AngularRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AngularRead
 end function AngularRead
@@ -94,7 +95,7 @@ function AngularWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: AngularWrite
 end function AngularWrite
@@ -154,7 +155,7 @@ function AngularIsotropic2dGet(handle) &
       bind(C, name='AngularIsotropic2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularIsotropic2dGet
 end function AngularIsotropic2dGet
 
@@ -164,7 +165,7 @@ subroutine AngularIsotropic2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularIsotropic2dSet
 
 
@@ -195,7 +196,7 @@ function AngularXYs2dGet(handle) &
       bind(C, name='AngularXYs2dGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: AngularXYs2dGet
 end function AngularXYs2dGet
 
@@ -205,7 +206,7 @@ subroutine AngularXYs2dSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine AngularXYs2dSet
 
 

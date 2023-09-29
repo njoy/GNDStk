@@ -35,8 +35,8 @@ function ProductsCreateConst( &
       bind(C, name='ProductsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: productSize
-   type(c_ptr) :: product(productSize)
+   integer(c_size_t), intent(in), value :: productSize
+   type(c_ptr), intent(in) :: product(productSize)
    type(c_ptr) :: ProductsCreateConst
 end function ProductsCreateConst
 
@@ -47,8 +47,8 @@ function ProductsCreate( &
       bind(C, name='ProductsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: productSize
-   type(c_ptr) :: product(productSize)
+   integer(c_size_t), intent(in), value :: productSize
+   type(c_ptr), intent(in) :: product(productSize)
    type(c_ptr) :: ProductsCreate
 end function ProductsCreate
 
@@ -57,7 +57,8 @@ subroutine ProductsAssign(handleLHS, handleRHS) &
       bind(C, name='ProductsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProductsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ProductsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductsRead
 end function ProductsRead
@@ -92,7 +93,7 @@ function ProductsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductsWrite
 end function ProductsWrite
@@ -236,7 +237,7 @@ subroutine ProductsProductSetByLabel(handle, meta, metaSize, fieldHandle) &
       bind(C, name='ProductsProductSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -284,7 +285,7 @@ subroutine ProductsProductSetByPid(handle, meta, metaSize, fieldHandle) &
       bind(C, name='ProductsProductSetByPid')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

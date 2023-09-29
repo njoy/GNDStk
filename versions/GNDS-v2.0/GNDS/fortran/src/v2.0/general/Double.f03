@@ -42,10 +42,10 @@ function DoubleCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr), value :: uncertainty
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: DoubleCreateConst
 end function DoubleCreateConst
 
@@ -63,10 +63,10 @@ function DoubleCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
-   type(c_ptr), value :: uncertainty
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: DoubleCreate
 end function DoubleCreate
 
@@ -75,7 +75,8 @@ subroutine DoubleAssign(handleLHS, handleRHS) &
       bind(C, name='DoubleAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine DoubleAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function DoubleRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DoubleRead
 end function DoubleRead
@@ -110,7 +111,7 @@ function DoubleWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: DoubleWrite
 end function DoubleWrite
@@ -199,13 +200,12 @@ function DoubleValueGet(handle) &
 end function DoubleValueGet
 
 !! Set
-subroutine DoubleValueSet(handle, value, valueSize) &
+subroutine DoubleValueSet(handle, value) &
       bind(C, name='DoubleValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine DoubleValueSet
 
 
@@ -269,7 +269,7 @@ function DoubleUncertaintyGet(handle) &
       bind(C, name='DoubleUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: DoubleUncertaintyGet
 end function DoubleUncertaintyGet
 
@@ -279,7 +279,7 @@ subroutine DoubleUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine DoubleUncertaintySet
 
 

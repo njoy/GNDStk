@@ -166,6 +166,10 @@ LeptonsLeptonSet(
    ConstHandle2ConstLepton lepton
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 LeptonsLeptonHasById(
@@ -194,6 +198,10 @@ LeptonsLeptonSetById(
    const char *const id,
    ConstHandle2ConstLepton lepton
 );
+
+// ------------------------
+// Re: metadatum generation
+// ------------------------
 
 // +++ Has, by generation
 extern_c int

@@ -35,8 +35,8 @@ function ProductYieldsCreateConst( &
       bind(C, name='ProductYieldsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: productYieldSize
-   type(c_ptr) :: productYield(productYieldSize)
+   integer(c_size_t), intent(in), value :: productYieldSize
+   type(c_ptr), intent(in) :: productYield(productYieldSize)
    type(c_ptr) :: ProductYieldsCreateConst
 end function ProductYieldsCreateConst
 
@@ -47,8 +47,8 @@ function ProductYieldsCreate( &
       bind(C, name='ProductYieldsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: productYieldSize
-   type(c_ptr) :: productYield(productYieldSize)
+   integer(c_size_t), intent(in), value :: productYieldSize
+   type(c_ptr), intent(in) :: productYield(productYieldSize)
    type(c_ptr) :: ProductYieldsCreate
 end function ProductYieldsCreate
 
@@ -57,7 +57,8 @@ subroutine ProductYieldsAssign(handleLHS, handleRHS) &
       bind(C, name='ProductYieldsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProductYieldsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ProductYieldsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductYieldsRead
 end function ProductYieldsRead
@@ -92,7 +93,7 @@ function ProductYieldsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductYieldsWrite
 end function ProductYieldsWrite
@@ -236,7 +237,7 @@ subroutine ProductYieldsProductYieldSetByLabel(handle, meta, metaSize, fieldHand
       bind(C, name='ProductYieldsProductYieldSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

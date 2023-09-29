@@ -166,6 +166,10 @@ UnorthodoxesUnorthodoxSet(
    ConstHandle2ConstUnorthodox unorthodox
 );
 
+// ------------------------
+// Re: metadatum id
+// ------------------------
+
 // +++ Has, by id
 extern_c int
 UnorthodoxesUnorthodoxHasById(

@@ -35,8 +35,8 @@ function IncidentEnergiesCreateConst( &
       bind(C, name='IncidentEnergiesCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: incidentEnergySize
-   type(c_ptr) :: incidentEnergy(incidentEnergySize)
+   integer(c_size_t), intent(in), value :: incidentEnergySize
+   type(c_ptr), intent(in) :: incidentEnergy(incidentEnergySize)
    type(c_ptr) :: IncidentEnergiesCreateConst
 end function IncidentEnergiesCreateConst
 
@@ -47,8 +47,8 @@ function IncidentEnergiesCreate( &
       bind(C, name='IncidentEnergiesCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: incidentEnergySize
-   type(c_ptr) :: incidentEnergy(incidentEnergySize)
+   integer(c_size_t), intent(in), value :: incidentEnergySize
+   type(c_ptr), intent(in) :: incidentEnergy(incidentEnergySize)
    type(c_ptr) :: IncidentEnergiesCreate
 end function IncidentEnergiesCreate
 
@@ -57,7 +57,8 @@ subroutine IncidentEnergiesAssign(handleLHS, handleRHS) &
       bind(C, name='IncidentEnergiesAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine IncidentEnergiesAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function IncidentEnergiesRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncidentEnergiesRead
 end function IncidentEnergiesRead
@@ -92,7 +93,7 @@ function IncidentEnergiesWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: IncidentEnergiesWrite
 end function IncidentEnergiesWrite
@@ -236,7 +237,7 @@ subroutine IncidentEnergiesIncidentEnergySetByLabel(handle, meta, metaSize, fiel
       bind(C, name='IncidentEnergiesIncidentEnergySetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle

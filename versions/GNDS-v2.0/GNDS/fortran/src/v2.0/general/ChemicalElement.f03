@@ -43,11 +43,11 @@ function ChemicalElementCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: symbolSize
    character(c_char), intent(in) :: symbol(symbolSize)
-   integer(c_int), value, intent(in) :: Z
+   integer(c_int), intent(in), value :: Z
    integer(c_size_t), intent(in), value :: nameSize
    character(c_char), intent(in) :: name(nameSize)
-   type(c_ptr), value :: atomic
-   type(c_ptr), value :: isotopes
+   type(c_ptr), intent(in), value :: atomic
+   type(c_ptr), intent(in), value :: isotopes
    type(c_ptr) :: ChemicalElementCreateConst
 end function ChemicalElementCreateConst
 
@@ -66,11 +66,11 @@ function ChemicalElementCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: symbolSize
    character(c_char), intent(in) :: symbol(symbolSize)
-   integer(c_int), value, intent(in) :: Z
+   integer(c_int), intent(in), value :: Z
    integer(c_size_t), intent(in), value :: nameSize
    character(c_char), intent(in) :: name(nameSize)
-   type(c_ptr), value :: atomic
-   type(c_ptr), value :: isotopes
+   type(c_ptr), intent(in), value :: atomic
+   type(c_ptr), intent(in), value :: isotopes
    type(c_ptr) :: ChemicalElementCreate
 end function ChemicalElementCreate
 
@@ -79,7 +79,8 @@ subroutine ChemicalElementAssign(handleLHS, handleRHS) &
       bind(C, name='ChemicalElementAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ChemicalElementAssign
 
 !! Delete
@@ -103,7 +104,7 @@ function ChemicalElementRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChemicalElementRead
 end function ChemicalElementRead
@@ -114,7 +115,7 @@ function ChemicalElementWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChemicalElementWrite
 end function ChemicalElementWrite
@@ -203,13 +204,12 @@ function ChemicalElementZGet(handle) &
 end function ChemicalElementZGet
 
 !! Set
-subroutine ChemicalElementZSet(handle, Z, ZSize) &
+subroutine ChemicalElementZSet(handle, Z) &
       bind(C, name='ChemicalElementZSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: ZSize
-   character(c_char), intent(in) :: Z(ZSize)
+   integer(c_int), intent(in), value :: Z
 end subroutine ChemicalElementZSet
 
 
@@ -273,7 +273,7 @@ function ChemicalElementAtomicGet(handle) &
       bind(C, name='ChemicalElementAtomicGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ChemicalElementAtomicGet
 end function ChemicalElementAtomicGet
 
@@ -283,7 +283,7 @@ subroutine ChemicalElementAtomicSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChemicalElementAtomicSet
 
 
@@ -314,7 +314,7 @@ function ChemicalElementIsotopesGet(handle) &
       bind(C, name='ChemicalElementIsotopesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ChemicalElementIsotopesGet
 end function ChemicalElementIsotopesGet
 
@@ -324,7 +324,7 @@ subroutine ChemicalElementIsotopesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChemicalElementIsotopesSet
 
 

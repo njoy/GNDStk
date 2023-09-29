@@ -166,6 +166,10 @@ FissionEnergyReleasesFissionEnergyReleaseSet(
    ConstHandle2ConstFissionEnergyRelease fissionEnergyRelease
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 FissionEnergyReleasesFissionEnergyReleaseHasByLabel(

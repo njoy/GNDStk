@@ -41,9 +41,9 @@ function ResonancesWithBackgroundCreateConst( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: resonances
-   type(c_ptr), value :: background
-   type(c_ptr), value :: uncertainty
+   type(c_ptr), intent(in), value :: resonances
+   type(c_ptr), intent(in), value :: background
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: ResonancesWithBackgroundCreateConst
 end function ResonancesWithBackgroundCreateConst
 
@@ -60,9 +60,9 @@ function ResonancesWithBackgroundCreate( &
    implicit none
    integer(c_size_t), intent(in), value :: labelSize
    character(c_char), intent(in) :: label(labelSize)
-   type(c_ptr), value :: resonances
-   type(c_ptr), value :: background
-   type(c_ptr), value :: uncertainty
+   type(c_ptr), intent(in), value :: resonances
+   type(c_ptr), intent(in), value :: background
+   type(c_ptr), intent(in), value :: uncertainty
    type(c_ptr) :: ResonancesWithBackgroundCreate
 end function ResonancesWithBackgroundCreate
 
@@ -71,7 +71,8 @@ subroutine ResonancesWithBackgroundAssign(handleLHS, handleRHS) &
       bind(C, name='ResonancesWithBackgroundAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ResonancesWithBackgroundAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function ResonancesWithBackgroundRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonancesWithBackgroundRead
 end function ResonancesWithBackgroundRead
@@ -106,7 +107,7 @@ function ResonancesWithBackgroundWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ResonancesWithBackgroundWrite
 end function ResonancesWithBackgroundWrite
@@ -199,7 +200,7 @@ function ResonancesWithBackgroundResonancesGet(handle) &
       bind(C, name='ResonancesWithBackgroundResonancesGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonancesWithBackgroundResonancesGet
 end function ResonancesWithBackgroundResonancesGet
 
@@ -209,7 +210,7 @@ subroutine ResonancesWithBackgroundResonancesSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonancesWithBackgroundResonancesSet
 
 
@@ -240,7 +241,7 @@ function ResonancesWithBackgroundBackgroundGet(handle) &
       bind(C, name='ResonancesWithBackgroundBackgroundGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonancesWithBackgroundBackgroundGet
 end function ResonancesWithBackgroundBackgroundGet
 
@@ -250,7 +251,7 @@ subroutine ResonancesWithBackgroundBackgroundSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonancesWithBackgroundBackgroundSet
 
 
@@ -281,7 +282,7 @@ function ResonancesWithBackgroundUncertaintyGet(handle) &
       bind(C, name='ResonancesWithBackgroundUncertaintyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ResonancesWithBackgroundUncertaintyGet
 end function ResonancesWithBackgroundUncertaintyGet
 
@@ -291,7 +292,7 @@ subroutine ResonancesWithBackgroundUncertaintySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ResonancesWithBackgroundUncertaintySet
 
 

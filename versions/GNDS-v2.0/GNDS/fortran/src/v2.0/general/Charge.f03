@@ -35,7 +35,7 @@ function ChargeCreateConst( &
       bind(C, name='ChargeCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: integer
+   type(c_ptr), intent(in), value :: integer
    type(c_ptr) :: ChargeCreateConst
 end function ChargeCreateConst
 
@@ -46,7 +46,7 @@ function ChargeCreate( &
       bind(C, name='ChargeCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: integer
+   type(c_ptr), intent(in), value :: integer
    type(c_ptr) :: ChargeCreate
 end function ChargeCreate
 
@@ -55,7 +55,8 @@ subroutine ChargeAssign(handleLHS, handleRHS) &
       bind(C, name='ChargeAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ChargeAssign
 
 !! Delete
@@ -79,7 +80,7 @@ function ChargeRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChargeRead
 end function ChargeRead
@@ -90,7 +91,7 @@ function ChargeWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ChargeWrite
 end function ChargeWrite
@@ -150,7 +151,7 @@ function ChargeIntegerGet(handle) &
       bind(C, name='ChargeIntegerGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: ChargeIntegerGet
 end function ChargeIntegerGet
 
@@ -160,7 +161,7 @@ subroutine ChargeIntegerSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ChargeIntegerSet
 
 

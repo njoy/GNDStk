@@ -44,8 +44,8 @@ function UncorrelatedCreateConst( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: angular
-   type(c_ptr), value :: energy
+   type(c_ptr), intent(in), value :: angular
+   type(c_ptr), intent(in), value :: energy
    type(c_ptr) :: UncorrelatedCreateConst
 end function UncorrelatedCreateConst
 
@@ -65,8 +65,8 @@ function UncorrelatedCreate( &
    character(c_char), intent(in) :: label(labelSize)
    integer(c_size_t), intent(in), value :: productFrameSize
    character(c_char), intent(in) :: productFrame(productFrameSize)
-   type(c_ptr), value :: angular
-   type(c_ptr), value :: energy
+   type(c_ptr), intent(in), value :: angular
+   type(c_ptr), intent(in), value :: energy
    type(c_ptr) :: UncorrelatedCreate
 end function UncorrelatedCreate
 
@@ -75,7 +75,8 @@ subroutine UncorrelatedAssign(handleLHS, handleRHS) &
       bind(C, name='UncorrelatedAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine UncorrelatedAssign
 
 !! Delete
@@ -99,7 +100,7 @@ function UncorrelatedRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UncorrelatedRead
 end function UncorrelatedRead
@@ -110,7 +111,7 @@ function UncorrelatedWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: UncorrelatedWrite
 end function UncorrelatedWrite
@@ -236,7 +237,7 @@ function UncorrelatedAngularGet(handle) &
       bind(C, name='UncorrelatedAngularGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: UncorrelatedAngularGet
 end function UncorrelatedAngularGet
 
@@ -246,7 +247,7 @@ subroutine UncorrelatedAngularSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine UncorrelatedAngularSet
 
 
@@ -277,7 +278,7 @@ function UncorrelatedEnergyGet(handle) &
       bind(C, name='UncorrelatedEnergyGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: UncorrelatedEnergyGet
 end function UncorrelatedEnergyGet
 
@@ -287,7 +288,7 @@ subroutine UncorrelatedEnergySet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine UncorrelatedEnergySet
 
 

@@ -36,8 +36,8 @@ function HalflifeCreateConst( &
       bind(C, name='HalflifeCreateConst')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: string
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: string
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: HalflifeCreateConst
 end function HalflifeCreateConst
 
@@ -49,8 +49,8 @@ function HalflifeCreate( &
       bind(C, name='HalflifeCreate')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: string
-   type(c_ptr), value :: Double
+   type(c_ptr), intent(in), value :: string
+   type(c_ptr), intent(in), value :: Double
    type(c_ptr) :: HalflifeCreate
 end function HalflifeCreate
 
@@ -59,7 +59,8 @@ subroutine HalflifeAssign(handleLHS, handleRHS) &
       bind(C, name='HalflifeAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine HalflifeAssign
 
 !! Delete
@@ -83,7 +84,7 @@ function HalflifeRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: HalflifeRead
 end function HalflifeRead
@@ -94,7 +95,7 @@ function HalflifeWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: HalflifeWrite
 end function HalflifeWrite
@@ -154,7 +155,7 @@ function HalflifeStringGet(handle) &
       bind(C, name='HalflifeStringGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: HalflifeStringGet
 end function HalflifeStringGet
 
@@ -164,7 +165,7 @@ subroutine HalflifeStringSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine HalflifeStringSet
 
 
@@ -195,7 +196,7 @@ function HalflifeDoubleGet(handle) &
       bind(C, name='HalflifeDoubleGet')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    type(c_ptr) :: HalflifeDoubleGet
 end function HalflifeDoubleGet
 
@@ -205,7 +206,7 @@ subroutine HalflifeDoubleSet(handle, fieldHandle) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   type(c_ptr), value :: fieldHandle
+   type(c_ptr), intent(in), value :: fieldHandle
 end subroutine HalflifeDoubleSet
 
 

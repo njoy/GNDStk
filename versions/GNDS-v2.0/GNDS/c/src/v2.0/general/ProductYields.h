@@ -166,6 +166,10 @@ ProductYieldsProductYieldSet(
    ConstHandle2ConstProductYield productYield
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ProductYieldsProductYieldHasByLabel(

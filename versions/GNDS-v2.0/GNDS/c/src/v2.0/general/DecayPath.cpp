@@ -204,6 +204,10 @@ DecayPathDecaySet(
       (CLASSNAME, CLASSNAME+"DecaySet", self, extract::decay, index_, decay);
 }
 
+// ------------------------
+// Re: metadatum index
+// ------------------------
+
 // Has, by index
 int
 DecayPathDecayHasByIndex(
@@ -249,6 +253,10 @@ DecayPathDecaySetByIndex(
        self, extract::decay, meta::index, index, decay);
 }
 
+// ------------------------
+// Re: metadatum mode
+// ------------------------
+
 // Has, by mode
 int
 DecayPathDecayHasByMode(
@@ -293,6 +301,10 @@ DecayPathDecaySetByMode(
       (CLASSNAME, CLASSNAME+"DecaySetByMode",
        self, extract::decay, meta::mode, mode, decay);
 }
+
+// ------------------------
+// Re: metadatum complete
+// ------------------------
 
 // Has, by complete
 int

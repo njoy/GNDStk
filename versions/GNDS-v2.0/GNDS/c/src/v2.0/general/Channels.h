@@ -166,6 +166,10 @@ ChannelsChannelSet(
    ConstHandle2ConstChannel channel
 );
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // +++ Has, by label
 extern_c int
 ChannelsChannelHasByLabel(
@@ -194,6 +198,10 @@ ChannelsChannelSetByLabel(
    const char *const label,
    ConstHandle2ConstChannel channel
 );
+
+// ------------------------
+// Re: metadatum resonanceReaction
+// ------------------------
 
 // +++ Has, by resonanceReaction
 extern_c int
@@ -224,6 +232,10 @@ ChannelsChannelSetByResonanceReaction(
    ConstHandle2ConstChannel channel
 );
 
+// ------------------------
+// Re: metadatum L
+// ------------------------
+
 // +++ Has, by L
 extern_c int
 ChannelsChannelHasByL(
@@ -253,6 +265,10 @@ ChannelsChannelSetByL(
    ConstHandle2ConstChannel channel
 );
 
+// ------------------------
+// Re: metadatum channelSpin
+// ------------------------
+
 // +++ Has, by channelSpin
 extern_c int
 ChannelsChannelHasByChannelSpin(
@@ -281,6 +297,10 @@ ChannelsChannelSetByChannelSpin(
    const int channelSpin,
    ConstHandle2ConstChannel channel
 );
+
+// ------------------------
+// Re: metadatum columnIndex
+// ------------------------
 
 // +++ Has, by columnIndex
 extern_c int

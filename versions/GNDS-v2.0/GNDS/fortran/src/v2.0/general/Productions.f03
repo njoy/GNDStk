@@ -35,8 +35,8 @@ function ProductionsCreateConst( &
       bind(C, name='ProductionsCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: productionSize
-   type(c_ptr) :: production(productionSize)
+   integer(c_size_t), intent(in), value :: productionSize
+   type(c_ptr), intent(in) :: production(productionSize)
    type(c_ptr) :: ProductionsCreateConst
 end function ProductionsCreateConst
 
@@ -47,8 +47,8 @@ function ProductionsCreate( &
       bind(C, name='ProductionsCreate')
    use iso_c_binding
    implicit none
-   integer(c_size_t), value :: productionSize
-   type(c_ptr) :: production(productionSize)
+   integer(c_size_t), intent(in), value :: productionSize
+   type(c_ptr), intent(in) :: production(productionSize)
    type(c_ptr) :: ProductionsCreate
 end function ProductionsCreate
 
@@ -57,7 +57,8 @@ subroutine ProductionsAssign(handleLHS, handleRHS) &
       bind(C, name='ProductionsAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ProductionsAssign
 
 !! Delete
@@ -81,7 +82,7 @@ function ProductionsRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductionsRead
 end function ProductionsRead
@@ -92,7 +93,7 @@ function ProductionsWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ProductionsWrite
 end function ProductionsWrite
@@ -236,7 +237,7 @@ subroutine ProductionsProductionSetByLabel(handle, meta, metaSize, fieldHandle) 
       bind(C, name='ProductionsProductionSetByLabel')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
+   type(c_ptr), value :: handle
    integer(c_size_t), intent(in), value :: metaSize
    character(c_char), intent(in) :: meta(metaSize)
    type(c_ptr), intent(in), value :: fieldHandle
@@ -252,7 +253,7 @@ function ProductionsProductionHasByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    integer(c_int) :: ProductionsProductionHasByENDFMT
 end function ProductionsProductionHasByENDFMT
 
@@ -262,7 +263,7 @@ function ProductionsProductionGetByENDFMTConst(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ProductionsProductionGetByENDFMTConst
 end function ProductionsProductionGetByENDFMTConst
 
@@ -272,7 +273,7 @@ function ProductionsProductionGetByENDFMT(handle, meta) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   integer(c_int), intent(in), value :: meta
    type(c_ptr) :: ProductionsProductionGetByENDFMT
 end function ProductionsProductionGetByENDFMT
 
@@ -281,8 +282,8 @@ subroutine ProductionsProductionSetByENDFMT(handle, meta, fieldHandle) &
       bind(C, name='ProductionsProductionSetByENDFMT')
    use iso_c_binding
    implicit none
-   type(c_ptr), intent(in), value :: handle
-   integer(c_int), value, intent(in) :: meta
+   type(c_ptr), value :: handle
+   integer(c_int), intent(in), value :: meta
    type(c_ptr), intent(in), value :: fieldHandle
 end subroutine ProductionsProductionSetByENDFMT
 

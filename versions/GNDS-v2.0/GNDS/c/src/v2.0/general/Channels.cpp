@@ -204,6 +204,10 @@ ChannelsChannelSet(
       (CLASSNAME, CLASSNAME+"ChannelSet", self, extract::channel, index_, channel);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 ChannelsChannelHasByLabel(
@@ -248,6 +252,10 @@ ChannelsChannelSetByLabel(
       (CLASSNAME, CLASSNAME+"ChannelSetByLabel",
        self, extract::channel, meta::label, label, channel);
 }
+
+// ------------------------
+// Re: metadatum resonanceReaction
+// ------------------------
 
 // Has, by resonanceReaction
 int
@@ -294,6 +302,10 @@ ChannelsChannelSetByResonanceReaction(
        self, extract::channel, meta::resonanceReaction, resonanceReaction, channel);
 }
 
+// ------------------------
+// Re: metadatum L
+// ------------------------
+
 // Has, by L
 int
 ChannelsChannelHasByL(
@@ -339,6 +351,10 @@ ChannelsChannelSetByL(
        self, extract::channel, meta::L, L, channel);
 }
 
+// ------------------------
+// Re: metadatum channelSpin
+// ------------------------
+
 // Has, by channelSpin
 int
 ChannelsChannelHasByChannelSpin(
@@ -383,6 +399,10 @@ ChannelsChannelSetByChannelSpin(
       (CLASSNAME, CLASSNAME+"ChannelSetByChannelSpin",
        self, extract::channel, meta::channelSpin, channelSpin, channel);
 }
+
+// ------------------------
+// Re: metadatum columnIndex
+// ------------------------
 
 // Has, by columnIndex
 int

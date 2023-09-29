@@ -166,6 +166,10 @@ AuthorsAuthorSet(
    ConstHandle2ConstAuthor author
 );
 
+// ------------------------
+// Re: metadatum name
+// ------------------------
+
 // +++ Has, by name
 extern_c int
 AuthorsAuthorHasByName(

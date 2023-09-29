@@ -39,7 +39,7 @@ function ColumnCreateConst( &
       bind(C, name='ColumnCreateConst')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: nameSize
    character(c_char), intent(in) :: name(nameSize)
    integer(c_size_t), intent(in), value :: unitSize
@@ -58,7 +58,7 @@ function ColumnCreate( &
       bind(C, name='ColumnCreate')
    use iso_c_binding
    implicit none
-   integer(c_int), value, intent(in) :: index
+   integer(c_int), intent(in), value :: index
    integer(c_size_t), intent(in), value :: nameSize
    character(c_char), intent(in) :: name(nameSize)
    integer(c_size_t), intent(in), value :: unitSize
@@ -71,7 +71,8 @@ subroutine ColumnAssign(handleLHS, handleRHS) &
       bind(C, name='ColumnAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine ColumnAssign
 
 !! Delete
@@ -95,7 +96,7 @@ function ColumnRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ColumnRead
 end function ColumnRead
@@ -106,7 +107,7 @@ function ColumnWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: ColumnWrite
 end function ColumnWrite
@@ -162,13 +163,12 @@ function ColumnIndexGet(handle) &
 end function ColumnIndexGet
 
 !! Set
-subroutine ColumnIndexSet(handle, index, indexSize) &
+subroutine ColumnIndexSet(handle, index) &
       bind(C, name='ColumnIndexSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: indexSize
-   character(c_char), intent(in) :: index(indexSize)
+   integer(c_int), intent(in), value :: index
 end subroutine ColumnIndexSet
 
 

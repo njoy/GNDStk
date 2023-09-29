@@ -37,7 +37,7 @@ function BoundAtomCrossSectionCreateConst( &
       bind(C, name='BoundAtomCrossSectionCreateConst')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: BoundAtomCrossSectionCreateConst
@@ -52,7 +52,7 @@ function BoundAtomCrossSectionCreate( &
       bind(C, name='BoundAtomCrossSectionCreate')
    use iso_c_binding
    implicit none
-   real(c_double), value, intent(in) :: value
+   real(c_double), intent(in), value :: value
    integer(c_size_t), intent(in), value :: unitSize
    character(c_char), intent(in) :: unit(unitSize)
    type(c_ptr) :: BoundAtomCrossSectionCreate
@@ -63,7 +63,8 @@ subroutine BoundAtomCrossSectionAssign(handleLHS, handleRHS) &
       bind(C, name='BoundAtomCrossSectionAssign')
    use iso_c_binding
    implicit none
-   type(c_ptr), value :: handleLHS, handleRHS
+   type(c_ptr), value :: handleLHS
+   type(c_ptr), intent(in), value :: handleRHS
 end subroutine BoundAtomCrossSectionAssign
 
 !! Delete
@@ -87,7 +88,7 @@ function BoundAtomCrossSectionRead(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BoundAtomCrossSectionRead
 end function BoundAtomCrossSectionRead
@@ -98,7 +99,7 @@ function BoundAtomCrossSectionWrite(handle, filename, filenameSize) &
    use iso_c_binding
    implicit none
    type(c_ptr), intent(in), value :: handle
-   integer(c_size_t), value :: filenameSize
+   integer(c_size_t), intent(in), value :: filenameSize
    character(c_char), intent(in) :: filename(filenameSize)
    integer(c_int) :: BoundAtomCrossSectionWrite
 end function BoundAtomCrossSectionWrite
@@ -154,13 +155,12 @@ function BoundAtomCrossSectionValueGet(handle) &
 end function BoundAtomCrossSectionValueGet
 
 !! Set
-subroutine BoundAtomCrossSectionValueSet(handle, value, valueSize) &
+subroutine BoundAtomCrossSectionValueSet(handle, value) &
       bind(C, name='BoundAtomCrossSectionValueSet')
    use iso_c_binding
    implicit none
    type(c_ptr), value :: handle
-   integer(c_size_t), intent(in), value :: valueSize
-   character(c_char), intent(in) :: value(valueSize)
+   real(c_double), intent(in), value :: value
 end subroutine BoundAtomCrossSectionValueSet
 
 

@@ -204,6 +204,10 @@ IncidentEnergiesIncidentEnergySet(
       (CLASSNAME, CLASSNAME+"IncidentEnergySet", self, extract::incidentEnergy, index_, incidentEnergy);
 }
 
+// ------------------------
+// Re: metadatum label
+// ------------------------
+
 // Has, by label
 int
 IncidentEnergiesIncidentEnergyHasByLabel(
