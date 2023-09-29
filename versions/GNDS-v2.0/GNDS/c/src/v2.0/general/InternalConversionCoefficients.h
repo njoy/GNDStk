@@ -70,7 +70,7 @@ typedef       struct InternalConversionCoefficientsClass *      Handle2InternalC
 extern_c Handle2ConstInternalConversionCoefficients
 InternalConversionCoefficientsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2InternalConversionCoefficients
 InternalConversionCoefficientsDefault();
 
@@ -80,7 +80,7 @@ InternalConversionCoefficientsCreateConst(
    ConstHandle2Shell *const shell, const size_t shellSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2InternalConversionCoefficients
 InternalConversionCoefficientsCreate(
    ConstHandle2Shell *const shell, const size_t shellSize
@@ -154,7 +154,7 @@ InternalConversionCoefficientsShellAdd(ConstHandle2InternalConversionCoefficient
 extern_c Handle2ConstShell
 InternalConversionCoefficientsShellGetConst(ConstHandle2ConstInternalConversionCoefficients self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGet(ConstHandle2InternalConversionCoefficients self, const size_t index_);
 
@@ -184,7 +184,7 @@ InternalConversionCoefficientsShellGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGetByLabel(
    ConstHandle2InternalConversionCoefficients self,
@@ -217,7 +217,7 @@ InternalConversionCoefficientsShellGetByValueConst(
    const double value
 );
 
-// +++ Get, by value
+// +++ Get, by value, non-const
 extern_c Handle2Shell
 InternalConversionCoefficientsShellGetByValue(
    ConstHandle2InternalConversionCoefficients self,

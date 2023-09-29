@@ -20,7 +20,7 @@ function ProductDefaultConst() &
    type(c_ptr) :: ProductDefaultConst
 end function ProductDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProductDefault() &
       bind(C, name='ProductDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function ProductCreateConst( &
    type(c_ptr) :: ProductCreateConst
 end function ProductCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProductCreate( &
    label, &
    pid, &
@@ -103,6 +103,8 @@ end subroutine ProductDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProductRead(handle, filename, filenameSize) &
       bind(C, name='ProductRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function ProductRead(handle, filename, filenameSize) &
 end function ProductRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProductWrite(handle, filename, filenameSize) &
       bind(C, name='ProductWrite')
    use iso_c_binding
@@ -240,7 +244,7 @@ function ProductMultiplicityGetConst(handle) &
    type(c_ptr) :: ProductMultiplicityGetConst
 end function ProductMultiplicityGetConst
 
-!! Get
+!! Get, non-const
 function ProductMultiplicityGet(handle) &
       bind(C, name='ProductMultiplicityGet')
    use iso_c_binding
@@ -281,7 +285,7 @@ function ProductDistributionGetConst(handle) &
    type(c_ptr) :: ProductDistributionGetConst
 end function ProductDistributionGetConst
 
-!! Get
+!! Get, non-const
 function ProductDistributionGet(handle) &
       bind(C, name='ProductDistributionGet')
    use iso_c_binding
@@ -322,7 +326,7 @@ function ProductOutputChannelGetConst(handle) &
    type(c_ptr) :: ProductOutputChannelGetConst
 end function ProductOutputChannelGetConst
 
-!! Get
+!! Get, non-const
 function ProductOutputChannelGet(handle) &
       bind(C, name='ProductOutputChannelGet')
    use iso_c_binding
@@ -363,7 +367,7 @@ function ProductAverageProductEnergyGetConst(handle) &
    type(c_ptr) :: ProductAverageProductEnergyGetConst
 end function ProductAverageProductEnergyGetConst
 
-!! Get
+!! Get, non-const
 function ProductAverageProductEnergyGet(handle) &
       bind(C, name='ProductAverageProductEnergyGet')
    use iso_c_binding

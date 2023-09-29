@@ -34,7 +34,7 @@ PositronEmissionIntensityDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PositronEmissionIntensity
 PositronEmissionIntensityDefault()
 {
@@ -56,7 +56,7 @@ PositronEmissionIntensityCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PositronEmissionIntensity
 PositronEmissionIntensityCreate(
    const double value,
@@ -192,7 +192,7 @@ PositronEmissionIntensityUncertaintyGetConst(ConstHandle2ConstPositronEmissionIn
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 PositronEmissionIntensityUncertaintyGet(ConstHandle2PositronEmissionIntensity self)
 {

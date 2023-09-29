@@ -20,7 +20,7 @@ function ScatteringFactorDefaultConst() &
    type(c_ptr) :: ScatteringFactorDefaultConst
 end function ScatteringFactorDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ScatteringFactorDefault() &
       bind(C, name='ScatteringFactorDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ScatteringFactorCreateConst( &
    type(c_ptr) :: ScatteringFactorCreateConst
 end function ScatteringFactorCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ScatteringFactorCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine ScatteringFactorDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ScatteringFactorRead(handle, filename, filenameSize) &
       bind(C, name='ScatteringFactorRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ScatteringFactorRead(handle, filename, filenameSize) &
 end function ScatteringFactorRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ScatteringFactorWrite(handle, filename, filenameSize) &
       bind(C, name='ScatteringFactorWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ScatteringFactorXYs1dGetConst(handle) &
    type(c_ptr) :: ScatteringFactorXYs1dGetConst
 end function ScatteringFactorXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringFactorXYs1dGet(handle) &
       bind(C, name='ScatteringFactorXYs1dGet')
    use iso_c_binding

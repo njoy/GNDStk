@@ -20,7 +20,7 @@ function ParameterCovarianceMatrixDefaultConst() &
    type(c_ptr) :: ParameterCovarianceMatrixDefaultConst
 end function ParameterCovarianceMatrixDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ParameterCovarianceMatrixDefault() &
       bind(C, name='ParameterCovarianceMatrixDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function ParameterCovarianceMatrixCreateConst( &
    type(c_ptr) :: ParameterCovarianceMatrixCreateConst
 end function ParameterCovarianceMatrixCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ParameterCovarianceMatrixCreate( &
    label, &
    type1, &
@@ -95,6 +95,8 @@ end subroutine ParameterCovarianceMatrixDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ParameterCovarianceMatrixRead(handle, filename, filenameSize) &
       bind(C, name='ParameterCovarianceMatrixRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function ParameterCovarianceMatrixRead(handle, filename, filenameSize) &
 end function ParameterCovarianceMatrixRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ParameterCovarianceMatrixWrite(handle, filename, filenameSize) &
       bind(C, name='ParameterCovarianceMatrixWrite')
    use iso_c_binding
@@ -232,7 +236,7 @@ function ParameterCovarianceMatrixArrayGetConst(handle) &
    type(c_ptr) :: ParameterCovarianceMatrixArrayGetConst
 end function ParameterCovarianceMatrixArrayGetConst
 
-!! Get
+!! Get, non-const
 function ParameterCovarianceMatrixArrayGet(handle) &
       bind(C, name='ParameterCovarianceMatrixArrayGet')
    use iso_c_binding
@@ -273,7 +277,7 @@ function ParameterCovarianceMatrixParametersGetConst(handle) &
    type(c_ptr) :: ParameterCovarianceMatrixParametersGetConst
 end function ParameterCovarianceMatrixParametersGetConst
 
-!! Get
+!! Get, non-const
 function ParameterCovarianceMatrixParametersGet(handle) &
       bind(C, name='ParameterCovarianceMatrixParametersGet')
    use iso_c_binding

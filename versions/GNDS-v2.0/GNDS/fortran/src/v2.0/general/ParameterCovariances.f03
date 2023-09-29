@@ -20,7 +20,7 @@ function ParameterCovariancesDefaultConst() &
    type(c_ptr) :: ParameterCovariancesDefaultConst
 end function ParameterCovariancesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ParameterCovariancesDefault() &
       bind(C, name='ParameterCovariancesDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function ParameterCovariancesCreateConst( &
    type(c_ptr) :: ParameterCovariancesCreateConst
 end function ParameterCovariancesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ParameterCovariancesCreate( &
    parameterCovariance, parameterCovarianceSize, &
    averageParameterCovariance, averageParameterCovarianceSize &
@@ -83,6 +83,8 @@ end subroutine ParameterCovariancesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ParameterCovariancesRead(handle, filename, filenameSize) &
       bind(C, name='ParameterCovariancesRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function ParameterCovariancesRead(handle, filename, filenameSize) &
 end function ParameterCovariancesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ParameterCovariancesWrite(handle, filename, filenameSize) &
       bind(C, name='ParameterCovariancesWrite')
    use iso_c_binding
@@ -181,7 +185,7 @@ function ParameterCovariancesParameterCovarianceGetConst(handle, index) &
    type(c_ptr) :: ParameterCovariancesParameterCovarianceGetConst
 end function ParameterCovariancesParameterCovarianceGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ParameterCovariancesParameterCovarianceGet(handle, index) &
       bind(C, name='ParameterCovariancesParameterCovarianceGet')
    use iso_c_binding
@@ -227,7 +231,7 @@ function ParameterCovariancesParameterCovarianceGetByLabelConst(handle, meta, me
    type(c_ptr) :: ParameterCovariancesParameterCovarianceGetByLabelConst
 end function ParameterCovariancesParameterCovarianceGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ParameterCovariancesParameterCovarianceGetByLabel(handle, meta, metaSize) &
       bind(C, name='ParameterCovariancesParameterCovarianceGetByLabel')
    use iso_c_binding
@@ -299,7 +303,7 @@ function ParameterCovariancesAverageParameterCovarianceGetConst(handle, index) &
    type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetConst
 end function ParameterCovariancesAverageParameterCovarianceGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ParameterCovariancesAverageParameterCovarianceGet(handle, index) &
       bind(C, name='ParameterCovariancesAverageParameterCovarianceGet')
    use iso_c_binding
@@ -345,7 +349,7 @@ function ParameterCovariancesAverageParameterCovarianceGetByLabelConst(handle, m
    type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByLabelConst
 end function ParameterCovariancesAverageParameterCovarianceGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ParameterCovariancesAverageParameterCovarianceGetByLabel(handle, meta, metaSize) &
       bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByLabel')
    use iso_c_binding
@@ -391,7 +395,7 @@ function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(handl
    type(c_ptr) :: ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 end function ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst
 
-!! Get, by crossTerm
+!! Get, by crossTerm, non-const
 function ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(handle, meta) &
       bind(C, name='ParameterCovariancesAverageParameterCovarianceGetByCrossTerm')
    use iso_c_binding

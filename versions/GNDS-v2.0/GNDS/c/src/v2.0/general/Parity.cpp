@@ -33,7 +33,7 @@ ParityDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Parity
 ParityDefault()
 {
@@ -53,7 +53,7 @@ ParityCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Parity
 ParityCreate(
    ConstHandle2ConstInteger integer
@@ -157,7 +157,7 @@ ParityIntegerGetConst(ConstHandle2ConstParity self)
       (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer);
 }
 
-// Get
+// Get, non-const
 Handle2Integer
 ParityIntegerGet(ConstHandle2Parity self)
 {

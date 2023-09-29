@@ -70,7 +70,7 @@ typedef       struct LeptonsClass *      Handle2Leptons;
 extern_c Handle2ConstLeptons
 LeptonsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Leptons
 LeptonsDefault();
 
@@ -80,7 +80,7 @@ LeptonsCreateConst(
    ConstHandle2Lepton *const lepton, const size_t leptonSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Leptons
 LeptonsCreate(
    ConstHandle2Lepton *const lepton, const size_t leptonSize
@@ -154,7 +154,7 @@ LeptonsLeptonAdd(ConstHandle2Leptons self, ConstHandle2ConstLepton lepton);
 extern_c Handle2ConstLepton
 LeptonsLeptonGetConst(ConstHandle2ConstLeptons self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Lepton
 LeptonsLeptonGet(ConstHandle2Leptons self, const size_t index_);
 
@@ -184,7 +184,7 @@ LeptonsLeptonGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2Lepton
 LeptonsLeptonGetById(
    ConstHandle2Leptons self,
@@ -217,7 +217,7 @@ LeptonsLeptonGetByGenerationConst(
    const char *const generation
 );
 
-// +++ Get, by generation
+// +++ Get, by generation, non-const
 extern_c Handle2Lepton
 LeptonsLeptonGetByGeneration(
    ConstHandle2Leptons self,

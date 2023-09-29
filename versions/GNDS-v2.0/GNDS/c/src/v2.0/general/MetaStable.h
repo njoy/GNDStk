@@ -69,7 +69,7 @@ typedef       struct MetaStableClass *      Handle2MetaStable;
 extern_c Handle2ConstMetaStable
 MetaStableDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2MetaStable
 MetaStableDefault();
 
@@ -81,7 +81,7 @@ MetaStableCreateConst(
    const int metaStableIndex
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2MetaStable
 MetaStableCreate(
    const char *const id,

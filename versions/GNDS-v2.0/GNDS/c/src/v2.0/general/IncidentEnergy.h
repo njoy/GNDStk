@@ -71,7 +71,7 @@ typedef       struct IncidentEnergyClass *      Handle2IncidentEnergy;
 extern_c Handle2ConstIncidentEnergy
 IncidentEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2IncidentEnergy
 IncidentEnergyDefault();
 
@@ -83,7 +83,7 @@ IncidentEnergyCreateConst(
    ConstHandle2ConstYields yields
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2IncidentEnergy
 IncidentEnergyCreate(
    const char *const label,
@@ -165,7 +165,7 @@ IncidentEnergyEnergyHas(ConstHandle2ConstIncidentEnergy self);
 extern_c Handle2ConstEnergy
 IncidentEnergyEnergyGetConst(ConstHandle2ConstIncidentEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Energy
 IncidentEnergyEnergyGet(ConstHandle2IncidentEnergy self);
 
@@ -186,7 +186,7 @@ IncidentEnergyYieldsHas(ConstHandle2ConstIncidentEnergy self);
 extern_c Handle2ConstYields
 IncidentEnergyYieldsGetConst(ConstHandle2ConstIncidentEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Yields
 IncidentEnergyYieldsGet(ConstHandle2IncidentEnergy self);
 

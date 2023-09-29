@@ -35,7 +35,7 @@ ImaginaryInterferenceTermDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ImaginaryInterferenceTerm
 ImaginaryInterferenceTermDefault()
 {
@@ -57,7 +57,7 @@ ImaginaryInterferenceTermCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ImaginaryInterferenceTerm
 ImaginaryInterferenceTermCreate(
    ConstHandle2ConstRegions2d regions2d,
@@ -163,7 +163,7 @@ ImaginaryInterferenceTermRegions2dGetConst(ConstHandle2ConstImaginaryInterferenc
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions2d
 ImaginaryInterferenceTermRegions2dGet(ConstHandle2ImaginaryInterferenceTerm self)
 {
@@ -200,7 +200,7 @@ ImaginaryInterferenceTermXYs2dGetConst(ConstHandle2ConstImaginaryInterferenceTer
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 ImaginaryInterferenceTermXYs2dGet(ConstHandle2ImaginaryInterferenceTerm self)
 {

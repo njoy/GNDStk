@@ -75,7 +75,7 @@ typedef       struct BaryonClass *      Handle2Baryon;
 extern_c Handle2ConstBaryon
 BaryonDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Baryon
 BaryonDefault();
 
@@ -91,7 +91,7 @@ BaryonCreateConst(
    ConstHandle2ConstDecayData decayData
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Baryon
 BaryonCreate(
    const char *const id,
@@ -177,7 +177,7 @@ BaryonMassHas(ConstHandle2ConstBaryon self);
 extern_c Handle2ConstMass
 BaryonMassGetConst(ConstHandle2ConstBaryon self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Mass
 BaryonMassGet(ConstHandle2Baryon self);
 
@@ -198,7 +198,7 @@ BaryonSpinHas(ConstHandle2ConstBaryon self);
 extern_c Handle2ConstSpin
 BaryonSpinGetConst(ConstHandle2ConstBaryon self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Spin
 BaryonSpinGet(ConstHandle2Baryon self);
 
@@ -219,7 +219,7 @@ BaryonParityHas(ConstHandle2ConstBaryon self);
 extern_c Handle2ConstParity
 BaryonParityGetConst(ConstHandle2ConstBaryon self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Parity
 BaryonParityGet(ConstHandle2Baryon self);
 
@@ -240,7 +240,7 @@ BaryonChargeHas(ConstHandle2ConstBaryon self);
 extern_c Handle2ConstCharge
 BaryonChargeGetConst(ConstHandle2ConstBaryon self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Charge
 BaryonChargeGet(ConstHandle2Baryon self);
 
@@ -261,7 +261,7 @@ BaryonHalflifeHas(ConstHandle2ConstBaryon self);
 extern_c Handle2ConstHalflife
 BaryonHalflifeGetConst(ConstHandle2ConstBaryon self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Halflife
 BaryonHalflifeGet(ConstHandle2Baryon self);
 
@@ -282,7 +282,7 @@ BaryonDecayDataHas(ConstHandle2ConstBaryon self);
 extern_c Handle2ConstDecayData
 BaryonDecayDataGetConst(ConstHandle2ConstBaryon self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DecayData
 BaryonDecayDataGet(ConstHandle2Baryon self);
 

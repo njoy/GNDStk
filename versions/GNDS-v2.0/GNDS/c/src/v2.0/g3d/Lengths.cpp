@@ -32,7 +32,7 @@ LengthsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Lengths
 LengthsDefault()
 {
@@ -54,7 +54,7 @@ LengthsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Lengths
 LengthsCreate(
    const char *const valueType,
@@ -186,7 +186,7 @@ LengthsIntsGetArrayConst(ConstHandle2ConstLengths self)
       (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
-// Get pointer to existing values
+// Get pointer to existing values, non-const
 int *
 LengthsIntsGetArray(ConstHandle2Lengths self)
 {

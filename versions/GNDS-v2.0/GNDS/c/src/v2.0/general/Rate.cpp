@@ -33,7 +33,7 @@ RateDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Rate
 RateDefault()
 {
@@ -53,7 +53,7 @@ RateCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Rate
 RateCreate(
    ConstHandle2ConstDouble Double
@@ -157,7 +157,7 @@ RateDoubleGetConst(ConstHandle2ConstRate self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 RateDoubleGet(ConstHandle2Rate self)
 {

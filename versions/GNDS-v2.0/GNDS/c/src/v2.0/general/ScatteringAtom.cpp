@@ -46,7 +46,7 @@ ScatteringAtomDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ScatteringAtom
 ScatteringAtomDefault()
 {
@@ -82,7 +82,7 @@ ScatteringAtomCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ScatteringAtom
 ScatteringAtomCreate(
    const char *const pid,
@@ -292,7 +292,7 @@ ScatteringAtomMassGetConst(ConstHandle2ConstScatteringAtom self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get
+// Get, non-const
 Handle2Mass
 ScatteringAtomMassGet(ConstHandle2ScatteringAtom self)
 {
@@ -329,7 +329,7 @@ ScatteringAtomE_criticalGetConst(ConstHandle2ConstScatteringAtom self)
       (CLASSNAME, CLASSNAME+"E_criticalGetConst", self, extract::e_critical);
 }
 
-// Get
+// Get, non-const
 Handle2E_critical
 ScatteringAtomE_criticalGet(ConstHandle2ScatteringAtom self)
 {
@@ -366,7 +366,7 @@ ScatteringAtomE_maxGetConst(ConstHandle2ConstScatteringAtom self)
       (CLASSNAME, CLASSNAME+"E_maxGetConst", self, extract::e_max);
 }
 
-// Get
+// Get, non-const
 Handle2E_max
 ScatteringAtomE_maxGet(ConstHandle2ScatteringAtom self)
 {
@@ -403,7 +403,7 @@ ScatteringAtomBoundAtomCrossSectionGetConst(ConstHandle2ConstScatteringAtom self
       (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGetConst", self, extract::boundAtomCrossSection);
 }
 
-// Get
+// Get, non-const
 Handle2BoundAtomCrossSection
 ScatteringAtomBoundAtomCrossSectionGet(ConstHandle2ScatteringAtom self)
 {
@@ -440,7 +440,7 @@ ScatteringAtomSelfScatteringKernelGetConst(ConstHandle2ConstScatteringAtom self)
       (CLASSNAME, CLASSNAME+"SelfScatteringKernelGetConst", self, extract::selfScatteringKernel);
 }
 
-// Get
+// Get, non-const
 Handle2SelfScatteringKernel
 ScatteringAtomSelfScatteringKernelGet(ConstHandle2ScatteringAtom self)
 {
@@ -477,7 +477,7 @@ ScatteringAtomT_effectiveGetConst(ConstHandle2ConstScatteringAtom self)
       (CLASSNAME, CLASSNAME+"T_effectiveGetConst", self, extract::T_effective);
 }
 
-// Get
+// Get, non-const
 Handle2T_effective
 ScatteringAtomT_effectiveGet(ConstHandle2ScatteringAtom self)
 {

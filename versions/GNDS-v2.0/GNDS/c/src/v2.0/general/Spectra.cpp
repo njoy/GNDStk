@@ -33,7 +33,7 @@ SpectraDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Spectra
 SpectraDefault()
 {
@@ -55,7 +55,7 @@ SpectraCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Spectra
 SpectraCreate(
    ConstHandle2Spectrum *const spectrum, const size_t spectrumSize
@@ -185,7 +185,7 @@ SpectraSpectrumGetConst(ConstHandle2ConstSpectra self, const size_t index_)
       (CLASSNAME, CLASSNAME+"SpectrumGetConst", self, extract::spectrum, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Spectrum
 SpectraSpectrumGet(ConstHandle2Spectra self, const size_t index_)
 {
@@ -230,7 +230,7 @@ SpectraSpectrumGetByLabelConst(
        self, extract::spectrum, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2Spectrum
 SpectraSpectrumGetByLabel(
    ConstHandle2Spectra self,
@@ -279,7 +279,7 @@ SpectraSpectrumGetByPidConst(
        self, extract::spectrum, meta::pid, pid);
 }
 
-// Get, by pid
+// Get, by pid, non-const
 Handle2Spectrum
 SpectraSpectrumGetByPid(
    ConstHandle2Spectra self,

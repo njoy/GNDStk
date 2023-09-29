@@ -33,7 +33,7 @@ DelayedBetaEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DelayedBetaEnergy
 DelayedBetaEnergyDefault()
 {
@@ -53,7 +53,7 @@ DelayedBetaEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DelayedBetaEnergy
 DelayedBetaEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -157,7 +157,7 @@ DelayedBetaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedBetaEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 DelayedBetaEnergyPolynomial1dGet(ConstHandle2DelayedBetaEnergy self)
 {

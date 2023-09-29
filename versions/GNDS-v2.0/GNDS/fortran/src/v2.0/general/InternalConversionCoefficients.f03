@@ -20,7 +20,7 @@ function InternalConversionCoefficientsDefaultConst() &
    type(c_ptr) :: InternalConversionCoefficientsDefaultConst
 end function InternalConversionCoefficientsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function InternalConversionCoefficientsDefault() &
       bind(C, name='InternalConversionCoefficientsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function InternalConversionCoefficientsCreateConst( &
    type(c_ptr) :: InternalConversionCoefficientsCreateConst
 end function InternalConversionCoefficientsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function InternalConversionCoefficientsCreate( &
    shell, shellSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine InternalConversionCoefficientsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function InternalConversionCoefficientsRead(handle, filename, filenameSize) &
       bind(C, name='InternalConversionCoefficientsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function InternalConversionCoefficientsRead(handle, filename, filenameSize) &
 end function InternalConversionCoefficientsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function InternalConversionCoefficientsWrite(handle, filename, filenameSize) &
       bind(C, name='InternalConversionCoefficientsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function InternalConversionCoefficientsShellGetConst(handle, index) &
    type(c_ptr) :: InternalConversionCoefficientsShellGetConst
 end function InternalConversionCoefficientsShellGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function InternalConversionCoefficientsShellGet(handle, index) &
       bind(C, name='InternalConversionCoefficientsShellGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function InternalConversionCoefficientsShellGetByLabelConst(handle, meta, metaSi
    type(c_ptr) :: InternalConversionCoefficientsShellGetByLabelConst
 end function InternalConversionCoefficientsShellGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function InternalConversionCoefficientsShellGetByLabel(handle, meta, metaSize) &
       bind(C, name='InternalConversionCoefficientsShellGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function InternalConversionCoefficientsShellGetByValueConst(handle, meta) &
    type(c_ptr) :: InternalConversionCoefficientsShellGetByValueConst
 end function InternalConversionCoefficientsShellGetByValueConst
 
-!! Get, by value
+!! Get, by value, non-const
 function InternalConversionCoefficientsShellGetByValue(handle, meta) &
       bind(C, name='InternalConversionCoefficientsShellGetByValue')
    use iso_c_binding

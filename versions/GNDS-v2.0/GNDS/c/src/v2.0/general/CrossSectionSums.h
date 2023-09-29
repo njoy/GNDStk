@@ -70,7 +70,7 @@ typedef       struct CrossSectionSumsClass *      Handle2CrossSectionSums;
 extern_c Handle2ConstCrossSectionSums
 CrossSectionSumsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CrossSectionSums
 CrossSectionSumsDefault();
 
@@ -80,7 +80,7 @@ CrossSectionSumsCreateConst(
    ConstHandle2CrossSectionSum *const crossSectionSum, const size_t crossSectionSumSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CrossSectionSums
 CrossSectionSumsCreate(
    ConstHandle2CrossSectionSum *const crossSectionSum, const size_t crossSectionSumSize
@@ -154,7 +154,7 @@ CrossSectionSumsCrossSectionSumAdd(ConstHandle2CrossSectionSums self, ConstHandl
 extern_c Handle2ConstCrossSectionSum
 CrossSectionSumsCrossSectionSumGetConst(ConstHandle2ConstCrossSectionSums self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGet(ConstHandle2CrossSectionSums self, const size_t index_);
 
@@ -184,7 +184,7 @@ CrossSectionSumsCrossSectionSumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByLabel(
    ConstHandle2CrossSectionSums self,
@@ -217,7 +217,7 @@ CrossSectionSumsCrossSectionSumGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByENDFMT(
    ConstHandle2CrossSectionSums self,

@@ -20,7 +20,7 @@ function LDefaultConst() &
    type(c_ptr) :: LDefaultConst
 end function LDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LDefault() &
       bind(C, name='LDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function LCreateConst( &
    type(c_ptr) :: LCreateConst
 end function LCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LCreate( &
    label, &
    value, &
@@ -87,6 +87,8 @@ end subroutine LDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LRead(handle, filename, filenameSize) &
       bind(C, name='LRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function LRead(handle, filename, filenameSize) &
 end function LRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LWrite(handle, filename, filenameSize) &
       bind(C, name='LWrite')
    use iso_c_binding
@@ -223,7 +227,7 @@ function LJsGetConst(handle) &
    type(c_ptr) :: LJsGetConst
 end function LJsGetConst
 
-!! Get
+!! Get, non-const
 function LJsGet(handle) &
       bind(C, name='LJsGet')
    use iso_c_binding

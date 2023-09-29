@@ -20,7 +20,7 @@ function DecayDefaultConst() &
    type(c_ptr) :: DecayDefaultConst
 end function DecayDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DecayDefault() &
       bind(C, name='DecayDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function DecayCreateConst( &
    type(c_ptr) :: DecayCreateConst
 end function DecayCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DecayCreate( &
    index, &
    mode, &
@@ -91,6 +91,8 @@ end subroutine DecayDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DecayRead(handle, filename, filenameSize) &
       bind(C, name='DecayRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function DecayRead(handle, filename, filenameSize) &
 end function DecayRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DecayWrite(handle, filename, filenameSize) &
       bind(C, name='DecayWrite')
    use iso_c_binding
@@ -259,7 +263,7 @@ function DecayProductsGetConst(handle) &
    type(c_ptr) :: DecayProductsGetConst
 end function DecayProductsGetConst
 
-!! Get
+!! Get, non-const
 function DecayProductsGet(handle) &
       bind(C, name='DecayProductsGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function SpectraDefaultConst() &
    type(c_ptr) :: SpectraDefaultConst
 end function SpectraDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SpectraDefault() &
       bind(C, name='SpectraDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function SpectraCreateConst( &
    type(c_ptr) :: SpectraCreateConst
 end function SpectraCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SpectraCreate( &
    spectrum, spectrumSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine SpectraDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SpectraRead(handle, filename, filenameSize) &
       bind(C, name='SpectraRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function SpectraRead(handle, filename, filenameSize) &
 end function SpectraRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SpectraWrite(handle, filename, filenameSize) &
       bind(C, name='SpectraWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function SpectraSpectrumGetConst(handle, index) &
    type(c_ptr) :: SpectraSpectrumGetConst
 end function SpectraSpectrumGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function SpectraSpectrumGet(handle, index) &
       bind(C, name='SpectraSpectrumGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function SpectraSpectrumGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: SpectraSpectrumGetByLabelConst
 end function SpectraSpectrumGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function SpectraSpectrumGetByLabel(handle, meta, metaSize) &
       bind(C, name='SpectraSpectrumGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function SpectraSpectrumGetByPidConst(handle, meta, metaSize) &
    type(c_ptr) :: SpectraSpectrumGetByPidConst
 end function SpectraSpectrumGetByPidConst
 
-!! Get, by pid
+!! Get, by pid, non-const
 function SpectraSpectrumGetByPid(handle, meta, metaSize) &
       bind(C, name='SpectraSpectrumGetByPid')
    use iso_c_binding

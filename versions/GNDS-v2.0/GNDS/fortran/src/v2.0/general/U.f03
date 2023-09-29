@@ -20,7 +20,7 @@ function UDefaultConst() &
    type(c_ptr) :: UDefaultConst
 end function UDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UDefault() &
       bind(C, name='UDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function UCreateConst( &
    type(c_ptr) :: UCreateConst
 end function UCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UCreate( &
    value, &
    unit, &
@@ -83,6 +83,8 @@ end subroutine UDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function URead(handle, filename, filenameSize) &
       bind(C, name='URead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function URead(handle, filename, filenameSize) &
 end function URead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UWrite(handle, filename, filenameSize) &
       bind(C, name='UWrite')
    use iso_c_binding

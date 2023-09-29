@@ -70,7 +70,7 @@ typedef       struct DecayModesClass *      Handle2DecayModes;
 extern_c Handle2ConstDecayModes
 DecayModesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DecayModes
 DecayModesDefault();
 
@@ -80,7 +80,7 @@ DecayModesCreateConst(
    ConstHandle2DecayMode *const decayMode, const size_t decayModeSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DecayModes
 DecayModesCreate(
    ConstHandle2DecayMode *const decayMode, const size_t decayModeSize
@@ -154,7 +154,7 @@ DecayModesDecayModeAdd(ConstHandle2DecayModes self, ConstHandle2ConstDecayMode d
 extern_c Handle2ConstDecayMode
 DecayModesDecayModeGetConst(ConstHandle2ConstDecayModes self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2DecayMode
 DecayModesDecayModeGet(ConstHandle2DecayModes self, const size_t index_);
 
@@ -184,7 +184,7 @@ DecayModesDecayModeGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2DecayMode
 DecayModesDecayModeGetByLabel(
    ConstHandle2DecayModes self,
@@ -217,7 +217,7 @@ DecayModesDecayModeGetByModeConst(
    const char *const mode
 );
 
-// +++ Get, by mode
+// +++ Get, by mode, non-const
 extern_c Handle2DecayMode
 DecayModesDecayModeGetByMode(
    ConstHandle2DecayModes self,

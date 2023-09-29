@@ -20,7 +20,7 @@ function IsotopeDefaultConst() &
    type(c_ptr) :: IsotopeDefaultConst
 end function IsotopeDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IsotopeDefault() &
       bind(C, name='IsotopeDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function IsotopeCreateConst( &
    type(c_ptr) :: IsotopeCreateConst
 end function IsotopeCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IsotopeCreate( &
    symbol, &
    A, &
@@ -87,6 +87,8 @@ end subroutine IsotopeDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IsotopeRead(handle, filename, filenameSize) &
       bind(C, name='IsotopeRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function IsotopeRead(handle, filename, filenameSize) &
 end function IsotopeRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IsotopeWrite(handle, filename, filenameSize) &
       bind(C, name='IsotopeWrite')
    use iso_c_binding
@@ -223,7 +227,7 @@ function IsotopeNuclidesGetConst(handle) &
    type(c_ptr) :: IsotopeNuclidesGetConst
 end function IsotopeNuclidesGetConst
 
-!! Get
+!! Get, non-const
 function IsotopeNuclidesGet(handle) &
       bind(C, name='IsotopeNuclidesGet')
    use iso_c_binding

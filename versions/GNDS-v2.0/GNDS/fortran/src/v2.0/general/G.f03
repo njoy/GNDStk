@@ -20,7 +20,7 @@ function GDefaultConst() &
    type(c_ptr) :: GDefaultConst
 end function GDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function GDefault() &
       bind(C, name='GDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function GCreateConst( &
    type(c_ptr) :: GCreateConst
 end function GCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function GCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine GDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function GRead(handle, filename, filenameSize) &
       bind(C, name='GRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function GRead(handle, filename, filenameSize) &
 end function GRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function GWrite(handle, filename, filenameSize) &
       bind(C, name='GWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function GXYs1dGetConst(handle) &
    type(c_ptr) :: GXYs1dGetConst
 end function GXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function GXYs1dGet(handle) &
       bind(C, name='GXYs1dGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function TableDefaultConst() &
    type(c_ptr) :: TableDefaultConst
 end function TableDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function TableDefault() &
       bind(C, name='TableDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function TableCreateConst( &
    type(c_ptr) :: TableCreateConst
 end function TableCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function TableCreate( &
    rows, &
    columns, &
@@ -87,6 +87,8 @@ end subroutine TableDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function TableRead(handle, filename, filenameSize) &
       bind(C, name='TableRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function TableRead(handle, filename, filenameSize) &
 end function TableRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function TableWrite(handle, filename, filenameSize) &
       bind(C, name='TableWrite')
    use iso_c_binding
@@ -222,7 +226,7 @@ function TableColumnHeadersGetConst(handle) &
    type(c_ptr) :: TableColumnHeadersGetConst
 end function TableColumnHeadersGetConst
 
-!! Get
+!! Get, non-const
 function TableColumnHeadersGet(handle) &
       bind(C, name='TableColumnHeadersGet')
    use iso_c_binding
@@ -263,7 +267,7 @@ function TableDataGetConst(handle) &
    type(c_ptr) :: TableDataGetConst
 end function TableDataGetConst
 
-!! Get
+!! Get, non-const
 function TableDataGet(handle) &
       bind(C, name='TableDataGet')
    use iso_c_binding

@@ -38,7 +38,7 @@ SpinGroupDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2SpinGroup
 SpinGroupDefault()
 {
@@ -66,7 +66,7 @@ SpinGroupCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2SpinGroup
 SpinGroupCreate(
    const char *const label,
@@ -268,7 +268,7 @@ SpinGroupChannelsGetConst(ConstHandle2ConstSpinGroup self)
       (CLASSNAME, CLASSNAME+"ChannelsGetConst", self, extract::channels);
 }
 
-// Get
+// Get, non-const
 Handle2Channels
 SpinGroupChannelsGet(ConstHandle2SpinGroup self)
 {
@@ -305,7 +305,7 @@ SpinGroupResonanceParametersGetConst(ConstHandle2ConstSpinGroup self)
       (CLASSNAME, CLASSNAME+"ResonanceParametersGetConst", self, extract::resonanceParameters);
 }
 
-// Get
+// Get, non-const
 Handle2ResonanceParameters
 SpinGroupResonanceParametersGet(ConstHandle2SpinGroup self)
 {

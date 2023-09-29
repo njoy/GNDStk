@@ -20,7 +20,7 @@ function JDefaultConst() &
    type(c_ptr) :: JDefaultConst
 end function JDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function JDefault() &
       bind(C, name='JDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function JCreateConst( &
    type(c_ptr) :: JCreateConst
 end function JCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function JCreate( &
    label, &
    value, &
@@ -91,6 +91,8 @@ end subroutine JDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function JRead(handle, filename, filenameSize) &
       bind(C, name='JRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function JRead(handle, filename, filenameSize) &
 end function JRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function JWrite(handle, filename, filenameSize) &
       bind(C, name='JWrite')
    use iso_c_binding
@@ -227,7 +231,7 @@ function JLevelSpacingGetConst(handle) &
    type(c_ptr) :: JLevelSpacingGetConst
 end function JLevelSpacingGetConst
 
-!! Get
+!! Get, non-const
 function JLevelSpacingGet(handle) &
       bind(C, name='JLevelSpacingGet')
    use iso_c_binding
@@ -268,7 +272,7 @@ function JWidthsGetConst(handle) &
    type(c_ptr) :: JWidthsGetConst
 end function JWidthsGetConst
 
-!! Get
+!! Get, non-const
 function JWidthsGet(handle) &
       bind(C, name='JWidthsGet')
    use iso_c_binding

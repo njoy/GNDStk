@@ -73,7 +73,7 @@ typedef       struct ResonanceReactionClass *      Handle2ResonanceReaction;
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionDefault();
 
@@ -89,7 +89,7 @@ ResonanceReactionCreateConst(
    ConstHandle2ConstScatteringRadius scatteringRadius
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionCreate(
    const char *const label,
@@ -211,7 +211,7 @@ ResonanceReactionLinkHas(ConstHandle2ConstResonanceReaction self);
 extern_c Handle2ConstLink
 ResonanceReactionLinkGetConst(ConstHandle2ConstResonanceReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Link
 ResonanceReactionLinkGet(ConstHandle2ResonanceReaction self);
 
@@ -232,7 +232,7 @@ ResonanceReactionHardSphereRadiusHas(ConstHandle2ConstResonanceReaction self);
 extern_c Handle2ConstHardSphereRadius
 ResonanceReactionHardSphereRadiusGetConst(ConstHandle2ConstResonanceReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2HardSphereRadius
 ResonanceReactionHardSphereRadiusGet(ConstHandle2ResonanceReaction self);
 
@@ -253,7 +253,7 @@ ResonanceReactionQHas(ConstHandle2ConstResonanceReaction self);
 extern_c Handle2ConstQ
 ResonanceReactionQGetConst(ConstHandle2ConstResonanceReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Q
 ResonanceReactionQGet(ConstHandle2ResonanceReaction self);
 
@@ -274,7 +274,7 @@ ResonanceReactionScatteringRadiusHas(ConstHandle2ConstResonanceReaction self);
 extern_c Handle2ConstScatteringRadius
 ResonanceReactionScatteringRadiusGetConst(ConstHandle2ConstResonanceReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ScatteringRadius
 ResonanceReactionScatteringRadiusGet(ConstHandle2ResonanceReaction self);
 

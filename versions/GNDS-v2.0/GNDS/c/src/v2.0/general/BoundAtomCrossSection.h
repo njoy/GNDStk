@@ -69,7 +69,7 @@ typedef       struct BoundAtomCrossSectionClass *      Handle2BoundAtomCrossSect
 extern_c Handle2ConstBoundAtomCrossSection
 BoundAtomCrossSectionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2BoundAtomCrossSection
 BoundAtomCrossSectionDefault();
 
@@ -80,7 +80,7 @@ BoundAtomCrossSectionCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2BoundAtomCrossSection
 BoundAtomCrossSectionCreate(
    const double value,

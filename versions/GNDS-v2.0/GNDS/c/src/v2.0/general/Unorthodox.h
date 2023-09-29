@@ -70,7 +70,7 @@ typedef       struct UnorthodoxClass *      Handle2Unorthodox;
 extern_c Handle2ConstUnorthodox
 UnorthodoxDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Unorthodox
 UnorthodoxDefault();
 
@@ -81,7 +81,7 @@ UnorthodoxCreateConst(
    ConstHandle2ConstMass mass
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Unorthodox
 UnorthodoxCreate(
    const char *const id,
@@ -162,7 +162,7 @@ UnorthodoxMassHas(ConstHandle2ConstUnorthodox self);
 extern_c Handle2ConstMass
 UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Mass
 UnorthodoxMassGet(ConstHandle2Unorthodox self);
 

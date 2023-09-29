@@ -20,7 +20,7 @@ function S_tableDefaultConst() &
    type(c_ptr) :: S_tableDefaultConst
 end function S_tableDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function S_tableDefault() &
       bind(C, name='S_tableDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function S_tableCreateConst( &
    type(c_ptr) :: S_tableCreateConst
 end function S_tableCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function S_tableCreate( &
    gridded2d &
 ) &
@@ -75,6 +75,8 @@ end subroutine S_tableDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function S_tableRead(handle, filename, filenameSize) &
       bind(C, name='S_tableRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function S_tableRead(handle, filename, filenameSize) &
 end function S_tableRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function S_tableWrite(handle, filename, filenameSize) &
       bind(C, name='S_tableWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function S_tableGridded2dGetConst(handle) &
    type(c_ptr) :: S_tableGridded2dGetConst
 end function S_tableGridded2dGetConst
 
-!! Get
+!! Get, non-const
 function S_tableGridded2dGet(handle) &
       bind(C, name='S_tableGridded2dGet')
    use iso_c_binding

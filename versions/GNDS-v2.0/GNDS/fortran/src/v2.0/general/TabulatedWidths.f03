@@ -20,7 +20,7 @@ function TabulatedWidthsDefaultConst() &
    type(c_ptr) :: TabulatedWidthsDefaultConst
 end function TabulatedWidthsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function TabulatedWidthsDefault() &
       bind(C, name='TabulatedWidthsDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function TabulatedWidthsCreateConst( &
    type(c_ptr) :: TabulatedWidthsCreateConst
 end function TabulatedWidthsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function TabulatedWidthsCreate( &
    label, &
    approximation, &
@@ -107,6 +107,8 @@ end subroutine TabulatedWidthsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function TabulatedWidthsRead(handle, filename, filenameSize) &
       bind(C, name='TabulatedWidthsRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function TabulatedWidthsRead(handle, filename, filenameSize) &
 end function TabulatedWidthsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function TabulatedWidthsWrite(handle, filename, filenameSize) &
       bind(C, name='TabulatedWidthsWrite')
    use iso_c_binding
@@ -276,7 +280,7 @@ function TabulatedWidthsResonanceReactionsGetConst(handle) &
    type(c_ptr) :: TabulatedWidthsResonanceReactionsGetConst
 end function TabulatedWidthsResonanceReactionsGetConst
 
-!! Get
+!! Get, non-const
 function TabulatedWidthsResonanceReactionsGet(handle) &
       bind(C, name='TabulatedWidthsResonanceReactionsGet')
    use iso_c_binding
@@ -317,7 +321,7 @@ function TabulatedWidthsLsGetConst(handle) &
    type(c_ptr) :: TabulatedWidthsLsGetConst
 end function TabulatedWidthsLsGetConst
 
-!! Get
+!! Get, non-const
 function TabulatedWidthsLsGet(handle) &
       bind(C, name='TabulatedWidthsLsGet')
    use iso_c_binding
@@ -358,7 +362,7 @@ function TabulatedWidthsPoPsGetConst(handle) &
    type(c_ptr) :: TabulatedWidthsPoPsGetConst
 end function TabulatedWidthsPoPsGetConst
 
-!! Get
+!! Get, non-const
 function TabulatedWidthsPoPsGet(handle) &
       bind(C, name='TabulatedWidthsPoPsGet')
    use iso_c_binding
@@ -399,7 +403,7 @@ function TabulatedWidthsScatteringRadiusGetConst(handle) &
    type(c_ptr) :: TabulatedWidthsScatteringRadiusGetConst
 end function TabulatedWidthsScatteringRadiusGetConst
 
-!! Get
+!! Get, non-const
 function TabulatedWidthsScatteringRadiusGet(handle) &
       bind(C, name='TabulatedWidthsScatteringRadiusGet')
    use iso_c_binding

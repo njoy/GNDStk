@@ -76,7 +76,7 @@ typedef       struct PoPsClass *      Handle2PoPs;
 extern_c Handle2ConstPoPs
 PoPsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PoPs
 PoPsDefault();
 
@@ -95,7 +95,7 @@ PoPsCreateConst(
    ConstHandle2ConstLeptons leptons
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PoPs
 PoPsCreate(
    const char *const name,
@@ -220,7 +220,7 @@ PoPsAliasesHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstAliases
 PoPsAliasesGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Aliases
 PoPsAliasesGet(ConstHandle2PoPs self);
 
@@ -241,7 +241,7 @@ PoPsBaryonsHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstBaryons
 PoPsBaryonsGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Baryons
 PoPsBaryonsGet(ConstHandle2PoPs self);
 
@@ -262,7 +262,7 @@ PoPsChemicalElementsHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstChemicalElements
 PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ChemicalElements
 PoPsChemicalElementsGet(ConstHandle2PoPs self);
 
@@ -283,7 +283,7 @@ PoPsStylesHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstStyles
 PoPsStylesGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Styles
 PoPsStylesGet(ConstHandle2PoPs self);
 
@@ -304,7 +304,7 @@ PoPsUnorthodoxesHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstUnorthodoxes
 PoPsUnorthodoxesGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Unorthodoxes
 PoPsUnorthodoxesGet(ConstHandle2PoPs self);
 
@@ -325,7 +325,7 @@ PoPsGaugeBosonsHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstGaugeBosons
 PoPsGaugeBosonsGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2GaugeBosons
 PoPsGaugeBosonsGet(ConstHandle2PoPs self);
 
@@ -346,7 +346,7 @@ PoPsLeptonsHas(ConstHandle2ConstPoPs self);
 extern_c Handle2ConstLeptons
 PoPsLeptonsGetConst(ConstHandle2ConstPoPs self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Leptons
 PoPsLeptonsGet(ConstHandle2PoPs self);
 

@@ -20,7 +20,7 @@ function ProductsDefaultConst() &
    type(c_ptr) :: ProductsDefaultConst
 end function ProductsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProductsDefault() &
       bind(C, name='ProductsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ProductsCreateConst( &
    type(c_ptr) :: ProductsCreateConst
 end function ProductsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProductsCreate( &
    product, productSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ProductsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProductsRead(handle, filename, filenameSize) &
       bind(C, name='ProductsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ProductsRead(handle, filename, filenameSize) &
 end function ProductsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProductsWrite(handle, filename, filenameSize) &
       bind(C, name='ProductsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ProductsProductGetConst(handle, index) &
    type(c_ptr) :: ProductsProductGetConst
 end function ProductsProductGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ProductsProductGet(handle, index) &
       bind(C, name='ProductsProductGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ProductsProductGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ProductsProductGetByLabelConst
 end function ProductsProductGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ProductsProductGetByLabel(handle, meta, metaSize) &
       bind(C, name='ProductsProductGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ProductsProductGetByPidConst(handle, meta, metaSize) &
    type(c_ptr) :: ProductsProductGetByPidConst
 end function ProductsProductGetByPidConst
 
-!! Get, by pid
+!! Get, by pid, non-const
 function ProductsProductGetByPid(handle, meta, metaSize) &
       bind(C, name='ProductsProductGetByPid')
    use iso_c_binding

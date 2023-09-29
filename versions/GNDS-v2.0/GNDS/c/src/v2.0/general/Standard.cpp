@@ -33,7 +33,7 @@ StandardDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Standard
 StandardDefault()
 {
@@ -53,7 +53,7 @@ StandardCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Standard
 StandardCreate(
    ConstHandle2ConstDouble Double
@@ -157,7 +157,7 @@ StandardDoubleGetConst(ConstHandle2ConstStandard self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 StandardDoubleGet(ConstHandle2Standard self)
 {

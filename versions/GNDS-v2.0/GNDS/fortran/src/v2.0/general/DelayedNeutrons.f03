@@ -20,7 +20,7 @@ function DelayedNeutronsDefaultConst() &
    type(c_ptr) :: DelayedNeutronsDefaultConst
 end function DelayedNeutronsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DelayedNeutronsDefault() &
       bind(C, name='DelayedNeutronsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function DelayedNeutronsCreateConst( &
    type(c_ptr) :: DelayedNeutronsCreateConst
 end function DelayedNeutronsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DelayedNeutronsCreate( &
    delayedNeutron, delayedNeutronSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine DelayedNeutronsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DelayedNeutronsRead(handle, filename, filenameSize) &
       bind(C, name='DelayedNeutronsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function DelayedNeutronsRead(handle, filename, filenameSize) &
 end function DelayedNeutronsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DelayedNeutronsWrite(handle, filename, filenameSize) &
       bind(C, name='DelayedNeutronsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function DelayedNeutronsDelayedNeutronGetConst(handle, index) &
    type(c_ptr) :: DelayedNeutronsDelayedNeutronGetConst
 end function DelayedNeutronsDelayedNeutronGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function DelayedNeutronsDelayedNeutronGet(handle, index) &
       bind(C, name='DelayedNeutronsDelayedNeutronGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function DelayedNeutronsDelayedNeutronGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: DelayedNeutronsDelayedNeutronGetByLabelConst
 end function DelayedNeutronsDelayedNeutronGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function DelayedNeutronsDelayedNeutronGetByLabel(handle, meta, metaSize) &
       bind(C, name='DelayedNeutronsDelayedNeutronGetByLabel')
    use iso_c_binding

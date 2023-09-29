@@ -70,7 +70,7 @@ typedef       struct DebyeWallerIntegralClass *      Handle2DebyeWallerIntegral;
 extern_c Handle2ConstDebyeWallerIntegral
 DebyeWallerIntegralDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DebyeWallerIntegral
 DebyeWallerIntegralDefault();
 
@@ -80,7 +80,7 @@ DebyeWallerIntegralCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DebyeWallerIntegral
 DebyeWallerIntegralCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ DebyeWallerIntegralXYs1dHas(ConstHandle2ConstDebyeWallerIntegral self);
 extern_c Handle2ConstXYs1d
 DebyeWallerIntegralXYs1dGetConst(ConstHandle2ConstDebyeWallerIntegral self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 DebyeWallerIntegralXYs1dGet(ConstHandle2DebyeWallerIntegral self);
 

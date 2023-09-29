@@ -20,7 +20,7 @@ function AliasesDefaultConst() &
    type(c_ptr) :: AliasesDefaultConst
 end function AliasesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AliasesDefault() &
       bind(C, name='AliasesDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function AliasesCreateConst( &
    type(c_ptr) :: AliasesCreateConst
 end function AliasesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AliasesCreate( &
    alias, aliasSize, &
    metaStable, metaStableSize &
@@ -83,6 +83,8 @@ end subroutine AliasesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AliasesRead(handle, filename, filenameSize) &
       bind(C, name='AliasesRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function AliasesRead(handle, filename, filenameSize) &
 end function AliasesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AliasesWrite(handle, filename, filenameSize) &
       bind(C, name='AliasesWrite')
    use iso_c_binding
@@ -181,7 +185,7 @@ function AliasesAliasGetConst(handle, index) &
    type(c_ptr) :: AliasesAliasGetConst
 end function AliasesAliasGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function AliasesAliasGet(handle, index) &
       bind(C, name='AliasesAliasGet')
    use iso_c_binding
@@ -227,7 +231,7 @@ function AliasesAliasGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: AliasesAliasGetByIdConst
 end function AliasesAliasGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function AliasesAliasGetById(handle, meta, metaSize) &
       bind(C, name='AliasesAliasGetById')
    use iso_c_binding
@@ -275,7 +279,7 @@ function AliasesAliasGetByPidConst(handle, meta, metaSize) &
    type(c_ptr) :: AliasesAliasGetByPidConst
 end function AliasesAliasGetByPidConst
 
-!! Get, by pid
+!! Get, by pid, non-const
 function AliasesAliasGetByPid(handle, meta, metaSize) &
       bind(C, name='AliasesAliasGetByPid')
    use iso_c_binding
@@ -347,7 +351,7 @@ function AliasesMetaStableGetConst(handle, index) &
    type(c_ptr) :: AliasesMetaStableGetConst
 end function AliasesMetaStableGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function AliasesMetaStableGet(handle, index) &
       bind(C, name='AliasesMetaStableGet')
    use iso_c_binding
@@ -393,7 +397,7 @@ function AliasesMetaStableGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: AliasesMetaStableGetByIdConst
 end function AliasesMetaStableGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function AliasesMetaStableGetById(handle, meta, metaSize) &
       bind(C, name='AliasesMetaStableGetById')
    use iso_c_binding
@@ -441,7 +445,7 @@ function AliasesMetaStableGetByPidConst(handle, meta, metaSize) &
    type(c_ptr) :: AliasesMetaStableGetByPidConst
 end function AliasesMetaStableGetByPidConst
 
-!! Get, by pid
+!! Get, by pid, non-const
 function AliasesMetaStableGetByPid(handle, meta, metaSize) &
       bind(C, name='AliasesMetaStableGetByPid')
    use iso_c_binding
@@ -487,7 +491,7 @@ function AliasesMetaStableGetByMetaStableIndexConst(handle, meta) &
    type(c_ptr) :: AliasesMetaStableGetByMetaStableIndexConst
 end function AliasesMetaStableGetByMetaStableIndexConst
 
-!! Get, by metaStableIndex
+!! Get, by metaStableIndex, non-const
 function AliasesMetaStableGetByMetaStableIndex(handle, meta) &
       bind(C, name='AliasesMetaStableGetByMetaStableIndex')
    use iso_c_binding

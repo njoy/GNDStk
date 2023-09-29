@@ -35,7 +35,7 @@ AliasesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Aliases
 AliasesDefault()
 {
@@ -61,7 +61,7 @@ AliasesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Aliases
 AliasesCreate(
    ConstHandle2Alias *const alias, const size_t aliasSize,
@@ -195,7 +195,7 @@ AliasesAliasGetConst(ConstHandle2ConstAliases self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AliasGetConst", self, extract::alias, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Alias
 AliasesAliasGet(ConstHandle2Aliases self, const size_t index_)
 {
@@ -240,7 +240,7 @@ AliasesAliasGetByIdConst(
        self, extract::alias, meta::id, id);
 }
 
-// Get, by id
+// Get, by id, non-const
 Handle2Alias
 AliasesAliasGetById(
    ConstHandle2Aliases self,
@@ -289,7 +289,7 @@ AliasesAliasGetByPidConst(
        self, extract::alias, meta::pid, pid);
 }
 
-// Get, by pid
+// Get, by pid, non-const
 Handle2Alias
 AliasesAliasGetByPid(
    ConstHandle2Aliases self,
@@ -357,7 +357,7 @@ AliasesMetaStableGetConst(ConstHandle2ConstAliases self, const size_t index_)
       (CLASSNAME, CLASSNAME+"MetaStableGetConst", self, extract::metaStable, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2MetaStable
 AliasesMetaStableGet(ConstHandle2Aliases self, const size_t index_)
 {
@@ -402,7 +402,7 @@ AliasesMetaStableGetByIdConst(
        self, extract::metaStable, meta::id, id);
 }
 
-// Get, by id
+// Get, by id, non-const
 Handle2MetaStable
 AliasesMetaStableGetById(
    ConstHandle2Aliases self,
@@ -451,7 +451,7 @@ AliasesMetaStableGetByPidConst(
        self, extract::metaStable, meta::pid, pid);
 }
 
-// Get, by pid
+// Get, by pid, non-const
 Handle2MetaStable
 AliasesMetaStableGetByPid(
    ConstHandle2Aliases self,
@@ -500,7 +500,7 @@ AliasesMetaStableGetByMetaStableIndexConst(
        self, extract::metaStable, meta::metaStableIndex, metaStableIndex);
 }
 
-// Get, by metaStableIndex
+// Get, by metaStableIndex, non-const
 Handle2MetaStable
 AliasesMetaStableGetByMetaStableIndex(
    ConstHandle2Aliases self,

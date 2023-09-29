@@ -42,7 +42,7 @@ RMatrixDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2RMatrix
 RMatrixDefault()
 {
@@ -76,7 +76,7 @@ RMatrixCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2RMatrix
 RMatrixCreate(
    const char *const label,
@@ -344,7 +344,7 @@ RMatrixPoPsGetConst(ConstHandle2ConstRMatrix self)
       (CLASSNAME, CLASSNAME+"PoPsGetConst", self, extract::PoPs);
 }
 
-// Get
+// Get, non-const
 Handle2PoPs
 RMatrixPoPsGet(ConstHandle2RMatrix self)
 {
@@ -381,7 +381,7 @@ RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix self)
       (CLASSNAME, CLASSNAME+"ResonanceReactionsGetConst", self, extract::resonanceReactions);
 }
 
-// Get
+// Get, non-const
 Handle2ResonanceReactions
 RMatrixResonanceReactionsGet(ConstHandle2RMatrix self)
 {
@@ -418,7 +418,7 @@ RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix self)
       (CLASSNAME, CLASSNAME+"SpinGroupsGetConst", self, extract::spinGroups);
 }
 
-// Get
+// Get, non-const
 Handle2SpinGroups
 RMatrixSpinGroupsGet(ConstHandle2RMatrix self)
 {

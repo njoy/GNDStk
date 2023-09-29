@@ -20,7 +20,7 @@ function FastRegionDefaultConst() &
    type(c_ptr) :: FastRegionDefaultConst
 end function FastRegionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FastRegionDefault() &
       bind(C, name='FastRegionDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function FastRegionCreateConst( &
    type(c_ptr) :: FastRegionCreateConst
 end function FastRegionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FastRegionCreate( &
    XYs1d, &
    regions1d &
@@ -79,6 +79,8 @@ end subroutine FastRegionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FastRegionRead(handle, filename, filenameSize) &
       bind(C, name='FastRegionRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function FastRegionRead(handle, filename, filenameSize) &
 end function FastRegionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FastRegionWrite(handle, filename, filenameSize) &
       bind(C, name='FastRegionWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function FastRegionXYs1dGetConst(handle) &
    type(c_ptr) :: FastRegionXYs1dGetConst
 end function FastRegionXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function FastRegionXYs1dGet(handle) &
       bind(C, name='FastRegionXYs1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function FastRegionRegions1dGetConst(handle) &
    type(c_ptr) :: FastRegionRegions1dGetConst
 end function FastRegionRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function FastRegionRegions1dGet(handle) &
       bind(C, name='FastRegionRegions1dGet')
    use iso_c_binding

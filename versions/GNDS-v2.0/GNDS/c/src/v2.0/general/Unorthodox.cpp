@@ -34,7 +34,7 @@ UnorthodoxDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Unorthodox
 UnorthodoxDefault()
 {
@@ -56,7 +56,7 @@ UnorthodoxCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Unorthodox
 UnorthodoxCreate(
    const char *const id,
@@ -192,7 +192,7 @@ UnorthodoxMassGetConst(ConstHandle2ConstUnorthodox self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get
+// Get, non-const
 Handle2Mass
 UnorthodoxMassGet(ConstHandle2Unorthodox self)
 {

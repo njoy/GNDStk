@@ -20,7 +20,7 @@ function CovarianceMatrixDefaultConst() &
    type(c_ptr) :: CovarianceMatrixDefaultConst
 end function CovarianceMatrixDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CovarianceMatrixDefault() &
       bind(C, name='CovarianceMatrixDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function CovarianceMatrixCreateConst( &
    type(c_ptr) :: CovarianceMatrixCreateConst
 end function CovarianceMatrixCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CovarianceMatrixCreate( &
    label, &
    type1, &
@@ -99,6 +99,8 @@ end subroutine CovarianceMatrixDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CovarianceMatrixRead(handle, filename, filenameSize) &
       bind(C, name='CovarianceMatrixRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function CovarianceMatrixRead(handle, filename, filenameSize) &
 end function CovarianceMatrixRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CovarianceMatrixWrite(handle, filename, filenameSize) &
       bind(C, name='CovarianceMatrixWrite')
    use iso_c_binding
@@ -269,7 +273,7 @@ function CovarianceMatrixGridded2dGetConst(handle) &
    type(c_ptr) :: CovarianceMatrixGridded2dGetConst
 end function CovarianceMatrixGridded2dGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceMatrixGridded2dGet(handle) &
       bind(C, name='CovarianceMatrixGridded2dGet')
    use iso_c_binding

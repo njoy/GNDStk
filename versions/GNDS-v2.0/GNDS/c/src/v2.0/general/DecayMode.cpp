@@ -43,7 +43,7 @@ DecayModeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DecayMode
 DecayModeDefault()
 {
@@ -75,7 +75,7 @@ DecayModeCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DecayMode
 DecayModeCreate(
    const char *const label,
@@ -251,7 +251,7 @@ DecayModeProbabilityGetConst(ConstHandle2ConstDecayMode self)
       (CLASSNAME, CLASSNAME+"ProbabilityGetConst", self, extract::probability);
 }
 
-// Get
+// Get, non-const
 Handle2Probability
 DecayModeProbabilityGet(ConstHandle2DecayMode self)
 {
@@ -288,7 +288,7 @@ DecayModeDecayPathGetConst(ConstHandle2ConstDecayMode self)
       (CLASSNAME, CLASSNAME+"DecayPathGetConst", self, extract::decayPath);
 }
 
-// Get
+// Get, non-const
 Handle2DecayPath
 DecayModeDecayPathGet(ConstHandle2DecayMode self)
 {
@@ -325,7 +325,7 @@ DecayModePhotonEmissionProbabilitiesGetConst(ConstHandle2ConstDecayMode self)
       (CLASSNAME, CLASSNAME+"PhotonEmissionProbabilitiesGetConst", self, extract::photonEmissionProbabilities);
 }
 
-// Get
+// Get, non-const
 Handle2PhotonEmissionProbabilities
 DecayModePhotonEmissionProbabilitiesGet(ConstHandle2DecayMode self)
 {
@@ -362,7 +362,7 @@ DecayModeQGetConst(ConstHandle2ConstDecayMode self)
       (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
-// Get
+// Get, non-const
 Handle2Q
 DecayModeQGet(ConstHandle2DecayMode self)
 {
@@ -399,7 +399,7 @@ DecayModeSpectraGetConst(ConstHandle2ConstDecayMode self)
       (CLASSNAME, CLASSNAME+"SpectraGetConst", self, extract::spectra);
 }
 
-// Get
+// Get, non-const
 Handle2Spectra
 DecayModeSpectraGet(ConstHandle2DecayMode self)
 {

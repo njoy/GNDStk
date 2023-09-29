@@ -20,7 +20,7 @@ function TimeDefaultConst() &
    type(c_ptr) :: TimeDefaultConst
 end function TimeDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function TimeDefault() &
       bind(C, name='TimeDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function TimeCreateConst( &
    type(c_ptr) :: TimeCreateConst
 end function TimeCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function TimeCreate( &
    Double, &
    string &
@@ -79,6 +79,8 @@ end subroutine TimeDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function TimeRead(handle, filename, filenameSize) &
       bind(C, name='TimeRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function TimeRead(handle, filename, filenameSize) &
 end function TimeRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function TimeWrite(handle, filename, filenameSize) &
       bind(C, name='TimeWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function TimeDoubleGetConst(handle) &
    type(c_ptr) :: TimeDoubleGetConst
 end function TimeDoubleGetConst
 
-!! Get
+!! Get, non-const
 function TimeDoubleGet(handle) &
       bind(C, name='TimeDoubleGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function TimeStringGetConst(handle) &
    type(c_ptr) :: TimeStringGetConst
 end function TimeStringGetConst
 
-!! Get
+!! Get, non-const
 function TimeStringGet(handle) &
       bind(C, name='TimeStringGet')
    use iso_c_binding

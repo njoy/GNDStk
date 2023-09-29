@@ -20,7 +20,7 @@ function GaugeBosonsDefaultConst() &
    type(c_ptr) :: GaugeBosonsDefaultConst
 end function GaugeBosonsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function GaugeBosonsDefault() &
       bind(C, name='GaugeBosonsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function GaugeBosonsCreateConst( &
    type(c_ptr) :: GaugeBosonsCreateConst
 end function GaugeBosonsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function GaugeBosonsCreate( &
    gaugeBoson, gaugeBosonSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine GaugeBosonsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function GaugeBosonsRead(handle, filename, filenameSize) &
       bind(C, name='GaugeBosonsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function GaugeBosonsRead(handle, filename, filenameSize) &
 end function GaugeBosonsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function GaugeBosonsWrite(handle, filename, filenameSize) &
       bind(C, name='GaugeBosonsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function GaugeBosonsGaugeBosonGetConst(handle, index) &
    type(c_ptr) :: GaugeBosonsGaugeBosonGetConst
 end function GaugeBosonsGaugeBosonGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function GaugeBosonsGaugeBosonGet(handle, index) &
       bind(C, name='GaugeBosonsGaugeBosonGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function GaugeBosonsGaugeBosonGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: GaugeBosonsGaugeBosonGetByIdConst
 end function GaugeBosonsGaugeBosonGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function GaugeBosonsGaugeBosonGetById(handle, meta, metaSize) &
       bind(C, name='GaugeBosonsGaugeBosonGetById')
    use iso_c_binding

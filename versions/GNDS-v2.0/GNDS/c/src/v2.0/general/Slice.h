@@ -69,7 +69,7 @@ typedef       struct SliceClass *      Handle2Slice;
 extern_c Handle2ConstSlice
 SliceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Slice
 SliceDefault();
 
@@ -83,7 +83,7 @@ SliceCreateConst(
    const char *const domainUnit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Slice
 SliceCreate(
    const int dimension,

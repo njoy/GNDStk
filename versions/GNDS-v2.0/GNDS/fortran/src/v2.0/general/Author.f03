@@ -20,7 +20,7 @@ function AuthorDefaultConst() &
    type(c_ptr) :: AuthorDefaultConst
 end function AuthorDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AuthorDefault() &
       bind(C, name='AuthorDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function AuthorCreateConst( &
    type(c_ptr) :: AuthorCreateConst
 end function AuthorCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AuthorCreate( &
    name, &
    nameSize &
@@ -79,6 +79,8 @@ end subroutine AuthorDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AuthorRead(handle, filename, filenameSize) &
       bind(C, name='AuthorRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function AuthorRead(handle, filename, filenameSize) &
 end function AuthorRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AuthorWrite(handle, filename, filenameSize) &
       bind(C, name='AuthorWrite')
    use iso_c_binding

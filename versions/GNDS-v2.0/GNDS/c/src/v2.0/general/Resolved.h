@@ -71,7 +71,7 @@ typedef       struct ResolvedClass *      Handle2Resolved;
 extern_c Handle2ConstResolved
 ResolvedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Resolved
 ResolvedDefault();
 
@@ -85,7 +85,7 @@ ResolvedCreateConst(
    ConstHandle2ConstRMatrix RMatrix
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Resolved
 ResolvedCreate(
    const double domainMin,
@@ -205,7 +205,7 @@ ResolvedBreitWignerHas(ConstHandle2ConstResolved self);
 extern_c Handle2ConstBreitWigner
 ResolvedBreitWignerGetConst(ConstHandle2ConstResolved self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2BreitWigner
 ResolvedBreitWignerGet(ConstHandle2Resolved self);
 
@@ -226,7 +226,7 @@ ResolvedRMatrixHas(ConstHandle2ConstResolved self);
 extern_c Handle2ConstRMatrix
 ResolvedRMatrixGetConst(ConstHandle2ConstResolved self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2RMatrix
 ResolvedRMatrixGet(ConstHandle2Resolved self);
 

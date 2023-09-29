@@ -36,7 +36,7 @@ PrimaryGammaDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PrimaryGamma
 PrimaryGammaDefault()
 {
@@ -62,7 +62,7 @@ PrimaryGammaCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PrimaryGamma
 PrimaryGammaCreate(
    const double value,
@@ -262,7 +262,7 @@ PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 PrimaryGammaAxesGet(ConstHandle2PrimaryGamma self)
 {

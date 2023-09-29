@@ -70,7 +70,7 @@ typedef       struct ParityClass *      Handle2Parity;
 extern_c Handle2ConstParity
 ParityDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Parity
 ParityDefault();
 
@@ -80,7 +80,7 @@ ParityCreateConst(
    ConstHandle2ConstInteger integer
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Parity
 ParityCreate(
    ConstHandle2ConstInteger integer
@@ -142,7 +142,7 @@ ParityIntegerHas(ConstHandle2ConstParity self);
 extern_c Handle2ConstInteger
 ParityIntegerGetConst(ConstHandle2ConstParity self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Integer
 ParityIntegerGet(ConstHandle2Parity self);
 

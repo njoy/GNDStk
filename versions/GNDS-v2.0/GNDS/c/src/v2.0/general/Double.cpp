@@ -36,7 +36,7 @@ DoubleDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Double
 DoubleDefault()
 {
@@ -62,7 +62,7 @@ DoubleCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Double
 DoubleCreate(
    const char *const label,
@@ -262,7 +262,7 @@ DoubleUncertaintyGetConst(ConstHandle2ConstDouble self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 DoubleUncertaintyGet(ConstHandle2Double self)
 {

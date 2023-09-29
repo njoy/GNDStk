@@ -20,7 +20,7 @@ function MultiplicitySumDefaultConst() &
    type(c_ptr) :: MultiplicitySumDefaultConst
 end function MultiplicitySumDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MultiplicitySumDefault() &
       bind(C, name='MultiplicitySumDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function MultiplicitySumCreateConst( &
    type(c_ptr) :: MultiplicitySumCreateConst
 end function MultiplicitySumCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MultiplicitySumCreate( &
    label, &
    ENDF_MT, &
@@ -91,6 +91,8 @@ end subroutine MultiplicitySumDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MultiplicitySumRead(handle, filename, filenameSize) &
       bind(C, name='MultiplicitySumRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function MultiplicitySumRead(handle, filename, filenameSize) &
 end function MultiplicitySumRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MultiplicitySumWrite(handle, filename, filenameSize) &
       bind(C, name='MultiplicitySumWrite')
    use iso_c_binding
@@ -227,7 +231,7 @@ function MultiplicitySumMultiplicityGetConst(handle) &
    type(c_ptr) :: MultiplicitySumMultiplicityGetConst
 end function MultiplicitySumMultiplicityGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicitySumMultiplicityGet(handle) &
       bind(C, name='MultiplicitySumMultiplicityGet')
    use iso_c_binding
@@ -268,7 +272,7 @@ function MultiplicitySumSummandsGetConst(handle) &
    type(c_ptr) :: MultiplicitySumSummandsGetConst
 end function MultiplicitySumSummandsGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicitySumSummandsGet(handle) &
       bind(C, name='MultiplicitySumSummandsGet')
    use iso_c_binding

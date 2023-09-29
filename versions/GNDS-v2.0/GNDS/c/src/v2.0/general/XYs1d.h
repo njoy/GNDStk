@@ -72,7 +72,7 @@ typedef       struct XYs1dClass *      Handle2XYs1d;
 extern_c Handle2ConstXYs1d
 XYs1dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2XYs1d
 XYs1dDefault();
 
@@ -88,7 +88,7 @@ XYs1dCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2XYs1d
 XYs1dCreate(
    const char *const label,
@@ -228,7 +228,7 @@ XYs1dAxesHas(ConstHandle2ConstXYs1d self);
 extern_c Handle2ConstAxes
 XYs1dAxesGetConst(ConstHandle2ConstXYs1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 XYs1dAxesGet(ConstHandle2XYs1d self);
 
@@ -249,7 +249,7 @@ XYs1dValuesHas(ConstHandle2ConstXYs1d self);
 extern_c Handle2ConstValues
 XYs1dValuesGetConst(ConstHandle2ConstXYs1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Values
 XYs1dValuesGet(ConstHandle2XYs1d self);
 
@@ -270,7 +270,7 @@ XYs1dUncertaintyHas(ConstHandle2ConstXYs1d self);
 extern_c Handle2ConstUncertainty
 XYs1dUncertaintyGetConst(ConstHandle2ConstXYs1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 XYs1dUncertaintyGet(ConstHandle2XYs1d self);
 

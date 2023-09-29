@@ -70,7 +70,7 @@ typedef       struct UnresolvedClass *      Handle2Unresolved;
 extern_c Handle2ConstUnresolved
 UnresolvedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Unresolved
 UnresolvedDefault();
 
@@ -83,7 +83,7 @@ UnresolvedCreateConst(
    ConstHandle2ConstTabulatedWidths tabulatedWidths
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Unresolved
 UnresolvedCreate(
    const double domainMin,
@@ -202,7 +202,7 @@ UnresolvedTabulatedWidthsHas(ConstHandle2ConstUnresolved self);
 extern_c Handle2ConstTabulatedWidths
 UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2TabulatedWidths
 UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved self);
 

@@ -34,7 +34,7 @@ NBodyPhaseSpaceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2NBodyPhaseSpace
 NBodyPhaseSpaceDefault()
 {
@@ -56,7 +56,7 @@ NBodyPhaseSpaceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2NBodyPhaseSpace
 NBodyPhaseSpaceCreate(
    const int numberOfProducts,
@@ -192,7 +192,7 @@ NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get
+// Get, non-const
 Handle2Mass
 NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace self)
 {

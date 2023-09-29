@@ -20,7 +20,7 @@ function CovarianceSuiteDefaultConst() &
    type(c_ptr) :: CovarianceSuiteDefaultConst
 end function CovarianceSuiteDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CovarianceSuiteDefault() &
       bind(C, name='CovarianceSuiteDefault')
    use iso_c_binding
@@ -65,7 +65,7 @@ function CovarianceSuiteCreateConst( &
    type(c_ptr) :: CovarianceSuiteCreateConst
 end function CovarianceSuiteCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CovarianceSuiteCreate( &
    projectile, &
    target, &
@@ -127,6 +127,8 @@ end subroutine CovarianceSuiteDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CovarianceSuiteRead(handle, filename, filenameSize) &
       bind(C, name='CovarianceSuiteRead')
    use iso_c_binding
@@ -138,6 +140,8 @@ function CovarianceSuiteRead(handle, filename, filenameSize) &
 end function CovarianceSuiteRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CovarianceSuiteWrite(handle, filename, filenameSize) &
       bind(C, name='CovarianceSuiteWrite')
    use iso_c_binding
@@ -363,7 +367,7 @@ function CovarianceSuiteExternalFilesGetConst(handle) &
    type(c_ptr) :: CovarianceSuiteExternalFilesGetConst
 end function CovarianceSuiteExternalFilesGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSuiteExternalFilesGet(handle) &
       bind(C, name='CovarianceSuiteExternalFilesGet')
    use iso_c_binding
@@ -404,7 +408,7 @@ function CovarianceSuiteStylesGetConst(handle) &
    type(c_ptr) :: CovarianceSuiteStylesGetConst
 end function CovarianceSuiteStylesGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSuiteStylesGet(handle) &
       bind(C, name='CovarianceSuiteStylesGet')
    use iso_c_binding
@@ -445,7 +449,7 @@ function CovarianceSuiteCovarianceSectionsGetConst(handle) &
    type(c_ptr) :: CovarianceSuiteCovarianceSectionsGetConst
 end function CovarianceSuiteCovarianceSectionsGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSuiteCovarianceSectionsGet(handle) &
       bind(C, name='CovarianceSuiteCovarianceSectionsGet')
    use iso_c_binding
@@ -486,7 +490,7 @@ function CovarianceSuiteParameterCovariancesGetConst(handle) &
    type(c_ptr) :: CovarianceSuiteParameterCovariancesGetConst
 end function CovarianceSuiteParameterCovariancesGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSuiteParameterCovariancesGet(handle) &
       bind(C, name='CovarianceSuiteParameterCovariancesGet')
    use iso_c_binding

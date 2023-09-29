@@ -20,7 +20,7 @@ function DecayModeDefaultConst() &
    type(c_ptr) :: DecayModeDefaultConst
 end function DecayModeDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DecayModeDefault() &
       bind(C, name='DecayModeDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function DecayModeCreateConst( &
    type(c_ptr) :: DecayModeCreateConst
 end function DecayModeCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DecayModeCreate( &
    label, &
    mode, &
@@ -107,6 +107,8 @@ end subroutine DecayModeDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DecayModeRead(handle, filename, filenameSize) &
       bind(C, name='DecayModeRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function DecayModeRead(handle, filename, filenameSize) &
 end function DecayModeRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DecayModeWrite(handle, filename, filenameSize) &
       bind(C, name='DecayModeWrite')
    use iso_c_binding
@@ -244,7 +248,7 @@ function DecayModeProbabilityGetConst(handle) &
    type(c_ptr) :: DecayModeProbabilityGetConst
 end function DecayModeProbabilityGetConst
 
-!! Get
+!! Get, non-const
 function DecayModeProbabilityGet(handle) &
       bind(C, name='DecayModeProbabilityGet')
    use iso_c_binding
@@ -285,7 +289,7 @@ function DecayModeDecayPathGetConst(handle) &
    type(c_ptr) :: DecayModeDecayPathGetConst
 end function DecayModeDecayPathGetConst
 
-!! Get
+!! Get, non-const
 function DecayModeDecayPathGet(handle) &
       bind(C, name='DecayModeDecayPathGet')
    use iso_c_binding
@@ -326,7 +330,7 @@ function DecayModePhotonEmissionProbabilitiesGetConst(handle) &
    type(c_ptr) :: DecayModePhotonEmissionProbabilitiesGetConst
 end function DecayModePhotonEmissionProbabilitiesGetConst
 
-!! Get
+!! Get, non-const
 function DecayModePhotonEmissionProbabilitiesGet(handle) &
       bind(C, name='DecayModePhotonEmissionProbabilitiesGet')
    use iso_c_binding
@@ -367,7 +371,7 @@ function DecayModeQGetConst(handle) &
    type(c_ptr) :: DecayModeQGetConst
 end function DecayModeQGetConst
 
-!! Get
+!! Get, non-const
 function DecayModeQGet(handle) &
       bind(C, name='DecayModeQGet')
    use iso_c_binding
@@ -408,7 +412,7 @@ function DecayModeSpectraGetConst(handle) &
    type(c_ptr) :: DecayModeSpectraGetConst
 end function DecayModeSpectraGetConst
 
-!! Get
+!! Get, non-const
 function DecayModeSpectraGet(handle) &
       bind(C, name='DecayModeSpectraGet')
    use iso_c_binding

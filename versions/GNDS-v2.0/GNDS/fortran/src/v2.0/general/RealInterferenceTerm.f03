@@ -20,7 +20,7 @@ function RealInterferenceTermDefaultConst() &
    type(c_ptr) :: RealInterferenceTermDefaultConst
 end function RealInterferenceTermDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RealInterferenceTermDefault() &
       bind(C, name='RealInterferenceTermDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function RealInterferenceTermCreateConst( &
    type(c_ptr) :: RealInterferenceTermCreateConst
 end function RealInterferenceTermCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RealInterferenceTermCreate( &
    regions2d, &
    XYs2d &
@@ -79,6 +79,8 @@ end subroutine RealInterferenceTermDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RealInterferenceTermRead(handle, filename, filenameSize) &
       bind(C, name='RealInterferenceTermRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function RealInterferenceTermRead(handle, filename, filenameSize) &
 end function RealInterferenceTermRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RealInterferenceTermWrite(handle, filename, filenameSize) &
       bind(C, name='RealInterferenceTermWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function RealInterferenceTermRegions2dGetConst(handle) &
    type(c_ptr) :: RealInterferenceTermRegions2dGetConst
 end function RealInterferenceTermRegions2dGetConst
 
-!! Get
+!! Get, non-const
 function RealInterferenceTermRegions2dGet(handle) &
       bind(C, name='RealInterferenceTermRegions2dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function RealInterferenceTermXYs2dGetConst(handle) &
    type(c_ptr) :: RealInterferenceTermXYs2dGetConst
 end function RealInterferenceTermXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function RealInterferenceTermXYs2dGet(handle) &
       bind(C, name='RealInterferenceTermXYs2dGet')
    use iso_c_binding

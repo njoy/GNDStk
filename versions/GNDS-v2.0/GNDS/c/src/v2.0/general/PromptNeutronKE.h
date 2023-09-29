@@ -71,7 +71,7 @@ typedef       struct PromptNeutronKEClass *      Handle2PromptNeutronKE;
 extern_c Handle2ConstPromptNeutronKE
 PromptNeutronKEDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PromptNeutronKE
 PromptNeutronKEDefault();
 
@@ -82,7 +82,7 @@ PromptNeutronKECreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PromptNeutronKE
 PromptNeutronKECreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -145,7 +145,7 @@ PromptNeutronKEPolynomial1dHas(ConstHandle2ConstPromptNeutronKE self);
 extern_c Handle2ConstPolynomial1d
 PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE self);
 
@@ -166,7 +166,7 @@ PromptNeutronKEXYs1dHas(ConstHandle2ConstPromptNeutronKE self);
 extern_c Handle2ConstXYs1d
 PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE self);
 

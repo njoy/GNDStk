@@ -33,7 +33,7 @@ CrossSectionReconstructedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CrossSectionReconstructed
 CrossSectionReconstructedDefault()
 {
@@ -57,7 +57,7 @@ CrossSectionReconstructedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CrossSectionReconstructed
 CrossSectionReconstructedCreate(
    const char *const label,

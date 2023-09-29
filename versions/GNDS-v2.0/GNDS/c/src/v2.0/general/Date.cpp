@@ -32,7 +32,7 @@ DateDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Date
 DateDefault()
 {
@@ -54,7 +54,7 @@ DateCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Date
 DateCreate(
    const char *const value,

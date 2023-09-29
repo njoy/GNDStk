@@ -20,7 +20,7 @@ function AddDefaultConst() &
    type(c_ptr) :: AddDefaultConst
 end function AddDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AddDefault() &
       bind(C, name='AddDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function AddCreateConst( &
    type(c_ptr) :: AddCreateConst
 end function AddCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AddCreate( &
    href, &
    hrefSize &
@@ -79,6 +79,8 @@ end subroutine AddDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AddRead(handle, filename, filenameSize) &
       bind(C, name='AddRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function AddRead(handle, filename, filenameSize) &
 end function AddRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AddWrite(handle, filename, filenameSize) &
       bind(C, name='AddWrite')
    use iso_c_binding

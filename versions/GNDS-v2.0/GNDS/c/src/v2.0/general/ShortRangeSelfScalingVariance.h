@@ -70,7 +70,7 @@ typedef       struct ShortRangeSelfScalingVarianceClass *      Handle2ShortRange
 extern_c Handle2ConstShortRangeSelfScalingVariance
 ShortRangeSelfScalingVarianceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ShortRangeSelfScalingVariance
 ShortRangeSelfScalingVarianceDefault();
 
@@ -83,7 +83,7 @@ ShortRangeSelfScalingVarianceCreateConst(
    ConstHandle2ConstGridded2d gridded2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ShortRangeSelfScalingVariance
 ShortRangeSelfScalingVarianceCreate(
    const char *const label,
@@ -202,7 +202,7 @@ ShortRangeSelfScalingVarianceGridded2dHas(ConstHandle2ConstShortRangeSelfScaling
 extern_c Handle2ConstGridded2d
 ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfScalingVariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Gridded2d
 ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance self);
 

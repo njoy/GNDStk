@@ -20,7 +20,7 @@ function ChannelsDefaultConst() &
    type(c_ptr) :: ChannelsDefaultConst
 end function ChannelsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ChannelsDefault() &
       bind(C, name='ChannelsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ChannelsCreateConst( &
    type(c_ptr) :: ChannelsCreateConst
 end function ChannelsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ChannelsCreate( &
    channel, channelSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ChannelsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ChannelsRead(handle, filename, filenameSize) &
       bind(C, name='ChannelsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ChannelsRead(handle, filename, filenameSize) &
 end function ChannelsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ChannelsWrite(handle, filename, filenameSize) &
       bind(C, name='ChannelsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ChannelsChannelGetConst(handle, index) &
    type(c_ptr) :: ChannelsChannelGetConst
 end function ChannelsChannelGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ChannelsChannelGet(handle, index) &
       bind(C, name='ChannelsChannelGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ChannelsChannelGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ChannelsChannelGetByLabelConst
 end function ChannelsChannelGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ChannelsChannelGetByLabel(handle, meta, metaSize) &
       bind(C, name='ChannelsChannelGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ChannelsChannelGetByResonanceReactionConst(handle, meta, metaSize) &
    type(c_ptr) :: ChannelsChannelGetByResonanceReactionConst
 end function ChannelsChannelGetByResonanceReactionConst
 
-!! Get, by resonanceReaction
+!! Get, by resonanceReaction, non-const
 function ChannelsChannelGetByResonanceReaction(handle, meta, metaSize) &
       bind(C, name='ChannelsChannelGetByResonanceReaction')
    use iso_c_binding
@@ -315,7 +319,7 @@ function ChannelsChannelGetByLConst(handle, meta) &
    type(c_ptr) :: ChannelsChannelGetByLConst
 end function ChannelsChannelGetByLConst
 
-!! Get, by L
+!! Get, by L, non-const
 function ChannelsChannelGetByL(handle, meta) &
       bind(C, name='ChannelsChannelGetByL')
    use iso_c_binding
@@ -359,7 +363,7 @@ function ChannelsChannelGetByChannelSpinConst(handle, meta) &
    type(c_ptr) :: ChannelsChannelGetByChannelSpinConst
 end function ChannelsChannelGetByChannelSpinConst
 
-!! Get, by channelSpin
+!! Get, by channelSpin, non-const
 function ChannelsChannelGetByChannelSpin(handle, meta) &
       bind(C, name='ChannelsChannelGetByChannelSpin')
    use iso_c_binding
@@ -403,7 +407,7 @@ function ChannelsChannelGetByColumnIndexConst(handle, meta) &
    type(c_ptr) :: ChannelsChannelGetByColumnIndexConst
 end function ChannelsChannelGetByColumnIndexConst
 
-!! Get, by columnIndex
+!! Get, by columnIndex, non-const
 function ChannelsChannelGetByColumnIndex(handle, meta) &
       bind(C, name='ChannelsChannelGetByColumnIndex')
    use iso_c_binding

@@ -69,7 +69,7 @@ typedef       struct ThermalNeutronScatteringLawClass *      Handle2ThermalNeutr
 extern_c Handle2ConstThermalNeutronScatteringLaw
 ThermalNeutronScatteringLawDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ThermalNeutronScatteringLaw
 ThermalNeutronScatteringLawDefault();
 
@@ -80,7 +80,7 @@ ThermalNeutronScatteringLawCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ThermalNeutronScatteringLaw
 ThermalNeutronScatteringLawCreate(
    const char *const label,

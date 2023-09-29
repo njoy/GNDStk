@@ -20,7 +20,7 @@ function DataDefaultConst() &
    type(c_ptr) :: DataDefaultConst
 end function DataDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DataDefault() &
       bind(C, name='DataDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function DataCreateConst( &
    type(c_ptr) :: DataCreateConst
 end function DataCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DataCreate( &
 ) &
       bind(C, name='DataCreate')
@@ -71,6 +71,8 @@ end subroutine DataDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DataRead(handle, filename, filenameSize) &
       bind(C, name='DataRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function DataRead(handle, filename, filenameSize) &
 end function DataRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DataWrite(handle, filename, filenameSize) &
       bind(C, name='DataWrite')
    use iso_c_binding
@@ -172,7 +176,7 @@ function DataDoublesGetArrayConst(handle) &
    type(c_ptr) :: DataDoublesGetArrayConst
 end function DataDoublesGetArrayConst
 
-!! Get pointer to existing values
+!! Get pointer to existing values, non-const
 function DataDoublesGetArray(handle) &
       bind(C, name='DataDoublesGetArray')
    use iso_c_binding

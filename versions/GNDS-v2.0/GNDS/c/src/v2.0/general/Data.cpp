@@ -27,7 +27,7 @@ DataDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Data
 DataDefault()
 {
@@ -45,7 +45,7 @@ DataCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Data
 DataCreate()
 {
@@ -173,7 +173,7 @@ DataDoublesGetArrayConst(ConstHandle2ConstData self)
       (CLASSNAME, CLASSNAME+"DoublesGetArrayConst", self);
 }
 
-// Get pointer to existing values
+// Get pointer to existing values, non-const
 double *
 DataDoublesGetArray(ConstHandle2Data self)
 {

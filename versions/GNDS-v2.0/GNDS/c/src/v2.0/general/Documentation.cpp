@@ -41,7 +41,7 @@ DocumentationDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Documentation
 DocumentationDefault()
 {
@@ -69,7 +69,7 @@ DocumentationCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Documentation
 DocumentationCreate(
    ConstHandle2ConstAuthors authors,
@@ -181,7 +181,7 @@ DocumentationAuthorsGetConst(ConstHandle2ConstDocumentation self)
       (CLASSNAME, CLASSNAME+"AuthorsGetConst", self, extract::authors);
 }
 
-// Get
+// Get, non-const
 Handle2Authors
 DocumentationAuthorsGet(ConstHandle2Documentation self)
 {
@@ -218,7 +218,7 @@ DocumentationDatesGetConst(ConstHandle2ConstDocumentation self)
       (CLASSNAME, CLASSNAME+"DatesGetConst", self, extract::dates);
 }
 
-// Get
+// Get, non-const
 Handle2Dates
 DocumentationDatesGet(ConstHandle2Documentation self)
 {
@@ -255,7 +255,7 @@ DocumentationTitleGetConst(ConstHandle2ConstDocumentation self)
       (CLASSNAME, CLASSNAME+"TitleGetConst", self, extract::title);
 }
 
-// Get
+// Get, non-const
 Handle2Title
 DocumentationTitleGet(ConstHandle2Documentation self)
 {
@@ -292,7 +292,7 @@ DocumentationBodyGetConst(ConstHandle2ConstDocumentation self)
       (CLASSNAME, CLASSNAME+"BodyGetConst", self, extract::body);
 }
 
-// Get
+// Get, non-const
 Handle2Body
 DocumentationBodyGet(ConstHandle2Documentation self)
 {
@@ -329,7 +329,7 @@ DocumentationEndfCompatibleGetConst(ConstHandle2ConstDocumentation self)
       (CLASSNAME, CLASSNAME+"EndfCompatibleGetConst", self, extract::endfCompatible);
 }
 
-// Get
+// Get, non-const
 Handle2EndfCompatible
 DocumentationEndfCompatibleGet(ConstHandle2Documentation self)
 {

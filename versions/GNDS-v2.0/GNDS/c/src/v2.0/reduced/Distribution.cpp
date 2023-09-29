@@ -41,7 +41,7 @@ DistributionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Distribution
 DistributionDefault()
 {
@@ -69,7 +69,7 @@ DistributionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Distribution
 DistributionCreate(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
@@ -181,7 +181,7 @@ DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution se
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLawGetConst", self, extract::thermalNeutronScatteringLaw);
 }
 
-// Get
+// Get, non-const
 Handle2ThermalNeutronScatteringLaw
 DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution self)
 {
@@ -218,7 +218,7 @@ DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"UncorrelatedGetConst", self, extract::uncorrelated);
 }
 
-// Get
+// Get, non-const
 Handle2Uncorrelated
 DistributionUncorrelatedGet(ConstHandle2Distribution self)
 {
@@ -255,7 +255,7 @@ DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"UnspecifiedGetConst", self, extract::unspecified);
 }
 
-// Get
+// Get, non-const
 Handle2Unspecified
 DistributionUnspecifiedGet(ConstHandle2Distribution self)
 {
@@ -292,7 +292,7 @@ DistributionXYs2dGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 DistributionXYs2dGet(ConstHandle2Distribution self)
 {
@@ -329,7 +329,7 @@ DistributionBranching3dGetConst(ConstHandle2ConstDistribution self)
       (CLASSNAME, CLASSNAME+"Branching3dGetConst", self, extract::branching3d);
 }
 
-// Get
+// Get, non-const
 Handle2Branching3d
 DistributionBranching3dGet(ConstHandle2Distribution self)
 {

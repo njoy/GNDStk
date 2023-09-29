@@ -20,7 +20,7 @@ function ParityDefaultConst() &
    type(c_ptr) :: ParityDefaultConst
 end function ParityDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ParityDefault() &
       bind(C, name='ParityDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ParityCreateConst( &
    type(c_ptr) :: ParityCreateConst
 end function ParityCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ParityCreate( &
    integer &
 ) &
@@ -75,6 +75,8 @@ end subroutine ParityDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ParityRead(handle, filename, filenameSize) &
       bind(C, name='ParityRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ParityRead(handle, filename, filenameSize) &
 end function ParityRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ParityWrite(handle, filename, filenameSize) &
       bind(C, name='ParityWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ParityIntegerGetConst(handle) &
    type(c_ptr) :: ParityIntegerGetConst
 end function ParityIntegerGetConst
 
-!! Get
+!! Get, non-const
 function ParityIntegerGet(handle) &
       bind(C, name='ParityIntegerGet')
    use iso_c_binding

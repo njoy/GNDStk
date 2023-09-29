@@ -70,7 +70,7 @@ typedef       struct ConfigurationsClass *      Handle2Configurations;
 extern_c Handle2ConstConfigurations
 ConfigurationsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Configurations
 ConfigurationsDefault();
 
@@ -80,7 +80,7 @@ ConfigurationsCreateConst(
    ConstHandle2Configuration *const configuration, const size_t configurationSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Configurations
 ConfigurationsCreate(
    ConstHandle2Configuration *const configuration, const size_t configurationSize
@@ -154,7 +154,7 @@ ConfigurationsConfigurationAdd(ConstHandle2Configurations self, ConstHandle2Cons
 extern_c Handle2ConstConfiguration
 ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Configuration
 ConfigurationsConfigurationGet(ConstHandle2Configurations self, const size_t index_);
 
@@ -184,7 +184,7 @@ ConfigurationsConfigurationGetBySubshellConst(
    const char *const subshell
 );
 
-// +++ Get, by subshell
+// +++ Get, by subshell, non-const
 extern_c Handle2Configuration
 ConfigurationsConfigurationGetBySubshell(
    ConstHandle2Configurations self,
@@ -217,7 +217,7 @@ ConfigurationsConfigurationGetByElectronNumberConst(
    const double electronNumber
 );
 
-// +++ Get, by electronNumber
+// +++ Get, by electronNumber, non-const
 extern_c Handle2Configuration
 ConfigurationsConfigurationGetByElectronNumber(
    ConstHandle2Configurations self,

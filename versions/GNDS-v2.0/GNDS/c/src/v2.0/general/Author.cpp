@@ -31,7 +31,7 @@ AuthorDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Author
 AuthorDefault()
 {
@@ -51,7 +51,7 @@ AuthorCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Author
 AuthorCreate(
    const char *const name

@@ -70,7 +70,7 @@ typedef       struct JsClass *      Handle2Js;
 extern_c Handle2ConstJs
 JsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Js
 JsDefault();
 
@@ -80,7 +80,7 @@ JsCreateConst(
    ConstHandle2J *const J, const size_t JSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Js
 JsCreate(
    ConstHandle2J *const J, const size_t JSize
@@ -154,7 +154,7 @@ JsJAdd(ConstHandle2Js self, ConstHandle2ConstJ J);
 extern_c Handle2ConstJ
 JsJGetConst(ConstHandle2ConstJs self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2J
 JsJGet(ConstHandle2Js self, const size_t index_);
 
@@ -184,7 +184,7 @@ JsJGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2J
 JsJGetByLabel(
    ConstHandle2Js self,
@@ -217,7 +217,7 @@ JsJGetByValueConst(
    const int value
 );
 
-// +++ Get, by value
+// +++ Get, by value, non-const
 extern_c Handle2J
 JsJGetByValue(
    ConstHandle2Js self,

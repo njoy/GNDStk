@@ -20,7 +20,7 @@ function BackgroundDefaultConst() &
    type(c_ptr) :: BackgroundDefaultConst
 end function BackgroundDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BackgroundDefault() &
       bind(C, name='BackgroundDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function BackgroundCreateConst( &
    type(c_ptr) :: BackgroundCreateConst
 end function BackgroundCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BackgroundCreate( &
    resolvedRegion, &
    fastRegion, &
@@ -83,6 +83,8 @@ end subroutine BackgroundDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BackgroundRead(handle, filename, filenameSize) &
       bind(C, name='BackgroundRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function BackgroundRead(handle, filename, filenameSize) &
 end function BackgroundRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BackgroundWrite(handle, filename, filenameSize) &
       bind(C, name='BackgroundWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function BackgroundResolvedRegionGetConst(handle) &
    type(c_ptr) :: BackgroundResolvedRegionGetConst
 end function BackgroundResolvedRegionGetConst
 
-!! Get
+!! Get, non-const
 function BackgroundResolvedRegionGet(handle) &
       bind(C, name='BackgroundResolvedRegionGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function BackgroundFastRegionGetConst(handle) &
    type(c_ptr) :: BackgroundFastRegionGetConst
 end function BackgroundFastRegionGetConst
 
-!! Get
+!! Get, non-const
 function BackgroundFastRegionGet(handle) &
       bind(C, name='BackgroundFastRegionGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function BackgroundUnresolvedRegionGetConst(handle) &
    type(c_ptr) :: BackgroundUnresolvedRegionGetConst
 end function BackgroundUnresolvedRegionGetConst
 
-!! Get
+!! Get, non-const
 function BackgroundUnresolvedRegionGet(handle) &
       bind(C, name='BackgroundUnresolvedRegionGet')
    use iso_c_binding

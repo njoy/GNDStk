@@ -35,7 +35,7 @@ ResolvedRegionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ResolvedRegion
 ResolvedRegionDefault()
 {
@@ -57,7 +57,7 @@ ResolvedRegionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ResolvedRegion
 ResolvedRegionCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -163,7 +163,7 @@ ResolvedRegionXYs1dGetConst(ConstHandle2ConstResolvedRegion self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 ResolvedRegionXYs1dGet(ConstHandle2ResolvedRegion self)
 {
@@ -200,7 +200,7 @@ ResolvedRegionRegions1dGetConst(ConstHandle2ConstResolvedRegion self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions1d
 ResolvedRegionRegions1dGet(ConstHandle2ResolvedRegion self)
 {

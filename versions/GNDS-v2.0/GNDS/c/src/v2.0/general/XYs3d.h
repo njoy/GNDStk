@@ -71,7 +71,7 @@ typedef       struct XYs3dClass *      Handle2XYs3d;
 extern_c Handle2ConstXYs3d
 XYs3dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2XYs3d
 XYs3dDefault();
 
@@ -83,7 +83,7 @@ XYs3dCreateConst(
    ConstHandle2Function2ds *const function2ds, const size_t function2dsSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2XYs3d
 XYs3dCreate(
    const char *const interpolationQualifier,
@@ -165,7 +165,7 @@ XYs3dAxesHas(ConstHandle2ConstXYs3d self);
 extern_c Handle2ConstAxes
 XYs3dAxesGetConst(ConstHandle2ConstXYs3d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 XYs3dAxesGet(ConstHandle2XYs3d self);
 
@@ -198,7 +198,7 @@ XYs3dFunction2dsAdd(ConstHandle2XYs3d self, ConstHandle2ConstFunction2ds functio
 extern_c Handle2ConstFunction2ds
 XYs3dFunction2dsGetConst(ConstHandle2ConstXYs3d self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Function2ds
 XYs3dFunction2dsGet(ConstHandle2XYs3d self, const size_t index_);
 

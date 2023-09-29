@@ -38,7 +38,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentInelastic
 ThermalNeutronScatteringLaw_incoherentInelasticDefault()
 {
@@ -68,7 +68,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentInelastic
 ThermalNeutronScatteringLaw_incoherentInelasticCreate(
    const char *const label,
@@ -332,7 +332,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(ConstHand
       (CLASSNAME, CLASSNAME+"ScatteringAtomsGetConst", self, extract::scatteringAtoms);
 }
 
-// Get
+// Get, non-const
 Handle2ScatteringAtoms
 ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self)
 {

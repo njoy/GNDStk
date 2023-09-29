@@ -33,7 +33,7 @@ ExternalFilesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ExternalFiles
 ExternalFilesDefault()
 {
@@ -55,7 +55,7 @@ ExternalFilesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ExternalFiles
 ExternalFilesCreate(
    ConstHandle2ExternalFile *const externalFile, const size_t externalFileSize
@@ -185,7 +185,7 @@ ExternalFilesExternalFileGetConst(ConstHandle2ConstExternalFiles self, const siz
       (CLASSNAME, CLASSNAME+"ExternalFileGetConst", self, extract::externalFile, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2ExternalFile
 ExternalFilesExternalFileGet(ConstHandle2ExternalFiles self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ExternalFilesExternalFileGetByLabelConst(
        self, extract::externalFile, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2ExternalFile
 ExternalFilesExternalFileGetByLabel(
    ConstHandle2ExternalFiles self,
@@ -279,7 +279,7 @@ ExternalFilesExternalFileGetByPathConst(
        self, extract::externalFile, meta::path, path);
 }
 
-// Get, by path
+// Get, by path, non-const
 Handle2ExternalFile
 ExternalFilesExternalFileGetByPath(
    ConstHandle2ExternalFiles self,
@@ -328,7 +328,7 @@ ExternalFilesExternalFileGetByChecksumConst(
        self, extract::externalFile, meta::checksum, checksum);
 }
 
-// Get, by checksum
+// Get, by checksum, non-const
 Handle2ExternalFile
 ExternalFilesExternalFileGetByChecksum(
    ConstHandle2ExternalFiles self,
@@ -377,7 +377,7 @@ ExternalFilesExternalFileGetByAlgorithmConst(
        self, extract::externalFile, meta::algorithm, algorithm);
 }
 
-// Get, by algorithm
+// Get, by algorithm, non-const
 Handle2ExternalFile
 ExternalFilesExternalFileGetByAlgorithm(
    ConstHandle2ExternalFiles self,

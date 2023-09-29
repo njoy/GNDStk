@@ -20,7 +20,7 @@ function PositronEmissionIntensityDefaultConst() &
    type(c_ptr) :: PositronEmissionIntensityDefaultConst
 end function PositronEmissionIntensityDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PositronEmissionIntensityDefault() &
       bind(C, name='PositronEmissionIntensityDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function PositronEmissionIntensityCreateConst( &
    type(c_ptr) :: PositronEmissionIntensityCreateConst
 end function PositronEmissionIntensityCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PositronEmissionIntensityCreate( &
    value, &
    uncertainty &
@@ -79,6 +79,8 @@ end subroutine PositronEmissionIntensityDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PositronEmissionIntensityRead(handle, filename, filenameSize) &
       bind(C, name='PositronEmissionIntensityRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function PositronEmissionIntensityRead(handle, filename, filenameSize) &
 end function PositronEmissionIntensityRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PositronEmissionIntensityWrite(handle, filename, filenameSize) &
       bind(C, name='PositronEmissionIntensityWrite')
    use iso_c_binding
@@ -182,7 +186,7 @@ function PositronEmissionIntensityUncertaintyGetConst(handle) &
    type(c_ptr) :: PositronEmissionIntensityUncertaintyGetConst
 end function PositronEmissionIntensityUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function PositronEmissionIntensityUncertaintyGet(handle) &
       bind(C, name='PositronEmissionIntensityUncertaintyGet')
    use iso_c_binding

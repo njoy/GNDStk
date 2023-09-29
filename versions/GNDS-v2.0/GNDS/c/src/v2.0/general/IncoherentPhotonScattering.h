@@ -70,7 +70,7 @@ typedef       struct IncoherentPhotonScatteringClass *      Handle2IncoherentPho
 extern_c Handle2ConstIncoherentPhotonScattering
 IncoherentPhotonScatteringDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2IncoherentPhotonScattering
 IncoherentPhotonScatteringDefault();
 
@@ -84,7 +84,7 @@ IncoherentPhotonScatteringCreateConst(
    ConstHandle2ConstScatteringFactor scatteringFactor
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2IncoherentPhotonScattering
 IncoherentPhotonScatteringCreate(
    const char *const label,
@@ -222,7 +222,7 @@ IncoherentPhotonScatteringScatteringFactorHas(ConstHandle2ConstIncoherentPhotonS
 extern_c Handle2ConstScatteringFactor
 IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPhotonScattering self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ScatteringFactor
 IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering self);
 

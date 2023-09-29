@@ -20,7 +20,7 @@ function DecayModesDefaultConst() &
    type(c_ptr) :: DecayModesDefaultConst
 end function DecayModesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DecayModesDefault() &
       bind(C, name='DecayModesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function DecayModesCreateConst( &
    type(c_ptr) :: DecayModesCreateConst
 end function DecayModesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DecayModesCreate( &
    decayMode, decayModeSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine DecayModesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DecayModesRead(handle, filename, filenameSize) &
       bind(C, name='DecayModesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function DecayModesRead(handle, filename, filenameSize) &
 end function DecayModesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DecayModesWrite(handle, filename, filenameSize) &
       bind(C, name='DecayModesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function DecayModesDecayModeGetConst(handle, index) &
    type(c_ptr) :: DecayModesDecayModeGetConst
 end function DecayModesDecayModeGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function DecayModesDecayModeGet(handle, index) &
       bind(C, name='DecayModesDecayModeGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function DecayModesDecayModeGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: DecayModesDecayModeGetByLabelConst
 end function DecayModesDecayModeGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function DecayModesDecayModeGetByLabel(handle, meta, metaSize) &
       bind(C, name='DecayModesDecayModeGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function DecayModesDecayModeGetByModeConst(handle, meta, metaSize) &
    type(c_ptr) :: DecayModesDecayModeGetByModeConst
 end function DecayModesDecayModeGetByModeConst
 
-!! Get, by mode
+!! Get, by mode, non-const
 function DecayModesDecayModeGetByMode(handle, meta, metaSize) &
       bind(C, name='DecayModesDecayModeGetByMode')
    use iso_c_binding

@@ -71,7 +71,7 @@ typedef       struct OrphanProductClass *      Handle2OrphanProduct;
 extern_c Handle2ConstOrphanProduct
 OrphanProductDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2OrphanProduct
 OrphanProductDefault();
 
@@ -84,7 +84,7 @@ OrphanProductCreateConst(
    ConstHandle2ConstOutputChannel outputChannel
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2OrphanProduct
 OrphanProductCreate(
    const char *const label,
@@ -185,7 +185,7 @@ OrphanProductCrossSectionHas(ConstHandle2ConstOrphanProduct self);
 extern_c Handle2ConstCrossSection
 OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CrossSection
 OrphanProductCrossSectionGet(ConstHandle2OrphanProduct self);
 
@@ -206,7 +206,7 @@ OrphanProductOutputChannelHas(ConstHandle2ConstOrphanProduct self);
 extern_c Handle2ConstOutputChannel
 OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2OutputChannel
 OrphanProductOutputChannelGet(ConstHandle2OrphanProduct self);
 

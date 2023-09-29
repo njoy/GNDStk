@@ -33,7 +33,7 @@ CrossSectionSumsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CrossSectionSums
 CrossSectionSumsDefault()
 {
@@ -55,7 +55,7 @@ CrossSectionSumsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CrossSectionSums
 CrossSectionSumsCreate(
    ConstHandle2CrossSectionSum *const crossSectionSum, const size_t crossSectionSumSize
@@ -185,7 +185,7 @@ CrossSectionSumsCrossSectionSumGetConst(ConstHandle2ConstCrossSectionSums self, 
       (CLASSNAME, CLASSNAME+"CrossSectionSumGetConst", self, extract::crossSectionSum, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGet(ConstHandle2CrossSectionSums self, const size_t index_)
 {
@@ -230,7 +230,7 @@ CrossSectionSumsCrossSectionSumGetByLabelConst(
        self, extract::crossSectionSum, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByLabel(
    ConstHandle2CrossSectionSums self,
@@ -279,7 +279,7 @@ CrossSectionSumsCrossSectionSumGetByENDFMTConst(
        self, extract::crossSectionSum, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT
+// Get, by ENDF_MT, non-const
 Handle2CrossSectionSum
 CrossSectionSumsCrossSectionSumGetByENDFMT(
    ConstHandle2CrossSectionSums self,

@@ -37,7 +37,7 @@ OrphanProductDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2OrphanProduct
 OrphanProductDefault()
 {
@@ -63,7 +63,7 @@ OrphanProductCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2OrphanProduct
 OrphanProductCreate(
    const char *const label,
@@ -233,7 +233,7 @@ OrphanProductCrossSectionGetConst(ConstHandle2ConstOrphanProduct self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSection
 OrphanProductCrossSectionGet(ConstHandle2OrphanProduct self)
 {
@@ -270,7 +270,7 @@ OrphanProductOutputChannelGetConst(ConstHandle2ConstOrphanProduct self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get
+// Get, non-const
 Handle2OutputChannel
 OrphanProductOutputChannelGet(ConstHandle2OrphanProduct self)
 {

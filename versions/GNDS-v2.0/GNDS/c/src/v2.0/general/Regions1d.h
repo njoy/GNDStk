@@ -72,7 +72,7 @@ typedef       struct Regions1dClass *      Handle2Regions1d;
 extern_c Handle2ConstRegions1d
 Regions1dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Regions1d
 Regions1dDefault();
 
@@ -86,7 +86,7 @@ Regions1dCreateConst(
    ConstHandle2ConstFunction1ds function1ds
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Regions1d
 Regions1dCreate(
    const char *const label,
@@ -188,7 +188,7 @@ Regions1dAxesHas(ConstHandle2ConstRegions1d self);
 extern_c Handle2ConstAxes
 Regions1dAxesGetConst(ConstHandle2ConstRegions1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 Regions1dAxesGet(ConstHandle2Regions1d self);
 
@@ -209,7 +209,7 @@ Regions1dUncertaintyHas(ConstHandle2ConstRegions1d self);
 extern_c Handle2ConstUncertainty
 Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 Regions1dUncertaintyGet(ConstHandle2Regions1d self);
 
@@ -230,7 +230,7 @@ Regions1dFunction1dsHas(ConstHandle2ConstRegions1d self);
 extern_c Handle2ConstFunction1ds
 Regions1dFunction1dsGetConst(ConstHandle2ConstRegions1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Function1ds
 Regions1dFunction1dsGet(ConstHandle2Regions1d self);
 

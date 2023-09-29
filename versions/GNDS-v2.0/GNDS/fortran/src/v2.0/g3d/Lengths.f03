@@ -20,7 +20,7 @@ function LengthsDefaultConst() &
    type(c_ptr) :: LengthsDefaultConst
 end function LengthsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LengthsDefault() &
       bind(C, name='LengthsDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function LengthsCreateConst( &
    type(c_ptr) :: LengthsCreateConst
 end function LengthsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LengthsCreate( &
    valueType, &
    label, &
@@ -87,6 +87,8 @@ end subroutine LengthsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LengthsRead(handle, filename, filenameSize) &
       bind(C, name='LengthsRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function LengthsRead(handle, filename, filenameSize) &
 end function LengthsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LengthsWrite(handle, filename, filenameSize) &
       bind(C, name='LengthsWrite')
    use iso_c_binding
@@ -188,7 +192,7 @@ function LengthsIntsGetArrayConst(handle) &
    type(c_ptr) :: LengthsIntsGetArrayConst
 end function LengthsIntsGetArrayConst
 
-!! Get pointer to existing values
+!! Get pointer to existing values, non-const
 function LengthsIntsGetArray(handle) &
       bind(C, name='LengthsIntsGetArray')
    use iso_c_binding

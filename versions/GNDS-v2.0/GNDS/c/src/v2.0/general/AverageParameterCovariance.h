@@ -72,7 +72,7 @@ typedef       struct AverageParameterCovarianceClass *      Handle2AverageParame
 extern_c Handle2ConstAverageParameterCovariance
 AverageParameterCovarianceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2AverageParameterCovariance
 AverageParameterCovarianceDefault();
 
@@ -86,7 +86,7 @@ AverageParameterCovarianceCreateConst(
    ConstHandle2ConstColumnData columnData
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2AverageParameterCovariance
 AverageParameterCovarianceCreate(
    const char *const label,
@@ -188,7 +188,7 @@ AverageParameterCovarianceCovarianceMatrixHas(ConstHandle2ConstAverageParameterC
 extern_c Handle2ConstCovarianceMatrix
 AverageParameterCovarianceCovarianceMatrixGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CovarianceMatrix
 AverageParameterCovarianceCovarianceMatrixGet(ConstHandle2AverageParameterCovariance self);
 
@@ -209,7 +209,7 @@ AverageParameterCovarianceRowDataHas(ConstHandle2ConstAverageParameterCovariance
 extern_c Handle2ConstRowData
 AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2RowData
 AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance self);
 
@@ -230,7 +230,7 @@ AverageParameterCovarianceColumnDataHas(ConstHandle2ConstAverageParameterCovaria
 extern_c Handle2ConstColumnData
 AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCovariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ColumnData
 AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance self);
 

@@ -20,7 +20,7 @@ function RMatrixDefaultConst() &
    type(c_ptr) :: RMatrixDefaultConst
 end function RMatrixDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RMatrixDefault() &
       bind(C, name='RMatrixDefault')
    use iso_c_binding
@@ -59,7 +59,7 @@ function RMatrixCreateConst( &
    type(c_ptr) :: RMatrixCreateConst
 end function RMatrixCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RMatrixCreate( &
    label, &
    approximation, &
@@ -115,6 +115,8 @@ end subroutine RMatrixDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RMatrixRead(handle, filename, filenameSize) &
       bind(C, name='RMatrixRead')
    use iso_c_binding
@@ -126,6 +128,8 @@ function RMatrixRead(handle, filename, filenameSize) &
 end function RMatrixRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RMatrixWrite(handle, filename, filenameSize) &
       bind(C, name='RMatrixWrite')
    use iso_c_binding
@@ -349,7 +353,7 @@ function RMatrixPoPsGetConst(handle) &
    type(c_ptr) :: RMatrixPoPsGetConst
 end function RMatrixPoPsGetConst
 
-!! Get
+!! Get, non-const
 function RMatrixPoPsGet(handle) &
       bind(C, name='RMatrixPoPsGet')
    use iso_c_binding
@@ -390,7 +394,7 @@ function RMatrixResonanceReactionsGetConst(handle) &
    type(c_ptr) :: RMatrixResonanceReactionsGetConst
 end function RMatrixResonanceReactionsGetConst
 
-!! Get
+!! Get, non-const
 function RMatrixResonanceReactionsGet(handle) &
       bind(C, name='RMatrixResonanceReactionsGet')
    use iso_c_binding
@@ -431,7 +435,7 @@ function RMatrixSpinGroupsGetConst(handle) &
    type(c_ptr) :: RMatrixSpinGroupsGetConst
 end function RMatrixSpinGroupsGetConst
 
-!! Get
+!! Get, non-const
 function RMatrixSpinGroupsGet(handle) &
       bind(C, name='RMatrixSpinGroupsGet')
    use iso_c_binding

@@ -71,7 +71,7 @@ typedef       struct KalbachMannClass *      Handle2KalbachMann;
 extern_c Handle2ConstKalbachMann
 KalbachMannDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2KalbachMann
 KalbachMannDefault();
 
@@ -84,7 +84,7 @@ KalbachMannCreateConst(
    ConstHandle2ConstR r
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2KalbachMann
 KalbachMannCreate(
    const char *const label,
@@ -185,7 +185,7 @@ KalbachMannFHas(ConstHandle2ConstKalbachMann self);
 extern_c Handle2ConstF
 KalbachMannFGetConst(ConstHandle2ConstKalbachMann self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2F
 KalbachMannFGet(ConstHandle2KalbachMann self);
 
@@ -206,7 +206,7 @@ KalbachMannRHas(ConstHandle2ConstKalbachMann self);
 extern_c Handle2ConstR
 KalbachMannRGetConst(ConstHandle2ConstKalbachMann self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2R
 KalbachMannRGet(ConstHandle2KalbachMann self);
 

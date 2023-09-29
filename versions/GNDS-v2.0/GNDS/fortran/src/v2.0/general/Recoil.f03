@@ -20,7 +20,7 @@ function RecoilDefaultConst() &
    type(c_ptr) :: RecoilDefaultConst
 end function RecoilDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RecoilDefault() &
       bind(C, name='RecoilDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function RecoilCreateConst( &
    type(c_ptr) :: RecoilCreateConst
 end function RecoilCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RecoilCreate( &
    href, &
    hrefSize &
@@ -79,6 +79,8 @@ end subroutine RecoilDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RecoilRead(handle, filename, filenameSize) &
       bind(C, name='RecoilRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function RecoilRead(handle, filename, filenameSize) &
 end function RecoilRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RecoilWrite(handle, filename, filenameSize) &
       bind(C, name='RecoilWrite')
    use iso_c_binding

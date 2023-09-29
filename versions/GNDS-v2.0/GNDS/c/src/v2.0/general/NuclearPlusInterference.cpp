@@ -36,7 +36,7 @@ NuclearPlusInterferenceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2NuclearPlusInterference
 NuclearPlusInterferenceDefault()
 {
@@ -60,7 +60,7 @@ NuclearPlusInterferenceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2NuclearPlusInterference
 NuclearPlusInterferenceCreate(
    const double muCutoff,
@@ -198,7 +198,7 @@ NuclearPlusInterferenceCrossSectionGetConst(ConstHandle2ConstNuclearPlusInterfer
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSection
 NuclearPlusInterferenceCrossSectionGet(ConstHandle2NuclearPlusInterference self)
 {
@@ -235,7 +235,7 @@ NuclearPlusInterferenceDistributionGetConst(ConstHandle2ConstNuclearPlusInterfer
       (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
-// Get
+// Get, non-const
 Handle2Distribution
 NuclearPlusInterferenceDistributionGet(ConstHandle2NuclearPlusInterference self)
 {

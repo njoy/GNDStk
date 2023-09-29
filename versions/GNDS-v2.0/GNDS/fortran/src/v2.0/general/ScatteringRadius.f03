@@ -20,7 +20,7 @@ function ScatteringRadiusDefaultConst() &
    type(c_ptr) :: ScatteringRadiusDefaultConst
 end function ScatteringRadiusDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ScatteringRadiusDefault() &
       bind(C, name='ScatteringRadiusDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function ScatteringRadiusCreateConst( &
    type(c_ptr) :: ScatteringRadiusCreateConst
 end function ScatteringRadiusCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ScatteringRadiusCreate( &
    constant1d, &
    XYs1d &
@@ -79,6 +79,8 @@ end subroutine ScatteringRadiusDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ScatteringRadiusRead(handle, filename, filenameSize) &
       bind(C, name='ScatteringRadiusRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function ScatteringRadiusRead(handle, filename, filenameSize) &
 end function ScatteringRadiusRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ScatteringRadiusWrite(handle, filename, filenameSize) &
       bind(C, name='ScatteringRadiusWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function ScatteringRadiusConstant1dGetConst(handle) &
    type(c_ptr) :: ScatteringRadiusConstant1dGetConst
 end function ScatteringRadiusConstant1dGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringRadiusConstant1dGet(handle) &
       bind(C, name='ScatteringRadiusConstant1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function ScatteringRadiusXYs1dGetConst(handle) &
    type(c_ptr) :: ScatteringRadiusXYs1dGetConst
 end function ScatteringRadiusXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringRadiusXYs1dGet(handle) &
       bind(C, name='ScatteringRadiusXYs1dGet')
    use iso_c_binding

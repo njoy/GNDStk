@@ -70,7 +70,7 @@ typedef       struct LsClass *      Handle2Ls;
 extern_c Handle2ConstLs
 LsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Ls
 LsDefault();
 
@@ -80,7 +80,7 @@ LsCreateConst(
    ConstHandle2L *const L, const size_t LSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Ls
 LsCreate(
    ConstHandle2L *const L, const size_t LSize
@@ -154,7 +154,7 @@ LsLAdd(ConstHandle2Ls self, ConstHandle2ConstL L);
 extern_c Handle2ConstL
 LsLGetConst(ConstHandle2ConstLs self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2L
 LsLGet(ConstHandle2Ls self, const size_t index_);
 
@@ -184,7 +184,7 @@ LsLGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2L
 LsLGetByLabel(
    ConstHandle2Ls self,
@@ -217,7 +217,7 @@ LsLGetByValueConst(
    const int value
 );
 
-// +++ Get, by value
+// +++ Get, by value, non-const
 extern_c Handle2L
 LsLGetByValue(
    ConstHandle2Ls self,

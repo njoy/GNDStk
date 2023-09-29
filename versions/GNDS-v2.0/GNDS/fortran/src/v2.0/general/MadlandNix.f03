@@ -20,7 +20,7 @@ function MadlandNixDefaultConst() &
    type(c_ptr) :: MadlandNixDefaultConst
 end function MadlandNixDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MadlandNixDefault() &
       bind(C, name='MadlandNixDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function MadlandNixCreateConst( &
    type(c_ptr) :: MadlandNixCreateConst
 end function MadlandNixCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MadlandNixCreate( &
    EFL, &
    EFH, &
@@ -83,6 +83,8 @@ end subroutine MadlandNixDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MadlandNixRead(handle, filename, filenameSize) &
       bind(C, name='MadlandNixRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function MadlandNixRead(handle, filename, filenameSize) &
 end function MadlandNixRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MadlandNixWrite(handle, filename, filenameSize) &
       bind(C, name='MadlandNixWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function MadlandNixEFLGetConst(handle) &
    type(c_ptr) :: MadlandNixEFLGetConst
 end function MadlandNixEFLGetConst
 
-!! Get
+!! Get, non-const
 function MadlandNixEFLGet(handle) &
       bind(C, name='MadlandNixEFLGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function MadlandNixEFHGetConst(handle) &
    type(c_ptr) :: MadlandNixEFHGetConst
 end function MadlandNixEFHGetConst
 
-!! Get
+!! Get, non-const
 function MadlandNixEFHGet(handle) &
       bind(C, name='MadlandNixEFHGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function MadlandNixT_MGetConst(handle) &
    type(c_ptr) :: MadlandNixT_MGetConst
 end function MadlandNixT_MGetConst
 
-!! Get
+!! Get, non-const
 function MadlandNixT_MGet(handle) &
       bind(C, name='MadlandNixT_MGet')
    use iso_c_binding

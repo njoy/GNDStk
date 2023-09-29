@@ -20,7 +20,7 @@ function ReferenceDefaultConst() &
    type(c_ptr) :: ReferenceDefaultConst
 end function ReferenceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ReferenceDefault() &
       bind(C, name='ReferenceDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ReferenceCreateConst( &
    type(c_ptr) :: ReferenceCreateConst
 end function ReferenceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ReferenceCreate( &
    label, &
    href, &
@@ -87,6 +87,8 @@ end subroutine ReferenceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ReferenceRead(handle, filename, filenameSize) &
       bind(C, name='ReferenceRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ReferenceRead(handle, filename, filenameSize) &
 end function ReferenceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ReferenceWrite(handle, filename, filenameSize) &
       bind(C, name='ReferenceWrite')
    use iso_c_binding

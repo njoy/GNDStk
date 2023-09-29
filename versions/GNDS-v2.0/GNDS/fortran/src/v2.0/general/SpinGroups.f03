@@ -20,7 +20,7 @@ function SpinGroupsDefaultConst() &
    type(c_ptr) :: SpinGroupsDefaultConst
 end function SpinGroupsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SpinGroupsDefault() &
       bind(C, name='SpinGroupsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function SpinGroupsCreateConst( &
    type(c_ptr) :: SpinGroupsCreateConst
 end function SpinGroupsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SpinGroupsCreate( &
    spinGroup, spinGroupSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine SpinGroupsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SpinGroupsRead(handle, filename, filenameSize) &
       bind(C, name='SpinGroupsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function SpinGroupsRead(handle, filename, filenameSize) &
 end function SpinGroupsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SpinGroupsWrite(handle, filename, filenameSize) &
       bind(C, name='SpinGroupsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function SpinGroupsSpinGroupGetConst(handle, index) &
    type(c_ptr) :: SpinGroupsSpinGroupGetConst
 end function SpinGroupsSpinGroupGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function SpinGroupsSpinGroupGet(handle, index) &
       bind(C, name='SpinGroupsSpinGroupGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function SpinGroupsSpinGroupGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: SpinGroupsSpinGroupGetByLabelConst
 end function SpinGroupsSpinGroupGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function SpinGroupsSpinGroupGetByLabel(handle, meta, metaSize) &
       bind(C, name='SpinGroupsSpinGroupGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function SpinGroupsSpinGroupGetBySpinConst(handle, meta) &
    type(c_ptr) :: SpinGroupsSpinGroupGetBySpinConst
 end function SpinGroupsSpinGroupGetBySpinConst
 
-!! Get, by spin
+!! Get, by spin, non-const
 function SpinGroupsSpinGroupGetBySpin(handle, meta) &
       bind(C, name='SpinGroupsSpinGroupGetBySpin')
    use iso_c_binding
@@ -311,7 +315,7 @@ function SpinGroupsSpinGroupGetByParityConst(handle, meta) &
    type(c_ptr) :: SpinGroupsSpinGroupGetByParityConst
 end function SpinGroupsSpinGroupGetByParityConst
 
-!! Get, by parity
+!! Get, by parity, non-const
 function SpinGroupsSpinGroupGetByParity(handle, meta) &
       bind(C, name='SpinGroupsSpinGroupGetByParity')
    use iso_c_binding

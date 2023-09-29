@@ -20,7 +20,7 @@ function InstitutionDefaultConst() &
    type(c_ptr) :: InstitutionDefaultConst
 end function InstitutionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function InstitutionDefault() &
       bind(C, name='InstitutionDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function InstitutionCreateConst( &
    type(c_ptr) :: InstitutionCreateConst
 end function InstitutionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function InstitutionCreate( &
    label, &
    ENDFconversionFlags, &
@@ -83,6 +83,8 @@ end subroutine InstitutionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function InstitutionRead(handle, filename, filenameSize) &
       bind(C, name='InstitutionRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function InstitutionRead(handle, filename, filenameSize) &
 end function InstitutionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function InstitutionWrite(handle, filename, filenameSize) &
       bind(C, name='InstitutionWrite')
    use iso_c_binding
@@ -187,7 +191,7 @@ function InstitutionENDFconversionFlagsGetConst(handle) &
    type(c_ptr) :: InstitutionENDFconversionFlagsGetConst
 end function InstitutionENDFconversionFlagsGetConst
 
-!! Get
+!! Get, non-const
 function InstitutionENDFconversionFlagsGet(handle) &
       bind(C, name='InstitutionENDFconversionFlagsGet')
    use iso_c_binding

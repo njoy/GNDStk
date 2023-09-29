@@ -32,7 +32,7 @@ EFHDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2EFH
 EFHDefault()
 {
@@ -54,7 +54,7 @@ EFHCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2EFH
 EFHCreate(
    const double value,

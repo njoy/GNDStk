@@ -38,7 +38,7 @@ FissionComponentDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2FissionComponent
 FissionComponentDefault()
 {
@@ -66,7 +66,7 @@ FissionComponentCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2FissionComponent
 FissionComponentCreate(
    const char *const label,
@@ -268,7 +268,7 @@ FissionComponentCrossSectionGetConst(ConstHandle2ConstFissionComponent self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSection
 FissionComponentCrossSectionGet(ConstHandle2FissionComponent self)
 {
@@ -305,7 +305,7 @@ FissionComponentOutputChannelGetConst(ConstHandle2ConstFissionComponent self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get
+// Get, non-const
 Handle2OutputChannel
 FissionComponentOutputChannelGet(ConstHandle2FissionComponent self)
 {

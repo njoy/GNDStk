@@ -20,7 +20,7 @@ function ProductionsDefaultConst() &
    type(c_ptr) :: ProductionsDefaultConst
 end function ProductionsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProductionsDefault() &
       bind(C, name='ProductionsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ProductionsCreateConst( &
    type(c_ptr) :: ProductionsCreateConst
 end function ProductionsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProductionsCreate( &
    production, productionSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ProductionsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProductionsRead(handle, filename, filenameSize) &
       bind(C, name='ProductionsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ProductionsRead(handle, filename, filenameSize) &
 end function ProductionsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProductionsWrite(handle, filename, filenameSize) &
       bind(C, name='ProductionsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ProductionsProductionGetConst(handle, index) &
    type(c_ptr) :: ProductionsProductionGetConst
 end function ProductionsProductionGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ProductionsProductionGet(handle, index) &
       bind(C, name='ProductionsProductionGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ProductionsProductionGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ProductionsProductionGetByLabelConst
 end function ProductionsProductionGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ProductionsProductionGetByLabel(handle, meta, metaSize) &
       bind(C, name='ProductionsProductionGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function ProductionsProductionGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: ProductionsProductionGetByENDFMTConst
 end function ProductionsProductionGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function ProductionsProductionGetByENDFMT(handle, meta) &
       bind(C, name='ProductionsProductionGetByENDFMT')
    use iso_c_binding

@@ -35,7 +35,7 @@ ThetaDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Theta
 ThetaDefault()
 {
@@ -57,7 +57,7 @@ ThetaCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Theta
 ThetaCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -163,7 +163,7 @@ ThetaXYs1dGetConst(ConstHandle2ConstTheta self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 ThetaXYs1dGet(ConstHandle2Theta self)
 {
@@ -200,7 +200,7 @@ ThetaRegions1dGetConst(ConstHandle2ConstTheta self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions1d
 ThetaRegions1dGet(ConstHandle2Theta self)
 {

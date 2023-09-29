@@ -70,7 +70,7 @@ typedef       struct DelayedGammaEnergyClass *      Handle2DelayedGammaEnergy;
 extern_c Handle2ConstDelayedGammaEnergy
 DelayedGammaEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DelayedGammaEnergy
 DelayedGammaEnergyDefault();
 
@@ -80,7 +80,7 @@ DelayedGammaEnergyCreateConst(
    ConstHandle2ConstPolynomial1d polynomial1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DelayedGammaEnergy
 DelayedGammaEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -142,7 +142,7 @@ DelayedGammaEnergyPolynomial1dHas(ConstHandle2ConstDelayedGammaEnergy self);
 extern_c Handle2ConstPolynomial1d
 DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy self);
 

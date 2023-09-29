@@ -74,7 +74,7 @@ typedef       struct DistributionClass *      Handle2Distribution;
 extern_c Handle2ConstDistribution
 DistributionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Distribution
 DistributionDefault();
 
@@ -88,7 +88,7 @@ DistributionCreateConst(
    ConstHandle2ConstBranching3d branching3d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Distribution
 DistributionCreate(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
@@ -154,7 +154,7 @@ DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstThermalNeutronScatteringLaw
 DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw
 DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution self);
 
@@ -175,7 +175,7 @@ DistributionUncorrelatedHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstUncorrelated
 DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncorrelated
 DistributionUncorrelatedGet(ConstHandle2Distribution self);
 
@@ -196,7 +196,7 @@ DistributionUnspecifiedHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstUnspecified
 DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Unspecified
 DistributionUnspecifiedGet(ConstHandle2Distribution self);
 
@@ -217,7 +217,7 @@ DistributionXYs2dHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstXYs2d
 DistributionXYs2dGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 DistributionXYs2dGet(ConstHandle2Distribution self);
 
@@ -238,7 +238,7 @@ DistributionBranching3dHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstBranching3d
 DistributionBranching3dGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Branching3d
 DistributionBranching3dGet(ConstHandle2Distribution self);
 

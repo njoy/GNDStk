@@ -20,7 +20,7 @@ function AuthorsDefaultConst() &
    type(c_ptr) :: AuthorsDefaultConst
 end function AuthorsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AuthorsDefault() &
       bind(C, name='AuthorsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function AuthorsCreateConst( &
    type(c_ptr) :: AuthorsCreateConst
 end function AuthorsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AuthorsCreate( &
    author, authorSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine AuthorsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AuthorsRead(handle, filename, filenameSize) &
       bind(C, name='AuthorsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function AuthorsRead(handle, filename, filenameSize) &
 end function AuthorsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AuthorsWrite(handle, filename, filenameSize) &
       bind(C, name='AuthorsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function AuthorsAuthorGetConst(handle, index) &
    type(c_ptr) :: AuthorsAuthorGetConst
 end function AuthorsAuthorGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function AuthorsAuthorGet(handle, index) &
       bind(C, name='AuthorsAuthorGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function AuthorsAuthorGetByNameConst(handle, meta, metaSize) &
    type(c_ptr) :: AuthorsAuthorGetByNameConst
 end function AuthorsAuthorGetByNameConst
 
-!! Get, by name
+!! Get, by name, non-const
 function AuthorsAuthorGetByName(handle, meta, metaSize) &
       bind(C, name='AuthorsAuthorGetByName')
    use iso_c_binding

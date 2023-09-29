@@ -33,7 +33,7 @@ ChemicalElementsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ChemicalElements
 ChemicalElementsDefault()
 {
@@ -55,7 +55,7 @@ ChemicalElementsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ChemicalElements
 ChemicalElementsCreate(
    ConstHandle2ChemicalElement *const chemicalElement, const size_t chemicalElementSize
@@ -185,7 +185,7 @@ ChemicalElementsChemicalElementGetConst(ConstHandle2ConstChemicalElements self, 
       (CLASSNAME, CLASSNAME+"ChemicalElementGetConst", self, extract::chemicalElement, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGet(ConstHandle2ChemicalElements self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ChemicalElementsChemicalElementGetBySymbolConst(
        self, extract::chemicalElement, meta::symbol, symbol);
 }
 
-// Get, by symbol
+// Get, by symbol, non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetBySymbol(
    ConstHandle2ChemicalElements self,
@@ -279,7 +279,7 @@ ChemicalElementsChemicalElementGetByZConst(
        self, extract::chemicalElement, meta::Z, Z);
 }
 
-// Get, by Z
+// Get, by Z, non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByZ(
    ConstHandle2ChemicalElements self,
@@ -328,7 +328,7 @@ ChemicalElementsChemicalElementGetByNameConst(
        self, extract::chemicalElement, meta::name, name);
 }
 
-// Get, by name
+// Get, by name, non-const
 Handle2ChemicalElement
 ChemicalElementsChemicalElementGetByName(
    ConstHandle2ChemicalElements self,

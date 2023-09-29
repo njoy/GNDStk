@@ -33,7 +33,7 @@ TotalEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2TotalEnergy
 TotalEnergyDefault()
 {
@@ -53,7 +53,7 @@ TotalEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2TotalEnergy
 TotalEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -157,7 +157,7 @@ TotalEnergyPolynomial1dGetConst(ConstHandle2ConstTotalEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 TotalEnergyPolynomial1dGet(ConstHandle2TotalEnergy self)
 {

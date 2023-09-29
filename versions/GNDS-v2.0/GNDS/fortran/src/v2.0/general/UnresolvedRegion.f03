@@ -20,7 +20,7 @@ function UnresolvedRegionDefaultConst() &
    type(c_ptr) :: UnresolvedRegionDefaultConst
 end function UnresolvedRegionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UnresolvedRegionDefault() &
       bind(C, name='UnresolvedRegionDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function UnresolvedRegionCreateConst( &
    type(c_ptr) :: UnresolvedRegionCreateConst
 end function UnresolvedRegionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UnresolvedRegionCreate( &
    XYs1d, &
    regions1d &
@@ -79,6 +79,8 @@ end subroutine UnresolvedRegionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UnresolvedRegionRead(handle, filename, filenameSize) &
       bind(C, name='UnresolvedRegionRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function UnresolvedRegionRead(handle, filename, filenameSize) &
 end function UnresolvedRegionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UnresolvedRegionWrite(handle, filename, filenameSize) &
       bind(C, name='UnresolvedRegionWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function UnresolvedRegionXYs1dGetConst(handle) &
    type(c_ptr) :: UnresolvedRegionXYs1dGetConst
 end function UnresolvedRegionXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function UnresolvedRegionXYs1dGet(handle) &
       bind(C, name='UnresolvedRegionXYs1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function UnresolvedRegionRegions1dGetConst(handle) &
    type(c_ptr) :: UnresolvedRegionRegions1dGetConst
 end function UnresolvedRegionRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function UnresolvedRegionRegions1dGet(handle) &
       bind(C, name='UnresolvedRegionRegions1dGet')
    use iso_c_binding

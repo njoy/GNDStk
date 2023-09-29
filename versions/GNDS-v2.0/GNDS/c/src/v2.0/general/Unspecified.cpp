@@ -32,7 +32,7 @@ UnspecifiedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Unspecified
 UnspecifiedDefault()
 {
@@ -54,7 +54,7 @@ UnspecifiedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Unspecified
 UnspecifiedCreate(
    const char *const label,

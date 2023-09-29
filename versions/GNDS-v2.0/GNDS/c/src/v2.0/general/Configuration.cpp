@@ -37,7 +37,7 @@ ConfigurationDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Configuration
 ConfigurationDefault()
 {
@@ -65,7 +65,7 @@ ConfigurationCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Configuration
 ConfigurationCreate(
    const char *const subshell,
@@ -237,7 +237,7 @@ ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration self)
       (CLASSNAME, CLASSNAME+"BindingEnergyGetConst", self, extract::bindingEnergy);
 }
 
-// Get
+// Get, non-const
 Handle2BindingEnergy
 ConfigurationBindingEnergyGet(ConstHandle2Configuration self)
 {
@@ -298,7 +298,7 @@ ConfigurationDecayDataGetConst(ConstHandle2ConstConfiguration self, const size_t
       (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2DecayData
 ConfigurationDecayDataGet(ConstHandle2Configuration self, const size_t index_)
 {

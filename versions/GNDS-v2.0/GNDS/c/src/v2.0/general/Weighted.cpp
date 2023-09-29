@@ -35,7 +35,7 @@ WeightedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Weighted
 WeightedDefault()
 {
@@ -57,7 +57,7 @@ WeightedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Weighted
 WeightedCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -163,7 +163,7 @@ WeightedXYs1dGetConst(ConstHandle2ConstWeighted self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 WeightedXYs1dGet(ConstHandle2Weighted self)
 {
@@ -200,7 +200,7 @@ WeightedEvaporationGetConst(ConstHandle2ConstWeighted self)
       (CLASSNAME, CLASSNAME+"EvaporationGetConst", self, extract::evaporation);
 }
 
-// Get
+// Get, non-const
 Handle2Evaporation
 WeightedEvaporationGet(ConstHandle2Weighted self)
 {

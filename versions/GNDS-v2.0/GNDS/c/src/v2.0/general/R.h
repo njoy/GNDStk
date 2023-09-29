@@ -70,7 +70,7 @@ typedef       struct RClass *      Handle2R;
 extern_c Handle2ConstR
 RDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2R
 RDefault();
 
@@ -80,7 +80,7 @@ RCreateConst(
    ConstHandle2ConstXYs2d XYs2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2R
 RCreate(
    ConstHandle2ConstXYs2d XYs2d
@@ -142,7 +142,7 @@ RXYs2dHas(ConstHandle2ConstR self);
 extern_c Handle2ConstXYs2d
 RXYs2dGetConst(ConstHandle2ConstR self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 RXYs2dGet(ConstHandle2R self);
 

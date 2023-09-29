@@ -33,7 +33,7 @@ GaugeBosonsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2GaugeBosons
 GaugeBosonsDefault()
 {
@@ -55,7 +55,7 @@ GaugeBosonsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2GaugeBosons
 GaugeBosonsCreate(
    ConstHandle2GaugeBoson *const gaugeBoson, const size_t gaugeBosonSize
@@ -185,7 +185,7 @@ GaugeBosonsGaugeBosonGetConst(ConstHandle2ConstGaugeBosons self, const size_t in
       (CLASSNAME, CLASSNAME+"GaugeBosonGetConst", self, extract::gaugeBoson, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2GaugeBoson
 GaugeBosonsGaugeBosonGet(ConstHandle2GaugeBosons self, const size_t index_)
 {
@@ -230,7 +230,7 @@ GaugeBosonsGaugeBosonGetByIdConst(
        self, extract::gaugeBoson, meta::id, id);
 }
 
-// Get, by id
+// Get, by id, non-const
 Handle2GaugeBoson
 GaugeBosonsGaugeBosonGetById(
    ConstHandle2GaugeBosons self,

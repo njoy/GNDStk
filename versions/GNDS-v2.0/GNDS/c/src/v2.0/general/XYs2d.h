@@ -72,7 +72,7 @@ typedef       struct XYs2dClass *      Handle2XYs2d;
 extern_c Handle2ConstXYs2d
 XYs2dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2XYs2d
 XYs2dDefault();
 
@@ -88,7 +88,7 @@ XYs2dCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2XYs2d
 XYs2dCreate(
    const int index,
@@ -228,7 +228,7 @@ XYs2dAxesHas(ConstHandle2ConstXYs2d self);
 extern_c Handle2ConstAxes
 XYs2dAxesGetConst(ConstHandle2ConstXYs2d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 XYs2dAxesGet(ConstHandle2XYs2d self);
 
@@ -249,7 +249,7 @@ XYs2dFunction1dsHas(ConstHandle2ConstXYs2d self);
 extern_c Handle2ConstFunction1ds
 XYs2dFunction1dsGetConst(ConstHandle2ConstXYs2d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Function1ds
 XYs2dFunction1dsGet(ConstHandle2XYs2d self);
 
@@ -270,7 +270,7 @@ XYs2dUncertaintyHas(ConstHandle2ConstXYs2d self);
 extern_c Handle2ConstUncertainty
 XYs2dUncertaintyGetConst(ConstHandle2ConstXYs2d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 XYs2dUncertaintyGet(ConstHandle2XYs2d self);
 

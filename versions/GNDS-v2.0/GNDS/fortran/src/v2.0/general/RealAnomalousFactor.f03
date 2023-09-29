@@ -20,7 +20,7 @@ function RealAnomalousFactorDefaultConst() &
    type(c_ptr) :: RealAnomalousFactorDefaultConst
 end function RealAnomalousFactorDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RealAnomalousFactorDefault() &
       bind(C, name='RealAnomalousFactorDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function RealAnomalousFactorCreateConst( &
    type(c_ptr) :: RealAnomalousFactorCreateConst
 end function RealAnomalousFactorCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RealAnomalousFactorCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine RealAnomalousFactorDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RealAnomalousFactorRead(handle, filename, filenameSize) &
       bind(C, name='RealAnomalousFactorRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function RealAnomalousFactorRead(handle, filename, filenameSize) &
 end function RealAnomalousFactorRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RealAnomalousFactorWrite(handle, filename, filenameSize) &
       bind(C, name='RealAnomalousFactorWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function RealAnomalousFactorXYs1dGetConst(handle) &
    type(c_ptr) :: RealAnomalousFactorXYs1dGetConst
 end function RealAnomalousFactorXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function RealAnomalousFactorXYs1dGet(handle) &
       bind(C, name='RealAnomalousFactorXYs1dGet')
    use iso_c_binding

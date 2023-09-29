@@ -20,7 +20,7 @@ function IncompleteReactionsDefaultConst() &
    type(c_ptr) :: IncompleteReactionsDefaultConst
 end function IncompleteReactionsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IncompleteReactionsDefault() &
       bind(C, name='IncompleteReactionsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function IncompleteReactionsCreateConst( &
    type(c_ptr) :: IncompleteReactionsCreateConst
 end function IncompleteReactionsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IncompleteReactionsCreate( &
    reaction, reactionSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine IncompleteReactionsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IncompleteReactionsRead(handle, filename, filenameSize) &
       bind(C, name='IncompleteReactionsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function IncompleteReactionsRead(handle, filename, filenameSize) &
 end function IncompleteReactionsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IncompleteReactionsWrite(handle, filename, filenameSize) &
       bind(C, name='IncompleteReactionsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function IncompleteReactionsReactionGetConst(handle, index) &
    type(c_ptr) :: IncompleteReactionsReactionGetConst
 end function IncompleteReactionsReactionGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function IncompleteReactionsReactionGet(handle, index) &
       bind(C, name='IncompleteReactionsReactionGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function IncompleteReactionsReactionGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: IncompleteReactionsReactionGetByLabelConst
 end function IncompleteReactionsReactionGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function IncompleteReactionsReactionGetByLabel(handle, meta, metaSize) &
       bind(C, name='IncompleteReactionsReactionGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function IncompleteReactionsReactionGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: IncompleteReactionsReactionGetByENDFMTConst
 end function IncompleteReactionsReactionGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function IncompleteReactionsReactionGetByENDFMT(handle, meta) &
       bind(C, name='IncompleteReactionsReactionGetByENDFMT')
    use iso_c_binding
@@ -313,7 +317,7 @@ function IncompleteReactionsReactionGetByFissionGenreConst(handle, meta, metaSiz
    type(c_ptr) :: IncompleteReactionsReactionGetByFissionGenreConst
 end function IncompleteReactionsReactionGetByFissionGenreConst
 
-!! Get, by fissionGenre
+!! Get, by fissionGenre, non-const
 function IncompleteReactionsReactionGetByFissionGenre(handle, meta, metaSize) &
       bind(C, name='IncompleteReactionsReactionGetByFissionGenre')
    use iso_c_binding

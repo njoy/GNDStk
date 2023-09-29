@@ -37,7 +37,7 @@ SumDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Sum
 SumDefault()
 {
@@ -67,7 +67,7 @@ SumCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Sum
 SumCreate(
    const char *const label,
@@ -325,7 +325,7 @@ SumSummandGetConst(ConstHandle2ConstSum self, const size_t index_)
       (CLASSNAME, CLASSNAME+"SummandGetConst", self, extract::summand, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Summand
 SumSummandGet(ConstHandle2Sum self, const size_t index_)
 {
@@ -370,7 +370,7 @@ SumSummandGetByENDFMFMTConst(
        self, extract::summand, meta::ENDF_MFMT, ENDF_MFMT);
 }
 
-// Get, by ENDF_MFMT
+// Get, by ENDF_MFMT, non-const
 Handle2Summand
 SumSummandGetByENDFMFMT(
    ConstHandle2Sum self,
@@ -419,7 +419,7 @@ SumSummandGetByCoefficientConst(
        self, extract::summand, meta::coefficient, coefficient);
 }
 
-// Get, by coefficient
+// Get, by coefficient, non-const
 Handle2Summand
 SumSummandGetByCoefficient(
    ConstHandle2Sum self,
@@ -468,7 +468,7 @@ SumSummandGetByHrefConst(
        self, extract::summand, meta::href, href);
 }
 
-// Get, by href
+// Get, by href, non-const
 Handle2Summand
 SumSummandGetByHref(
    ConstHandle2Sum self,

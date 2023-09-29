@@ -20,7 +20,7 @@ function StylesDefaultConst() &
    type(c_ptr) :: StylesDefaultConst
 end function StylesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function StylesDefault() &
       bind(C, name='StylesDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function StylesCreateConst( &
    type(c_ptr) :: StylesCreateConst
 end function StylesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function StylesCreate( &
    evaluated, &
    crossSectionReconstructed &
@@ -79,6 +79,8 @@ end subroutine StylesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function StylesRead(handle, filename, filenameSize) &
       bind(C, name='StylesRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function StylesRead(handle, filename, filenameSize) &
 end function StylesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function StylesWrite(handle, filename, filenameSize) &
       bind(C, name='StylesWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function StylesEvaluatedGetConst(handle) &
    type(c_ptr) :: StylesEvaluatedGetConst
 end function StylesEvaluatedGetConst
 
-!! Get
+!! Get, non-const
 function StylesEvaluatedGet(handle) &
       bind(C, name='StylesEvaluatedGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function StylesCrossSectionReconstructedGetConst(handle) &
    type(c_ptr) :: StylesCrossSectionReconstructedGetConst
 end function StylesCrossSectionReconstructedGetConst
 
-!! Get
+!! Get, non-const
 function StylesCrossSectionReconstructedGet(handle) &
       bind(C, name='StylesCrossSectionReconstructedGet')
    use iso_c_binding

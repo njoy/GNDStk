@@ -70,7 +70,7 @@ typedef       struct ResonanceParametersClass *      Handle2ResonanceParameters;
 extern_c Handle2ConstResonanceParameters
 ResonanceParametersDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ResonanceParameters
 ResonanceParametersDefault();
 
@@ -80,7 +80,7 @@ ResonanceParametersCreateConst(
    ConstHandle2ConstTable table
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ResonanceParameters
 ResonanceParametersCreate(
    ConstHandle2ConstTable table
@@ -142,7 +142,7 @@ ResonanceParametersTableHas(ConstHandle2ConstResonanceParameters self);
 extern_c Handle2ConstTable
 ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Table
 ResonanceParametersTableGet(ConstHandle2ResonanceParameters self);
 

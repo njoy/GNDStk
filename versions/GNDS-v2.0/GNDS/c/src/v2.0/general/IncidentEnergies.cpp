@@ -33,7 +33,7 @@ IncidentEnergiesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2IncidentEnergies
 IncidentEnergiesDefault()
 {
@@ -55,7 +55,7 @@ IncidentEnergiesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2IncidentEnergies
 IncidentEnergiesCreate(
    ConstHandle2IncidentEnergy *const incidentEnergy, const size_t incidentEnergySize
@@ -185,7 +185,7 @@ IncidentEnergiesIncidentEnergyGetConst(ConstHandle2ConstIncidentEnergies self, c
       (CLASSNAME, CLASSNAME+"IncidentEnergyGetConst", self, extract::incidentEnergy, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGet(ConstHandle2IncidentEnergies self, const size_t index_)
 {
@@ -230,7 +230,7 @@ IncidentEnergiesIncidentEnergyGetByLabelConst(
        self, extract::incidentEnergy, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2IncidentEnergy
 IncidentEnergiesIncidentEnergyGetByLabel(
    ConstHandle2IncidentEnergies self,

@@ -40,7 +40,7 @@ GridDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Grid
 GridDefault()
 {
@@ -72,7 +72,7 @@ GridCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Grid
 GridCreate(
    const int index,
@@ -338,7 +338,7 @@ GridLinkGetConst(ConstHandle2ConstGrid self)
       (CLASSNAME, CLASSNAME+"LinkGetConst", self, extract::link);
 }
 
-// Get
+// Get, non-const
 Handle2Link
 GridLinkGet(ConstHandle2Grid self)
 {
@@ -375,7 +375,7 @@ GridValuesGetConst(ConstHandle2ConstGrid self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get
+// Get, non-const
 Handle2Values
 GridValuesGet(ConstHandle2Grid self)
 {

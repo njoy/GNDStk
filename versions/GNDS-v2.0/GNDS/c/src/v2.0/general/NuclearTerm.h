@@ -71,7 +71,7 @@ typedef       struct NuclearTermClass *      Handle2NuclearTerm;
 extern_c Handle2ConstNuclearTerm
 NuclearTermDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2NuclearTerm
 NuclearTermDefault();
 
@@ -82,7 +82,7 @@ NuclearTermCreateConst(
    ConstHandle2ConstXYs2d XYs2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2NuclearTerm
 NuclearTermCreate(
    ConstHandle2ConstRegions2d regions2d,
@@ -145,7 +145,7 @@ NuclearTermRegions2dHas(ConstHandle2ConstNuclearTerm self);
 extern_c Handle2ConstRegions2d
 NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Regions2d
 NuclearTermRegions2dGet(ConstHandle2NuclearTerm self);
 
@@ -166,7 +166,7 @@ NuclearTermXYs2dHas(ConstHandle2ConstNuclearTerm self);
 extern_c Handle2ConstXYs2d
 NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 NuclearTermXYs2dGet(ConstHandle2NuclearTerm self);
 

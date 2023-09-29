@@ -20,7 +20,7 @@ function EvaluatedDefaultConst() &
    type(c_ptr) :: EvaluatedDefaultConst
 end function EvaluatedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function EvaluatedDefault() &
       bind(C, name='EvaluatedDefault')
    use iso_c_binding
@@ -59,7 +59,7 @@ function EvaluatedCreateConst( &
    type(c_ptr) :: EvaluatedCreateConst
 end function EvaluatedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function EvaluatedCreate( &
    label, &
    date, &
@@ -115,6 +115,8 @@ end subroutine EvaluatedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function EvaluatedRead(handle, filename, filenameSize) &
       bind(C, name='EvaluatedRead')
    use iso_c_binding
@@ -126,6 +128,8 @@ function EvaluatedRead(handle, filename, filenameSize) &
 end function EvaluatedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function EvaluatedWrite(handle, filename, filenameSize) &
       bind(C, name='EvaluatedWrite')
    use iso_c_binding
@@ -318,7 +322,7 @@ function EvaluatedDocumentationGetConst(handle) &
    type(c_ptr) :: EvaluatedDocumentationGetConst
 end function EvaluatedDocumentationGetConst
 
-!! Get
+!! Get, non-const
 function EvaluatedDocumentationGet(handle) &
       bind(C, name='EvaluatedDocumentationGet')
    use iso_c_binding
@@ -359,7 +363,7 @@ function EvaluatedTemperatureGetConst(handle) &
    type(c_ptr) :: EvaluatedTemperatureGetConst
 end function EvaluatedTemperatureGetConst
 
-!! Get
+!! Get, non-const
 function EvaluatedTemperatureGet(handle) &
       bind(C, name='EvaluatedTemperatureGet')
    use iso_c_binding
@@ -400,7 +404,7 @@ function EvaluatedProjectileEnergyDomainGetConst(handle) &
    type(c_ptr) :: EvaluatedProjectileEnergyDomainGetConst
 end function EvaluatedProjectileEnergyDomainGetConst
 
-!! Get
+!! Get, non-const
 function EvaluatedProjectileEnergyDomainGet(handle) &
       bind(C, name='EvaluatedProjectileEnergyDomainGet')
    use iso_c_binding

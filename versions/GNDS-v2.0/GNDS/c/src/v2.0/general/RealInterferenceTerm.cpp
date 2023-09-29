@@ -35,7 +35,7 @@ RealInterferenceTermDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2RealInterferenceTerm
 RealInterferenceTermDefault()
 {
@@ -57,7 +57,7 @@ RealInterferenceTermCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2RealInterferenceTerm
 RealInterferenceTermCreate(
    ConstHandle2ConstRegions2d regions2d,
@@ -163,7 +163,7 @@ RealInterferenceTermRegions2dGetConst(ConstHandle2ConstRealInterferenceTerm self
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions2d
 RealInterferenceTermRegions2dGet(ConstHandle2RealInterferenceTerm self)
 {
@@ -200,7 +200,7 @@ RealInterferenceTermXYs2dGetConst(ConstHandle2ConstRealInterferenceTerm self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 RealInterferenceTermXYs2dGet(ConstHandle2RealInterferenceTerm self)
 {

@@ -72,7 +72,7 @@ typedef       struct MixedClass *      Handle2Mixed;
 extern_c Handle2ConstMixed
 MixedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Mixed
 MixedDefault();
 
@@ -85,7 +85,7 @@ MixedCreateConst(
    ConstHandle2ConstShortRangeSelfScalingVariance shortRangeSelfScalingVariance
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Mixed
 MixedCreate(
    const char *const label,
@@ -180,7 +180,7 @@ MixedCovarianceMatrixAdd(ConstHandle2Mixed self, ConstHandle2ConstCovarianceMatr
 extern_c Handle2ConstCovarianceMatrix
 MixedCovarianceMatrixGetConst(ConstHandle2ConstMixed self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGet(ConstHandle2Mixed self, const size_t index_);
 
@@ -210,7 +210,7 @@ MixedCovarianceMatrixGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByLabel(
    ConstHandle2Mixed self,
@@ -243,7 +243,7 @@ MixedCovarianceMatrixGetByTypeConst(
    const char *const type
 );
 
-// +++ Get, by type
+// +++ Get, by type, non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByType(
    ConstHandle2Mixed self,
@@ -276,7 +276,7 @@ MixedCovarianceMatrixGetByProductFrameConst(
    const char *const productFrame
 );
 
-// +++ Get, by productFrame
+// +++ Get, by productFrame, non-const
 extern_c Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByProductFrame(
    ConstHandle2Mixed self,
@@ -316,7 +316,7 @@ MixedSumAdd(ConstHandle2Mixed self, ConstHandle2ConstSum sum);
 extern_c Handle2ConstSum
 MixedSumGetConst(ConstHandle2ConstMixed self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Sum
 MixedSumGet(ConstHandle2Mixed self, const size_t index_);
 
@@ -346,7 +346,7 @@ MixedSumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Sum
 MixedSumGetByLabel(
    ConstHandle2Mixed self,
@@ -379,7 +379,7 @@ MixedSumGetByDomainMinConst(
    const double domainMin
 );
 
-// +++ Get, by domainMin
+// +++ Get, by domainMin, non-const
 extern_c Handle2Sum
 MixedSumGetByDomainMin(
    ConstHandle2Mixed self,
@@ -412,7 +412,7 @@ MixedSumGetByDomainMaxConst(
    const double domainMax
 );
 
-// +++ Get, by domainMax
+// +++ Get, by domainMax, non-const
 extern_c Handle2Sum
 MixedSumGetByDomainMax(
    ConstHandle2Mixed self,
@@ -445,7 +445,7 @@ MixedSumGetByDomainUnitConst(
    const char *const domainUnit
 );
 
-// +++ Get, by domainUnit
+// +++ Get, by domainUnit, non-const
 extern_c Handle2Sum
 MixedSumGetByDomainUnit(
    ConstHandle2Mixed self,
@@ -473,7 +473,7 @@ MixedShortRangeSelfScalingVarianceHas(ConstHandle2ConstMixed self);
 extern_c Handle2ConstShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGetConst(ConstHandle2ConstMixed self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGet(ConstHandle2Mixed self);
 

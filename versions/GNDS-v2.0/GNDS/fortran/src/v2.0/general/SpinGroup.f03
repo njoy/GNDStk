@@ -20,7 +20,7 @@ function SpinGroupDefaultConst() &
    type(c_ptr) :: SpinGroupDefaultConst
 end function SpinGroupDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SpinGroupDefault() &
       bind(C, name='SpinGroupDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function SpinGroupCreateConst( &
    type(c_ptr) :: SpinGroupCreateConst
 end function SpinGroupCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SpinGroupCreate( &
    label, &
    spin, &
@@ -95,6 +95,8 @@ end subroutine SpinGroupDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SpinGroupRead(handle, filename, filenameSize) &
       bind(C, name='SpinGroupRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function SpinGroupRead(handle, filename, filenameSize) &
 end function SpinGroupRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SpinGroupWrite(handle, filename, filenameSize) &
       bind(C, name='SpinGroupWrite')
    use iso_c_binding
@@ -263,7 +267,7 @@ function SpinGroupChannelsGetConst(handle) &
    type(c_ptr) :: SpinGroupChannelsGetConst
 end function SpinGroupChannelsGetConst
 
-!! Get
+!! Get, non-const
 function SpinGroupChannelsGet(handle) &
       bind(C, name='SpinGroupChannelsGet')
    use iso_c_binding
@@ -304,7 +308,7 @@ function SpinGroupResonanceParametersGetConst(handle) &
    type(c_ptr) :: SpinGroupResonanceParametersGetConst
 end function SpinGroupResonanceParametersGetConst
 
-!! Get
+!! Get, non-const
 function SpinGroupResonanceParametersGet(handle) &
       bind(C, name='SpinGroupResonanceParametersGet')
    use iso_c_binding

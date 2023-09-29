@@ -33,7 +33,7 @@ InternalConversionCoefficientsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2InternalConversionCoefficients
 InternalConversionCoefficientsDefault()
 {
@@ -55,7 +55,7 @@ InternalConversionCoefficientsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2InternalConversionCoefficients
 InternalConversionCoefficientsCreate(
    ConstHandle2Shell *const shell, const size_t shellSize
@@ -185,7 +185,7 @@ InternalConversionCoefficientsShellGetConst(ConstHandle2ConstInternalConversionC
       (CLASSNAME, CLASSNAME+"ShellGetConst", self, extract::shell, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Shell
 InternalConversionCoefficientsShellGet(ConstHandle2InternalConversionCoefficients self, const size_t index_)
 {
@@ -230,7 +230,7 @@ InternalConversionCoefficientsShellGetByLabelConst(
        self, extract::shell, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2Shell
 InternalConversionCoefficientsShellGetByLabel(
    ConstHandle2InternalConversionCoefficients self,
@@ -279,7 +279,7 @@ InternalConversionCoefficientsShellGetByValueConst(
        self, extract::shell, meta::value, value);
 }
 
-// Get, by value
+// Get, by value, non-const
 Handle2Shell
 InternalConversionCoefficientsShellGetByValue(
    ConstHandle2InternalConversionCoefficients self,

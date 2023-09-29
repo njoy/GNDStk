@@ -20,7 +20,7 @@ function OutputChannelDefaultConst() &
    type(c_ptr) :: OutputChannelDefaultConst
 end function OutputChannelDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function OutputChannelDefault() &
       bind(C, name='OutputChannelDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function OutputChannelCreateConst( &
    type(c_ptr) :: OutputChannelCreateConst
 end function OutputChannelCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function OutputChannelCreate( &
    genre, &
    process, &
@@ -95,6 +95,8 @@ end subroutine OutputChannelDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function OutputChannelRead(handle, filename, filenameSize) &
       bind(C, name='OutputChannelRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function OutputChannelRead(handle, filename, filenameSize) &
 end function OutputChannelRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function OutputChannelWrite(handle, filename, filenameSize) &
       bind(C, name='OutputChannelWrite')
    use iso_c_binding
@@ -232,7 +236,7 @@ function OutputChannelQGetConst(handle) &
    type(c_ptr) :: OutputChannelQGetConst
 end function OutputChannelQGetConst
 
-!! Get
+!! Get, non-const
 function OutputChannelQGet(handle) &
       bind(C, name='OutputChannelQGet')
    use iso_c_binding
@@ -273,7 +277,7 @@ function OutputChannelProductsGetConst(handle) &
    type(c_ptr) :: OutputChannelProductsGetConst
 end function OutputChannelProductsGetConst
 
-!! Get
+!! Get, non-const
 function OutputChannelProductsGet(handle) &
       bind(C, name='OutputChannelProductsGet')
    use iso_c_binding

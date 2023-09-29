@@ -71,7 +71,7 @@ typedef       struct GridClass *      Handle2Grid;
 extern_c Handle2ConstGrid
 GridDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Grid
 GridDefault();
 
@@ -87,7 +87,7 @@ GridCreateConst(
    ConstHandle2ConstValues values
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Grid
 GridCreate(
    const int index,
@@ -245,7 +245,7 @@ GridLinkHas(ConstHandle2ConstGrid self);
 extern_c Handle2ConstLink
 GridLinkGetConst(ConstHandle2ConstGrid self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Link
 GridLinkGet(ConstHandle2Grid self);
 
@@ -266,7 +266,7 @@ GridValuesHas(ConstHandle2ConstGrid self);
 extern_c Handle2ConstValues
 GridValuesGetConst(ConstHandle2ConstGrid self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Values
 GridValuesGet(ConstHandle2Grid self);
 

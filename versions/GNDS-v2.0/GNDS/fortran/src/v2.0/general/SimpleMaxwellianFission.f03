@@ -20,7 +20,7 @@ function SimpleMaxwellianFissionDefaultConst() &
    type(c_ptr) :: SimpleMaxwellianFissionDefaultConst
 end function SimpleMaxwellianFissionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SimpleMaxwellianFissionDefault() &
       bind(C, name='SimpleMaxwellianFissionDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function SimpleMaxwellianFissionCreateConst( &
    type(c_ptr) :: SimpleMaxwellianFissionCreateConst
 end function SimpleMaxwellianFissionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SimpleMaxwellianFissionCreate( &
    U, &
    theta &
@@ -79,6 +79,8 @@ end subroutine SimpleMaxwellianFissionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SimpleMaxwellianFissionRead(handle, filename, filenameSize) &
       bind(C, name='SimpleMaxwellianFissionRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function SimpleMaxwellianFissionRead(handle, filename, filenameSize) &
 end function SimpleMaxwellianFissionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SimpleMaxwellianFissionWrite(handle, filename, filenameSize) &
       bind(C, name='SimpleMaxwellianFissionWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function SimpleMaxwellianFissionUGetConst(handle) &
    type(c_ptr) :: SimpleMaxwellianFissionUGetConst
 end function SimpleMaxwellianFissionUGetConst
 
-!! Get
+!! Get, non-const
 function SimpleMaxwellianFissionUGet(handle) &
       bind(C, name='SimpleMaxwellianFissionUGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function SimpleMaxwellianFissionThetaGetConst(handle) &
    type(c_ptr) :: SimpleMaxwellianFissionThetaGetConst
 end function SimpleMaxwellianFissionThetaGetConst
 
-!! Get
+!! Get, non-const
 function SimpleMaxwellianFissionThetaGet(handle) &
       bind(C, name='SimpleMaxwellianFissionThetaGet')
    use iso_c_binding

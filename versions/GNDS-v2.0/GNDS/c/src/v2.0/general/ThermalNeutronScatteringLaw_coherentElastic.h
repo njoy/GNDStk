@@ -70,7 +70,7 @@ typedef       struct ThermalNeutronScatteringLaw_coherentElasticClass *      Han
 extern_c Handle2ConstThermalNeutronScatteringLaw_coherentElastic
 ThermalNeutronScatteringLaw_coherentElasticDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_coherentElastic
 ThermalNeutronScatteringLaw_coherentElasticDefault();
 
@@ -83,7 +83,7 @@ ThermalNeutronScatteringLaw_coherentElasticCreateConst(
    ConstHandle2ConstS_table S_table
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_coherentElastic
 ThermalNeutronScatteringLaw_coherentElasticCreate(
    const char *const label,
@@ -202,7 +202,7 @@ ThermalNeutronScatteringLaw_coherentElasticS_tableHas(ConstHandle2ConstThermalNe
 extern_c Handle2ConstS_table
 ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_coherentElastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2S_table
 ThermalNeutronScatteringLaw_coherentElasticS_tableGet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self);
 

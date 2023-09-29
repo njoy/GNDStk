@@ -32,7 +32,7 @@ AliasDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Alias
 AliasDefault()
 {
@@ -54,7 +54,7 @@ AliasCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Alias
 AliasCreate(
    const char *const id,

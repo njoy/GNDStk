@@ -20,7 +20,7 @@ function Polynomial1dDefaultConst() &
    type(c_ptr) :: Polynomial1dDefaultConst
 end function Polynomial1dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Polynomial1dDefault() &
       bind(C, name='Polynomial1dDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function Polynomial1dCreateConst( &
    type(c_ptr) :: Polynomial1dCreateConst
 end function Polynomial1dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Polynomial1dCreate( &
    label, &
    domainMin, &
@@ -99,6 +99,8 @@ end subroutine Polynomial1dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Polynomial1dRead(handle, filename, filenameSize) &
       bind(C, name='Polynomial1dRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function Polynomial1dRead(handle, filename, filenameSize) &
 end function Polynomial1dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Polynomial1dWrite(handle, filename, filenameSize) &
       bind(C, name='Polynomial1dWrite')
    use iso_c_binding
@@ -267,7 +271,7 @@ function Polynomial1dAxesGetConst(handle) &
    type(c_ptr) :: Polynomial1dAxesGetConst
 end function Polynomial1dAxesGetConst
 
-!! Get
+!! Get, non-const
 function Polynomial1dAxesGet(handle) &
       bind(C, name='Polynomial1dAxesGet')
    use iso_c_binding
@@ -308,7 +312,7 @@ function Polynomial1dValuesGetConst(handle) &
    type(c_ptr) :: Polynomial1dValuesGetConst
 end function Polynomial1dValuesGetConst
 
-!! Get
+!! Get, non-const
 function Polynomial1dValuesGet(handle) &
       bind(C, name='Polynomial1dValuesGet')
    use iso_c_binding
@@ -349,7 +353,7 @@ function Polynomial1dUncertaintyGetConst(handle) &
    type(c_ptr) :: Polynomial1dUncertaintyGetConst
 end function Polynomial1dUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function Polynomial1dUncertaintyGet(handle) &
       bind(C, name='Polynomial1dUncertaintyGet')
    use iso_c_binding

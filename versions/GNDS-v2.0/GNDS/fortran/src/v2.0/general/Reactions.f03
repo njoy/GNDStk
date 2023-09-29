@@ -20,7 +20,7 @@ function ReactionsDefaultConst() &
    type(c_ptr) :: ReactionsDefaultConst
 end function ReactionsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ReactionsDefault() &
       bind(C, name='ReactionsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ReactionsCreateConst( &
    type(c_ptr) :: ReactionsCreateConst
 end function ReactionsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ReactionsCreate( &
    reaction, reactionSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ReactionsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ReactionsRead(handle, filename, filenameSize) &
       bind(C, name='ReactionsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ReactionsRead(handle, filename, filenameSize) &
 end function ReactionsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ReactionsWrite(handle, filename, filenameSize) &
       bind(C, name='ReactionsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ReactionsReactionGetConst(handle, index) &
    type(c_ptr) :: ReactionsReactionGetConst
 end function ReactionsReactionGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ReactionsReactionGet(handle, index) &
       bind(C, name='ReactionsReactionGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ReactionsReactionGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ReactionsReactionGetByLabelConst
 end function ReactionsReactionGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ReactionsReactionGetByLabel(handle, meta, metaSize) &
       bind(C, name='ReactionsReactionGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function ReactionsReactionGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: ReactionsReactionGetByENDFMTConst
 end function ReactionsReactionGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function ReactionsReactionGetByENDFMT(handle, meta) &
       bind(C, name='ReactionsReactionGetByENDFMT')
    use iso_c_binding
@@ -313,7 +317,7 @@ function ReactionsReactionGetByFissionGenreConst(handle, meta, metaSize) &
    type(c_ptr) :: ReactionsReactionGetByFissionGenreConst
 end function ReactionsReactionGetByFissionGenreConst
 
-!! Get, by fissionGenre
+!! Get, by fissionGenre, non-const
 function ReactionsReactionGetByFissionGenre(handle, meta, metaSize) &
       bind(C, name='ReactionsReactionGetByFissionGenre')
    use iso_c_binding

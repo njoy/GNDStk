@@ -36,7 +36,7 @@ DelayedNeutronDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DelayedNeutron
 DelayedNeutronDefault()
 {
@@ -60,7 +60,7 @@ DelayedNeutronCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DelayedNeutron
 DelayedNeutronCreate(
    const char *const label,
@@ -198,7 +198,7 @@ DelayedNeutronRateGetConst(ConstHandle2ConstDelayedNeutron self)
       (CLASSNAME, CLASSNAME+"RateGetConst", self, extract::rate);
 }
 
-// Get
+// Get, non-const
 Handle2Rate
 DelayedNeutronRateGet(ConstHandle2DelayedNeutron self)
 {
@@ -235,7 +235,7 @@ DelayedNeutronProductGetConst(ConstHandle2ConstDelayedNeutron self)
       (CLASSNAME, CLASSNAME+"ProductGetConst", self, extract::product);
 }
 
-// Get
+// Get, non-const
 Handle2Product
 DelayedNeutronProductGet(ConstHandle2DelayedNeutron self)
 {

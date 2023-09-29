@@ -33,7 +33,7 @@ ProductYieldsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ProductYields
 ProductYieldsDefault()
 {
@@ -55,7 +55,7 @@ ProductYieldsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ProductYields
 ProductYieldsCreate(
    ConstHandle2ProductYield *const productYield, const size_t productYieldSize
@@ -185,7 +185,7 @@ ProductYieldsProductYieldGetConst(ConstHandle2ConstProductYields self, const siz
       (CLASSNAME, CLASSNAME+"ProductYieldGetConst", self, extract::productYield, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2ProductYield
 ProductYieldsProductYieldGet(ConstHandle2ProductYields self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ProductYieldsProductYieldGetByLabelConst(
        self, extract::productYield, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2ProductYield
 ProductYieldsProductYieldGetByLabel(
    ConstHandle2ProductYields self,

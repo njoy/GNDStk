@@ -20,7 +20,7 @@ function ParameterCovarianceDefaultConst() &
    type(c_ptr) :: ParameterCovarianceDefaultConst
 end function ParameterCovarianceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ParameterCovarianceDefault() &
       bind(C, name='ParameterCovarianceDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ParameterCovarianceCreateConst( &
    type(c_ptr) :: ParameterCovarianceCreateConst
 end function ParameterCovarianceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ParameterCovarianceCreate( &
    label, &
    rowData, &
@@ -87,6 +87,8 @@ end subroutine ParameterCovarianceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ParameterCovarianceRead(handle, filename, filenameSize) &
       bind(C, name='ParameterCovarianceRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ParameterCovarianceRead(handle, filename, filenameSize) &
 end function ParameterCovarianceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ParameterCovarianceWrite(handle, filename, filenameSize) &
       bind(C, name='ParameterCovarianceWrite')
    use iso_c_binding
@@ -191,7 +195,7 @@ function ParameterCovarianceRowDataGetConst(handle) &
    type(c_ptr) :: ParameterCovarianceRowDataGetConst
 end function ParameterCovarianceRowDataGetConst
 
-!! Get
+!! Get, non-const
 function ParameterCovarianceRowDataGet(handle) &
       bind(C, name='ParameterCovarianceRowDataGet')
    use iso_c_binding
@@ -232,7 +236,7 @@ function ParameterCovarianceParameterCovarianceMatrixGetConst(handle) &
    type(c_ptr) :: ParameterCovarianceParameterCovarianceMatrixGetConst
 end function ParameterCovarianceParameterCovarianceMatrixGetConst
 
-!! Get
+!! Get, non-const
 function ParameterCovarianceParameterCovarianceMatrixGet(handle) &
       bind(C, name='ParameterCovarianceParameterCovarianceMatrixGet')
    use iso_c_binding

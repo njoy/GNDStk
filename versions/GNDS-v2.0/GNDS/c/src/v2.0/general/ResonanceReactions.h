@@ -70,7 +70,7 @@ typedef       struct ResonanceReactionsClass *      Handle2ResonanceReactions;
 extern_c Handle2ConstResonanceReactions
 ResonanceReactionsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ResonanceReactions
 ResonanceReactionsDefault();
 
@@ -80,7 +80,7 @@ ResonanceReactionsCreateConst(
    ConstHandle2ResonanceReaction *const resonanceReaction, const size_t resonanceReactionSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ResonanceReactions
 ResonanceReactionsCreate(
    ConstHandle2ResonanceReaction *const resonanceReaction, const size_t resonanceReactionSize
@@ -154,7 +154,7 @@ ResonanceReactionsResonanceReactionAdd(ConstHandle2ResonanceReactions self, Cons
 extern_c Handle2ConstResonanceReaction
 ResonanceReactionsResonanceReactionGetConst(ConstHandle2ConstResonanceReactions self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGet(ConstHandle2ResonanceReactions self, const size_t index_);
 
@@ -184,7 +184,7 @@ ResonanceReactionsResonanceReactionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByLabel(
    ConstHandle2ResonanceReactions self,
@@ -217,7 +217,7 @@ ResonanceReactionsResonanceReactionGetByEjectileConst(
    const char *const ejectile
 );
 
-// +++ Get, by ejectile
+// +++ Get, by ejectile, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEjectile(
    ConstHandle2ResonanceReactions self,
@@ -250,7 +250,7 @@ ResonanceReactionsResonanceReactionGetByEliminatedConst(
    const bool eliminated
 );
 
-// +++ Get, by eliminated
+// +++ Get, by eliminated, non-const
 extern_c Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEliminated(
    ConstHandle2ResonanceReactions self,

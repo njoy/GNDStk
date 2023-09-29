@@ -33,7 +33,7 @@ DebyeWallerIntegralDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DebyeWallerIntegral
 DebyeWallerIntegralDefault()
 {
@@ -53,7 +53,7 @@ DebyeWallerIntegralCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DebyeWallerIntegral
 DebyeWallerIntegralCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ DebyeWallerIntegralXYs1dGetConst(ConstHandle2ConstDebyeWallerIntegral self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 DebyeWallerIntegralXYs1dGet(ConstHandle2DebyeWallerIntegral self)
 {

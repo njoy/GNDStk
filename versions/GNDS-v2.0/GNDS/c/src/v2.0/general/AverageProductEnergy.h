@@ -70,7 +70,7 @@ typedef       struct AverageProductEnergyClass *      Handle2AverageProductEnerg
 extern_c Handle2ConstAverageProductEnergy
 AverageProductEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2AverageProductEnergy
 AverageProductEnergyDefault();
 
@@ -80,7 +80,7 @@ AverageProductEnergyCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2AverageProductEnergy
 AverageProductEnergyCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ AverageProductEnergyXYs1dHas(ConstHandle2ConstAverageProductEnergy self);
 extern_c Handle2ConstXYs1d
 AverageProductEnergyXYs1dGetConst(ConstHandle2ConstAverageProductEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 AverageProductEnergyXYs1dGet(ConstHandle2AverageProductEnergy self);
 

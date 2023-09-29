@@ -71,7 +71,7 @@ typedef       struct DelayedNeutronClass *      Handle2DelayedNeutron;
 extern_c Handle2ConstDelayedNeutron
 DelayedNeutronDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DelayedNeutron
 DelayedNeutronDefault();
 
@@ -83,7 +83,7 @@ DelayedNeutronCreateConst(
    ConstHandle2ConstProduct product
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DelayedNeutron
 DelayedNeutronCreate(
    const char *const label,
@@ -165,7 +165,7 @@ DelayedNeutronRateHas(ConstHandle2ConstDelayedNeutron self);
 extern_c Handle2ConstRate
 DelayedNeutronRateGetConst(ConstHandle2ConstDelayedNeutron self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Rate
 DelayedNeutronRateGet(ConstHandle2DelayedNeutron self);
 
@@ -186,7 +186,7 @@ DelayedNeutronProductHas(ConstHandle2ConstDelayedNeutron self);
 extern_c Handle2ConstProduct
 DelayedNeutronProductGetConst(ConstHandle2ConstDelayedNeutron self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Product
 DelayedNeutronProductGet(ConstHandle2DelayedNeutron self);
 

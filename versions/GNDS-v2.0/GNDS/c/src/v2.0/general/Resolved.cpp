@@ -38,7 +38,7 @@ ResolvedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Resolved
 ResolvedDefault()
 {
@@ -66,7 +66,7 @@ ResolvedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Resolved
 ResolvedCreate(
    const double domainMin,
@@ -268,7 +268,7 @@ ResolvedBreitWignerGetConst(ConstHandle2ConstResolved self)
       (CLASSNAME, CLASSNAME+"BreitWignerGetConst", self, extract::BreitWigner);
 }
 
-// Get
+// Get, non-const
 Handle2BreitWigner
 ResolvedBreitWignerGet(ConstHandle2Resolved self)
 {
@@ -305,7 +305,7 @@ ResolvedRMatrixGetConst(ConstHandle2ConstResolved self)
       (CLASSNAME, CLASSNAME+"RMatrixGetConst", self, extract::RMatrix);
 }
 
-// Get
+// Get, non-const
 Handle2RMatrix
 ResolvedRMatrixGet(ConstHandle2Resolved self)
 {

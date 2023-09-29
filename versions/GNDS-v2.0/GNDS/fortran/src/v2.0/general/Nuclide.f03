@@ -20,7 +20,7 @@ function NuclideDefaultConst() &
    type(c_ptr) :: NuclideDefaultConst
 end function NuclideDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NuclideDefault() &
       bind(C, name='NuclideDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function NuclideCreateConst( &
    type(c_ptr) :: NuclideCreateConst
 end function NuclideCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NuclideCreate( &
    id, &
    mass, &
@@ -99,6 +99,8 @@ end subroutine NuclideDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NuclideRead(handle, filename, filenameSize) &
       bind(C, name='NuclideRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function NuclideRead(handle, filename, filenameSize) &
 end function NuclideRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NuclideWrite(handle, filename, filenameSize) &
       bind(C, name='NuclideWrite')
    use iso_c_binding
@@ -203,7 +207,7 @@ function NuclideMassGetConst(handle) &
    type(c_ptr) :: NuclideMassGetConst
 end function NuclideMassGetConst
 
-!! Get
+!! Get, non-const
 function NuclideMassGet(handle) &
       bind(C, name='NuclideMassGet')
    use iso_c_binding
@@ -244,7 +248,7 @@ function NuclideChargeGetConst(handle) &
    type(c_ptr) :: NuclideChargeGetConst
 end function NuclideChargeGetConst
 
-!! Get
+!! Get, non-const
 function NuclideChargeGet(handle) &
       bind(C, name='NuclideChargeGet')
    use iso_c_binding
@@ -285,7 +289,7 @@ function NuclideNucleusGetConst(handle) &
    type(c_ptr) :: NuclideNucleusGetConst
 end function NuclideNucleusGetConst
 
-!! Get
+!! Get, non-const
 function NuclideNucleusGet(handle) &
       bind(C, name='NuclideNucleusGet')
    use iso_c_binding
@@ -326,7 +330,7 @@ function NuclideDecayDataGetConst(handle) &
    type(c_ptr) :: NuclideDecayDataGetConst
 end function NuclideDecayDataGetConst
 
-!! Get
+!! Get, non-const
 function NuclideDecayDataGet(handle) &
       bind(C, name='NuclideDecayDataGet')
    use iso_c_binding
@@ -367,7 +371,7 @@ function NuclideFissionFragmentDataGetConst(handle) &
    type(c_ptr) :: NuclideFissionFragmentDataGetConst
 end function NuclideFissionFragmentDataGetConst
 
-!! Get
+!! Get, non-const
 function NuclideFissionFragmentDataGet(handle) &
       bind(C, name='NuclideFissionFragmentDataGet')
    use iso_c_binding

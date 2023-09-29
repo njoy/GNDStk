@@ -69,7 +69,7 @@ typedef       struct RutherfordScatteringClass *      Handle2RutherfordScatterin
 extern_c Handle2ConstRutherfordScattering
 RutherfordScatteringDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2RutherfordScattering
 RutherfordScatteringDefault();
 
@@ -77,7 +77,7 @@ RutherfordScatteringDefault();
 extern_c Handle2ConstRutherfordScattering
 RutherfordScatteringCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2RutherfordScattering
 RutherfordScatteringCreate();
 

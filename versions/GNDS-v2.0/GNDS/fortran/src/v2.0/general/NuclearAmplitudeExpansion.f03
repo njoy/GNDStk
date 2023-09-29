@@ -20,7 +20,7 @@ function NuclearAmplitudeExpansionDefaultConst() &
    type(c_ptr) :: NuclearAmplitudeExpansionDefaultConst
 end function NuclearAmplitudeExpansionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NuclearAmplitudeExpansionDefault() &
       bind(C, name='NuclearAmplitudeExpansionDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function NuclearAmplitudeExpansionCreateConst( &
    type(c_ptr) :: NuclearAmplitudeExpansionCreateConst
 end function NuclearAmplitudeExpansionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NuclearAmplitudeExpansionCreate( &
    nuclearTerm, &
    realInterferenceTerm, &
@@ -83,6 +83,8 @@ end subroutine NuclearAmplitudeExpansionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NuclearAmplitudeExpansionRead(handle, filename, filenameSize) &
       bind(C, name='NuclearAmplitudeExpansionRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function NuclearAmplitudeExpansionRead(handle, filename, filenameSize) &
 end function NuclearAmplitudeExpansionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NuclearAmplitudeExpansionWrite(handle, filename, filenameSize) &
       bind(C, name='NuclearAmplitudeExpansionWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function NuclearAmplitudeExpansionNuclearTermGetConst(handle) &
    type(c_ptr) :: NuclearAmplitudeExpansionNuclearTermGetConst
 end function NuclearAmplitudeExpansionNuclearTermGetConst
 
-!! Get
+!! Get, non-const
 function NuclearAmplitudeExpansionNuclearTermGet(handle) &
       bind(C, name='NuclearAmplitudeExpansionNuclearTermGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function NuclearAmplitudeExpansionRealInterferenceTermGetConst(handle) &
    type(c_ptr) :: NuclearAmplitudeExpansionRealInterferenceTermGetConst
 end function NuclearAmplitudeExpansionRealInterferenceTermGetConst
 
-!! Get
+!! Get, non-const
 function NuclearAmplitudeExpansionRealInterferenceTermGet(handle) &
       bind(C, name='NuclearAmplitudeExpansionRealInterferenceTermGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(handle) &
    type(c_ptr) :: NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst
 end function NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst
 
-!! Get
+!! Get, non-const
 function NuclearAmplitudeExpansionImaginaryInterferenceTermGet(handle) &
       bind(C, name='NuclearAmplitudeExpansionImaginaryInterferenceTermGet')
    use iso_c_binding

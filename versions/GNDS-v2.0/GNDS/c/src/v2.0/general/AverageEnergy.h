@@ -70,7 +70,7 @@ typedef       struct AverageEnergyClass *      Handle2AverageEnergy;
 extern_c Handle2ConstAverageEnergy
 AverageEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2AverageEnergy
 AverageEnergyDefault();
 
@@ -83,7 +83,7 @@ AverageEnergyCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2AverageEnergy
 AverageEnergyCreate(
    const char *const label,
@@ -202,7 +202,7 @@ AverageEnergyUncertaintyHas(ConstHandle2ConstAverageEnergy self);
 extern_c Handle2ConstUncertainty
 AverageEnergyUncertaintyGetConst(ConstHandle2ConstAverageEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 AverageEnergyUncertaintyGet(ConstHandle2AverageEnergy self);
 

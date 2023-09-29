@@ -20,7 +20,7 @@ function UnorthodoxDefaultConst() &
    type(c_ptr) :: UnorthodoxDefaultConst
 end function UnorthodoxDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UnorthodoxDefault() &
       bind(C, name='UnorthodoxDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function UnorthodoxCreateConst( &
    type(c_ptr) :: UnorthodoxCreateConst
 end function UnorthodoxCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UnorthodoxCreate( &
    id, &
    mass, &
@@ -83,6 +83,8 @@ end subroutine UnorthodoxDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UnorthodoxRead(handle, filename, filenameSize) &
       bind(C, name='UnorthodoxRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function UnorthodoxRead(handle, filename, filenameSize) &
 end function UnorthodoxRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UnorthodoxWrite(handle, filename, filenameSize) &
       bind(C, name='UnorthodoxWrite')
    use iso_c_binding
@@ -187,7 +191,7 @@ function UnorthodoxMassGetConst(handle) &
    type(c_ptr) :: UnorthodoxMassGetConst
 end function UnorthodoxMassGetConst
 
-!! Get
+!! Get, non-const
 function UnorthodoxMassGet(handle) &
       bind(C, name='UnorthodoxMassGet')
    use iso_c_binding

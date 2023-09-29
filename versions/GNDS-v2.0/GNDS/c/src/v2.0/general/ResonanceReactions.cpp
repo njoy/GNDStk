@@ -33,7 +33,7 @@ ResonanceReactionsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ResonanceReactions
 ResonanceReactionsDefault()
 {
@@ -55,7 +55,7 @@ ResonanceReactionsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ResonanceReactions
 ResonanceReactionsCreate(
    ConstHandle2ResonanceReaction *const resonanceReaction, const size_t resonanceReactionSize
@@ -185,7 +185,7 @@ ResonanceReactionsResonanceReactionGetConst(ConstHandle2ConstResonanceReactions 
       (CLASSNAME, CLASSNAME+"ResonanceReactionGetConst", self, extract::resonanceReaction, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGet(ConstHandle2ResonanceReactions self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ResonanceReactionsResonanceReactionGetByLabelConst(
        self, extract::resonanceReaction, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByLabel(
    ConstHandle2ResonanceReactions self,
@@ -279,7 +279,7 @@ ResonanceReactionsResonanceReactionGetByEjectileConst(
        self, extract::resonanceReaction, meta::ejectile, ejectile);
 }
 
-// Get, by ejectile
+// Get, by ejectile, non-const
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEjectile(
    ConstHandle2ResonanceReactions self,
@@ -328,7 +328,7 @@ ResonanceReactionsResonanceReactionGetByEliminatedConst(
        self, extract::resonanceReaction, meta::eliminated, eliminated);
 }
 
-// Get, by eliminated
+// Get, by eliminated, non-const
 Handle2ResonanceReaction
 ResonanceReactionsResonanceReactionGetByEliminated(
    ConstHandle2ResonanceReactions self,

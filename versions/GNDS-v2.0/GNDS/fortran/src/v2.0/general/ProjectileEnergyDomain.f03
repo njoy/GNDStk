@@ -20,7 +20,7 @@ function ProjectileEnergyDomainDefaultConst() &
    type(c_ptr) :: ProjectileEnergyDomainDefaultConst
 end function ProjectileEnergyDomainDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProjectileEnergyDomainDefault() &
       bind(C, name='ProjectileEnergyDomainDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ProjectileEnergyDomainCreateConst( &
    type(c_ptr) :: ProjectileEnergyDomainCreateConst
 end function ProjectileEnergyDomainCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProjectileEnergyDomainCreate( &
    min, &
    max, &
@@ -87,6 +87,8 @@ end subroutine ProjectileEnergyDomainDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProjectileEnergyDomainRead(handle, filename, filenameSize) &
       bind(C, name='ProjectileEnergyDomainRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ProjectileEnergyDomainRead(handle, filename, filenameSize) &
 end function ProjectileEnergyDomainRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProjectileEnergyDomainWrite(handle, filename, filenameSize) &
       bind(C, name='ProjectileEnergyDomainWrite')
    use iso_c_binding

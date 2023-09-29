@@ -36,7 +36,7 @@ CovarianceMatrixDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CovarianceMatrix
 CovarianceMatrixDefault()
 {
@@ -62,7 +62,7 @@ CovarianceMatrixCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CovarianceMatrix
 CovarianceMatrixCreate(
    const char *const label,
@@ -262,7 +262,7 @@ CovarianceMatrixGridded2dGetConst(ConstHandle2ConstCovarianceMatrix self)
       (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
-// Get
+// Get, non-const
 Handle2Gridded2d
 CovarianceMatrixGridded2dGet(ConstHandle2CovarianceMatrix self)
 {

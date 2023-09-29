@@ -20,7 +20,7 @@ function MultiplicitySumsDefaultConst() &
    type(c_ptr) :: MultiplicitySumsDefaultConst
 end function MultiplicitySumsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MultiplicitySumsDefault() &
       bind(C, name='MultiplicitySumsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function MultiplicitySumsCreateConst( &
    type(c_ptr) :: MultiplicitySumsCreateConst
 end function MultiplicitySumsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MultiplicitySumsCreate( &
    multiplicitySum, multiplicitySumSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine MultiplicitySumsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MultiplicitySumsRead(handle, filename, filenameSize) &
       bind(C, name='MultiplicitySumsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function MultiplicitySumsRead(handle, filename, filenameSize) &
 end function MultiplicitySumsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MultiplicitySumsWrite(handle, filename, filenameSize) &
       bind(C, name='MultiplicitySumsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function MultiplicitySumsMultiplicitySumGetConst(handle, index) &
    type(c_ptr) :: MultiplicitySumsMultiplicitySumGetConst
 end function MultiplicitySumsMultiplicitySumGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function MultiplicitySumsMultiplicitySumGet(handle, index) &
       bind(C, name='MultiplicitySumsMultiplicitySumGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function MultiplicitySumsMultiplicitySumGetByLabelConst(handle, meta, metaSize) 
    type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByLabelConst
 end function MultiplicitySumsMultiplicitySumGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function MultiplicitySumsMultiplicitySumGetByLabel(handle, meta, metaSize) &
       bind(C, name='MultiplicitySumsMultiplicitySumGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function MultiplicitySumsMultiplicitySumGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: MultiplicitySumsMultiplicitySumGetByENDFMTConst
 end function MultiplicitySumsMultiplicitySumGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function MultiplicitySumsMultiplicitySumGetByENDFMT(handle, meta) &
       bind(C, name='MultiplicitySumsMultiplicitySumGetByENDFMT')
    use iso_c_binding

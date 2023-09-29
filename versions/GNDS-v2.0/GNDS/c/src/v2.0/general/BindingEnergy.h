@@ -70,7 +70,7 @@ typedef       struct BindingEnergyClass *      Handle2BindingEnergy;
 extern_c Handle2ConstBindingEnergy
 BindingEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2BindingEnergy
 BindingEnergyDefault();
 
@@ -80,7 +80,7 @@ BindingEnergyCreateConst(
    ConstHandle2ConstDouble Double
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2BindingEnergy
 BindingEnergyCreate(
    ConstHandle2ConstDouble Double
@@ -142,7 +142,7 @@ BindingEnergyDoubleHas(ConstHandle2ConstBindingEnergy self);
 extern_c Handle2ConstDouble
 BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 BindingEnergyDoubleGet(ConstHandle2BindingEnergy self);
 

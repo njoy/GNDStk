@@ -70,7 +70,7 @@ typedef       struct ProbabilityClass *      Handle2Probability;
 extern_c Handle2ConstProbability
 ProbabilityDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Probability
 ProbabilityDefault();
 
@@ -80,7 +80,7 @@ ProbabilityCreateConst(
    ConstHandle2ConstDouble Double
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Probability
 ProbabilityCreate(
    ConstHandle2ConstDouble Double
@@ -142,7 +142,7 @@ ProbabilityDoubleHas(ConstHandle2ConstProbability self);
 extern_c Handle2ConstDouble
 ProbabilityDoubleGetConst(ConstHandle2ConstProbability self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 ProbabilityDoubleGet(ConstHandle2Probability self);
 

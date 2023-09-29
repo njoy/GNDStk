@@ -70,7 +70,7 @@ typedef       struct AtomicClass *      Handle2Atomic;
 extern_c Handle2ConstAtomic
 AtomicDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Atomic
 AtomicDefault();
 
@@ -80,7 +80,7 @@ AtomicCreateConst(
    ConstHandle2ConstConfigurations configurations
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Atomic
 AtomicCreate(
    ConstHandle2ConstConfigurations configurations
@@ -142,7 +142,7 @@ AtomicConfigurationsHas(ConstHandle2ConstAtomic self);
 extern_c Handle2ConstConfigurations
 AtomicConfigurationsGetConst(ConstHandle2ConstAtomic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Configurations
 AtomicConfigurationsGet(ConstHandle2Atomic self);
 

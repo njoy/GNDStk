@@ -20,7 +20,7 @@ function PromptGammaEnergyDefaultConst() &
    type(c_ptr) :: PromptGammaEnergyDefaultConst
 end function PromptGammaEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PromptGammaEnergyDefault() &
       bind(C, name='PromptGammaEnergyDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function PromptGammaEnergyCreateConst( &
    type(c_ptr) :: PromptGammaEnergyCreateConst
 end function PromptGammaEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PromptGammaEnergyCreate( &
    polynomial1d, &
    XYs1d &
@@ -79,6 +79,8 @@ end subroutine PromptGammaEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PromptGammaEnergyRead(handle, filename, filenameSize) &
       bind(C, name='PromptGammaEnergyRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function PromptGammaEnergyRead(handle, filename, filenameSize) &
 end function PromptGammaEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PromptGammaEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='PromptGammaEnergyWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function PromptGammaEnergyPolynomial1dGetConst(handle) &
    type(c_ptr) :: PromptGammaEnergyPolynomial1dGetConst
 end function PromptGammaEnergyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function PromptGammaEnergyPolynomial1dGet(handle) &
       bind(C, name='PromptGammaEnergyPolynomial1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function PromptGammaEnergyXYs1dGetConst(handle) &
    type(c_ptr) :: PromptGammaEnergyXYs1dGetConst
 end function PromptGammaEnergyXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function PromptGammaEnergyXYs1dGet(handle) &
       bind(C, name='PromptGammaEnergyXYs1dGet')
    use iso_c_binding

@@ -69,7 +69,7 @@ typedef       struct ReferenceClass *      Handle2Reference;
 extern_c Handle2ConstReference
 ReferenceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Reference
 ReferenceDefault();
 
@@ -80,7 +80,7 @@ ReferenceCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Reference
 ReferenceCreate(
    const char *const label,

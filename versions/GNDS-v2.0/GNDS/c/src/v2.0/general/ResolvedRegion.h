@@ -71,7 +71,7 @@ typedef       struct ResolvedRegionClass *      Handle2ResolvedRegion;
 extern_c Handle2ConstResolvedRegion
 ResolvedRegionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ResolvedRegion
 ResolvedRegionDefault();
 
@@ -82,7 +82,7 @@ ResolvedRegionCreateConst(
    ConstHandle2ConstRegions1d regions1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ResolvedRegion
 ResolvedRegionCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -145,7 +145,7 @@ ResolvedRegionXYs1dHas(ConstHandle2ConstResolvedRegion self);
 extern_c Handle2ConstXYs1d
 ResolvedRegionXYs1dGetConst(ConstHandle2ConstResolvedRegion self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 ResolvedRegionXYs1dGet(ConstHandle2ResolvedRegion self);
 
@@ -166,7 +166,7 @@ ResolvedRegionRegions1dHas(ConstHandle2ConstResolvedRegion self);
 extern_c Handle2ConstRegions1d
 ResolvedRegionRegions1dGetConst(ConstHandle2ConstResolvedRegion self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Regions1d
 ResolvedRegionRegions1dGet(ConstHandle2ResolvedRegion self);
 

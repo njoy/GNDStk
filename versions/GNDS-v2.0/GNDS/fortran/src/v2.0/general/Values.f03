@@ -20,7 +20,7 @@ function ValuesDefaultConst() &
    type(c_ptr) :: ValuesDefaultConst
 end function ValuesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ValuesDefault() &
       bind(C, name='ValuesDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function ValuesCreateConst( &
    type(c_ptr) :: ValuesCreateConst
 end function ValuesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ValuesCreate( &
 ) &
       bind(C, name='ValuesCreate')
@@ -71,6 +71,8 @@ end subroutine ValuesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ValuesRead(handle, filename, filenameSize) &
       bind(C, name='ValuesRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function ValuesRead(handle, filename, filenameSize) &
 end function ValuesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ValuesWrite(handle, filename, filenameSize) &
       bind(C, name='ValuesWrite')
    use iso_c_binding
@@ -172,7 +176,7 @@ function ValuesDoublesGetArrayConst(handle) &
    type(c_ptr) :: ValuesDoublesGetArrayConst
 end function ValuesDoublesGetArrayConst
 
-!! Get pointer to existing values
+!! Get pointer to existing values, non-const
 function ValuesDoublesGetArray(handle) &
       bind(C, name='ValuesDoublesGetArray')
    use iso_c_binding

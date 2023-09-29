@@ -70,7 +70,7 @@ typedef       struct PrimaryGammaClass *      Handle2PrimaryGamma;
 extern_c Handle2ConstPrimaryGamma
 PrimaryGammaDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PrimaryGamma
 PrimaryGammaDefault();
 
@@ -83,7 +83,7 @@ PrimaryGammaCreateConst(
    ConstHandle2ConstAxes axes
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PrimaryGamma
 PrimaryGammaCreate(
    const double value,
@@ -202,7 +202,7 @@ PrimaryGammaAxesHas(ConstHandle2ConstPrimaryGamma self);
 extern_c Handle2ConstAxes
 PrimaryGammaAxesGetConst(ConstHandle2ConstPrimaryGamma self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 PrimaryGammaAxesGet(ConstHandle2PrimaryGamma self);
 

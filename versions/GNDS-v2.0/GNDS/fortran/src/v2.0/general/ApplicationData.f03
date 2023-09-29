@@ -20,7 +20,7 @@ function ApplicationDataDefaultConst() &
    type(c_ptr) :: ApplicationDataDefaultConst
 end function ApplicationDataDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ApplicationDataDefault() &
       bind(C, name='ApplicationDataDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ApplicationDataCreateConst( &
    type(c_ptr) :: ApplicationDataCreateConst
 end function ApplicationDataCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ApplicationDataCreate( &
    institution &
 ) &
@@ -75,6 +75,8 @@ end subroutine ApplicationDataDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ApplicationDataRead(handle, filename, filenameSize) &
       bind(C, name='ApplicationDataRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ApplicationDataRead(handle, filename, filenameSize) &
 end function ApplicationDataRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ApplicationDataWrite(handle, filename, filenameSize) &
       bind(C, name='ApplicationDataWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ApplicationDataInstitutionGetConst(handle) &
    type(c_ptr) :: ApplicationDataInstitutionGetConst
 end function ApplicationDataInstitutionGetConst
 
-!! Get
+!! Get, non-const
 function ApplicationDataInstitutionGet(handle) &
       bind(C, name='ApplicationDataInstitutionGet')
    use iso_c_binding

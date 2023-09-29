@@ -20,7 +20,7 @@ function DocumentationDefaultConst() &
    type(c_ptr) :: DocumentationDefaultConst
 end function DocumentationDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DocumentationDefault() &
       bind(C, name='DocumentationDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function DocumentationCreateConst( &
    type(c_ptr) :: DocumentationCreateConst
 end function DocumentationCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DocumentationCreate( &
    authors, &
    dates, &
@@ -91,6 +91,8 @@ end subroutine DocumentationDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DocumentationRead(handle, filename, filenameSize) &
       bind(C, name='DocumentationRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function DocumentationRead(handle, filename, filenameSize) &
 end function DocumentationRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DocumentationWrite(handle, filename, filenameSize) &
       bind(C, name='DocumentationWrite')
    use iso_c_binding
@@ -162,7 +166,7 @@ function DocumentationAuthorsGetConst(handle) &
    type(c_ptr) :: DocumentationAuthorsGetConst
 end function DocumentationAuthorsGetConst
 
-!! Get
+!! Get, non-const
 function DocumentationAuthorsGet(handle) &
       bind(C, name='DocumentationAuthorsGet')
    use iso_c_binding
@@ -203,7 +207,7 @@ function DocumentationDatesGetConst(handle) &
    type(c_ptr) :: DocumentationDatesGetConst
 end function DocumentationDatesGetConst
 
-!! Get
+!! Get, non-const
 function DocumentationDatesGet(handle) &
       bind(C, name='DocumentationDatesGet')
    use iso_c_binding
@@ -244,7 +248,7 @@ function DocumentationTitleGetConst(handle) &
    type(c_ptr) :: DocumentationTitleGetConst
 end function DocumentationTitleGetConst
 
-!! Get
+!! Get, non-const
 function DocumentationTitleGet(handle) &
       bind(C, name='DocumentationTitleGet')
    use iso_c_binding
@@ -285,7 +289,7 @@ function DocumentationBodyGetConst(handle) &
    type(c_ptr) :: DocumentationBodyGetConst
 end function DocumentationBodyGetConst
 
-!! Get
+!! Get, non-const
 function DocumentationBodyGet(handle) &
       bind(C, name='DocumentationBodyGet')
    use iso_c_binding
@@ -326,7 +330,7 @@ function DocumentationEndfCompatibleGetConst(handle) &
    type(c_ptr) :: DocumentationEndfCompatibleGetConst
 end function DocumentationEndfCompatibleGetConst
 
-!! Get
+!! Get, non-const
 function DocumentationEndfCompatibleGet(handle) &
       bind(C, name='DocumentationEndfCompatibleGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function CrossSectionSumDefaultConst() &
    type(c_ptr) :: CrossSectionSumDefaultConst
 end function CrossSectionSumDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CrossSectionSumDefault() &
       bind(C, name='CrossSectionSumDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function CrossSectionSumCreateConst( &
    type(c_ptr) :: CrossSectionSumCreateConst
 end function CrossSectionSumCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CrossSectionSumCreate( &
    label, &
    ENDF_MT, &
@@ -95,6 +95,8 @@ end subroutine CrossSectionSumDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CrossSectionSumRead(handle, filename, filenameSize) &
       bind(C, name='CrossSectionSumRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function CrossSectionSumRead(handle, filename, filenameSize) &
 end function CrossSectionSumRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CrossSectionSumWrite(handle, filename, filenameSize) &
       bind(C, name='CrossSectionSumWrite')
    use iso_c_binding
@@ -231,7 +235,7 @@ function CrossSectionSumSummandsGetConst(handle) &
    type(c_ptr) :: CrossSectionSumSummandsGetConst
 end function CrossSectionSumSummandsGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionSumSummandsGet(handle) &
       bind(C, name='CrossSectionSumSummandsGet')
    use iso_c_binding
@@ -272,7 +276,7 @@ function CrossSectionSumQGetConst(handle) &
    type(c_ptr) :: CrossSectionSumQGetConst
 end function CrossSectionSumQGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionSumQGet(handle) &
       bind(C, name='CrossSectionSumQGet')
    use iso_c_binding
@@ -313,7 +317,7 @@ function CrossSectionSumCrossSectionGetConst(handle) &
    type(c_ptr) :: CrossSectionSumCrossSectionGetConst
 end function CrossSectionSumCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionSumCrossSectionGet(handle) &
       bind(C, name='CrossSectionSumCrossSectionGet')
    use iso_c_binding

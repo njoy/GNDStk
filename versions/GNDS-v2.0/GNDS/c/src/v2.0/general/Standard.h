@@ -70,7 +70,7 @@ typedef       struct StandardClass *      Handle2Standard;
 extern_c Handle2ConstStandard
 StandardDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Standard
 StandardDefault();
 
@@ -80,7 +80,7 @@ StandardCreateConst(
    ConstHandle2ConstDouble Double
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Standard
 StandardCreate(
    ConstHandle2ConstDouble Double
@@ -142,7 +142,7 @@ StandardDoubleHas(ConstHandle2ConstStandard self);
 extern_c Handle2ConstDouble
 StandardDoubleGetConst(ConstHandle2ConstStandard self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 StandardDoubleGet(ConstHandle2Standard self);
 

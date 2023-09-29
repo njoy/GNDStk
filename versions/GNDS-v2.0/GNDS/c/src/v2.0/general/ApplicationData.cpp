@@ -33,7 +33,7 @@ ApplicationDataDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ApplicationData
 ApplicationDataDefault()
 {
@@ -53,7 +53,7 @@ ApplicationDataCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ApplicationData
 ApplicationDataCreate(
    ConstHandle2ConstInstitution institution
@@ -157,7 +157,7 @@ ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData self)
       (CLASSNAME, CLASSNAME+"InstitutionGetConst", self, extract::institution);
 }
 
-// Get
+// Get, non-const
 Handle2Institution
 ApplicationDataInstitutionGet(ConstHandle2ApplicationData self)
 {

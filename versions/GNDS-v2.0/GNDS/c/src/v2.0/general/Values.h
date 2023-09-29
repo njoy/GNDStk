@@ -69,7 +69,7 @@ typedef       struct ValuesClass *      Handle2Values;
 extern_c Handle2ConstValues
 ValuesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Values
 ValuesDefault();
 
@@ -77,7 +77,7 @@ ValuesDefault();
 extern_c Handle2ConstValues
 ValuesCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Values
 ValuesCreate();
 
@@ -151,7 +151,7 @@ ValuesDoublesSet(ConstHandle2Values self, const size_t index, const double value
 extern_c const double *
 ValuesDoublesGetArrayConst(ConstHandle2ConstValues self);
 
-// +++ Get pointer to existing values
+// +++ Get pointer to existing values, non-const
 extern_c double *
 ValuesDoublesGetArray(ConstHandle2Values self);
 

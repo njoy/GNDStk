@@ -41,7 +41,7 @@ EvaluatedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Evaluated
 EvaluatedDefault()
 {
@@ -73,7 +73,7 @@ EvaluatedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Evaluated
 EvaluatedCreate(
    const char *const label,
@@ -309,7 +309,7 @@ EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated self)
       (CLASSNAME, CLASSNAME+"DocumentationGetConst", self, extract::documentation);
 }
 
-// Get
+// Get, non-const
 Handle2Documentation
 EvaluatedDocumentationGet(ConstHandle2Evaluated self)
 {
@@ -346,7 +346,7 @@ EvaluatedTemperatureGetConst(ConstHandle2ConstEvaluated self)
       (CLASSNAME, CLASSNAME+"TemperatureGetConst", self, extract::temperature);
 }
 
-// Get
+// Get, non-const
 Handle2Temperature
 EvaluatedTemperatureGet(ConstHandle2Evaluated self)
 {
@@ -383,7 +383,7 @@ EvaluatedProjectileEnergyDomainGetConst(ConstHandle2ConstEvaluated self)
       (CLASSNAME, CLASSNAME+"ProjectileEnergyDomainGetConst", self, extract::projectileEnergyDomain);
 }
 
-// Get
+// Get, non-const
 Handle2ProjectileEnergyDomain
 EvaluatedProjectileEnergyDomainGet(ConstHandle2Evaluated self)
 {

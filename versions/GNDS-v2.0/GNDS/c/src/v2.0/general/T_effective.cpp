@@ -33,7 +33,7 @@ T_effectiveDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2T_effective
 T_effectiveDefault()
 {
@@ -53,7 +53,7 @@ T_effectiveCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2T_effective
 T_effectiveCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ T_effectiveXYs1dGetConst(ConstHandle2ConstT_effective self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 T_effectiveXYs1dGet(ConstHandle2T_effective self)
 {

@@ -70,7 +70,7 @@ typedef       struct EnergyAngularClass *      Handle2EnergyAngular;
 extern_c Handle2ConstEnergyAngular
 EnergyAngularDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2EnergyAngular
 EnergyAngularDefault();
 
@@ -82,7 +82,7 @@ EnergyAngularCreateConst(
    ConstHandle2ConstXYs3d XYs3d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2EnergyAngular
 EnergyAngularCreate(
    const char *const label,
@@ -182,7 +182,7 @@ EnergyAngularXYs3dHas(ConstHandle2ConstEnergyAngular self);
 extern_c Handle2ConstXYs3d
 EnergyAngularXYs3dGetConst(ConstHandle2ConstEnergyAngular self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs3d
 EnergyAngularXYs3dGet(ConstHandle2EnergyAngular self);
 

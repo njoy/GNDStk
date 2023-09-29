@@ -32,7 +32,7 @@ TemperatureDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Temperature
 TemperatureDefault()
 {
@@ -54,7 +54,7 @@ TemperatureCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Temperature
 TemperatureCreate(
    const double value,

@@ -48,7 +48,7 @@ PoPsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PoPs
 PoPsDefault()
 {
@@ -86,7 +86,7 @@ PoPsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PoPs
 PoPsCreate(
    const char *const name,
@@ -298,7 +298,7 @@ PoPsAliasesGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"AliasesGetConst", self, extract::aliases);
 }
 
-// Get
+// Get, non-const
 Handle2Aliases
 PoPsAliasesGet(ConstHandle2PoPs self)
 {
@@ -335,7 +335,7 @@ PoPsBaryonsGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"BaryonsGetConst", self, extract::baryons);
 }
 
-// Get
+// Get, non-const
 Handle2Baryons
 PoPsBaryonsGet(ConstHandle2PoPs self)
 {
@@ -372,7 +372,7 @@ PoPsChemicalElementsGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"ChemicalElementsGetConst", self, extract::chemicalElements);
 }
 
-// Get
+// Get, non-const
 Handle2ChemicalElements
 PoPsChemicalElementsGet(ConstHandle2PoPs self)
 {
@@ -409,7 +409,7 @@ PoPsStylesGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
-// Get
+// Get, non-const
 Handle2Styles
 PoPsStylesGet(ConstHandle2PoPs self)
 {
@@ -446,7 +446,7 @@ PoPsUnorthodoxesGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"UnorthodoxesGetConst", self, extract::unorthodoxes);
 }
 
-// Get
+// Get, non-const
 Handle2Unorthodoxes
 PoPsUnorthodoxesGet(ConstHandle2PoPs self)
 {
@@ -483,7 +483,7 @@ PoPsGaugeBosonsGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"GaugeBosonsGetConst", self, extract::gaugeBosons);
 }
 
-// Get
+// Get, non-const
 Handle2GaugeBosons
 PoPsGaugeBosonsGet(ConstHandle2PoPs self)
 {
@@ -520,7 +520,7 @@ PoPsLeptonsGetConst(ConstHandle2ConstPoPs self)
       (CLASSNAME, CLASSNAME+"LeptonsGetConst", self, extract::leptons);
 }
 
-// Get
+// Get, non-const
 Handle2Leptons
 PoPsLeptonsGet(ConstHandle2PoPs self)
 {

@@ -70,7 +70,7 @@ typedef       struct AverageEnergiesClass *      Handle2AverageEnergies;
 extern_c Handle2ConstAverageEnergies
 AverageEnergiesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2AverageEnergies
 AverageEnergiesDefault();
 
@@ -80,7 +80,7 @@ AverageEnergiesCreateConst(
    ConstHandle2AverageEnergy *const averageEnergy, const size_t averageEnergySize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2AverageEnergies
 AverageEnergiesCreate(
    ConstHandle2AverageEnergy *const averageEnergy, const size_t averageEnergySize
@@ -154,7 +154,7 @@ AverageEnergiesAverageEnergyAdd(ConstHandle2AverageEnergies self, ConstHandle2Co
 extern_c Handle2ConstAverageEnergy
 AverageEnergiesAverageEnergyGetConst(ConstHandle2ConstAverageEnergies self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGet(ConstHandle2AverageEnergies self, const size_t index_);
 
@@ -184,7 +184,7 @@ AverageEnergiesAverageEnergyGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByLabel(
    ConstHandle2AverageEnergies self,
@@ -217,7 +217,7 @@ AverageEnergiesAverageEnergyGetByValueConst(
    const double value
 );
 
-// +++ Get, by value
+// +++ Get, by value, non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByValue(
    ConstHandle2AverageEnergies self,
@@ -250,7 +250,7 @@ AverageEnergiesAverageEnergyGetByUnitConst(
    const char *const unit
 );
 
-// +++ Get, by unit
+// +++ Get, by unit, non-const
 extern_c Handle2AverageEnergy
 AverageEnergiesAverageEnergyGetByUnit(
    ConstHandle2AverageEnergies self,

@@ -35,7 +35,7 @@ TimeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Time
 TimeDefault()
 {
@@ -57,7 +57,7 @@ TimeCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Time
 TimeCreate(
    ConstHandle2ConstDouble Double,
@@ -163,7 +163,7 @@ TimeDoubleGetConst(ConstHandle2ConstTime self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 TimeDoubleGet(ConstHandle2Time self)
 {
@@ -200,7 +200,7 @@ TimeStringGetConst(ConstHandle2ConstTime self)
       (CLASSNAME, CLASSNAME+"StringGetConst", self, extract::string);
 }
 
-// Get
+// Get, non-const
 Handle2String
 TimeStringGet(ConstHandle2Time self)
 {

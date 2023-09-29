@@ -70,7 +70,7 @@ typedef       struct ElapsedTimesClass *      Handle2ElapsedTimes;
 extern_c Handle2ConstElapsedTimes
 ElapsedTimesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ElapsedTimes
 ElapsedTimesDefault();
 
@@ -80,7 +80,7 @@ ElapsedTimesCreateConst(
    ConstHandle2ElapsedTime *const elapsedTime, const size_t elapsedTimeSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ElapsedTimes
 ElapsedTimesCreate(
    ConstHandle2ElapsedTime *const elapsedTime, const size_t elapsedTimeSize
@@ -154,7 +154,7 @@ ElapsedTimesElapsedTimeAdd(ConstHandle2ElapsedTimes self, ConstHandle2ConstElaps
 extern_c Handle2ConstElapsedTime
 ElapsedTimesElapsedTimeGetConst(ConstHandle2ConstElapsedTimes self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ElapsedTime
 ElapsedTimesElapsedTimeGet(ConstHandle2ElapsedTimes self, const size_t index_);
 
@@ -184,7 +184,7 @@ ElapsedTimesElapsedTimeGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2ElapsedTime
 ElapsedTimesElapsedTimeGetByLabel(
    ConstHandle2ElapsedTimes self,

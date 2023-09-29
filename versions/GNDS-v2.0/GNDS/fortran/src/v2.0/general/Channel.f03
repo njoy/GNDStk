@@ -20,7 +20,7 @@ function ChannelDefaultConst() &
    type(c_ptr) :: ChannelDefaultConst
 end function ChannelDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ChannelDefault() &
       bind(C, name='ChannelDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function ChannelCreateConst( &
    type(c_ptr) :: ChannelCreateConst
 end function ChannelCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ChannelCreate( &
    label, &
    resonanceReaction, &
@@ -107,6 +107,8 @@ end subroutine ChannelDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ChannelRead(handle, filename, filenameSize) &
       bind(C, name='ChannelRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function ChannelRead(handle, filename, filenameSize) &
 end function ChannelRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ChannelWrite(handle, filename, filenameSize) &
       bind(C, name='ChannelWrite')
    use iso_c_binding
@@ -340,7 +344,7 @@ function ChannelScatteringRadiusGetConst(handle) &
    type(c_ptr) :: ChannelScatteringRadiusGetConst
 end function ChannelScatteringRadiusGetConst
 
-!! Get
+!! Get, non-const
 function ChannelScatteringRadiusGet(handle) &
       bind(C, name='ChannelScatteringRadiusGet')
    use iso_c_binding
@@ -381,7 +385,7 @@ function ChannelHardSphereRadiusGetConst(handle) &
    type(c_ptr) :: ChannelHardSphereRadiusGetConst
 end function ChannelHardSphereRadiusGetConst
 
-!! Get
+!! Get, non-const
 function ChannelHardSphereRadiusGet(handle) &
       bind(C, name='ChannelHardSphereRadiusGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function AxisDefaultConst() &
    type(c_ptr) :: AxisDefaultConst
 end function AxisDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AxisDefault() &
       bind(C, name='AxisDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function AxisCreateConst( &
    type(c_ptr) :: AxisCreateConst
 end function AxisCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AxisCreate( &
    index, &
    label, &
@@ -91,6 +91,8 @@ end subroutine AxisDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AxisRead(handle, filename, filenameSize) &
       bind(C, name='AxisRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function AxisRead(handle, filename, filenameSize) &
 end function AxisRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AxisWrite(handle, filename, filenameSize) &
       bind(C, name='AxisWrite')
    use iso_c_binding

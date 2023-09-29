@@ -20,7 +20,7 @@ function AverageProductEnergyDefaultConst() &
    type(c_ptr) :: AverageProductEnergyDefaultConst
 end function AverageProductEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AverageProductEnergyDefault() &
       bind(C, name='AverageProductEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function AverageProductEnergyCreateConst( &
    type(c_ptr) :: AverageProductEnergyCreateConst
 end function AverageProductEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AverageProductEnergyCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine AverageProductEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AverageProductEnergyRead(handle, filename, filenameSize) &
       bind(C, name='AverageProductEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function AverageProductEnergyRead(handle, filename, filenameSize) &
 end function AverageProductEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AverageProductEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='AverageProductEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function AverageProductEnergyXYs1dGetConst(handle) &
    type(c_ptr) :: AverageProductEnergyXYs1dGetConst
 end function AverageProductEnergyXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function AverageProductEnergyXYs1dGet(handle) &
       bind(C, name='AverageProductEnergyXYs1dGet')
    use iso_c_binding

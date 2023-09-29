@@ -71,7 +71,7 @@ typedef       struct OutputChannelClass *      Handle2OutputChannel;
 extern_c Handle2ConstOutputChannel
 OutputChannelDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2OutputChannel
 OutputChannelDefault();
 
@@ -84,7 +84,7 @@ OutputChannelCreateConst(
    ConstHandle2ConstProducts products
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2OutputChannel
 OutputChannelCreate(
    const char *const genre,
@@ -185,7 +185,7 @@ OutputChannelQHas(ConstHandle2ConstOutputChannel self);
 extern_c Handle2ConstQ
 OutputChannelQGetConst(ConstHandle2ConstOutputChannel self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Q
 OutputChannelQGet(ConstHandle2OutputChannel self);
 
@@ -206,7 +206,7 @@ OutputChannelProductsHas(ConstHandle2ConstOutputChannel self);
 extern_c Handle2ConstProducts
 OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Products
 OutputChannelProductsGet(ConstHandle2OutputChannel self);
 

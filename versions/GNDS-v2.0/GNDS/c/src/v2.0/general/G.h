@@ -70,7 +70,7 @@ typedef       struct GClass *      Handle2G;
 extern_c Handle2ConstG
 GDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2G
 GDefault();
 
@@ -80,7 +80,7 @@ GCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2G
 GCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ GXYs1dHas(ConstHandle2ConstG self);
 extern_c Handle2ConstXYs1d
 GXYs1dGetConst(ConstHandle2ConstG self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 GXYs1dGet(ConstHandle2G self);
 

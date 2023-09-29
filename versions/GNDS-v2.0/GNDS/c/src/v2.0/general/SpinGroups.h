@@ -70,7 +70,7 @@ typedef       struct SpinGroupsClass *      Handle2SpinGroups;
 extern_c Handle2ConstSpinGroups
 SpinGroupsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2SpinGroups
 SpinGroupsDefault();
 
@@ -80,7 +80,7 @@ SpinGroupsCreateConst(
    ConstHandle2SpinGroup *const spinGroup, const size_t spinGroupSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2SpinGroups
 SpinGroupsCreate(
    ConstHandle2SpinGroup *const spinGroup, const size_t spinGroupSize
@@ -154,7 +154,7 @@ SpinGroupsSpinGroupAdd(ConstHandle2SpinGroups self, ConstHandle2ConstSpinGroup s
 extern_c Handle2ConstSpinGroup
 SpinGroupsSpinGroupGetConst(ConstHandle2ConstSpinGroups self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGet(ConstHandle2SpinGroups self, const size_t index_);
 
@@ -184,7 +184,7 @@ SpinGroupsSpinGroupGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGetByLabel(
    ConstHandle2SpinGroups self,
@@ -217,7 +217,7 @@ SpinGroupsSpinGroupGetBySpinConst(
    const int spin
 );
 
-// +++ Get, by spin
+// +++ Get, by spin, non-const
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGetBySpin(
    ConstHandle2SpinGroups self,
@@ -250,7 +250,7 @@ SpinGroupsSpinGroupGetByParityConst(
    const int parity
 );
 
-// +++ Get, by parity
+// +++ Get, by parity, non-const
 extern_c Handle2SpinGroup
 SpinGroupsSpinGroupGetByParity(
    ConstHandle2SpinGroups self,

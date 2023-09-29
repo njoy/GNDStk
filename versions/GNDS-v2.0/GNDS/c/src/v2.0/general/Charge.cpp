@@ -33,7 +33,7 @@ ChargeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Charge
 ChargeDefault()
 {
@@ -53,7 +53,7 @@ ChargeCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Charge
 ChargeCreate(
    ConstHandle2ConstInteger integer
@@ -157,7 +157,7 @@ ChargeIntegerGetConst(ConstHandle2ConstCharge self)
       (CLASSNAME, CLASSNAME+"IntegerGetConst", self, extract::integer);
 }
 
-// Get
+// Get, non-const
 Handle2Integer
 ChargeIntegerGet(ConstHandle2Charge self)
 {

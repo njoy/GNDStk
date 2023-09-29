@@ -20,7 +20,7 @@ function Function2dsDefaultConst() &
    type(c_ptr) :: Function2dsDefaultConst
 end function Function2dsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Function2dsDefault() &
       bind(C, name='Function2dsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function Function2dsCreateConst( &
    type(c_ptr) :: Function2dsCreateConst
 end function Function2dsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Function2dsCreate( &
    XYs2d, XYs2dSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine Function2dsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Function2dsRead(handle, filename, filenameSize) &
       bind(C, name='Function2dsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function Function2dsRead(handle, filename, filenameSize) &
 end function Function2dsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Function2dsWrite(handle, filename, filenameSize) &
       bind(C, name='Function2dsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function Function2dsXYs2dGetConst(handle, index) &
    type(c_ptr) :: Function2dsXYs2dGetConst
 end function Function2dsXYs2dGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function Function2dsXYs2dGet(handle, index) &
       bind(C, name='Function2dsXYs2dGet')
    use iso_c_binding
@@ -219,7 +223,7 @@ function Function2dsXYs2dGetByIndexConst(handle, meta) &
    type(c_ptr) :: Function2dsXYs2dGetByIndexConst
 end function Function2dsXYs2dGetByIndexConst
 
-!! Get, by index
+!! Get, by index, non-const
 function Function2dsXYs2dGetByIndex(handle, meta) &
       bind(C, name='Function2dsXYs2dGetByIndex')
    use iso_c_binding
@@ -265,7 +269,7 @@ function Function2dsXYs2dGetByInterpolationConst(handle, meta, metaSize) &
    type(c_ptr) :: Function2dsXYs2dGetByInterpolationConst
 end function Function2dsXYs2dGetByInterpolationConst
 
-!! Get, by interpolation
+!! Get, by interpolation, non-const
 function Function2dsXYs2dGetByInterpolation(handle, meta, metaSize) &
       bind(C, name='Function2dsXYs2dGetByInterpolation')
    use iso_c_binding
@@ -313,7 +317,7 @@ function Function2dsXYs2dGetByInterpolationQualifierConst(handle, meta, metaSize
    type(c_ptr) :: Function2dsXYs2dGetByInterpolationQualifierConst
 end function Function2dsXYs2dGetByInterpolationQualifierConst
 
-!! Get, by interpolationQualifier
+!! Get, by interpolationQualifier, non-const
 function Function2dsXYs2dGetByInterpolationQualifier(handle, meta, metaSize) &
       bind(C, name='Function2dsXYs2dGetByInterpolationQualifier')
    use iso_c_binding
@@ -359,7 +363,7 @@ function Function2dsXYs2dGetByOuterDomainValueConst(handle, meta) &
    type(c_ptr) :: Function2dsXYs2dGetByOuterDomainValueConst
 end function Function2dsXYs2dGetByOuterDomainValueConst
 
-!! Get, by outerDomainValue
+!! Get, by outerDomainValue, non-const
 function Function2dsXYs2dGetByOuterDomainValue(handle, meta) &
       bind(C, name='Function2dsXYs2dGetByOuterDomainValue')
    use iso_c_binding

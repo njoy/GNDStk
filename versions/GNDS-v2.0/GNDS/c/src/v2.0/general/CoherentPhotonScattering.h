@@ -72,7 +72,7 @@ typedef       struct CoherentPhotonScatteringClass *      Handle2CoherentPhotonS
 extern_c Handle2ConstCoherentPhotonScattering
 CoherentPhotonScatteringDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CoherentPhotonScattering
 CoherentPhotonScatteringDefault();
 
@@ -88,7 +88,7 @@ CoherentPhotonScatteringCreateConst(
    ConstHandle2ConstImaginaryAnomalousFactor imaginaryAnomalousFactor
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CoherentPhotonScattering
 CoherentPhotonScatteringCreate(
    const char *const label,
@@ -228,7 +228,7 @@ CoherentPhotonScatteringFormFactorHas(ConstHandle2ConstCoherentPhotonScattering 
 extern_c Handle2ConstFormFactor
 CoherentPhotonScatteringFormFactorGetConst(ConstHandle2ConstCoherentPhotonScattering self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2FormFactor
 CoherentPhotonScatteringFormFactorGet(ConstHandle2CoherentPhotonScattering self);
 
@@ -249,7 +249,7 @@ CoherentPhotonScatteringRealAnomalousFactorHas(ConstHandle2ConstCoherentPhotonSc
 extern_c Handle2ConstRealAnomalousFactor
 CoherentPhotonScatteringRealAnomalousFactorGetConst(ConstHandle2ConstCoherentPhotonScattering self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2RealAnomalousFactor
 CoherentPhotonScatteringRealAnomalousFactorGet(ConstHandle2CoherentPhotonScattering self);
 
@@ -270,7 +270,7 @@ CoherentPhotonScatteringImaginaryAnomalousFactorHas(ConstHandle2ConstCoherentPho
 extern_c Handle2ConstImaginaryAnomalousFactor
 CoherentPhotonScatteringImaginaryAnomalousFactorGetConst(ConstHandle2ConstCoherentPhotonScattering self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ImaginaryAnomalousFactor
 CoherentPhotonScatteringImaginaryAnomalousFactorGet(ConstHandle2CoherentPhotonScattering self);
 

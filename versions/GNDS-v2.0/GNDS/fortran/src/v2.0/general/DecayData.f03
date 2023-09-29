@@ -20,7 +20,7 @@ function DecayDataDefaultConst() &
    type(c_ptr) :: DecayDataDefaultConst
 end function DecayDataDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DecayDataDefault() &
       bind(C, name='DecayDataDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function DecayDataCreateConst( &
    type(c_ptr) :: DecayDataCreateConst
 end function DecayDataCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DecayDataCreate( &
    decayModes, &
    averageEnergies &
@@ -79,6 +79,8 @@ end subroutine DecayDataDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DecayDataRead(handle, filename, filenameSize) &
       bind(C, name='DecayDataRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function DecayDataRead(handle, filename, filenameSize) &
 end function DecayDataRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DecayDataWrite(handle, filename, filenameSize) &
       bind(C, name='DecayDataWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function DecayDataDecayModesGetConst(handle) &
    type(c_ptr) :: DecayDataDecayModesGetConst
 end function DecayDataDecayModesGetConst
 
-!! Get
+!! Get, non-const
 function DecayDataDecayModesGet(handle) &
       bind(C, name='DecayDataDecayModesGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function DecayDataAverageEnergiesGetConst(handle) &
    type(c_ptr) :: DecayDataAverageEnergiesGetConst
 end function DecayDataAverageEnergiesGetConst
 
-!! Get
+!! Get, non-const
 function DecayDataAverageEnergiesGet(handle) &
       bind(C, name='DecayDataAverageEnergiesGet')
    use iso_c_binding

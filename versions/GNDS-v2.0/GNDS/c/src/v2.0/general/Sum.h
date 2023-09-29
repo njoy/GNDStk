@@ -70,7 +70,7 @@ typedef       struct SumClass *      Handle2Sum;
 extern_c Handle2ConstSum
 SumDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Sum
 SumDefault();
 
@@ -84,7 +84,7 @@ SumCreateConst(
    ConstHandle2Summand *const summand, const size_t summandSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Sum
 SumCreate(
    const char *const label,
@@ -234,7 +234,7 @@ SumSummandAdd(ConstHandle2Sum self, ConstHandle2ConstSummand summand);
 extern_c Handle2ConstSummand
 SumSummandGetConst(ConstHandle2ConstSum self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Summand
 SumSummandGet(ConstHandle2Sum self, const size_t index_);
 
@@ -264,7 +264,7 @@ SumSummandGetByENDFMFMTConst(
    const char *const ENDF_MFMT
 );
 
-// +++ Get, by ENDF_MFMT
+// +++ Get, by ENDF_MFMT, non-const
 extern_c Handle2Summand
 SumSummandGetByENDFMFMT(
    ConstHandle2Sum self,
@@ -297,7 +297,7 @@ SumSummandGetByCoefficientConst(
    const char *const coefficient
 );
 
-// +++ Get, by coefficient
+// +++ Get, by coefficient, non-const
 extern_c Handle2Summand
 SumSummandGetByCoefficient(
    ConstHandle2Sum self,
@@ -330,7 +330,7 @@ SumSummandGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href
+// +++ Get, by href, non-const
 extern_c Handle2Summand
 SumSummandGetByHref(
    ConstHandle2Sum self,

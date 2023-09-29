@@ -70,7 +70,7 @@ typedef       struct ProductYieldsClass *      Handle2ProductYields;
 extern_c Handle2ConstProductYields
 ProductYieldsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ProductYields
 ProductYieldsDefault();
 
@@ -80,7 +80,7 @@ ProductYieldsCreateConst(
    ConstHandle2ProductYield *const productYield, const size_t productYieldSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ProductYields
 ProductYieldsCreate(
    ConstHandle2ProductYield *const productYield, const size_t productYieldSize
@@ -154,7 +154,7 @@ ProductYieldsProductYieldAdd(ConstHandle2ProductYields self, ConstHandle2ConstPr
 extern_c Handle2ConstProductYield
 ProductYieldsProductYieldGetConst(ConstHandle2ConstProductYields self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ProductYield
 ProductYieldsProductYieldGet(ConstHandle2ProductYields self, const size_t index_);
 
@@ -184,7 +184,7 @@ ProductYieldsProductYieldGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2ProductYield
 ProductYieldsProductYieldGetByLabel(
    ConstHandle2ProductYields self,

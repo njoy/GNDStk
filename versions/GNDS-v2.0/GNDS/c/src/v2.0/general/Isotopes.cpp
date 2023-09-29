@@ -33,7 +33,7 @@ IsotopesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Isotopes
 IsotopesDefault()
 {
@@ -55,7 +55,7 @@ IsotopesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Isotopes
 IsotopesCreate(
    ConstHandle2Isotope *const isotope, const size_t isotopeSize
@@ -185,7 +185,7 @@ IsotopesIsotopeGetConst(ConstHandle2ConstIsotopes self, const size_t index_)
       (CLASSNAME, CLASSNAME+"IsotopeGetConst", self, extract::isotope, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Isotope
 IsotopesIsotopeGet(ConstHandle2Isotopes self, const size_t index_)
 {
@@ -230,7 +230,7 @@ IsotopesIsotopeGetBySymbolConst(
        self, extract::isotope, meta::symbol, symbol);
 }
 
-// Get, by symbol
+// Get, by symbol, non-const
 Handle2Isotope
 IsotopesIsotopeGetBySymbol(
    ConstHandle2Isotopes self,
@@ -279,7 +279,7 @@ IsotopesIsotopeGetByAConst(
        self, extract::isotope, meta::A, A);
 }
 
-// Get, by A
+// Get, by A, non-const
 Handle2Isotope
 IsotopesIsotopeGetByA(
    ConstHandle2Isotopes self,

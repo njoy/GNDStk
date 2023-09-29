@@ -36,7 +36,7 @@ ThermalNeutronScatteringLaw_coherentElasticDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ThermalNeutronScatteringLaw_coherentElastic
 ThermalNeutronScatteringLaw_coherentElasticDefault()
 {
@@ -62,7 +62,7 @@ ThermalNeutronScatteringLaw_coherentElasticCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ThermalNeutronScatteringLaw_coherentElastic
 ThermalNeutronScatteringLaw_coherentElasticCreate(
    const char *const label,
@@ -262,7 +262,7 @@ ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(ConstHandle2ConstTher
       (CLASSNAME, CLASSNAME+"S_tableGetConst", self, extract::S_table);
 }
 
-// Get
+// Get, non-const
 Handle2S_table
 ThermalNeutronScatteringLaw_coherentElasticS_tableGet(ConstHandle2ThermalNeutronScatteringLaw_coherentElastic self)
 {

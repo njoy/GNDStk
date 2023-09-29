@@ -20,7 +20,7 @@ function StandardDefaultConst() &
    type(c_ptr) :: StandardDefaultConst
 end function StandardDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function StandardDefault() &
       bind(C, name='StandardDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function StandardCreateConst( &
    type(c_ptr) :: StandardCreateConst
 end function StandardCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function StandardCreate( &
    Double &
 ) &
@@ -75,6 +75,8 @@ end subroutine StandardDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function StandardRead(handle, filename, filenameSize) &
       bind(C, name='StandardRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function StandardRead(handle, filename, filenameSize) &
 end function StandardRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function StandardWrite(handle, filename, filenameSize) &
       bind(C, name='StandardWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function StandardDoubleGetConst(handle) &
    type(c_ptr) :: StandardDoubleGetConst
 end function StandardDoubleGetConst
 
-!! Get
+!! Get, non-const
 function StandardDoubleGet(handle) &
       bind(C, name='StandardDoubleGet')
    use iso_c_binding

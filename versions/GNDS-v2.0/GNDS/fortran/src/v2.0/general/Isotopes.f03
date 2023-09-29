@@ -20,7 +20,7 @@ function IsotopesDefaultConst() &
    type(c_ptr) :: IsotopesDefaultConst
 end function IsotopesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IsotopesDefault() &
       bind(C, name='IsotopesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function IsotopesCreateConst( &
    type(c_ptr) :: IsotopesCreateConst
 end function IsotopesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IsotopesCreate( &
    isotope, isotopeSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine IsotopesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IsotopesRead(handle, filename, filenameSize) &
       bind(C, name='IsotopesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function IsotopesRead(handle, filename, filenameSize) &
 end function IsotopesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IsotopesWrite(handle, filename, filenameSize) &
       bind(C, name='IsotopesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function IsotopesIsotopeGetConst(handle, index) &
    type(c_ptr) :: IsotopesIsotopeGetConst
 end function IsotopesIsotopeGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function IsotopesIsotopeGet(handle, index) &
       bind(C, name='IsotopesIsotopeGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function IsotopesIsotopeGetBySymbolConst(handle, meta, metaSize) &
    type(c_ptr) :: IsotopesIsotopeGetBySymbolConst
 end function IsotopesIsotopeGetBySymbolConst
 
-!! Get, by symbol
+!! Get, by symbol, non-const
 function IsotopesIsotopeGetBySymbol(handle, meta, metaSize) &
       bind(C, name='IsotopesIsotopeGetBySymbol')
    use iso_c_binding
@@ -267,7 +271,7 @@ function IsotopesIsotopeGetByAConst(handle, meta) &
    type(c_ptr) :: IsotopesIsotopeGetByAConst
 end function IsotopesIsotopeGetByAConst
 
-!! Get, by A
+!! Get, by A, non-const
 function IsotopesIsotopeGetByA(handle, meta) &
       bind(C, name='IsotopesIsotopeGetByA')
    use iso_c_binding

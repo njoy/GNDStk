@@ -69,7 +69,7 @@ typedef       struct FractionClass *      Handle2Fraction;
 extern_c Handle2ConstFraction
 FractionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Fraction
 FractionDefault();
 
@@ -81,7 +81,7 @@ FractionCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Fraction
 FractionCreate(
    const char *const label,

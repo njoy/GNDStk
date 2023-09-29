@@ -35,7 +35,7 @@ ENDFconversionFlagsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ENDFconversionFlags
 ENDFconversionFlagsDefault()
 {
@@ -61,7 +61,7 @@ ENDFconversionFlagsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ENDFconversionFlags
 ENDFconversionFlagsCreate(
    const char *const flags,
@@ -255,7 +255,7 @@ ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags self,
       (CLASSNAME, CLASSNAME+"ConversionGetConst", self, extract::conversion, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Conversion
 ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags self, const size_t index_)
 {
@@ -300,7 +300,7 @@ ENDFconversionFlagsConversionGetByFlagsConst(
        self, extract::conversion, meta::flags, flags);
 }
 
-// Get, by flags
+// Get, by flags, non-const
 Handle2Conversion
 ENDFconversionFlagsConversionGetByFlags(
    ConstHandle2ENDFconversionFlags self,
@@ -349,7 +349,7 @@ ENDFconversionFlagsConversionGetByHrefConst(
        self, extract::conversion, meta::href, href);
 }
 
-// Get, by href
+// Get, by href, non-const
 Handle2Conversion
 ENDFconversionFlagsConversionGetByHref(
    ConstHandle2ENDFconversionFlags self,

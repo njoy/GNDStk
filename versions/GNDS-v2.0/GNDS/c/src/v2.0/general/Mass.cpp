@@ -35,7 +35,7 @@ MassDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Mass
 MassDefault()
 {
@@ -59,7 +59,7 @@ MassCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Mass
 MassCreate(
    const double value,
@@ -227,7 +227,7 @@ MassDoubleGetConst(ConstHandle2ConstMass self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 MassDoubleGet(ConstHandle2Mass self)
 {

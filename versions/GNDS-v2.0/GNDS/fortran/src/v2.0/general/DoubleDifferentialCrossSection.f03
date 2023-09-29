@@ -20,7 +20,7 @@ function DoubleDifferentialCrossSectionDefaultConst() &
    type(c_ptr) :: DoubleDifferentialCrossSectionDefaultConst
 end function DoubleDifferentialCrossSectionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DoubleDifferentialCrossSectionDefault() &
       bind(C, name='DoubleDifferentialCrossSectionDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function DoubleDifferentialCrossSectionCreateConst( &
    type(c_ptr) :: DoubleDifferentialCrossSectionCreateConst
 end function DoubleDifferentialCrossSectionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DoubleDifferentialCrossSectionCreate( &
    CoulombPlusNuclearElastic, &
    coherentPhotonScattering, &
@@ -95,6 +95,8 @@ end subroutine DoubleDifferentialCrossSectionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DoubleDifferentialCrossSectionRead(handle, filename, filenameSize) &
       bind(C, name='DoubleDifferentialCrossSectionRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function DoubleDifferentialCrossSectionRead(handle, filename, filenameSize) &
 end function DoubleDifferentialCrossSectionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DoubleDifferentialCrossSectionWrite(handle, filename, filenameSize) &
       bind(C, name='DoubleDifferentialCrossSectionWrite')
    use iso_c_binding
@@ -166,7 +170,7 @@ function DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst(handle)
    type(c_ptr) :: DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst
 end function DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst
 
-!! Get
+!! Get, non-const
 function DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet')
    use iso_c_binding
@@ -207,7 +211,7 @@ function DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst(handle) 
    type(c_ptr) :: DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst
 end function DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst
 
-!! Get
+!! Get, non-const
 function DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionCoherentPhotonScatteringGet')
    use iso_c_binding
@@ -248,7 +252,7 @@ function DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst(handle
    type(c_ptr) :: DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst
 end function DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst
 
-!! Get
+!! Get, non-const
 function DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet')
    use iso_c_binding
@@ -289,7 +293,7 @@ function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElast
    type(c_ptr) :: DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetConst
 end function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetConst
 
-!! Get
+!! Get, non-const
 function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet')
    use iso_c_binding
@@ -330,7 +334,7 @@ function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentEla
    type(c_ptr) :: DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetConst
 end function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetConst
 
-!! Get
+!! Get, non-const
 function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet')
    use iso_c_binding
@@ -371,7 +375,7 @@ function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentIne
    type(c_ptr) :: DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGetConst
 end function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGetConst
 
-!! Get
+!! Get, non-const
 function DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet(handle) &
       bind(C, name='DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function OrphanProductDefaultConst() &
    type(c_ptr) :: OrphanProductDefaultConst
 end function OrphanProductDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function OrphanProductDefault() &
       bind(C, name='OrphanProductDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function OrphanProductCreateConst( &
    type(c_ptr) :: OrphanProductCreateConst
 end function OrphanProductCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function OrphanProductCreate( &
    label, &
    ENDF_MT, &
@@ -91,6 +91,8 @@ end subroutine OrphanProductDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function OrphanProductRead(handle, filename, filenameSize) &
       bind(C, name='OrphanProductRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function OrphanProductRead(handle, filename, filenameSize) &
 end function OrphanProductRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function OrphanProductWrite(handle, filename, filenameSize) &
       bind(C, name='OrphanProductWrite')
    use iso_c_binding
@@ -227,7 +231,7 @@ function OrphanProductCrossSectionGetConst(handle) &
    type(c_ptr) :: OrphanProductCrossSectionGetConst
 end function OrphanProductCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function OrphanProductCrossSectionGet(handle) &
       bind(C, name='OrphanProductCrossSectionGet')
    use iso_c_binding
@@ -268,7 +272,7 @@ function OrphanProductOutputChannelGetConst(handle) &
    type(c_ptr) :: OrphanProductOutputChannelGetConst
 end function OrphanProductOutputChannelGetConst
 
-!! Get
+!! Get, non-const
 function OrphanProductOutputChannelGet(handle) &
       bind(C, name='OrphanProductOutputChannelGet')
    use iso_c_binding

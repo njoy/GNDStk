@@ -69,7 +69,7 @@ typedef       struct TemperatureClass *      Handle2Temperature;
 extern_c Handle2ConstTemperature
 TemperatureDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Temperature
 TemperatureDefault();
 
@@ -80,7 +80,7 @@ TemperatureCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Temperature
 TemperatureCreate(
    const double value,

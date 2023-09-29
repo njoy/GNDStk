@@ -33,7 +33,7 @@ ColumnDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Column
 ColumnDefault()
 {
@@ -57,7 +57,7 @@ ColumnCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Column
 ColumnCreate(
    const int index,

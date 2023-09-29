@@ -31,7 +31,7 @@ LinkDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Link
 LinkDefault()
 {
@@ -51,7 +51,7 @@ LinkCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Link
 LinkCreate(
    const char *const href

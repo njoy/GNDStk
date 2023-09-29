@@ -69,7 +69,7 @@ typedef       struct SummandClass *      Handle2Summand;
 extern_c Handle2ConstSummand
 SummandDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Summand
 SummandDefault();
 
@@ -81,7 +81,7 @@ SummandCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Summand
 SummandCreate(
    const char *const ENDF_MFMT,

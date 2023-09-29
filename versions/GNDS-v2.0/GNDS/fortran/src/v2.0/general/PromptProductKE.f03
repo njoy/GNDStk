@@ -20,7 +20,7 @@ function PromptProductKEDefaultConst() &
    type(c_ptr) :: PromptProductKEDefaultConst
 end function PromptProductKEDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PromptProductKEDefault() &
       bind(C, name='PromptProductKEDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function PromptProductKECreateConst( &
    type(c_ptr) :: PromptProductKECreateConst
 end function PromptProductKECreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PromptProductKECreate( &
    polynomial1d, &
    XYs1d &
@@ -79,6 +79,8 @@ end subroutine PromptProductKEDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PromptProductKERead(handle, filename, filenameSize) &
       bind(C, name='PromptProductKERead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function PromptProductKERead(handle, filename, filenameSize) &
 end function PromptProductKERead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PromptProductKEWrite(handle, filename, filenameSize) &
       bind(C, name='PromptProductKEWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function PromptProductKEPolynomial1dGetConst(handle) &
    type(c_ptr) :: PromptProductKEPolynomial1dGetConst
 end function PromptProductKEPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function PromptProductKEPolynomial1dGet(handle) &
       bind(C, name='PromptProductKEPolynomial1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function PromptProductKEXYs1dGetConst(handle) &
    type(c_ptr) :: PromptProductKEXYs1dGetConst
 end function PromptProductKEXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function PromptProductKEXYs1dGet(handle) &
       bind(C, name='PromptProductKEXYs1dGet')
    use iso_c_binding

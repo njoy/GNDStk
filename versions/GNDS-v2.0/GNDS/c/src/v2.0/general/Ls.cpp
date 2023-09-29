@@ -33,7 +33,7 @@ LsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Ls
 LsDefault()
 {
@@ -55,7 +55,7 @@ LsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Ls
 LsCreate(
    ConstHandle2L *const L, const size_t LSize
@@ -185,7 +185,7 @@ LsLGetConst(ConstHandle2ConstLs self, const size_t index_)
       (CLASSNAME, CLASSNAME+"LGetConst", self, extract::L, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2L
 LsLGet(ConstHandle2Ls self, const size_t index_)
 {
@@ -230,7 +230,7 @@ LsLGetByLabelConst(
        self, extract::L, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2L
 LsLGetByLabel(
    ConstHandle2Ls self,
@@ -279,7 +279,7 @@ LsLGetByValueConst(
        self, extract::L, meta::value, value);
 }
 
-// Get, by value
+// Get, by value, non-const
 Handle2L
 LsLGetByValue(
    ConstHandle2Ls self,

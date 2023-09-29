@@ -20,7 +20,7 @@ function SummandsDefaultConst() &
    type(c_ptr) :: SummandsDefaultConst
 end function SummandsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SummandsDefault() &
       bind(C, name='SummandsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function SummandsCreateConst( &
    type(c_ptr) :: SummandsCreateConst
 end function SummandsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SummandsCreate( &
    add, addSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine SummandsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SummandsRead(handle, filename, filenameSize) &
       bind(C, name='SummandsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function SummandsRead(handle, filename, filenameSize) &
 end function SummandsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SummandsWrite(handle, filename, filenameSize) &
       bind(C, name='SummandsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function SummandsAddGetConst(handle, index) &
    type(c_ptr) :: SummandsAddGetConst
 end function SummandsAddGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function SummandsAddGet(handle, index) &
       bind(C, name='SummandsAddGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function SummandsAddGetByHrefConst(handle, meta, metaSize) &
    type(c_ptr) :: SummandsAddGetByHrefConst
 end function SummandsAddGetByHrefConst
 
-!! Get, by href
+!! Get, by href, non-const
 function SummandsAddGetByHref(handle, meta, metaSize) &
       bind(C, name='SummandsAddGetByHref')
    use iso_c_binding

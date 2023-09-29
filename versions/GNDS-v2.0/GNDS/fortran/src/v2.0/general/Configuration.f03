@@ -20,7 +20,7 @@ function ConfigurationDefaultConst() &
    type(c_ptr) :: ConfigurationDefaultConst
 end function ConfigurationDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ConfigurationDefault() &
       bind(C, name='ConfigurationDefault')
    use iso_c_binding
@@ -48,7 +48,7 @@ function ConfigurationCreateConst( &
    type(c_ptr) :: ConfigurationCreateConst
 end function ConfigurationCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ConfigurationCreate( &
    subshell, &
    electronNumber, &
@@ -93,6 +93,8 @@ end subroutine ConfigurationDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ConfigurationRead(handle, filename, filenameSize) &
       bind(C, name='ConfigurationRead')
    use iso_c_binding
@@ -104,6 +106,8 @@ function ConfigurationRead(handle, filename, filenameSize) &
 end function ConfigurationRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ConfigurationWrite(handle, filename, filenameSize) &
       bind(C, name='ConfigurationWrite')
    use iso_c_binding
@@ -229,7 +233,7 @@ function ConfigurationBindingEnergyGetConst(handle) &
    type(c_ptr) :: ConfigurationBindingEnergyGetConst
 end function ConfigurationBindingEnergyGetConst
 
-!! Get
+!! Get, non-const
 function ConfigurationBindingEnergyGet(handle) &
       bind(C, name='ConfigurationBindingEnergyGet')
    use iso_c_binding
@@ -297,7 +301,7 @@ function ConfigurationDecayDataGetConst(handle, index) &
    type(c_ptr) :: ConfigurationDecayDataGetConst
 end function ConfigurationDecayDataGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ConfigurationDecayDataGet(handle, index) &
       bind(C, name='ConfigurationDecayDataGet')
    use iso_c_binding

@@ -71,7 +71,7 @@ typedef       struct StylesClass *      Handle2Styles;
 extern_c Handle2ConstStyles
 StylesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Styles
 StylesDefault();
 
@@ -82,7 +82,7 @@ StylesCreateConst(
    ConstHandle2ConstCrossSectionReconstructed crossSectionReconstructed
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Styles
 StylesCreate(
    ConstHandle2ConstEvaluated evaluated,
@@ -145,7 +145,7 @@ StylesEvaluatedHas(ConstHandle2ConstStyles self);
 extern_c Handle2ConstEvaluated
 StylesEvaluatedGetConst(ConstHandle2ConstStyles self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Evaluated
 StylesEvaluatedGet(ConstHandle2Styles self);
 
@@ -166,7 +166,7 @@ StylesCrossSectionReconstructedHas(ConstHandle2ConstStyles self);
 extern_c Handle2ConstCrossSectionReconstructed
 StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGet(ConstHandle2Styles self);
 

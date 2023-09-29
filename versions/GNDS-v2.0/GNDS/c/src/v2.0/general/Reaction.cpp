@@ -40,7 +40,7 @@ ReactionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Reaction
 ReactionDefault()
 {
@@ -70,7 +70,7 @@ ReactionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Reaction
 ReactionCreate(
    const char *const label,
@@ -274,7 +274,7 @@ ReactionCrossSectionGetConst(ConstHandle2ConstReaction self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSection
 ReactionCrossSectionGet(ConstHandle2Reaction self)
 {
@@ -311,7 +311,7 @@ ReactionOutputChannelGetConst(ConstHandle2ConstReaction self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get
+// Get, non-const
 Handle2OutputChannel
 ReactionOutputChannelGet(ConstHandle2Reaction self)
 {
@@ -348,7 +348,7 @@ ReactionDoubleDifferentialCrossSectionGetConst(ConstHandle2ConstReaction self)
       (CLASSNAME, CLASSNAME+"DoubleDifferentialCrossSectionGetConst", self, extract::doubleDifferentialCrossSection);
 }
 
-// Get
+// Get, non-const
 Handle2DoubleDifferentialCrossSection
 ReactionDoubleDifferentialCrossSectionGet(ConstHandle2Reaction self)
 {

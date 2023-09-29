@@ -20,7 +20,7 @@ function WidthDefaultConst() &
    type(c_ptr) :: WidthDefaultConst
 end function WidthDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function WidthDefault() &
       bind(C, name='WidthDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function WidthCreateConst( &
    type(c_ptr) :: WidthCreateConst
 end function WidthCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function WidthCreate( &
    label, &
    resonanceReaction, &
@@ -103,6 +103,8 @@ end subroutine WidthDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function WidthRead(handle, filename, filenameSize) &
       bind(C, name='WidthRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function WidthRead(handle, filename, filenameSize) &
 end function WidthRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function WidthWrite(handle, filename, filenameSize) &
       bind(C, name='WidthWrite')
    use iso_c_binding
@@ -272,7 +276,7 @@ function WidthXYs1dGetConst(handle) &
    type(c_ptr) :: WidthXYs1dGetConst
 end function WidthXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function WidthXYs1dGet(handle) &
       bind(C, name='WidthXYs1dGet')
    use iso_c_binding
@@ -313,7 +317,7 @@ function WidthConstant1dGetConst(handle) &
    type(c_ptr) :: WidthConstant1dGetConst
 end function WidthConstant1dGetConst
 
-!! Get
+!! Get, non-const
 function WidthConstant1dGet(handle) &
       bind(C, name='WidthConstant1dGet')
    use iso_c_binding
@@ -354,7 +358,7 @@ function WidthRegions1dGetConst(handle) &
    type(c_ptr) :: WidthRegions1dGetConst
 end function WidthRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function WidthRegions1dGet(handle) &
       bind(C, name='WidthRegions1dGet')
    use iso_c_binding

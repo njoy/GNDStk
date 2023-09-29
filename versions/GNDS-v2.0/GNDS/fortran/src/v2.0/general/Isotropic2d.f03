@@ -20,7 +20,7 @@ function Isotropic2dDefaultConst() &
    type(c_ptr) :: Isotropic2dDefaultConst
 end function Isotropic2dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Isotropic2dDefault() &
       bind(C, name='Isotropic2dDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function Isotropic2dCreateConst( &
    type(c_ptr) :: Isotropic2dCreateConst
 end function Isotropic2dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Isotropic2dCreate( &
 ) &
       bind(C, name='Isotropic2dCreate')
@@ -71,6 +71,8 @@ end subroutine Isotropic2dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Isotropic2dRead(handle, filename, filenameSize) &
       bind(C, name='Isotropic2dRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function Isotropic2dRead(handle, filename, filenameSize) &
 end function Isotropic2dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Isotropic2dWrite(handle, filename, filenameSize) &
       bind(C, name='Isotropic2dWrite')
    use iso_c_binding

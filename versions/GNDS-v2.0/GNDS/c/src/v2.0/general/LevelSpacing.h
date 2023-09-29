@@ -71,7 +71,7 @@ typedef       struct LevelSpacingClass *      Handle2LevelSpacing;
 extern_c Handle2ConstLevelSpacing
 LevelSpacingDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2LevelSpacing
 LevelSpacingDefault();
 
@@ -82,7 +82,7 @@ LevelSpacingCreateConst(
    ConstHandle2ConstConstant1d constant1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2LevelSpacing
 LevelSpacingCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -145,7 +145,7 @@ LevelSpacingXYs1dHas(ConstHandle2ConstLevelSpacing self);
 extern_c Handle2ConstXYs1d
 LevelSpacingXYs1dGetConst(ConstHandle2ConstLevelSpacing self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 LevelSpacingXYs1dGet(ConstHandle2LevelSpacing self);
 
@@ -166,7 +166,7 @@ LevelSpacingConstant1dHas(ConstHandle2ConstLevelSpacing self);
 extern_c Handle2ConstConstant1d
 LevelSpacingConstant1dGetConst(ConstHandle2ConstLevelSpacing self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Constant1d
 LevelSpacingConstant1dGet(ConstHandle2LevelSpacing self);
 

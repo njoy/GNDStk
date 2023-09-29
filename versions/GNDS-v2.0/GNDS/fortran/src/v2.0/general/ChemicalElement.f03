@@ -20,7 +20,7 @@ function ChemicalElementDefaultConst() &
    type(c_ptr) :: ChemicalElementDefaultConst
 end function ChemicalElementDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ChemicalElementDefault() &
       bind(C, name='ChemicalElementDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function ChemicalElementCreateConst( &
    type(c_ptr) :: ChemicalElementCreateConst
 end function ChemicalElementCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ChemicalElementCreate( &
    symbol, &
    Z, &
@@ -99,6 +99,8 @@ end subroutine ChemicalElementDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ChemicalElementRead(handle, filename, filenameSize) &
       bind(C, name='ChemicalElementRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function ChemicalElementRead(handle, filename, filenameSize) &
 end function ChemicalElementRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ChemicalElementWrite(handle, filename, filenameSize) &
       bind(C, name='ChemicalElementWrite')
    use iso_c_binding
@@ -268,7 +272,7 @@ function ChemicalElementAtomicGetConst(handle) &
    type(c_ptr) :: ChemicalElementAtomicGetConst
 end function ChemicalElementAtomicGetConst
 
-!! Get
+!! Get, non-const
 function ChemicalElementAtomicGet(handle) &
       bind(C, name='ChemicalElementAtomicGet')
    use iso_c_binding
@@ -309,7 +313,7 @@ function ChemicalElementIsotopesGetConst(handle) &
    type(c_ptr) :: ChemicalElementIsotopesGetConst
 end function ChemicalElementIsotopesGetConst
 
-!! Get
+!! Get, non-const
 function ChemicalElementIsotopesGet(handle) &
       bind(C, name='ChemicalElementIsotopesGet')
    use iso_c_binding

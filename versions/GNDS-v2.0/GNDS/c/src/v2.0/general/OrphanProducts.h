@@ -70,7 +70,7 @@ typedef       struct OrphanProductsClass *      Handle2OrphanProducts;
 extern_c Handle2ConstOrphanProducts
 OrphanProductsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2OrphanProducts
 OrphanProductsDefault();
 
@@ -80,7 +80,7 @@ OrphanProductsCreateConst(
    ConstHandle2OrphanProduct *const orphanProduct, const size_t orphanProductSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2OrphanProducts
 OrphanProductsCreate(
    ConstHandle2OrphanProduct *const orphanProduct, const size_t orphanProductSize
@@ -154,7 +154,7 @@ OrphanProductsOrphanProductAdd(ConstHandle2OrphanProducts self, ConstHandle2Cons
 extern_c Handle2ConstOrphanProduct
 OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts self, const size_t index_);
 
@@ -184,7 +184,7 @@ OrphanProductsOrphanProductGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGetByLabel(
    ConstHandle2OrphanProducts self,
@@ -217,7 +217,7 @@ OrphanProductsOrphanProductGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2OrphanProduct
 OrphanProductsOrphanProductGetByENDFMT(
    ConstHandle2OrphanProducts self,

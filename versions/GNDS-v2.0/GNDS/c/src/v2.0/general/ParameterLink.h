@@ -69,7 +69,7 @@ typedef       struct ParameterLinkClass *      Handle2ParameterLink;
 extern_c Handle2ConstParameterLink
 ParameterLinkDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ParameterLink
 ParameterLinkDefault();
 
@@ -82,7 +82,7 @@ ParameterLinkCreateConst(
    const int matrixStartIndex
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ParameterLink
 ParameterLinkCreate(
    const char *const label,

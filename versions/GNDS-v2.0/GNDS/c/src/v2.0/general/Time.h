@@ -71,7 +71,7 @@ typedef       struct TimeClass *      Handle2Time;
 extern_c Handle2ConstTime
 TimeDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Time
 TimeDefault();
 
@@ -82,7 +82,7 @@ TimeCreateConst(
    ConstHandle2ConstString string
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Time
 TimeCreate(
    ConstHandle2ConstDouble Double,
@@ -145,7 +145,7 @@ TimeDoubleHas(ConstHandle2ConstTime self);
 extern_c Handle2ConstDouble
 TimeDoubleGetConst(ConstHandle2ConstTime self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 TimeDoubleGet(ConstHandle2Time self);
 
@@ -166,7 +166,7 @@ TimeStringHas(ConstHandle2ConstTime self);
 extern_c Handle2ConstString
 TimeStringGetConst(ConstHandle2ConstTime self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2String
 TimeStringGet(ConstHandle2Time self);
 

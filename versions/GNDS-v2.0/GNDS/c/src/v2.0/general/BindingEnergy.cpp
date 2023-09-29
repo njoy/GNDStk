@@ -33,7 +33,7 @@ BindingEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2BindingEnergy
 BindingEnergyDefault()
 {
@@ -53,7 +53,7 @@ BindingEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2BindingEnergy
 BindingEnergyCreate(
    ConstHandle2ConstDouble Double
@@ -157,7 +157,7 @@ BindingEnergyDoubleGetConst(ConstHandle2ConstBindingEnergy self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 BindingEnergyDoubleGet(ConstHandle2BindingEnergy self)
 {

@@ -27,7 +27,7 @@ EndfCompatibleDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2EndfCompatible
 EndfCompatibleDefault()
 {
@@ -45,7 +45,7 @@ EndfCompatibleCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2EndfCompatible
 EndfCompatibleCreate()
 {

@@ -32,7 +32,7 @@ BoundAtomCrossSectionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2BoundAtomCrossSection
 BoundAtomCrossSectionDefault()
 {
@@ -54,7 +54,7 @@ BoundAtomCrossSectionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2BoundAtomCrossSection
 BoundAtomCrossSectionCreate(
    const double value,

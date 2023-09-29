@@ -72,7 +72,7 @@ typedef       struct Polynomial1dClass *      Handle2Polynomial1d;
 extern_c Handle2ConstPolynomial1d
 Polynomial1dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Polynomial1d
 Polynomial1dDefault();
 
@@ -87,7 +87,7 @@ Polynomial1dCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Polynomial1d
 Polynomial1dCreate(
    const char *const label,
@@ -208,7 +208,7 @@ Polynomial1dAxesHas(ConstHandle2ConstPolynomial1d self);
 extern_c Handle2ConstAxes
 Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 Polynomial1dAxesGet(ConstHandle2Polynomial1d self);
 
@@ -229,7 +229,7 @@ Polynomial1dValuesHas(ConstHandle2ConstPolynomial1d self);
 extern_c Handle2ConstValues
 Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Values
 Polynomial1dValuesGet(ConstHandle2Polynomial1d self);
 
@@ -250,7 +250,7 @@ Polynomial1dUncertaintyHas(ConstHandle2ConstPolynomial1d self);
 extern_c Handle2ConstUncertainty
 Polynomial1dUncertaintyGetConst(ConstHandle2ConstPolynomial1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 Polynomial1dUncertaintyGet(ConstHandle2Polynomial1d self);
 

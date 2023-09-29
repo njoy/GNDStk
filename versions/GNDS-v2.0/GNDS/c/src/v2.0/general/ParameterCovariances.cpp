@@ -35,7 +35,7 @@ ParameterCovariancesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ParameterCovariances
 ParameterCovariancesDefault()
 {
@@ -61,7 +61,7 @@ ParameterCovariancesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ParameterCovariances
 ParameterCovariancesCreate(
    ConstHandle2ParameterCovariance *const parameterCovariance, const size_t parameterCovarianceSize,
@@ -195,7 +195,7 @@ ParameterCovariancesParameterCovarianceGetConst(ConstHandle2ConstParameterCovari
       (CLASSNAME, CLASSNAME+"ParameterCovarianceGetConst", self, extract::parameterCovariance, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_)
 {
@@ -240,7 +240,7 @@ ParameterCovariancesParameterCovarianceGetByLabelConst(
        self, extract::parameterCovariance, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -308,7 +308,7 @@ ParameterCovariancesAverageParameterCovarianceGetConst(ConstHandle2ConstParamete
       (CLASSNAME, CLASSNAME+"AverageParameterCovarianceGetConst", self, extract::averageParameterCovariance, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_)
 {
@@ -353,7 +353,7 @@ ParameterCovariancesAverageParameterCovarianceGetByLabelConst(
        self, extract::averageParameterCovariance, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -402,7 +402,7 @@ ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(
        self, extract::averageParameterCovariance, meta::crossTerm, crossTerm);
 }
 
-// Get, by crossTerm
+// Get, by crossTerm, non-const
 Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(
    ConstHandle2ParameterCovariances self,

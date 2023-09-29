@@ -72,7 +72,7 @@ typedef       struct CoulombPlusNuclearElasticClass *      Handle2CoulombPlusNuc
 extern_c Handle2ConstCoulombPlusNuclearElastic
 CoulombPlusNuclearElasticDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CoulombPlusNuclearElastic
 CoulombPlusNuclearElasticDefault();
 
@@ -89,7 +89,7 @@ CoulombPlusNuclearElasticCreateConst(
    ConstHandle2ConstNuclearPlusInterference nuclearPlusInterference
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CoulombPlusNuclearElastic
 CoulombPlusNuclearElasticCreate(
    const char *const label,
@@ -248,7 +248,7 @@ CoulombPlusNuclearElasticRutherfordScatteringHas(ConstHandle2ConstCoulombPlusNuc
 extern_c Handle2ConstRutherfordScattering
 CoulombPlusNuclearElasticRutherfordScatteringGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2RutherfordScattering
 CoulombPlusNuclearElasticRutherfordScatteringGet(ConstHandle2CoulombPlusNuclearElastic self);
 
@@ -269,7 +269,7 @@ CoulombPlusNuclearElasticNuclearAmplitudeExpansionHas(ConstHandle2ConstCoulombPl
 extern_c Handle2ConstNuclearAmplitudeExpansion
 CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2NuclearAmplitudeExpansion
 CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(ConstHandle2CoulombPlusNuclearElastic self);
 
@@ -290,7 +290,7 @@ CoulombPlusNuclearElasticNuclearPlusInterferenceHas(ConstHandle2ConstCoulombPlus
 extern_c Handle2ConstNuclearPlusInterference
 CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(ConstHandle2ConstCoulombPlusNuclearElastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2NuclearPlusInterference
 CoulombPlusNuclearElasticNuclearPlusInterferenceGet(ConstHandle2CoulombPlusNuclearElastic self);
 

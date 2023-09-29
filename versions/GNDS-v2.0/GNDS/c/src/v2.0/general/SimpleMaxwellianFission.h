@@ -71,7 +71,7 @@ typedef       struct SimpleMaxwellianFissionClass *      Handle2SimpleMaxwellian
 extern_c Handle2ConstSimpleMaxwellianFission
 SimpleMaxwellianFissionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2SimpleMaxwellianFission
 SimpleMaxwellianFissionDefault();
 
@@ -82,7 +82,7 @@ SimpleMaxwellianFissionCreateConst(
    ConstHandle2ConstTheta theta
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2SimpleMaxwellianFission
 SimpleMaxwellianFissionCreate(
    ConstHandle2ConstU U,
@@ -145,7 +145,7 @@ SimpleMaxwellianFissionUHas(ConstHandle2ConstSimpleMaxwellianFission self);
 extern_c Handle2ConstU
 SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2U
 SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission self);
 
@@ -166,7 +166,7 @@ SimpleMaxwellianFissionThetaHas(ConstHandle2ConstSimpleMaxwellianFission self);
 extern_c Handle2ConstTheta
 SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Theta
 SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission self);
 

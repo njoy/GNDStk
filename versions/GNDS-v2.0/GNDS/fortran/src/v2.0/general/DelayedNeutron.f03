@@ -20,7 +20,7 @@ function DelayedNeutronDefaultConst() &
    type(c_ptr) :: DelayedNeutronDefaultConst
 end function DelayedNeutronDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DelayedNeutronDefault() &
       bind(C, name='DelayedNeutronDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function DelayedNeutronCreateConst( &
    type(c_ptr) :: DelayedNeutronCreateConst
 end function DelayedNeutronCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DelayedNeutronCreate( &
    label, &
    rate, &
@@ -87,6 +87,8 @@ end subroutine DelayedNeutronDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DelayedNeutronRead(handle, filename, filenameSize) &
       bind(C, name='DelayedNeutronRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function DelayedNeutronRead(handle, filename, filenameSize) &
 end function DelayedNeutronRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DelayedNeutronWrite(handle, filename, filenameSize) &
       bind(C, name='DelayedNeutronWrite')
    use iso_c_binding
@@ -191,7 +195,7 @@ function DelayedNeutronRateGetConst(handle) &
    type(c_ptr) :: DelayedNeutronRateGetConst
 end function DelayedNeutronRateGetConst
 
-!! Get
+!! Get, non-const
 function DelayedNeutronRateGet(handle) &
       bind(C, name='DelayedNeutronRateGet')
    use iso_c_binding
@@ -232,7 +236,7 @@ function DelayedNeutronProductGetConst(handle) &
    type(c_ptr) :: DelayedNeutronProductGetConst
 end function DelayedNeutronProductGetConst
 
-!! Get
+!! Get, non-const
 function DelayedNeutronProductGet(handle) &
       bind(C, name='DelayedNeutronProductGet')
    use iso_c_binding

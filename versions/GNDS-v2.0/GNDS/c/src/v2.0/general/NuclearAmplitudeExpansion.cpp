@@ -37,7 +37,7 @@ NuclearAmplitudeExpansionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2NuclearAmplitudeExpansion
 NuclearAmplitudeExpansionDefault()
 {
@@ -61,7 +61,7 @@ NuclearAmplitudeExpansionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2NuclearAmplitudeExpansion
 NuclearAmplitudeExpansionCreate(
    ConstHandle2ConstNuclearTerm nuclearTerm,
@@ -169,7 +169,7 @@ NuclearAmplitudeExpansionNuclearTermGetConst(ConstHandle2ConstNuclearAmplitudeEx
       (CLASSNAME, CLASSNAME+"NuclearTermGetConst", self, extract::nuclearTerm);
 }
 
-// Get
+// Get, non-const
 Handle2NuclearTerm
 NuclearAmplitudeExpansionNuclearTermGet(ConstHandle2NuclearAmplitudeExpansion self)
 {
@@ -206,7 +206,7 @@ NuclearAmplitudeExpansionRealInterferenceTermGetConst(ConstHandle2ConstNuclearAm
       (CLASSNAME, CLASSNAME+"RealInterferenceTermGetConst", self, extract::realInterferenceTerm);
 }
 
-// Get
+// Get, non-const
 Handle2RealInterferenceTerm
 NuclearAmplitudeExpansionRealInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self)
 {
@@ -243,7 +243,7 @@ NuclearAmplitudeExpansionImaginaryInterferenceTermGetConst(ConstHandle2ConstNucl
       (CLASSNAME, CLASSNAME+"ImaginaryInterferenceTermGetConst", self, extract::imaginaryInterferenceTerm);
 }
 
-// Get
+// Get, non-const
 Handle2ImaginaryInterferenceTerm
 NuclearAmplitudeExpansionImaginaryInterferenceTermGet(ConstHandle2NuclearAmplitudeExpansion self)
 {

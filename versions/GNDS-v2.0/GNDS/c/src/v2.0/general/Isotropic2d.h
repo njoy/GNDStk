@@ -69,7 +69,7 @@ typedef       struct Isotropic2dClass *      Handle2Isotropic2d;
 extern_c Handle2ConstIsotropic2d
 Isotropic2dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Isotropic2d
 Isotropic2dDefault();
 
@@ -77,7 +77,7 @@ Isotropic2dDefault();
 extern_c Handle2ConstIsotropic2d
 Isotropic2dCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Isotropic2d
 Isotropic2dCreate();
 

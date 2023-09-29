@@ -35,7 +35,7 @@ PromptProductKEDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PromptProductKE
 PromptProductKEDefault()
 {
@@ -57,7 +57,7 @@ PromptProductKECreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PromptProductKE
 PromptProductKECreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -163,7 +163,7 @@ PromptProductKEPolynomial1dGetConst(ConstHandle2ConstPromptProductKE self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 PromptProductKEPolynomial1dGet(ConstHandle2PromptProductKE self)
 {
@@ -200,7 +200,7 @@ PromptProductKEXYs1dGetConst(ConstHandle2ConstPromptProductKE self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 PromptProductKEXYs1dGet(ConstHandle2PromptProductKE self)
 {

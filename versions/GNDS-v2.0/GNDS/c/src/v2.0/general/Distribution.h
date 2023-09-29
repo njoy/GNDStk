@@ -80,7 +80,7 @@ typedef       struct DistributionClass *      Handle2Distribution;
 extern_c Handle2ConstDistribution
 DistributionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Distribution
 DistributionDefault();
 
@@ -100,7 +100,7 @@ DistributionCreateConst(
    ConstHandle2ConstIncoherentPhotonScattering incoherentPhotonScattering
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Distribution
 DistributionCreate(
    ConstHandle2ConstThermalNeutronScatteringLaw thermalNeutronScatteringLaw,
@@ -172,7 +172,7 @@ DistributionThermalNeutronScatteringLawHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstThermalNeutronScatteringLaw
 DistributionThermalNeutronScatteringLawGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ThermalNeutronScatteringLaw
 DistributionThermalNeutronScatteringLawGet(ConstHandle2Distribution self);
 
@@ -193,7 +193,7 @@ DistributionUncorrelatedHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstUncorrelated
 DistributionUncorrelatedGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncorrelated
 DistributionUncorrelatedGet(ConstHandle2Distribution self);
 
@@ -214,7 +214,7 @@ DistributionUnspecifiedHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstUnspecified
 DistributionUnspecifiedGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Unspecified
 DistributionUnspecifiedGet(ConstHandle2Distribution self);
 
@@ -235,7 +235,7 @@ DistributionBranching3dHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstBranching3d
 DistributionBranching3dGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Branching3d
 DistributionBranching3dGet(ConstHandle2Distribution self);
 
@@ -256,7 +256,7 @@ DistributionAngularTwoBodyHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstAngularTwoBody
 DistributionAngularTwoBodyGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2AngularTwoBody
 DistributionAngularTwoBodyGet(ConstHandle2Distribution self);
 
@@ -277,7 +277,7 @@ DistributionEnergyAngularHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstEnergyAngular
 DistributionEnergyAngularGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2EnergyAngular
 DistributionEnergyAngularGet(ConstHandle2Distribution self);
 
@@ -298,7 +298,7 @@ DistributionKalbachMannHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstKalbachMann
 DistributionKalbachMannGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2KalbachMann
 DistributionKalbachMannGet(ConstHandle2Distribution self);
 
@@ -319,7 +319,7 @@ DistributionAngularEnergyHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstAngularEnergy
 DistributionAngularEnergyGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2AngularEnergy
 DistributionAngularEnergyGet(ConstHandle2Distribution self);
 
@@ -340,7 +340,7 @@ DistributionCoulombPlusNuclearElasticHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstCoulombPlusNuclearElastic
 DistributionCoulombPlusNuclearElasticGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CoulombPlusNuclearElastic
 DistributionCoulombPlusNuclearElasticGet(ConstHandle2Distribution self);
 
@@ -361,7 +361,7 @@ DistributionCoherentPhotonScatteringHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstCoherentPhotonScattering
 DistributionCoherentPhotonScatteringGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CoherentPhotonScattering
 DistributionCoherentPhotonScatteringGet(ConstHandle2Distribution self);
 
@@ -382,7 +382,7 @@ DistributionIncoherentPhotonScatteringHas(ConstHandle2ConstDistribution self);
 extern_c Handle2ConstIncoherentPhotonScattering
 DistributionIncoherentPhotonScatteringGetConst(ConstHandle2ConstDistribution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2IncoherentPhotonScattering
 DistributionIncoherentPhotonScatteringGet(ConstHandle2Distribution self);
 

@@ -71,7 +71,7 @@ typedef       struct ProductClass *      Handle2Product;
 extern_c Handle2ConstProduct
 ProductDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Product
 ProductDefault();
 
@@ -84,7 +84,7 @@ ProductCreateConst(
    ConstHandle2ConstDistribution distribution
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Product
 ProductCreate(
    const char *const label,
@@ -185,7 +185,7 @@ ProductMultiplicityHas(ConstHandle2ConstProduct self);
 extern_c Handle2ConstMultiplicity
 ProductMultiplicityGetConst(ConstHandle2ConstProduct self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Multiplicity
 ProductMultiplicityGet(ConstHandle2Product self);
 
@@ -206,7 +206,7 @@ ProductDistributionHas(ConstHandle2ConstProduct self);
 extern_c Handle2ConstDistribution
 ProductDistributionGetConst(ConstHandle2ConstProduct self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Distribution
 ProductDistributionGet(ConstHandle2Product self);
 

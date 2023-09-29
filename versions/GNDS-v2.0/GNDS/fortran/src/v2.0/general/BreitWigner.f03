@@ -20,7 +20,7 @@ function BreitWignerDefaultConst() &
    type(c_ptr) :: BreitWignerDefaultConst
 end function BreitWignerDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BreitWignerDefault() &
       bind(C, name='BreitWignerDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function BreitWignerCreateConst( &
    type(c_ptr) :: BreitWignerCreateConst
 end function BreitWignerCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BreitWignerCreate( &
    label, &
    approximation, &
@@ -103,6 +103,8 @@ end subroutine BreitWignerDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BreitWignerRead(handle, filename, filenameSize) &
       bind(C, name='BreitWignerRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function BreitWignerRead(handle, filename, filenameSize) &
 end function BreitWignerRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BreitWignerWrite(handle, filename, filenameSize) &
       bind(C, name='BreitWignerWrite')
    use iso_c_binding
@@ -272,7 +276,7 @@ function BreitWignerResonanceParametersGetConst(handle) &
    type(c_ptr) :: BreitWignerResonanceParametersGetConst
 end function BreitWignerResonanceParametersGetConst
 
-!! Get
+!! Get, non-const
 function BreitWignerResonanceParametersGet(handle) &
       bind(C, name='BreitWignerResonanceParametersGet')
    use iso_c_binding
@@ -313,7 +317,7 @@ function BreitWignerPoPsGetConst(handle) &
    type(c_ptr) :: BreitWignerPoPsGetConst
 end function BreitWignerPoPsGetConst
 
-!! Get
+!! Get, non-const
 function BreitWignerPoPsGet(handle) &
       bind(C, name='BreitWignerPoPsGet')
    use iso_c_binding
@@ -354,7 +358,7 @@ function BreitWignerScatteringRadiusGetConst(handle) &
    type(c_ptr) :: BreitWignerScatteringRadiusGetConst
 end function BreitWignerScatteringRadiusGetConst
 
-!! Get
+!! Get, non-const
 function BreitWignerScatteringRadiusGet(handle) &
       bind(C, name='BreitWignerScatteringRadiusGet')
    use iso_c_binding

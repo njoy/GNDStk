@@ -20,7 +20,7 @@ function KalbachMannDefaultConst() &
    type(c_ptr) :: KalbachMannDefaultConst
 end function KalbachMannDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function KalbachMannDefault() &
       bind(C, name='KalbachMannDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function KalbachMannCreateConst( &
    type(c_ptr) :: KalbachMannCreateConst
 end function KalbachMannCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function KalbachMannCreate( &
    label, &
    productFrame, &
@@ -95,6 +95,8 @@ end subroutine KalbachMannDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function KalbachMannRead(handle, filename, filenameSize) &
       bind(C, name='KalbachMannRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function KalbachMannRead(handle, filename, filenameSize) &
 end function KalbachMannRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function KalbachMannWrite(handle, filename, filenameSize) &
       bind(C, name='KalbachMannWrite')
    use iso_c_binding
@@ -232,7 +236,7 @@ function KalbachMannFGetConst(handle) &
    type(c_ptr) :: KalbachMannFGetConst
 end function KalbachMannFGetConst
 
-!! Get
+!! Get, non-const
 function KalbachMannFGet(handle) &
       bind(C, name='KalbachMannFGet')
    use iso_c_binding
@@ -273,7 +277,7 @@ function KalbachMannRGetConst(handle) &
    type(c_ptr) :: KalbachMannRGetConst
 end function KalbachMannRGetConst
 
-!! Get
+!! Get, non-const
 function KalbachMannRGet(handle) &
       bind(C, name='KalbachMannRGet')
    use iso_c_binding

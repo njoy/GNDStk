@@ -70,7 +70,7 @@ typedef       struct ContinuumClass *      Handle2Continuum;
 extern_c Handle2ConstContinuum
 ContinuumDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Continuum
 ContinuumDefault();
 
@@ -80,7 +80,7 @@ ContinuumCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Continuum
 ContinuumCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ ContinuumXYs1dHas(ConstHandle2ConstContinuum self);
 extern_c Handle2ConstXYs1d
 ContinuumXYs1dGetConst(ConstHandle2ConstContinuum self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 ContinuumXYs1dGet(ConstHandle2Continuum self);
 

@@ -71,7 +71,7 @@ typedef       struct ScatteringRadiusClass *      Handle2ScatteringRadius;
 extern_c Handle2ConstScatteringRadius
 ScatteringRadiusDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ScatteringRadius
 ScatteringRadiusDefault();
 
@@ -82,7 +82,7 @@ ScatteringRadiusCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ScatteringRadius
 ScatteringRadiusCreate(
    ConstHandle2ConstConstant1d constant1d,
@@ -145,7 +145,7 @@ ScatteringRadiusConstant1dHas(ConstHandle2ConstScatteringRadius self);
 extern_c Handle2ConstConstant1d
 ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Constant1d
 ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius self);
 
@@ -166,7 +166,7 @@ ScatteringRadiusXYs1dHas(ConstHandle2ConstScatteringRadius self);
 extern_c Handle2ConstXYs1d
 ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius self);
 

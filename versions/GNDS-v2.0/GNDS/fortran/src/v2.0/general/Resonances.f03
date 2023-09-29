@@ -20,7 +20,7 @@ function ResonancesDefaultConst() &
    type(c_ptr) :: ResonancesDefaultConst
 end function ResonancesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResonancesDefault() &
       bind(C, name='ResonancesDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function ResonancesCreateConst( &
    type(c_ptr) :: ResonancesCreateConst
 end function ResonancesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResonancesCreate( &
    href, &
    scatteringRadius, &
@@ -91,6 +91,8 @@ end subroutine ResonancesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResonancesRead(handle, filename, filenameSize) &
       bind(C, name='ResonancesRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function ResonancesRead(handle, filename, filenameSize) &
 end function ResonancesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResonancesWrite(handle, filename, filenameSize) &
       bind(C, name='ResonancesWrite')
    use iso_c_binding
@@ -195,7 +199,7 @@ function ResonancesScatteringRadiusGetConst(handle) &
    type(c_ptr) :: ResonancesScatteringRadiusGetConst
 end function ResonancesScatteringRadiusGetConst
 
-!! Get
+!! Get, non-const
 function ResonancesScatteringRadiusGet(handle) &
       bind(C, name='ResonancesScatteringRadiusGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function ResonancesResolvedGetConst(handle) &
    type(c_ptr) :: ResonancesResolvedGetConst
 end function ResonancesResolvedGetConst
 
-!! Get
+!! Get, non-const
 function ResonancesResolvedGet(handle) &
       bind(C, name='ResonancesResolvedGet')
    use iso_c_binding
@@ -277,7 +281,7 @@ function ResonancesUnresolvedGetConst(handle) &
    type(c_ptr) :: ResonancesUnresolvedGetConst
 end function ResonancesUnresolvedGetConst
 
-!! Get
+!! Get, non-const
 function ResonancesUnresolvedGet(handle) &
       bind(C, name='ResonancesUnresolvedGet')
    use iso_c_binding

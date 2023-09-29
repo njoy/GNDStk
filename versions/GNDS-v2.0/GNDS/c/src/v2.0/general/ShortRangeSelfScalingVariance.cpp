@@ -36,7 +36,7 @@ ShortRangeSelfScalingVarianceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ShortRangeSelfScalingVariance
 ShortRangeSelfScalingVarianceDefault()
 {
@@ -62,7 +62,7 @@ ShortRangeSelfScalingVarianceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ShortRangeSelfScalingVariance
 ShortRangeSelfScalingVarianceCreate(
    const char *const label,
@@ -262,7 +262,7 @@ ShortRangeSelfScalingVarianceGridded2dGetConst(ConstHandle2ConstShortRangeSelfSc
       (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
-// Get
+// Get, non-const
 Handle2Gridded2d
 ShortRangeSelfScalingVarianceGridded2dGet(ConstHandle2ShortRangeSelfScalingVariance self)
 {

@@ -20,7 +20,7 @@ function UncertaintyDefaultConst() &
    type(c_ptr) :: UncertaintyDefaultConst
 end function UncertaintyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UncertaintyDefault() &
       bind(C, name='UncertaintyDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function UncertaintyCreateConst( &
    type(c_ptr) :: UncertaintyCreateConst
 end function UncertaintyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UncertaintyCreate( &
    covariance, &
    standard, &
@@ -87,6 +87,8 @@ end subroutine UncertaintyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UncertaintyRead(handle, filename, filenameSize) &
       bind(C, name='UncertaintyRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function UncertaintyRead(handle, filename, filenameSize) &
 end function UncertaintyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UncertaintyWrite(handle, filename, filenameSize) &
       bind(C, name='UncertaintyWrite')
    use iso_c_binding
@@ -158,7 +162,7 @@ function UncertaintyCovarianceGetConst(handle) &
    type(c_ptr) :: UncertaintyCovarianceGetConst
 end function UncertaintyCovarianceGetConst
 
-!! Get
+!! Get, non-const
 function UncertaintyCovarianceGet(handle) &
       bind(C, name='UncertaintyCovarianceGet')
    use iso_c_binding
@@ -199,7 +203,7 @@ function UncertaintyStandardGetConst(handle) &
    type(c_ptr) :: UncertaintyStandardGetConst
 end function UncertaintyStandardGetConst
 
-!! Get
+!! Get, non-const
 function UncertaintyStandardGet(handle) &
       bind(C, name='UncertaintyStandardGet')
    use iso_c_binding
@@ -240,7 +244,7 @@ function UncertaintyListOfCovariancesGetConst(handle) &
    type(c_ptr) :: UncertaintyListOfCovariancesGetConst
 end function UncertaintyListOfCovariancesGetConst
 
-!! Get
+!! Get, non-const
 function UncertaintyListOfCovariancesGet(handle) &
       bind(C, name='UncertaintyListOfCovariancesGet')
    use iso_c_binding
@@ -281,7 +285,7 @@ function UncertaintyPolynomial1dGetConst(handle) &
    type(c_ptr) :: UncertaintyPolynomial1dGetConst
 end function UncertaintyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function UncertaintyPolynomial1dGet(handle) &
       bind(C, name='UncertaintyPolynomial1dGet')
    use iso_c_binding

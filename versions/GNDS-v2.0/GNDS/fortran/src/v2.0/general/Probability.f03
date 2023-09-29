@@ -20,7 +20,7 @@ function ProbabilityDefaultConst() &
    type(c_ptr) :: ProbabilityDefaultConst
 end function ProbabilityDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProbabilityDefault() &
       bind(C, name='ProbabilityDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ProbabilityCreateConst( &
    type(c_ptr) :: ProbabilityCreateConst
 end function ProbabilityCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProbabilityCreate( &
    Double &
 ) &
@@ -75,6 +75,8 @@ end subroutine ProbabilityDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProbabilityRead(handle, filename, filenameSize) &
       bind(C, name='ProbabilityRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ProbabilityRead(handle, filename, filenameSize) &
 end function ProbabilityRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProbabilityWrite(handle, filename, filenameSize) &
       bind(C, name='ProbabilityWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ProbabilityDoubleGetConst(handle) &
    type(c_ptr) :: ProbabilityDoubleGetConst
 end function ProbabilityDoubleGetConst
 
-!! Get
+!! Get, non-const
 function ProbabilityDoubleGet(handle) &
       bind(C, name='ProbabilityDoubleGet')
    use iso_c_binding

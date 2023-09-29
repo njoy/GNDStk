@@ -70,7 +70,7 @@ typedef       struct RowDataClass *      Handle2RowData;
 extern_c Handle2ConstRowData
 RowDataDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2RowData
 RowDataDefault();
 
@@ -83,7 +83,7 @@ RowDataCreateConst(
    ConstHandle2ConstSlices slices
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2RowData
 RowDataCreate(
    const char *const ENDF_MFMT,
@@ -202,7 +202,7 @@ RowDataSlicesHas(ConstHandle2ConstRowData self);
 extern_c Handle2ConstSlices
 RowDataSlicesGetConst(ConstHandle2ConstRowData self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Slices
 RowDataSlicesGet(ConstHandle2RowData self);
 

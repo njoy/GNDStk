@@ -69,7 +69,7 @@ typedef       struct ConversionClass *      Handle2Conversion;
 extern_c Handle2ConstConversion
 ConversionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Conversion
 ConversionDefault();
 
@@ -80,7 +80,7 @@ ConversionCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Conversion
 ConversionCreate(
    const char *const flags,

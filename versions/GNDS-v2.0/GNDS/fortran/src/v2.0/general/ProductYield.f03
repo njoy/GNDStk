@@ -20,7 +20,7 @@ function ProductYieldDefaultConst() &
    type(c_ptr) :: ProductYieldDefaultConst
 end function ProductYieldDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProductYieldDefault() &
       bind(C, name='ProductYieldDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ProductYieldCreateConst( &
    type(c_ptr) :: ProductYieldCreateConst
 end function ProductYieldCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProductYieldCreate( &
    label, &
    nuclides, &
@@ -87,6 +87,8 @@ end subroutine ProductYieldDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProductYieldRead(handle, filename, filenameSize) &
       bind(C, name='ProductYieldRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ProductYieldRead(handle, filename, filenameSize) &
 end function ProductYieldRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProductYieldWrite(handle, filename, filenameSize) &
       bind(C, name='ProductYieldWrite')
    use iso_c_binding
@@ -191,7 +195,7 @@ function ProductYieldNuclidesGetConst(handle) &
    type(c_ptr) :: ProductYieldNuclidesGetConst
 end function ProductYieldNuclidesGetConst
 
-!! Get
+!! Get, non-const
 function ProductYieldNuclidesGet(handle) &
       bind(C, name='ProductYieldNuclidesGet')
    use iso_c_binding
@@ -232,7 +236,7 @@ function ProductYieldElapsedTimesGetConst(handle) &
    type(c_ptr) :: ProductYieldElapsedTimesGetConst
 end function ProductYieldElapsedTimesGetConst
 
-!! Get
+!! Get, non-const
 function ProductYieldElapsedTimesGet(handle) &
       bind(C, name='ProductYieldElapsedTimesGet')
    use iso_c_binding

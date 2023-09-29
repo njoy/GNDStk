@@ -20,7 +20,7 @@ function ElapsedTimeDefaultConst() &
    type(c_ptr) :: ElapsedTimeDefaultConst
 end function ElapsedTimeDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ElapsedTimeDefault() &
       bind(C, name='ElapsedTimeDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function ElapsedTimeCreateConst( &
    type(c_ptr) :: ElapsedTimeCreateConst
 end function ElapsedTimeCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ElapsedTimeCreate( &
    label, &
    time, &
@@ -91,6 +91,8 @@ end subroutine ElapsedTimeDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ElapsedTimeRead(handle, filename, filenameSize) &
       bind(C, name='ElapsedTimeRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function ElapsedTimeRead(handle, filename, filenameSize) &
 end function ElapsedTimeRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ElapsedTimeWrite(handle, filename, filenameSize) &
       bind(C, name='ElapsedTimeWrite')
    use iso_c_binding
@@ -195,7 +199,7 @@ function ElapsedTimeTimeGetConst(handle) &
    type(c_ptr) :: ElapsedTimeTimeGetConst
 end function ElapsedTimeTimeGetConst
 
-!! Get
+!! Get, non-const
 function ElapsedTimeTimeGet(handle) &
       bind(C, name='ElapsedTimeTimeGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function ElapsedTimeYieldsGetConst(handle) &
    type(c_ptr) :: ElapsedTimeYieldsGetConst
 end function ElapsedTimeYieldsGetConst
 
-!! Get
+!! Get, non-const
 function ElapsedTimeYieldsGet(handle) &
       bind(C, name='ElapsedTimeYieldsGet')
    use iso_c_binding
@@ -277,7 +281,7 @@ function ElapsedTimeIncidentEnergiesGetConst(handle) &
    type(c_ptr) :: ElapsedTimeIncidentEnergiesGetConst
 end function ElapsedTimeIncidentEnergiesGetConst
 
-!! Get
+!! Get, non-const
 function ElapsedTimeIncidentEnergiesGet(handle) &
       bind(C, name='ElapsedTimeIncidentEnergiesGet')
    use iso_c_binding

@@ -37,7 +37,7 @@ ParameterCovarianceMatrixDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ParameterCovarianceMatrix
 ParameterCovarianceMatrixDefault()
 {
@@ -63,7 +63,7 @@ ParameterCovarianceMatrixCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ParameterCovarianceMatrix
 ParameterCovarianceMatrixCreate(
    const char *const label,
@@ -233,7 +233,7 @@ ParameterCovarianceMatrixArrayGetConst(ConstHandle2ConstParameterCovarianceMatri
       (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
-// Get
+// Get, non-const
 Handle2Array
 ParameterCovarianceMatrixArrayGet(ConstHandle2ParameterCovarianceMatrix self)
 {
@@ -270,7 +270,7 @@ ParameterCovarianceMatrixParametersGetConst(ConstHandle2ConstParameterCovariance
       (CLASSNAME, CLASSNAME+"ParametersGetConst", self, extract::parameters);
 }
 
-// Get
+// Get, non-const
 Handle2Parameters
 ParameterCovarianceMatrixParametersGet(ConstHandle2ParameterCovarianceMatrix self)
 {

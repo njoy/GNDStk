@@ -37,7 +37,7 @@ ProductDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Product
 ProductDefault()
 {
@@ -63,7 +63,7 @@ ProductCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Product
 ProductCreate(
    const char *const label,
@@ -233,7 +233,7 @@ ProductMultiplicityGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
-// Get
+// Get, non-const
 Handle2Multiplicity
 ProductMultiplicityGet(ConstHandle2Product self)
 {
@@ -270,7 +270,7 @@ ProductDistributionGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
-// Get
+// Get, non-const
 Handle2Distribution
 ProductDistributionGet(ConstHandle2Product self)
 {

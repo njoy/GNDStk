@@ -71,7 +71,7 @@ typedef       struct DelayedNeutronKEClass *      Handle2DelayedNeutronKE;
 extern_c Handle2ConstDelayedNeutronKE
 DelayedNeutronKEDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DelayedNeutronKE
 DelayedNeutronKEDefault();
 
@@ -82,7 +82,7 @@ DelayedNeutronKECreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DelayedNeutronKE
 DelayedNeutronKECreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -145,7 +145,7 @@ DelayedNeutronKEPolynomial1dHas(ConstHandle2ConstDelayedNeutronKE self);
 extern_c Handle2ConstPolynomial1d
 DelayedNeutronKEPolynomial1dGetConst(ConstHandle2ConstDelayedNeutronKE self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 DelayedNeutronKEPolynomial1dGet(ConstHandle2DelayedNeutronKE self);
 
@@ -166,7 +166,7 @@ DelayedNeutronKEXYs1dHas(ConstHandle2ConstDelayedNeutronKE self);
 extern_c Handle2ConstXYs1d
 DelayedNeutronKEXYs1dGetConst(ConstHandle2ConstDelayedNeutronKE self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 DelayedNeutronKEXYs1dGet(ConstHandle2DelayedNeutronKE self);
 

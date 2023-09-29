@@ -69,7 +69,7 @@ typedef       struct UnspecifiedClass *      Handle2Unspecified;
 extern_c Handle2ConstUnspecified
 UnspecifiedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Unspecified
 UnspecifiedDefault();
 
@@ -80,7 +80,7 @@ UnspecifiedCreateConst(
    const char *const productFrame
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Unspecified
 UnspecifiedCreate(
    const char *const label,

@@ -20,7 +20,7 @@ function PromptNeutronKEDefaultConst() &
    type(c_ptr) :: PromptNeutronKEDefaultConst
 end function PromptNeutronKEDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PromptNeutronKEDefault() &
       bind(C, name='PromptNeutronKEDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function PromptNeutronKECreateConst( &
    type(c_ptr) :: PromptNeutronKECreateConst
 end function PromptNeutronKECreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PromptNeutronKECreate( &
    polynomial1d, &
    XYs1d &
@@ -79,6 +79,8 @@ end subroutine PromptNeutronKEDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PromptNeutronKERead(handle, filename, filenameSize) &
       bind(C, name='PromptNeutronKERead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function PromptNeutronKERead(handle, filename, filenameSize) &
 end function PromptNeutronKERead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PromptNeutronKEWrite(handle, filename, filenameSize) &
       bind(C, name='PromptNeutronKEWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function PromptNeutronKEPolynomial1dGetConst(handle) &
    type(c_ptr) :: PromptNeutronKEPolynomial1dGetConst
 end function PromptNeutronKEPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function PromptNeutronKEPolynomial1dGet(handle) &
       bind(C, name='PromptNeutronKEPolynomial1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function PromptNeutronKEXYs1dGetConst(handle) &
    type(c_ptr) :: PromptNeutronKEXYs1dGetConst
 end function PromptNeutronKEXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function PromptNeutronKEXYs1dGet(handle) &
       bind(C, name='PromptNeutronKEXYs1dGet')
    use iso_c_binding

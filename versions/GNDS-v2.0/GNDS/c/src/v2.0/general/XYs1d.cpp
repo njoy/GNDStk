@@ -41,7 +41,7 @@ XYs1dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2XYs1d
 XYs1dDefault()
 {
@@ -73,7 +73,7 @@ XYs1dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2XYs1d
 XYs1dCreate(
    const char *const label,
@@ -309,7 +309,7 @@ XYs1dAxesGetConst(ConstHandle2ConstXYs1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 XYs1dAxesGet(ConstHandle2XYs1d self)
 {
@@ -346,7 +346,7 @@ XYs1dValuesGetConst(ConstHandle2ConstXYs1d self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get
+// Get, non-const
 Handle2Values
 XYs1dValuesGet(ConstHandle2XYs1d self)
 {
@@ -383,7 +383,7 @@ XYs1dUncertaintyGetConst(ConstHandle2ConstXYs1d self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 XYs1dUncertaintyGet(ConstHandle2XYs1d self)
 {

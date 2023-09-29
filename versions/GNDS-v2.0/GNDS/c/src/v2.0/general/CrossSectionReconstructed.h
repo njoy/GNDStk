@@ -69,7 +69,7 @@ typedef       struct CrossSectionReconstructedClass *      Handle2CrossSectionRe
 extern_c Handle2ConstCrossSectionReconstructed
 CrossSectionReconstructedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CrossSectionReconstructed
 CrossSectionReconstructedDefault();
 
@@ -81,7 +81,7 @@ CrossSectionReconstructedCreateConst(
    const char *const date
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CrossSectionReconstructed
 CrossSectionReconstructedCreate(
    const char *const label,

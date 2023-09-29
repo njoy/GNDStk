@@ -32,7 +32,7 @@ ThermalNeutronScatteringLaw1dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ThermalNeutronScatteringLaw1d
 ThermalNeutronScatteringLaw1dDefault()
 {
@@ -54,7 +54,7 @@ ThermalNeutronScatteringLaw1dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ThermalNeutronScatteringLaw1d
 ThermalNeutronScatteringLaw1dCreate(
    const char *const label,

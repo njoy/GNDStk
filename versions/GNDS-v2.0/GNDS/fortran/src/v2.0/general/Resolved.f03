@@ -20,7 +20,7 @@ function ResolvedDefaultConst() &
    type(c_ptr) :: ResolvedDefaultConst
 end function ResolvedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResolvedDefault() &
       bind(C, name='ResolvedDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function ResolvedCreateConst( &
    type(c_ptr) :: ResolvedCreateConst
 end function ResolvedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResolvedCreate( &
    domainMin, &
    domainMax, &
@@ -95,6 +95,8 @@ end subroutine ResolvedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResolvedRead(handle, filename, filenameSize) &
       bind(C, name='ResolvedRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function ResolvedRead(handle, filename, filenameSize) &
 end function ResolvedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResolvedWrite(handle, filename, filenameSize) &
       bind(C, name='ResolvedWrite')
    use iso_c_binding
@@ -263,7 +267,7 @@ function ResolvedBreitWignerGetConst(handle) &
    type(c_ptr) :: ResolvedBreitWignerGetConst
 end function ResolvedBreitWignerGetConst
 
-!! Get
+!! Get, non-const
 function ResolvedBreitWignerGet(handle) &
       bind(C, name='ResolvedBreitWignerGet')
    use iso_c_binding
@@ -304,7 +308,7 @@ function ResolvedRMatrixGetConst(handle) &
    type(c_ptr) :: ResolvedRMatrixGetConst
 end function ResolvedRMatrixGetConst
 
-!! Get
+!! Get, non-const
 function ResolvedRMatrixGet(handle) &
       bind(C, name='ResolvedRMatrixGet')
    use iso_c_binding

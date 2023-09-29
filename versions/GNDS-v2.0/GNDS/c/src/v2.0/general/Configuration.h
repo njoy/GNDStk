@@ -71,7 +71,7 @@ typedef       struct ConfigurationClass *      Handle2Configuration;
 extern_c Handle2ConstConfiguration
 ConfigurationDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Configuration
 ConfigurationDefault();
 
@@ -84,7 +84,7 @@ ConfigurationCreateConst(
    ConstHandle2DecayData *const decayData, const size_t decayDataSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Configuration
 ConfigurationCreate(
    const char *const subshell,
@@ -185,7 +185,7 @@ ConfigurationBindingEnergyHas(ConstHandle2ConstConfiguration self);
 extern_c Handle2ConstBindingEnergy
 ConfigurationBindingEnergyGetConst(ConstHandle2ConstConfiguration self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2BindingEnergy
 ConfigurationBindingEnergyGet(ConstHandle2Configuration self);
 
@@ -218,7 +218,7 @@ ConfigurationDecayDataAdd(ConstHandle2Configuration self, ConstHandle2ConstDecay
 extern_c Handle2ConstDecayData
 ConfigurationDecayDataGetConst(ConstHandle2ConstConfiguration self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2DecayData
 ConfigurationDecayDataGet(ConstHandle2Configuration self, const size_t index_);
 

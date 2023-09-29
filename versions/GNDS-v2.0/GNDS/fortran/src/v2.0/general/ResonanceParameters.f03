@@ -20,7 +20,7 @@ function ResonanceParametersDefaultConst() &
    type(c_ptr) :: ResonanceParametersDefaultConst
 end function ResonanceParametersDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResonanceParametersDefault() &
       bind(C, name='ResonanceParametersDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ResonanceParametersCreateConst( &
    type(c_ptr) :: ResonanceParametersCreateConst
 end function ResonanceParametersCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResonanceParametersCreate( &
    table &
 ) &
@@ -75,6 +75,8 @@ end subroutine ResonanceParametersDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResonanceParametersRead(handle, filename, filenameSize) &
       bind(C, name='ResonanceParametersRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ResonanceParametersRead(handle, filename, filenameSize) &
 end function ResonanceParametersRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResonanceParametersWrite(handle, filename, filenameSize) &
       bind(C, name='ResonanceParametersWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ResonanceParametersTableGetConst(handle) &
    type(c_ptr) :: ResonanceParametersTableGetConst
 end function ResonanceParametersTableGetConst
 
-!! Get
+!! Get, non-const
 function ResonanceParametersTableGet(handle) &
       bind(C, name='ResonanceParametersTableGet')
    use iso_c_binding

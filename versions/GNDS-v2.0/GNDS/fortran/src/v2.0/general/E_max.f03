@@ -20,7 +20,7 @@ function E_maxDefaultConst() &
    type(c_ptr) :: E_maxDefaultConst
 end function E_maxDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function E_maxDefault() &
       bind(C, name='E_maxDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function E_maxCreateConst( &
    type(c_ptr) :: E_maxCreateConst
 end function E_maxCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function E_maxCreate( &
    value, &
    unit, &
@@ -83,6 +83,8 @@ end subroutine E_maxDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function E_maxRead(handle, filename, filenameSize) &
       bind(C, name='E_maxRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function E_maxRead(handle, filename, filenameSize) &
 end function E_maxRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function E_maxWrite(handle, filename, filenameSize) &
       bind(C, name='E_maxWrite')
    use iso_c_binding

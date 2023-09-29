@@ -43,7 +43,7 @@ DoubleDifferentialCrossSectionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DoubleDifferentialCrossSection
 DoubleDifferentialCrossSectionDefault()
 {
@@ -73,7 +73,7 @@ DoubleDifferentialCrossSectionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DoubleDifferentialCrossSection
 DoubleDifferentialCrossSectionCreate(
    ConstHandle2ConstCoulombPlusNuclearElastic CoulombPlusNuclearElastic,
@@ -187,7 +187,7 @@ DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGetConst(ConstHandle2Cons
       (CLASSNAME, CLASSNAME+"CoulombPlusNuclearElasticGetConst", self, extract::CoulombPlusNuclearElastic);
 }
 
-// Get
+// Get, non-const
 Handle2CoulombPlusNuclearElastic
 DoubleDifferentialCrossSectionCoulombPlusNuclearElasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
@@ -224,7 +224,7 @@ DoubleDifferentialCrossSectionCoherentPhotonScatteringGetConst(ConstHandle2Const
       (CLASSNAME, CLASSNAME+"CoherentPhotonScatteringGetConst", self, extract::coherentPhotonScattering);
 }
 
-// Get
+// Get, non-const
 Handle2CoherentPhotonScattering
 DoubleDifferentialCrossSectionCoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
@@ -261,7 +261,7 @@ DoubleDifferentialCrossSectionIncoherentPhotonScatteringGetConst(ConstHandle2Con
       (CLASSNAME, CLASSNAME+"IncoherentPhotonScatteringGetConst", self, extract::incoherentPhotonScattering);
 }
 
-// Get
+// Get, non-const
 Handle2IncoherentPhotonScattering
 DoubleDifferentialCrossSectionIncoherentPhotonScatteringGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
@@ -298,7 +298,7 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGetCons
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_coherentElasticGetConst", self, extract::thermalNeutronScatteringLaw_coherentElastic);
 }
 
-// Get
+// Get, non-const
 Handle2ThermalNeutronScatteringLaw_coherentElastic
 DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_coherentElasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
@@ -335,7 +335,7 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGetCo
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentElasticGetConst", self, extract::thermalNeutronScatteringLaw_incoherentElastic);
 }
 
-// Get
+// Get, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentElastic
 DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentElasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {
@@ -372,7 +372,7 @@ DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet
       (CLASSNAME, CLASSNAME+"ThermalNeutronScatteringLaw_incoherentInelasticGetConst", self, extract::thermalNeutronScatteringLaw_incoherentInelastic);
 }
 
-// Get
+// Get, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentInelastic
 DoubleDifferentialCrossSectionThermalNeutronScatteringLaw_incoherentInelasticGet(ConstHandle2DoubleDifferentialCrossSection self)
 {

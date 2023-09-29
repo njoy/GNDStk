@@ -20,7 +20,7 @@ function AverageEnergiesDefaultConst() &
    type(c_ptr) :: AverageEnergiesDefaultConst
 end function AverageEnergiesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AverageEnergiesDefault() &
       bind(C, name='AverageEnergiesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function AverageEnergiesCreateConst( &
    type(c_ptr) :: AverageEnergiesCreateConst
 end function AverageEnergiesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AverageEnergiesCreate( &
    averageEnergy, averageEnergySize &
 ) &
@@ -77,6 +77,8 @@ end subroutine AverageEnergiesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AverageEnergiesRead(handle, filename, filenameSize) &
       bind(C, name='AverageEnergiesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function AverageEnergiesRead(handle, filename, filenameSize) &
 end function AverageEnergiesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AverageEnergiesWrite(handle, filename, filenameSize) &
       bind(C, name='AverageEnergiesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function AverageEnergiesAverageEnergyGetConst(handle, index) &
    type(c_ptr) :: AverageEnergiesAverageEnergyGetConst
 end function AverageEnergiesAverageEnergyGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function AverageEnergiesAverageEnergyGet(handle, index) &
       bind(C, name='AverageEnergiesAverageEnergyGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function AverageEnergiesAverageEnergyGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: AverageEnergiesAverageEnergyGetByLabelConst
 end function AverageEnergiesAverageEnergyGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function AverageEnergiesAverageEnergyGetByLabel(handle, meta, metaSize) &
       bind(C, name='AverageEnergiesAverageEnergyGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function AverageEnergiesAverageEnergyGetByValueConst(handle, meta) &
    type(c_ptr) :: AverageEnergiesAverageEnergyGetByValueConst
 end function AverageEnergiesAverageEnergyGetByValueConst
 
-!! Get, by value
+!! Get, by value, non-const
 function AverageEnergiesAverageEnergyGetByValue(handle, meta) &
       bind(C, name='AverageEnergiesAverageEnergyGetByValue')
    use iso_c_binding
@@ -313,7 +317,7 @@ function AverageEnergiesAverageEnergyGetByUnitConst(handle, meta, metaSize) &
    type(c_ptr) :: AverageEnergiesAverageEnergyGetByUnitConst
 end function AverageEnergiesAverageEnergyGetByUnitConst
 
-!! Get, by unit
+!! Get, by unit, non-const
 function AverageEnergiesAverageEnergyGetByUnit(handle, meta, metaSize) &
       bind(C, name='AverageEnergiesAverageEnergyGetByUnit')
    use iso_c_binding

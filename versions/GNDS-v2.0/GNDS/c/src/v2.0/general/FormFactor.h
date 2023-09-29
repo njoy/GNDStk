@@ -70,7 +70,7 @@ typedef       struct FormFactorClass *      Handle2FormFactor;
 extern_c Handle2ConstFormFactor
 FormFactorDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FormFactor
 FormFactorDefault();
 
@@ -80,7 +80,7 @@ FormFactorCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FormFactor
 FormFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ FormFactorXYs1dHas(ConstHandle2ConstFormFactor self);
 extern_c Handle2ConstXYs1d
 FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 FormFactorXYs1dGet(ConstHandle2FormFactor self);
 

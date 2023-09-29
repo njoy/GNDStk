@@ -33,7 +33,7 @@ AuthorsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Authors
 AuthorsDefault()
 {
@@ -55,7 +55,7 @@ AuthorsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Authors
 AuthorsCreate(
    ConstHandle2Author *const author, const size_t authorSize
@@ -185,7 +185,7 @@ AuthorsAuthorGetConst(ConstHandle2ConstAuthors self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AuthorGetConst", self, extract::author, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Author
 AuthorsAuthorGet(ConstHandle2Authors self, const size_t index_)
 {
@@ -230,7 +230,7 @@ AuthorsAuthorGetByNameConst(
        self, extract::author, meta::name, name);
 }
 
-// Get, by name
+// Get, by name, non-const
 Handle2Author
 AuthorsAuthorGetByName(
    ConstHandle2Authors self,

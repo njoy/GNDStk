@@ -70,7 +70,7 @@ typedef       struct DecayClass *      Handle2Decay;
 extern_c Handle2ConstDecay
 DecayDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Decay
 DecayDefault();
 
@@ -83,7 +83,7 @@ DecayCreateConst(
    ConstHandle2ConstProducts products
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Decay
 DecayCreate(
    const int index,
@@ -202,7 +202,7 @@ DecayProductsHas(ConstHandle2ConstDecay self);
 extern_c Handle2ConstProducts
 DecayProductsGetConst(ConstHandle2ConstDecay self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Products
 DecayProductsGet(ConstHandle2Decay self);
 

@@ -20,7 +20,7 @@ function NuclearTermDefaultConst() &
    type(c_ptr) :: NuclearTermDefaultConst
 end function NuclearTermDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NuclearTermDefault() &
       bind(C, name='NuclearTermDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function NuclearTermCreateConst( &
    type(c_ptr) :: NuclearTermCreateConst
 end function NuclearTermCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NuclearTermCreate( &
    regions2d, &
    XYs2d &
@@ -79,6 +79,8 @@ end subroutine NuclearTermDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NuclearTermRead(handle, filename, filenameSize) &
       bind(C, name='NuclearTermRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function NuclearTermRead(handle, filename, filenameSize) &
 end function NuclearTermRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NuclearTermWrite(handle, filename, filenameSize) &
       bind(C, name='NuclearTermWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function NuclearTermRegions2dGetConst(handle) &
    type(c_ptr) :: NuclearTermRegions2dGetConst
 end function NuclearTermRegions2dGetConst
 
-!! Get
+!! Get, non-const
 function NuclearTermRegions2dGet(handle) &
       bind(C, name='NuclearTermRegions2dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function NuclearTermXYs2dGetConst(handle) &
    type(c_ptr) :: NuclearTermXYs2dGetConst
 end function NuclearTermXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function NuclearTermXYs2dGet(handle) &
       bind(C, name='NuclearTermXYs2dGet')
    use iso_c_binding

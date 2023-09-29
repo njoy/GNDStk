@@ -20,7 +20,7 @@ function JsDefaultConst() &
    type(c_ptr) :: JsDefaultConst
 end function JsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function JsDefault() &
       bind(C, name='JsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function JsCreateConst( &
    type(c_ptr) :: JsCreateConst
 end function JsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function JsCreate( &
    J, JSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine JsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function JsRead(handle, filename, filenameSize) &
       bind(C, name='JsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function JsRead(handle, filename, filenameSize) &
 end function JsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function JsWrite(handle, filename, filenameSize) &
       bind(C, name='JsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function JsJGetConst(handle, index) &
    type(c_ptr) :: JsJGetConst
 end function JsJGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function JsJGet(handle, index) &
       bind(C, name='JsJGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function JsJGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: JsJGetByLabelConst
 end function JsJGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function JsJGetByLabel(handle, meta, metaSize) &
       bind(C, name='JsJGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function JsJGetByValueConst(handle, meta) &
    type(c_ptr) :: JsJGetByValueConst
 end function JsJGetByValueConst
 
-!! Get, by value
+!! Get, by value, non-const
 function JsJGetByValue(handle, meta) &
       bind(C, name='JsJGetByValue')
    use iso_c_binding

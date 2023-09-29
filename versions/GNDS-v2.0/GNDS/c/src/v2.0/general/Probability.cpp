@@ -33,7 +33,7 @@ ProbabilityDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Probability
 ProbabilityDefault()
 {
@@ -53,7 +53,7 @@ ProbabilityCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Probability
 ProbabilityCreate(
    ConstHandle2ConstDouble Double
@@ -157,7 +157,7 @@ ProbabilityDoubleGetConst(ConstHandle2ConstProbability self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 ProbabilityDoubleGet(ConstHandle2Probability self)
 {

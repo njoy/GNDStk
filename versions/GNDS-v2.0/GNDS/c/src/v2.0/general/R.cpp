@@ -33,7 +33,7 @@ RDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2R
 RDefault()
 {
@@ -53,7 +53,7 @@ RCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2R
 RCreate(
    ConstHandle2ConstXYs2d XYs2d
@@ -157,7 +157,7 @@ RXYs2dGetConst(ConstHandle2ConstR self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 RXYs2dGet(ConstHandle2R self)
 {

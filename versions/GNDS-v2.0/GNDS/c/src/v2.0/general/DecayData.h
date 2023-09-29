@@ -71,7 +71,7 @@ typedef       struct DecayDataClass *      Handle2DecayData;
 extern_c Handle2ConstDecayData
 DecayDataDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DecayData
 DecayDataDefault();
 
@@ -82,7 +82,7 @@ DecayDataCreateConst(
    ConstHandle2ConstAverageEnergies averageEnergies
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DecayData
 DecayDataCreate(
    ConstHandle2ConstDecayModes decayModes,
@@ -145,7 +145,7 @@ DecayDataDecayModesHas(ConstHandle2ConstDecayData self);
 extern_c Handle2ConstDecayModes
 DecayDataDecayModesGetConst(ConstHandle2ConstDecayData self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DecayModes
 DecayDataDecayModesGet(ConstHandle2DecayData self);
 
@@ -166,7 +166,7 @@ DecayDataAverageEnergiesHas(ConstHandle2ConstDecayData self);
 extern_c Handle2ConstAverageEnergies
 DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2AverageEnergies
 DecayDataAverageEnergiesGet(ConstHandle2DecayData self);
 

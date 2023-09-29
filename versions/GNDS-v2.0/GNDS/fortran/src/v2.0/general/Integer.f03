@@ -20,7 +20,7 @@ function IntegerDefaultConst() &
    type(c_ptr) :: IntegerDefaultConst
 end function IntegerDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IntegerDefault() &
       bind(C, name='IntegerDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function IntegerCreateConst( &
    type(c_ptr) :: IntegerCreateConst
 end function IntegerCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IntegerCreate( &
    label, &
    value, &
@@ -91,6 +91,8 @@ end subroutine IntegerDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IntegerRead(handle, filename, filenameSize) &
       bind(C, name='IntegerRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function IntegerRead(handle, filename, filenameSize) &
 end function IntegerRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IntegerWrite(handle, filename, filenameSize) &
       bind(C, name='IntegerWrite')
    use iso_c_binding

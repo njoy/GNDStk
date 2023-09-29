@@ -70,7 +70,7 @@ typedef       struct ApplicationDataClass *      Handle2ApplicationData;
 extern_c Handle2ConstApplicationData
 ApplicationDataDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ApplicationData
 ApplicationDataDefault();
 
@@ -80,7 +80,7 @@ ApplicationDataCreateConst(
    ConstHandle2ConstInstitution institution
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ApplicationData
 ApplicationDataCreate(
    ConstHandle2ConstInstitution institution
@@ -142,7 +142,7 @@ ApplicationDataInstitutionHas(ConstHandle2ConstApplicationData self);
 extern_c Handle2ConstInstitution
 ApplicationDataInstitutionGetConst(ConstHandle2ConstApplicationData self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Institution
 ApplicationDataInstitutionGet(ConstHandle2ApplicationData self);
 

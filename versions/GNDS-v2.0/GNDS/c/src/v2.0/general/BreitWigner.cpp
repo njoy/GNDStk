@@ -40,7 +40,7 @@ BreitWignerDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2BreitWigner
 BreitWignerDefault()
 {
@@ -70,7 +70,7 @@ BreitWignerCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2BreitWigner
 BreitWignerCreate(
    const char *const label,
@@ -274,7 +274,7 @@ BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner self)
       (CLASSNAME, CLASSNAME+"ResonanceParametersGetConst", self, extract::resonanceParameters);
 }
 
-// Get
+// Get, non-const
 Handle2ResonanceParameters
 BreitWignerResonanceParametersGet(ConstHandle2BreitWigner self)
 {
@@ -311,7 +311,7 @@ BreitWignerPoPsGetConst(ConstHandle2ConstBreitWigner self)
       (CLASSNAME, CLASSNAME+"PoPsGetConst", self, extract::PoPs);
 }
 
-// Get
+// Get, non-const
 Handle2PoPs
 BreitWignerPoPsGet(ConstHandle2BreitWigner self)
 {
@@ -348,7 +348,7 @@ BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner self)
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get
+// Get, non-const
 Handle2ScatteringRadius
 BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner self)
 {

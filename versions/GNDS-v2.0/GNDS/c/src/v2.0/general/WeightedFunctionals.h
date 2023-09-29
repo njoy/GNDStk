@@ -70,7 +70,7 @@ typedef       struct WeightedFunctionalsClass *      Handle2WeightedFunctionals;
 extern_c Handle2ConstWeightedFunctionals
 WeightedFunctionalsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2WeightedFunctionals
 WeightedFunctionalsDefault();
 
@@ -80,7 +80,7 @@ WeightedFunctionalsCreateConst(
    ConstHandle2Weighted *const weighted, const size_t weightedSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2WeightedFunctionals
 WeightedFunctionalsCreate(
    ConstHandle2Weighted *const weighted, const size_t weightedSize
@@ -154,7 +154,7 @@ WeightedFunctionalsWeightedAdd(ConstHandle2WeightedFunctionals self, ConstHandle
 extern_c Handle2ConstWeighted
 WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Weighted
 WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals self, const size_t index_);
 

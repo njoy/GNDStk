@@ -39,7 +39,7 @@ OutputChannelDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2OutputChannel
 OutputChannelDefault()
 {
@@ -67,7 +67,7 @@ OutputChannelCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2OutputChannel
 OutputChannelCreate(
    const char *const genre,
@@ -239,7 +239,7 @@ OutputChannelQGetConst(ConstHandle2ConstOutputChannel self)
       (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
-// Get
+// Get, non-const
 Handle2Q
 OutputChannelQGet(ConstHandle2OutputChannel self)
 {
@@ -276,7 +276,7 @@ OutputChannelProductsGetConst(ConstHandle2ConstOutputChannel self)
       (CLASSNAME, CLASSNAME+"ProductsGetConst", self, extract::products);
 }
 
-// Get
+// Get, non-const
 Handle2Products
 OutputChannelProductsGet(ConstHandle2OutputChannel self)
 {
@@ -313,7 +313,7 @@ OutputChannelFissionFragmentDataGetConst(ConstHandle2ConstOutputChannel self)
       (CLASSNAME, CLASSNAME+"FissionFragmentDataGetConst", self, extract::fissionFragmentData);
 }
 
-// Get
+// Get, non-const
 Handle2FissionFragmentData
 OutputChannelFissionFragmentDataGet(ConstHandle2OutputChannel self)
 {

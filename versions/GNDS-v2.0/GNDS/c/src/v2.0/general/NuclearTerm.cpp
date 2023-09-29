@@ -35,7 +35,7 @@ NuclearTermDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2NuclearTerm
 NuclearTermDefault()
 {
@@ -57,7 +57,7 @@ NuclearTermCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2NuclearTerm
 NuclearTermCreate(
    ConstHandle2ConstRegions2d regions2d,
@@ -163,7 +163,7 @@ NuclearTermRegions2dGetConst(ConstHandle2ConstNuclearTerm self)
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions2d
 NuclearTermRegions2dGet(ConstHandle2NuclearTerm self)
 {
@@ -200,7 +200,7 @@ NuclearTermXYs2dGetConst(ConstHandle2ConstNuclearTerm self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 NuclearTermXYs2dGet(ConstHandle2NuclearTerm self)
 {

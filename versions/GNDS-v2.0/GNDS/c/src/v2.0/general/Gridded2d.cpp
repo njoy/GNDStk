@@ -35,7 +35,7 @@ Gridded2dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Gridded2d
 Gridded2dDefault()
 {
@@ -57,7 +57,7 @@ Gridded2dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Gridded2d
 Gridded2dCreate(
    ConstHandle2ConstAxes axes,
@@ -163,7 +163,7 @@ Gridded2dAxesGetConst(ConstHandle2ConstGridded2d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 Gridded2dAxesGet(ConstHandle2Gridded2d self)
 {
@@ -200,7 +200,7 @@ Gridded2dArrayGetConst(ConstHandle2ConstGridded2d self)
       (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
-// Get
+// Get, non-const
 Handle2Array
 Gridded2dArrayGet(ConstHandle2Gridded2d self)
 {

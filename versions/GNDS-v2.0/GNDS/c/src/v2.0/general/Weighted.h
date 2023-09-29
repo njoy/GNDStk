@@ -71,7 +71,7 @@ typedef       struct WeightedClass *      Handle2Weighted;
 extern_c Handle2ConstWeighted
 WeightedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Weighted
 WeightedDefault();
 
@@ -82,7 +82,7 @@ WeightedCreateConst(
    ConstHandle2ConstEvaporation evaporation
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Weighted
 WeightedCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -145,7 +145,7 @@ WeightedXYs1dHas(ConstHandle2ConstWeighted self);
 extern_c Handle2ConstXYs1d
 WeightedXYs1dGetConst(ConstHandle2ConstWeighted self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 WeightedXYs1dGet(ConstHandle2Weighted self);
 
@@ -166,7 +166,7 @@ WeightedEvaporationHas(ConstHandle2ConstWeighted self);
 extern_c Handle2ConstEvaporation
 WeightedEvaporationGetConst(ConstHandle2ConstWeighted self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Evaporation
 WeightedEvaporationGet(ConstHandle2Weighted self);
 

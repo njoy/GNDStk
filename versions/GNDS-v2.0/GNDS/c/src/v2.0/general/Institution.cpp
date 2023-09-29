@@ -34,7 +34,7 @@ InstitutionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Institution
 InstitutionDefault()
 {
@@ -56,7 +56,7 @@ InstitutionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Institution
 InstitutionCreate(
    const char *const label,
@@ -192,7 +192,7 @@ InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution self)
       (CLASSNAME, CLASSNAME+"ENDFconversionFlagsGetConst", self, extract::ENDFconversionFlags);
 }
 
-// Get
+// Get, non-const
 Handle2ENDFconversionFlags
 InstitutionENDFconversionFlagsGet(ConstHandle2Institution self)
 {

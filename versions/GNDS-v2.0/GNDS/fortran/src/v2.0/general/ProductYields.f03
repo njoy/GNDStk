@@ -20,7 +20,7 @@ function ProductYieldsDefaultConst() &
    type(c_ptr) :: ProductYieldsDefaultConst
 end function ProductYieldsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProductYieldsDefault() &
       bind(C, name='ProductYieldsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ProductYieldsCreateConst( &
    type(c_ptr) :: ProductYieldsCreateConst
 end function ProductYieldsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProductYieldsCreate( &
    productYield, productYieldSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ProductYieldsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProductYieldsRead(handle, filename, filenameSize) &
       bind(C, name='ProductYieldsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ProductYieldsRead(handle, filename, filenameSize) &
 end function ProductYieldsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProductYieldsWrite(handle, filename, filenameSize) &
       bind(C, name='ProductYieldsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ProductYieldsProductYieldGetConst(handle, index) &
    type(c_ptr) :: ProductYieldsProductYieldGetConst
 end function ProductYieldsProductYieldGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ProductYieldsProductYieldGet(handle, index) &
       bind(C, name='ProductYieldsProductYieldGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ProductYieldsProductYieldGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ProductYieldsProductYieldGetByLabelConst
 end function ProductYieldsProductYieldGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ProductYieldsProductYieldGetByLabel(handle, meta, metaSize) &
       bind(C, name='ProductYieldsProductYieldGetByLabel')
    use iso_c_binding

@@ -70,7 +70,7 @@ typedef       struct BaryonsClass *      Handle2Baryons;
 extern_c Handle2ConstBaryons
 BaryonsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Baryons
 BaryonsDefault();
 
@@ -80,7 +80,7 @@ BaryonsCreateConst(
    ConstHandle2Baryon *const baryon, const size_t baryonSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Baryons
 BaryonsCreate(
    ConstHandle2Baryon *const baryon, const size_t baryonSize
@@ -154,7 +154,7 @@ BaryonsBaryonAdd(ConstHandle2Baryons self, ConstHandle2ConstBaryon baryon);
 extern_c Handle2ConstBaryon
 BaryonsBaryonGetConst(ConstHandle2ConstBaryons self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Baryon
 BaryonsBaryonGet(ConstHandle2Baryons self, const size_t index_);
 
@@ -184,7 +184,7 @@ BaryonsBaryonGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2Baryon
 BaryonsBaryonGetById(
    ConstHandle2Baryons self,

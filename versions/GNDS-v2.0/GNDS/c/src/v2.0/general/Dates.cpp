@@ -33,7 +33,7 @@ DatesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Dates
 DatesDefault()
 {
@@ -55,7 +55,7 @@ DatesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Dates
 DatesCreate(
    ConstHandle2Date *const date, const size_t dateSize
@@ -185,7 +185,7 @@ DatesDateGetConst(ConstHandle2ConstDates self, const size_t index_)
       (CLASSNAME, CLASSNAME+"DateGetConst", self, extract::date, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Date
 DatesDateGet(ConstHandle2Dates self, const size_t index_)
 {
@@ -230,7 +230,7 @@ DatesDateGetByValueConst(
        self, extract::date, meta::value, value);
 }
 
-// Get, by value
+// Get, by value, non-const
 Handle2Date
 DatesDateGetByValue(
    ConstHandle2Dates self,
@@ -279,7 +279,7 @@ DatesDateGetByDateTypeConst(
        self, extract::date, meta::dateType, dateType);
 }
 
-// Get, by dateType
+// Get, by dateType, non-const
 Handle2Date
 DatesDateGetByDateType(
    ConstHandle2Dates self,

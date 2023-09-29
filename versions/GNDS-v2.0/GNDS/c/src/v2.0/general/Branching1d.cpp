@@ -31,7 +31,7 @@ Branching1dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Branching1d
 Branching1dDefault()
 {
@@ -51,7 +51,7 @@ Branching1dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Branching1d
 Branching1dCreate(
    const char *const label

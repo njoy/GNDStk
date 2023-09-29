@@ -32,7 +32,7 @@ EFLDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2EFL
 EFLDefault()
 {
@@ -54,7 +54,7 @@ EFLCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2EFL
 EFLCreate(
    const double value,

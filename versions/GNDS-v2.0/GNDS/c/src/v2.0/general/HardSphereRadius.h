@@ -70,7 +70,7 @@ typedef       struct HardSphereRadiusClass *      Handle2HardSphereRadius;
 extern_c Handle2ConstHardSphereRadius
 HardSphereRadiusDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2HardSphereRadius
 HardSphereRadiusDefault();
 
@@ -80,7 +80,7 @@ HardSphereRadiusCreateConst(
    ConstHandle2ConstConstant1d constant1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2HardSphereRadius
 HardSphereRadiusCreate(
    ConstHandle2ConstConstant1d constant1d
@@ -142,7 +142,7 @@ HardSphereRadiusConstant1dHas(ConstHandle2ConstHardSphereRadius self);
 extern_c Handle2ConstConstant1d
 HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Constant1d
 HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius self);
 

@@ -20,7 +20,7 @@ function DiscreteGammaDefaultConst() &
    type(c_ptr) :: DiscreteGammaDefaultConst
 end function DiscreteGammaDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DiscreteGammaDefault() &
       bind(C, name='DiscreteGammaDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function DiscreteGammaCreateConst( &
    type(c_ptr) :: DiscreteGammaCreateConst
 end function DiscreteGammaCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DiscreteGammaCreate( &
    value, &
    domainMin, &
@@ -87,6 +87,8 @@ end subroutine DiscreteGammaDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DiscreteGammaRead(handle, filename, filenameSize) &
       bind(C, name='DiscreteGammaRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function DiscreteGammaRead(handle, filename, filenameSize) &
 end function DiscreteGammaRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DiscreteGammaWrite(handle, filename, filenameSize) &
       bind(C, name='DiscreteGammaWrite')
    use iso_c_binding
@@ -254,7 +258,7 @@ function DiscreteGammaAxesGetConst(handle) &
    type(c_ptr) :: DiscreteGammaAxesGetConst
 end function DiscreteGammaAxesGetConst
 
-!! Get
+!! Get, non-const
 function DiscreteGammaAxesGet(handle) &
       bind(C, name='DiscreteGammaAxesGet')
    use iso_c_binding

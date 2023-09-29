@@ -33,7 +33,7 @@ WeightedFunctionalsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2WeightedFunctionals
 WeightedFunctionalsDefault()
 {
@@ -55,7 +55,7 @@ WeightedFunctionalsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2WeightedFunctionals
 WeightedFunctionalsCreate(
    ConstHandle2Weighted *const weighted, const size_t weightedSize
@@ -185,7 +185,7 @@ WeightedFunctionalsWeightedGetConst(ConstHandle2ConstWeightedFunctionals self, c
       (CLASSNAME, CLASSNAME+"WeightedGetConst", self, extract::weighted, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Weighted
 WeightedFunctionalsWeightedGet(ConstHandle2WeightedFunctionals self, const size_t index_)
 {

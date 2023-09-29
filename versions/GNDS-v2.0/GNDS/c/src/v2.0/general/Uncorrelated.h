@@ -71,7 +71,7 @@ typedef       struct UncorrelatedClass *      Handle2Uncorrelated;
 extern_c Handle2ConstUncorrelated
 UncorrelatedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Uncorrelated
 UncorrelatedDefault();
 
@@ -84,7 +84,7 @@ UncorrelatedCreateConst(
    ConstHandle2ConstEnergy energy
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Uncorrelated
 UncorrelatedCreate(
    const char *const label,
@@ -185,7 +185,7 @@ UncorrelatedAngularHas(ConstHandle2ConstUncorrelated self);
 extern_c Handle2ConstAngular
 UncorrelatedAngularGetConst(ConstHandle2ConstUncorrelated self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Angular
 UncorrelatedAngularGet(ConstHandle2Uncorrelated self);
 
@@ -206,7 +206,7 @@ UncorrelatedEnergyHas(ConstHandle2ConstUncorrelated self);
 extern_c Handle2ConstEnergy
 UncorrelatedEnergyGetConst(ConstHandle2ConstUncorrelated self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Energy
 UncorrelatedEnergyGet(ConstHandle2Uncorrelated self);
 

@@ -69,7 +69,7 @@ typedef       struct LengthsClass *      Handle2Lengths;
 extern_c Handle2ConstLengths
 LengthsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Lengths
 LengthsDefault();
 
@@ -80,7 +80,7 @@ LengthsCreateConst(
    const char *const label
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Lengths
 LengthsCreate(
    const char *const valueType,
@@ -157,7 +157,7 @@ LengthsIntsSet(ConstHandle2Lengths self, const size_t index, const int value);
 extern_c const int *
 LengthsIntsGetArrayConst(ConstHandle2ConstLengths self);
 
-// +++ Get pointer to existing values
+// +++ Get pointer to existing values, non-const
 extern_c int *
 LengthsIntsGetArray(ConstHandle2Lengths self);
 

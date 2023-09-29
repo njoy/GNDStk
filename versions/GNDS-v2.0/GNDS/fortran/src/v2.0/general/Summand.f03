@@ -20,7 +20,7 @@ function SummandDefaultConst() &
    type(c_ptr) :: SummandDefaultConst
 end function SummandDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SummandDefault() &
       bind(C, name='SummandDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function SummandCreateConst( &
    type(c_ptr) :: SummandCreateConst
 end function SummandCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SummandCreate( &
    ENDF_MFMT, &
    coefficient, &
@@ -95,6 +95,8 @@ end subroutine SummandDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SummandRead(handle, filename, filenameSize) &
       bind(C, name='SummandRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function SummandRead(handle, filename, filenameSize) &
 end function SummandRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SummandWrite(handle, filename, filenameSize) &
       bind(C, name='SummandWrite')
    use iso_c_binding

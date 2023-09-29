@@ -35,7 +35,7 @@ EvaporationDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Evaporation
 EvaporationDefault()
 {
@@ -57,7 +57,7 @@ EvaporationCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Evaporation
 EvaporationCreate(
    ConstHandle2ConstU U,
@@ -163,7 +163,7 @@ EvaporationUGetConst(ConstHandle2ConstEvaporation self)
       (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
-// Get
+// Get, non-const
 Handle2U
 EvaporationUGet(ConstHandle2Evaporation self)
 {
@@ -200,7 +200,7 @@ EvaporationThetaGetConst(ConstHandle2ConstEvaporation self)
       (CLASSNAME, CLASSNAME+"ThetaGetConst", self, extract::theta);
 }
 
-// Get
+// Get, non-const
 Handle2Theta
 EvaporationThetaGet(ConstHandle2Evaporation self)
 {

@@ -20,7 +20,7 @@ function ChargeDefaultConst() &
    type(c_ptr) :: ChargeDefaultConst
 end function ChargeDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ChargeDefault() &
       bind(C, name='ChargeDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ChargeCreateConst( &
    type(c_ptr) :: ChargeCreateConst
 end function ChargeCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ChargeCreate( &
    integer &
 ) &
@@ -75,6 +75,8 @@ end subroutine ChargeDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ChargeRead(handle, filename, filenameSize) &
       bind(C, name='ChargeRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ChargeRead(handle, filename, filenameSize) &
 end function ChargeRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ChargeWrite(handle, filename, filenameSize) &
       bind(C, name='ChargeWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ChargeIntegerGetConst(handle) &
    type(c_ptr) :: ChargeIntegerGetConst
 end function ChargeIntegerGetConst
 
-!! Get
+!! Get, non-const
 function ChargeIntegerGet(handle) &
       bind(C, name='ChargeIntegerGet')
    use iso_c_binding

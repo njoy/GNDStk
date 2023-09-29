@@ -20,7 +20,7 @@ function ListOfCovariancesDefaultConst() &
    type(c_ptr) :: ListOfCovariancesDefaultConst
 end function ListOfCovariancesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ListOfCovariancesDefault() &
       bind(C, name='ListOfCovariancesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ListOfCovariancesCreateConst( &
    type(c_ptr) :: ListOfCovariancesCreateConst
 end function ListOfCovariancesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ListOfCovariancesCreate( &
    covariance, covarianceSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ListOfCovariancesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ListOfCovariancesRead(handle, filename, filenameSize) &
       bind(C, name='ListOfCovariancesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ListOfCovariancesRead(handle, filename, filenameSize) &
 end function ListOfCovariancesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ListOfCovariancesWrite(handle, filename, filenameSize) &
       bind(C, name='ListOfCovariancesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ListOfCovariancesCovarianceGetConst(handle, index) &
    type(c_ptr) :: ListOfCovariancesCovarianceGetConst
 end function ListOfCovariancesCovarianceGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ListOfCovariancesCovarianceGet(handle, index) &
       bind(C, name='ListOfCovariancesCovarianceGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ListOfCovariancesCovarianceGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ListOfCovariancesCovarianceGetByLabelConst
 end function ListOfCovariancesCovarianceGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ListOfCovariancesCovarianceGetByLabel(handle, meta, metaSize) &
       bind(C, name='ListOfCovariancesCovarianceGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ListOfCovariancesCovarianceGetByHrefConst(handle, meta, metaSize) &
    type(c_ptr) :: ListOfCovariancesCovarianceGetByHrefConst
 end function ListOfCovariancesCovarianceGetByHrefConst
 
-!! Get, by href
+!! Get, by href, non-const
 function ListOfCovariancesCovarianceGetByHref(handle, meta, metaSize) &
       bind(C, name='ListOfCovariancesCovarianceGetByHref')
    use iso_c_binding

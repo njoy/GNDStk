@@ -41,7 +41,7 @@ AngularTwoBodyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2AngularTwoBody
 AngularTwoBodyDefault()
 {
@@ -71,7 +71,7 @@ AngularTwoBodyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2AngularTwoBody
 AngularTwoBodyCreate(
    const char *const label,
@@ -245,7 +245,7 @@ AngularTwoBodyXYs2dGetConst(ConstHandle2ConstAngularTwoBody self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 AngularTwoBodyXYs2dGet(ConstHandle2AngularTwoBody self)
 {
@@ -282,7 +282,7 @@ AngularTwoBodyRegions2dGetConst(ConstHandle2ConstAngularTwoBody self)
       (CLASSNAME, CLASSNAME+"Regions2dGetConst", self, extract::regions2d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions2d
 AngularTwoBodyRegions2dGet(ConstHandle2AngularTwoBody self)
 {
@@ -319,7 +319,7 @@ AngularTwoBodyRecoilGetConst(ConstHandle2ConstAngularTwoBody self)
       (CLASSNAME, CLASSNAME+"RecoilGetConst", self, extract::recoil);
 }
 
-// Get
+// Get, non-const
 Handle2Recoil
 AngularTwoBodyRecoilGet(ConstHandle2AngularTwoBody self)
 {
@@ -356,7 +356,7 @@ AngularTwoBodyIsotropic2dGetConst(ConstHandle2ConstAngularTwoBody self)
       (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", self, extract::isotropic2d);
 }
 
-// Get
+// Get, non-const
 Handle2Isotropic2d
 AngularTwoBodyIsotropic2dGet(ConstHandle2AngularTwoBody self)
 {

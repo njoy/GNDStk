@@ -20,7 +20,7 @@ function FormFactorDefaultConst() &
    type(c_ptr) :: FormFactorDefaultConst
 end function FormFactorDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FormFactorDefault() &
       bind(C, name='FormFactorDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function FormFactorCreateConst( &
    type(c_ptr) :: FormFactorCreateConst
 end function FormFactorCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FormFactorCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine FormFactorDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FormFactorRead(handle, filename, filenameSize) &
       bind(C, name='FormFactorRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function FormFactorRead(handle, filename, filenameSize) &
 end function FormFactorRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FormFactorWrite(handle, filename, filenameSize) &
       bind(C, name='FormFactorWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function FormFactorXYs1dGetConst(handle) &
    type(c_ptr) :: FormFactorXYs1dGetConst
 end function FormFactorXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function FormFactorXYs1dGet(handle) &
       bind(C, name='FormFactorXYs1dGet')
    use iso_c_binding

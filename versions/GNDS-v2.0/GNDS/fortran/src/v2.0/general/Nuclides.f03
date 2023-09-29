@@ -20,7 +20,7 @@ function NuclidesDefaultConst() &
    type(c_ptr) :: NuclidesDefaultConst
 end function NuclidesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NuclidesDefault() &
       bind(C, name='NuclidesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function NuclidesCreateConst( &
    type(c_ptr) :: NuclidesCreateConst
 end function NuclidesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NuclidesCreate( &
    nuclide, nuclideSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine NuclidesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NuclidesRead(handle, filename, filenameSize) &
       bind(C, name='NuclidesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function NuclidesRead(handle, filename, filenameSize) &
 end function NuclidesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NuclidesWrite(handle, filename, filenameSize) &
       bind(C, name='NuclidesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function NuclidesNuclideGetConst(handle, index) &
    type(c_ptr) :: NuclidesNuclideGetConst
 end function NuclidesNuclideGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function NuclidesNuclideGet(handle, index) &
       bind(C, name='NuclidesNuclideGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function NuclidesNuclideGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: NuclidesNuclideGetByIdConst
 end function NuclidesNuclideGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function NuclidesNuclideGetById(handle, meta, metaSize) &
       bind(C, name='NuclidesNuclideGetById')
    use iso_c_binding

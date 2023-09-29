@@ -72,7 +72,7 @@ typedef       struct BackgroundClass *      Handle2Background;
 extern_c Handle2ConstBackground
 BackgroundDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Background
 BackgroundDefault();
 
@@ -84,7 +84,7 @@ BackgroundCreateConst(
    ConstHandle2ConstUnresolvedRegion unresolvedRegion
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Background
 BackgroundCreate(
    ConstHandle2ConstResolvedRegion resolvedRegion,
@@ -148,7 +148,7 @@ BackgroundResolvedRegionHas(ConstHandle2ConstBackground self);
 extern_c Handle2ConstResolvedRegion
 BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ResolvedRegion
 BackgroundResolvedRegionGet(ConstHandle2Background self);
 
@@ -169,7 +169,7 @@ BackgroundFastRegionHas(ConstHandle2ConstBackground self);
 extern_c Handle2ConstFastRegion
 BackgroundFastRegionGetConst(ConstHandle2ConstBackground self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2FastRegion
 BackgroundFastRegionGet(ConstHandle2Background self);
 
@@ -190,7 +190,7 @@ BackgroundUnresolvedRegionHas(ConstHandle2ConstBackground self);
 extern_c Handle2ConstUnresolvedRegion
 BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2UnresolvedRegion
 BackgroundUnresolvedRegionGet(ConstHandle2Background self);
 

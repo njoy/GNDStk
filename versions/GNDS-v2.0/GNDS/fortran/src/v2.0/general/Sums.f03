@@ -20,7 +20,7 @@ function SumsDefaultConst() &
    type(c_ptr) :: SumsDefaultConst
 end function SumsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SumsDefault() &
       bind(C, name='SumsDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function SumsCreateConst( &
    type(c_ptr) :: SumsCreateConst
 end function SumsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SumsCreate( &
    crossSectionSums, &
    multiplicitySums &
@@ -79,6 +79,8 @@ end subroutine SumsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SumsRead(handle, filename, filenameSize) &
       bind(C, name='SumsRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function SumsRead(handle, filename, filenameSize) &
 end function SumsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SumsWrite(handle, filename, filenameSize) &
       bind(C, name='SumsWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function SumsCrossSectionSumsGetConst(handle) &
    type(c_ptr) :: SumsCrossSectionSumsGetConst
 end function SumsCrossSectionSumsGetConst
 
-!! Get
+!! Get, non-const
 function SumsCrossSectionSumsGet(handle) &
       bind(C, name='SumsCrossSectionSumsGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function SumsMultiplicitySumsGetConst(handle) &
    type(c_ptr) :: SumsMultiplicitySumsGetConst
 end function SumsMultiplicitySumsGetConst
 
-!! Get
+!! Get, non-const
 function SumsMultiplicitySumsGet(handle) &
       bind(C, name='SumsMultiplicitySumsGet')
    use iso_c_binding

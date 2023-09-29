@@ -33,7 +33,7 @@ CovarianceSectionsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CovarianceSections
 CovarianceSectionsDefault()
 {
@@ -55,7 +55,7 @@ CovarianceSectionsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CovarianceSections
 CovarianceSectionsCreate(
    ConstHandle2CovarianceSection *const covarianceSection, const size_t covarianceSectionSize
@@ -185,7 +185,7 @@ CovarianceSectionsCovarianceSectionGetConst(ConstHandle2ConstCovarianceSections 
       (CLASSNAME, CLASSNAME+"CovarianceSectionGetConst", self, extract::covarianceSection, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGet(ConstHandle2CovarianceSections self, const size_t index_)
 {
@@ -230,7 +230,7 @@ CovarianceSectionsCovarianceSectionGetByLabelConst(
        self, extract::covarianceSection, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByLabel(
    ConstHandle2CovarianceSections self,
@@ -279,7 +279,7 @@ CovarianceSectionsCovarianceSectionGetByCrossTermConst(
        self, extract::covarianceSection, meta::crossTerm, crossTerm);
 }
 
-// Get, by crossTerm
+// Get, by crossTerm, non-const
 Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByCrossTerm(
    ConstHandle2CovarianceSections self,

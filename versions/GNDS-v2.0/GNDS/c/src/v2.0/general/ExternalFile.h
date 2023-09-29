@@ -69,7 +69,7 @@ typedef       struct ExternalFileClass *      Handle2ExternalFile;
 extern_c Handle2ConstExternalFile
 ExternalFileDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ExternalFile
 ExternalFileDefault();
 
@@ -82,7 +82,7 @@ ExternalFileCreateConst(
    const char *const algorithm
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ExternalFile
 ExternalFileCreate(
    const char *const label,

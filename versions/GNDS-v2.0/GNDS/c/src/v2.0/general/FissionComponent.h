@@ -71,7 +71,7 @@ typedef       struct FissionComponentClass *      Handle2FissionComponent;
 extern_c Handle2ConstFissionComponent
 FissionComponentDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FissionComponent
 FissionComponentDefault();
 
@@ -85,7 +85,7 @@ FissionComponentCreateConst(
    ConstHandle2ConstOutputChannel outputChannel
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FissionComponent
 FissionComponentCreate(
    const char *const label,
@@ -205,7 +205,7 @@ FissionComponentCrossSectionHas(ConstHandle2ConstFissionComponent self);
 extern_c Handle2ConstCrossSection
 FissionComponentCrossSectionGetConst(ConstHandle2ConstFissionComponent self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CrossSection
 FissionComponentCrossSectionGet(ConstHandle2FissionComponent self);
 
@@ -226,7 +226,7 @@ FissionComponentOutputChannelHas(ConstHandle2ConstFissionComponent self);
 extern_c Handle2ConstOutputChannel
 FissionComponentOutputChannelGetConst(ConstHandle2ConstFissionComponent self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2OutputChannel
 FissionComponentOutputChannelGet(ConstHandle2FissionComponent self);
 

@@ -20,7 +20,7 @@ function ContinuumDefaultConst() &
    type(c_ptr) :: ContinuumDefaultConst
 end function ContinuumDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ContinuumDefault() &
       bind(C, name='ContinuumDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ContinuumCreateConst( &
    type(c_ptr) :: ContinuumCreateConst
 end function ContinuumCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ContinuumCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine ContinuumDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ContinuumRead(handle, filename, filenameSize) &
       bind(C, name='ContinuumRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ContinuumRead(handle, filename, filenameSize) &
 end function ContinuumRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ContinuumWrite(handle, filename, filenameSize) &
       bind(C, name='ContinuumWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ContinuumXYs1dGetConst(handle) &
    type(c_ptr) :: ContinuumXYs1dGetConst
 end function ContinuumXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function ContinuumXYs1dGet(handle) &
       bind(C, name='ContinuumXYs1dGet')
    use iso_c_binding

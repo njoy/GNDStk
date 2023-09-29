@@ -35,7 +35,7 @@ SliceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Slice
 SliceDefault()
 {
@@ -63,7 +63,7 @@ SliceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Slice
 SliceCreate(
    const int dimension,

@@ -37,7 +37,7 @@ ProductionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Production
 ProductionDefault()
 {
@@ -63,7 +63,7 @@ ProductionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Production
 ProductionCreate(
    const char *const label,
@@ -233,7 +233,7 @@ ProductionCrossSectionGetConst(ConstHandle2ConstProduction self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSection
 ProductionCrossSectionGet(ConstHandle2Production self)
 {
@@ -270,7 +270,7 @@ ProductionOutputChannelGetConst(ConstHandle2ConstProduction self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get
+// Get, non-const
 Handle2OutputChannel
 ProductionOutputChannelGet(ConstHandle2Production self)
 {

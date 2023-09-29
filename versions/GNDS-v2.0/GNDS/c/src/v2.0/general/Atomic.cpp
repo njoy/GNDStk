@@ -33,7 +33,7 @@ AtomicDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Atomic
 AtomicDefault()
 {
@@ -53,7 +53,7 @@ AtomicCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Atomic
 AtomicCreate(
    ConstHandle2ConstConfigurations configurations
@@ -157,7 +157,7 @@ AtomicConfigurationsGetConst(ConstHandle2ConstAtomic self)
       (CLASSNAME, CLASSNAME+"ConfigurationsGetConst", self, extract::configurations);
 }
 
-// Get
+// Get, non-const
 Handle2Configurations
 AtomicConfigurationsGet(ConstHandle2Atomic self)
 {

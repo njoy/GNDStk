@@ -20,7 +20,7 @@ function ReactionSuiteDefaultConst() &
    type(c_ptr) :: ReactionSuiteDefaultConst
 end function ReactionSuiteDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ReactionSuiteDefault() &
       bind(C, name='ReactionSuiteDefault')
    use iso_c_binding
@@ -83,7 +83,7 @@ function ReactionSuiteCreateConst( &
    type(c_ptr) :: ReactionSuiteCreateConst
 end function ReactionSuiteCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ReactionSuiteCreate( &
    projectile, &
    target, &
@@ -163,6 +163,8 @@ end subroutine ReactionSuiteDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ReactionSuiteRead(handle, filename, filenameSize) &
       bind(C, name='ReactionSuiteRead')
    use iso_c_binding
@@ -174,6 +176,8 @@ function ReactionSuiteRead(handle, filename, filenameSize) &
 end function ReactionSuiteRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ReactionSuiteWrite(handle, filename, filenameSize) &
       bind(C, name='ReactionSuiteWrite')
    use iso_c_binding
@@ -432,7 +436,7 @@ function ReactionSuiteStylesGetConst(handle) &
    type(c_ptr) :: ReactionSuiteStylesGetConst
 end function ReactionSuiteStylesGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteStylesGet(handle) &
       bind(C, name='ReactionSuiteStylesGet')
    use iso_c_binding
@@ -473,7 +477,7 @@ function ReactionSuitePoPsGetConst(handle) &
    type(c_ptr) :: ReactionSuitePoPsGetConst
 end function ReactionSuitePoPsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuitePoPsGet(handle) &
       bind(C, name='ReactionSuitePoPsGet')
    use iso_c_binding
@@ -514,7 +518,7 @@ function ReactionSuiteReactionsGetConst(handle) &
    type(c_ptr) :: ReactionSuiteReactionsGetConst
 end function ReactionSuiteReactionsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteReactionsGet(handle) &
       bind(C, name='ReactionSuiteReactionsGet')
    use iso_c_binding
@@ -555,7 +559,7 @@ function ReactionSuiteApplicationDataGetConst(handle) &
    type(c_ptr) :: ReactionSuiteApplicationDataGetConst
 end function ReactionSuiteApplicationDataGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteApplicationDataGet(handle) &
       bind(C, name='ReactionSuiteApplicationDataGet')
    use iso_c_binding
@@ -596,7 +600,7 @@ function ReactionSuiteExternalFilesGetConst(handle) &
    type(c_ptr) :: ReactionSuiteExternalFilesGetConst
 end function ReactionSuiteExternalFilesGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteExternalFilesGet(handle) &
       bind(C, name='ReactionSuiteExternalFilesGet')
    use iso_c_binding
@@ -637,7 +641,7 @@ function ReactionSuiteResonancesGetConst(handle) &
    type(c_ptr) :: ReactionSuiteResonancesGetConst
 end function ReactionSuiteResonancesGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteResonancesGet(handle) &
       bind(C, name='ReactionSuiteResonancesGet')
    use iso_c_binding
@@ -678,7 +682,7 @@ function ReactionSuiteSumsGetConst(handle) &
    type(c_ptr) :: ReactionSuiteSumsGetConst
 end function ReactionSuiteSumsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteSumsGet(handle) &
       bind(C, name='ReactionSuiteSumsGet')
    use iso_c_binding
@@ -719,7 +723,7 @@ function ReactionSuiteProductionsGetConst(handle) &
    type(c_ptr) :: ReactionSuiteProductionsGetConst
 end function ReactionSuiteProductionsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteProductionsGet(handle) &
       bind(C, name='ReactionSuiteProductionsGet')
    use iso_c_binding
@@ -760,7 +764,7 @@ function ReactionSuiteFissionComponentsGetConst(handle) &
    type(c_ptr) :: ReactionSuiteFissionComponentsGetConst
 end function ReactionSuiteFissionComponentsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteFissionComponentsGet(handle) &
       bind(C, name='ReactionSuiteFissionComponentsGet')
    use iso_c_binding
@@ -801,7 +805,7 @@ function ReactionSuiteOrphanProductsGetConst(handle) &
    type(c_ptr) :: ReactionSuiteOrphanProductsGetConst
 end function ReactionSuiteOrphanProductsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteOrphanProductsGet(handle) &
       bind(C, name='ReactionSuiteOrphanProductsGet')
    use iso_c_binding
@@ -842,7 +846,7 @@ function ReactionSuiteIncompleteReactionsGetConst(handle) &
    type(c_ptr) :: ReactionSuiteIncompleteReactionsGetConst
 end function ReactionSuiteIncompleteReactionsGetConst
 
-!! Get
+!! Get, non-const
 function ReactionSuiteIncompleteReactionsGet(handle) &
       bind(C, name='ReactionSuiteIncompleteReactionsGet')
    use iso_c_binding

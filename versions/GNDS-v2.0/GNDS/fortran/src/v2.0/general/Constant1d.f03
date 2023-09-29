@@ -20,7 +20,7 @@ function Constant1dDefaultConst() &
    type(c_ptr) :: Constant1dDefaultConst
 end function Constant1dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Constant1dDefault() &
       bind(C, name='Constant1dDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function Constant1dCreateConst( &
    type(c_ptr) :: Constant1dCreateConst
 end function Constant1dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Constant1dCreate( &
    label, &
    value, &
@@ -95,6 +95,8 @@ end subroutine Constant1dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Constant1dRead(handle, filename, filenameSize) &
       bind(C, name='Constant1dRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function Constant1dRead(handle, filename, filenameSize) &
 end function Constant1dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Constant1dWrite(handle, filename, filenameSize) &
       bind(C, name='Constant1dWrite')
    use iso_c_binding
@@ -295,7 +299,7 @@ function Constant1dAxesGetConst(handle) &
    type(c_ptr) :: Constant1dAxesGetConst
 end function Constant1dAxesGetConst
 
-!! Get
+!! Get, non-const
 function Constant1dAxesGet(handle) &
       bind(C, name='Constant1dAxesGet')
    use iso_c_binding

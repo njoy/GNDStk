@@ -20,7 +20,7 @@ function IncidentEnergiesDefaultConst() &
    type(c_ptr) :: IncidentEnergiesDefaultConst
 end function IncidentEnergiesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IncidentEnergiesDefault() &
       bind(C, name='IncidentEnergiesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function IncidentEnergiesCreateConst( &
    type(c_ptr) :: IncidentEnergiesCreateConst
 end function IncidentEnergiesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IncidentEnergiesCreate( &
    incidentEnergy, incidentEnergySize &
 ) &
@@ -77,6 +77,8 @@ end subroutine IncidentEnergiesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IncidentEnergiesRead(handle, filename, filenameSize) &
       bind(C, name='IncidentEnergiesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function IncidentEnergiesRead(handle, filename, filenameSize) &
 end function IncidentEnergiesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IncidentEnergiesWrite(handle, filename, filenameSize) &
       bind(C, name='IncidentEnergiesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function IncidentEnergiesIncidentEnergyGetConst(handle, index) &
    type(c_ptr) :: IncidentEnergiesIncidentEnergyGetConst
 end function IncidentEnergiesIncidentEnergyGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function IncidentEnergiesIncidentEnergyGet(handle, index) &
       bind(C, name='IncidentEnergiesIncidentEnergyGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function IncidentEnergiesIncidentEnergyGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: IncidentEnergiesIncidentEnergyGetByLabelConst
 end function IncidentEnergiesIncidentEnergyGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function IncidentEnergiesIncidentEnergyGetByLabel(handle, meta, metaSize) &
       bind(C, name='IncidentEnergiesIncidentEnergyGetByLabel')
    use iso_c_binding

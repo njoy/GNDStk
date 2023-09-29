@@ -20,7 +20,7 @@ function FreeGasApproximationDefaultConst() &
    type(c_ptr) :: FreeGasApproximationDefaultConst
 end function FreeGasApproximationDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FreeGasApproximationDefault() &
       bind(C, name='FreeGasApproximationDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function FreeGasApproximationCreateConst( &
    type(c_ptr) :: FreeGasApproximationCreateConst
 end function FreeGasApproximationCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FreeGasApproximationCreate( &
 ) &
       bind(C, name='FreeGasApproximationCreate')
@@ -71,6 +71,8 @@ end subroutine FreeGasApproximationDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FreeGasApproximationRead(handle, filename, filenameSize) &
       bind(C, name='FreeGasApproximationRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function FreeGasApproximationRead(handle, filename, filenameSize) &
 end function FreeGasApproximationRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FreeGasApproximationWrite(handle, filename, filenameSize) &
       bind(C, name='FreeGasApproximationWrite')
    use iso_c_binding

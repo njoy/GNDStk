@@ -32,7 +32,7 @@ Branching3dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Branching3d
 Branching3dDefault()
 {
@@ -54,7 +54,7 @@ Branching3dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Branching3d
 Branching3dCreate(
    const char *const label,

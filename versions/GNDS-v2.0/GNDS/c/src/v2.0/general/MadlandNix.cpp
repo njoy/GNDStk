@@ -37,7 +37,7 @@ MadlandNixDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2MadlandNix
 MadlandNixDefault()
 {
@@ -61,7 +61,7 @@ MadlandNixCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2MadlandNix
 MadlandNixCreate(
    ConstHandle2ConstEFL EFL,
@@ -169,7 +169,7 @@ MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix self)
       (CLASSNAME, CLASSNAME+"EFLGetConst", self, extract::EFL);
 }
 
-// Get
+// Get, non-const
 Handle2EFL
 MadlandNixEFLGet(ConstHandle2MadlandNix self)
 {
@@ -206,7 +206,7 @@ MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix self)
       (CLASSNAME, CLASSNAME+"EFHGetConst", self, extract::EFH);
 }
 
-// Get
+// Get, non-const
 Handle2EFH
 MadlandNixEFHGet(ConstHandle2MadlandNix self)
 {
@@ -243,7 +243,7 @@ MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix self)
       (CLASSNAME, CLASSNAME+"T_MGetConst", self, extract::T_M);
 }
 
-// Get
+// Get, non-const
 Handle2T_M
 MadlandNixT_MGet(ConstHandle2MadlandNix self)
 {

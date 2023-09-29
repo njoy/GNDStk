@@ -33,7 +33,7 @@ S_tableDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2S_table
 S_tableDefault()
 {
@@ -53,7 +53,7 @@ S_tableCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2S_table
 S_tableCreate(
    ConstHandle2ConstGridded2d gridded2d
@@ -157,7 +157,7 @@ S_tableGridded2dGetConst(ConstHandle2ConstS_table self)
       (CLASSNAME, CLASSNAME+"Gridded2dGetConst", self, extract::gridded2d);
 }
 
-// Get
+// Get, non-const
 Handle2Gridded2d
 S_tableGridded2dGet(ConstHandle2S_table self)
 {

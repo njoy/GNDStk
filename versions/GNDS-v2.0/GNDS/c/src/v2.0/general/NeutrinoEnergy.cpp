@@ -33,7 +33,7 @@ NeutrinoEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2NeutrinoEnergy
 NeutrinoEnergyDefault()
 {
@@ -53,7 +53,7 @@ NeutrinoEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2NeutrinoEnergy
 NeutrinoEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -157,7 +157,7 @@ NeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNeutrinoEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 NeutrinoEnergyPolynomial1dGet(ConstHandle2NeutrinoEnergy self)
 {

@@ -33,7 +33,7 @@ ResonanceParametersDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ResonanceParameters
 ResonanceParametersDefault()
 {
@@ -53,7 +53,7 @@ ResonanceParametersCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ResonanceParameters
 ResonanceParametersCreate(
    ConstHandle2ConstTable table
@@ -157,7 +157,7 @@ ResonanceParametersTableGetConst(ConstHandle2ConstResonanceParameters self)
       (CLASSNAME, CLASSNAME+"TableGetConst", self, extract::table);
 }
 
-// Get
+// Get, non-const
 Handle2Table
 ResonanceParametersTableGet(ConstHandle2ResonanceParameters self)
 {

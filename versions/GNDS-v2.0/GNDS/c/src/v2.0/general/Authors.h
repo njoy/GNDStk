@@ -70,7 +70,7 @@ typedef       struct AuthorsClass *      Handle2Authors;
 extern_c Handle2ConstAuthors
 AuthorsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Authors
 AuthorsDefault();
 
@@ -80,7 +80,7 @@ AuthorsCreateConst(
    ConstHandle2Author *const author, const size_t authorSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Authors
 AuthorsCreate(
    ConstHandle2Author *const author, const size_t authorSize
@@ -154,7 +154,7 @@ AuthorsAuthorAdd(ConstHandle2Authors self, ConstHandle2ConstAuthor author);
 extern_c Handle2ConstAuthor
 AuthorsAuthorGetConst(ConstHandle2ConstAuthors self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Author
 AuthorsAuthorGet(ConstHandle2Authors self, const size_t index_);
 
@@ -184,7 +184,7 @@ AuthorsAuthorGetByNameConst(
    const char *const name
 );
 
-// +++ Get, by name
+// +++ Get, by name, non-const
 extern_c Handle2Author
 AuthorsAuthorGetByName(
    ConstHandle2Authors self,

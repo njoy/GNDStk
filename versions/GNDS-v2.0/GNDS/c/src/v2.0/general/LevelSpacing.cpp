@@ -35,7 +35,7 @@ LevelSpacingDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2LevelSpacing
 LevelSpacingDefault()
 {
@@ -57,7 +57,7 @@ LevelSpacingCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2LevelSpacing
 LevelSpacingCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -163,7 +163,7 @@ LevelSpacingXYs1dGetConst(ConstHandle2ConstLevelSpacing self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 LevelSpacingXYs1dGet(ConstHandle2LevelSpacing self)
 {
@@ -200,7 +200,7 @@ LevelSpacingConstant1dGetConst(ConstHandle2ConstLevelSpacing self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get
+// Get, non-const
 Handle2Constant1d
 LevelSpacingConstant1dGet(ConstHandle2LevelSpacing self)
 {

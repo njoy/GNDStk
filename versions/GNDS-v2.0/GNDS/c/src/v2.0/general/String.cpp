@@ -33,7 +33,7 @@ StringDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2String
 StringDefault()
 {
@@ -57,7 +57,7 @@ StringCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2String
 StringCreate(
    const char *const label,

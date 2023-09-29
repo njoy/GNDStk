@@ -20,7 +20,7 @@ function Gridded2dDefaultConst() &
    type(c_ptr) :: Gridded2dDefaultConst
 end function Gridded2dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Gridded2dDefault() &
       bind(C, name='Gridded2dDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function Gridded2dCreateConst( &
    type(c_ptr) :: Gridded2dCreateConst
 end function Gridded2dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Gridded2dCreate( &
    axes, &
    array &
@@ -79,6 +79,8 @@ end subroutine Gridded2dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Gridded2dRead(handle, filename, filenameSize) &
       bind(C, name='Gridded2dRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function Gridded2dRead(handle, filename, filenameSize) &
 end function Gridded2dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Gridded2dWrite(handle, filename, filenameSize) &
       bind(C, name='Gridded2dWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function Gridded2dAxesGetConst(handle) &
    type(c_ptr) :: Gridded2dAxesGetConst
 end function Gridded2dAxesGetConst
 
-!! Get
+!! Get, non-const
 function Gridded2dAxesGet(handle) &
       bind(C, name='Gridded2dAxesGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function Gridded2dArrayGetConst(handle) &
    type(c_ptr) :: Gridded2dArrayGetConst
 end function Gridded2dArrayGetConst
 
-!! Get
+!! Get, non-const
 function Gridded2dArrayGet(handle) &
       bind(C, name='Gridded2dArrayGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function ShellDefaultConst() &
    type(c_ptr) :: ShellDefaultConst
 end function ShellDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ShellDefault() &
       bind(C, name='ShellDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ShellCreateConst( &
    type(c_ptr) :: ShellCreateConst
 end function ShellCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ShellCreate( &
    label, &
    value, &
@@ -87,6 +87,8 @@ end subroutine ShellDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ShellRead(handle, filename, filenameSize) &
       bind(C, name='ShellRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ShellRead(handle, filename, filenameSize) &
 end function ShellRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ShellWrite(handle, filename, filenameSize) &
       bind(C, name='ShellWrite')
    use iso_c_binding
@@ -223,7 +227,7 @@ function ShellUncertaintyGetConst(handle) &
    type(c_ptr) :: ShellUncertaintyGetConst
 end function ShellUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function ShellUncertaintyGet(handle) &
       bind(C, name='ShellUncertaintyGet')
    use iso_c_binding

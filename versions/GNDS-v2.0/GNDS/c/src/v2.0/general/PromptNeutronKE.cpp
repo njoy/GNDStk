@@ -35,7 +35,7 @@ PromptNeutronKEDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PromptNeutronKE
 PromptNeutronKEDefault()
 {
@@ -57,7 +57,7 @@ PromptNeutronKECreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PromptNeutronKE
 PromptNeutronKECreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -163,7 +163,7 @@ PromptNeutronKEPolynomial1dGetConst(ConstHandle2ConstPromptNeutronKE self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 PromptNeutronKEPolynomial1dGet(ConstHandle2PromptNeutronKE self)
 {
@@ -200,7 +200,7 @@ PromptNeutronKEXYs1dGetConst(ConstHandle2ConstPromptNeutronKE self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 PromptNeutronKEXYs1dGet(ConstHandle2PromptNeutronKE self)
 {

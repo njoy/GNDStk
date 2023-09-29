@@ -35,7 +35,7 @@ LDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2L
 LDefault()
 {
@@ -59,7 +59,7 @@ LCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2L
 LCreate(
    const char *const label,
@@ -227,7 +227,7 @@ LJsGetConst(ConstHandle2ConstL self)
       (CLASSNAME, CLASSNAME+"JsGetConst", self, extract::Js);
 }
 
-// Get
+// Get, non-const
 Handle2Js
 LJsGet(ConstHandle2L self)
 {

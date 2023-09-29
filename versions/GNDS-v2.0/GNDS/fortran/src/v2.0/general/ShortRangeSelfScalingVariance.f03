@@ -20,7 +20,7 @@ function ShortRangeSelfScalingVarianceDefaultConst() &
    type(c_ptr) :: ShortRangeSelfScalingVarianceDefaultConst
 end function ShortRangeSelfScalingVarianceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ShortRangeSelfScalingVarianceDefault() &
       bind(C, name='ShortRangeSelfScalingVarianceDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function ShortRangeSelfScalingVarianceCreateConst( &
    type(c_ptr) :: ShortRangeSelfScalingVarianceCreateConst
 end function ShortRangeSelfScalingVarianceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ShortRangeSelfScalingVarianceCreate( &
    label, &
    type1, &
@@ -99,6 +99,8 @@ end subroutine ShortRangeSelfScalingVarianceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ShortRangeSelfScalingVarianceRead(handle, filename, filenameSize) &
       bind(C, name='ShortRangeSelfScalingVarianceRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function ShortRangeSelfScalingVarianceRead(handle, filename, filenameSize) &
 end function ShortRangeSelfScalingVarianceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ShortRangeSelfScalingVarianceWrite(handle, filename, filenameSize) &
       bind(C, name='ShortRangeSelfScalingVarianceWrite')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ShortRangeSelfScalingVarianceGridded2dGetConst(handle) &
    type(c_ptr) :: ShortRangeSelfScalingVarianceGridded2dGetConst
 end function ShortRangeSelfScalingVarianceGridded2dGetConst
 
-!! Get
+!! Get, non-const
 function ShortRangeSelfScalingVarianceGridded2dGet(handle) &
       bind(C, name='ShortRangeSelfScalingVarianceGridded2dGet')
    use iso_c_binding

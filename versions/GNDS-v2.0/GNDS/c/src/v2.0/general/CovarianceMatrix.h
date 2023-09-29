@@ -70,7 +70,7 @@ typedef       struct CovarianceMatrixClass *      Handle2CovarianceMatrix;
 extern_c Handle2ConstCovarianceMatrix
 CovarianceMatrixDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CovarianceMatrix
 CovarianceMatrixDefault();
 
@@ -83,7 +83,7 @@ CovarianceMatrixCreateConst(
    ConstHandle2ConstGridded2d gridded2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CovarianceMatrix
 CovarianceMatrixCreate(
    const char *const label,
@@ -202,7 +202,7 @@ CovarianceMatrixGridded2dHas(ConstHandle2ConstCovarianceMatrix self);
 extern_c Handle2ConstGridded2d
 CovarianceMatrixGridded2dGetConst(ConstHandle2ConstCovarianceMatrix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Gridded2d
 CovarianceMatrixGridded2dGet(ConstHandle2CovarianceMatrix self);
 

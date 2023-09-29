@@ -20,7 +20,7 @@ function ThermalNeutronScatteringLaw_coherentElasticDefaultConst() &
    type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticDefaultConst
 end function ThermalNeutronScatteringLaw_coherentElasticDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ThermalNeutronScatteringLaw_coherentElasticDefault() &
       bind(C, name='ThermalNeutronScatteringLaw_coherentElasticDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function ThermalNeutronScatteringLaw_coherentElasticCreateConst( &
    type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticCreateConst
 end function ThermalNeutronScatteringLaw_coherentElasticCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ThermalNeutronScatteringLaw_coherentElasticCreate( &
    label, &
    pid, &
@@ -99,6 +99,8 @@ end subroutine ThermalNeutronScatteringLaw_coherentElasticDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ThermalNeutronScatteringLaw_coherentElasticRead(handle, filename, filenameSize) &
       bind(C, name='ThermalNeutronScatteringLaw_coherentElasticRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function ThermalNeutronScatteringLaw_coherentElasticRead(handle, filename, filen
 end function ThermalNeutronScatteringLaw_coherentElasticRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ThermalNeutronScatteringLaw_coherentElasticWrite(handle, filename, filenameSize) &
       bind(C, name='ThermalNeutronScatteringLaw_coherentElasticWrite')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst(handle) &
    type(c_ptr) :: ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst
 end function ThermalNeutronScatteringLaw_coherentElasticS_tableGetConst
 
-!! Get
+!! Get, non-const
 function ThermalNeutronScatteringLaw_coherentElasticS_tableGet(handle) &
       bind(C, name='ThermalNeutronScatteringLaw_coherentElasticS_tableGet')
    use iso_c_binding

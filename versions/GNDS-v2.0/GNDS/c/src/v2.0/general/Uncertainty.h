@@ -73,7 +73,7 @@ typedef       struct UncertaintyClass *      Handle2Uncertainty;
 extern_c Handle2ConstUncertainty
 UncertaintyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Uncertainty
 UncertaintyDefault();
 
@@ -86,7 +86,7 @@ UncertaintyCreateConst(
    ConstHandle2ConstPolynomial1d polynomial1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Uncertainty
 UncertaintyCreate(
    ConstHandle2ConstCovariance covariance,
@@ -151,7 +151,7 @@ UncertaintyCovarianceHas(ConstHandle2ConstUncertainty self);
 extern_c Handle2ConstCovariance
 UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Covariance
 UncertaintyCovarianceGet(ConstHandle2Uncertainty self);
 
@@ -172,7 +172,7 @@ UncertaintyStandardHas(ConstHandle2ConstUncertainty self);
 extern_c Handle2ConstStandard
 UncertaintyStandardGetConst(ConstHandle2ConstUncertainty self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Standard
 UncertaintyStandardGet(ConstHandle2Uncertainty self);
 
@@ -193,7 +193,7 @@ UncertaintyListOfCovariancesHas(ConstHandle2ConstUncertainty self);
 extern_c Handle2ConstListOfCovariances
 UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ListOfCovariances
 UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty self);
 
@@ -214,7 +214,7 @@ UncertaintyPolynomial1dHas(ConstHandle2ConstUncertainty self);
 extern_c Handle2ConstPolynomial1d
 UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 UncertaintyPolynomial1dGet(ConstHandle2Uncertainty self);
 

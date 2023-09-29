@@ -20,7 +20,7 @@ function FractionDefaultConst() &
    type(c_ptr) :: FractionDefaultConst
 end function FractionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FractionDefault() &
       bind(C, name='FractionDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function FractionCreateConst( &
    type(c_ptr) :: FractionCreateConst
 end function FractionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FractionCreate( &
    label, &
    value, &
@@ -95,6 +95,8 @@ end subroutine FractionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FractionRead(handle, filename, filenameSize) &
       bind(C, name='FractionRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function FractionRead(handle, filename, filenameSize) &
 end function FractionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FractionWrite(handle, filename, filenameSize) &
       bind(C, name='FractionWrite')
    use iso_c_binding

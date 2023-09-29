@@ -20,7 +20,7 @@ function NuclearPlusInterferenceDefaultConst() &
    type(c_ptr) :: NuclearPlusInterferenceDefaultConst
 end function NuclearPlusInterferenceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NuclearPlusInterferenceDefault() &
       bind(C, name='NuclearPlusInterferenceDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function NuclearPlusInterferenceCreateConst( &
    type(c_ptr) :: NuclearPlusInterferenceCreateConst
 end function NuclearPlusInterferenceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NuclearPlusInterferenceCreate( &
    muCutoff, &
    crossSection, &
@@ -83,6 +83,8 @@ end subroutine NuclearPlusInterferenceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NuclearPlusInterferenceRead(handle, filename, filenameSize) &
       bind(C, name='NuclearPlusInterferenceRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function NuclearPlusInterferenceRead(handle, filename, filenameSize) &
 end function NuclearPlusInterferenceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NuclearPlusInterferenceWrite(handle, filename, filenameSize) &
       bind(C, name='NuclearPlusInterferenceWrite')
    use iso_c_binding
@@ -186,7 +190,7 @@ function NuclearPlusInterferenceCrossSectionGetConst(handle) &
    type(c_ptr) :: NuclearPlusInterferenceCrossSectionGetConst
 end function NuclearPlusInterferenceCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function NuclearPlusInterferenceCrossSectionGet(handle) &
       bind(C, name='NuclearPlusInterferenceCrossSectionGet')
    use iso_c_binding
@@ -227,7 +231,7 @@ function NuclearPlusInterferenceDistributionGetConst(handle) &
    type(c_ptr) :: NuclearPlusInterferenceDistributionGetConst
 end function NuclearPlusInterferenceDistributionGetConst
 
-!! Get
+!! Get, non-const
 function NuclearPlusInterferenceDistributionGet(handle) &
       bind(C, name='NuclearPlusInterferenceDistributionGet')
    use iso_c_binding

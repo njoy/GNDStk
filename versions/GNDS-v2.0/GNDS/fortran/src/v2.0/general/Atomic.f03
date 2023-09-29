@@ -20,7 +20,7 @@ function AtomicDefaultConst() &
    type(c_ptr) :: AtomicDefaultConst
 end function AtomicDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AtomicDefault() &
       bind(C, name='AtomicDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function AtomicCreateConst( &
    type(c_ptr) :: AtomicCreateConst
 end function AtomicCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AtomicCreate( &
    configurations &
 ) &
@@ -75,6 +75,8 @@ end subroutine AtomicDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AtomicRead(handle, filename, filenameSize) &
       bind(C, name='AtomicRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function AtomicRead(handle, filename, filenameSize) &
 end function AtomicRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AtomicWrite(handle, filename, filenameSize) &
       bind(C, name='AtomicWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function AtomicConfigurationsGetConst(handle) &
    type(c_ptr) :: AtomicConfigurationsGetConst
 end function AtomicConfigurationsGetConst
 
-!! Get
+!! Get, non-const
 function AtomicConfigurationsGet(handle) &
       bind(C, name='AtomicConfigurationsGet')
    use iso_c_binding

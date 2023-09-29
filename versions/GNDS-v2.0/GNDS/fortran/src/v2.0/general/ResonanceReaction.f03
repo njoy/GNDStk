@@ -20,7 +20,7 @@ function ResonanceReactionDefaultConst() &
    type(c_ptr) :: ResonanceReactionDefaultConst
 end function ResonanceReactionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResonanceReactionDefault() &
       bind(C, name='ResonanceReactionDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function ResonanceReactionCreateConst( &
    type(c_ptr) :: ResonanceReactionCreateConst
 end function ResonanceReactionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResonanceReactionCreate( &
    label, &
    ejectile, &
@@ -107,6 +107,8 @@ end subroutine ResonanceReactionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResonanceReactionRead(handle, filename, filenameSize) &
       bind(C, name='ResonanceReactionRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function ResonanceReactionRead(handle, filename, filenameSize) &
 end function ResonanceReactionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResonanceReactionWrite(handle, filename, filenameSize) &
       bind(C, name='ResonanceReactionWrite')
    use iso_c_binding
@@ -276,7 +280,7 @@ function ResonanceReactionLinkGetConst(handle) &
    type(c_ptr) :: ResonanceReactionLinkGetConst
 end function ResonanceReactionLinkGetConst
 
-!! Get
+!! Get, non-const
 function ResonanceReactionLinkGet(handle) &
       bind(C, name='ResonanceReactionLinkGet')
    use iso_c_binding
@@ -317,7 +321,7 @@ function ResonanceReactionHardSphereRadiusGetConst(handle) &
    type(c_ptr) :: ResonanceReactionHardSphereRadiusGetConst
 end function ResonanceReactionHardSphereRadiusGetConst
 
-!! Get
+!! Get, non-const
 function ResonanceReactionHardSphereRadiusGet(handle) &
       bind(C, name='ResonanceReactionHardSphereRadiusGet')
    use iso_c_binding
@@ -358,7 +362,7 @@ function ResonanceReactionQGetConst(handle) &
    type(c_ptr) :: ResonanceReactionQGetConst
 end function ResonanceReactionQGetConst
 
-!! Get
+!! Get, non-const
 function ResonanceReactionQGet(handle) &
       bind(C, name='ResonanceReactionQGet')
    use iso_c_binding
@@ -399,7 +403,7 @@ function ResonanceReactionScatteringRadiusGetConst(handle) &
    type(c_ptr) :: ResonanceReactionScatteringRadiusGetConst
 end function ResonanceReactionScatteringRadiusGetConst
 
-!! Get
+!! Get, non-const
 function ResonanceReactionScatteringRadiusGet(handle) &
       bind(C, name='ResonanceReactionScatteringRadiusGet')
    use iso_c_binding

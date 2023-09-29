@@ -33,7 +33,7 @@ UnorthodoxesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Unorthodoxes
 UnorthodoxesDefault()
 {
@@ -55,7 +55,7 @@ UnorthodoxesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Unorthodoxes
 UnorthodoxesCreate(
    ConstHandle2Unorthodox *const unorthodox, const size_t unorthodoxSize
@@ -185,7 +185,7 @@ UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes self, const size_t 
       (CLASSNAME, CLASSNAME+"UnorthodoxGetConst", self, extract::unorthodox, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Unorthodox
 UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes self, const size_t index_)
 {
@@ -230,7 +230,7 @@ UnorthodoxesUnorthodoxGetByIdConst(
        self, extract::unorthodox, meta::id, id);
 }
 
-// Get, by id
+// Get, by id, non-const
 Handle2Unorthodox
 UnorthodoxesUnorthodoxGetById(
    ConstHandle2Unorthodoxes self,

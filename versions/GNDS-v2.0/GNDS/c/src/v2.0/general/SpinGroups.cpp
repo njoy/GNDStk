@@ -33,7 +33,7 @@ SpinGroupsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2SpinGroups
 SpinGroupsDefault()
 {
@@ -55,7 +55,7 @@ SpinGroupsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2SpinGroups
 SpinGroupsCreate(
    ConstHandle2SpinGroup *const spinGroup, const size_t spinGroupSize
@@ -185,7 +185,7 @@ SpinGroupsSpinGroupGetConst(ConstHandle2ConstSpinGroups self, const size_t index
       (CLASSNAME, CLASSNAME+"SpinGroupGetConst", self, extract::spinGroup, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGet(ConstHandle2SpinGroups self, const size_t index_)
 {
@@ -230,7 +230,7 @@ SpinGroupsSpinGroupGetByLabelConst(
        self, extract::spinGroup, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGetByLabel(
    ConstHandle2SpinGroups self,
@@ -279,7 +279,7 @@ SpinGroupsSpinGroupGetBySpinConst(
        self, extract::spinGroup, meta::spin, spin);
 }
 
-// Get, by spin
+// Get, by spin, non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGetBySpin(
    ConstHandle2SpinGroups self,
@@ -328,7 +328,7 @@ SpinGroupsSpinGroupGetByParityConst(
        self, extract::spinGroup, meta::parity, parity);
 }
 
-// Get, by parity
+// Get, by parity, non-const
 Handle2SpinGroup
 SpinGroupsSpinGroupGetByParity(
    ConstHandle2SpinGroups self,

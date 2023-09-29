@@ -70,7 +70,7 @@ typedef       struct ScatteringFactorClass *      Handle2ScatteringFactor;
 extern_c Handle2ConstScatteringFactor
 ScatteringFactorDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ScatteringFactor
 ScatteringFactorDefault();
 
@@ -80,7 +80,7 @@ ScatteringFactorCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ScatteringFactor
 ScatteringFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ ScatteringFactorXYs1dHas(ConstHandle2ConstScatteringFactor self);
 extern_c Handle2ConstXYs1d
 ScatteringFactorXYs1dGetConst(ConstHandle2ConstScatteringFactor self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 ScatteringFactorXYs1dGet(ConstHandle2ScatteringFactor self);
 

@@ -38,7 +38,7 @@ ChemicalElementDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ChemicalElement
 ChemicalElementDefault()
 {
@@ -66,7 +66,7 @@ ChemicalElementCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ChemicalElement
 ChemicalElementCreate(
    const char *const symbol,
@@ -268,7 +268,7 @@ ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement self)
       (CLASSNAME, CLASSNAME+"AtomicGetConst", self, extract::atomic);
 }
 
-// Get
+// Get, non-const
 Handle2Atomic
 ChemicalElementAtomicGet(ConstHandle2ChemicalElement self)
 {
@@ -305,7 +305,7 @@ ChemicalElementIsotopesGetConst(ConstHandle2ConstChemicalElement self)
       (CLASSNAME, CLASSNAME+"IsotopesGetConst", self, extract::isotopes);
 }
 
-// Get
+// Get, non-const
 Handle2Isotopes
 ChemicalElementIsotopesGet(ConstHandle2ChemicalElement self)
 {

@@ -27,7 +27,7 @@ FreeGasApproximationDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2FreeGasApproximation
 FreeGasApproximationDefault()
 {
@@ -45,7 +45,7 @@ FreeGasApproximationCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2FreeGasApproximation
 FreeGasApproximationCreate()
 {

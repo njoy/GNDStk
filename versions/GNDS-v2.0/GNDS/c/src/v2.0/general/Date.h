@@ -69,7 +69,7 @@ typedef       struct DateClass *      Handle2Date;
 extern_c Handle2ConstDate
 DateDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Date
 DateDefault();
 
@@ -80,7 +80,7 @@ DateCreateConst(
    const char *const dateType
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Date
 DateCreate(
    const char *const value,

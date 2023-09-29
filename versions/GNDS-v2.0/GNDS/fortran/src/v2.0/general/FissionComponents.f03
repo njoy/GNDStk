@@ -20,7 +20,7 @@ function FissionComponentsDefaultConst() &
    type(c_ptr) :: FissionComponentsDefaultConst
 end function FissionComponentsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FissionComponentsDefault() &
       bind(C, name='FissionComponentsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function FissionComponentsCreateConst( &
    type(c_ptr) :: FissionComponentsCreateConst
 end function FissionComponentsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FissionComponentsCreate( &
    fissionComponent, fissionComponentSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine FissionComponentsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FissionComponentsRead(handle, filename, filenameSize) &
       bind(C, name='FissionComponentsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function FissionComponentsRead(handle, filename, filenameSize) &
 end function FissionComponentsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FissionComponentsWrite(handle, filename, filenameSize) &
       bind(C, name='FissionComponentsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function FissionComponentsFissionComponentGetConst(handle, index) &
    type(c_ptr) :: FissionComponentsFissionComponentGetConst
 end function FissionComponentsFissionComponentGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function FissionComponentsFissionComponentGet(handle, index) &
       bind(C, name='FissionComponentsFissionComponentGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function FissionComponentsFissionComponentGetByLabelConst(handle, meta, metaSize
    type(c_ptr) :: FissionComponentsFissionComponentGetByLabelConst
 end function FissionComponentsFissionComponentGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function FissionComponentsFissionComponentGetByLabel(handle, meta, metaSize) &
       bind(C, name='FissionComponentsFissionComponentGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function FissionComponentsFissionComponentGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: FissionComponentsFissionComponentGetByENDFMTConst
 end function FissionComponentsFissionComponentGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function FissionComponentsFissionComponentGetByENDFMT(handle, meta) &
       bind(C, name='FissionComponentsFissionComponentGetByENDFMT')
    use iso_c_binding
@@ -313,7 +317,7 @@ function FissionComponentsFissionComponentGetByFissionGenreConst(handle, meta, m
    type(c_ptr) :: FissionComponentsFissionComponentGetByFissionGenreConst
 end function FissionComponentsFissionComponentGetByFissionGenreConst
 
-!! Get, by fissionGenre
+!! Get, by fissionGenre, non-const
 function FissionComponentsFissionComponentGetByFissionGenre(handle, meta, metaSize) &
       bind(C, name='FissionComponentsFissionComponentGetByFissionGenre')
    use iso_c_binding

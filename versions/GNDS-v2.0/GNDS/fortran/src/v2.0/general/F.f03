@@ -20,7 +20,7 @@ function FDefaultConst() &
    type(c_ptr) :: FDefaultConst
 end function FDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FDefault() &
       bind(C, name='FDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function FCreateConst( &
    type(c_ptr) :: FCreateConst
 end function FCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FCreate( &
    XYs2d &
 ) &
@@ -75,6 +75,8 @@ end subroutine FDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FRead(handle, filename, filenameSize) &
       bind(C, name='FRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function FRead(handle, filename, filenameSize) &
 end function FRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FWrite(handle, filename, filenameSize) &
       bind(C, name='FWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function FXYs2dGetConst(handle) &
    type(c_ptr) :: FXYs2dGetConst
 end function FXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function FXYs2dGet(handle) &
       bind(C, name='FXYs2dGet')
    use iso_c_binding

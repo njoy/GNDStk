@@ -20,7 +20,7 @@ function PoPsDefaultConst() &
    type(c_ptr) :: PoPsDefaultConst
 end function PoPsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PoPsDefault() &
       bind(C, name='PoPsDefault')
    use iso_c_binding
@@ -63,7 +63,7 @@ function PoPsCreateConst( &
    type(c_ptr) :: PoPsCreateConst
 end function PoPsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PoPsCreate( &
    name, &
    version, &
@@ -123,6 +123,8 @@ end subroutine PoPsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PoPsRead(handle, filename, filenameSize) &
       bind(C, name='PoPsRead')
    use iso_c_binding
@@ -134,6 +136,8 @@ function PoPsRead(handle, filename, filenameSize) &
 end function PoPsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PoPsWrite(handle, filename, filenameSize) &
       bind(C, name='PoPsWrite')
    use iso_c_binding
@@ -293,7 +297,7 @@ function PoPsAliasesGetConst(handle) &
    type(c_ptr) :: PoPsAliasesGetConst
 end function PoPsAliasesGetConst
 
-!! Get
+!! Get, non-const
 function PoPsAliasesGet(handle) &
       bind(C, name='PoPsAliasesGet')
    use iso_c_binding
@@ -334,7 +338,7 @@ function PoPsBaryonsGetConst(handle) &
    type(c_ptr) :: PoPsBaryonsGetConst
 end function PoPsBaryonsGetConst
 
-!! Get
+!! Get, non-const
 function PoPsBaryonsGet(handle) &
       bind(C, name='PoPsBaryonsGet')
    use iso_c_binding
@@ -375,7 +379,7 @@ function PoPsChemicalElementsGetConst(handle) &
    type(c_ptr) :: PoPsChemicalElementsGetConst
 end function PoPsChemicalElementsGetConst
 
-!! Get
+!! Get, non-const
 function PoPsChemicalElementsGet(handle) &
       bind(C, name='PoPsChemicalElementsGet')
    use iso_c_binding
@@ -416,7 +420,7 @@ function PoPsStylesGetConst(handle) &
    type(c_ptr) :: PoPsStylesGetConst
 end function PoPsStylesGetConst
 
-!! Get
+!! Get, non-const
 function PoPsStylesGet(handle) &
       bind(C, name='PoPsStylesGet')
    use iso_c_binding
@@ -457,7 +461,7 @@ function PoPsUnorthodoxesGetConst(handle) &
    type(c_ptr) :: PoPsUnorthodoxesGetConst
 end function PoPsUnorthodoxesGetConst
 
-!! Get
+!! Get, non-const
 function PoPsUnorthodoxesGet(handle) &
       bind(C, name='PoPsUnorthodoxesGet')
    use iso_c_binding
@@ -498,7 +502,7 @@ function PoPsGaugeBosonsGetConst(handle) &
    type(c_ptr) :: PoPsGaugeBosonsGetConst
 end function PoPsGaugeBosonsGetConst
 
-!! Get
+!! Get, non-const
 function PoPsGaugeBosonsGet(handle) &
       bind(C, name='PoPsGaugeBosonsGet')
    use iso_c_binding
@@ -539,7 +543,7 @@ function PoPsLeptonsGetConst(handle) &
    type(c_ptr) :: PoPsLeptonsGetConst
 end function PoPsLeptonsGetConst
 
-!! Get
+!! Get, non-const
 function PoPsLeptonsGet(handle) &
       bind(C, name='PoPsLeptonsGet')
    use iso_c_binding

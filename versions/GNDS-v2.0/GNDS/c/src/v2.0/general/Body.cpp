@@ -27,7 +27,7 @@ BodyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Body
 BodyDefault()
 {
@@ -45,7 +45,7 @@ BodyCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Body
 BodyCreate()
 {

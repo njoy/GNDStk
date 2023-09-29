@@ -69,7 +69,7 @@ typedef       struct NuclidesClass *      Handle2Nuclides;
 extern_c Handle2ConstNuclides
 NuclidesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Nuclides
 NuclidesDefault();
 
@@ -79,7 +79,7 @@ NuclidesCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Nuclides
 NuclidesCreate(
    const char *const href

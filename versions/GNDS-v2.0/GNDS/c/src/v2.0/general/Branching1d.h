@@ -69,7 +69,7 @@ typedef       struct Branching1dClass *      Handle2Branching1d;
 extern_c Handle2ConstBranching1d
 Branching1dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Branching1d
 Branching1dDefault();
 
@@ -79,7 +79,7 @@ Branching1dCreateConst(
    const char *const label
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Branching1d
 Branching1dCreate(
    const char *const label

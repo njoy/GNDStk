@@ -74,7 +74,7 @@ typedef       struct CovarianceSectionClass *      Handle2CovarianceSection;
 extern_c Handle2ConstCovarianceSection
 CovarianceSectionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionDefault();
 
@@ -90,7 +90,7 @@ CovarianceSectionCreateConst(
    ConstHandle2ConstSum sum
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionCreate(
    const char *const label,
@@ -194,7 +194,7 @@ CovarianceSectionRowDataHas(ConstHandle2ConstCovarianceSection self);
 extern_c Handle2ConstRowData
 CovarianceSectionRowDataGetConst(ConstHandle2ConstCovarianceSection self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2RowData
 CovarianceSectionRowDataGet(ConstHandle2CovarianceSection self);
 
@@ -215,7 +215,7 @@ CovarianceSectionColumnDataHas(ConstHandle2ConstCovarianceSection self);
 extern_c Handle2ConstColumnData
 CovarianceSectionColumnDataGetConst(ConstHandle2ConstCovarianceSection self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ColumnData
 CovarianceSectionColumnDataGet(ConstHandle2CovarianceSection self);
 
@@ -236,7 +236,7 @@ CovarianceSectionCovarianceMatrixHas(ConstHandle2ConstCovarianceSection self);
 extern_c Handle2ConstCovarianceMatrix
 CovarianceSectionCovarianceMatrixGetConst(ConstHandle2ConstCovarianceSection self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CovarianceMatrix
 CovarianceSectionCovarianceMatrixGet(ConstHandle2CovarianceSection self);
 
@@ -257,7 +257,7 @@ CovarianceSectionMixedHas(ConstHandle2ConstCovarianceSection self);
 extern_c Handle2ConstMixed
 CovarianceSectionMixedGetConst(ConstHandle2ConstCovarianceSection self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Mixed
 CovarianceSectionMixedGet(ConstHandle2CovarianceSection self);
 
@@ -278,7 +278,7 @@ CovarianceSectionSumHas(ConstHandle2ConstCovarianceSection self);
 extern_c Handle2ConstSum
 CovarianceSectionSumGetConst(ConstHandle2ConstCovarianceSection self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Sum
 CovarianceSectionSumGet(ConstHandle2CovarianceSection self);
 

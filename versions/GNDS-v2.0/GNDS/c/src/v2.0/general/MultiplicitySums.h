@@ -70,7 +70,7 @@ typedef       struct MultiplicitySumsClass *      Handle2MultiplicitySums;
 extern_c Handle2ConstMultiplicitySums
 MultiplicitySumsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2MultiplicitySums
 MultiplicitySumsDefault();
 
@@ -80,7 +80,7 @@ MultiplicitySumsCreateConst(
    ConstHandle2MultiplicitySum *const multiplicitySum, const size_t multiplicitySumSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2MultiplicitySums
 MultiplicitySumsCreate(
    ConstHandle2MultiplicitySum *const multiplicitySum, const size_t multiplicitySumSize
@@ -154,7 +154,7 @@ MultiplicitySumsMultiplicitySumAdd(ConstHandle2MultiplicitySums self, ConstHandl
 extern_c Handle2ConstMultiplicitySum
 MultiplicitySumsMultiplicitySumGetConst(ConstHandle2ConstMultiplicitySums self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGet(ConstHandle2MultiplicitySums self, const size_t index_);
 
@@ -184,7 +184,7 @@ MultiplicitySumsMultiplicitySumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByLabel(
    ConstHandle2MultiplicitySums self,
@@ -217,7 +217,7 @@ MultiplicitySumsMultiplicitySumGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumsMultiplicitySumGetByENDFMT(
    ConstHandle2MultiplicitySums self,

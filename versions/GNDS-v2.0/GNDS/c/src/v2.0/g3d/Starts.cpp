@@ -32,7 +32,7 @@ StartsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Starts
 StartsDefault()
 {
@@ -54,7 +54,7 @@ StartsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Starts
 StartsCreate(
    const char *const valueType,
@@ -186,7 +186,7 @@ StartsIntsGetArrayConst(ConstHandle2ConstStarts self)
       (CLASSNAME, CLASSNAME+"IntsGetArrayConst", self);
 }
 
-// Get pointer to existing values
+// Get pointer to existing values, non-const
 int *
 StartsIntsGetArray(ConstHandle2Starts self)
 {

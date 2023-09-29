@@ -35,7 +35,7 @@ SumsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Sums
 SumsDefault()
 {
@@ -57,7 +57,7 @@ SumsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Sums
 SumsCreate(
    ConstHandle2ConstCrossSectionSums crossSectionSums,
@@ -163,7 +163,7 @@ SumsCrossSectionSumsGetConst(ConstHandle2ConstSums self)
       (CLASSNAME, CLASSNAME+"CrossSectionSumsGetConst", self, extract::crossSectionSums);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSectionSums
 SumsCrossSectionSumsGet(ConstHandle2Sums self)
 {
@@ -200,7 +200,7 @@ SumsMultiplicitySumsGetConst(ConstHandle2ConstSums self)
       (CLASSNAME, CLASSNAME+"MultiplicitySumsGetConst", self, extract::multiplicitySums);
 }
 
-// Get
+// Get, non-const
 Handle2MultiplicitySums
 SumsMultiplicitySumsGet(ConstHandle2Sums self)
 {

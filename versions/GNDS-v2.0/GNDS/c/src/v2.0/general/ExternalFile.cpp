@@ -34,7 +34,7 @@ ExternalFileDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ExternalFile
 ExternalFileDefault()
 {
@@ -60,7 +60,7 @@ ExternalFileCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ExternalFile
 ExternalFileCreate(
    const char *const label,

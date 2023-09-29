@@ -69,7 +69,7 @@ typedef       struct ColumnClass *      Handle2Column;
 extern_c Handle2ConstColumn
 ColumnDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Column
 ColumnDefault();
 
@@ -81,7 +81,7 @@ ColumnCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Column
 ColumnCreate(
    const int index,

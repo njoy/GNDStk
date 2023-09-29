@@ -70,7 +70,7 @@ typedef       struct Constant1dClass *      Handle2Constant1d;
 extern_c Handle2ConstConstant1d
 Constant1dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Constant1d
 Constant1dDefault();
 
@@ -84,7 +84,7 @@ Constant1dCreateConst(
    ConstHandle2ConstAxes axes
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Constant1d
 Constant1dCreate(
    const char *const label,
@@ -222,7 +222,7 @@ Constant1dAxesHas(ConstHandle2ConstConstant1d self);
 extern_c Handle2ConstAxes
 Constant1dAxesGetConst(ConstHandle2ConstConstant1d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 Constant1dAxesGet(ConstHandle2Constant1d self);
 

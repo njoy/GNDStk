@@ -70,7 +70,7 @@ typedef       struct ParametersClass *      Handle2Parameters;
 extern_c Handle2ConstParameters
 ParametersDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Parameters
 ParametersDefault();
 
@@ -80,7 +80,7 @@ ParametersCreateConst(
    ConstHandle2ParameterLink *const parameterLink, const size_t parameterLinkSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Parameters
 ParametersCreate(
    ConstHandle2ParameterLink *const parameterLink, const size_t parameterLinkSize
@@ -154,7 +154,7 @@ ParametersParameterLinkAdd(ConstHandle2Parameters self, ConstHandle2ConstParamet
 extern_c Handle2ConstParameterLink
 ParametersParameterLinkGetConst(ConstHandle2ConstParameters self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ParameterLink
 ParametersParameterLinkGet(ConstHandle2Parameters self, const size_t index_);
 
@@ -184,7 +184,7 @@ ParametersParameterLinkGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2ParameterLink
 ParametersParameterLinkGetByLabel(
    ConstHandle2Parameters self,
@@ -217,7 +217,7 @@ ParametersParameterLinkGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href
+// +++ Get, by href, non-const
 extern_c Handle2ParameterLink
 ParametersParameterLinkGetByHref(
    ConstHandle2Parameters self,
@@ -250,7 +250,7 @@ ParametersParameterLinkGetByNParametersConst(
    const int nParameters
 );
 
-// +++ Get, by nParameters
+// +++ Get, by nParameters, non-const
 extern_c Handle2ParameterLink
 ParametersParameterLinkGetByNParameters(
    ConstHandle2Parameters self,
@@ -283,7 +283,7 @@ ParametersParameterLinkGetByMatrixStartIndexConst(
    const int matrixStartIndex
 );
 
-// +++ Get, by matrixStartIndex
+// +++ Get, by matrixStartIndex, non-const
 extern_c Handle2ParameterLink
 ParametersParameterLinkGetByMatrixStartIndex(
    ConstHandle2Parameters self,

@@ -20,7 +20,7 @@ function T_effectiveDefaultConst() &
    type(c_ptr) :: T_effectiveDefaultConst
 end function T_effectiveDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function T_effectiveDefault() &
       bind(C, name='T_effectiveDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function T_effectiveCreateConst( &
    type(c_ptr) :: T_effectiveCreateConst
 end function T_effectiveCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function T_effectiveCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine T_effectiveDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function T_effectiveRead(handle, filename, filenameSize) &
       bind(C, name='T_effectiveRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function T_effectiveRead(handle, filename, filenameSize) &
 end function T_effectiveRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function T_effectiveWrite(handle, filename, filenameSize) &
       bind(C, name='T_effectiveWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function T_effectiveXYs1dGetConst(handle) &
    type(c_ptr) :: T_effectiveXYs1dGetConst
 end function T_effectiveXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function T_effectiveXYs1dGet(handle) &
       bind(C, name='T_effectiveXYs1dGet')
    use iso_c_binding

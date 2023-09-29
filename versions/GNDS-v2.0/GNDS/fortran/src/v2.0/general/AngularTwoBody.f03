@@ -20,7 +20,7 @@ function AngularTwoBodyDefaultConst() &
    type(c_ptr) :: AngularTwoBodyDefaultConst
 end function AngularTwoBodyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AngularTwoBodyDefault() &
       bind(C, name='AngularTwoBodyDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function AngularTwoBodyCreateConst( &
    type(c_ptr) :: AngularTwoBodyCreateConst
 end function AngularTwoBodyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AngularTwoBodyCreate( &
    label, &
    productFrame, &
@@ -103,6 +103,8 @@ end subroutine AngularTwoBodyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AngularTwoBodyRead(handle, filename, filenameSize) &
       bind(C, name='AngularTwoBodyRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function AngularTwoBodyRead(handle, filename, filenameSize) &
 end function AngularTwoBodyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AngularTwoBodyWrite(handle, filename, filenameSize) &
       bind(C, name='AngularTwoBodyWrite')
    use iso_c_binding
@@ -240,7 +244,7 @@ function AngularTwoBodyXYs2dGetConst(handle) &
    type(c_ptr) :: AngularTwoBodyXYs2dGetConst
 end function AngularTwoBodyXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function AngularTwoBodyXYs2dGet(handle) &
       bind(C, name='AngularTwoBodyXYs2dGet')
    use iso_c_binding
@@ -281,7 +285,7 @@ function AngularTwoBodyRegions2dGetConst(handle) &
    type(c_ptr) :: AngularTwoBodyRegions2dGetConst
 end function AngularTwoBodyRegions2dGetConst
 
-!! Get
+!! Get, non-const
 function AngularTwoBodyRegions2dGet(handle) &
       bind(C, name='AngularTwoBodyRegions2dGet')
    use iso_c_binding
@@ -322,7 +326,7 @@ function AngularTwoBodyRecoilGetConst(handle) &
    type(c_ptr) :: AngularTwoBodyRecoilGetConst
 end function AngularTwoBodyRecoilGetConst
 
-!! Get
+!! Get, non-const
 function AngularTwoBodyRecoilGet(handle) &
       bind(C, name='AngularTwoBodyRecoilGet')
    use iso_c_binding
@@ -363,7 +367,7 @@ function AngularTwoBodyIsotropic2dGetConst(handle) &
    type(c_ptr) :: AngularTwoBodyIsotropic2dGetConst
 end function AngularTwoBodyIsotropic2dGetConst
 
-!! Get
+!! Get, non-const
 function AngularTwoBodyIsotropic2dGet(handle) &
       bind(C, name='AngularTwoBodyIsotropic2dGet')
    use iso_c_binding

@@ -36,7 +36,7 @@ DiscreteGammaDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DiscreteGamma
 DiscreteGammaDefault()
 {
@@ -62,7 +62,7 @@ DiscreteGammaCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DiscreteGamma
 DiscreteGammaCreate(
    const double value,
@@ -262,7 +262,7 @@ DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 DiscreteGammaAxesGet(ConstHandle2DiscreteGamma self)
 {

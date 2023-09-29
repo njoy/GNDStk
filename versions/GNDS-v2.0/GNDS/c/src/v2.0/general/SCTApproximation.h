@@ -69,7 +69,7 @@ typedef       struct SCTApproximationClass *      Handle2SCTApproximation;
 extern_c Handle2ConstSCTApproximation
 SCTApproximationDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2SCTApproximation
 SCTApproximationDefault();
 
@@ -77,7 +77,7 @@ SCTApproximationDefault();
 extern_c Handle2ConstSCTApproximation
 SCTApproximationCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2SCTApproximation
 SCTApproximationCreate();
 

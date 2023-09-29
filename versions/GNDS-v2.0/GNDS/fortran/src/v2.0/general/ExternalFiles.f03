@@ -20,7 +20,7 @@ function ExternalFilesDefaultConst() &
    type(c_ptr) :: ExternalFilesDefaultConst
 end function ExternalFilesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ExternalFilesDefault() &
       bind(C, name='ExternalFilesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ExternalFilesCreateConst( &
    type(c_ptr) :: ExternalFilesCreateConst
 end function ExternalFilesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ExternalFilesCreate( &
    externalFile, externalFileSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ExternalFilesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ExternalFilesRead(handle, filename, filenameSize) &
       bind(C, name='ExternalFilesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ExternalFilesRead(handle, filename, filenameSize) &
 end function ExternalFilesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ExternalFilesWrite(handle, filename, filenameSize) &
       bind(C, name='ExternalFilesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ExternalFilesExternalFileGetConst(handle, index) &
    type(c_ptr) :: ExternalFilesExternalFileGetConst
 end function ExternalFilesExternalFileGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ExternalFilesExternalFileGet(handle, index) &
       bind(C, name='ExternalFilesExternalFileGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ExternalFilesExternalFileGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ExternalFilesExternalFileGetByLabelConst
 end function ExternalFilesExternalFileGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ExternalFilesExternalFileGetByLabel(handle, meta, metaSize) &
       bind(C, name='ExternalFilesExternalFileGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ExternalFilesExternalFileGetByPathConst(handle, meta, metaSize) &
    type(c_ptr) :: ExternalFilesExternalFileGetByPathConst
 end function ExternalFilesExternalFileGetByPathConst
 
-!! Get, by path
+!! Get, by path, non-const
 function ExternalFilesExternalFileGetByPath(handle, meta, metaSize) &
       bind(C, name='ExternalFilesExternalFileGetByPath')
    use iso_c_binding
@@ -317,7 +321,7 @@ function ExternalFilesExternalFileGetByChecksumConst(handle, meta, metaSize) &
    type(c_ptr) :: ExternalFilesExternalFileGetByChecksumConst
 end function ExternalFilesExternalFileGetByChecksumConst
 
-!! Get, by checksum
+!! Get, by checksum, non-const
 function ExternalFilesExternalFileGetByChecksum(handle, meta, metaSize) &
       bind(C, name='ExternalFilesExternalFileGetByChecksum')
    use iso_c_binding
@@ -365,7 +369,7 @@ function ExternalFilesExternalFileGetByAlgorithmConst(handle, meta, metaSize) &
    type(c_ptr) :: ExternalFilesExternalFileGetByAlgorithmConst
 end function ExternalFilesExternalFileGetByAlgorithmConst
 
-!! Get, by algorithm
+!! Get, by algorithm, non-const
 function ExternalFilesExternalFileGetByAlgorithm(handle, meta, metaSize) &
       bind(C, name='ExternalFilesExternalFileGetByAlgorithm')
    use iso_c_binding

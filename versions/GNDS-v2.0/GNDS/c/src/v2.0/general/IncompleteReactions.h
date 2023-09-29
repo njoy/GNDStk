@@ -70,7 +70,7 @@ typedef       struct IncompleteReactionsClass *      Handle2IncompleteReactions;
 extern_c Handle2ConstIncompleteReactions
 IncompleteReactionsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2IncompleteReactions
 IncompleteReactionsDefault();
 
@@ -80,7 +80,7 @@ IncompleteReactionsCreateConst(
    ConstHandle2Reaction *const reaction, const size_t reactionSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2IncompleteReactions
 IncompleteReactionsCreate(
    ConstHandle2Reaction *const reaction, const size_t reactionSize
@@ -154,7 +154,7 @@ IncompleteReactionsReactionAdd(ConstHandle2IncompleteReactions self, ConstHandle
 extern_c Handle2ConstReaction
 IncompleteReactionsReactionGetConst(ConstHandle2ConstIncompleteReactions self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGet(ConstHandle2IncompleteReactions self, const size_t index_);
 
@@ -184,7 +184,7 @@ IncompleteReactionsReactionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGetByLabel(
    ConstHandle2IncompleteReactions self,
@@ -217,7 +217,7 @@ IncompleteReactionsReactionGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGetByENDFMT(
    ConstHandle2IncompleteReactions self,
@@ -250,7 +250,7 @@ IncompleteReactionsReactionGetByFissionGenreConst(
    const char *const fissionGenre
 );
 
-// +++ Get, by fissionGenre
+// +++ Get, by fissionGenre, non-const
 extern_c Handle2Reaction
 IncompleteReactionsReactionGetByFissionGenre(
    ConstHandle2IncompleteReactions self,

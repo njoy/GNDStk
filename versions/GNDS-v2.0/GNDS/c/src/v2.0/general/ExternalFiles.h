@@ -70,7 +70,7 @@ typedef       struct ExternalFilesClass *      Handle2ExternalFiles;
 extern_c Handle2ConstExternalFiles
 ExternalFilesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ExternalFiles
 ExternalFilesDefault();
 
@@ -80,7 +80,7 @@ ExternalFilesCreateConst(
    ConstHandle2ExternalFile *const externalFile, const size_t externalFileSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ExternalFiles
 ExternalFilesCreate(
    ConstHandle2ExternalFile *const externalFile, const size_t externalFileSize
@@ -154,7 +154,7 @@ ExternalFilesExternalFileAdd(ConstHandle2ExternalFiles self, ConstHandle2ConstEx
 extern_c Handle2ConstExternalFile
 ExternalFilesExternalFileGetConst(ConstHandle2ConstExternalFiles self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGet(ConstHandle2ExternalFiles self, const size_t index_);
 
@@ -184,7 +184,7 @@ ExternalFilesExternalFileGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByLabel(
    ConstHandle2ExternalFiles self,
@@ -217,7 +217,7 @@ ExternalFilesExternalFileGetByPathConst(
    const char *const path
 );
 
-// +++ Get, by path
+// +++ Get, by path, non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByPath(
    ConstHandle2ExternalFiles self,
@@ -250,7 +250,7 @@ ExternalFilesExternalFileGetByChecksumConst(
    const char *const checksum
 );
 
-// +++ Get, by checksum
+// +++ Get, by checksum, non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByChecksum(
    ConstHandle2ExternalFiles self,
@@ -283,7 +283,7 @@ ExternalFilesExternalFileGetByAlgorithmConst(
    const char *const algorithm
 );
 
-// +++ Get, by algorithm
+// +++ Get, by algorithm, non-const
 extern_c Handle2ExternalFile
 ExternalFilesExternalFileGetByAlgorithm(
    ConstHandle2ExternalFiles self,

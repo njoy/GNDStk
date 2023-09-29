@@ -20,7 +20,7 @@ function LevelSpacingDefaultConst() &
    type(c_ptr) :: LevelSpacingDefaultConst
 end function LevelSpacingDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LevelSpacingDefault() &
       bind(C, name='LevelSpacingDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function LevelSpacingCreateConst( &
    type(c_ptr) :: LevelSpacingCreateConst
 end function LevelSpacingCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LevelSpacingCreate( &
    XYs1d, &
    constant1d &
@@ -79,6 +79,8 @@ end subroutine LevelSpacingDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LevelSpacingRead(handle, filename, filenameSize) &
       bind(C, name='LevelSpacingRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function LevelSpacingRead(handle, filename, filenameSize) &
 end function LevelSpacingRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LevelSpacingWrite(handle, filename, filenameSize) &
       bind(C, name='LevelSpacingWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function LevelSpacingXYs1dGetConst(handle) &
    type(c_ptr) :: LevelSpacingXYs1dGetConst
 end function LevelSpacingXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function LevelSpacingXYs1dGet(handle) &
       bind(C, name='LevelSpacingXYs1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function LevelSpacingConstant1dGetConst(handle) &
    type(c_ptr) :: LevelSpacingConstant1dGetConst
 end function LevelSpacingConstant1dGetConst
 
-!! Get
+!! Get, non-const
 function LevelSpacingConstant1dGet(handle) &
       bind(C, name='LevelSpacingConstant1dGet')
    use iso_c_binding

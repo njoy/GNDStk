@@ -20,7 +20,7 @@ function SlicesDefaultConst() &
    type(c_ptr) :: SlicesDefaultConst
 end function SlicesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SlicesDefault() &
       bind(C, name='SlicesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function SlicesCreateConst( &
    type(c_ptr) :: SlicesCreateConst
 end function SlicesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SlicesCreate( &
    slice, sliceSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine SlicesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SlicesRead(handle, filename, filenameSize) &
       bind(C, name='SlicesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function SlicesRead(handle, filename, filenameSize) &
 end function SlicesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SlicesWrite(handle, filename, filenameSize) &
       bind(C, name='SlicesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function SlicesSliceGetConst(handle, index) &
    type(c_ptr) :: SlicesSliceGetConst
 end function SlicesSliceGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function SlicesSliceGet(handle, index) &
       bind(C, name='SlicesSliceGet')
    use iso_c_binding
@@ -219,7 +223,7 @@ function SlicesSliceGetByDimensionConst(handle, meta) &
    type(c_ptr) :: SlicesSliceGetByDimensionConst
 end function SlicesSliceGetByDimensionConst
 
-!! Get, by dimension
+!! Get, by dimension, non-const
 function SlicesSliceGetByDimension(handle, meta) &
       bind(C, name='SlicesSliceGetByDimension')
    use iso_c_binding
@@ -263,7 +267,7 @@ function SlicesSliceGetByDomainValueConst(handle, meta) &
    type(c_ptr) :: SlicesSliceGetByDomainValueConst
 end function SlicesSliceGetByDomainValueConst
 
-!! Get, by domainValue
+!! Get, by domainValue, non-const
 function SlicesSliceGetByDomainValue(handle, meta) &
       bind(C, name='SlicesSliceGetByDomainValue')
    use iso_c_binding
@@ -307,7 +311,7 @@ function SlicesSliceGetByDomainMinConst(handle, meta) &
    type(c_ptr) :: SlicesSliceGetByDomainMinConst
 end function SlicesSliceGetByDomainMinConst
 
-!! Get, by domainMin
+!! Get, by domainMin, non-const
 function SlicesSliceGetByDomainMin(handle, meta) &
       bind(C, name='SlicesSliceGetByDomainMin')
    use iso_c_binding
@@ -351,7 +355,7 @@ function SlicesSliceGetByDomainMaxConst(handle, meta) &
    type(c_ptr) :: SlicesSliceGetByDomainMaxConst
 end function SlicesSliceGetByDomainMaxConst
 
-!! Get, by domainMax
+!! Get, by domainMax, non-const
 function SlicesSliceGetByDomainMax(handle, meta) &
       bind(C, name='SlicesSliceGetByDomainMax')
    use iso_c_binding
@@ -397,7 +401,7 @@ function SlicesSliceGetByDomainUnitConst(handle, meta, metaSize) &
    type(c_ptr) :: SlicesSliceGetByDomainUnitConst
 end function SlicesSliceGetByDomainUnitConst
 
-!! Get, by domainUnit
+!! Get, by domainUnit, non-const
 function SlicesSliceGetByDomainUnit(handle, meta, metaSize) &
       bind(C, name='SlicesSliceGetByDomainUnit')
    use iso_c_binding

@@ -20,7 +20,7 @@ function FissionComponentDefaultConst() &
    type(c_ptr) :: FissionComponentDefaultConst
 end function FissionComponentDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FissionComponentDefault() &
       bind(C, name='FissionComponentDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function FissionComponentCreateConst( &
    type(c_ptr) :: FissionComponentCreateConst
 end function FissionComponentCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FissionComponentCreate( &
    label, &
    ENDF_MT, &
@@ -99,6 +99,8 @@ end subroutine FissionComponentDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FissionComponentRead(handle, filename, filenameSize) &
       bind(C, name='FissionComponentRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function FissionComponentRead(handle, filename, filenameSize) &
 end function FissionComponentRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FissionComponentWrite(handle, filename, filenameSize) &
       bind(C, name='FissionComponentWrite')
    use iso_c_binding
@@ -268,7 +272,7 @@ function FissionComponentCrossSectionGetConst(handle) &
    type(c_ptr) :: FissionComponentCrossSectionGetConst
 end function FissionComponentCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function FissionComponentCrossSectionGet(handle) &
       bind(C, name='FissionComponentCrossSectionGet')
    use iso_c_binding
@@ -309,7 +313,7 @@ function FissionComponentOutputChannelGetConst(handle) &
    type(c_ptr) :: FissionComponentOutputChannelGetConst
 end function FissionComponentOutputChannelGetConst
 
-!! Get
+!! Get, non-const
 function FissionComponentOutputChannelGet(handle) &
       bind(C, name='FissionComponentOutputChannelGet')
    use iso_c_binding

@@ -70,7 +70,7 @@ typedef       struct DelayedNeutronsClass *      Handle2DelayedNeutrons;
 extern_c Handle2ConstDelayedNeutrons
 DelayedNeutronsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DelayedNeutrons
 DelayedNeutronsDefault();
 
@@ -80,7 +80,7 @@ DelayedNeutronsCreateConst(
    ConstHandle2DelayedNeutron *const delayedNeutron, const size_t delayedNeutronSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DelayedNeutrons
 DelayedNeutronsCreate(
    ConstHandle2DelayedNeutron *const delayedNeutron, const size_t delayedNeutronSize
@@ -154,7 +154,7 @@ DelayedNeutronsDelayedNeutronAdd(ConstHandle2DelayedNeutrons self, ConstHandle2C
 extern_c Handle2ConstDelayedNeutron
 DelayedNeutronsDelayedNeutronGetConst(ConstHandle2ConstDelayedNeutrons self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGet(ConstHandle2DelayedNeutrons self, const size_t index_);
 
@@ -184,7 +184,7 @@ DelayedNeutronsDelayedNeutronGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2DelayedNeutron
 DelayedNeutronsDelayedNeutronGetByLabel(
    ConstHandle2DelayedNeutrons self,

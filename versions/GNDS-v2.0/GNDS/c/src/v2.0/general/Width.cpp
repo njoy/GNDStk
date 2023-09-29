@@ -40,7 +40,7 @@ WidthDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Width
 WidthDefault()
 {
@@ -70,7 +70,7 @@ WidthCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Width
 WidthCreate(
    const char *const label,
@@ -274,7 +274,7 @@ WidthXYs1dGetConst(ConstHandle2ConstWidth self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 WidthXYs1dGet(ConstHandle2Width self)
 {
@@ -311,7 +311,7 @@ WidthConstant1dGetConst(ConstHandle2ConstWidth self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get
+// Get, non-const
 Handle2Constant1d
 WidthConstant1dGet(ConstHandle2Width self)
 {
@@ -348,7 +348,7 @@ WidthRegions1dGetConst(ConstHandle2ConstWidth self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions1d
 WidthRegions1dGet(ConstHandle2Width self)
 {

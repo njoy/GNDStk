@@ -20,7 +20,7 @@ function T_MDefaultConst() &
    type(c_ptr) :: T_MDefaultConst
 end function T_MDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function T_MDefault() &
       bind(C, name='T_MDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function T_MCreateConst( &
    type(c_ptr) :: T_MCreateConst
 end function T_MCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function T_MCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine T_MDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function T_MRead(handle, filename, filenameSize) &
       bind(C, name='T_MRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function T_MRead(handle, filename, filenameSize) &
 end function T_MRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function T_MWrite(handle, filename, filenameSize) &
       bind(C, name='T_MWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function T_MXYs1dGetConst(handle) &
    type(c_ptr) :: T_MXYs1dGetConst
 end function T_MXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function T_MXYs1dGet(handle) &
       bind(C, name='T_MXYs1dGet')
    use iso_c_binding

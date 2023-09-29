@@ -39,7 +39,7 @@ UncertaintyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Uncertainty
 UncertaintyDefault()
 {
@@ -65,7 +65,7 @@ UncertaintyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Uncertainty
 UncertaintyCreate(
    ConstHandle2ConstCovariance covariance,
@@ -175,7 +175,7 @@ UncertaintyCovarianceGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"CovarianceGetConst", self, extract::covariance);
 }
 
-// Get
+// Get, non-const
 Handle2Covariance
 UncertaintyCovarianceGet(ConstHandle2Uncertainty self)
 {
@@ -212,7 +212,7 @@ UncertaintyStandardGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"StandardGetConst", self, extract::standard);
 }
 
-// Get
+// Get, non-const
 Handle2Standard
 UncertaintyStandardGet(ConstHandle2Uncertainty self)
 {
@@ -249,7 +249,7 @@ UncertaintyListOfCovariancesGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"ListOfCovariancesGetConst", self, extract::listOfCovariances);
 }
 
-// Get
+// Get, non-const
 Handle2ListOfCovariances
 UncertaintyListOfCovariancesGet(ConstHandle2Uncertainty self)
 {
@@ -286,7 +286,7 @@ UncertaintyPolynomial1dGetConst(ConstHandle2ConstUncertainty self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 UncertaintyPolynomial1dGet(ConstHandle2Uncertainty self)
 {

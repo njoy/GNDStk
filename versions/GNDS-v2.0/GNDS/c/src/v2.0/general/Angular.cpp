@@ -35,7 +35,7 @@ AngularDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Angular
 AngularDefault()
 {
@@ -57,7 +57,7 @@ AngularCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Angular
 AngularCreate(
    ConstHandle2ConstIsotropic2d isotropic2d,
@@ -163,7 +163,7 @@ AngularIsotropic2dGetConst(ConstHandle2ConstAngular self)
       (CLASSNAME, CLASSNAME+"Isotropic2dGetConst", self, extract::isotropic2d);
 }
 
-// Get
+// Get, non-const
 Handle2Isotropic2d
 AngularIsotropic2dGet(ConstHandle2Angular self)
 {
@@ -200,7 +200,7 @@ AngularXYs2dGetConst(ConstHandle2ConstAngular self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 AngularXYs2dGet(ConstHandle2Angular self)
 {

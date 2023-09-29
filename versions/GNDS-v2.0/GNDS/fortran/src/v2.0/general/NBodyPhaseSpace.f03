@@ -20,7 +20,7 @@ function NBodyPhaseSpaceDefaultConst() &
    type(c_ptr) :: NBodyPhaseSpaceDefaultConst
 end function NBodyPhaseSpaceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NBodyPhaseSpaceDefault() &
       bind(C, name='NBodyPhaseSpaceDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function NBodyPhaseSpaceCreateConst( &
    type(c_ptr) :: NBodyPhaseSpaceCreateConst
 end function NBodyPhaseSpaceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NBodyPhaseSpaceCreate( &
    numberOfProducts, &
    mass &
@@ -79,6 +79,8 @@ end subroutine NBodyPhaseSpaceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NBodyPhaseSpaceRead(handle, filename, filenameSize) &
       bind(C, name='NBodyPhaseSpaceRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function NBodyPhaseSpaceRead(handle, filename, filenameSize) &
 end function NBodyPhaseSpaceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NBodyPhaseSpaceWrite(handle, filename, filenameSize) &
       bind(C, name='NBodyPhaseSpaceWrite')
    use iso_c_binding
@@ -182,7 +186,7 @@ function NBodyPhaseSpaceMassGetConst(handle) &
    type(c_ptr) :: NBodyPhaseSpaceMassGetConst
 end function NBodyPhaseSpaceMassGetConst
 
-!! Get
+!! Get, non-const
 function NBodyPhaseSpaceMassGet(handle) &
       bind(C, name='NBodyPhaseSpaceMassGet')
    use iso_c_binding

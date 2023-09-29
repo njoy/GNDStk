@@ -69,7 +69,7 @@ typedef       struct UClass *      Handle2U;
 extern_c Handle2ConstU
 UDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2U
 UDefault();
 
@@ -80,7 +80,7 @@ UCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2U
 UCreate(
    const double value,

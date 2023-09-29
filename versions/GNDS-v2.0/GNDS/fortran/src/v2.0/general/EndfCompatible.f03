@@ -20,7 +20,7 @@ function EndfCompatibleDefaultConst() &
    type(c_ptr) :: EndfCompatibleDefaultConst
 end function EndfCompatibleDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function EndfCompatibleDefault() &
       bind(C, name='EndfCompatibleDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function EndfCompatibleCreateConst( &
    type(c_ptr) :: EndfCompatibleCreateConst
 end function EndfCompatibleCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function EndfCompatibleCreate( &
 ) &
       bind(C, name='EndfCompatibleCreate')
@@ -71,6 +71,8 @@ end subroutine EndfCompatibleDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function EndfCompatibleRead(handle, filename, filenameSize) &
       bind(C, name='EndfCompatibleRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function EndfCompatibleRead(handle, filename, filenameSize) &
 end function EndfCompatibleRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function EndfCompatibleWrite(handle, filename, filenameSize) &
       bind(C, name='EndfCompatibleWrite')
    use iso_c_binding

@@ -69,7 +69,7 @@ typedef       struct DoubleClass *      Handle2Double;
 extern_c Handle2ConstDouble
 DoubleDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Double
 DoubleDefault();
 
@@ -79,7 +79,7 @@ DoubleCreateConst(
    const double value
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Double
 DoubleCreate(
    const double value

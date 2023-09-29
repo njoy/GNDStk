@@ -69,7 +69,7 @@ typedef       struct AxisClass *      Handle2Axis;
 extern_c Handle2ConstAxis
 AxisDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Axis
 AxisDefault();
 
@@ -81,7 +81,7 @@ AxisCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Axis
 AxisCreate(
    const int index,

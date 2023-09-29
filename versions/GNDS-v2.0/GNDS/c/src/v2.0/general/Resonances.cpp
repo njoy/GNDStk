@@ -38,7 +38,7 @@ ResonancesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Resonances
 ResonancesDefault()
 {
@@ -64,7 +64,7 @@ ResonancesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Resonances
 ResonancesCreate(
    const char *const href,
@@ -204,7 +204,7 @@ ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances self)
       (CLASSNAME, CLASSNAME+"ScatteringRadiusGetConst", self, extract::scatteringRadius);
 }
 
-// Get
+// Get, non-const
 Handle2ScatteringRadius
 ResonancesScatteringRadiusGet(ConstHandle2Resonances self)
 {
@@ -241,7 +241,7 @@ ResonancesResolvedGetConst(ConstHandle2ConstResonances self)
       (CLASSNAME, CLASSNAME+"ResolvedGetConst", self, extract::resolved);
 }
 
-// Get
+// Get, non-const
 Handle2Resolved
 ResonancesResolvedGet(ConstHandle2Resonances self)
 {
@@ -278,7 +278,7 @@ ResonancesUnresolvedGetConst(ConstHandle2ConstResonances self)
       (CLASSNAME, CLASSNAME+"UnresolvedGetConst", self, extract::unresolved);
 }
 
-// Get
+// Get, non-const
 Handle2Unresolved
 ResonancesUnresolvedGet(ConstHandle2Resonances self)
 {

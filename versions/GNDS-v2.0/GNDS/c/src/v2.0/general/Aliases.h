@@ -71,7 +71,7 @@ typedef       struct AliasesClass *      Handle2Aliases;
 extern_c Handle2ConstAliases
 AliasesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Aliases
 AliasesDefault();
 
@@ -82,7 +82,7 @@ AliasesCreateConst(
    ConstHandle2MetaStable *const metaStable, const size_t metaStableSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Aliases
 AliasesCreate(
    ConstHandle2Alias *const alias, const size_t aliasSize,
@@ -157,7 +157,7 @@ AliasesAliasAdd(ConstHandle2Aliases self, ConstHandle2ConstAlias alias);
 extern_c Handle2ConstAlias
 AliasesAliasGetConst(ConstHandle2ConstAliases self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Alias
 AliasesAliasGet(ConstHandle2Aliases self, const size_t index_);
 
@@ -187,7 +187,7 @@ AliasesAliasGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2Alias
 AliasesAliasGetById(
    ConstHandle2Aliases self,
@@ -220,7 +220,7 @@ AliasesAliasGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid
+// +++ Get, by pid, non-const
 extern_c Handle2Alias
 AliasesAliasGetByPid(
    ConstHandle2Aliases self,
@@ -260,7 +260,7 @@ AliasesMetaStableAdd(ConstHandle2Aliases self, ConstHandle2ConstMetaStable metaS
 extern_c Handle2ConstMetaStable
 AliasesMetaStableGetConst(ConstHandle2ConstAliases self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGet(ConstHandle2Aliases self, const size_t index_);
 
@@ -290,7 +290,7 @@ AliasesMetaStableGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGetById(
    ConstHandle2Aliases self,
@@ -323,7 +323,7 @@ AliasesMetaStableGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid
+// +++ Get, by pid, non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGetByPid(
    ConstHandle2Aliases self,
@@ -356,7 +356,7 @@ AliasesMetaStableGetByMetaStableIndexConst(
    const int metaStableIndex
 );
 
-// +++ Get, by metaStableIndex
+// +++ Get, by metaStableIndex, non-const
 extern_c Handle2MetaStable
 AliasesMetaStableGetByMetaStableIndex(
    ConstHandle2Aliases self,

@@ -70,7 +70,7 @@ typedef       struct WidthsClass *      Handle2Widths;
 extern_c Handle2ConstWidths
 WidthsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Widths
 WidthsDefault();
 
@@ -80,7 +80,7 @@ WidthsCreateConst(
    ConstHandle2Width *const width, const size_t widthSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Widths
 WidthsCreate(
    ConstHandle2Width *const width, const size_t widthSize
@@ -154,7 +154,7 @@ WidthsWidthAdd(ConstHandle2Widths self, ConstHandle2ConstWidth width);
 extern_c Handle2ConstWidth
 WidthsWidthGetConst(ConstHandle2ConstWidths self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Width
 WidthsWidthGet(ConstHandle2Widths self, const size_t index_);
 
@@ -184,7 +184,7 @@ WidthsWidthGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Width
 WidthsWidthGetByLabel(
    ConstHandle2Widths self,
@@ -217,7 +217,7 @@ WidthsWidthGetByResonanceReactionConst(
    const char *const resonanceReaction
 );
 
-// +++ Get, by resonanceReaction
+// +++ Get, by resonanceReaction, non-const
 extern_c Handle2Width
 WidthsWidthGetByResonanceReaction(
    ConstHandle2Widths self,
@@ -250,7 +250,7 @@ WidthsWidthGetByDegreesOfFreedomConst(
    const int degreesOfFreedom
 );
 
-// +++ Get, by degreesOfFreedom
+// +++ Get, by degreesOfFreedom, non-const
 extern_c Handle2Width
 WidthsWidthGetByDegreesOfFreedom(
    ConstHandle2Widths self,

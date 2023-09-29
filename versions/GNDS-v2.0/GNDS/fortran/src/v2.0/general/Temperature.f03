@@ -20,7 +20,7 @@ function TemperatureDefaultConst() &
    type(c_ptr) :: TemperatureDefaultConst
 end function TemperatureDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function TemperatureDefault() &
       bind(C, name='TemperatureDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function TemperatureCreateConst( &
    type(c_ptr) :: TemperatureCreateConst
 end function TemperatureCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function TemperatureCreate( &
    value, &
    unit, &
@@ -83,6 +83,8 @@ end subroutine TemperatureDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function TemperatureRead(handle, filename, filenameSize) &
       bind(C, name='TemperatureRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function TemperatureRead(handle, filename, filenameSize) &
 end function TemperatureRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function TemperatureWrite(handle, filename, filenameSize) &
       bind(C, name='TemperatureWrite')
    use iso_c_binding

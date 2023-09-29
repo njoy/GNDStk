@@ -71,7 +71,7 @@ typedef       struct SumsClass *      Handle2Sums;
 extern_c Handle2ConstSums
 SumsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Sums
 SumsDefault();
 
@@ -82,7 +82,7 @@ SumsCreateConst(
    ConstHandle2ConstMultiplicitySums multiplicitySums
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Sums
 SumsCreate(
    ConstHandle2ConstCrossSectionSums crossSectionSums,
@@ -145,7 +145,7 @@ SumsCrossSectionSumsHas(ConstHandle2ConstSums self);
 extern_c Handle2ConstCrossSectionSums
 SumsCrossSectionSumsGetConst(ConstHandle2ConstSums self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CrossSectionSums
 SumsCrossSectionSumsGet(ConstHandle2Sums self);
 
@@ -166,7 +166,7 @@ SumsMultiplicitySumsHas(ConstHandle2ConstSums self);
 extern_c Handle2ConstMultiplicitySums
 SumsMultiplicitySumsGetConst(ConstHandle2ConstSums self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2MultiplicitySums
 SumsMultiplicitySumsGet(ConstHandle2Sums self);
 

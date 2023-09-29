@@ -37,7 +37,7 @@ Constant1dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Constant1d
 Constant1dDefault()
 {
@@ -65,7 +65,7 @@ Constant1dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Constant1d
 Constant1dCreate(
    const char *const label,
@@ -297,7 +297,7 @@ Constant1dAxesGetConst(ConstHandle2ConstConstant1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 Constant1dAxesGet(ConstHandle2Constant1d self)
 {

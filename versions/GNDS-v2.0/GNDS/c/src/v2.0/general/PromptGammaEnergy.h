@@ -71,7 +71,7 @@ typedef       struct PromptGammaEnergyClass *      Handle2PromptGammaEnergy;
 extern_c Handle2ConstPromptGammaEnergy
 PromptGammaEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PromptGammaEnergy
 PromptGammaEnergyDefault();
 
@@ -82,7 +82,7 @@ PromptGammaEnergyCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PromptGammaEnergy
 PromptGammaEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -145,7 +145,7 @@ PromptGammaEnergyPolynomial1dHas(ConstHandle2ConstPromptGammaEnergy self);
 extern_c Handle2ConstPolynomial1d
 PromptGammaEnergyPolynomial1dGetConst(ConstHandle2ConstPromptGammaEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 PromptGammaEnergyPolynomial1dGet(ConstHandle2PromptGammaEnergy self);
 
@@ -166,7 +166,7 @@ PromptGammaEnergyXYs1dHas(ConstHandle2ConstPromptGammaEnergy self);
 extern_c Handle2ConstXYs1d
 PromptGammaEnergyXYs1dGetConst(ConstHandle2ConstPromptGammaEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 PromptGammaEnergyXYs1dGet(ConstHandle2PromptGammaEnergy self);
 

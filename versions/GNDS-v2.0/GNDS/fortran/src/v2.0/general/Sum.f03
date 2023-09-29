@@ -20,7 +20,7 @@ function SumDefaultConst() &
    type(c_ptr) :: SumDefaultConst
 end function SumDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SumDefault() &
       bind(C, name='SumDefault')
    use iso_c_binding
@@ -52,7 +52,7 @@ function SumCreateConst( &
    type(c_ptr) :: SumCreateConst
 end function SumCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SumCreate( &
    label, &
    domainMin, &
@@ -101,6 +101,8 @@ end subroutine SumDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SumRead(handle, filename, filenameSize) &
       bind(C, name='SumRead')
    use iso_c_binding
@@ -112,6 +114,8 @@ function SumRead(handle, filename, filenameSize) &
 end function SumRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SumWrite(handle, filename, filenameSize) &
       bind(C, name='SumWrite')
    use iso_c_binding
@@ -329,7 +333,7 @@ function SumSummandGetConst(handle, index) &
    type(c_ptr) :: SumSummandGetConst
 end function SumSummandGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function SumSummandGet(handle, index) &
       bind(C, name='SumSummandGet')
    use iso_c_binding
@@ -375,7 +379,7 @@ function SumSummandGetByENDFMFMTConst(handle, meta, metaSize) &
    type(c_ptr) :: SumSummandGetByENDFMFMTConst
 end function SumSummandGetByENDFMFMTConst
 
-!! Get, by ENDF_MFMT
+!! Get, by ENDF_MFMT, non-const
 function SumSummandGetByENDFMFMT(handle, meta, metaSize) &
       bind(C, name='SumSummandGetByENDFMFMT')
    use iso_c_binding
@@ -423,7 +427,7 @@ function SumSummandGetByCoefficientConst(handle, meta, metaSize) &
    type(c_ptr) :: SumSummandGetByCoefficientConst
 end function SumSummandGetByCoefficientConst
 
-!! Get, by coefficient
+!! Get, by coefficient, non-const
 function SumSummandGetByCoefficient(handle, meta, metaSize) &
       bind(C, name='SumSummandGetByCoefficient')
    use iso_c_binding
@@ -471,7 +475,7 @@ function SumSummandGetByHrefConst(handle, meta, metaSize) &
    type(c_ptr) :: SumSummandGetByHrefConst
 end function SumSummandGetByHrefConst
 
-!! Get, by href
+!! Get, by href, non-const
 function SumSummandGetByHref(handle, meta, metaSize) &
       bind(C, name='SumSummandGetByHref')
    use iso_c_binding

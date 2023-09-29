@@ -72,7 +72,7 @@ typedef       struct MadlandNixClass *      Handle2MadlandNix;
 extern_c Handle2ConstMadlandNix
 MadlandNixDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2MadlandNix
 MadlandNixDefault();
 
@@ -84,7 +84,7 @@ MadlandNixCreateConst(
    ConstHandle2ConstT_M T_M
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2MadlandNix
 MadlandNixCreate(
    ConstHandle2ConstEFL EFL,
@@ -148,7 +148,7 @@ MadlandNixEFLHas(ConstHandle2ConstMadlandNix self);
 extern_c Handle2ConstEFL
 MadlandNixEFLGetConst(ConstHandle2ConstMadlandNix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2EFL
 MadlandNixEFLGet(ConstHandle2MadlandNix self);
 
@@ -169,7 +169,7 @@ MadlandNixEFHHas(ConstHandle2ConstMadlandNix self);
 extern_c Handle2ConstEFH
 MadlandNixEFHGetConst(ConstHandle2ConstMadlandNix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2EFH
 MadlandNixEFHGet(ConstHandle2MadlandNix self);
 
@@ -190,7 +190,7 @@ MadlandNixT_MHas(ConstHandle2ConstMadlandNix self);
 extern_c Handle2ConstT_M
 MadlandNixT_MGetConst(ConstHandle2ConstMadlandNix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2T_M
 MadlandNixT_MGet(ConstHandle2MadlandNix self);
 

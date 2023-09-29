@@ -69,7 +69,7 @@ typedef       struct EndfCompatibleClass *      Handle2EndfCompatible;
 extern_c Handle2ConstEndfCompatible
 EndfCompatibleDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2EndfCompatible
 EndfCompatibleDefault();
 
@@ -77,7 +77,7 @@ EndfCompatibleDefault();
 extern_c Handle2ConstEndfCompatible
 EndfCompatibleCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2EndfCompatible
 EndfCompatibleCreate();
 

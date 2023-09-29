@@ -69,7 +69,7 @@ typedef       struct EFHClass *      Handle2EFH;
 extern_c Handle2ConstEFH
 EFHDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2EFH
 EFHDefault();
 
@@ -80,7 +80,7 @@ EFHCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2EFH
 EFHCreate(
    const double value,

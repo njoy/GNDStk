@@ -20,7 +20,7 @@ function ResonancesWithBackgroundDefaultConst() &
    type(c_ptr) :: ResonancesWithBackgroundDefaultConst
 end function ResonancesWithBackgroundDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResonancesWithBackgroundDefault() &
       bind(C, name='ResonancesWithBackgroundDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function ResonancesWithBackgroundCreateConst( &
    type(c_ptr) :: ResonancesWithBackgroundCreateConst
 end function ResonancesWithBackgroundCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResonancesWithBackgroundCreate( &
    label, &
    resonances, &
@@ -91,6 +91,8 @@ end subroutine ResonancesWithBackgroundDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResonancesWithBackgroundRead(handle, filename, filenameSize) &
       bind(C, name='ResonancesWithBackgroundRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function ResonancesWithBackgroundRead(handle, filename, filenameSize) &
 end function ResonancesWithBackgroundRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResonancesWithBackgroundWrite(handle, filename, filenameSize) &
       bind(C, name='ResonancesWithBackgroundWrite')
    use iso_c_binding
@@ -195,7 +199,7 @@ function ResonancesWithBackgroundResonancesGetConst(handle) &
    type(c_ptr) :: ResonancesWithBackgroundResonancesGetConst
 end function ResonancesWithBackgroundResonancesGetConst
 
-!! Get
+!! Get, non-const
 function ResonancesWithBackgroundResonancesGet(handle) &
       bind(C, name='ResonancesWithBackgroundResonancesGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function ResonancesWithBackgroundBackgroundGetConst(handle) &
    type(c_ptr) :: ResonancesWithBackgroundBackgroundGetConst
 end function ResonancesWithBackgroundBackgroundGetConst
 
-!! Get
+!! Get, non-const
 function ResonancesWithBackgroundBackgroundGet(handle) &
       bind(C, name='ResonancesWithBackgroundBackgroundGet')
    use iso_c_binding
@@ -277,7 +281,7 @@ function ResonancesWithBackgroundUncertaintyGetConst(handle) &
    type(c_ptr) :: ResonancesWithBackgroundUncertaintyGetConst
 end function ResonancesWithBackgroundUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function ResonancesWithBackgroundUncertaintyGet(handle) &
       bind(C, name='ResonancesWithBackgroundUncertaintyGet')
    use iso_c_binding

@@ -31,7 +31,7 @@ NuclidesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Nuclides
 NuclidesDefault()
 {
@@ -51,7 +51,7 @@ NuclidesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Nuclides
 NuclidesCreate(
    const char *const href

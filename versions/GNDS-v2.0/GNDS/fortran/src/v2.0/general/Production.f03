@@ -20,7 +20,7 @@ function ProductionDefaultConst() &
    type(c_ptr) :: ProductionDefaultConst
 end function ProductionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ProductionDefault() &
       bind(C, name='ProductionDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function ProductionCreateConst( &
    type(c_ptr) :: ProductionCreateConst
 end function ProductionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ProductionCreate( &
    label, &
    ENDF_MT, &
@@ -91,6 +91,8 @@ end subroutine ProductionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ProductionRead(handle, filename, filenameSize) &
       bind(C, name='ProductionRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function ProductionRead(handle, filename, filenameSize) &
 end function ProductionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ProductionWrite(handle, filename, filenameSize) &
       bind(C, name='ProductionWrite')
    use iso_c_binding
@@ -227,7 +231,7 @@ function ProductionCrossSectionGetConst(handle) &
    type(c_ptr) :: ProductionCrossSectionGetConst
 end function ProductionCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function ProductionCrossSectionGet(handle) &
       bind(C, name='ProductionCrossSectionGet')
    use iso_c_binding
@@ -268,7 +272,7 @@ function ProductionOutputChannelGetConst(handle) &
    type(c_ptr) :: ProductionOutputChannelGetConst
 end function ProductionOutputChannelGetConst
 
-!! Get
+!! Get, non-const
 function ProductionOutputChannelGet(handle) &
       bind(C, name='ProductionOutputChannelGet')
    use iso_c_binding

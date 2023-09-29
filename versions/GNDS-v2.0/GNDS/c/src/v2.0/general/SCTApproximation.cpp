@@ -27,7 +27,7 @@ SCTApproximationDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2SCTApproximation
 SCTApproximationDefault()
 {
@@ -45,7 +45,7 @@ SCTApproximationCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2SCTApproximation
 SCTApproximationCreate()
 {

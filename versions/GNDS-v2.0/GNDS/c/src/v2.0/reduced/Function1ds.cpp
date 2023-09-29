@@ -35,7 +35,7 @@ Function1dsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Function1ds
 Function1dsDefault()
 {
@@ -61,7 +61,7 @@ Function1dsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Function1ds
 Function1dsCreate(
    ConstHandle2Legendre *const Legendre, const size_t LegendreSize,
@@ -195,7 +195,7 @@ Function1dsLegendreGetConst(ConstHandle2ConstFunction1ds self, const size_t inde
       (CLASSNAME, CLASSNAME+"LegendreGetConst", self, extract::Legendre, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Legendre
 Function1dsLegendreGet(ConstHandle2Function1ds self, const size_t index_)
 {
@@ -240,7 +240,7 @@ Function1dsLegendreGetByOuterDomainValueConst(
        self, extract::Legendre, meta::outerDomainValue, outerDomainValue);
 }
 
-// Get, by outerDomainValue
+// Get, by outerDomainValue, non-const
 Handle2Legendre
 Function1dsLegendreGetByOuterDomainValue(
    ConstHandle2Function1ds self,
@@ -308,7 +308,7 @@ Function1dsXYs1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2XYs1d
 Function1dsXYs1dGet(ConstHandle2Function1ds self, const size_t index_)
 {
@@ -353,7 +353,7 @@ Function1dsXYs1dGetByLabelConst(
        self, extract::XYs1d, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2XYs1d
 Function1dsXYs1dGetByLabel(
    ConstHandle2Function1ds self,
@@ -402,7 +402,7 @@ Function1dsXYs1dGetByIndexConst(
        self, extract::XYs1d, meta::index, index);
 }
 
-// Get, by index
+// Get, by index, non-const
 Handle2XYs1d
 Function1dsXYs1dGetByIndex(
    ConstHandle2Function1ds self,
@@ -451,7 +451,7 @@ Function1dsXYs1dGetByInterpolationConst(
        self, extract::XYs1d, meta::interpolation, interpolation);
 }
 
-// Get, by interpolation
+// Get, by interpolation, non-const
 Handle2XYs1d
 Function1dsXYs1dGetByInterpolation(
    ConstHandle2Function1ds self,
@@ -500,7 +500,7 @@ Function1dsXYs1dGetByOuterDomainValueConst(
        self, extract::XYs1d, meta::outerDomainValue, outerDomainValue);
 }
 
-// Get, by outerDomainValue
+// Get, by outerDomainValue, non-const
 Handle2XYs1d
 Function1dsXYs1dGetByOuterDomainValue(
    ConstHandle2Function1ds self,

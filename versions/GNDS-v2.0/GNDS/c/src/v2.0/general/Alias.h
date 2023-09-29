@@ -69,7 +69,7 @@ typedef       struct AliasClass *      Handle2Alias;
 extern_c Handle2ConstAlias
 AliasDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Alias
 AliasDefault();
 
@@ -80,7 +80,7 @@ AliasCreateConst(
    const char *const pid
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Alias
 AliasCreate(
    const char *const id,

@@ -20,7 +20,7 @@ function SpinDefaultConst() &
    type(c_ptr) :: SpinDefaultConst
 end function SpinDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SpinDefault() &
       bind(C, name='SpinDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function SpinCreateConst( &
    type(c_ptr) :: SpinCreateConst
 end function SpinCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SpinCreate( &
    fraction &
 ) &
@@ -75,6 +75,8 @@ end subroutine SpinDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SpinRead(handle, filename, filenameSize) &
       bind(C, name='SpinRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function SpinRead(handle, filename, filenameSize) &
 end function SpinRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SpinWrite(handle, filename, filenameSize) &
       bind(C, name='SpinWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function SpinFractionGetConst(handle) &
    type(c_ptr) :: SpinFractionGetConst
 end function SpinFractionGetConst
 
-!! Get
+!! Get, non-const
 function SpinFractionGet(handle) &
       bind(C, name='SpinFractionGet')
    use iso_c_binding

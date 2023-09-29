@@ -20,7 +20,7 @@ function EnergyDefaultConst() &
    type(c_ptr) :: EnergyDefaultConst
 end function EnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function EnergyDefault() &
       bind(C, name='EnergyDefault')
    use iso_c_binding
@@ -65,7 +65,7 @@ function EnergyCreateConst( &
    type(c_ptr) :: EnergyCreateConst
 end function EnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function EnergyCreate( &
    value, &
    unit, &
@@ -127,6 +127,8 @@ end subroutine EnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function EnergyRead(handle, filename, filenameSize) &
       bind(C, name='EnergyRead')
    use iso_c_binding
@@ -138,6 +140,8 @@ function EnergyRead(handle, filename, filenameSize) &
 end function EnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function EnergyWrite(handle, filename, filenameSize) &
       bind(C, name='EnergyWrite')
    use iso_c_binding
@@ -263,7 +267,7 @@ function EnergyDoubleGetConst(handle) &
    type(c_ptr) :: EnergyDoubleGetConst
 end function EnergyDoubleGetConst
 
-!! Get
+!! Get, non-const
 function EnergyDoubleGet(handle) &
       bind(C, name='EnergyDoubleGet')
    use iso_c_binding
@@ -304,7 +308,7 @@ function EnergyUncertaintyGetConst(handle) &
    type(c_ptr) :: EnergyUncertaintyGetConst
 end function EnergyUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function EnergyUncertaintyGet(handle) &
       bind(C, name='EnergyUncertaintyGet')
    use iso_c_binding
@@ -345,7 +349,7 @@ function EnergyNBodyPhaseSpaceGetConst(handle) &
    type(c_ptr) :: EnergyNBodyPhaseSpaceGetConst
 end function EnergyNBodyPhaseSpaceGetConst
 
-!! Get
+!! Get, non-const
 function EnergyNBodyPhaseSpaceGet(handle) &
       bind(C, name='EnergyNBodyPhaseSpaceGet')
    use iso_c_binding
@@ -386,7 +390,7 @@ function EnergyPrimaryGammaGetConst(handle) &
    type(c_ptr) :: EnergyPrimaryGammaGetConst
 end function EnergyPrimaryGammaGetConst
 
-!! Get
+!! Get, non-const
 function EnergyPrimaryGammaGet(handle) &
       bind(C, name='EnergyPrimaryGammaGet')
    use iso_c_binding
@@ -427,7 +431,7 @@ function EnergyDiscreteGammaGetConst(handle) &
    type(c_ptr) :: EnergyDiscreteGammaGetConst
 end function EnergyDiscreteGammaGetConst
 
-!! Get
+!! Get, non-const
 function EnergyDiscreteGammaGet(handle) &
       bind(C, name='EnergyDiscreteGammaGet')
    use iso_c_binding
@@ -468,7 +472,7 @@ function EnergyXYs2dGetConst(handle) &
    type(c_ptr) :: EnergyXYs2dGetConst
 end function EnergyXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function EnergyXYs2dGet(handle) &
       bind(C, name='EnergyXYs2dGet')
    use iso_c_binding
@@ -509,7 +513,7 @@ function EnergyGeneralEvaporationGetConst(handle) &
    type(c_ptr) :: EnergyGeneralEvaporationGetConst
 end function EnergyGeneralEvaporationGetConst
 
-!! Get
+!! Get, non-const
 function EnergyGeneralEvaporationGet(handle) &
       bind(C, name='EnergyGeneralEvaporationGet')
    use iso_c_binding
@@ -550,7 +554,7 @@ function EnergyEvaporationGetConst(handle) &
    type(c_ptr) :: EnergyEvaporationGetConst
 end function EnergyEvaporationGetConst
 
-!! Get
+!! Get, non-const
 function EnergyEvaporationGet(handle) &
       bind(C, name='EnergyEvaporationGet')
    use iso_c_binding
@@ -591,7 +595,7 @@ function EnergyWeightedFunctionalsGetConst(handle) &
    type(c_ptr) :: EnergyWeightedFunctionalsGetConst
 end function EnergyWeightedFunctionalsGetConst
 
-!! Get
+!! Get, non-const
 function EnergyWeightedFunctionalsGet(handle) &
       bind(C, name='EnergyWeightedFunctionalsGet')
    use iso_c_binding
@@ -632,7 +636,7 @@ function EnergySimpleMaxwellianFissionGetConst(handle) &
    type(c_ptr) :: EnergySimpleMaxwellianFissionGetConst
 end function EnergySimpleMaxwellianFissionGetConst
 
-!! Get
+!! Get, non-const
 function EnergySimpleMaxwellianFissionGet(handle) &
       bind(C, name='EnergySimpleMaxwellianFissionGet')
    use iso_c_binding
@@ -673,7 +677,7 @@ function EnergyMadlandNixGetConst(handle) &
    type(c_ptr) :: EnergyMadlandNixGetConst
 end function EnergyMadlandNixGetConst
 
-!! Get
+!! Get, non-const
 function EnergyMadlandNixGet(handle) &
       bind(C, name='EnergyMadlandNixGet')
    use iso_c_binding

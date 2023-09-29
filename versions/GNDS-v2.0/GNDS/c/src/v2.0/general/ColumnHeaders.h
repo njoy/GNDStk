@@ -70,7 +70,7 @@ typedef       struct ColumnHeadersClass *      Handle2ColumnHeaders;
 extern_c Handle2ConstColumnHeaders
 ColumnHeadersDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ColumnHeaders
 ColumnHeadersDefault();
 
@@ -80,7 +80,7 @@ ColumnHeadersCreateConst(
    ConstHandle2Column *const column, const size_t columnSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ColumnHeaders
 ColumnHeadersCreate(
    ConstHandle2Column *const column, const size_t columnSize
@@ -154,7 +154,7 @@ ColumnHeadersColumnAdd(ConstHandle2ColumnHeaders self, ConstHandle2ConstColumn c
 extern_c Handle2ConstColumn
 ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Column
 ColumnHeadersColumnGet(ConstHandle2ColumnHeaders self, const size_t index_);
 
@@ -184,7 +184,7 @@ ColumnHeadersColumnGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index
+// +++ Get, by index, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByIndex(
    ConstHandle2ColumnHeaders self,
@@ -217,7 +217,7 @@ ColumnHeadersColumnGetByNameConst(
    const char *const name
 );
 
-// +++ Get, by name
+// +++ Get, by name, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByName(
    ConstHandle2ColumnHeaders self,
@@ -250,7 +250,7 @@ ColumnHeadersColumnGetByUnitConst(
    const char *const unit
 );
 
-// +++ Get, by unit
+// +++ Get, by unit, non-const
 extern_c Handle2Column
 ColumnHeadersColumnGetByUnit(
    ConstHandle2ColumnHeaders self,

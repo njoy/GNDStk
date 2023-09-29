@@ -20,7 +20,7 @@ function IncidentEnergyDefaultConst() &
    type(c_ptr) :: IncidentEnergyDefaultConst
 end function IncidentEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IncidentEnergyDefault() &
       bind(C, name='IncidentEnergyDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function IncidentEnergyCreateConst( &
    type(c_ptr) :: IncidentEnergyCreateConst
 end function IncidentEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IncidentEnergyCreate( &
    label, &
    energy, &
@@ -87,6 +87,8 @@ end subroutine IncidentEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IncidentEnergyRead(handle, filename, filenameSize) &
       bind(C, name='IncidentEnergyRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function IncidentEnergyRead(handle, filename, filenameSize) &
 end function IncidentEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IncidentEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='IncidentEnergyWrite')
    use iso_c_binding
@@ -191,7 +195,7 @@ function IncidentEnergyEnergyGetConst(handle) &
    type(c_ptr) :: IncidentEnergyEnergyGetConst
 end function IncidentEnergyEnergyGetConst
 
-!! Get
+!! Get, non-const
 function IncidentEnergyEnergyGet(handle) &
       bind(C, name='IncidentEnergyEnergyGet')
    use iso_c_binding
@@ -232,7 +236,7 @@ function IncidentEnergyYieldsGetConst(handle) &
    type(c_ptr) :: IncidentEnergyYieldsGetConst
 end function IncidentEnergyYieldsGetConst
 
-!! Get
+!! Get, non-const
 function IncidentEnergyYieldsGet(handle) &
       bind(C, name='IncidentEnergyYieldsGet')
    use iso_c_binding

@@ -70,7 +70,7 @@ typedef       struct CovarianceSectionsClass *      Handle2CovarianceSections;
 extern_c Handle2ConstCovarianceSections
 CovarianceSectionsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CovarianceSections
 CovarianceSectionsDefault();
 
@@ -80,7 +80,7 @@ CovarianceSectionsCreateConst(
    ConstHandle2CovarianceSection *const covarianceSection, const size_t covarianceSectionSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CovarianceSections
 CovarianceSectionsCreate(
    ConstHandle2CovarianceSection *const covarianceSection, const size_t covarianceSectionSize
@@ -154,7 +154,7 @@ CovarianceSectionsCovarianceSectionAdd(ConstHandle2CovarianceSections self, Cons
 extern_c Handle2ConstCovarianceSection
 CovarianceSectionsCovarianceSectionGetConst(ConstHandle2ConstCovarianceSections self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGet(ConstHandle2CovarianceSections self, const size_t index_);
 
@@ -184,7 +184,7 @@ CovarianceSectionsCovarianceSectionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByLabel(
    ConstHandle2CovarianceSections self,
@@ -217,7 +217,7 @@ CovarianceSectionsCovarianceSectionGetByCrossTermConst(
    const bool crossTerm
 );
 
-// +++ Get, by crossTerm
+// +++ Get, by crossTerm, non-const
 extern_c Handle2CovarianceSection
 CovarianceSectionsCovarianceSectionGetByCrossTerm(
    ConstHandle2CovarianceSections self,

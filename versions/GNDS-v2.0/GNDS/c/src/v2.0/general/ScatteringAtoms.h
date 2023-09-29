@@ -70,7 +70,7 @@ typedef       struct ScatteringAtomsClass *      Handle2ScatteringAtoms;
 extern_c Handle2ConstScatteringAtoms
 ScatteringAtomsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ScatteringAtoms
 ScatteringAtomsDefault();
 
@@ -80,7 +80,7 @@ ScatteringAtomsCreateConst(
    ConstHandle2ScatteringAtom *const scatteringAtom, const size_t scatteringAtomSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ScatteringAtoms
 ScatteringAtomsCreate(
    ConstHandle2ScatteringAtom *const scatteringAtom, const size_t scatteringAtomSize
@@ -154,7 +154,7 @@ ScatteringAtomsScatteringAtomAdd(ConstHandle2ScatteringAtoms self, ConstHandle2C
 extern_c Handle2ConstScatteringAtom
 ScatteringAtomsScatteringAtomGetConst(ConstHandle2ConstScatteringAtoms self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGet(ConstHandle2ScatteringAtoms self, const size_t index_);
 
@@ -184,7 +184,7 @@ ScatteringAtomsScatteringAtomGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid
+// +++ Get, by pid, non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPid(
    ConstHandle2ScatteringAtoms self,
@@ -217,7 +217,7 @@ ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(
    const int numberPerMolecule
 );
 
-// +++ Get, by numberPerMolecule
+// +++ Get, by numberPerMolecule, non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByNumberPerMolecule(
    ConstHandle2ScatteringAtoms self,
@@ -250,7 +250,7 @@ ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(
    const bool primaryScatterer
 );
 
-// +++ Get, by primaryScatterer
+// +++ Get, by primaryScatterer, non-const
 extern_c Handle2ScatteringAtom
 ScatteringAtomsScatteringAtomGetByPrimaryScatterer(
    ConstHandle2ScatteringAtoms self,

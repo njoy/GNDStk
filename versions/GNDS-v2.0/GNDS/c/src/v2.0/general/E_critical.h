@@ -69,7 +69,7 @@ typedef       struct E_criticalClass *      Handle2E_critical;
 extern_c Handle2ConstE_critical
 E_criticalDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2E_critical
 E_criticalDefault();
 
@@ -80,7 +80,7 @@ E_criticalCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2E_critical
 E_criticalCreate(
    const double value,

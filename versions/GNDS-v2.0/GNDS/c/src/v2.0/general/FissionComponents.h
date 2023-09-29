@@ -70,7 +70,7 @@ typedef       struct FissionComponentsClass *      Handle2FissionComponents;
 extern_c Handle2ConstFissionComponents
 FissionComponentsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FissionComponents
 FissionComponentsDefault();
 
@@ -80,7 +80,7 @@ FissionComponentsCreateConst(
    ConstHandle2FissionComponent *const fissionComponent, const size_t fissionComponentSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FissionComponents
 FissionComponentsCreate(
    ConstHandle2FissionComponent *const fissionComponent, const size_t fissionComponentSize
@@ -154,7 +154,7 @@ FissionComponentsFissionComponentAdd(ConstHandle2FissionComponents self, ConstHa
 extern_c Handle2ConstFissionComponent
 FissionComponentsFissionComponentGetConst(ConstHandle2ConstFissionComponents self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGet(ConstHandle2FissionComponents self, const size_t index_);
 
@@ -184,7 +184,7 @@ FissionComponentsFissionComponentGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByLabel(
    ConstHandle2FissionComponents self,
@@ -217,7 +217,7 @@ FissionComponentsFissionComponentGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByENDFMT(
    ConstHandle2FissionComponents self,
@@ -250,7 +250,7 @@ FissionComponentsFissionComponentGetByFissionGenreConst(
    const char *const fissionGenre
 );
 
-// +++ Get, by fissionGenre
+// +++ Get, by fissionGenre, non-const
 extern_c Handle2FissionComponent
 FissionComponentsFissionComponentGetByFissionGenre(
    ConstHandle2FissionComponents self,

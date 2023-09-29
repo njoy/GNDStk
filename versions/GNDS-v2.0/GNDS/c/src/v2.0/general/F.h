@@ -70,7 +70,7 @@ typedef       struct FClass *      Handle2F;
 extern_c Handle2ConstF
 FDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2F
 FDefault();
 
@@ -80,7 +80,7 @@ FCreateConst(
    ConstHandle2ConstXYs2d XYs2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2F
 FCreate(
    ConstHandle2ConstXYs2d XYs2d
@@ -142,7 +142,7 @@ FXYs2dHas(ConstHandle2ConstF self);
 extern_c Handle2ConstXYs2d
 FXYs2dGetConst(ConstHandle2ConstF self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 FXYs2dGet(ConstHandle2F self);
 

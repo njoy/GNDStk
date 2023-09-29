@@ -20,7 +20,7 @@ function FissionEnergyReleaseDefaultConst() &
    type(c_ptr) :: FissionEnergyReleaseDefaultConst
 end function FissionEnergyReleaseDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FissionEnergyReleaseDefault() &
       bind(C, name='FissionEnergyReleaseDefault')
    use iso_c_binding
@@ -59,7 +59,7 @@ function FissionEnergyReleaseCreateConst( &
    type(c_ptr) :: FissionEnergyReleaseCreateConst
 end function FissionEnergyReleaseCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FissionEnergyReleaseCreate( &
    label, &
    promptProductKE, &
@@ -115,6 +115,8 @@ end subroutine FissionEnergyReleaseDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FissionEnergyReleaseRead(handle, filename, filenameSize) &
       bind(C, name='FissionEnergyReleaseRead')
    use iso_c_binding
@@ -126,6 +128,8 @@ function FissionEnergyReleaseRead(handle, filename, filenameSize) &
 end function FissionEnergyReleaseRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FissionEnergyReleaseWrite(handle, filename, filenameSize) &
       bind(C, name='FissionEnergyReleaseWrite')
    use iso_c_binding
@@ -219,7 +223,7 @@ function FissionEnergyReleasePromptProductKEGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleasePromptProductKEGetConst
 end function FissionEnergyReleasePromptProductKEGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleasePromptProductKEGet(handle) &
       bind(C, name='FissionEnergyReleasePromptProductKEGet')
    use iso_c_binding
@@ -260,7 +264,7 @@ function FissionEnergyReleasePromptNeutronKEGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleasePromptNeutronKEGetConst
 end function FissionEnergyReleasePromptNeutronKEGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleasePromptNeutronKEGet(handle) &
       bind(C, name='FissionEnergyReleasePromptNeutronKEGet')
    use iso_c_binding
@@ -301,7 +305,7 @@ function FissionEnergyReleaseDelayedNeutronKEGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleaseDelayedNeutronKEGetConst
 end function FissionEnergyReleaseDelayedNeutronKEGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleaseDelayedNeutronKEGet(handle) &
       bind(C, name='FissionEnergyReleaseDelayedNeutronKEGet')
    use iso_c_binding
@@ -342,7 +346,7 @@ function FissionEnergyReleasePromptGammaEnergyGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleasePromptGammaEnergyGetConst
 end function FissionEnergyReleasePromptGammaEnergyGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleasePromptGammaEnergyGet(handle) &
       bind(C, name='FissionEnergyReleasePromptGammaEnergyGet')
    use iso_c_binding
@@ -383,7 +387,7 @@ function FissionEnergyReleaseDelayedGammaEnergyGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleaseDelayedGammaEnergyGetConst
 end function FissionEnergyReleaseDelayedGammaEnergyGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleaseDelayedGammaEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseDelayedGammaEnergyGet')
    use iso_c_binding
@@ -424,7 +428,7 @@ function FissionEnergyReleaseDelayedBetaEnergyGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleaseDelayedBetaEnergyGetConst
 end function FissionEnergyReleaseDelayedBetaEnergyGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleaseDelayedBetaEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseDelayedBetaEnergyGet')
    use iso_c_binding
@@ -465,7 +469,7 @@ function FissionEnergyReleaseNeutrinoEnergyGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleaseNeutrinoEnergyGetConst
 end function FissionEnergyReleaseNeutrinoEnergyGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleaseNeutrinoEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseNeutrinoEnergyGet')
    use iso_c_binding
@@ -506,7 +510,7 @@ function FissionEnergyReleaseNonNeutrinoEnergyGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleaseNonNeutrinoEnergyGetConst
 end function FissionEnergyReleaseNonNeutrinoEnergyGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleaseNonNeutrinoEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseNonNeutrinoEnergyGet')
    use iso_c_binding
@@ -547,7 +551,7 @@ function FissionEnergyReleaseTotalEnergyGetConst(handle) &
    type(c_ptr) :: FissionEnergyReleaseTotalEnergyGetConst
 end function FissionEnergyReleaseTotalEnergyGetConst
 
-!! Get
+!! Get, non-const
 function FissionEnergyReleaseTotalEnergyGet(handle) &
       bind(C, name='FissionEnergyReleaseTotalEnergyGet')
    use iso_c_binding

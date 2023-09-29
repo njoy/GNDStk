@@ -20,7 +20,7 @@ function BaryonDefaultConst() &
    type(c_ptr) :: BaryonDefaultConst
 end function BaryonDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BaryonDefault() &
       bind(C, name='BaryonDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function BaryonCreateConst( &
    type(c_ptr) :: BaryonCreateConst
 end function BaryonCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BaryonCreate( &
    id, &
    mass, &
@@ -103,6 +103,8 @@ end subroutine BaryonDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BaryonRead(handle, filename, filenameSize) &
       bind(C, name='BaryonRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function BaryonRead(handle, filename, filenameSize) &
 end function BaryonRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BaryonWrite(handle, filename, filenameSize) &
       bind(C, name='BaryonWrite')
    use iso_c_binding
@@ -207,7 +211,7 @@ function BaryonMassGetConst(handle) &
    type(c_ptr) :: BaryonMassGetConst
 end function BaryonMassGetConst
 
-!! Get
+!! Get, non-const
 function BaryonMassGet(handle) &
       bind(C, name='BaryonMassGet')
    use iso_c_binding
@@ -248,7 +252,7 @@ function BaryonSpinGetConst(handle) &
    type(c_ptr) :: BaryonSpinGetConst
 end function BaryonSpinGetConst
 
-!! Get
+!! Get, non-const
 function BaryonSpinGet(handle) &
       bind(C, name='BaryonSpinGet')
    use iso_c_binding
@@ -289,7 +293,7 @@ function BaryonParityGetConst(handle) &
    type(c_ptr) :: BaryonParityGetConst
 end function BaryonParityGetConst
 
-!! Get
+!! Get, non-const
 function BaryonParityGet(handle) &
       bind(C, name='BaryonParityGet')
    use iso_c_binding
@@ -330,7 +334,7 @@ function BaryonChargeGetConst(handle) &
    type(c_ptr) :: BaryonChargeGetConst
 end function BaryonChargeGetConst
 
-!! Get
+!! Get, non-const
 function BaryonChargeGet(handle) &
       bind(C, name='BaryonChargeGet')
    use iso_c_binding
@@ -371,7 +375,7 @@ function BaryonHalflifeGetConst(handle) &
    type(c_ptr) :: BaryonHalflifeGetConst
 end function BaryonHalflifeGetConst
 
-!! Get
+!! Get, non-const
 function BaryonHalflifeGet(handle) &
       bind(C, name='BaryonHalflifeGet')
    use iso_c_binding
@@ -412,7 +416,7 @@ function BaryonDecayDataGetConst(handle) &
    type(c_ptr) :: BaryonDecayDataGetConst
 end function BaryonDecayDataGetConst
 
-!! Get
+!! Get, non-const
 function BaryonDecayDataGet(handle) &
       bind(C, name='BaryonDecayDataGet')
    use iso_c_binding

@@ -71,7 +71,7 @@ typedef       struct ChannelClass *      Handle2Channel;
 extern_c Handle2ConstChannel
 ChannelDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Channel
 ChannelDefault();
 
@@ -87,7 +87,7 @@ ChannelCreateConst(
    ConstHandle2ConstHardSphereRadius hardSphereRadius
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Channel
 ChannelCreate(
    const char *const label,
@@ -245,7 +245,7 @@ ChannelScatteringRadiusHas(ConstHandle2ConstChannel self);
 extern_c Handle2ConstScatteringRadius
 ChannelScatteringRadiusGetConst(ConstHandle2ConstChannel self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ScatteringRadius
 ChannelScatteringRadiusGet(ConstHandle2Channel self);
 
@@ -266,7 +266,7 @@ ChannelHardSphereRadiusHas(ConstHandle2ConstChannel self);
 extern_c Handle2ConstHardSphereRadius
 ChannelHardSphereRadiusGetConst(ConstHandle2ConstChannel self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2HardSphereRadius
 ChannelHardSphereRadiusGet(ConstHandle2Channel self);
 

@@ -31,7 +31,7 @@ AddDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Add
 AddDefault()
 {
@@ -51,7 +51,7 @@ AddCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Add
 AddCreate(
    const char *const href

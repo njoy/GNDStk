@@ -36,7 +36,7 @@ RowDataDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2RowData
 RowDataDefault()
 {
@@ -62,7 +62,7 @@ RowDataCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2RowData
 RowDataCreate(
    const char *const ENDF_MFMT,
@@ -262,7 +262,7 @@ RowDataSlicesGetConst(ConstHandle2ConstRowData self)
       (CLASSNAME, CLASSNAME+"SlicesGetConst", self, extract::slices);
 }
 
-// Get
+// Get, non-const
 Handle2Slices
 RowDataSlicesGet(ConstHandle2RowData self)
 {

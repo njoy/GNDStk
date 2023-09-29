@@ -20,7 +20,7 @@ function RDefaultConst() &
    type(c_ptr) :: RDefaultConst
 end function RDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RDefault() &
       bind(C, name='RDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function RCreateConst( &
    type(c_ptr) :: RCreateConst
 end function RCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RCreate( &
    XYs2d &
 ) &
@@ -75,6 +75,8 @@ end subroutine RDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RRead(handle, filename, filenameSize) &
       bind(C, name='RRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function RRead(handle, filename, filenameSize) &
 end function RRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RWrite(handle, filename, filenameSize) &
       bind(C, name='RWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function RXYs2dGetConst(handle) &
    type(c_ptr) :: RXYs2dGetConst
 end function RXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function RXYs2dGet(handle) &
       bind(C, name='RXYs2dGet')
    use iso_c_binding

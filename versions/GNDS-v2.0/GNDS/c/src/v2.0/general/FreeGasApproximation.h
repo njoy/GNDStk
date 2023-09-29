@@ -69,7 +69,7 @@ typedef       struct FreeGasApproximationClass *      Handle2FreeGasApproximatio
 extern_c Handle2ConstFreeGasApproximation
 FreeGasApproximationDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FreeGasApproximation
 FreeGasApproximationDefault();
 
@@ -77,7 +77,7 @@ FreeGasApproximationDefault();
 extern_c Handle2ConstFreeGasApproximation
 FreeGasApproximationCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FreeGasApproximation
 FreeGasApproximationCreate();
 

@@ -36,7 +36,7 @@ XYs3dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2XYs3d
 XYs3dDefault()
 {
@@ -62,7 +62,7 @@ XYs3dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2XYs3d
 XYs3dCreate(
    const char *const interpolationQualifier,
@@ -202,7 +202,7 @@ XYs3dAxesGetConst(ConstHandle2ConstXYs3d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 XYs3dAxesGet(ConstHandle2XYs3d self)
 {
@@ -263,7 +263,7 @@ XYs3dFunction2dsGetConst(ConstHandle2ConstXYs3d self, const size_t index_)
       (CLASSNAME, CLASSNAME+"Function2dsGetConst", self, extract::function2ds, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Function2ds
 XYs3dFunction2dsGet(ConstHandle2XYs3d self, const size_t index_)
 {

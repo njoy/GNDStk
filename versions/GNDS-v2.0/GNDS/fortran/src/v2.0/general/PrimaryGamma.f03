@@ -20,7 +20,7 @@ function PrimaryGammaDefaultConst() &
    type(c_ptr) :: PrimaryGammaDefaultConst
 end function PrimaryGammaDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PrimaryGammaDefault() &
       bind(C, name='PrimaryGammaDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function PrimaryGammaCreateConst( &
    type(c_ptr) :: PrimaryGammaCreateConst
 end function PrimaryGammaCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PrimaryGammaCreate( &
    value, &
    domainMin, &
@@ -87,6 +87,8 @@ end subroutine PrimaryGammaDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PrimaryGammaRead(handle, filename, filenameSize) &
       bind(C, name='PrimaryGammaRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function PrimaryGammaRead(handle, filename, filenameSize) &
 end function PrimaryGammaRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PrimaryGammaWrite(handle, filename, filenameSize) &
       bind(C, name='PrimaryGammaWrite')
    use iso_c_binding
@@ -254,7 +258,7 @@ function PrimaryGammaAxesGetConst(handle) &
    type(c_ptr) :: PrimaryGammaAxesGetConst
 end function PrimaryGammaAxesGetConst
 
-!! Get
+!! Get, non-const
 function PrimaryGammaAxesGet(handle) &
       bind(C, name='PrimaryGammaAxesGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function TotalEnergyDefaultConst() &
    type(c_ptr) :: TotalEnergyDefaultConst
 end function TotalEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function TotalEnergyDefault() &
       bind(C, name='TotalEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function TotalEnergyCreateConst( &
    type(c_ptr) :: TotalEnergyCreateConst
 end function TotalEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function TotalEnergyCreate( &
    polynomial1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine TotalEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function TotalEnergyRead(handle, filename, filenameSize) &
       bind(C, name='TotalEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function TotalEnergyRead(handle, filename, filenameSize) &
 end function TotalEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function TotalEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='TotalEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function TotalEnergyPolynomial1dGetConst(handle) &
    type(c_ptr) :: TotalEnergyPolynomial1dGetConst
 end function TotalEnergyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function TotalEnergyPolynomial1dGet(handle) &
       bind(C, name='TotalEnergyPolynomial1dGet')
    use iso_c_binding

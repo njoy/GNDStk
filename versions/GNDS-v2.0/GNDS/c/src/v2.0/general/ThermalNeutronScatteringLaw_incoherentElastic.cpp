@@ -38,7 +38,7 @@ ThermalNeutronScatteringLaw_incoherentElasticDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentElastic
 ThermalNeutronScatteringLaw_incoherentElasticDefault()
 {
@@ -66,7 +66,7 @@ ThermalNeutronScatteringLaw_incoherentElasticCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ThermalNeutronScatteringLaw_incoherentElastic
 ThermalNeutronScatteringLaw_incoherentElasticCreate(
    const char *const label,
@@ -268,7 +268,7 @@ ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGetConst(Const
       (CLASSNAME, CLASSNAME+"BoundAtomCrossSectionGetConst", self, extract::boundAtomCrossSection);
 }
 
-// Get
+// Get, non-const
 Handle2BoundAtomCrossSection
 ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self)
 {
@@ -305,7 +305,7 @@ ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGetConst(ConstHa
       (CLASSNAME, CLASSNAME+"DebyeWallerIntegralGetConst", self, extract::DebyeWallerIntegral);
 }
 
-// Get
+// Get, non-const
 Handle2DebyeWallerIntegral
 ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self)
 {

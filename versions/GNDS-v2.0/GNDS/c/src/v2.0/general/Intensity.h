@@ -70,7 +70,7 @@ typedef       struct IntensityClass *      Handle2Intensity;
 extern_c Handle2ConstIntensity
 IntensityDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Intensity
 IntensityDefault();
 
@@ -81,7 +81,7 @@ IntensityCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Intensity
 IntensityCreate(
    const double value,
@@ -162,7 +162,7 @@ IntensityUncertaintyHas(ConstHandle2ConstIntensity self);
 extern_c Handle2ConstUncertainty
 IntensityUncertaintyGetConst(ConstHandle2ConstIntensity self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 IntensityUncertaintyGet(ConstHandle2Intensity self);
 

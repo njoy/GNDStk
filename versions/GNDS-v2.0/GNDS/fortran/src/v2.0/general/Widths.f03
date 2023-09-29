@@ -20,7 +20,7 @@ function WidthsDefaultConst() &
    type(c_ptr) :: WidthsDefaultConst
 end function WidthsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function WidthsDefault() &
       bind(C, name='WidthsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function WidthsCreateConst( &
    type(c_ptr) :: WidthsCreateConst
 end function WidthsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function WidthsCreate( &
    width, widthSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine WidthsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function WidthsRead(handle, filename, filenameSize) &
       bind(C, name='WidthsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function WidthsRead(handle, filename, filenameSize) &
 end function WidthsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function WidthsWrite(handle, filename, filenameSize) &
       bind(C, name='WidthsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function WidthsWidthGetConst(handle, index) &
    type(c_ptr) :: WidthsWidthGetConst
 end function WidthsWidthGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function WidthsWidthGet(handle, index) &
       bind(C, name='WidthsWidthGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function WidthsWidthGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: WidthsWidthGetByLabelConst
 end function WidthsWidthGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function WidthsWidthGetByLabel(handle, meta, metaSize) &
       bind(C, name='WidthsWidthGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function WidthsWidthGetByResonanceReactionConst(handle, meta, metaSize) &
    type(c_ptr) :: WidthsWidthGetByResonanceReactionConst
 end function WidthsWidthGetByResonanceReactionConst
 
-!! Get, by resonanceReaction
+!! Get, by resonanceReaction, non-const
 function WidthsWidthGetByResonanceReaction(handle, meta, metaSize) &
       bind(C, name='WidthsWidthGetByResonanceReaction')
    use iso_c_binding
@@ -315,7 +319,7 @@ function WidthsWidthGetByDegreesOfFreedomConst(handle, meta) &
    type(c_ptr) :: WidthsWidthGetByDegreesOfFreedomConst
 end function WidthsWidthGetByDegreesOfFreedomConst
 
-!! Get, by degreesOfFreedom
+!! Get, by degreesOfFreedom, non-const
 function WidthsWidthGetByDegreesOfFreedom(handle, meta) &
       bind(C, name='WidthsWidthGetByDegreesOfFreedom')
    use iso_c_binding

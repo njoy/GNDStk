@@ -35,7 +35,7 @@ ArrayDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Array
 ArrayDefault()
 {
@@ -59,7 +59,7 @@ ArrayCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Array
 ArrayCreate(
    const char *const shape,
@@ -227,7 +227,7 @@ ArrayValuesGetConst(ConstHandle2ConstArray self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get
+// Get, non-const
 Handle2Values
 ArrayValuesGet(ConstHandle2Array self)
 {

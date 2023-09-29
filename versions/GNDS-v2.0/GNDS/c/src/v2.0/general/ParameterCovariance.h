@@ -71,7 +71,7 @@ typedef       struct ParameterCovarianceClass *      Handle2ParameterCovariance;
 extern_c Handle2ConstParameterCovariance
 ParameterCovarianceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ParameterCovariance
 ParameterCovarianceDefault();
 
@@ -83,7 +83,7 @@ ParameterCovarianceCreateConst(
    ConstHandle2ConstParameterCovarianceMatrix parameterCovarianceMatrix
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ParameterCovariance
 ParameterCovarianceCreate(
    const char *const label,
@@ -165,7 +165,7 @@ ParameterCovarianceRowDataHas(ConstHandle2ConstParameterCovariance self);
 extern_c Handle2ConstRowData
 ParameterCovarianceRowDataGetConst(ConstHandle2ConstParameterCovariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2RowData
 ParameterCovarianceRowDataGet(ConstHandle2ParameterCovariance self);
 
@@ -186,7 +186,7 @@ ParameterCovarianceParameterCovarianceMatrixHas(ConstHandle2ConstParameterCovari
 extern_c Handle2ConstParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGetConst(ConstHandle2ConstParameterCovariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ParameterCovarianceMatrix
 ParameterCovarianceParameterCovarianceMatrixGet(ConstHandle2ParameterCovariance self);
 

@@ -35,7 +35,7 @@ HalflifeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Halflife
 HalflifeDefault()
 {
@@ -57,7 +57,7 @@ HalflifeCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Halflife
 HalflifeCreate(
    ConstHandle2ConstString string,
@@ -163,7 +163,7 @@ HalflifeStringGetConst(ConstHandle2ConstHalflife self)
       (CLASSNAME, CLASSNAME+"StringGetConst", self, extract::string);
 }
 
-// Get
+// Get, non-const
 Handle2String
 HalflifeStringGet(ConstHandle2Halflife self)
 {
@@ -200,7 +200,7 @@ HalflifeDoubleGetConst(ConstHandle2ConstHalflife self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 HalflifeDoubleGet(ConstHandle2Halflife self)
 {

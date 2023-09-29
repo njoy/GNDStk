@@ -20,7 +20,7 @@ function Regions2dDefaultConst() &
    type(c_ptr) :: Regions2dDefaultConst
 end function Regions2dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Regions2dDefault() &
       bind(C, name='Regions2dDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function Regions2dCreateConst( &
    type(c_ptr) :: Regions2dCreateConst
 end function Regions2dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Regions2dCreate( &
    axes, &
    function2ds, &
@@ -83,6 +83,8 @@ end subroutine Regions2dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Regions2dRead(handle, filename, filenameSize) &
       bind(C, name='Regions2dRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function Regions2dRead(handle, filename, filenameSize) &
 end function Regions2dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Regions2dWrite(handle, filename, filenameSize) &
       bind(C, name='Regions2dWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function Regions2dAxesGetConst(handle) &
    type(c_ptr) :: Regions2dAxesGetConst
 end function Regions2dAxesGetConst
 
-!! Get
+!! Get, non-const
 function Regions2dAxesGet(handle) &
       bind(C, name='Regions2dAxesGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function Regions2dFunction2dsGetConst(handle) &
    type(c_ptr) :: Regions2dFunction2dsGetConst
 end function Regions2dFunction2dsGetConst
 
-!! Get
+!! Get, non-const
 function Regions2dFunction2dsGet(handle) &
       bind(C, name='Regions2dFunction2dsGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function Regions2dUncertaintyGetConst(handle) &
    type(c_ptr) :: Regions2dUncertaintyGetConst
 end function Regions2dUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function Regions2dUncertaintyGet(handle) &
       bind(C, name='Regions2dUncertaintyGet')
    use iso_c_binding

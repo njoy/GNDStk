@@ -35,7 +35,7 @@ FastRegionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2FastRegion
 FastRegionDefault()
 {
@@ -57,7 +57,7 @@ FastRegionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2FastRegion
 FastRegionCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -163,7 +163,7 @@ FastRegionXYs1dGetConst(ConstHandle2ConstFastRegion self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 FastRegionXYs1dGet(ConstHandle2FastRegion self)
 {
@@ -200,7 +200,7 @@ FastRegionRegions1dGetConst(ConstHandle2ConstFastRegion self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions1d
 FastRegionRegions1dGet(ConstHandle2FastRegion self)
 {

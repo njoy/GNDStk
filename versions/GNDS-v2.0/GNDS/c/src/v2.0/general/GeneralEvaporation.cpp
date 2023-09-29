@@ -37,7 +37,7 @@ GeneralEvaporationDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2GeneralEvaporation
 GeneralEvaporationDefault()
 {
@@ -61,7 +61,7 @@ GeneralEvaporationCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2GeneralEvaporation
 GeneralEvaporationCreate(
    ConstHandle2ConstU U,
@@ -169,7 +169,7 @@ GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation self)
       (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
-// Get
+// Get, non-const
 Handle2U
 GeneralEvaporationUGet(ConstHandle2GeneralEvaporation self)
 {
@@ -206,7 +206,7 @@ GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation self)
       (CLASSNAME, CLASSNAME+"ThetaGetConst", self, extract::theta);
 }
 
-// Get
+// Get, non-const
 Handle2Theta
 GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation self)
 {
@@ -243,7 +243,7 @@ GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation self)
       (CLASSNAME, CLASSNAME+"GGetConst", self, extract::g);
 }
 
-// Get
+// Get, non-const
 Handle2G
 GeneralEvaporationGGet(ConstHandle2GeneralEvaporation self)
 {

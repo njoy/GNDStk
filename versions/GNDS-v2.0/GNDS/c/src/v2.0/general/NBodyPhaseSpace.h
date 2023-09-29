@@ -70,7 +70,7 @@ typedef       struct NBodyPhaseSpaceClass *      Handle2NBodyPhaseSpace;
 extern_c Handle2ConstNBodyPhaseSpace
 NBodyPhaseSpaceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2NBodyPhaseSpace
 NBodyPhaseSpaceDefault();
 
@@ -81,7 +81,7 @@ NBodyPhaseSpaceCreateConst(
    ConstHandle2ConstMass mass
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2NBodyPhaseSpace
 NBodyPhaseSpaceCreate(
    const int numberOfProducts,
@@ -162,7 +162,7 @@ NBodyPhaseSpaceMassHas(ConstHandle2ConstNBodyPhaseSpace self);
 extern_c Handle2ConstMass
 NBodyPhaseSpaceMassGetConst(ConstHandle2ConstNBodyPhaseSpace self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Mass
 NBodyPhaseSpaceMassGet(ConstHandle2NBodyPhaseSpace self);
 

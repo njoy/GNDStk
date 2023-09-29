@@ -20,7 +20,7 @@ function BodyDefaultConst() &
    type(c_ptr) :: BodyDefaultConst
 end function BodyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BodyDefault() &
       bind(C, name='BodyDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function BodyCreateConst( &
    type(c_ptr) :: BodyCreateConst
 end function BodyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BodyCreate( &
 ) &
       bind(C, name='BodyCreate')
@@ -71,6 +71,8 @@ end subroutine BodyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BodyRead(handle, filename, filenameSize) &
       bind(C, name='BodyRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function BodyRead(handle, filename, filenameSize) &
 end function BodyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BodyWrite(handle, filename, filenameSize) &
       bind(C, name='BodyWrite')
    use iso_c_binding

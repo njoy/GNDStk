@@ -20,7 +20,7 @@ function WeightedDefaultConst() &
    type(c_ptr) :: WeightedDefaultConst
 end function WeightedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function WeightedDefault() &
       bind(C, name='WeightedDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function WeightedCreateConst( &
    type(c_ptr) :: WeightedCreateConst
 end function WeightedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function WeightedCreate( &
    XYs1d, &
    evaporation &
@@ -79,6 +79,8 @@ end subroutine WeightedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function WeightedRead(handle, filename, filenameSize) &
       bind(C, name='WeightedRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function WeightedRead(handle, filename, filenameSize) &
 end function WeightedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function WeightedWrite(handle, filename, filenameSize) &
       bind(C, name='WeightedWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function WeightedXYs1dGetConst(handle) &
    type(c_ptr) :: WeightedXYs1dGetConst
 end function WeightedXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function WeightedXYs1dGet(handle) &
       bind(C, name='WeightedXYs1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function WeightedEvaporationGetConst(handle) &
    type(c_ptr) :: WeightedEvaporationGetConst
 end function WeightedEvaporationGetConst
 
-!! Get
+!! Get, non-const
 function WeightedEvaporationGet(handle) &
       bind(C, name='WeightedEvaporationGet')
    use iso_c_binding

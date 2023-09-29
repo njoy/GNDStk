@@ -44,7 +44,7 @@ BaryonDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Baryon
 BaryonDefault()
 {
@@ -76,7 +76,7 @@ BaryonCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Baryon
 BaryonCreate(
    const char *const id,
@@ -222,7 +222,7 @@ BaryonMassGetConst(ConstHandle2ConstBaryon self)
       (CLASSNAME, CLASSNAME+"MassGetConst", self, extract::mass);
 }
 
-// Get
+// Get, non-const
 Handle2Mass
 BaryonMassGet(ConstHandle2Baryon self)
 {
@@ -259,7 +259,7 @@ BaryonSpinGetConst(ConstHandle2ConstBaryon self)
       (CLASSNAME, CLASSNAME+"SpinGetConst", self, extract::spin);
 }
 
-// Get
+// Get, non-const
 Handle2Spin
 BaryonSpinGet(ConstHandle2Baryon self)
 {
@@ -296,7 +296,7 @@ BaryonParityGetConst(ConstHandle2ConstBaryon self)
       (CLASSNAME, CLASSNAME+"ParityGetConst", self, extract::parity);
 }
 
-// Get
+// Get, non-const
 Handle2Parity
 BaryonParityGet(ConstHandle2Baryon self)
 {
@@ -333,7 +333,7 @@ BaryonChargeGetConst(ConstHandle2ConstBaryon self)
       (CLASSNAME, CLASSNAME+"ChargeGetConst", self, extract::charge);
 }
 
-// Get
+// Get, non-const
 Handle2Charge
 BaryonChargeGet(ConstHandle2Baryon self)
 {
@@ -370,7 +370,7 @@ BaryonHalflifeGetConst(ConstHandle2ConstBaryon self)
       (CLASSNAME, CLASSNAME+"HalflifeGetConst", self, extract::halflife);
 }
 
-// Get
+// Get, non-const
 Handle2Halflife
 BaryonHalflifeGet(ConstHandle2Baryon self)
 {
@@ -407,7 +407,7 @@ BaryonDecayDataGetConst(ConstHandle2ConstBaryon self)
       (CLASSNAME, CLASSNAME+"DecayDataGetConst", self, extract::decayData);
 }
 
-// Get
+// Get, non-const
 Handle2DecayData
 BaryonDecayDataGet(ConstHandle2Baryon self)
 {

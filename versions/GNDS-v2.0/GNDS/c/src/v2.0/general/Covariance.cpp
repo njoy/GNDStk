@@ -35,7 +35,7 @@ CovarianceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Covariance
 CovarianceDefault()
 {
@@ -59,7 +59,7 @@ CovarianceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Covariance
 CovarianceCreate(
    const char *const label,
@@ -227,7 +227,7 @@ CovarianceArrayGetConst(ConstHandle2ConstCovariance self)
       (CLASSNAME, CLASSNAME+"ArrayGetConst", self, extract::array);
 }
 
-// Get
+// Get, non-const
 Handle2Array
 CovarianceArrayGet(ConstHandle2Covariance self)
 {

@@ -33,7 +33,7 @@ MetaStableDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2MetaStable
 MetaStableDefault()
 {
@@ -57,7 +57,7 @@ MetaStableCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2MetaStable
 MetaStableCreate(
    const char *const id,

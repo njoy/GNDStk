@@ -20,7 +20,7 @@ function RateDefaultConst() &
    type(c_ptr) :: RateDefaultConst
 end function RateDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RateDefault() &
       bind(C, name='RateDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function RateCreateConst( &
    type(c_ptr) :: RateCreateConst
 end function RateCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RateCreate( &
    Double &
 ) &
@@ -75,6 +75,8 @@ end subroutine RateDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RateRead(handle, filename, filenameSize) &
       bind(C, name='RateRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function RateRead(handle, filename, filenameSize) &
 end function RateRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RateWrite(handle, filename, filenameSize) &
       bind(C, name='RateWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function RateDoubleGetConst(handle) &
    type(c_ptr) :: RateDoubleGetConst
 end function RateDoubleGetConst
 
-!! Get
+!! Get, non-const
 function RateDoubleGet(handle) &
       bind(C, name='RateDoubleGet')
    use iso_c_binding

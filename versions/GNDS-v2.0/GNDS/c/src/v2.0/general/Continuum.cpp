@@ -33,7 +33,7 @@ ContinuumDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Continuum
 ContinuumDefault()
 {
@@ -53,7 +53,7 @@ ContinuumCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Continuum
 ContinuumCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ ContinuumXYs1dGetConst(ConstHandle2ConstContinuum self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 ContinuumXYs1dGet(ConstHandle2Continuum self)
 {

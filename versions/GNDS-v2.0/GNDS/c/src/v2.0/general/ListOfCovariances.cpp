@@ -33,7 +33,7 @@ ListOfCovariancesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ListOfCovariances
 ListOfCovariancesDefault()
 {
@@ -55,7 +55,7 @@ ListOfCovariancesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ListOfCovariances
 ListOfCovariancesCreate(
    ConstHandle2Covariance *const covariance, const size_t covarianceSize
@@ -185,7 +185,7 @@ ListOfCovariancesCovarianceGetConst(ConstHandle2ConstListOfCovariances self, con
       (CLASSNAME, CLASSNAME+"CovarianceGetConst", self, extract::covariance, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Covariance
 ListOfCovariancesCovarianceGet(ConstHandle2ListOfCovariances self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ListOfCovariancesCovarianceGetByLabelConst(
        self, extract::covariance, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2Covariance
 ListOfCovariancesCovarianceGetByLabel(
    ConstHandle2ListOfCovariances self,
@@ -279,7 +279,7 @@ ListOfCovariancesCovarianceGetByHrefConst(
        self, extract::covariance, meta::href, href);
 }
 
-// Get, by href
+// Get, by href, non-const
 Handle2Covariance
 ListOfCovariancesCovarianceGetByHref(
    ConstHandle2ListOfCovariances self,

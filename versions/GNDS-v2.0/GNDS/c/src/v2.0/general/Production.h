@@ -71,7 +71,7 @@ typedef       struct ProductionClass *      Handle2Production;
 extern_c Handle2ConstProduction
 ProductionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Production
 ProductionDefault();
 
@@ -84,7 +84,7 @@ ProductionCreateConst(
    ConstHandle2ConstOutputChannel outputChannel
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Production
 ProductionCreate(
    const char *const label,
@@ -185,7 +185,7 @@ ProductionCrossSectionHas(ConstHandle2ConstProduction self);
 extern_c Handle2ConstCrossSection
 ProductionCrossSectionGetConst(ConstHandle2ConstProduction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CrossSection
 ProductionCrossSectionGet(ConstHandle2Production self);
 
@@ -206,7 +206,7 @@ ProductionOutputChannelHas(ConstHandle2ConstProduction self);
 extern_c Handle2ConstOutputChannel
 ProductionOutputChannelGetConst(ConstHandle2ConstProduction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2OutputChannel
 ProductionOutputChannelGet(ConstHandle2Production self);
 

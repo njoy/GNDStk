@@ -69,7 +69,7 @@ typedef       struct DataClass *      Handle2Data;
 extern_c Handle2ConstData
 DataDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Data
 DataDefault();
 
@@ -77,7 +77,7 @@ DataDefault();
 extern_c Handle2ConstData
 DataCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Data
 DataCreate();
 
@@ -151,7 +151,7 @@ DataDoublesSet(ConstHandle2Data self, const size_t index, const double value);
 extern_c const double *
 DataDoublesGetArrayConst(ConstHandle2ConstData self);
 
-// +++ Get pointer to existing values
+// +++ Get pointer to existing values, non-const
 extern_c double *
 DataDoublesGetArray(ConstHandle2Data self);
 

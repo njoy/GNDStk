@@ -20,7 +20,7 @@ function Function1dsDefaultConst() &
    type(c_ptr) :: Function1dsDefaultConst
 end function Function1dsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Function1dsDefault() &
       bind(C, name='Function1dsDefault')
    use iso_c_binding
@@ -46,7 +46,7 @@ function Function1dsCreateConst( &
    type(c_ptr) :: Function1dsCreateConst
 end function Function1dsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Function1dsCreate( &
    Legendre, LegendreSize, &
    XYs1d, XYs1dSize, &
@@ -89,6 +89,8 @@ end subroutine Function1dsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Function1dsRead(handle, filename, filenameSize) &
       bind(C, name='Function1dsRead')
    use iso_c_binding
@@ -100,6 +102,8 @@ function Function1dsRead(handle, filename, filenameSize) &
 end function Function1dsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Function1dsWrite(handle, filename, filenameSize) &
       bind(C, name='Function1dsWrite')
    use iso_c_binding
@@ -187,7 +191,7 @@ function Function1dsLegendreGetConst(handle, index) &
    type(c_ptr) :: Function1dsLegendreGetConst
 end function Function1dsLegendreGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function Function1dsLegendreGet(handle, index) &
       bind(C, name='Function1dsLegendreGet')
    use iso_c_binding
@@ -231,7 +235,7 @@ function Function1dsLegendreGetByOuterDomainValueConst(handle, meta) &
    type(c_ptr) :: Function1dsLegendreGetByOuterDomainValueConst
 end function Function1dsLegendreGetByOuterDomainValueConst
 
-!! Get, by outerDomainValue
+!! Get, by outerDomainValue, non-const
 function Function1dsLegendreGetByOuterDomainValue(handle, meta) &
       bind(C, name='Function1dsLegendreGetByOuterDomainValue')
    use iso_c_binding
@@ -301,7 +305,7 @@ function Function1dsXYs1dGetConst(handle, index) &
    type(c_ptr) :: Function1dsXYs1dGetConst
 end function Function1dsXYs1dGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function Function1dsXYs1dGet(handle, index) &
       bind(C, name='Function1dsXYs1dGet')
    use iso_c_binding
@@ -347,7 +351,7 @@ function Function1dsXYs1dGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: Function1dsXYs1dGetByLabelConst
 end function Function1dsXYs1dGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function Function1dsXYs1dGetByLabel(handle, meta, metaSize) &
       bind(C, name='Function1dsXYs1dGetByLabel')
    use iso_c_binding
@@ -393,7 +397,7 @@ function Function1dsXYs1dGetByIndexConst(handle, meta) &
    type(c_ptr) :: Function1dsXYs1dGetByIndexConst
 end function Function1dsXYs1dGetByIndexConst
 
-!! Get, by index
+!! Get, by index, non-const
 function Function1dsXYs1dGetByIndex(handle, meta) &
       bind(C, name='Function1dsXYs1dGetByIndex')
    use iso_c_binding
@@ -439,7 +443,7 @@ function Function1dsXYs1dGetByInterpolationConst(handle, meta, metaSize) &
    type(c_ptr) :: Function1dsXYs1dGetByInterpolationConst
 end function Function1dsXYs1dGetByInterpolationConst
 
-!! Get, by interpolation
+!! Get, by interpolation, non-const
 function Function1dsXYs1dGetByInterpolation(handle, meta, metaSize) &
       bind(C, name='Function1dsXYs1dGetByInterpolation')
    use iso_c_binding
@@ -485,7 +489,7 @@ function Function1dsXYs1dGetByOuterDomainValueConst(handle, meta) &
    type(c_ptr) :: Function1dsXYs1dGetByOuterDomainValueConst
 end function Function1dsXYs1dGetByOuterDomainValueConst
 
-!! Get, by outerDomainValue
+!! Get, by outerDomainValue, non-const
 function Function1dsXYs1dGetByOuterDomainValue(handle, meta) &
       bind(C, name='Function1dsXYs1dGetByOuterDomainValue')
    use iso_c_binding
@@ -555,7 +559,7 @@ function Function1dsRegions1dGetConst(handle, index) &
    type(c_ptr) :: Function1dsRegions1dGetConst
 end function Function1dsRegions1dGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function Function1dsRegions1dGet(handle, index) &
       bind(C, name='Function1dsRegions1dGet')
    use iso_c_binding
@@ -601,7 +605,7 @@ function Function1dsRegions1dGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: Function1dsRegions1dGetByLabelConst
 end function Function1dsRegions1dGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function Function1dsRegions1dGetByLabel(handle, meta, metaSize) &
       bind(C, name='Function1dsRegions1dGetByLabel')
    use iso_c_binding
@@ -647,7 +651,7 @@ function Function1dsRegions1dGetByOuterDomainValueConst(handle, meta) &
    type(c_ptr) :: Function1dsRegions1dGetByOuterDomainValueConst
 end function Function1dsRegions1dGetByOuterDomainValueConst
 
-!! Get, by outerDomainValue
+!! Get, by outerDomainValue, non-const
 function Function1dsRegions1dGetByOuterDomainValue(handle, meta) &
       bind(C, name='Function1dsRegions1dGetByOuterDomainValue')
    use iso_c_binding

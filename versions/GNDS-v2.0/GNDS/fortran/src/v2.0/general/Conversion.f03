@@ -20,7 +20,7 @@ function ConversionDefaultConst() &
    type(c_ptr) :: ConversionDefaultConst
 end function ConversionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ConversionDefault() &
       bind(C, name='ConversionDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ConversionCreateConst( &
    type(c_ptr) :: ConversionCreateConst
 end function ConversionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ConversionCreate( &
    flags, &
    href, &
@@ -87,6 +87,8 @@ end subroutine ConversionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ConversionRead(handle, filename, filenameSize) &
       bind(C, name='ConversionRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ConversionRead(handle, filename, filenameSize) &
 end function ConversionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ConversionWrite(handle, filename, filenameSize) &
       bind(C, name='ConversionWrite')
    use iso_c_binding

@@ -72,7 +72,7 @@ typedef       struct EvaluatedClass *      Handle2Evaluated;
 extern_c Handle2ConstEvaluated
 EvaluatedDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Evaluated
 EvaluatedDefault();
 
@@ -88,7 +88,7 @@ EvaluatedCreateConst(
    ConstHandle2ConstProjectileEnergyDomain projectileEnergyDomain
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Evaluated
 EvaluatedCreate(
    const char *const label,
@@ -228,7 +228,7 @@ EvaluatedDocumentationHas(ConstHandle2ConstEvaluated self);
 extern_c Handle2ConstDocumentation
 EvaluatedDocumentationGetConst(ConstHandle2ConstEvaluated self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Documentation
 EvaluatedDocumentationGet(ConstHandle2Evaluated self);
 
@@ -249,7 +249,7 @@ EvaluatedTemperatureHas(ConstHandle2ConstEvaluated self);
 extern_c Handle2ConstTemperature
 EvaluatedTemperatureGetConst(ConstHandle2ConstEvaluated self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Temperature
 EvaluatedTemperatureGet(ConstHandle2Evaluated self);
 
@@ -270,7 +270,7 @@ EvaluatedProjectileEnergyDomainHas(ConstHandle2ConstEvaluated self);
 extern_c Handle2ConstProjectileEnergyDomain
 EvaluatedProjectileEnergyDomainGetConst(ConstHandle2ConstEvaluated self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ProjectileEnergyDomain
 EvaluatedProjectileEnergyDomainGet(ConstHandle2Evaluated self);
 

@@ -20,7 +20,7 @@ function LegendreDefaultConst() &
    type(c_ptr) :: LegendreDefaultConst
 end function LegendreDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LegendreDefault() &
       bind(C, name='LegendreDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function LegendreCreateConst( &
    type(c_ptr) :: LegendreCreateConst
 end function LegendreCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LegendreCreate( &
    outerDomainValue, &
    values &
@@ -79,6 +79,8 @@ end subroutine LegendreDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LegendreRead(handle, filename, filenameSize) &
       bind(C, name='LegendreRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function LegendreRead(handle, filename, filenameSize) &
 end function LegendreRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LegendreWrite(handle, filename, filenameSize) &
       bind(C, name='LegendreWrite')
    use iso_c_binding
@@ -182,7 +186,7 @@ function LegendreValuesGetConst(handle) &
    type(c_ptr) :: LegendreValuesGetConst
 end function LegendreValuesGetConst
 
-!! Get
+!! Get, non-const
 function LegendreValuesGet(handle) &
       bind(C, name='LegendreValuesGet')
    use iso_c_binding

@@ -69,7 +69,7 @@ typedef       struct StringClass *      Handle2String;
 extern_c Handle2ConstString
 StringDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2String
 StringDefault();
 
@@ -81,7 +81,7 @@ StringCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2String
 StringCreate(
    const char *const label,

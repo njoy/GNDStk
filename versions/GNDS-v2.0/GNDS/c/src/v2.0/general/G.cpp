@@ -33,7 +33,7 @@ GDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2G
 GDefault()
 {
@@ -53,7 +53,7 @@ GCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2G
 GCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ GXYs1dGetConst(ConstHandle2ConstG self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 GXYs1dGet(ConstHandle2G self)
 {

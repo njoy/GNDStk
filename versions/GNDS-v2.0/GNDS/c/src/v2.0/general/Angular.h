@@ -71,7 +71,7 @@ typedef       struct AngularClass *      Handle2Angular;
 extern_c Handle2ConstAngular
 AngularDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Angular
 AngularDefault();
 
@@ -82,7 +82,7 @@ AngularCreateConst(
    ConstHandle2ConstXYs2d XYs2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Angular
 AngularCreate(
    ConstHandle2ConstIsotropic2d isotropic2d,
@@ -145,7 +145,7 @@ AngularIsotropic2dHas(ConstHandle2ConstAngular self);
 extern_c Handle2ConstIsotropic2d
 AngularIsotropic2dGetConst(ConstHandle2ConstAngular self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Isotropic2d
 AngularIsotropic2dGet(ConstHandle2Angular self);
 
@@ -166,7 +166,7 @@ AngularXYs2dHas(ConstHandle2ConstAngular self);
 extern_c Handle2ConstXYs2d
 AngularXYs2dGetConst(ConstHandle2ConstAngular self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 AngularXYs2dGet(ConstHandle2Angular self);
 

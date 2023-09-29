@@ -35,7 +35,7 @@ StylesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Styles
 StylesDefault()
 {
@@ -57,7 +57,7 @@ StylesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Styles
 StylesCreate(
    ConstHandle2ConstEvaluated evaluated,
@@ -163,7 +163,7 @@ StylesEvaluatedGetConst(ConstHandle2ConstStyles self)
       (CLASSNAME, CLASSNAME+"EvaluatedGetConst", self, extract::evaluated);
 }
 
-// Get
+// Get, non-const
 Handle2Evaluated
 StylesEvaluatedGet(ConstHandle2Styles self)
 {
@@ -200,7 +200,7 @@ StylesCrossSectionReconstructedGetConst(ConstHandle2ConstStyles self)
       (CLASSNAME, CLASSNAME+"CrossSectionReconstructedGetConst", self, extract::crossSectionReconstructed);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSectionReconstructed
 StylesCrossSectionReconstructedGet(ConstHandle2Styles self)
 {

@@ -70,7 +70,7 @@ typedef       struct NonNeutrinoEnergyClass *      Handle2NonNeutrinoEnergy;
 extern_c Handle2ConstNonNeutrinoEnergy
 NonNeutrinoEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2NonNeutrinoEnergy
 NonNeutrinoEnergyDefault();
 
@@ -80,7 +80,7 @@ NonNeutrinoEnergyCreateConst(
    ConstHandle2ConstPolynomial1d polynomial1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2NonNeutrinoEnergy
 NonNeutrinoEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -142,7 +142,7 @@ NonNeutrinoEnergyPolynomial1dHas(ConstHandle2ConstNonNeutrinoEnergy self);
 extern_c Handle2ConstPolynomial1d
 NonNeutrinoEnergyPolynomial1dGetConst(ConstHandle2ConstNonNeutrinoEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 NonNeutrinoEnergyPolynomial1dGet(ConstHandle2NonNeutrinoEnergy self);
 

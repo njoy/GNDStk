@@ -69,7 +69,7 @@ typedef       struct E_maxClass *      Handle2E_max;
 extern_c Handle2ConstE_max
 E_maxDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2E_max
 E_maxDefault();
 
@@ -80,7 +80,7 @@ E_maxCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2E_max
 E_maxCreate(
    const double value,

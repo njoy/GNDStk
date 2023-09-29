@@ -70,7 +70,7 @@ typedef       struct TotalEnergyClass *      Handle2TotalEnergy;
 extern_c Handle2ConstTotalEnergy
 TotalEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2TotalEnergy
 TotalEnergyDefault();
 
@@ -80,7 +80,7 @@ TotalEnergyCreateConst(
    ConstHandle2ConstPolynomial1d polynomial1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2TotalEnergy
 TotalEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -142,7 +142,7 @@ TotalEnergyPolynomial1dHas(ConstHandle2ConstTotalEnergy self);
 extern_c Handle2ConstPolynomial1d
 TotalEnergyPolynomial1dGetConst(ConstHandle2ConstTotalEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 TotalEnergyPolynomial1dGet(ConstHandle2TotalEnergy self);
 

@@ -71,7 +71,7 @@ typedef       struct ThermalNeutronScatteringLaw_incoherentElasticClass *      H
 extern_c Handle2ConstThermalNeutronScatteringLaw_incoherentElastic
 ThermalNeutronScatteringLaw_incoherentElasticDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_incoherentElastic
 ThermalNeutronScatteringLaw_incoherentElasticDefault();
 
@@ -85,7 +85,7 @@ ThermalNeutronScatteringLaw_incoherentElasticCreateConst(
    ConstHandle2ConstDebyeWallerIntegral DebyeWallerIntegral
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_incoherentElastic
 ThermalNeutronScatteringLaw_incoherentElasticCreate(
    const char *const label,
@@ -205,7 +205,7 @@ ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionHas(ConstHandl
 extern_c Handle2ConstBoundAtomCrossSection
 ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2BoundAtomCrossSection
 ThermalNeutronScatteringLaw_incoherentElasticBoundAtomCrossSectionGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self);
 
@@ -226,7 +226,7 @@ ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralHas(ConstHandle2
 extern_c Handle2ConstDebyeWallerIntegral
 ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentElastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DebyeWallerIntegral
 ThermalNeutronScatteringLaw_incoherentElasticDebyeWallerIntegralGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentElastic self);
 

@@ -20,7 +20,7 @@ function ResolvedRegionDefaultConst() &
    type(c_ptr) :: ResolvedRegionDefaultConst
 end function ResolvedRegionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResolvedRegionDefault() &
       bind(C, name='ResolvedRegionDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function ResolvedRegionCreateConst( &
    type(c_ptr) :: ResolvedRegionCreateConst
 end function ResolvedRegionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResolvedRegionCreate( &
    XYs1d, &
    regions1d &
@@ -79,6 +79,8 @@ end subroutine ResolvedRegionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResolvedRegionRead(handle, filename, filenameSize) &
       bind(C, name='ResolvedRegionRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function ResolvedRegionRead(handle, filename, filenameSize) &
 end function ResolvedRegionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResolvedRegionWrite(handle, filename, filenameSize) &
       bind(C, name='ResolvedRegionWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function ResolvedRegionXYs1dGetConst(handle) &
    type(c_ptr) :: ResolvedRegionXYs1dGetConst
 end function ResolvedRegionXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function ResolvedRegionXYs1dGet(handle) &
       bind(C, name='ResolvedRegionXYs1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function ResolvedRegionRegions1dGetConst(handle) &
    type(c_ptr) :: ResolvedRegionRegions1dGetConst
 end function ResolvedRegionRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function ResolvedRegionRegions1dGet(handle) &
       bind(C, name='ResolvedRegionRegions1dGet')
    use iso_c_binding

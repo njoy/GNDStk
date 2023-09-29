@@ -20,7 +20,7 @@ function LinkDefaultConst() &
    type(c_ptr) :: LinkDefaultConst
 end function LinkDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LinkDefault() &
       bind(C, name='LinkDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function LinkCreateConst( &
    type(c_ptr) :: LinkCreateConst
 end function LinkCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LinkCreate( &
    href, &
    hrefSize &
@@ -79,6 +79,8 @@ end subroutine LinkDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LinkRead(handle, filename, filenameSize) &
       bind(C, name='LinkRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function LinkRead(handle, filename, filenameSize) &
 end function LinkRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LinkWrite(handle, filename, filenameSize) &
       bind(C, name='LinkWrite')
    use iso_c_binding

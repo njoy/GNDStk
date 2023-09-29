@@ -20,7 +20,7 @@ function AliasDefaultConst() &
    type(c_ptr) :: AliasDefaultConst
 end function AliasDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AliasDefault() &
       bind(C, name='AliasDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function AliasCreateConst( &
    type(c_ptr) :: AliasCreateConst
 end function AliasCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AliasCreate( &
    id, &
    pid, &
@@ -87,6 +87,8 @@ end subroutine AliasDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AliasRead(handle, filename, filenameSize) &
       bind(C, name='AliasRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function AliasRead(handle, filename, filenameSize) &
 end function AliasRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AliasWrite(handle, filename, filenameSize) &
       bind(C, name='AliasWrite')
    use iso_c_binding

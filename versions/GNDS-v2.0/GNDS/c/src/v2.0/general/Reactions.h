@@ -70,7 +70,7 @@ typedef       struct ReactionsClass *      Handle2Reactions;
 extern_c Handle2ConstReactions
 ReactionsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Reactions
 ReactionsDefault();
 
@@ -80,7 +80,7 @@ ReactionsCreateConst(
    ConstHandle2Reaction *const reaction, const size_t reactionSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Reactions
 ReactionsCreate(
    ConstHandle2Reaction *const reaction, const size_t reactionSize
@@ -154,7 +154,7 @@ ReactionsReactionAdd(ConstHandle2Reactions self, ConstHandle2ConstReaction react
 extern_c Handle2ConstReaction
 ReactionsReactionGetConst(ConstHandle2ConstReactions self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Reaction
 ReactionsReactionGet(ConstHandle2Reactions self, const size_t index_);
 
@@ -184,7 +184,7 @@ ReactionsReactionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Reaction
 ReactionsReactionGetByLabel(
    ConstHandle2Reactions self,
@@ -217,7 +217,7 @@ ReactionsReactionGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2Reaction
 ReactionsReactionGetByENDFMT(
    ConstHandle2Reactions self,
@@ -250,7 +250,7 @@ ReactionsReactionGetByFissionGenreConst(
    const char *const fissionGenre
 );
 
-// +++ Get, by fissionGenre
+// +++ Get, by fissionGenre, non-const
 extern_c Handle2Reaction
 ReactionsReactionGetByFissionGenre(
    ConstHandle2Reactions self,

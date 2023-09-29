@@ -20,7 +20,7 @@ function DatesDefaultConst() &
    type(c_ptr) :: DatesDefaultConst
 end function DatesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DatesDefault() &
       bind(C, name='DatesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function DatesCreateConst( &
    type(c_ptr) :: DatesCreateConst
 end function DatesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DatesCreate( &
    date, dateSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine DatesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DatesRead(handle, filename, filenameSize) &
       bind(C, name='DatesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function DatesRead(handle, filename, filenameSize) &
 end function DatesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DatesWrite(handle, filename, filenameSize) &
       bind(C, name='DatesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function DatesDateGetConst(handle, index) &
    type(c_ptr) :: DatesDateGetConst
 end function DatesDateGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function DatesDateGet(handle, index) &
       bind(C, name='DatesDateGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function DatesDateGetByValueConst(handle, meta, metaSize) &
    type(c_ptr) :: DatesDateGetByValueConst
 end function DatesDateGetByValueConst
 
-!! Get, by value
+!! Get, by value, non-const
 function DatesDateGetByValue(handle, meta, metaSize) &
       bind(C, name='DatesDateGetByValue')
    use iso_c_binding
@@ -269,7 +273,7 @@ function DatesDateGetByDateTypeConst(handle, meta, metaSize) &
    type(c_ptr) :: DatesDateGetByDateTypeConst
 end function DatesDateGetByDateTypeConst
 
-!! Get, by dateType
+!! Get, by dateType, non-const
 function DatesDateGetByDateType(handle, meta, metaSize) &
       bind(C, name='DatesDateGetByDateType')
    use iso_c_binding

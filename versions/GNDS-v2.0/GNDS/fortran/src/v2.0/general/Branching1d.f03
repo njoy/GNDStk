@@ -20,7 +20,7 @@ function Branching1dDefaultConst() &
    type(c_ptr) :: Branching1dDefaultConst
 end function Branching1dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Branching1dDefault() &
       bind(C, name='Branching1dDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function Branching1dCreateConst( &
    type(c_ptr) :: Branching1dCreateConst
 end function Branching1dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Branching1dCreate( &
    label, &
    labelSize &
@@ -79,6 +79,8 @@ end subroutine Branching1dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Branching1dRead(handle, filename, filenameSize) &
       bind(C, name='Branching1dRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function Branching1dRead(handle, filename, filenameSize) &
 end function Branching1dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Branching1dWrite(handle, filename, filenameSize) &
       bind(C, name='Branching1dWrite')
    use iso_c_binding

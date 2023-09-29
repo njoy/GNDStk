@@ -69,7 +69,7 @@ typedef       struct LinkClass *      Handle2Link;
 extern_c Handle2ConstLink
 LinkDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Link
 LinkDefault();
 
@@ -79,7 +79,7 @@ LinkCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Link
 LinkCreate(
    const char *const href

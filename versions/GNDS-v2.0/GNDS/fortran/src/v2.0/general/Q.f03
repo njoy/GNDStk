@@ -20,7 +20,7 @@ function QDefaultConst() &
    type(c_ptr) :: QDefaultConst
 end function QDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function QDefault() &
       bind(C, name='QDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function QCreateConst( &
    type(c_ptr) :: QCreateConst
 end function QCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function QCreate( &
    Double, &
    constant1d &
@@ -79,6 +79,8 @@ end subroutine QDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function QRead(handle, filename, filenameSize) &
       bind(C, name='QRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function QRead(handle, filename, filenameSize) &
 end function QRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function QWrite(handle, filename, filenameSize) &
       bind(C, name='QWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function QDoubleGetConst(handle) &
    type(c_ptr) :: QDoubleGetConst
 end function QDoubleGetConst
 
-!! Get
+!! Get, non-const
 function QDoubleGet(handle) &
       bind(C, name='QDoubleGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function QConstant1dGetConst(handle) &
    type(c_ptr) :: QConstant1dGetConst
 end function QConstant1dGetConst
 
-!! Get
+!! Get, non-const
 function QConstant1dGet(handle) &
       bind(C, name='QConstant1dGet')
    use iso_c_binding

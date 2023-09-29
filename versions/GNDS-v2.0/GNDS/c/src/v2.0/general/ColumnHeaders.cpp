@@ -33,7 +33,7 @@ ColumnHeadersDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ColumnHeaders
 ColumnHeadersDefault()
 {
@@ -55,7 +55,7 @@ ColumnHeadersCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ColumnHeaders
 ColumnHeadersCreate(
    ConstHandle2Column *const column, const size_t columnSize
@@ -185,7 +185,7 @@ ColumnHeadersColumnGetConst(ConstHandle2ConstColumnHeaders self, const size_t in
       (CLASSNAME, CLASSNAME+"ColumnGetConst", self, extract::column, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Column
 ColumnHeadersColumnGet(ConstHandle2ColumnHeaders self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ColumnHeadersColumnGetByIndexConst(
        self, extract::column, meta::index, index);
 }
 
-// Get, by index
+// Get, by index, non-const
 Handle2Column
 ColumnHeadersColumnGetByIndex(
    ConstHandle2ColumnHeaders self,
@@ -279,7 +279,7 @@ ColumnHeadersColumnGetByNameConst(
        self, extract::column, meta::name, name);
 }
 
-// Get, by name
+// Get, by name, non-const
 Handle2Column
 ColumnHeadersColumnGetByName(
    ConstHandle2ColumnHeaders self,
@@ -328,7 +328,7 @@ ColumnHeadersColumnGetByUnitConst(
        self, extract::column, meta::unit, unit);
 }
 
-// Get, by unit
+// Get, by unit, non-const
 Handle2Column
 ColumnHeadersColumnGetByUnit(
    ConstHandle2ColumnHeaders self,

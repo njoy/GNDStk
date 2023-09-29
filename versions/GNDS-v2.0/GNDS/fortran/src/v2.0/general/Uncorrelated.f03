@@ -20,7 +20,7 @@ function UncorrelatedDefaultConst() &
    type(c_ptr) :: UncorrelatedDefaultConst
 end function UncorrelatedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UncorrelatedDefault() &
       bind(C, name='UncorrelatedDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function UncorrelatedCreateConst( &
    type(c_ptr) :: UncorrelatedCreateConst
 end function UncorrelatedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UncorrelatedCreate( &
    label, &
    productFrame, &
@@ -95,6 +95,8 @@ end subroutine UncorrelatedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UncorrelatedRead(handle, filename, filenameSize) &
       bind(C, name='UncorrelatedRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function UncorrelatedRead(handle, filename, filenameSize) &
 end function UncorrelatedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UncorrelatedWrite(handle, filename, filenameSize) &
       bind(C, name='UncorrelatedWrite')
    use iso_c_binding
@@ -232,7 +236,7 @@ function UncorrelatedAngularGetConst(handle) &
    type(c_ptr) :: UncorrelatedAngularGetConst
 end function UncorrelatedAngularGetConst
 
-!! Get
+!! Get, non-const
 function UncorrelatedAngularGet(handle) &
       bind(C, name='UncorrelatedAngularGet')
    use iso_c_binding
@@ -273,7 +277,7 @@ function UncorrelatedEnergyGetConst(handle) &
    type(c_ptr) :: UncorrelatedEnergyGetConst
 end function UncorrelatedEnergyGetConst
 
-!! Get
+!! Get, non-const
 function UncorrelatedEnergyGet(handle) &
       bind(C, name='UncorrelatedEnergyGet')
    use iso_c_binding

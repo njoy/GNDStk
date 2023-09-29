@@ -20,7 +20,7 @@ function GridDefaultConst() &
    type(c_ptr) :: GridDefaultConst
 end function GridDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function GridDefault() &
       bind(C, name='GridDefault')
    use iso_c_binding
@@ -59,7 +59,7 @@ function GridCreateConst( &
    type(c_ptr) :: GridCreateConst
 end function GridCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function GridCreate( &
    index, &
    label, &
@@ -115,6 +115,8 @@ end subroutine GridDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function GridRead(handle, filename, filenameSize) &
       bind(C, name='GridRead')
    use iso_c_binding
@@ -126,6 +128,8 @@ function GridRead(handle, filename, filenameSize) &
 end function GridRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function GridWrite(handle, filename, filenameSize) &
       bind(C, name='GridWrite')
    use iso_c_binding
@@ -350,7 +354,7 @@ function GridLinkGetConst(handle) &
    type(c_ptr) :: GridLinkGetConst
 end function GridLinkGetConst
 
-!! Get
+!! Get, non-const
 function GridLinkGet(handle) &
       bind(C, name='GridLinkGet')
    use iso_c_binding
@@ -391,7 +395,7 @@ function GridValuesGetConst(handle) &
    type(c_ptr) :: GridValuesGetConst
 end function GridValuesGetConst
 
-!! Get
+!! Get, non-const
 function GridValuesGet(handle) &
       bind(C, name='GridValuesGet')
    use iso_c_binding

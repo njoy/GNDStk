@@ -35,7 +35,7 @@ ShellDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Shell
 ShellDefault()
 {
@@ -59,7 +59,7 @@ ShellCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Shell
 ShellCreate(
    const char *const label,
@@ -227,7 +227,7 @@ ShellUncertaintyGetConst(ConstHandle2ConstShell self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 ShellUncertaintyGet(ConstHandle2Shell self)
 {

@@ -70,7 +70,7 @@ typedef       struct RateClass *      Handle2Rate;
 extern_c Handle2ConstRate
 RateDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Rate
 RateDefault();
 
@@ -80,7 +80,7 @@ RateCreateConst(
    ConstHandle2ConstDouble Double
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Rate
 RateCreate(
    ConstHandle2ConstDouble Double
@@ -142,7 +142,7 @@ RateDoubleHas(ConstHandle2ConstRate self);
 extern_c Handle2ConstDouble
 RateDoubleGetConst(ConstHandle2ConstRate self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 RateDoubleGet(ConstHandle2Rate self);
 

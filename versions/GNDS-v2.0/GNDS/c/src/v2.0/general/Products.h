@@ -70,7 +70,7 @@ typedef       struct ProductsClass *      Handle2Products;
 extern_c Handle2ConstProducts
 ProductsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Products
 ProductsDefault();
 
@@ -80,7 +80,7 @@ ProductsCreateConst(
    ConstHandle2Product *const product, const size_t productSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Products
 ProductsCreate(
    ConstHandle2Product *const product, const size_t productSize
@@ -154,7 +154,7 @@ ProductsProductAdd(ConstHandle2Products self, ConstHandle2ConstProduct product);
 extern_c Handle2ConstProduct
 ProductsProductGetConst(ConstHandle2ConstProducts self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Product
 ProductsProductGet(ConstHandle2Products self, const size_t index_);
 
@@ -184,7 +184,7 @@ ProductsProductGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Product
 ProductsProductGetByLabel(
    ConstHandle2Products self,
@@ -217,7 +217,7 @@ ProductsProductGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid
+// +++ Get, by pid, non-const
 extern_c Handle2Product
 ProductsProductGetByPid(
    ConstHandle2Products self,

@@ -33,7 +33,7 @@ OrphanProductsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2OrphanProducts
 OrphanProductsDefault()
 {
@@ -55,7 +55,7 @@ OrphanProductsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2OrphanProducts
 OrphanProductsCreate(
    ConstHandle2OrphanProduct *const orphanProduct, const size_t orphanProductSize
@@ -185,7 +185,7 @@ OrphanProductsOrphanProductGetConst(ConstHandle2ConstOrphanProducts self, const 
       (CLASSNAME, CLASSNAME+"OrphanProductGetConst", self, extract::orphanProduct, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2OrphanProduct
 OrphanProductsOrphanProductGet(ConstHandle2OrphanProducts self, const size_t index_)
 {
@@ -230,7 +230,7 @@ OrphanProductsOrphanProductGetByLabelConst(
        self, extract::orphanProduct, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2OrphanProduct
 OrphanProductsOrphanProductGetByLabel(
    ConstHandle2OrphanProducts self,
@@ -279,7 +279,7 @@ OrphanProductsOrphanProductGetByENDFMTConst(
        self, extract::orphanProduct, meta::ENDF_MT, ENDF_MT);
 }
 
-// Get, by ENDF_MT
+// Get, by ENDF_MT, non-const
 Handle2OrphanProduct
 OrphanProductsOrphanProductGetByENDFMT(
    ConstHandle2OrphanProducts self,

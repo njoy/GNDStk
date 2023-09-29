@@ -33,7 +33,7 @@ ProductsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Products
 ProductsDefault()
 {
@@ -55,7 +55,7 @@ ProductsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Products
 ProductsCreate(
    ConstHandle2Product *const product, const size_t productSize
@@ -185,7 +185,7 @@ ProductsProductGetConst(ConstHandle2ConstProducts self, const size_t index_)
       (CLASSNAME, CLASSNAME+"ProductGetConst", self, extract::product, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Product
 ProductsProductGet(ConstHandle2Products self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ProductsProductGetByLabelConst(
        self, extract::product, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2Product
 ProductsProductGetByLabel(
    ConstHandle2Products self,
@@ -279,7 +279,7 @@ ProductsProductGetByPidConst(
        self, extract::product, meta::pid, pid);
 }
 
-// Get, by pid
+// Get, by pid, non-const
 Handle2Product
 ProductsProductGetByPid(
    ConstHandle2Products self,

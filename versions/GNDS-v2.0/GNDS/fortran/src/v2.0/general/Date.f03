@@ -20,7 +20,7 @@ function DateDefaultConst() &
    type(c_ptr) :: DateDefaultConst
 end function DateDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DateDefault() &
       bind(C, name='DateDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function DateCreateConst( &
    type(c_ptr) :: DateCreateConst
 end function DateCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DateCreate( &
    value, &
    dateType, &
@@ -87,6 +87,8 @@ end subroutine DateDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DateRead(handle, filename, filenameSize) &
       bind(C, name='DateRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function DateRead(handle, filename, filenameSize) &
 end function DateRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DateWrite(handle, filename, filenameSize) &
       bind(C, name='DateWrite')
    use iso_c_binding

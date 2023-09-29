@@ -20,7 +20,7 @@ function NeutrinoEnergyDefaultConst() &
    type(c_ptr) :: NeutrinoEnergyDefaultConst
 end function NeutrinoEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NeutrinoEnergyDefault() &
       bind(C, name='NeutrinoEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function NeutrinoEnergyCreateConst( &
    type(c_ptr) :: NeutrinoEnergyCreateConst
 end function NeutrinoEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NeutrinoEnergyCreate( &
    polynomial1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine NeutrinoEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NeutrinoEnergyRead(handle, filename, filenameSize) &
       bind(C, name='NeutrinoEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function NeutrinoEnergyRead(handle, filename, filenameSize) &
 end function NeutrinoEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NeutrinoEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='NeutrinoEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function NeutrinoEnergyPolynomial1dGetConst(handle) &
    type(c_ptr) :: NeutrinoEnergyPolynomial1dGetConst
 end function NeutrinoEnergyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function NeutrinoEnergyPolynomial1dGet(handle) &
       bind(C, name='NeutrinoEnergyPolynomial1dGet')
    use iso_c_binding

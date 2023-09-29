@@ -44,7 +44,7 @@ CovarianceSuiteDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CovarianceSuite
 CovarianceSuiteDefault()
 {
@@ -80,7 +80,7 @@ CovarianceSuiteCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CovarianceSuite
 CovarianceSuiteCreate(
    const char *const projectile,
@@ -350,7 +350,7 @@ CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite self)
       (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", self, extract::externalFiles);
 }
 
-// Get
+// Get, non-const
 Handle2ExternalFiles
 CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite self)
 {
@@ -387,7 +387,7 @@ CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite self)
       (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
-// Get
+// Get, non-const
 Handle2Styles
 CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite self)
 {
@@ -424,7 +424,7 @@ CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite self)
       (CLASSNAME, CLASSNAME+"CovarianceSectionsGetConst", self, extract::covarianceSections);
 }
 
-// Get
+// Get, non-const
 Handle2CovarianceSections
 CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite self)
 {
@@ -461,7 +461,7 @@ CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite sel
       (CLASSNAME, CLASSNAME+"ParameterCovariancesGetConst", self, extract::parameterCovariances);
 }
 
-// Get
+// Get, non-const
 Handle2ParameterCovariances
 CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite self)
 {

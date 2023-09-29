@@ -33,7 +33,7 @@ ImaginaryAnomalousFactorDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ImaginaryAnomalousFactor
 ImaginaryAnomalousFactorDefault()
 {
@@ -53,7 +53,7 @@ ImaginaryAnomalousFactorCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ImaginaryAnomalousFactor
 ImaginaryAnomalousFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ ImaginaryAnomalousFactorXYs1dGetConst(ConstHandle2ConstImaginaryAnomalousFactor 
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 ImaginaryAnomalousFactorXYs1dGet(ConstHandle2ImaginaryAnomalousFactor self)
 {

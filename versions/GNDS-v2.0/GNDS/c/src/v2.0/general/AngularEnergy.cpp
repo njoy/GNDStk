@@ -35,7 +35,7 @@ AngularEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2AngularEnergy
 AngularEnergyDefault()
 {
@@ -59,7 +59,7 @@ AngularEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2AngularEnergy
 AngularEnergyCreate(
    const char *const label,
@@ -227,7 +227,7 @@ AngularEnergyXYs3dGetConst(ConstHandle2ConstAngularEnergy self)
       (CLASSNAME, CLASSNAME+"XYs3dGetConst", self, extract::XYs3d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs3d
 AngularEnergyXYs3dGet(ConstHandle2AngularEnergy self)
 {

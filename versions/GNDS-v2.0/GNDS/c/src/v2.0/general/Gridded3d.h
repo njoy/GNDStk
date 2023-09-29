@@ -71,7 +71,7 @@ typedef       struct Gridded3dClass *      Handle2Gridded3d;
 extern_c Handle2ConstGridded3d
 Gridded3dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Gridded3d
 Gridded3dDefault();
 
@@ -82,7 +82,7 @@ Gridded3dCreateConst(
    ConstHandle2ConstArray array
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Gridded3d
 Gridded3dCreate(
    ConstHandle2ConstAxes axes,
@@ -145,7 +145,7 @@ Gridded3dAxesHas(ConstHandle2ConstGridded3d self);
 extern_c Handle2ConstAxes
 Gridded3dAxesGetConst(ConstHandle2ConstGridded3d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 Gridded3dAxesGet(ConstHandle2Gridded3d self);
 
@@ -166,7 +166,7 @@ Gridded3dArrayHas(ConstHandle2ConstGridded3d self);
 extern_c Handle2ConstArray
 Gridded3dArrayGetConst(ConstHandle2ConstGridded3d self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Array
 Gridded3dArrayGet(ConstHandle2Gridded3d self);
 

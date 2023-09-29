@@ -69,7 +69,7 @@ typedef       struct IntegerClass *      Handle2Integer;
 extern_c Handle2ConstInteger
 IntegerDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Integer
 IntegerDefault();
 
@@ -81,7 +81,7 @@ IntegerCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Integer
 IntegerCreate(
    const char *const label,

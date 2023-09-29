@@ -70,7 +70,7 @@ typedef       struct CovarianceClass *      Handle2Covariance;
 extern_c Handle2ConstCovariance
 CovarianceDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Covariance
 CovarianceDefault();
 
@@ -82,7 +82,7 @@ CovarianceCreateConst(
    ConstHandle2ConstArray array
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Covariance
 CovarianceCreate(
    const char *const label,
@@ -182,7 +182,7 @@ CovarianceArrayHas(ConstHandle2ConstCovariance self);
 extern_c Handle2ConstArray
 CovarianceArrayGetConst(ConstHandle2ConstCovariance self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Array
 CovarianceArrayGet(ConstHandle2Covariance self);
 

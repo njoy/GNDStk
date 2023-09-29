@@ -70,7 +70,7 @@ typedef       struct ChargeClass *      Handle2Charge;
 extern_c Handle2ConstCharge
 ChargeDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Charge
 ChargeDefault();
 
@@ -80,7 +80,7 @@ ChargeCreateConst(
    ConstHandle2ConstInteger integer
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Charge
 ChargeCreate(
    ConstHandle2ConstInteger integer
@@ -142,7 +142,7 @@ ChargeIntegerHas(ConstHandle2ConstCharge self);
 extern_c Handle2ConstInteger
 ChargeIntegerGetConst(ConstHandle2ConstCharge self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Integer
 ChargeIntegerGet(ConstHandle2Charge self);
 

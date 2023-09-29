@@ -20,7 +20,7 @@ function FissionEnergyReleasesDefaultConst() &
    type(c_ptr) :: FissionEnergyReleasesDefaultConst
 end function FissionEnergyReleasesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FissionEnergyReleasesDefault() &
       bind(C, name='FissionEnergyReleasesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function FissionEnergyReleasesCreateConst( &
    type(c_ptr) :: FissionEnergyReleasesCreateConst
 end function FissionEnergyReleasesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FissionEnergyReleasesCreate( &
    fissionEnergyRelease, fissionEnergyReleaseSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine FissionEnergyReleasesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FissionEnergyReleasesRead(handle, filename, filenameSize) &
       bind(C, name='FissionEnergyReleasesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function FissionEnergyReleasesRead(handle, filename, filenameSize) &
 end function FissionEnergyReleasesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FissionEnergyReleasesWrite(handle, filename, filenameSize) &
       bind(C, name='FissionEnergyReleasesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function FissionEnergyReleasesFissionEnergyReleaseGetConst(handle, index) &
    type(c_ptr) :: FissionEnergyReleasesFissionEnergyReleaseGetConst
 end function FissionEnergyReleasesFissionEnergyReleaseGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function FissionEnergyReleasesFissionEnergyReleaseGet(handle, index) &
       bind(C, name='FissionEnergyReleasesFissionEnergyReleaseGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst(handle, meta, 
    type(c_ptr) :: FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst
 end function FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function FissionEnergyReleasesFissionEnergyReleaseGetByLabel(handle, meta, metaSize) &
       bind(C, name='FissionEnergyReleasesFissionEnergyReleaseGetByLabel')
    use iso_c_binding

@@ -20,7 +20,7 @@ function MetaStableDefaultConst() &
    type(c_ptr) :: MetaStableDefaultConst
 end function MetaStableDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MetaStableDefault() &
       bind(C, name='MetaStableDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function MetaStableCreateConst( &
    type(c_ptr) :: MetaStableCreateConst
 end function MetaStableCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MetaStableCreate( &
    id, &
    pid, &
@@ -91,6 +91,8 @@ end subroutine MetaStableDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MetaStableRead(handle, filename, filenameSize) &
       bind(C, name='MetaStableRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function MetaStableRead(handle, filename, filenameSize) &
 end function MetaStableRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MetaStableWrite(handle, filename, filenameSize) &
       bind(C, name='MetaStableWrite')
    use iso_c_binding

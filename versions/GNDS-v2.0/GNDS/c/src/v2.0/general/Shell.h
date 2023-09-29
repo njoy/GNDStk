@@ -70,7 +70,7 @@ typedef       struct ShellClass *      Handle2Shell;
 extern_c Handle2ConstShell
 ShellDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Shell
 ShellDefault();
 
@@ -82,7 +82,7 @@ ShellCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Shell
 ShellCreate(
    const char *const label,
@@ -182,7 +182,7 @@ ShellUncertaintyHas(ConstHandle2ConstShell self);
 extern_c Handle2ConstUncertainty
 ShellUncertaintyGetConst(ConstHandle2ConstShell self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 ShellUncertaintyGet(ConstHandle2Shell self);
 

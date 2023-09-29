@@ -70,7 +70,7 @@ typedef       struct ProductionsClass *      Handle2Productions;
 extern_c Handle2ConstProductions
 ProductionsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Productions
 ProductionsDefault();
 
@@ -80,7 +80,7 @@ ProductionsCreateConst(
    ConstHandle2Production *const production, const size_t productionSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Productions
 ProductionsCreate(
    ConstHandle2Production *const production, const size_t productionSize
@@ -154,7 +154,7 @@ ProductionsProductionAdd(ConstHandle2Productions self, ConstHandle2ConstProducti
 extern_c Handle2ConstProduction
 ProductionsProductionGetConst(ConstHandle2ConstProductions self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Production
 ProductionsProductionGet(ConstHandle2Productions self, const size_t index_);
 
@@ -184,7 +184,7 @@ ProductionsProductionGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Production
 ProductionsProductionGetByLabel(
    ConstHandle2Productions self,
@@ -217,7 +217,7 @@ ProductionsProductionGetByENDFMTConst(
    const int ENDF_MT
 );
 
-// +++ Get, by ENDF_MT
+// +++ Get, by ENDF_MT, non-const
 extern_c Handle2Production
 ProductionsProductionGetByENDFMT(
    ConstHandle2Productions self,

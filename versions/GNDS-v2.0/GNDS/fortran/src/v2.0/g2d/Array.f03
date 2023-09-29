@@ -20,7 +20,7 @@ function ArrayDefaultConst() &
    type(c_ptr) :: ArrayDefaultConst
 end function ArrayDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ArrayDefault() &
       bind(C, name='ArrayDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function ArrayCreateConst( &
    type(c_ptr) :: ArrayCreateConst
 end function ArrayCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ArrayCreate( &
    shape, &
    compression, &
@@ -99,6 +99,8 @@ end subroutine ArrayDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ArrayRead(handle, filename, filenameSize) &
       bind(C, name='ArrayRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function ArrayRead(handle, filename, filenameSize) &
 end function ArrayRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ArrayWrite(handle, filename, filenameSize) &
       bind(C, name='ArrayWrite')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ArrayValuesGetConst(handle) &
    type(c_ptr) :: ArrayValuesGetConst
 end function ArrayValuesGetConst
 
-!! Get
+!! Get, non-const
 function ArrayValuesGet(handle) &
       bind(C, name='ArrayValuesGet')
    use iso_c_binding

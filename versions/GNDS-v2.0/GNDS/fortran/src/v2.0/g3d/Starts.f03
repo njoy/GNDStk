@@ -20,7 +20,7 @@ function StartsDefaultConst() &
    type(c_ptr) :: StartsDefaultConst
 end function StartsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function StartsDefault() &
       bind(C, name='StartsDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function StartsCreateConst( &
    type(c_ptr) :: StartsCreateConst
 end function StartsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function StartsCreate( &
    valueType, &
    label, &
@@ -87,6 +87,8 @@ end subroutine StartsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function StartsRead(handle, filename, filenameSize) &
       bind(C, name='StartsRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function StartsRead(handle, filename, filenameSize) &
 end function StartsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function StartsWrite(handle, filename, filenameSize) &
       bind(C, name='StartsWrite')
    use iso_c_binding
@@ -188,7 +192,7 @@ function StartsIntsGetArrayConst(handle) &
    type(c_ptr) :: StartsIntsGetArrayConst
 end function StartsIntsGetArrayConst
 
-!! Get pointer to existing values
+!! Get pointer to existing values, non-const
 function StartsIntsGetArray(handle) &
       bind(C, name='StartsIntsGetArray')
    use iso_c_binding

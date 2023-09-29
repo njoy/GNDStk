@@ -71,7 +71,7 @@ typedef       struct ThetaClass *      Handle2Theta;
 extern_c Handle2ConstTheta
 ThetaDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Theta
 ThetaDefault();
 
@@ -82,7 +82,7 @@ ThetaCreateConst(
    ConstHandle2ConstRegions1d regions1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Theta
 ThetaCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -145,7 +145,7 @@ ThetaXYs1dHas(ConstHandle2ConstTheta self);
 extern_c Handle2ConstXYs1d
 ThetaXYs1dGetConst(ConstHandle2ConstTheta self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 ThetaXYs1dGet(ConstHandle2Theta self);
 
@@ -166,7 +166,7 @@ ThetaRegions1dHas(ConstHandle2ConstTheta self);
 extern_c Handle2ConstRegions1d
 ThetaRegions1dGetConst(ConstHandle2ConstTheta self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Regions1d
 ThetaRegions1dGet(ConstHandle2Theta self);
 

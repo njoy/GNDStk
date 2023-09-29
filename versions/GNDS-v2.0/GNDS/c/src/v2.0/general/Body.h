@@ -69,7 +69,7 @@ typedef       struct BodyClass *      Handle2Body;
 extern_c Handle2ConstBody
 BodyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Body
 BodyDefault();
 
@@ -77,7 +77,7 @@ BodyDefault();
 extern_c Handle2ConstBody
 BodyCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Body
 BodyCreate();
 

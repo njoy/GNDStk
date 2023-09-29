@@ -20,7 +20,7 @@ function LeptonsDefaultConst() &
    type(c_ptr) :: LeptonsDefaultConst
 end function LeptonsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LeptonsDefault() &
       bind(C, name='LeptonsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function LeptonsCreateConst( &
    type(c_ptr) :: LeptonsCreateConst
 end function LeptonsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LeptonsCreate( &
    lepton, leptonSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine LeptonsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LeptonsRead(handle, filename, filenameSize) &
       bind(C, name='LeptonsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function LeptonsRead(handle, filename, filenameSize) &
 end function LeptonsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LeptonsWrite(handle, filename, filenameSize) &
       bind(C, name='LeptonsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function LeptonsLeptonGetConst(handle, index) &
    type(c_ptr) :: LeptonsLeptonGetConst
 end function LeptonsLeptonGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function LeptonsLeptonGet(handle, index) &
       bind(C, name='LeptonsLeptonGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function LeptonsLeptonGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: LeptonsLeptonGetByIdConst
 end function LeptonsLeptonGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function LeptonsLeptonGetById(handle, meta, metaSize) &
       bind(C, name='LeptonsLeptonGetById')
    use iso_c_binding
@@ -269,7 +273,7 @@ function LeptonsLeptonGetByGenerationConst(handle, meta, metaSize) &
    type(c_ptr) :: LeptonsLeptonGetByGenerationConst
 end function LeptonsLeptonGetByGenerationConst
 
-!! Get, by generation
+!! Get, by generation, non-const
 function LeptonsLeptonGetByGeneration(handle, meta, metaSize) &
       bind(C, name='LeptonsLeptonGetByGeneration')
    use iso_c_binding

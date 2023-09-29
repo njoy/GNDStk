@@ -33,7 +33,7 @@ SpinDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Spin
 SpinDefault()
 {
@@ -53,7 +53,7 @@ SpinCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Spin
 SpinCreate(
    ConstHandle2ConstFraction fraction
@@ -157,7 +157,7 @@ SpinFractionGetConst(ConstHandle2ConstSpin self)
       (CLASSNAME, CLASSNAME+"FractionGetConst", self, extract::fraction);
 }
 
-// Get
+// Get, non-const
 Handle2Fraction
 SpinFractionGet(ConstHandle2Spin self)
 {

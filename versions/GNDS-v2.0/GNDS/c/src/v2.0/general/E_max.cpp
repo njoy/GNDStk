@@ -32,7 +32,7 @@ E_maxDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2E_max
 E_maxDefault()
 {
@@ -54,7 +54,7 @@ E_maxCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2E_max
 E_maxCreate(
    const double value,

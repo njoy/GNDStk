@@ -69,7 +69,7 @@ typedef       struct Branching3dClass *      Handle2Branching3d;
 extern_c Handle2ConstBranching3d
 Branching3dDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Branching3d
 Branching3dDefault();
 
@@ -80,7 +80,7 @@ Branching3dCreateConst(
    const char *const productFrame
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Branching3d
 Branching3dCreate(
    const char *const label,

@@ -33,7 +33,7 @@ ElapsedTimesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ElapsedTimes
 ElapsedTimesDefault()
 {
@@ -55,7 +55,7 @@ ElapsedTimesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ElapsedTimes
 ElapsedTimesCreate(
    ConstHandle2ElapsedTime *const elapsedTime, const size_t elapsedTimeSize
@@ -185,7 +185,7 @@ ElapsedTimesElapsedTimeGetConst(ConstHandle2ConstElapsedTimes self, const size_t
       (CLASSNAME, CLASSNAME+"ElapsedTimeGetConst", self, extract::elapsedTime, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2ElapsedTime
 ElapsedTimesElapsedTimeGet(ConstHandle2ElapsedTimes self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ElapsedTimesElapsedTimeGetByLabelConst(
        self, extract::elapsedTime, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2ElapsedTime
 ElapsedTimesElapsedTimeGetByLabel(
    ConstHandle2ElapsedTimes self,

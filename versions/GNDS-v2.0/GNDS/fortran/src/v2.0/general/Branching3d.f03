@@ -20,7 +20,7 @@ function Branching3dDefaultConst() &
    type(c_ptr) :: Branching3dDefaultConst
 end function Branching3dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Branching3dDefault() &
       bind(C, name='Branching3dDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function Branching3dCreateConst( &
    type(c_ptr) :: Branching3dCreateConst
 end function Branching3dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Branching3dCreate( &
    label, &
    productFrame, &
@@ -87,6 +87,8 @@ end subroutine Branching3dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Branching3dRead(handle, filename, filenameSize) &
       bind(C, name='Branching3dRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function Branching3dRead(handle, filename, filenameSize) &
 end function Branching3dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Branching3dWrite(handle, filename, filenameSize) &
       bind(C, name='Branching3dWrite')
    use iso_c_binding

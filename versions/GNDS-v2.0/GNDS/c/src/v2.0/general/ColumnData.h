@@ -70,7 +70,7 @@ typedef       struct ColumnDataClass *      Handle2ColumnData;
 extern_c Handle2ConstColumnData
 ColumnDataDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ColumnData
 ColumnDataDefault();
 
@@ -82,7 +82,7 @@ ColumnDataCreateConst(
    ConstHandle2ConstSlices slices
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ColumnData
 ColumnDataCreate(
    const char *const ENDF_MFMT,
@@ -182,7 +182,7 @@ ColumnDataSlicesHas(ConstHandle2ConstColumnData self);
 extern_c Handle2ConstSlices
 ColumnDataSlicesGetConst(ConstHandle2ConstColumnData self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Slices
 ColumnDataSlicesGet(ConstHandle2ColumnData self);
 

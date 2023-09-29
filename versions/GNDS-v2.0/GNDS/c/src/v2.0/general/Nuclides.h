@@ -70,7 +70,7 @@ typedef       struct NuclidesClass *      Handle2Nuclides;
 extern_c Handle2ConstNuclides
 NuclidesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Nuclides
 NuclidesDefault();
 
@@ -80,7 +80,7 @@ NuclidesCreateConst(
    ConstHandle2Nuclide *const nuclide, const size_t nuclideSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Nuclides
 NuclidesCreate(
    ConstHandle2Nuclide *const nuclide, const size_t nuclideSize
@@ -154,7 +154,7 @@ NuclidesNuclideAdd(ConstHandle2Nuclides self, ConstHandle2ConstNuclide nuclide);
 extern_c Handle2ConstNuclide
 NuclidesNuclideGetConst(ConstHandle2ConstNuclides self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Nuclide
 NuclidesNuclideGet(ConstHandle2Nuclides self, const size_t index_);
 
@@ -184,7 +184,7 @@ NuclidesNuclideGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2Nuclide
 NuclidesNuclideGetById(
    ConstHandle2Nuclides self,

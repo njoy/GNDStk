@@ -20,7 +20,7 @@ function AxesDefaultConst() &
    type(c_ptr) :: AxesDefaultConst
 end function AxesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AxesDefault() &
       bind(C, name='AxesDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function AxesCreateConst( &
    type(c_ptr) :: AxesCreateConst
 end function AxesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AxesCreate( &
    axis, axisSize, &
    grid, gridSize &
@@ -83,6 +83,8 @@ end subroutine AxesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AxesRead(handle, filename, filenameSize) &
       bind(C, name='AxesRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function AxesRead(handle, filename, filenameSize) &
 end function AxesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AxesWrite(handle, filename, filenameSize) &
       bind(C, name='AxesWrite')
    use iso_c_binding
@@ -181,7 +185,7 @@ function AxesAxisGetConst(handle, index) &
    type(c_ptr) :: AxesAxisGetConst
 end function AxesAxisGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function AxesAxisGet(handle, index) &
       bind(C, name='AxesAxisGet')
    use iso_c_binding
@@ -225,7 +229,7 @@ function AxesAxisGetByIndexConst(handle, meta) &
    type(c_ptr) :: AxesAxisGetByIndexConst
 end function AxesAxisGetByIndexConst
 
-!! Get, by index
+!! Get, by index, non-const
 function AxesAxisGetByIndex(handle, meta) &
       bind(C, name='AxesAxisGetByIndex')
    use iso_c_binding
@@ -271,7 +275,7 @@ function AxesAxisGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: AxesAxisGetByLabelConst
 end function AxesAxisGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function AxesAxisGetByLabel(handle, meta, metaSize) &
       bind(C, name='AxesAxisGetByLabel')
    use iso_c_binding
@@ -319,7 +323,7 @@ function AxesAxisGetByUnitConst(handle, meta, metaSize) &
    type(c_ptr) :: AxesAxisGetByUnitConst
 end function AxesAxisGetByUnitConst
 
-!! Get, by unit
+!! Get, by unit, non-const
 function AxesAxisGetByUnit(handle, meta, metaSize) &
       bind(C, name='AxesAxisGetByUnit')
    use iso_c_binding
@@ -391,7 +395,7 @@ function AxesGridGetConst(handle, index) &
    type(c_ptr) :: AxesGridGetConst
 end function AxesGridGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function AxesGridGet(handle, index) &
       bind(C, name='AxesGridGet')
    use iso_c_binding
@@ -435,7 +439,7 @@ function AxesGridGetByIndexConst(handle, meta) &
    type(c_ptr) :: AxesGridGetByIndexConst
 end function AxesGridGetByIndexConst
 
-!! Get, by index
+!! Get, by index, non-const
 function AxesGridGetByIndex(handle, meta) &
       bind(C, name='AxesGridGetByIndex')
    use iso_c_binding
@@ -481,7 +485,7 @@ function AxesGridGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: AxesGridGetByLabelConst
 end function AxesGridGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function AxesGridGetByLabel(handle, meta, metaSize) &
       bind(C, name='AxesGridGetByLabel')
    use iso_c_binding
@@ -529,7 +533,7 @@ function AxesGridGetByUnitConst(handle, meta, metaSize) &
    type(c_ptr) :: AxesGridGetByUnitConst
 end function AxesGridGetByUnitConst
 
-!! Get, by unit
+!! Get, by unit, non-const
 function AxesGridGetByUnit(handle, meta, metaSize) &
       bind(C, name='AxesGridGetByUnit')
    use iso_c_binding
@@ -577,7 +581,7 @@ function AxesGridGetByStyleConst(handle, meta, metaSize) &
    type(c_ptr) :: AxesGridGetByStyleConst
 end function AxesGridGetByStyleConst
 
-!! Get, by style
+!! Get, by style, non-const
 function AxesGridGetByStyle(handle, meta, metaSize) &
       bind(C, name='AxesGridGetByStyle')
    use iso_c_binding
@@ -625,7 +629,7 @@ function AxesGridGetByInterpolationConst(handle, meta, metaSize) &
    type(c_ptr) :: AxesGridGetByInterpolationConst
 end function AxesGridGetByInterpolationConst
 
-!! Get, by interpolation
+!! Get, by interpolation, non-const
 function AxesGridGetByInterpolation(handle, meta, metaSize) &
       bind(C, name='AxesGridGetByInterpolation')
    use iso_c_binding

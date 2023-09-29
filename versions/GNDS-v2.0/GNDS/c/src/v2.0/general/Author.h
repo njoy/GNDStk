@@ -69,7 +69,7 @@ typedef       struct AuthorClass *      Handle2Author;
 extern_c Handle2ConstAuthor
 AuthorDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Author
 AuthorDefault();
 
@@ -79,7 +79,7 @@ AuthorCreateConst(
    const char *const name
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Author
 AuthorCreate(
    const char *const name

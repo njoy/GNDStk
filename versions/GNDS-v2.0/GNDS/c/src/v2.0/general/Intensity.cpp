@@ -34,7 +34,7 @@ IntensityDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Intensity
 IntensityDefault()
 {
@@ -56,7 +56,7 @@ IntensityCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Intensity
 IntensityCreate(
    const double value,
@@ -192,7 +192,7 @@ IntensityUncertaintyGetConst(ConstHandle2ConstIntensity self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 IntensityUncertaintyGet(ConstHandle2Intensity self)
 {

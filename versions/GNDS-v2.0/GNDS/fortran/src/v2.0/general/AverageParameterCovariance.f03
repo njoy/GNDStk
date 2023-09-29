@@ -20,7 +20,7 @@ function AverageParameterCovarianceDefaultConst() &
    type(c_ptr) :: AverageParameterCovarianceDefaultConst
 end function AverageParameterCovarianceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AverageParameterCovarianceDefault() &
       bind(C, name='AverageParameterCovarianceDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function AverageParameterCovarianceCreateConst( &
    type(c_ptr) :: AverageParameterCovarianceCreateConst
 end function AverageParameterCovarianceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AverageParameterCovarianceCreate( &
    label, &
    crossTerm, &
@@ -95,6 +95,8 @@ end subroutine AverageParameterCovarianceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AverageParameterCovarianceRead(handle, filename, filenameSize) &
       bind(C, name='AverageParameterCovarianceRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function AverageParameterCovarianceRead(handle, filename, filenameSize) &
 end function AverageParameterCovarianceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AverageParameterCovarianceWrite(handle, filename, filenameSize) &
       bind(C, name='AverageParameterCovarianceWrite')
    use iso_c_binding
@@ -231,7 +235,7 @@ function AverageParameterCovarianceCovarianceMatrixGetConst(handle) &
    type(c_ptr) :: AverageParameterCovarianceCovarianceMatrixGetConst
 end function AverageParameterCovarianceCovarianceMatrixGetConst
 
-!! Get
+!! Get, non-const
 function AverageParameterCovarianceCovarianceMatrixGet(handle) &
       bind(C, name='AverageParameterCovarianceCovarianceMatrixGet')
    use iso_c_binding
@@ -272,7 +276,7 @@ function AverageParameterCovarianceRowDataGetConst(handle) &
    type(c_ptr) :: AverageParameterCovarianceRowDataGetConst
 end function AverageParameterCovarianceRowDataGetConst
 
-!! Get
+!! Get, non-const
 function AverageParameterCovarianceRowDataGet(handle) &
       bind(C, name='AverageParameterCovarianceRowDataGet')
    use iso_c_binding
@@ -313,7 +317,7 @@ function AverageParameterCovarianceColumnDataGetConst(handle) &
    type(c_ptr) :: AverageParameterCovarianceColumnDataGetConst
 end function AverageParameterCovarianceColumnDataGetConst
 
-!! Get
+!! Get, non-const
 function AverageParameterCovarianceColumnDataGet(handle) &
       bind(C, name='AverageParameterCovarianceColumnDataGet')
    use iso_c_binding

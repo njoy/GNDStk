@@ -20,7 +20,7 @@ function BoundAtomCrossSectionDefaultConst() &
    type(c_ptr) :: BoundAtomCrossSectionDefaultConst
 end function BoundAtomCrossSectionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BoundAtomCrossSectionDefault() &
       bind(C, name='BoundAtomCrossSectionDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function BoundAtomCrossSectionCreateConst( &
    type(c_ptr) :: BoundAtomCrossSectionCreateConst
 end function BoundAtomCrossSectionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BoundAtomCrossSectionCreate( &
    value, &
    unit, &
@@ -83,6 +83,8 @@ end subroutine BoundAtomCrossSectionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BoundAtomCrossSectionRead(handle, filename, filenameSize) &
       bind(C, name='BoundAtomCrossSectionRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function BoundAtomCrossSectionRead(handle, filename, filenameSize) &
 end function BoundAtomCrossSectionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BoundAtomCrossSectionWrite(handle, filename, filenameSize) &
       bind(C, name='BoundAtomCrossSectionWrite')
    use iso_c_binding

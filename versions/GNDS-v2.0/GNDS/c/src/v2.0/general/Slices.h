@@ -70,7 +70,7 @@ typedef       struct SlicesClass *      Handle2Slices;
 extern_c Handle2ConstSlices
 SlicesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Slices
 SlicesDefault();
 
@@ -80,7 +80,7 @@ SlicesCreateConst(
    ConstHandle2Slice *const slice, const size_t sliceSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Slices
 SlicesCreate(
    ConstHandle2Slice *const slice, const size_t sliceSize
@@ -154,7 +154,7 @@ SlicesSliceAdd(ConstHandle2Slices self, ConstHandle2ConstSlice slice);
 extern_c Handle2ConstSlice
 SlicesSliceGetConst(ConstHandle2ConstSlices self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Slice
 SlicesSliceGet(ConstHandle2Slices self, const size_t index_);
 
@@ -184,7 +184,7 @@ SlicesSliceGetByDimensionConst(
    const int dimension
 );
 
-// +++ Get, by dimension
+// +++ Get, by dimension, non-const
 extern_c Handle2Slice
 SlicesSliceGetByDimension(
    ConstHandle2Slices self,
@@ -217,7 +217,7 @@ SlicesSliceGetByDomainValueConst(
    const int domainValue
 );
 
-// +++ Get, by domainValue
+// +++ Get, by domainValue, non-const
 extern_c Handle2Slice
 SlicesSliceGetByDomainValue(
    ConstHandle2Slices self,
@@ -250,7 +250,7 @@ SlicesSliceGetByDomainMinConst(
    const double domainMin
 );
 
-// +++ Get, by domainMin
+// +++ Get, by domainMin, non-const
 extern_c Handle2Slice
 SlicesSliceGetByDomainMin(
    ConstHandle2Slices self,
@@ -283,7 +283,7 @@ SlicesSliceGetByDomainMaxConst(
    const double domainMax
 );
 
-// +++ Get, by domainMax
+// +++ Get, by domainMax, non-const
 extern_c Handle2Slice
 SlicesSliceGetByDomainMax(
    ConstHandle2Slices self,
@@ -316,7 +316,7 @@ SlicesSliceGetByDomainUnitConst(
    const char *const domainUnit
 );
 
-// +++ Get, by domainUnit
+// +++ Get, by domainUnit, non-const
 extern_c Handle2Slice
 SlicesSliceGetByDomainUnit(
    ConstHandle2Slices self,

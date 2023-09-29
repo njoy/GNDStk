@@ -32,7 +32,7 @@ UDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2U
 UDefault()
 {
@@ -54,7 +54,7 @@ UCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2U
 UCreate(
    const double value,

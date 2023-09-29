@@ -70,7 +70,7 @@ typedef       struct T_effectiveClass *      Handle2T_effective;
 extern_c Handle2ConstT_effective
 T_effectiveDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2T_effective
 T_effectiveDefault();
 
@@ -80,7 +80,7 @@ T_effectiveCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2T_effective
 T_effectiveCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ T_effectiveXYs1dHas(ConstHandle2ConstT_effective self);
 extern_c Handle2ConstXYs1d
 T_effectiveXYs1dGetConst(ConstHandle2ConstT_effective self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 T_effectiveXYs1dGet(ConstHandle2T_effective self);
 

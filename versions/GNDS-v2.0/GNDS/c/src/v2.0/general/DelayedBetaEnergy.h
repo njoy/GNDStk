@@ -70,7 +70,7 @@ typedef       struct DelayedBetaEnergyClass *      Handle2DelayedBetaEnergy;
 extern_c Handle2ConstDelayedBetaEnergy
 DelayedBetaEnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DelayedBetaEnergy
 DelayedBetaEnergyDefault();
 
@@ -80,7 +80,7 @@ DelayedBetaEnergyCreateConst(
    ConstHandle2ConstPolynomial1d polynomial1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DelayedBetaEnergy
 DelayedBetaEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -142,7 +142,7 @@ DelayedBetaEnergyPolynomial1dHas(ConstHandle2ConstDelayedBetaEnergy self);
 extern_c Handle2ConstPolynomial1d
 DelayedBetaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedBetaEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 DelayedBetaEnergyPolynomial1dGet(ConstHandle2DelayedBetaEnergy self);
 

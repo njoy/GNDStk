@@ -20,7 +20,7 @@ function BaryonsDefaultConst() &
    type(c_ptr) :: BaryonsDefaultConst
 end function BaryonsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BaryonsDefault() &
       bind(C, name='BaryonsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function BaryonsCreateConst( &
    type(c_ptr) :: BaryonsCreateConst
 end function BaryonsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BaryonsCreate( &
    baryon, baryonSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine BaryonsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BaryonsRead(handle, filename, filenameSize) &
       bind(C, name='BaryonsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function BaryonsRead(handle, filename, filenameSize) &
 end function BaryonsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BaryonsWrite(handle, filename, filenameSize) &
       bind(C, name='BaryonsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function BaryonsBaryonGetConst(handle, index) &
    type(c_ptr) :: BaryonsBaryonGetConst
 end function BaryonsBaryonGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function BaryonsBaryonGet(handle, index) &
       bind(C, name='BaryonsBaryonGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function BaryonsBaryonGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: BaryonsBaryonGetByIdConst
 end function BaryonsBaryonGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function BaryonsBaryonGetById(handle, meta, metaSize) &
       bind(C, name='BaryonsBaryonGetById')
    use iso_c_binding

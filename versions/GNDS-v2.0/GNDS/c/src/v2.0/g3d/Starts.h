@@ -69,7 +69,7 @@ typedef       struct StartsClass *      Handle2Starts;
 extern_c Handle2ConstStarts
 StartsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Starts
 StartsDefault();
 
@@ -80,7 +80,7 @@ StartsCreateConst(
    const char *const label
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Starts
 StartsCreate(
    const char *const valueType,
@@ -157,7 +157,7 @@ StartsIntsSet(ConstHandle2Starts self, const size_t index, const int value);
 extern_c const int *
 StartsIntsGetArrayConst(ConstHandle2ConstStarts self);
 
-// +++ Get pointer to existing values
+// +++ Get pointer to existing values, non-const
 extern_c int *
 StartsIntsGetArray(ConstHandle2Starts self);
 

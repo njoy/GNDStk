@@ -70,7 +70,7 @@ typedef       struct InstitutionClass *      Handle2Institution;
 extern_c Handle2ConstInstitution
 InstitutionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Institution
 InstitutionDefault();
 
@@ -81,7 +81,7 @@ InstitutionCreateConst(
    ConstHandle2ConstENDFconversionFlags ENDFconversionFlags
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Institution
 InstitutionCreate(
    const char *const label,
@@ -162,7 +162,7 @@ InstitutionENDFconversionFlagsHas(ConstHandle2ConstInstitution self);
 extern_c Handle2ConstENDFconversionFlags
 InstitutionENDFconversionFlagsGetConst(ConstHandle2ConstInstitution self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ENDFconversionFlags
 InstitutionENDFconversionFlagsGet(ConstHandle2Institution self);
 

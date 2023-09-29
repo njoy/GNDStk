@@ -73,7 +73,7 @@ typedef       struct CovarianceSuiteClass *      Handle2CovarianceSuite;
 extern_c Handle2ConstCovarianceSuite
 CovarianceSuiteDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2CovarianceSuite
 CovarianceSuiteDefault();
 
@@ -91,7 +91,7 @@ CovarianceSuiteCreateConst(
    ConstHandle2ConstParameterCovariances parameterCovariances
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2CovarianceSuite
 CovarianceSuiteCreate(
    const char *const projectile,
@@ -251,7 +251,7 @@ CovarianceSuiteExternalFilesHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstExternalFiles
 CovarianceSuiteExternalFilesGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ExternalFiles
 CovarianceSuiteExternalFilesGet(ConstHandle2CovarianceSuite self);
 
@@ -272,7 +272,7 @@ CovarianceSuiteStylesHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstStyles
 CovarianceSuiteStylesGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Styles
 CovarianceSuiteStylesGet(ConstHandle2CovarianceSuite self);
 
@@ -293,7 +293,7 @@ CovarianceSuiteCovarianceSectionsHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstCovarianceSections
 CovarianceSuiteCovarianceSectionsGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CovarianceSections
 CovarianceSuiteCovarianceSectionsGet(ConstHandle2CovarianceSuite self);
 
@@ -314,7 +314,7 @@ CovarianceSuiteParameterCovariancesHas(ConstHandle2ConstCovarianceSuite self);
 extern_c Handle2ConstParameterCovariances
 CovarianceSuiteParameterCovariancesGetConst(ConstHandle2ConstCovarianceSuite self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ParameterCovariances
 CovarianceSuiteParameterCovariancesGet(ConstHandle2CovarianceSuite self);
 

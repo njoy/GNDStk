@@ -20,7 +20,7 @@ function IncoherentPhotonScatteringDefaultConst() &
    type(c_ptr) :: IncoherentPhotonScatteringDefaultConst
 end function IncoherentPhotonScatteringDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IncoherentPhotonScatteringDefault() &
       bind(C, name='IncoherentPhotonScatteringDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function IncoherentPhotonScatteringCreateConst( &
    type(c_ptr) :: IncoherentPhotonScatteringCreateConst
 end function IncoherentPhotonScatteringCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IncoherentPhotonScatteringCreate( &
    label, &
    href, &
@@ -107,6 +107,8 @@ end subroutine IncoherentPhotonScatteringDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IncoherentPhotonScatteringRead(handle, filename, filenameSize) &
       bind(C, name='IncoherentPhotonScatteringRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function IncoherentPhotonScatteringRead(handle, filename, filenameSize) &
 end function IncoherentPhotonScatteringRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IncoherentPhotonScatteringWrite(handle, filename, filenameSize) &
       bind(C, name='IncoherentPhotonScatteringWrite')
    use iso_c_binding
@@ -310,7 +314,7 @@ function IncoherentPhotonScatteringScatteringFactorGetConst(handle) &
    type(c_ptr) :: IncoherentPhotonScatteringScatteringFactorGetConst
 end function IncoherentPhotonScatteringScatteringFactorGetConst
 
-!! Get
+!! Get, non-const
 function IncoherentPhotonScatteringScatteringFactorGet(handle) &
       bind(C, name='IncoherentPhotonScatteringScatteringFactorGet')
    use iso_c_binding

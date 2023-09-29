@@ -20,7 +20,7 @@ function DelayedGammaEnergyDefaultConst() &
    type(c_ptr) :: DelayedGammaEnergyDefaultConst
 end function DelayedGammaEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DelayedGammaEnergyDefault() &
       bind(C, name='DelayedGammaEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function DelayedGammaEnergyCreateConst( &
    type(c_ptr) :: DelayedGammaEnergyCreateConst
 end function DelayedGammaEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DelayedGammaEnergyCreate( &
    polynomial1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine DelayedGammaEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DelayedGammaEnergyRead(handle, filename, filenameSize) &
       bind(C, name='DelayedGammaEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function DelayedGammaEnergyRead(handle, filename, filenameSize) &
 end function DelayedGammaEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DelayedGammaEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='DelayedGammaEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function DelayedGammaEnergyPolynomial1dGetConst(handle) &
    type(c_ptr) :: DelayedGammaEnergyPolynomial1dGetConst
 end function DelayedGammaEnergyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function DelayedGammaEnergyPolynomial1dGet(handle) &
       bind(C, name='DelayedGammaEnergyPolynomial1dGet')
    use iso_c_binding

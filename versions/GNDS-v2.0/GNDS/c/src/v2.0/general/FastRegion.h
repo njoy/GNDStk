@@ -71,7 +71,7 @@ typedef       struct FastRegionClass *      Handle2FastRegion;
 extern_c Handle2ConstFastRegion
 FastRegionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FastRegion
 FastRegionDefault();
 
@@ -82,7 +82,7 @@ FastRegionCreateConst(
    ConstHandle2ConstRegions1d regions1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FastRegion
 FastRegionCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -145,7 +145,7 @@ FastRegionXYs1dHas(ConstHandle2ConstFastRegion self);
 extern_c Handle2ConstXYs1d
 FastRegionXYs1dGetConst(ConstHandle2ConstFastRegion self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 FastRegionXYs1dGet(ConstHandle2FastRegion self);
 
@@ -166,7 +166,7 @@ FastRegionRegions1dHas(ConstHandle2ConstFastRegion self);
 extern_c Handle2ConstRegions1d
 FastRegionRegions1dGetConst(ConstHandle2ConstFastRegion self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Regions1d
 FastRegionRegions1dGet(ConstHandle2FastRegion self);
 

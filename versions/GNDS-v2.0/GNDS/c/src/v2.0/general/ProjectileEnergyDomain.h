@@ -69,7 +69,7 @@ typedef       struct ProjectileEnergyDomainClass *      Handle2ProjectileEnergyD
 extern_c Handle2ConstProjectileEnergyDomain
 ProjectileEnergyDomainDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ProjectileEnergyDomain
 ProjectileEnergyDomainDefault();
 
@@ -81,7 +81,7 @@ ProjectileEnergyDomainCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ProjectileEnergyDomain
 ProjectileEnergyDomainCreate(
    const double min,

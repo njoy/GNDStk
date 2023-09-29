@@ -33,7 +33,7 @@ ProjectileEnergyDomainDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ProjectileEnergyDomain
 ProjectileEnergyDomainDefault()
 {
@@ -57,7 +57,7 @@ ProjectileEnergyDomainCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ProjectileEnergyDomain
 ProjectileEnergyDomainCreate(
    const double min,

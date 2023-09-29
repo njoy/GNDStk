@@ -20,7 +20,7 @@ function UnresolvedDefaultConst() &
    type(c_ptr) :: UnresolvedDefaultConst
 end function UnresolvedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UnresolvedDefault() &
       bind(C, name='UnresolvedDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function UnresolvedCreateConst( &
    type(c_ptr) :: UnresolvedCreateConst
 end function UnresolvedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UnresolvedCreate( &
    domainMin, &
    domainMax, &
@@ -91,6 +91,8 @@ end subroutine UnresolvedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UnresolvedRead(handle, filename, filenameSize) &
       bind(C, name='UnresolvedRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function UnresolvedRead(handle, filename, filenameSize) &
 end function UnresolvedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UnresolvedWrite(handle, filename, filenameSize) &
       bind(C, name='UnresolvedWrite')
    use iso_c_binding
@@ -259,7 +263,7 @@ function UnresolvedTabulatedWidthsGetConst(handle) &
    type(c_ptr) :: UnresolvedTabulatedWidthsGetConst
 end function UnresolvedTabulatedWidthsGetConst
 
-!! Get
+!! Get, non-const
 function UnresolvedTabulatedWidthsGet(handle) &
       bind(C, name='UnresolvedTabulatedWidthsGet')
    use iso_c_binding

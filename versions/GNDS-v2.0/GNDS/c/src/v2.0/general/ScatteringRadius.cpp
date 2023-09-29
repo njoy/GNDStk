@@ -35,7 +35,7 @@ ScatteringRadiusDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ScatteringRadius
 ScatteringRadiusDefault()
 {
@@ -57,7 +57,7 @@ ScatteringRadiusCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ScatteringRadius
 ScatteringRadiusCreate(
    ConstHandle2ConstConstant1d constant1d,
@@ -163,7 +163,7 @@ ScatteringRadiusConstant1dGetConst(ConstHandle2ConstScatteringRadius self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get
+// Get, non-const
 Handle2Constant1d
 ScatteringRadiusConstant1dGet(ConstHandle2ScatteringRadius self)
 {
@@ -200,7 +200,7 @@ ScatteringRadiusXYs1dGetConst(ConstHandle2ConstScatteringRadius self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 ScatteringRadiusXYs1dGet(ConstHandle2ScatteringRadius self)
 {

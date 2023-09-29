@@ -70,7 +70,7 @@ typedef       struct ListOfCovariancesClass *      Handle2ListOfCovariances;
 extern_c Handle2ConstListOfCovariances
 ListOfCovariancesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ListOfCovariances
 ListOfCovariancesDefault();
 
@@ -80,7 +80,7 @@ ListOfCovariancesCreateConst(
    ConstHandle2Covariance *const covariance, const size_t covarianceSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ListOfCovariances
 ListOfCovariancesCreate(
    ConstHandle2Covariance *const covariance, const size_t covarianceSize
@@ -154,7 +154,7 @@ ListOfCovariancesCovarianceAdd(ConstHandle2ListOfCovariances self, ConstHandle2C
 extern_c Handle2ConstCovariance
 ListOfCovariancesCovarianceGetConst(ConstHandle2ConstListOfCovariances self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGet(ConstHandle2ListOfCovariances self, const size_t index_);
 
@@ -184,7 +184,7 @@ ListOfCovariancesCovarianceGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGetByLabel(
    ConstHandle2ListOfCovariances self,
@@ -217,7 +217,7 @@ ListOfCovariancesCovarianceGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href
+// +++ Get, by href, non-const
 extern_c Handle2Covariance
 ListOfCovariancesCovarianceGetByHref(
    ConstHandle2ListOfCovariances self,

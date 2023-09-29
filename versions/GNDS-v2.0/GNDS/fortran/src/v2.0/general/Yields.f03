@@ -20,7 +20,7 @@ function YieldsDefaultConst() &
    type(c_ptr) :: YieldsDefaultConst
 end function YieldsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function YieldsDefault() &
       bind(C, name='YieldsDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function YieldsCreateConst( &
    type(c_ptr) :: YieldsCreateConst
 end function YieldsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function YieldsCreate( &
    nuclides, &
    values, &
@@ -83,6 +83,8 @@ end subroutine YieldsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function YieldsRead(handle, filename, filenameSize) &
       bind(C, name='YieldsRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function YieldsRead(handle, filename, filenameSize) &
 end function YieldsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function YieldsWrite(handle, filename, filenameSize) &
       bind(C, name='YieldsWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function YieldsNuclidesGetConst(handle) &
    type(c_ptr) :: YieldsNuclidesGetConst
 end function YieldsNuclidesGetConst
 
-!! Get
+!! Get, non-const
 function YieldsNuclidesGet(handle) &
       bind(C, name='YieldsNuclidesGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function YieldsValuesGetConst(handle) &
    type(c_ptr) :: YieldsValuesGetConst
 end function YieldsValuesGetConst
 
-!! Get
+!! Get, non-const
 function YieldsValuesGet(handle) &
       bind(C, name='YieldsValuesGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function YieldsUncertaintyGetConst(handle) &
    type(c_ptr) :: YieldsUncertaintyGetConst
 end function YieldsUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function YieldsUncertaintyGet(handle) &
       bind(C, name='YieldsUncertaintyGet')
    use iso_c_binding

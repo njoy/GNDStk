@@ -33,7 +33,7 @@ RealAnomalousFactorDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2RealAnomalousFactor
 RealAnomalousFactorDefault()
 {
@@ -53,7 +53,7 @@ RealAnomalousFactorCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2RealAnomalousFactor
 RealAnomalousFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor self)
 {

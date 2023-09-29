@@ -36,7 +36,7 @@ DecayDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Decay
 DecayDefault()
 {
@@ -62,7 +62,7 @@ DecayCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Decay
 DecayCreate(
    const int index,
@@ -262,7 +262,7 @@ DecayProductsGetConst(ConstHandle2ConstDecay self)
       (CLASSNAME, CLASSNAME+"ProductsGetConst", self, extract::products);
 }
 
-// Get
+// Get, non-const
 Handle2Products
 DecayProductsGet(ConstHandle2Decay self)
 {

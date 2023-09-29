@@ -20,7 +20,7 @@ function BindingEnergyDefaultConst() &
    type(c_ptr) :: BindingEnergyDefaultConst
 end function BindingEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function BindingEnergyDefault() &
       bind(C, name='BindingEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function BindingEnergyCreateConst( &
    type(c_ptr) :: BindingEnergyCreateConst
 end function BindingEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function BindingEnergyCreate( &
    Double &
 ) &
@@ -75,6 +75,8 @@ end subroutine BindingEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function BindingEnergyRead(handle, filename, filenameSize) &
       bind(C, name='BindingEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function BindingEnergyRead(handle, filename, filenameSize) &
 end function BindingEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function BindingEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='BindingEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function BindingEnergyDoubleGetConst(handle) &
    type(c_ptr) :: BindingEnergyDoubleGetConst
 end function BindingEnergyDoubleGetConst
 
-!! Get
+!! Get, non-const
 function BindingEnergyDoubleGet(handle) &
       bind(C, name='BindingEnergyDoubleGet')
    use iso_c_binding

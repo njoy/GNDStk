@@ -70,7 +70,7 @@ typedef       struct T_MClass *      Handle2T_M;
 extern_c Handle2ConstT_M
 T_MDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2T_M
 T_MDefault();
 
@@ -80,7 +80,7 @@ T_MCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2T_M
 T_MCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ T_MXYs1dHas(ConstHandle2ConstT_M self);
 extern_c Handle2ConstXYs1d
 T_MXYs1dGetConst(ConstHandle2ConstT_M self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 T_MXYs1dGet(ConstHandle2T_M self);
 

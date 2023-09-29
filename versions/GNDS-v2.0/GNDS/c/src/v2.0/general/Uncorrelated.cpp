@@ -37,7 +37,7 @@ UncorrelatedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Uncorrelated
 UncorrelatedDefault()
 {
@@ -63,7 +63,7 @@ UncorrelatedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Uncorrelated
 UncorrelatedCreate(
    const char *const label,
@@ -233,7 +233,7 @@ UncorrelatedAngularGetConst(ConstHandle2ConstUncorrelated self)
       (CLASSNAME, CLASSNAME+"AngularGetConst", self, extract::angular);
 }
 
-// Get
+// Get, non-const
 Handle2Angular
 UncorrelatedAngularGet(ConstHandle2Uncorrelated self)
 {
@@ -270,7 +270,7 @@ UncorrelatedEnergyGetConst(ConstHandle2ConstUncorrelated self)
       (CLASSNAME, CLASSNAME+"EnergyGetConst", self, extract::energy);
 }
 
-// Get
+// Get, non-const
 Handle2Energy
 UncorrelatedEnergyGet(ConstHandle2Uncorrelated self)
 {

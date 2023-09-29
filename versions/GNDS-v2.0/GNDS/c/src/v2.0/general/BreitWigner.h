@@ -72,7 +72,7 @@ typedef       struct BreitWignerClass *      Handle2BreitWigner;
 extern_c Handle2ConstBreitWigner
 BreitWignerDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2BreitWigner
 BreitWignerDefault();
 
@@ -87,7 +87,7 @@ BreitWignerCreateConst(
    ConstHandle2ConstScatteringRadius scatteringRadius
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2BreitWigner
 BreitWignerCreate(
    const char *const label,
@@ -208,7 +208,7 @@ BreitWignerResonanceParametersHas(ConstHandle2ConstBreitWigner self);
 extern_c Handle2ConstResonanceParameters
 BreitWignerResonanceParametersGetConst(ConstHandle2ConstBreitWigner self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ResonanceParameters
 BreitWignerResonanceParametersGet(ConstHandle2BreitWigner self);
 
@@ -229,7 +229,7 @@ BreitWignerPoPsHas(ConstHandle2ConstBreitWigner self);
 extern_c Handle2ConstPoPs
 BreitWignerPoPsGetConst(ConstHandle2ConstBreitWigner self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2PoPs
 BreitWignerPoPsGet(ConstHandle2BreitWigner self);
 
@@ -250,7 +250,7 @@ BreitWignerScatteringRadiusHas(ConstHandle2ConstBreitWigner self);
 extern_c Handle2ConstScatteringRadius
 BreitWignerScatteringRadiusGetConst(ConstHandle2ConstBreitWigner self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ScatteringRadius
 BreitWignerScatteringRadiusGet(ConstHandle2BreitWigner self);
 

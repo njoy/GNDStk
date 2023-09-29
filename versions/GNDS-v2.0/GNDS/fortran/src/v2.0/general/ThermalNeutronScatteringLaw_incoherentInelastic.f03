@@ -20,7 +20,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticDefaultConst() &
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentInelasticDefaultConst
 end function ThermalNeutronScatteringLaw_incoherentInelasticDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ThermalNeutronScatteringLaw_incoherentInelasticDefault() &
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticDefault')
    use iso_c_binding
@@ -57,7 +57,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticCreateConst( &
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentInelasticCreateConst
 end function ThermalNeutronScatteringLaw_incoherentInelasticCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ThermalNeutronScatteringLaw_incoherentInelasticCreate( &
    label, &
    pid, &
@@ -111,6 +111,8 @@ end subroutine ThermalNeutronScatteringLaw_incoherentInelasticDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ThermalNeutronScatteringLaw_incoherentInelasticRead(handle, filename, filenameSize) &
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticRead')
    use iso_c_binding
@@ -122,6 +124,8 @@ function ThermalNeutronScatteringLaw_incoherentInelasticRead(handle, filename, f
 end function ThermalNeutronScatteringLaw_incoherentInelasticRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ThermalNeutronScatteringLaw_incoherentInelasticWrite(handle, filename, filenameSize) &
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticWrite')
    use iso_c_binding
@@ -346,7 +350,7 @@ function ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(
    type(c_ptr) :: ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst
 end function ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst
 
-!! Get
+!! Get, non-const
 function ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(handle) &
       bind(C, name='ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet')
    use iso_c_binding

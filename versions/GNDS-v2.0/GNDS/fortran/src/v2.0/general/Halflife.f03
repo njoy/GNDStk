@@ -20,7 +20,7 @@ function HalflifeDefaultConst() &
    type(c_ptr) :: HalflifeDefaultConst
 end function HalflifeDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function HalflifeDefault() &
       bind(C, name='HalflifeDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function HalflifeCreateConst( &
    type(c_ptr) :: HalflifeCreateConst
 end function HalflifeCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function HalflifeCreate( &
    string, &
    Double &
@@ -79,6 +79,8 @@ end subroutine HalflifeDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function HalflifeRead(handle, filename, filenameSize) &
       bind(C, name='HalflifeRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function HalflifeRead(handle, filename, filenameSize) &
 end function HalflifeRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function HalflifeWrite(handle, filename, filenameSize) &
       bind(C, name='HalflifeWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function HalflifeStringGetConst(handle) &
    type(c_ptr) :: HalflifeStringGetConst
 end function HalflifeStringGetConst
 
-!! Get
+!! Get, non-const
 function HalflifeStringGet(handle) &
       bind(C, name='HalflifeStringGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function HalflifeDoubleGetConst(handle) &
    type(c_ptr) :: HalflifeDoubleGetConst
 end function HalflifeDoubleGetConst
 
-!! Get
+!! Get, non-const
 function HalflifeDoubleGet(handle) &
       bind(C, name='HalflifeDoubleGet')
    use iso_c_binding

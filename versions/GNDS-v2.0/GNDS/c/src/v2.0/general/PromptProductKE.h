@@ -71,7 +71,7 @@ typedef       struct PromptProductKEClass *      Handle2PromptProductKE;
 extern_c Handle2ConstPromptProductKE
 PromptProductKEDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PromptProductKE
 PromptProductKEDefault();
 
@@ -82,7 +82,7 @@ PromptProductKECreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PromptProductKE
 PromptProductKECreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -145,7 +145,7 @@ PromptProductKEPolynomial1dHas(ConstHandle2ConstPromptProductKE self);
 extern_c Handle2ConstPolynomial1d
 PromptProductKEPolynomial1dGetConst(ConstHandle2ConstPromptProductKE self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Polynomial1d
 PromptProductKEPolynomial1dGet(ConstHandle2PromptProductKE self);
 
@@ -166,7 +166,7 @@ PromptProductKEXYs1dHas(ConstHandle2ConstPromptProductKE self);
 extern_c Handle2ConstXYs1d
 PromptProductKEXYs1dGetConst(ConstHandle2ConstPromptProductKE self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 PromptProductKEXYs1dGet(ConstHandle2PromptProductKE self);
 

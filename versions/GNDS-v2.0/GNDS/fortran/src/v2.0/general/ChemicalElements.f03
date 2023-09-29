@@ -20,7 +20,7 @@ function ChemicalElementsDefaultConst() &
    type(c_ptr) :: ChemicalElementsDefaultConst
 end function ChemicalElementsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ChemicalElementsDefault() &
       bind(C, name='ChemicalElementsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ChemicalElementsCreateConst( &
    type(c_ptr) :: ChemicalElementsCreateConst
 end function ChemicalElementsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ChemicalElementsCreate( &
    chemicalElement, chemicalElementSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ChemicalElementsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ChemicalElementsRead(handle, filename, filenameSize) &
       bind(C, name='ChemicalElementsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ChemicalElementsRead(handle, filename, filenameSize) &
 end function ChemicalElementsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ChemicalElementsWrite(handle, filename, filenameSize) &
       bind(C, name='ChemicalElementsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ChemicalElementsChemicalElementGetConst(handle, index) &
    type(c_ptr) :: ChemicalElementsChemicalElementGetConst
 end function ChemicalElementsChemicalElementGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ChemicalElementsChemicalElementGet(handle, index) &
       bind(C, name='ChemicalElementsChemicalElementGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ChemicalElementsChemicalElementGetBySymbolConst(handle, meta, metaSize)
    type(c_ptr) :: ChemicalElementsChemicalElementGetBySymbolConst
 end function ChemicalElementsChemicalElementGetBySymbolConst
 
-!! Get, by symbol
+!! Get, by symbol, non-const
 function ChemicalElementsChemicalElementGetBySymbol(handle, meta, metaSize) &
       bind(C, name='ChemicalElementsChemicalElementGetBySymbol')
    use iso_c_binding
@@ -267,7 +271,7 @@ function ChemicalElementsChemicalElementGetByZConst(handle, meta) &
    type(c_ptr) :: ChemicalElementsChemicalElementGetByZConst
 end function ChemicalElementsChemicalElementGetByZConst
 
-!! Get, by Z
+!! Get, by Z, non-const
 function ChemicalElementsChemicalElementGetByZ(handle, meta) &
       bind(C, name='ChemicalElementsChemicalElementGetByZ')
    use iso_c_binding
@@ -313,7 +317,7 @@ function ChemicalElementsChemicalElementGetByNameConst(handle, meta, metaSize) &
    type(c_ptr) :: ChemicalElementsChemicalElementGetByNameConst
 end function ChemicalElementsChemicalElementGetByNameConst
 
-!! Get, by name
+!! Get, by name, non-const
 function ChemicalElementsChemicalElementGetByName(handle, meta, metaSize) &
       bind(C, name='ChemicalElementsChemicalElementGetByName')
    use iso_c_binding

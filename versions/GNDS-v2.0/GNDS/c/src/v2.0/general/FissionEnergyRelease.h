@@ -78,7 +78,7 @@ typedef       struct FissionEnergyReleaseClass *      Handle2FissionEnergyReleas
 extern_c Handle2ConstFissionEnergyRelease
 FissionEnergyReleaseDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleaseDefault();
 
@@ -97,7 +97,7 @@ FissionEnergyReleaseCreateConst(
    ConstHandle2ConstTotalEnergy totalEnergy
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleaseCreate(
    const char *const label,
@@ -186,7 +186,7 @@ FissionEnergyReleasePromptProductKEHas(ConstHandle2ConstFissionEnergyRelease sel
 extern_c Handle2ConstPromptProductKE
 FissionEnergyReleasePromptProductKEGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2PromptProductKE
 FissionEnergyReleasePromptProductKEGet(ConstHandle2FissionEnergyRelease self);
 
@@ -207,7 +207,7 @@ FissionEnergyReleasePromptNeutronKEHas(ConstHandle2ConstFissionEnergyRelease sel
 extern_c Handle2ConstPromptNeutronKE
 FissionEnergyReleasePromptNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2PromptNeutronKE
 FissionEnergyReleasePromptNeutronKEGet(ConstHandle2FissionEnergyRelease self);
 
@@ -228,7 +228,7 @@ FissionEnergyReleaseDelayedNeutronKEHas(ConstHandle2ConstFissionEnergyRelease se
 extern_c Handle2ConstDelayedNeutronKE
 FissionEnergyReleaseDelayedNeutronKEGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DelayedNeutronKE
 FissionEnergyReleaseDelayedNeutronKEGet(ConstHandle2FissionEnergyRelease self);
 
@@ -249,7 +249,7 @@ FissionEnergyReleasePromptGammaEnergyHas(ConstHandle2ConstFissionEnergyRelease s
 extern_c Handle2ConstPromptGammaEnergy
 FissionEnergyReleasePromptGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2PromptGammaEnergy
 FissionEnergyReleasePromptGammaEnergyGet(ConstHandle2FissionEnergyRelease self);
 
@@ -270,7 +270,7 @@ FissionEnergyReleaseDelayedGammaEnergyHas(ConstHandle2ConstFissionEnergyRelease 
 extern_c Handle2ConstDelayedGammaEnergy
 FissionEnergyReleaseDelayedGammaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DelayedGammaEnergy
 FissionEnergyReleaseDelayedGammaEnergyGet(ConstHandle2FissionEnergyRelease self);
 
@@ -291,7 +291,7 @@ FissionEnergyReleaseDelayedBetaEnergyHas(ConstHandle2ConstFissionEnergyRelease s
 extern_c Handle2ConstDelayedBetaEnergy
 FissionEnergyReleaseDelayedBetaEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DelayedBetaEnergy
 FissionEnergyReleaseDelayedBetaEnergyGet(ConstHandle2FissionEnergyRelease self);
 
@@ -312,7 +312,7 @@ FissionEnergyReleaseNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyRelease self
 extern_c Handle2ConstNeutrinoEnergy
 FissionEnergyReleaseNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2NeutrinoEnergy
 FissionEnergyReleaseNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease self);
 
@@ -333,7 +333,7 @@ FissionEnergyReleaseNonNeutrinoEnergyHas(ConstHandle2ConstFissionEnergyRelease s
 extern_c Handle2ConstNonNeutrinoEnergy
 FissionEnergyReleaseNonNeutrinoEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2NonNeutrinoEnergy
 FissionEnergyReleaseNonNeutrinoEnergyGet(ConstHandle2FissionEnergyRelease self);
 
@@ -354,7 +354,7 @@ FissionEnergyReleaseTotalEnergyHas(ConstHandle2ConstFissionEnergyRelease self);
 extern_c Handle2ConstTotalEnergy
 FissionEnergyReleaseTotalEnergyGetConst(ConstHandle2ConstFissionEnergyRelease self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2TotalEnergy
 FissionEnergyReleaseTotalEnergyGet(ConstHandle2FissionEnergyRelease self);
 

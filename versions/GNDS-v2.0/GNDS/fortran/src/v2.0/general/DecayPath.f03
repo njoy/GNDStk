@@ -20,7 +20,7 @@ function DecayPathDefaultConst() &
    type(c_ptr) :: DecayPathDefaultConst
 end function DecayPathDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DecayPathDefault() &
       bind(C, name='DecayPathDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function DecayPathCreateConst( &
    type(c_ptr) :: DecayPathCreateConst
 end function DecayPathCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DecayPathCreate( &
    decay, decaySize &
 ) &
@@ -77,6 +77,8 @@ end subroutine DecayPathDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DecayPathRead(handle, filename, filenameSize) &
       bind(C, name='DecayPathRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function DecayPathRead(handle, filename, filenameSize) &
 end function DecayPathRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DecayPathWrite(handle, filename, filenameSize) &
       bind(C, name='DecayPathWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function DecayPathDecayGetConst(handle, index) &
    type(c_ptr) :: DecayPathDecayGetConst
 end function DecayPathDecayGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function DecayPathDecayGet(handle, index) &
       bind(C, name='DecayPathDecayGet')
    use iso_c_binding
@@ -219,7 +223,7 @@ function DecayPathDecayGetByIndexConst(handle, meta) &
    type(c_ptr) :: DecayPathDecayGetByIndexConst
 end function DecayPathDecayGetByIndexConst
 
-!! Get, by index
+!! Get, by index, non-const
 function DecayPathDecayGetByIndex(handle, meta) &
       bind(C, name='DecayPathDecayGetByIndex')
    use iso_c_binding
@@ -265,7 +269,7 @@ function DecayPathDecayGetByModeConst(handle, meta, metaSize) &
    type(c_ptr) :: DecayPathDecayGetByModeConst
 end function DecayPathDecayGetByModeConst
 
-!! Get, by mode
+!! Get, by mode, non-const
 function DecayPathDecayGetByMode(handle, meta, metaSize) &
       bind(C, name='DecayPathDecayGetByMode')
    use iso_c_binding
@@ -311,7 +315,7 @@ function DecayPathDecayGetByCompleteConst(handle, meta) &
    type(c_ptr) :: DecayPathDecayGetByCompleteConst
 end function DecayPathDecayGetByCompleteConst
 
-!! Get, by complete
+!! Get, by complete, non-const
 function DecayPathDecayGetByComplete(handle, meta) &
       bind(C, name='DecayPathDecayGetByComplete')
    use iso_c_binding

@@ -20,7 +20,7 @@ function DiscreteDefaultConst() &
    type(c_ptr) :: DiscreteDefaultConst
 end function DiscreteDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DiscreteDefault() &
       bind(C, name='DiscreteDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function DiscreteCreateConst( &
    type(c_ptr) :: DiscreteCreateConst
 end function DiscreteCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DiscreteCreate( &
    type1, &
    intensity, &
@@ -95,6 +95,8 @@ end subroutine DiscreteDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DiscreteRead(handle, filename, filenameSize) &
       bind(C, name='DiscreteRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function DiscreteRead(handle, filename, filenameSize) &
 end function DiscreteRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DiscreteWrite(handle, filename, filenameSize) &
       bind(C, name='DiscreteWrite')
    use iso_c_binding
@@ -199,7 +203,7 @@ function DiscreteIntensityGetConst(handle) &
    type(c_ptr) :: DiscreteIntensityGetConst
 end function DiscreteIntensityGetConst
 
-!! Get
+!! Get, non-const
 function DiscreteIntensityGet(handle) &
       bind(C, name='DiscreteIntensityGet')
    use iso_c_binding
@@ -240,7 +244,7 @@ function DiscreteEnergyGetConst(handle) &
    type(c_ptr) :: DiscreteEnergyGetConst
 end function DiscreteEnergyGetConst
 
-!! Get
+!! Get, non-const
 function DiscreteEnergyGet(handle) &
       bind(C, name='DiscreteEnergyGet')
    use iso_c_binding
@@ -281,7 +285,7 @@ function DiscreteInternalConversionCoefficientsGetConst(handle) &
    type(c_ptr) :: DiscreteInternalConversionCoefficientsGetConst
 end function DiscreteInternalConversionCoefficientsGetConst
 
-!! Get
+!! Get, non-const
 function DiscreteInternalConversionCoefficientsGet(handle) &
       bind(C, name='DiscreteInternalConversionCoefficientsGet')
    use iso_c_binding
@@ -322,7 +326,7 @@ function DiscretePositronEmissionIntensityGetConst(handle) &
    type(c_ptr) :: DiscretePositronEmissionIntensityGetConst
 end function DiscretePositronEmissionIntensityGetConst
 
-!! Get
+!! Get, non-const
 function DiscretePositronEmissionIntensityGet(handle) &
       bind(C, name='DiscretePositronEmissionIntensityGet')
    use iso_c_binding

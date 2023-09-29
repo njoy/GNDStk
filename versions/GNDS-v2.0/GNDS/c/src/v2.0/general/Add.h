@@ -69,7 +69,7 @@ typedef       struct AddClass *      Handle2Add;
 extern_c Handle2ConstAdd
 AddDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Add
 AddDefault();
 
@@ -79,7 +79,7 @@ AddCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Add
 AddCreate(
    const char *const href

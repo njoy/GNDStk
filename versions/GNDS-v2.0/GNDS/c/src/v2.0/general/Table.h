@@ -71,7 +71,7 @@ typedef       struct TableClass *      Handle2Table;
 extern_c Handle2ConstTable
 TableDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Table
 TableDefault();
 
@@ -84,7 +84,7 @@ TableCreateConst(
    ConstHandle2ConstData data
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Table
 TableCreate(
    const int rows,
@@ -185,7 +185,7 @@ TableColumnHeadersHas(ConstHandle2ConstTable self);
 extern_c Handle2ConstColumnHeaders
 TableColumnHeadersGetConst(ConstHandle2ConstTable self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ColumnHeaders
 TableColumnHeadersGet(ConstHandle2Table self);
 
@@ -206,7 +206,7 @@ TableDataHas(ConstHandle2ConstTable self);
 extern_c Handle2ConstData
 TableDataGetConst(ConstHandle2ConstTable self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Data
 TableDataGet(ConstHandle2Table self);
 

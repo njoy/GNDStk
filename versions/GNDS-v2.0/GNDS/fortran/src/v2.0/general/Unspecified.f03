@@ -20,7 +20,7 @@ function UnspecifiedDefaultConst() &
    type(c_ptr) :: UnspecifiedDefaultConst
 end function UnspecifiedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UnspecifiedDefault() &
       bind(C, name='UnspecifiedDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function UnspecifiedCreateConst( &
    type(c_ptr) :: UnspecifiedCreateConst
 end function UnspecifiedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UnspecifiedCreate( &
    label, &
    productFrame, &
@@ -87,6 +87,8 @@ end subroutine UnspecifiedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UnspecifiedRead(handle, filename, filenameSize) &
       bind(C, name='UnspecifiedRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function UnspecifiedRead(handle, filename, filenameSize) &
 end function UnspecifiedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UnspecifiedWrite(handle, filename, filenameSize) &
       bind(C, name='UnspecifiedWrite')
    use iso_c_binding

@@ -72,7 +72,7 @@ typedef       struct RMatrixClass *      Handle2RMatrix;
 extern_c Handle2ConstRMatrix
 RMatrixDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2RMatrix
 RMatrixDefault();
 
@@ -89,7 +89,7 @@ RMatrixCreateConst(
    ConstHandle2ConstSpinGroups spinGroups
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2RMatrix
 RMatrixCreate(
    const char *const label,
@@ -248,7 +248,7 @@ RMatrixPoPsHas(ConstHandle2ConstRMatrix self);
 extern_c Handle2ConstPoPs
 RMatrixPoPsGetConst(ConstHandle2ConstRMatrix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2PoPs
 RMatrixPoPsGet(ConstHandle2RMatrix self);
 
@@ -269,7 +269,7 @@ RMatrixResonanceReactionsHas(ConstHandle2ConstRMatrix self);
 extern_c Handle2ConstResonanceReactions
 RMatrixResonanceReactionsGetConst(ConstHandle2ConstRMatrix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ResonanceReactions
 RMatrixResonanceReactionsGet(ConstHandle2RMatrix self);
 
@@ -290,7 +290,7 @@ RMatrixSpinGroupsHas(ConstHandle2ConstRMatrix self);
 extern_c Handle2ConstSpinGroups
 RMatrixSpinGroupsGetConst(ConstHandle2ConstRMatrix self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2SpinGroups
 RMatrixSpinGroupsGet(ConstHandle2RMatrix self);
 

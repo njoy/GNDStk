@@ -70,7 +70,7 @@ typedef       struct FissionEnergyReleasesClass *      Handle2FissionEnergyRelea
 extern_c Handle2ConstFissionEnergyReleases
 FissionEnergyReleasesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2FissionEnergyReleases
 FissionEnergyReleasesDefault();
 
@@ -80,7 +80,7 @@ FissionEnergyReleasesCreateConst(
    ConstHandle2FissionEnergyRelease *const fissionEnergyRelease, const size_t fissionEnergyReleaseSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2FissionEnergyReleases
 FissionEnergyReleasesCreate(
    ConstHandle2FissionEnergyRelease *const fissionEnergyRelease, const size_t fissionEnergyReleaseSize
@@ -154,7 +154,7 @@ FissionEnergyReleasesFissionEnergyReleaseAdd(ConstHandle2FissionEnergyReleases s
 extern_c Handle2ConstFissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetConst(ConstHandle2ConstFissionEnergyReleases self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGet(ConstHandle2FissionEnergyReleases self, const size_t index_);
 
@@ -184,7 +184,7 @@ FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetByLabel(
    ConstHandle2FissionEnergyReleases self,

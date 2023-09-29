@@ -32,7 +32,7 @@ ReferenceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Reference
 ReferenceDefault()
 {
@@ -54,7 +54,7 @@ ReferenceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Reference
 ReferenceCreate(
    const char *const label,

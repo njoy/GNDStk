@@ -20,7 +20,7 @@ function FissionFragmentDataDefaultConst() &
    type(c_ptr) :: FissionFragmentDataDefaultConst
 end function FissionFragmentDataDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function FissionFragmentDataDefault() &
       bind(C, name='FissionFragmentDataDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function FissionFragmentDataCreateConst( &
    type(c_ptr) :: FissionFragmentDataCreateConst
 end function FissionFragmentDataCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function FissionFragmentDataCreate( &
    productYields, &
    delayedNeutrons, &
@@ -83,6 +83,8 @@ end subroutine FissionFragmentDataDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function FissionFragmentDataRead(handle, filename, filenameSize) &
       bind(C, name='FissionFragmentDataRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function FissionFragmentDataRead(handle, filename, filenameSize) &
 end function FissionFragmentDataRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function FissionFragmentDataWrite(handle, filename, filenameSize) &
       bind(C, name='FissionFragmentDataWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function FissionFragmentDataProductYieldsGetConst(handle) &
    type(c_ptr) :: FissionFragmentDataProductYieldsGetConst
 end function FissionFragmentDataProductYieldsGetConst
 
-!! Get
+!! Get, non-const
 function FissionFragmentDataProductYieldsGet(handle) &
       bind(C, name='FissionFragmentDataProductYieldsGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function FissionFragmentDataDelayedNeutronsGetConst(handle) &
    type(c_ptr) :: FissionFragmentDataDelayedNeutronsGetConst
 end function FissionFragmentDataDelayedNeutronsGetConst
 
-!! Get
+!! Get, non-const
 function FissionFragmentDataDelayedNeutronsGet(handle) &
       bind(C, name='FissionFragmentDataDelayedNeutronsGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function FissionFragmentDataFissionEnergyReleasesGetConst(handle) &
    type(c_ptr) :: FissionFragmentDataFissionEnergyReleasesGetConst
 end function FissionFragmentDataFissionEnergyReleasesGetConst
 
-!! Get
+!! Get, non-const
 function FissionFragmentDataFissionEnergyReleasesGet(handle) &
       bind(C, name='FissionFragmentDataFissionEnergyReleasesGet')
    use iso_c_binding

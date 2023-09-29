@@ -20,7 +20,7 @@ function MixedDefaultConst() &
    type(c_ptr) :: MixedDefaultConst
 end function MixedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MixedDefault() &
       bind(C, name='MixedDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function MixedCreateConst( &
    type(c_ptr) :: MixedCreateConst
 end function MixedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MixedCreate( &
    label, &
    covarianceMatrix, covarianceMatrixSize, &
@@ -95,6 +95,8 @@ end subroutine MixedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MixedRead(handle, filename, filenameSize) &
       bind(C, name='MixedRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function MixedRead(handle, filename, filenameSize) &
 end function MixedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MixedWrite(handle, filename, filenameSize) &
       bind(C, name='MixedWrite')
    use iso_c_binding
@@ -226,7 +230,7 @@ function MixedCovarianceMatrixGetConst(handle, index) &
    type(c_ptr) :: MixedCovarianceMatrixGetConst
 end function MixedCovarianceMatrixGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function MixedCovarianceMatrixGet(handle, index) &
       bind(C, name='MixedCovarianceMatrixGet')
    use iso_c_binding
@@ -272,7 +276,7 @@ function MixedCovarianceMatrixGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: MixedCovarianceMatrixGetByLabelConst
 end function MixedCovarianceMatrixGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function MixedCovarianceMatrixGetByLabel(handle, meta, metaSize) &
       bind(C, name='MixedCovarianceMatrixGetByLabel')
    use iso_c_binding
@@ -320,7 +324,7 @@ function MixedCovarianceMatrixGetByTypeConst(handle, meta, metaSize) &
    type(c_ptr) :: MixedCovarianceMatrixGetByTypeConst
 end function MixedCovarianceMatrixGetByTypeConst
 
-!! Get, by type
+!! Get, by type, non-const
 function MixedCovarianceMatrixGetByType(handle, meta, metaSize) &
       bind(C, name='MixedCovarianceMatrixGetByType')
    use iso_c_binding
@@ -368,7 +372,7 @@ function MixedCovarianceMatrixGetByProductFrameConst(handle, meta, metaSize) &
    type(c_ptr) :: MixedCovarianceMatrixGetByProductFrameConst
 end function MixedCovarianceMatrixGetByProductFrameConst
 
-!! Get, by productFrame
+!! Get, by productFrame, non-const
 function MixedCovarianceMatrixGetByProductFrame(handle, meta, metaSize) &
       bind(C, name='MixedCovarianceMatrixGetByProductFrame')
    use iso_c_binding
@@ -440,7 +444,7 @@ function MixedSumGetConst(handle, index) &
    type(c_ptr) :: MixedSumGetConst
 end function MixedSumGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function MixedSumGet(handle, index) &
       bind(C, name='MixedSumGet')
    use iso_c_binding
@@ -486,7 +490,7 @@ function MixedSumGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: MixedSumGetByLabelConst
 end function MixedSumGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function MixedSumGetByLabel(handle, meta, metaSize) &
       bind(C, name='MixedSumGetByLabel')
    use iso_c_binding
@@ -532,7 +536,7 @@ function MixedSumGetByDomainMinConst(handle, meta) &
    type(c_ptr) :: MixedSumGetByDomainMinConst
 end function MixedSumGetByDomainMinConst
 
-!! Get, by domainMin
+!! Get, by domainMin, non-const
 function MixedSumGetByDomainMin(handle, meta) &
       bind(C, name='MixedSumGetByDomainMin')
    use iso_c_binding
@@ -576,7 +580,7 @@ function MixedSumGetByDomainMaxConst(handle, meta) &
    type(c_ptr) :: MixedSumGetByDomainMaxConst
 end function MixedSumGetByDomainMaxConst
 
-!! Get, by domainMax
+!! Get, by domainMax, non-const
 function MixedSumGetByDomainMax(handle, meta) &
       bind(C, name='MixedSumGetByDomainMax')
    use iso_c_binding
@@ -622,7 +626,7 @@ function MixedSumGetByDomainUnitConst(handle, meta, metaSize) &
    type(c_ptr) :: MixedSumGetByDomainUnitConst
 end function MixedSumGetByDomainUnitConst
 
-!! Get, by domainUnit
+!! Get, by domainUnit, non-const
 function MixedSumGetByDomainUnit(handle, meta, metaSize) &
       bind(C, name='MixedSumGetByDomainUnit')
    use iso_c_binding
@@ -667,7 +671,7 @@ function MixedShortRangeSelfScalingVarianceGetConst(handle) &
    type(c_ptr) :: MixedShortRangeSelfScalingVarianceGetConst
 end function MixedShortRangeSelfScalingVarianceGetConst
 
-!! Get
+!! Get, non-const
 function MixedShortRangeSelfScalingVarianceGet(handle) &
       bind(C, name='MixedShortRangeSelfScalingVarianceGet')
    use iso_c_binding

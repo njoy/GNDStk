@@ -71,7 +71,7 @@ typedef       struct EvaporationClass *      Handle2Evaporation;
 extern_c Handle2ConstEvaporation
 EvaporationDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Evaporation
 EvaporationDefault();
 
@@ -82,7 +82,7 @@ EvaporationCreateConst(
    ConstHandle2ConstTheta theta
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Evaporation
 EvaporationCreate(
    ConstHandle2ConstU U,
@@ -145,7 +145,7 @@ EvaporationUHas(ConstHandle2ConstEvaporation self);
 extern_c Handle2ConstU
 EvaporationUGetConst(ConstHandle2ConstEvaporation self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2U
 EvaporationUGet(ConstHandle2Evaporation self);
 
@@ -166,7 +166,7 @@ EvaporationThetaHas(ConstHandle2ConstEvaporation self);
 extern_c Handle2ConstTheta
 EvaporationThetaGetConst(ConstHandle2ConstEvaporation self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Theta
 EvaporationThetaGet(ConstHandle2Evaporation self);
 

@@ -20,7 +20,7 @@ function DelayedNeutronKEDefaultConst() &
    type(c_ptr) :: DelayedNeutronKEDefaultConst
 end function DelayedNeutronKEDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DelayedNeutronKEDefault() &
       bind(C, name='DelayedNeutronKEDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function DelayedNeutronKECreateConst( &
    type(c_ptr) :: DelayedNeutronKECreateConst
 end function DelayedNeutronKECreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DelayedNeutronKECreate( &
    polynomial1d, &
    XYs1d &
@@ -79,6 +79,8 @@ end subroutine DelayedNeutronKEDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DelayedNeutronKERead(handle, filename, filenameSize) &
       bind(C, name='DelayedNeutronKERead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function DelayedNeutronKERead(handle, filename, filenameSize) &
 end function DelayedNeutronKERead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DelayedNeutronKEWrite(handle, filename, filenameSize) &
       bind(C, name='DelayedNeutronKEWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function DelayedNeutronKEPolynomial1dGetConst(handle) &
    type(c_ptr) :: DelayedNeutronKEPolynomial1dGetConst
 end function DelayedNeutronKEPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function DelayedNeutronKEPolynomial1dGet(handle) &
       bind(C, name='DelayedNeutronKEPolynomial1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function DelayedNeutronKEXYs1dGetConst(handle) &
    type(c_ptr) :: DelayedNeutronKEXYs1dGetConst
 end function DelayedNeutronKEXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function DelayedNeutronKEXYs1dGet(handle) &
       bind(C, name='DelayedNeutronKEXYs1dGet')
    use iso_c_binding

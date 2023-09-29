@@ -36,7 +36,7 @@ UnresolvedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Unresolved
 UnresolvedDefault()
 {
@@ -62,7 +62,7 @@ UnresolvedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Unresolved
 UnresolvedCreate(
    const double domainMin,
@@ -262,7 +262,7 @@ UnresolvedTabulatedWidthsGetConst(ConstHandle2ConstUnresolved self)
       (CLASSNAME, CLASSNAME+"TabulatedWidthsGetConst", self, extract::tabulatedWidths);
 }
 
-// Get
+// Get, non-const
 Handle2TabulatedWidths
 UnresolvedTabulatedWidthsGet(ConstHandle2Unresolved self)
 {

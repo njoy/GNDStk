@@ -70,7 +70,7 @@ typedef       struct UnorthodoxesClass *      Handle2Unorthodoxes;
 extern_c Handle2ConstUnorthodoxes
 UnorthodoxesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Unorthodoxes
 UnorthodoxesDefault();
 
@@ -80,7 +80,7 @@ UnorthodoxesCreateConst(
    ConstHandle2Unorthodox *const unorthodox, const size_t unorthodoxSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Unorthodoxes
 UnorthodoxesCreate(
    ConstHandle2Unorthodox *const unorthodox, const size_t unorthodoxSize
@@ -154,7 +154,7 @@ UnorthodoxesUnorthodoxAdd(ConstHandle2Unorthodoxes self, ConstHandle2ConstUnorth
 extern_c Handle2ConstUnorthodox
 UnorthodoxesUnorthodoxGetConst(ConstHandle2ConstUnorthodoxes self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Unorthodox
 UnorthodoxesUnorthodoxGet(ConstHandle2Unorthodoxes self, const size_t index_);
 
@@ -184,7 +184,7 @@ UnorthodoxesUnorthodoxGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2Unorthodox
 UnorthodoxesUnorthodoxGetById(
    ConstHandle2Unorthodoxes self,

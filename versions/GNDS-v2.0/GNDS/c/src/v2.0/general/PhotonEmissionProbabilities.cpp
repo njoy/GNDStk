@@ -33,7 +33,7 @@ PhotonEmissionProbabilitiesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PhotonEmissionProbabilities
 PhotonEmissionProbabilitiesDefault()
 {
@@ -53,7 +53,7 @@ PhotonEmissionProbabilitiesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PhotonEmissionProbabilities
 PhotonEmissionProbabilitiesCreate(
    ConstHandle2ConstShell shell
@@ -157,7 +157,7 @@ PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabil
       (CLASSNAME, CLASSNAME+"ShellGetConst", self, extract::shell);
 }
 
-// Get
+// Get, non-const
 Handle2Shell
 PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities self)
 {

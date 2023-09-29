@@ -20,7 +20,7 @@ function AngularDefaultConst() &
    type(c_ptr) :: AngularDefaultConst
 end function AngularDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AngularDefault() &
       bind(C, name='AngularDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function AngularCreateConst( &
    type(c_ptr) :: AngularCreateConst
 end function AngularCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AngularCreate( &
    isotropic2d, &
    XYs2d &
@@ -79,6 +79,8 @@ end subroutine AngularDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AngularRead(handle, filename, filenameSize) &
       bind(C, name='AngularRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function AngularRead(handle, filename, filenameSize) &
 end function AngularRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AngularWrite(handle, filename, filenameSize) &
       bind(C, name='AngularWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function AngularIsotropic2dGetConst(handle) &
    type(c_ptr) :: AngularIsotropic2dGetConst
 end function AngularIsotropic2dGetConst
 
-!! Get
+!! Get, non-const
 function AngularIsotropic2dGet(handle) &
       bind(C, name='AngularIsotropic2dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function AngularXYs2dGetConst(handle) &
    type(c_ptr) :: AngularXYs2dGetConst
 end function AngularXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function AngularXYs2dGet(handle) &
       bind(C, name='AngularXYs2dGet')
    use iso_c_binding

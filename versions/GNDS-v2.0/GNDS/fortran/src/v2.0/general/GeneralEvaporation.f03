@@ -20,7 +20,7 @@ function GeneralEvaporationDefaultConst() &
    type(c_ptr) :: GeneralEvaporationDefaultConst
 end function GeneralEvaporationDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function GeneralEvaporationDefault() &
       bind(C, name='GeneralEvaporationDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function GeneralEvaporationCreateConst( &
    type(c_ptr) :: GeneralEvaporationCreateConst
 end function GeneralEvaporationCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function GeneralEvaporationCreate( &
    U, &
    theta, &
@@ -83,6 +83,8 @@ end subroutine GeneralEvaporationDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function GeneralEvaporationRead(handle, filename, filenameSize) &
       bind(C, name='GeneralEvaporationRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function GeneralEvaporationRead(handle, filename, filenameSize) &
 end function GeneralEvaporationRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function GeneralEvaporationWrite(handle, filename, filenameSize) &
       bind(C, name='GeneralEvaporationWrite')
    use iso_c_binding
@@ -154,7 +158,7 @@ function GeneralEvaporationUGetConst(handle) &
    type(c_ptr) :: GeneralEvaporationUGetConst
 end function GeneralEvaporationUGetConst
 
-!! Get
+!! Get, non-const
 function GeneralEvaporationUGet(handle) &
       bind(C, name='GeneralEvaporationUGet')
    use iso_c_binding
@@ -195,7 +199,7 @@ function GeneralEvaporationThetaGetConst(handle) &
    type(c_ptr) :: GeneralEvaporationThetaGetConst
 end function GeneralEvaporationThetaGetConst
 
-!! Get
+!! Get, non-const
 function GeneralEvaporationThetaGet(handle) &
       bind(C, name='GeneralEvaporationThetaGet')
    use iso_c_binding
@@ -236,7 +240,7 @@ function GeneralEvaporationGGetConst(handle) &
    type(c_ptr) :: GeneralEvaporationGGetConst
 end function GeneralEvaporationGGetConst
 
-!! Get
+!! Get, non-const
 function GeneralEvaporationGGet(handle) &
       bind(C, name='GeneralEvaporationGGet')
    use iso_c_binding

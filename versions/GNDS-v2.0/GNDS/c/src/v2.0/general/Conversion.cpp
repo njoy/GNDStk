@@ -32,7 +32,7 @@ ConversionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Conversion
 ConversionDefault()
 {
@@ -54,7 +54,7 @@ ConversionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Conversion
 ConversionCreate(
    const char *const flags,

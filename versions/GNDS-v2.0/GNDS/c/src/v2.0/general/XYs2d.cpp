@@ -41,7 +41,7 @@ XYs2dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2XYs2d
 XYs2dDefault()
 {
@@ -73,7 +73,7 @@ XYs2dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2XYs2d
 XYs2dCreate(
    const int index,
@@ -309,7 +309,7 @@ XYs2dAxesGetConst(ConstHandle2ConstXYs2d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 XYs2dAxesGet(ConstHandle2XYs2d self)
 {
@@ -346,7 +346,7 @@ XYs2dFunction1dsGetConst(ConstHandle2ConstXYs2d self)
       (CLASSNAME, CLASSNAME+"Function1dsGetConst", self, extract::function1ds);
 }
 
-// Get
+// Get, non-const
 Handle2Function1ds
 XYs2dFunction1dsGet(ConstHandle2XYs2d self)
 {
@@ -383,7 +383,7 @@ XYs2dUncertaintyGetConst(ConstHandle2ConstXYs2d self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 XYs2dUncertaintyGet(ConstHandle2XYs2d self)
 {

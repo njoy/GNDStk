@@ -71,7 +71,7 @@ typedef       struct ParameterCovariancesClass *      Handle2ParameterCovariance
 extern_c Handle2ConstParameterCovariances
 ParameterCovariancesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ParameterCovariances
 ParameterCovariancesDefault();
 
@@ -82,7 +82,7 @@ ParameterCovariancesCreateConst(
    ConstHandle2AverageParameterCovariance *const averageParameterCovariance, const size_t averageParameterCovarianceSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ParameterCovariances
 ParameterCovariancesCreate(
    ConstHandle2ParameterCovariance *const parameterCovariance, const size_t parameterCovarianceSize,
@@ -157,7 +157,7 @@ ParameterCovariancesParameterCovarianceAdd(ConstHandle2ParameterCovariances self
 extern_c Handle2ConstParameterCovariance
 ParameterCovariancesParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_);
 
@@ -187,7 +187,7 @@ ParameterCovariancesParameterCovarianceGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2ParameterCovariance
 ParameterCovariancesParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -227,7 +227,7 @@ ParameterCovariancesAverageParameterCovarianceAdd(ConstHandle2ParameterCovarianc
 extern_c Handle2ConstAverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetConst(ConstHandle2ConstParameterCovariances self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGet(ConstHandle2ParameterCovariances self, const size_t index_);
 
@@ -257,7 +257,7 @@ ParameterCovariancesAverageParameterCovarianceGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByLabel(
    ConstHandle2ParameterCovariances self,
@@ -290,7 +290,7 @@ ParameterCovariancesAverageParameterCovarianceGetByCrossTermConst(
    const bool crossTerm
 );
 
-// +++ Get, by crossTerm
+// +++ Get, by crossTerm, non-const
 extern_c Handle2AverageParameterCovariance
 ParameterCovariancesAverageParameterCovarianceGetByCrossTerm(
    ConstHandle2ParameterCovariances self,

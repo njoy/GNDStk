@@ -33,7 +33,7 @@ LeptonsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Leptons
 LeptonsDefault()
 {
@@ -55,7 +55,7 @@ LeptonsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Leptons
 LeptonsCreate(
    ConstHandle2Lepton *const lepton, const size_t leptonSize
@@ -185,7 +185,7 @@ LeptonsLeptonGetConst(ConstHandle2ConstLeptons self, const size_t index_)
       (CLASSNAME, CLASSNAME+"LeptonGetConst", self, extract::lepton, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Lepton
 LeptonsLeptonGet(ConstHandle2Leptons self, const size_t index_)
 {
@@ -230,7 +230,7 @@ LeptonsLeptonGetByIdConst(
        self, extract::lepton, meta::id, id);
 }
 
-// Get, by id
+// Get, by id, non-const
 Handle2Lepton
 LeptonsLeptonGetById(
    ConstHandle2Leptons self,
@@ -279,7 +279,7 @@ LeptonsLeptonGetByGenerationConst(
        self, extract::lepton, meta::generation, generation);
 }
 
-// Get, by generation
+// Get, by generation, non-const
 Handle2Lepton
 LeptonsLeptonGetByGeneration(
    ConstHandle2Leptons self,

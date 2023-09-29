@@ -20,7 +20,7 @@ function NucleusDefaultConst() &
    type(c_ptr) :: NucleusDefaultConst
 end function NucleusDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NucleusDefault() &
       bind(C, name='NucleusDefault')
    use iso_c_binding
@@ -57,7 +57,7 @@ function NucleusCreateConst( &
    type(c_ptr) :: NucleusCreateConst
 end function NucleusCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NucleusCreate( &
    id, &
    index, &
@@ -111,6 +111,8 @@ end subroutine NucleusDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NucleusRead(handle, filename, filenameSize) &
       bind(C, name='NucleusRead')
    use iso_c_binding
@@ -122,6 +124,8 @@ function NucleusRead(handle, filename, filenameSize) &
 end function NucleusRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NucleusWrite(handle, filename, filenameSize) &
       bind(C, name='NucleusWrite')
    use iso_c_binding
@@ -247,7 +251,7 @@ function NucleusMassGetConst(handle) &
    type(c_ptr) :: NucleusMassGetConst
 end function NucleusMassGetConst
 
-!! Get
+!! Get, non-const
 function NucleusMassGet(handle) &
       bind(C, name='NucleusMassGet')
    use iso_c_binding
@@ -288,7 +292,7 @@ function NucleusSpinGetConst(handle) &
    type(c_ptr) :: NucleusSpinGetConst
 end function NucleusSpinGetConst
 
-!! Get
+!! Get, non-const
 function NucleusSpinGet(handle) &
       bind(C, name='NucleusSpinGet')
    use iso_c_binding
@@ -329,7 +333,7 @@ function NucleusParityGetConst(handle) &
    type(c_ptr) :: NucleusParityGetConst
 end function NucleusParityGetConst
 
-!! Get
+!! Get, non-const
 function NucleusParityGet(handle) &
       bind(C, name='NucleusParityGet')
    use iso_c_binding
@@ -370,7 +374,7 @@ function NucleusChargeGetConst(handle) &
    type(c_ptr) :: NucleusChargeGetConst
 end function NucleusChargeGetConst
 
-!! Get
+!! Get, non-const
 function NucleusChargeGet(handle) &
       bind(C, name='NucleusChargeGet')
    use iso_c_binding
@@ -411,7 +415,7 @@ function NucleusHalflifeGetConst(handle) &
    type(c_ptr) :: NucleusHalflifeGetConst
 end function NucleusHalflifeGetConst
 
-!! Get
+!! Get, non-const
 function NucleusHalflifeGet(handle) &
       bind(C, name='NucleusHalflifeGet')
    use iso_c_binding
@@ -452,7 +456,7 @@ function NucleusEnergyGetConst(handle) &
    type(c_ptr) :: NucleusEnergyGetConst
 end function NucleusEnergyGetConst
 
-!! Get
+!! Get, non-const
 function NucleusEnergyGet(handle) &
       bind(C, name='NucleusEnergyGet')
    use iso_c_binding
@@ -493,7 +497,7 @@ function NucleusDecayDataGetConst(handle) &
    type(c_ptr) :: NucleusDecayDataGetConst
 end function NucleusDecayDataGetConst
 
-!! Get
+!! Get, non-const
 function NucleusDecayDataGet(handle) &
       bind(C, name='NucleusDecayDataGet')
    use iso_c_binding

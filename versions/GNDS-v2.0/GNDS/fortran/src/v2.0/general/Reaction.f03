@@ -20,7 +20,7 @@ function ReactionDefaultConst() &
    type(c_ptr) :: ReactionDefaultConst
 end function ReactionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ReactionDefault() &
       bind(C, name='ReactionDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function ReactionCreateConst( &
    type(c_ptr) :: ReactionCreateConst
 end function ReactionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ReactionCreate( &
    label, &
    ENDF_MT, &
@@ -103,6 +103,8 @@ end subroutine ReactionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ReactionRead(handle, filename, filenameSize) &
       bind(C, name='ReactionRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function ReactionRead(handle, filename, filenameSize) &
 end function ReactionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ReactionWrite(handle, filename, filenameSize) &
       bind(C, name='ReactionWrite')
    use iso_c_binding
@@ -272,7 +276,7 @@ function ReactionCrossSectionGetConst(handle) &
    type(c_ptr) :: ReactionCrossSectionGetConst
 end function ReactionCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function ReactionCrossSectionGet(handle) &
       bind(C, name='ReactionCrossSectionGet')
    use iso_c_binding
@@ -313,7 +317,7 @@ function ReactionOutputChannelGetConst(handle) &
    type(c_ptr) :: ReactionOutputChannelGetConst
 end function ReactionOutputChannelGetConst
 
-!! Get
+!! Get, non-const
 function ReactionOutputChannelGet(handle) &
       bind(C, name='ReactionOutputChannelGet')
    use iso_c_binding
@@ -354,7 +358,7 @@ function ReactionDoubleDifferentialCrossSectionGetConst(handle) &
    type(c_ptr) :: ReactionDoubleDifferentialCrossSectionGetConst
 end function ReactionDoubleDifferentialCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function ReactionDoubleDifferentialCrossSectionGet(handle) &
       bind(C, name='ReactionDoubleDifferentialCrossSectionGet')
    use iso_c_binding

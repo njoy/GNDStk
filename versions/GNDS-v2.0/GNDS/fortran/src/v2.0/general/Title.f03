@@ -20,7 +20,7 @@ function TitleDefaultConst() &
    type(c_ptr) :: TitleDefaultConst
 end function TitleDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function TitleDefault() &
       bind(C, name='TitleDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function TitleCreateConst( &
    type(c_ptr) :: TitleCreateConst
 end function TitleCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function TitleCreate( &
 ) &
       bind(C, name='TitleCreate')
@@ -71,6 +71,8 @@ end subroutine TitleDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function TitleRead(handle, filename, filenameSize) &
       bind(C, name='TitleRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function TitleRead(handle, filename, filenameSize) &
 end function TitleRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function TitleWrite(handle, filename, filenameSize) &
       bind(C, name='TitleWrite')
    use iso_c_binding

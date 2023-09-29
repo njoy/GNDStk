@@ -20,7 +20,7 @@ function GaugeBosonDefaultConst() &
    type(c_ptr) :: GaugeBosonDefaultConst
 end function GaugeBosonDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function GaugeBosonDefault() &
       bind(C, name='GaugeBosonDefault')
    use iso_c_binding
@@ -51,7 +51,7 @@ function GaugeBosonCreateConst( &
    type(c_ptr) :: GaugeBosonCreateConst
 end function GaugeBosonCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function GaugeBosonCreate( &
    id, &
    mass, &
@@ -99,6 +99,8 @@ end subroutine GaugeBosonDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function GaugeBosonRead(handle, filename, filenameSize) &
       bind(C, name='GaugeBosonRead')
    use iso_c_binding
@@ -110,6 +112,8 @@ function GaugeBosonRead(handle, filename, filenameSize) &
 end function GaugeBosonRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function GaugeBosonWrite(handle, filename, filenameSize) &
       bind(C, name='GaugeBosonWrite')
    use iso_c_binding
@@ -203,7 +207,7 @@ function GaugeBosonMassGetConst(handle) &
    type(c_ptr) :: GaugeBosonMassGetConst
 end function GaugeBosonMassGetConst
 
-!! Get
+!! Get, non-const
 function GaugeBosonMassGet(handle) &
       bind(C, name='GaugeBosonMassGet')
    use iso_c_binding
@@ -244,7 +248,7 @@ function GaugeBosonSpinGetConst(handle) &
    type(c_ptr) :: GaugeBosonSpinGetConst
 end function GaugeBosonSpinGetConst
 
-!! Get
+!! Get, non-const
 function GaugeBosonSpinGet(handle) &
       bind(C, name='GaugeBosonSpinGet')
    use iso_c_binding
@@ -285,7 +289,7 @@ function GaugeBosonParityGetConst(handle) &
    type(c_ptr) :: GaugeBosonParityGetConst
 end function GaugeBosonParityGetConst
 
-!! Get
+!! Get, non-const
 function GaugeBosonParityGet(handle) &
       bind(C, name='GaugeBosonParityGet')
    use iso_c_binding
@@ -326,7 +330,7 @@ function GaugeBosonChargeGetConst(handle) &
    type(c_ptr) :: GaugeBosonChargeGetConst
 end function GaugeBosonChargeGetConst
 
-!! Get
+!! Get, non-const
 function GaugeBosonChargeGet(handle) &
       bind(C, name='GaugeBosonChargeGet')
    use iso_c_binding
@@ -367,7 +371,7 @@ function GaugeBosonHalflifeGetConst(handle) &
    type(c_ptr) :: GaugeBosonHalflifeGetConst
 end function GaugeBosonHalflifeGetConst
 
-!! Get
+!! Get, non-const
 function GaugeBosonHalflifeGet(handle) &
       bind(C, name='GaugeBosonHalflifeGet')
    use iso_c_binding

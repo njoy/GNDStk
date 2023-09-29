@@ -70,7 +70,7 @@ typedef       struct ENDFconversionFlagsClass *      Handle2ENDFconversionFlags;
 extern_c Handle2ConstENDFconversionFlags
 ENDFconversionFlagsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ENDFconversionFlags
 ENDFconversionFlagsDefault();
 
@@ -82,7 +82,7 @@ ENDFconversionFlagsCreateConst(
    ConstHandle2Conversion *const conversion, const size_t conversionSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ENDFconversionFlags
 ENDFconversionFlagsCreate(
    const char *const flags,
@@ -194,7 +194,7 @@ ENDFconversionFlagsConversionAdd(ConstHandle2ENDFconversionFlags self, ConstHand
 extern_c Handle2ConstConversion
 ENDFconversionFlagsConversionGetConst(ConstHandle2ConstENDFconversionFlags self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGet(ConstHandle2ENDFconversionFlags self, const size_t index_);
 
@@ -224,7 +224,7 @@ ENDFconversionFlagsConversionGetByFlagsConst(
    const char *const flags
 );
 
-// +++ Get, by flags
+// +++ Get, by flags, non-const
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGetByFlags(
    ConstHandle2ENDFconversionFlags self,
@@ -257,7 +257,7 @@ ENDFconversionFlagsConversionGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href
+// +++ Get, by href, non-const
 extern_c Handle2Conversion
 ENDFconversionFlagsConversionGetByHref(
    ConstHandle2ENDFconversionFlags self,

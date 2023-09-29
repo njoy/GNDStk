@@ -33,7 +33,7 @@ FDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2F
 FDefault()
 {
@@ -53,7 +53,7 @@ FCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2F
 FCreate(
    ConstHandle2ConstXYs2d XYs2d
@@ -157,7 +157,7 @@ FXYs2dGetConst(ConstHandle2ConstF self)
       (CLASSNAME, CLASSNAME+"XYs2dGetConst", self, extract::XYs2d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs2d
 FXYs2dGet(ConstHandle2F self)
 {

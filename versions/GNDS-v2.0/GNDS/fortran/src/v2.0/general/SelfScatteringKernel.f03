@@ -20,7 +20,7 @@ function SelfScatteringKernelDefaultConst() &
    type(c_ptr) :: SelfScatteringKernelDefaultConst
 end function SelfScatteringKernelDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SelfScatteringKernelDefault() &
       bind(C, name='SelfScatteringKernelDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function SelfScatteringKernelCreateConst( &
    type(c_ptr) :: SelfScatteringKernelCreateConst
 end function SelfScatteringKernelCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SelfScatteringKernelCreate( &
    symmetric, &
    gridded3d, &
@@ -87,6 +87,8 @@ end subroutine SelfScatteringKernelDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SelfScatteringKernelRead(handle, filename, filenameSize) &
       bind(C, name='SelfScatteringKernelRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function SelfScatteringKernelRead(handle, filename, filenameSize) &
 end function SelfScatteringKernelRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SelfScatteringKernelWrite(handle, filename, filenameSize) &
       bind(C, name='SelfScatteringKernelWrite')
    use iso_c_binding
@@ -190,7 +194,7 @@ function SelfScatteringKernelGridded3dGetConst(handle) &
    type(c_ptr) :: SelfScatteringKernelGridded3dGetConst
 end function SelfScatteringKernelGridded3dGetConst
 
-!! Get
+!! Get, non-const
 function SelfScatteringKernelGridded3dGet(handle) &
       bind(C, name='SelfScatteringKernelGridded3dGet')
    use iso_c_binding
@@ -231,7 +235,7 @@ function SelfScatteringKernelSCTApproximationGetConst(handle) &
    type(c_ptr) :: SelfScatteringKernelSCTApproximationGetConst
 end function SelfScatteringKernelSCTApproximationGetConst
 
-!! Get
+!! Get, non-const
 function SelfScatteringKernelSCTApproximationGet(handle) &
       bind(C, name='SelfScatteringKernelSCTApproximationGet')
    use iso_c_binding
@@ -272,7 +276,7 @@ function SelfScatteringKernelFreeGasApproximationGetConst(handle) &
    type(c_ptr) :: SelfScatteringKernelFreeGasApproximationGetConst
 end function SelfScatteringKernelFreeGasApproximationGetConst
 
-!! Get
+!! Get, non-const
 function SelfScatteringKernelFreeGasApproximationGet(handle) &
       bind(C, name='SelfScatteringKernelFreeGasApproximationGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function ScatteringAtomDefaultConst() &
    type(c_ptr) :: ScatteringAtomDefaultConst
 end function ScatteringAtomDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ScatteringAtomDefault() &
       bind(C, name='ScatteringAtomDefault')
    use iso_c_binding
@@ -57,7 +57,7 @@ function ScatteringAtomCreateConst( &
    type(c_ptr) :: ScatteringAtomCreateConst
 end function ScatteringAtomCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ScatteringAtomCreate( &
    pid, &
    numberPerMolecule, &
@@ -111,6 +111,8 @@ end subroutine ScatteringAtomDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ScatteringAtomRead(handle, filename, filenameSize) &
       bind(C, name='ScatteringAtomRead')
    use iso_c_binding
@@ -122,6 +124,8 @@ function ScatteringAtomRead(handle, filename, filenameSize) &
 end function ScatteringAtomRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ScatteringAtomWrite(handle, filename, filenameSize) &
       bind(C, name='ScatteringAtomWrite')
    use iso_c_binding
@@ -279,7 +283,7 @@ function ScatteringAtomMassGetConst(handle) &
    type(c_ptr) :: ScatteringAtomMassGetConst
 end function ScatteringAtomMassGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringAtomMassGet(handle) &
       bind(C, name='ScatteringAtomMassGet')
    use iso_c_binding
@@ -320,7 +324,7 @@ function ScatteringAtomE_criticalGetConst(handle) &
    type(c_ptr) :: ScatteringAtomE_criticalGetConst
 end function ScatteringAtomE_criticalGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringAtomE_criticalGet(handle) &
       bind(C, name='ScatteringAtomE_criticalGet')
    use iso_c_binding
@@ -361,7 +365,7 @@ function ScatteringAtomE_maxGetConst(handle) &
    type(c_ptr) :: ScatteringAtomE_maxGetConst
 end function ScatteringAtomE_maxGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringAtomE_maxGet(handle) &
       bind(C, name='ScatteringAtomE_maxGet')
    use iso_c_binding
@@ -402,7 +406,7 @@ function ScatteringAtomBoundAtomCrossSectionGetConst(handle) &
    type(c_ptr) :: ScatteringAtomBoundAtomCrossSectionGetConst
 end function ScatteringAtomBoundAtomCrossSectionGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringAtomBoundAtomCrossSectionGet(handle) &
       bind(C, name='ScatteringAtomBoundAtomCrossSectionGet')
    use iso_c_binding
@@ -443,7 +447,7 @@ function ScatteringAtomSelfScatteringKernelGetConst(handle) &
    type(c_ptr) :: ScatteringAtomSelfScatteringKernelGetConst
 end function ScatteringAtomSelfScatteringKernelGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringAtomSelfScatteringKernelGet(handle) &
       bind(C, name='ScatteringAtomSelfScatteringKernelGet')
    use iso_c_binding
@@ -484,7 +488,7 @@ function ScatteringAtomT_effectiveGetConst(handle) &
    type(c_ptr) :: ScatteringAtomT_effectiveGetConst
 end function ScatteringAtomT_effectiveGetConst
 
-!! Get
+!! Get, non-const
 function ScatteringAtomT_effectiveGet(handle) &
       bind(C, name='ScatteringAtomT_effectiveGet')
    use iso_c_binding

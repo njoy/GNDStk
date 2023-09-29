@@ -71,7 +71,7 @@ typedef       struct ProductYieldClass *      Handle2ProductYield;
 extern_c Handle2ConstProductYield
 ProductYieldDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ProductYield
 ProductYieldDefault();
 
@@ -83,7 +83,7 @@ ProductYieldCreateConst(
    ConstHandle2ConstElapsedTimes elapsedTimes
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ProductYield
 ProductYieldCreate(
    const char *const label,
@@ -165,7 +165,7 @@ ProductYieldNuclidesHas(ConstHandle2ConstProductYield self);
 extern_c Handle2ConstNuclides
 ProductYieldNuclidesGetConst(ConstHandle2ConstProductYield self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Nuclides
 ProductYieldNuclidesGet(ConstHandle2ProductYield self);
 
@@ -186,7 +186,7 @@ ProductYieldElapsedTimesHas(ConstHandle2ConstProductYield self);
 extern_c Handle2ConstElapsedTimes
 ProductYieldElapsedTimesGetConst(ConstHandle2ConstProductYield self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ElapsedTimes
 ProductYieldElapsedTimesGet(ConstHandle2ProductYield self);
 

@@ -70,7 +70,7 @@ typedef       struct LegendreClass *      Handle2Legendre;
 extern_c Handle2ConstLegendre
 LegendreDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Legendre
 LegendreDefault();
 
@@ -81,7 +81,7 @@ LegendreCreateConst(
    ConstHandle2ConstValues values
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Legendre
 LegendreCreate(
    const double outerDomainValue,
@@ -162,7 +162,7 @@ LegendreValuesHas(ConstHandle2ConstLegendre self);
 extern_c Handle2ConstValues
 LegendreValuesGetConst(ConstHandle2ConstLegendre self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Values
 LegendreValuesGet(ConstHandle2Legendre self);
 

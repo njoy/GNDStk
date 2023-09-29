@@ -38,7 +38,7 @@ ResonancesWithBackgroundDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ResonancesWithBackground
 ResonancesWithBackgroundDefault()
 {
@@ -64,7 +64,7 @@ ResonancesWithBackgroundCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ResonancesWithBackground
 ResonancesWithBackgroundCreate(
    const char *const label,
@@ -204,7 +204,7 @@ ResonancesWithBackgroundResonancesGetConst(ConstHandle2ConstResonancesWithBackgr
       (CLASSNAME, CLASSNAME+"ResonancesGetConst", self, extract::resonances);
 }
 
-// Get
+// Get, non-const
 Handle2Resonances
 ResonancesWithBackgroundResonancesGet(ConstHandle2ResonancesWithBackground self)
 {
@@ -241,7 +241,7 @@ ResonancesWithBackgroundBackgroundGetConst(ConstHandle2ConstResonancesWithBackgr
       (CLASSNAME, CLASSNAME+"BackgroundGetConst", self, extract::background);
 }
 
-// Get
+// Get, non-const
 Handle2Background
 ResonancesWithBackgroundBackgroundGet(ConstHandle2ResonancesWithBackground self)
 {
@@ -278,7 +278,7 @@ ResonancesWithBackgroundUncertaintyGetConst(ConstHandle2ConstResonancesWithBackg
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 ResonancesWithBackgroundUncertaintyGet(ConstHandle2ResonancesWithBackground self)
 {

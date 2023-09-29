@@ -71,7 +71,7 @@ typedef       struct SpectrumClass *      Handle2Spectrum;
 extern_c Handle2ConstSpectrum
 SpectrumDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Spectrum
 SpectrumDefault();
 
@@ -84,7 +84,7 @@ SpectrumCreateConst(
    ConstHandle2ConstContinuum continuum
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Spectrum
 SpectrumCreate(
    const char *const label,
@@ -197,7 +197,7 @@ SpectrumDiscreteAdd(ConstHandle2Spectrum self, ConstHandle2ConstDiscrete discret
 extern_c Handle2ConstDiscrete
 SpectrumDiscreteGetConst(ConstHandle2ConstSpectrum self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Discrete
 SpectrumDiscreteGet(ConstHandle2Spectrum self, const size_t index_);
 
@@ -227,7 +227,7 @@ SpectrumDiscreteGetByTypeConst(
    const char *const type
 );
 
-// +++ Get, by type
+// +++ Get, by type, non-const
 extern_c Handle2Discrete
 SpectrumDiscreteGetByType(
    ConstHandle2Spectrum self,
@@ -255,7 +255,7 @@ SpectrumContinuumHas(ConstHandle2ConstSpectrum self);
 extern_c Handle2ConstContinuum
 SpectrumContinuumGetConst(ConstHandle2ConstSpectrum self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Continuum
 SpectrumContinuumGet(ConstHandle2Spectrum self);
 

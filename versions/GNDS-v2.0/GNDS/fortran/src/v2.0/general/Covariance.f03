@@ -20,7 +20,7 @@ function CovarianceDefaultConst() &
    type(c_ptr) :: CovarianceDefaultConst
 end function CovarianceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CovarianceDefault() &
       bind(C, name='CovarianceDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function CovarianceCreateConst( &
    type(c_ptr) :: CovarianceCreateConst
 end function CovarianceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CovarianceCreate( &
    label, &
    href, &
@@ -91,6 +91,8 @@ end subroutine CovarianceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CovarianceRead(handle, filename, filenameSize) &
       bind(C, name='CovarianceRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function CovarianceRead(handle, filename, filenameSize) &
 end function CovarianceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CovarianceWrite(handle, filename, filenameSize) &
       bind(C, name='CovarianceWrite')
    use iso_c_binding
@@ -228,7 +232,7 @@ function CovarianceArrayGetConst(handle) &
    type(c_ptr) :: CovarianceArrayGetConst
 end function CovarianceArrayGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceArrayGet(handle) &
       bind(C, name='CovarianceArrayGet')
    use iso_c_binding

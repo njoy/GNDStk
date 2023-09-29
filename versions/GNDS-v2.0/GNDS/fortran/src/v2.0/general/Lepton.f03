@@ -20,7 +20,7 @@ function LeptonDefaultConst() &
    type(c_ptr) :: LeptonDefaultConst
 end function LeptonDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LeptonDefault() &
       bind(C, name='LeptonDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function LeptonCreateConst( &
    type(c_ptr) :: LeptonCreateConst
 end function LeptonCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LeptonCreate( &
    id, &
    generation, &
@@ -107,6 +107,8 @@ end subroutine LeptonDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LeptonRead(handle, filename, filenameSize) &
       bind(C, name='LeptonRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function LeptonRead(handle, filename, filenameSize) &
 end function LeptonRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LeptonWrite(handle, filename, filenameSize) &
       bind(C, name='LeptonWrite')
    use iso_c_binding
@@ -244,7 +248,7 @@ function LeptonMassGetConst(handle) &
    type(c_ptr) :: LeptonMassGetConst
 end function LeptonMassGetConst
 
-!! Get
+!! Get, non-const
 function LeptonMassGet(handle) &
       bind(C, name='LeptonMassGet')
    use iso_c_binding
@@ -285,7 +289,7 @@ function LeptonSpinGetConst(handle) &
    type(c_ptr) :: LeptonSpinGetConst
 end function LeptonSpinGetConst
 
-!! Get
+!! Get, non-const
 function LeptonSpinGet(handle) &
       bind(C, name='LeptonSpinGet')
    use iso_c_binding
@@ -326,7 +330,7 @@ function LeptonParityGetConst(handle) &
    type(c_ptr) :: LeptonParityGetConst
 end function LeptonParityGetConst
 
-!! Get
+!! Get, non-const
 function LeptonParityGet(handle) &
       bind(C, name='LeptonParityGet')
    use iso_c_binding
@@ -367,7 +371,7 @@ function LeptonChargeGetConst(handle) &
    type(c_ptr) :: LeptonChargeGetConst
 end function LeptonChargeGetConst
 
-!! Get
+!! Get, non-const
 function LeptonChargeGet(handle) &
       bind(C, name='LeptonChargeGet')
    use iso_c_binding
@@ -408,7 +412,7 @@ function LeptonHalflifeGetConst(handle) &
    type(c_ptr) :: LeptonHalflifeGetConst
 end function LeptonHalflifeGetConst
 
-!! Get
+!! Get, non-const
 function LeptonHalflifeGet(handle) &
       bind(C, name='LeptonHalflifeGet')
    use iso_c_binding

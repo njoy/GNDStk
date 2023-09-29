@@ -35,7 +35,7 @@ ColumnDataDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ColumnData
 ColumnDataDefault()
 {
@@ -59,7 +59,7 @@ ColumnDataCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ColumnData
 ColumnDataCreate(
    const char *const ENDF_MFMT,
@@ -227,7 +227,7 @@ ColumnDataSlicesGetConst(ConstHandle2ConstColumnData self)
       (CLASSNAME, CLASSNAME+"SlicesGetConst", self, extract::slices);
 }
 
-// Get
+// Get, non-const
 Handle2Slices
 ColumnDataSlicesGet(ConstHandle2ColumnData self)
 {

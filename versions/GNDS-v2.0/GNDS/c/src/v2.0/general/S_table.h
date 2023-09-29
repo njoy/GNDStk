@@ -70,7 +70,7 @@ typedef       struct S_tableClass *      Handle2S_table;
 extern_c Handle2ConstS_table
 S_tableDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2S_table
 S_tableDefault();
 
@@ -80,7 +80,7 @@ S_tableCreateConst(
    ConstHandle2ConstGridded2d gridded2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2S_table
 S_tableCreate(
    ConstHandle2ConstGridded2d gridded2d
@@ -142,7 +142,7 @@ S_tableGridded2dHas(ConstHandle2ConstS_table self);
 extern_c Handle2ConstGridded2d
 S_tableGridded2dGetConst(ConstHandle2ConstS_table self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Gridded2d
 S_tableGridded2dGet(ConstHandle2S_table self);
 

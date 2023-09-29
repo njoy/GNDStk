@@ -71,7 +71,7 @@ typedef       struct QClass *      Handle2Q;
 extern_c Handle2ConstQ
 QDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Q
 QDefault();
 
@@ -82,7 +82,7 @@ QCreateConst(
    ConstHandle2ConstConstant1d constant1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Q
 QCreate(
    ConstHandle2ConstDouble Double,
@@ -145,7 +145,7 @@ QDoubleHas(ConstHandle2ConstQ self);
 extern_c Handle2ConstDouble
 QDoubleGetConst(ConstHandle2ConstQ self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 QDoubleGet(ConstHandle2Q self);
 
@@ -166,7 +166,7 @@ QConstant1dHas(ConstHandle2ConstQ self);
 extern_c Handle2ConstConstant1d
 QConstant1dGetConst(ConstHandle2ConstQ self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Constant1d
 QConstant1dGet(ConstHandle2Q self);
 

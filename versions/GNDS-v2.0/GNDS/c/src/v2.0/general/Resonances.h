@@ -72,7 +72,7 @@ typedef       struct ResonancesClass *      Handle2Resonances;
 extern_c Handle2ConstResonances
 ResonancesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Resonances
 ResonancesDefault();
 
@@ -85,7 +85,7 @@ ResonancesCreateConst(
    ConstHandle2ConstUnresolved unresolved
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Resonances
 ResonancesCreate(
    const char *const href,
@@ -168,7 +168,7 @@ ResonancesScatteringRadiusHas(ConstHandle2ConstResonances self);
 extern_c Handle2ConstScatteringRadius
 ResonancesScatteringRadiusGetConst(ConstHandle2ConstResonances self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ScatteringRadius
 ResonancesScatteringRadiusGet(ConstHandle2Resonances self);
 
@@ -189,7 +189,7 @@ ResonancesResolvedHas(ConstHandle2ConstResonances self);
 extern_c Handle2ConstResolved
 ResonancesResolvedGetConst(ConstHandle2ConstResonances self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Resolved
 ResonancesResolvedGet(ConstHandle2Resonances self);
 
@@ -210,7 +210,7 @@ ResonancesUnresolvedHas(ConstHandle2ConstResonances self);
 extern_c Handle2ConstUnresolved
 ResonancesUnresolvedGetConst(ConstHandle2ConstResonances self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Unresolved
 ResonancesUnresolvedGet(ConstHandle2Resonances self);
 

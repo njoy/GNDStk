@@ -38,7 +38,7 @@ ElapsedTimeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ElapsedTime
 ElapsedTimeDefault()
 {
@@ -64,7 +64,7 @@ ElapsedTimeCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ElapsedTime
 ElapsedTimeCreate(
    const char *const label,
@@ -204,7 +204,7 @@ ElapsedTimeTimeGetConst(ConstHandle2ConstElapsedTime self)
       (CLASSNAME, CLASSNAME+"TimeGetConst", self, extract::time);
 }
 
-// Get
+// Get, non-const
 Handle2Time
 ElapsedTimeTimeGet(ConstHandle2ElapsedTime self)
 {
@@ -241,7 +241,7 @@ ElapsedTimeYieldsGetConst(ConstHandle2ConstElapsedTime self)
       (CLASSNAME, CLASSNAME+"YieldsGetConst", self, extract::yields);
 }
 
-// Get
+// Get, non-const
 Handle2Yields
 ElapsedTimeYieldsGet(ConstHandle2ElapsedTime self)
 {
@@ -278,7 +278,7 @@ ElapsedTimeIncidentEnergiesGetConst(ConstHandle2ConstElapsedTime self)
       (CLASSNAME, CLASSNAME+"IncidentEnergiesGetConst", self, extract::incidentEnergies);
 }
 
-// Get
+// Get, non-const
 Handle2IncidentEnergies
 ElapsedTimeIncidentEnergiesGet(ConstHandle2ElapsedTime self)
 {

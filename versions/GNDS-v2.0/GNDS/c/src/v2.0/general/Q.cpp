@@ -35,7 +35,7 @@ QDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Q
 QDefault()
 {
@@ -57,7 +57,7 @@ QCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Q
 QCreate(
    ConstHandle2ConstDouble Double,
@@ -163,7 +163,7 @@ QDoubleGetConst(ConstHandle2ConstQ self)
       (CLASSNAME, CLASSNAME+"DoubleGetConst", self, extract::Double);
 }
 
-// Get
+// Get, non-const
 Handle2Double
 QDoubleGet(ConstHandle2Q self)
 {
@@ -200,7 +200,7 @@ QConstant1dGetConst(ConstHandle2ConstQ self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get
+// Get, non-const
 Handle2Constant1d
 QConstant1dGet(ConstHandle2Q self)
 {

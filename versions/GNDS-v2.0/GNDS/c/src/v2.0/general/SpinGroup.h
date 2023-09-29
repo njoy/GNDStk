@@ -71,7 +71,7 @@ typedef       struct SpinGroupClass *      Handle2SpinGroup;
 extern_c Handle2ConstSpinGroup
 SpinGroupDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2SpinGroup
 SpinGroupDefault();
 
@@ -85,7 +85,7 @@ SpinGroupCreateConst(
    ConstHandle2ConstResonanceParameters resonanceParameters
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2SpinGroup
 SpinGroupCreate(
    const char *const label,
@@ -205,7 +205,7 @@ SpinGroupChannelsHas(ConstHandle2ConstSpinGroup self);
 extern_c Handle2ConstChannels
 SpinGroupChannelsGetConst(ConstHandle2ConstSpinGroup self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Channels
 SpinGroupChannelsGet(ConstHandle2SpinGroup self);
 
@@ -226,7 +226,7 @@ SpinGroupResonanceParametersHas(ConstHandle2ConstSpinGroup self);
 extern_c Handle2ConstResonanceParameters
 SpinGroupResonanceParametersGetConst(ConstHandle2ConstSpinGroup self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ResonanceParameters
 SpinGroupResonanceParametersGet(ConstHandle2SpinGroup self);
 

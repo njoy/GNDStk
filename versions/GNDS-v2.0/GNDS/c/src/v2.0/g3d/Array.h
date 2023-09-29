@@ -72,7 +72,7 @@ typedef       struct ArrayClass *      Handle2Array;
 extern_c Handle2ConstArray
 ArrayDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Array
 ArrayDefault();
 
@@ -87,7 +87,7 @@ ArrayCreateConst(
    ConstHandle2ConstValues values
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Array
 ArrayCreate(
    const char *const shape,
@@ -208,7 +208,7 @@ ArrayStartsHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstStarts
 ArrayStartsGetConst(ConstHandle2ConstArray self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Starts
 ArrayStartsGet(ConstHandle2Array self);
 
@@ -229,7 +229,7 @@ ArrayLengthsHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstLengths
 ArrayLengthsGetConst(ConstHandle2ConstArray self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Lengths
 ArrayLengthsGet(ConstHandle2Array self);
 
@@ -250,7 +250,7 @@ ArrayValuesHas(ConstHandle2ConstArray self);
 extern_c Handle2ConstValues
 ArrayValuesGetConst(ConstHandle2ConstArray self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Values
 ArrayValuesGet(ConstHandle2Array self);
 

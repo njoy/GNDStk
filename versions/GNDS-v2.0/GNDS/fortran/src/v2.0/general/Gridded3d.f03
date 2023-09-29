@@ -20,7 +20,7 @@ function Gridded3dDefaultConst() &
    type(c_ptr) :: Gridded3dDefaultConst
 end function Gridded3dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Gridded3dDefault() &
       bind(C, name='Gridded3dDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function Gridded3dCreateConst( &
    type(c_ptr) :: Gridded3dCreateConst
 end function Gridded3dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Gridded3dCreate( &
    axes, &
    array &
@@ -79,6 +79,8 @@ end subroutine Gridded3dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Gridded3dRead(handle, filename, filenameSize) &
       bind(C, name='Gridded3dRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function Gridded3dRead(handle, filename, filenameSize) &
 end function Gridded3dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Gridded3dWrite(handle, filename, filenameSize) &
       bind(C, name='Gridded3dWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function Gridded3dAxesGetConst(handle) &
    type(c_ptr) :: Gridded3dAxesGetConst
 end function Gridded3dAxesGetConst
 
-!! Get
+!! Get, non-const
 function Gridded3dAxesGet(handle) &
       bind(C, name='Gridded3dAxesGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function Gridded3dArrayGetConst(handle) &
    type(c_ptr) :: Gridded3dArrayGetConst
 end function Gridded3dArrayGetConst
 
-!! Get
+!! Get, non-const
 function Gridded3dArrayGet(handle) &
       bind(C, name='Gridded3dArrayGet')
    use iso_c_binding

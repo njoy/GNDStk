@@ -27,7 +27,7 @@ TitleDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Title
 TitleDefault()
 {
@@ -45,7 +45,7 @@ TitleCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Title
 TitleCreate()
 {

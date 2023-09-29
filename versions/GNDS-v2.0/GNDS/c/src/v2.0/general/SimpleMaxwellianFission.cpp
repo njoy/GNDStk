@@ -35,7 +35,7 @@ SimpleMaxwellianFissionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2SimpleMaxwellianFission
 SimpleMaxwellianFissionDefault()
 {
@@ -57,7 +57,7 @@ SimpleMaxwellianFissionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2SimpleMaxwellianFission
 SimpleMaxwellianFissionCreate(
    ConstHandle2ConstU U,
@@ -163,7 +163,7 @@ SimpleMaxwellianFissionUGetConst(ConstHandle2ConstSimpleMaxwellianFission self)
       (CLASSNAME, CLASSNAME+"UGetConst", self, extract::U);
 }
 
-// Get
+// Get, non-const
 Handle2U
 SimpleMaxwellianFissionUGet(ConstHandle2SimpleMaxwellianFission self)
 {
@@ -200,7 +200,7 @@ SimpleMaxwellianFissionThetaGetConst(ConstHandle2ConstSimpleMaxwellianFission se
       (CLASSNAME, CLASSNAME+"ThetaGetConst", self, extract::theta);
 }
 
-// Get
+// Get, non-const
 Handle2Theta
 SimpleMaxwellianFissionThetaGet(ConstHandle2SimpleMaxwellianFission self)
 {

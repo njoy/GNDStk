@@ -34,7 +34,7 @@ LegendreDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Legendre
 LegendreDefault()
 {
@@ -56,7 +56,7 @@ LegendreCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Legendre
 LegendreCreate(
    const double outerDomainValue,
@@ -192,7 +192,7 @@ LegendreValuesGetConst(ConstHandle2ConstLegendre self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get
+// Get, non-const
 Handle2Values
 LegendreValuesGet(ConstHandle2Legendre self)
 {

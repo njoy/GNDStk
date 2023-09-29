@@ -20,7 +20,7 @@ function AverageEnergyDefaultConst() &
    type(c_ptr) :: AverageEnergyDefaultConst
 end function AverageEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function AverageEnergyDefault() &
       bind(C, name='AverageEnergyDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function AverageEnergyCreateConst( &
    type(c_ptr) :: AverageEnergyCreateConst
 end function AverageEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function AverageEnergyCreate( &
    label, &
    value, &
@@ -95,6 +95,8 @@ end subroutine AverageEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function AverageEnergyRead(handle, filename, filenameSize) &
       bind(C, name='AverageEnergyRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function AverageEnergyRead(handle, filename, filenameSize) &
 end function AverageEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function AverageEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='AverageEnergyWrite')
    use iso_c_binding
@@ -264,7 +268,7 @@ function AverageEnergyUncertaintyGetConst(handle) &
    type(c_ptr) :: AverageEnergyUncertaintyGetConst
 end function AverageEnergyUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function AverageEnergyUncertaintyGet(handle) &
       bind(C, name='AverageEnergyUncertaintyGet')
    use iso_c_binding

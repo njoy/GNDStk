@@ -20,7 +20,7 @@ function XYs1dDefaultConst() &
    type(c_ptr) :: XYs1dDefaultConst
 end function XYs1dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function XYs1dDefault() &
       bind(C, name='XYs1dDefault')
    use iso_c_binding
@@ -55,7 +55,7 @@ function XYs1dCreateConst( &
    type(c_ptr) :: XYs1dCreateConst
 end function XYs1dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function XYs1dCreate( &
    label, &
    index, &
@@ -107,6 +107,8 @@ end subroutine XYs1dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function XYs1dRead(handle, filename, filenameSize) &
       bind(C, name='XYs1dRead')
    use iso_c_binding
@@ -118,6 +120,8 @@ function XYs1dRead(handle, filename, filenameSize) &
 end function XYs1dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function XYs1dWrite(handle, filename, filenameSize) &
       bind(C, name='XYs1dWrite')
    use iso_c_binding
@@ -308,7 +312,7 @@ function XYs1dAxesGetConst(handle) &
    type(c_ptr) :: XYs1dAxesGetConst
 end function XYs1dAxesGetConst
 
-!! Get
+!! Get, non-const
 function XYs1dAxesGet(handle) &
       bind(C, name='XYs1dAxesGet')
    use iso_c_binding
@@ -349,7 +353,7 @@ function XYs1dValuesGetConst(handle) &
    type(c_ptr) :: XYs1dValuesGetConst
 end function XYs1dValuesGetConst
 
-!! Get
+!! Get, non-const
 function XYs1dValuesGet(handle) &
       bind(C, name='XYs1dValuesGet')
    use iso_c_binding
@@ -390,7 +394,7 @@ function XYs1dUncertaintyGetConst(handle) &
    type(c_ptr) :: XYs1dUncertaintyGetConst
 end function XYs1dUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function XYs1dUncertaintyGet(handle) &
       bind(C, name='XYs1dUncertaintyGet')
    use iso_c_binding

@@ -70,7 +70,7 @@ typedef       struct PositronEmissionIntensityClass *      Handle2PositronEmissi
 extern_c Handle2ConstPositronEmissionIntensity
 PositronEmissionIntensityDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PositronEmissionIntensity
 PositronEmissionIntensityDefault();
 
@@ -81,7 +81,7 @@ PositronEmissionIntensityCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PositronEmissionIntensity
 PositronEmissionIntensityCreate(
    const double value,
@@ -162,7 +162,7 @@ PositronEmissionIntensityUncertaintyHas(ConstHandle2ConstPositronEmissionIntensi
 extern_c Handle2ConstUncertainty
 PositronEmissionIntensityUncertaintyGetConst(ConstHandle2ConstPositronEmissionIntensity self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 PositronEmissionIntensityUncertaintyGet(ConstHandle2PositronEmissionIntensity self);
 

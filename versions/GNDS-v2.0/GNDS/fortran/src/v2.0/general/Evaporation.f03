@@ -20,7 +20,7 @@ function EvaporationDefaultConst() &
    type(c_ptr) :: EvaporationDefaultConst
 end function EvaporationDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function EvaporationDefault() &
       bind(C, name='EvaporationDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function EvaporationCreateConst( &
    type(c_ptr) :: EvaporationCreateConst
 end function EvaporationCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function EvaporationCreate( &
    U, &
    theta &
@@ -79,6 +79,8 @@ end subroutine EvaporationDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function EvaporationRead(handle, filename, filenameSize) &
       bind(C, name='EvaporationRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function EvaporationRead(handle, filename, filenameSize) &
 end function EvaporationRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function EvaporationWrite(handle, filename, filenameSize) &
       bind(C, name='EvaporationWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function EvaporationUGetConst(handle) &
    type(c_ptr) :: EvaporationUGetConst
 end function EvaporationUGetConst
 
-!! Get
+!! Get, non-const
 function EvaporationUGet(handle) &
       bind(C, name='EvaporationUGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function EvaporationThetaGetConst(handle) &
    type(c_ptr) :: EvaporationThetaGetConst
 end function EvaporationThetaGetConst
 
-!! Get
+!! Get, non-const
 function EvaporationThetaGet(handle) &
       bind(C, name='EvaporationThetaGet')
    use iso_c_binding

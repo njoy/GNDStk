@@ -20,7 +20,7 @@ function NonNeutrinoEnergyDefaultConst() &
    type(c_ptr) :: NonNeutrinoEnergyDefaultConst
 end function NonNeutrinoEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function NonNeutrinoEnergyDefault() &
       bind(C, name='NonNeutrinoEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function NonNeutrinoEnergyCreateConst( &
    type(c_ptr) :: NonNeutrinoEnergyCreateConst
 end function NonNeutrinoEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function NonNeutrinoEnergyCreate( &
    polynomial1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine NonNeutrinoEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function NonNeutrinoEnergyRead(handle, filename, filenameSize) &
       bind(C, name='NonNeutrinoEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function NonNeutrinoEnergyRead(handle, filename, filenameSize) &
 end function NonNeutrinoEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function NonNeutrinoEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='NonNeutrinoEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function NonNeutrinoEnergyPolynomial1dGetConst(handle) &
    type(c_ptr) :: NonNeutrinoEnergyPolynomial1dGetConst
 end function NonNeutrinoEnergyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function NonNeutrinoEnergyPolynomial1dGet(handle) &
       bind(C, name='NonNeutrinoEnergyPolynomial1dGet')
    use iso_c_binding

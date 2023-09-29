@@ -70,7 +70,7 @@ typedef       struct ImaginaryAnomalousFactorClass *      Handle2ImaginaryAnomal
 extern_c Handle2ConstImaginaryAnomalousFactor
 ImaginaryAnomalousFactorDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ImaginaryAnomalousFactor
 ImaginaryAnomalousFactorDefault();
 
@@ -80,7 +80,7 @@ ImaginaryAnomalousFactorCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ImaginaryAnomalousFactor
 ImaginaryAnomalousFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ ImaginaryAnomalousFactorXYs1dHas(ConstHandle2ConstImaginaryAnomalousFactor self)
 extern_c Handle2ConstXYs1d
 ImaginaryAnomalousFactorXYs1dGetConst(ConstHandle2ConstImaginaryAnomalousFactor self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 ImaginaryAnomalousFactorXYs1dGet(ConstHandle2ImaginaryAnomalousFactor self);
 

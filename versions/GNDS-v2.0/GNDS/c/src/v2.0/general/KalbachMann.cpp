@@ -37,7 +37,7 @@ KalbachMannDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2KalbachMann
 KalbachMannDefault()
 {
@@ -63,7 +63,7 @@ KalbachMannCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2KalbachMann
 KalbachMannCreate(
    const char *const label,
@@ -233,7 +233,7 @@ KalbachMannFGetConst(ConstHandle2ConstKalbachMann self)
       (CLASSNAME, CLASSNAME+"FGetConst", self, extract::f);
 }
 
-// Get
+// Get, non-const
 Handle2F
 KalbachMannFGet(ConstHandle2KalbachMann self)
 {
@@ -270,7 +270,7 @@ KalbachMannRGetConst(ConstHandle2ConstKalbachMann self)
       (CLASSNAME, CLASSNAME+"RGetConst", self, extract::r);
 }
 
-// Get
+// Get, non-const
 Handle2R
 KalbachMannRGet(ConstHandle2KalbachMann self)
 {

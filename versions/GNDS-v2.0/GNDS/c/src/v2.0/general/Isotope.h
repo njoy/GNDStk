@@ -70,7 +70,7 @@ typedef       struct IsotopeClass *      Handle2Isotope;
 extern_c Handle2ConstIsotope
 IsotopeDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Isotope
 IsotopeDefault();
 
@@ -82,7 +82,7 @@ IsotopeCreateConst(
    ConstHandle2ConstNuclides nuclides
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Isotope
 IsotopeCreate(
    const char *const symbol,
@@ -182,7 +182,7 @@ IsotopeNuclidesHas(ConstHandle2ConstIsotope self);
 extern_c Handle2ConstNuclides
 IsotopeNuclidesGetConst(ConstHandle2ConstIsotope self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Nuclides
 IsotopeNuclidesGet(ConstHandle2Isotope self);
 

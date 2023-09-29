@@ -20,7 +20,7 @@ function ImaginaryInterferenceTermDefaultConst() &
    type(c_ptr) :: ImaginaryInterferenceTermDefaultConst
 end function ImaginaryInterferenceTermDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ImaginaryInterferenceTermDefault() &
       bind(C, name='ImaginaryInterferenceTermDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function ImaginaryInterferenceTermCreateConst( &
    type(c_ptr) :: ImaginaryInterferenceTermCreateConst
 end function ImaginaryInterferenceTermCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ImaginaryInterferenceTermCreate( &
    regions2d, &
    XYs2d &
@@ -79,6 +79,8 @@ end subroutine ImaginaryInterferenceTermDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ImaginaryInterferenceTermRead(handle, filename, filenameSize) &
       bind(C, name='ImaginaryInterferenceTermRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function ImaginaryInterferenceTermRead(handle, filename, filenameSize) &
 end function ImaginaryInterferenceTermRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ImaginaryInterferenceTermWrite(handle, filename, filenameSize) &
       bind(C, name='ImaginaryInterferenceTermWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function ImaginaryInterferenceTermRegions2dGetConst(handle) &
    type(c_ptr) :: ImaginaryInterferenceTermRegions2dGetConst
 end function ImaginaryInterferenceTermRegions2dGetConst
 
-!! Get
+!! Get, non-const
 function ImaginaryInterferenceTermRegions2dGet(handle) &
       bind(C, name='ImaginaryInterferenceTermRegions2dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function ImaginaryInterferenceTermXYs2dGetConst(handle) &
    type(c_ptr) :: ImaginaryInterferenceTermXYs2dGetConst
 end function ImaginaryInterferenceTermXYs2dGetConst
 
-!! Get
+!! Get, non-const
 function ImaginaryInterferenceTermXYs2dGet(handle) &
       bind(C, name='ImaginaryInterferenceTermXYs2dGet')
    use iso_c_binding

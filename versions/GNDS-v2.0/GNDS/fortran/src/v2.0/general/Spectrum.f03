@@ -20,7 +20,7 @@ function SpectrumDefaultConst() &
    type(c_ptr) :: SpectrumDefaultConst
 end function SpectrumDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SpectrumDefault() &
       bind(C, name='SpectrumDefault')
    use iso_c_binding
@@ -50,7 +50,7 @@ function SpectrumCreateConst( &
    type(c_ptr) :: SpectrumCreateConst
 end function SpectrumCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SpectrumCreate( &
    label, &
    pid, &
@@ -97,6 +97,8 @@ end subroutine SpectrumDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SpectrumRead(handle, filename, filenameSize) &
       bind(C, name='SpectrumRead')
    use iso_c_binding
@@ -108,6 +110,8 @@ function SpectrumRead(handle, filename, filenameSize) &
 end function SpectrumRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SpectrumWrite(handle, filename, filenameSize) &
       bind(C, name='SpectrumWrite')
    use iso_c_binding
@@ -261,7 +265,7 @@ function SpectrumDiscreteGetConst(handle, index) &
    type(c_ptr) :: SpectrumDiscreteGetConst
 end function SpectrumDiscreteGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function SpectrumDiscreteGet(handle, index) &
       bind(C, name='SpectrumDiscreteGet')
    use iso_c_binding
@@ -307,7 +311,7 @@ function SpectrumDiscreteGetByTypeConst(handle, meta, metaSize) &
    type(c_ptr) :: SpectrumDiscreteGetByTypeConst
 end function SpectrumDiscreteGetByTypeConst
 
-!! Get, by type
+!! Get, by type, non-const
 function SpectrumDiscreteGetByType(handle, meta, metaSize) &
       bind(C, name='SpectrumDiscreteGetByType')
    use iso_c_binding
@@ -352,7 +356,7 @@ function SpectrumContinuumGetConst(handle) &
    type(c_ptr) :: SpectrumContinuumGetConst
 end function SpectrumContinuumGetConst
 
-!! Get
+!! Get, non-const
 function SpectrumContinuumGet(handle) &
       bind(C, name='SpectrumContinuumGet')
    use iso_c_binding

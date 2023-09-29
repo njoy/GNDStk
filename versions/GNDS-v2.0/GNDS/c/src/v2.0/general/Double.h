@@ -70,7 +70,7 @@ typedef       struct DoubleClass *      Handle2Double;
 extern_c Handle2ConstDouble
 DoubleDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Double
 DoubleDefault();
 
@@ -83,7 +83,7 @@ DoubleCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Double
 DoubleCreate(
    const char *const label,
@@ -202,7 +202,7 @@ DoubleUncertaintyHas(ConstHandle2ConstDouble self);
 extern_c Handle2ConstUncertainty
 DoubleUncertaintyGetConst(ConstHandle2ConstDouble self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 DoubleUncertaintyGet(ConstHandle2Double self);
 

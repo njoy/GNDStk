@@ -39,7 +39,7 @@ AverageParameterCovarianceDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2AverageParameterCovariance
 AverageParameterCovarianceDefault()
 {
@@ -67,7 +67,7 @@ AverageParameterCovarianceCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2AverageParameterCovariance
 AverageParameterCovarianceCreate(
    const char *const label,
@@ -239,7 +239,7 @@ AverageParameterCovarianceCovarianceMatrixGetConst(ConstHandle2ConstAverageParam
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetConst", self, extract::covarianceMatrix);
 }
 
-// Get
+// Get, non-const
 Handle2CovarianceMatrix
 AverageParameterCovarianceCovarianceMatrixGet(ConstHandle2AverageParameterCovariance self)
 {
@@ -276,7 +276,7 @@ AverageParameterCovarianceRowDataGetConst(ConstHandle2ConstAverageParameterCovar
       (CLASSNAME, CLASSNAME+"RowDataGetConst", self, extract::rowData);
 }
 
-// Get
+// Get, non-const
 Handle2RowData
 AverageParameterCovarianceRowDataGet(ConstHandle2AverageParameterCovariance self)
 {
@@ -313,7 +313,7 @@ AverageParameterCovarianceColumnDataGetConst(ConstHandle2ConstAverageParameterCo
       (CLASSNAME, CLASSNAME+"ColumnDataGetConst", self, extract::columnData);
 }
 
-// Get
+// Get, non-const
 Handle2ColumnData
 AverageParameterCovarianceColumnDataGet(ConstHandle2AverageParameterCovariance self)
 {

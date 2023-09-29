@@ -20,7 +20,7 @@ function RutherfordScatteringDefaultConst() &
    type(c_ptr) :: RutherfordScatteringDefaultConst
 end function RutherfordScatteringDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RutherfordScatteringDefault() &
       bind(C, name='RutherfordScatteringDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function RutherfordScatteringCreateConst( &
    type(c_ptr) :: RutherfordScatteringCreateConst
 end function RutherfordScatteringCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RutherfordScatteringCreate( &
 ) &
       bind(C, name='RutherfordScatteringCreate')
@@ -71,6 +71,8 @@ end subroutine RutherfordScatteringDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RutherfordScatteringRead(handle, filename, filenameSize) &
       bind(C, name='RutherfordScatteringRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function RutherfordScatteringRead(handle, filename, filenameSize) &
 end function RutherfordScatteringRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RutherfordScatteringWrite(handle, filename, filenameSize) &
       bind(C, name='RutherfordScatteringWrite')
    use iso_c_binding

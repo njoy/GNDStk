@@ -39,7 +39,7 @@ CrossSectionSumDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CrossSectionSum
 CrossSectionSumDefault()
 {
@@ -67,7 +67,7 @@ CrossSectionSumCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CrossSectionSum
 CrossSectionSumCreate(
    const char *const label,
@@ -239,7 +239,7 @@ CrossSectionSumSummandsGetConst(ConstHandle2ConstCrossSectionSum self)
       (CLASSNAME, CLASSNAME+"SummandsGetConst", self, extract::summands);
 }
 
-// Get
+// Get, non-const
 Handle2Summands
 CrossSectionSumSummandsGet(ConstHandle2CrossSectionSum self)
 {
@@ -276,7 +276,7 @@ CrossSectionSumQGetConst(ConstHandle2ConstCrossSectionSum self)
       (CLASSNAME, CLASSNAME+"QGetConst", self, extract::Q);
 }
 
-// Get
+// Get, non-const
 Handle2Q
 CrossSectionSumQGet(ConstHandle2CrossSectionSum self)
 {
@@ -313,7 +313,7 @@ CrossSectionSumCrossSectionGetConst(ConstHandle2ConstCrossSectionSum self)
       (CLASSNAME, CLASSNAME+"CrossSectionGetConst", self, extract::crossSection);
 }
 
-// Get
+// Get, non-const
 Handle2CrossSection
 CrossSectionSumCrossSectionGet(ConstHandle2CrossSectionSum self)
 {

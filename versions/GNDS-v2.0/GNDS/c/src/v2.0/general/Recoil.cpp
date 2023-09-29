@@ -31,7 +31,7 @@ RecoilDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Recoil
 RecoilDefault()
 {
@@ -51,7 +51,7 @@ RecoilCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Recoil
 RecoilCreate(
    const char *const href

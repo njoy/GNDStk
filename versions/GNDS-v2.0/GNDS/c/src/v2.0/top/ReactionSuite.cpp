@@ -59,7 +59,7 @@ ReactionSuiteDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ReactionSuite
 ReactionSuiteDefault()
 {
@@ -111,7 +111,7 @@ ReactionSuiteCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ReactionSuite
 ReactionSuiteCreate(
    const char *const projectile,
@@ -427,7 +427,7 @@ ReactionSuiteStylesGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"StylesGetConst", self, extract::styles);
 }
 
-// Get
+// Get, non-const
 Handle2Styles
 ReactionSuiteStylesGet(ConstHandle2ReactionSuite self)
 {
@@ -464,7 +464,7 @@ ReactionSuitePoPsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"PoPsGetConst", self, extract::PoPs);
 }
 
-// Get
+// Get, non-const
 Handle2PoPs
 ReactionSuitePoPsGet(ConstHandle2ReactionSuite self)
 {
@@ -501,7 +501,7 @@ ReactionSuiteReactionsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"ReactionsGetConst", self, extract::reactions);
 }
 
-// Get
+// Get, non-const
 Handle2Reactions
 ReactionSuiteReactionsGet(ConstHandle2ReactionSuite self)
 {
@@ -538,7 +538,7 @@ ReactionSuiteApplicationDataGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"ApplicationDataGetConst", self, extract::applicationData);
 }
 
-// Get
+// Get, non-const
 Handle2ApplicationData
 ReactionSuiteApplicationDataGet(ConstHandle2ReactionSuite self)
 {
@@ -575,7 +575,7 @@ ReactionSuiteExternalFilesGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"ExternalFilesGetConst", self, extract::externalFiles);
 }
 
-// Get
+// Get, non-const
 Handle2ExternalFiles
 ReactionSuiteExternalFilesGet(ConstHandle2ReactionSuite self)
 {
@@ -612,7 +612,7 @@ ReactionSuiteResonancesGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"ResonancesGetConst", self, extract::resonances);
 }
 
-// Get
+// Get, non-const
 Handle2Resonances
 ReactionSuiteResonancesGet(ConstHandle2ReactionSuite self)
 {
@@ -649,7 +649,7 @@ ReactionSuiteSumsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"SumsGetConst", self, extract::sums);
 }
 
-// Get
+// Get, non-const
 Handle2Sums
 ReactionSuiteSumsGet(ConstHandle2ReactionSuite self)
 {
@@ -686,7 +686,7 @@ ReactionSuiteProductionsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"ProductionsGetConst", self, extract::productions);
 }
 
-// Get
+// Get, non-const
 Handle2Productions
 ReactionSuiteProductionsGet(ConstHandle2ReactionSuite self)
 {
@@ -723,7 +723,7 @@ ReactionSuiteFissionComponentsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"FissionComponentsGetConst", self, extract::fissionComponents);
 }
 
-// Get
+// Get, non-const
 Handle2FissionComponents
 ReactionSuiteFissionComponentsGet(ConstHandle2ReactionSuite self)
 {
@@ -760,7 +760,7 @@ ReactionSuiteOrphanProductsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"OrphanProductsGetConst", self, extract::orphanProducts);
 }
 
-// Get
+// Get, non-const
 Handle2OrphanProducts
 ReactionSuiteOrphanProductsGet(ConstHandle2ReactionSuite self)
 {
@@ -797,7 +797,7 @@ ReactionSuiteIncompleteReactionsGetConst(ConstHandle2ConstReactionSuite self)
       (CLASSNAME, CLASSNAME+"IncompleteReactionsGetConst", self, extract::incompleteReactions);
 }
 
-// Get
+// Get, non-const
 Handle2IncompleteReactions
 ReactionSuiteIncompleteReactionsGet(ConstHandle2ReactionSuite self)
 {

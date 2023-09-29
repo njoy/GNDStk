@@ -71,7 +71,7 @@ typedef       struct ChemicalElementClass *      Handle2ChemicalElement;
 extern_c Handle2ConstChemicalElement
 ChemicalElementDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ChemicalElement
 ChemicalElementDefault();
 
@@ -85,7 +85,7 @@ ChemicalElementCreateConst(
    ConstHandle2ConstIsotopes isotopes
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ChemicalElement
 ChemicalElementCreate(
    const char *const symbol,
@@ -205,7 +205,7 @@ ChemicalElementAtomicHas(ConstHandle2ConstChemicalElement self);
 extern_c Handle2ConstAtomic
 ChemicalElementAtomicGetConst(ConstHandle2ConstChemicalElement self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Atomic
 ChemicalElementAtomicGet(ConstHandle2ChemicalElement self);
 
@@ -226,7 +226,7 @@ ChemicalElementIsotopesHas(ConstHandle2ConstChemicalElement self);
 extern_c Handle2ConstIsotopes
 ChemicalElementIsotopesGetConst(ConstHandle2ConstChemicalElement self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Isotopes
 ChemicalElementIsotopesGet(ConstHandle2ChemicalElement self);
 

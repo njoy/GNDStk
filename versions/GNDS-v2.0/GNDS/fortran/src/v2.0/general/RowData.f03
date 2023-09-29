@@ -20,7 +20,7 @@ function RowDataDefaultConst() &
    type(c_ptr) :: RowDataDefaultConst
 end function RowDataDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function RowDataDefault() &
       bind(C, name='RowDataDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function RowDataCreateConst( &
    type(c_ptr) :: RowDataCreateConst
 end function RowDataCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function RowDataCreate( &
    ENDF_MFMT, &
    dimension, &
@@ -95,6 +95,8 @@ end subroutine RowDataDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function RowDataRead(handle, filename, filenameSize) &
       bind(C, name='RowDataRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function RowDataRead(handle, filename, filenameSize) &
 end function RowDataRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function RowDataWrite(handle, filename, filenameSize) &
       bind(C, name='RowDataWrite')
    use iso_c_binding
@@ -264,7 +268,7 @@ function RowDataSlicesGetConst(handle) &
    type(c_ptr) :: RowDataSlicesGetConst
 end function RowDataSlicesGetConst
 
-!! Get
+!! Get, non-const
 function RowDataSlicesGet(handle) &
       bind(C, name='RowDataSlicesGet')
    use iso_c_binding

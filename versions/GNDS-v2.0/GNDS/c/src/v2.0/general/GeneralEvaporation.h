@@ -72,7 +72,7 @@ typedef       struct GeneralEvaporationClass *      Handle2GeneralEvaporation;
 extern_c Handle2ConstGeneralEvaporation
 GeneralEvaporationDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2GeneralEvaporation
 GeneralEvaporationDefault();
 
@@ -84,7 +84,7 @@ GeneralEvaporationCreateConst(
    ConstHandle2ConstG g
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2GeneralEvaporation
 GeneralEvaporationCreate(
    ConstHandle2ConstU U,
@@ -148,7 +148,7 @@ GeneralEvaporationUHas(ConstHandle2ConstGeneralEvaporation self);
 extern_c Handle2ConstU
 GeneralEvaporationUGetConst(ConstHandle2ConstGeneralEvaporation self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2U
 GeneralEvaporationUGet(ConstHandle2GeneralEvaporation self);
 
@@ -169,7 +169,7 @@ GeneralEvaporationThetaHas(ConstHandle2ConstGeneralEvaporation self);
 extern_c Handle2ConstTheta
 GeneralEvaporationThetaGetConst(ConstHandle2ConstGeneralEvaporation self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Theta
 GeneralEvaporationThetaGet(ConstHandle2GeneralEvaporation self);
 
@@ -190,7 +190,7 @@ GeneralEvaporationGHas(ConstHandle2ConstGeneralEvaporation self);
 extern_c Handle2ConstG
 GeneralEvaporationGGetConst(ConstHandle2ConstGeneralEvaporation self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2G
 GeneralEvaporationGGet(ConstHandle2GeneralEvaporation self);
 

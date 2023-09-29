@@ -33,7 +33,7 @@ SummandDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Summand
 SummandDefault()
 {
@@ -57,7 +57,7 @@ SummandCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Summand
 SummandCreate(
    const char *const ENDF_MFMT,

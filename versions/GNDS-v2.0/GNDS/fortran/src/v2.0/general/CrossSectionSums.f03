@@ -20,7 +20,7 @@ function CrossSectionSumsDefaultConst() &
    type(c_ptr) :: CrossSectionSumsDefaultConst
 end function CrossSectionSumsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CrossSectionSumsDefault() &
       bind(C, name='CrossSectionSumsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function CrossSectionSumsCreateConst( &
    type(c_ptr) :: CrossSectionSumsCreateConst
 end function CrossSectionSumsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CrossSectionSumsCreate( &
    crossSectionSum, crossSectionSumSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine CrossSectionSumsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CrossSectionSumsRead(handle, filename, filenameSize) &
       bind(C, name='CrossSectionSumsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function CrossSectionSumsRead(handle, filename, filenameSize) &
 end function CrossSectionSumsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CrossSectionSumsWrite(handle, filename, filenameSize) &
       bind(C, name='CrossSectionSumsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function CrossSectionSumsCrossSectionSumGetConst(handle, index) &
    type(c_ptr) :: CrossSectionSumsCrossSectionSumGetConst
 end function CrossSectionSumsCrossSectionSumGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function CrossSectionSumsCrossSectionSumGet(handle, index) &
       bind(C, name='CrossSectionSumsCrossSectionSumGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function CrossSectionSumsCrossSectionSumGetByLabelConst(handle, meta, metaSize) 
    type(c_ptr) :: CrossSectionSumsCrossSectionSumGetByLabelConst
 end function CrossSectionSumsCrossSectionSumGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function CrossSectionSumsCrossSectionSumGetByLabel(handle, meta, metaSize) &
       bind(C, name='CrossSectionSumsCrossSectionSumGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function CrossSectionSumsCrossSectionSumGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: CrossSectionSumsCrossSectionSumGetByENDFMTConst
 end function CrossSectionSumsCrossSectionSumGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function CrossSectionSumsCrossSectionSumGetByENDFMT(handle, meta) &
       bind(C, name='CrossSectionSumsCrossSectionSumGetByENDFMT')
    use iso_c_binding

@@ -70,7 +70,7 @@ typedef       struct LClass *      Handle2L;
 extern_c Handle2ConstL
 LDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2L
 LDefault();
 
@@ -82,7 +82,7 @@ LCreateConst(
    ConstHandle2ConstJs Js
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2L
 LCreate(
    const char *const label,
@@ -182,7 +182,7 @@ LJsHas(ConstHandle2ConstL self);
 extern_c Handle2ConstJs
 LJsGetConst(ConstHandle2ConstL self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Js
 LJsGet(ConstHandle2L self);
 

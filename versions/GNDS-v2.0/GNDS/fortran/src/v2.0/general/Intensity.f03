@@ -20,7 +20,7 @@ function IntensityDefaultConst() &
    type(c_ptr) :: IntensityDefaultConst
 end function IntensityDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function IntensityDefault() &
       bind(C, name='IntensityDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function IntensityCreateConst( &
    type(c_ptr) :: IntensityCreateConst
 end function IntensityCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function IntensityCreate( &
    value, &
    uncertainty &
@@ -79,6 +79,8 @@ end subroutine IntensityDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function IntensityRead(handle, filename, filenameSize) &
       bind(C, name='IntensityRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function IntensityRead(handle, filename, filenameSize) &
 end function IntensityRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function IntensityWrite(handle, filename, filenameSize) &
       bind(C, name='IntensityWrite')
    use iso_c_binding
@@ -182,7 +186,7 @@ function IntensityUncertaintyGetConst(handle) &
    type(c_ptr) :: IntensityUncertaintyGetConst
 end function IntensityUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function IntensityUncertaintyGet(handle) &
       bind(C, name='IntensityUncertaintyGet')
    use iso_c_binding

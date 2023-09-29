@@ -33,7 +33,7 @@ WidthsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Widths
 WidthsDefault()
 {
@@ -55,7 +55,7 @@ WidthsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Widths
 WidthsCreate(
    ConstHandle2Width *const width, const size_t widthSize
@@ -185,7 +185,7 @@ WidthsWidthGetConst(ConstHandle2ConstWidths self, const size_t index_)
       (CLASSNAME, CLASSNAME+"WidthGetConst", self, extract::width, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Width
 WidthsWidthGet(ConstHandle2Widths self, const size_t index_)
 {
@@ -230,7 +230,7 @@ WidthsWidthGetByLabelConst(
        self, extract::width, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2Width
 WidthsWidthGetByLabel(
    ConstHandle2Widths self,
@@ -279,7 +279,7 @@ WidthsWidthGetByResonanceReactionConst(
        self, extract::width, meta::resonanceReaction, resonanceReaction);
 }
 
-// Get, by resonanceReaction
+// Get, by resonanceReaction, non-const
 Handle2Width
 WidthsWidthGetByResonanceReaction(
    ConstHandle2Widths self,
@@ -328,7 +328,7 @@ WidthsWidthGetByDegreesOfFreedomConst(
        self, extract::width, meta::degreesOfFreedom, degreesOfFreedom);
 }
 
-// Get, by degreesOfFreedom
+// Get, by degreesOfFreedom, non-const
 Handle2Width
 WidthsWidthGetByDegreesOfFreedom(
    ConstHandle2Widths self,

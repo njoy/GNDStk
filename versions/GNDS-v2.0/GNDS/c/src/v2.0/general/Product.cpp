@@ -41,7 +41,7 @@ ProductDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Product
 ProductDefault()
 {
@@ -71,7 +71,7 @@ ProductCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Product
 ProductCreate(
    const char *const label,
@@ -245,7 +245,7 @@ ProductMultiplicityGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
-// Get
+// Get, non-const
 Handle2Multiplicity
 ProductMultiplicityGet(ConstHandle2Product self)
 {
@@ -282,7 +282,7 @@ ProductDistributionGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"DistributionGetConst", self, extract::distribution);
 }
 
-// Get
+// Get, non-const
 Handle2Distribution
 ProductDistributionGet(ConstHandle2Product self)
 {
@@ -319,7 +319,7 @@ ProductOutputChannelGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"OutputChannelGetConst", self, extract::outputChannel);
 }
 
-// Get
+// Get, non-const
 Handle2OutputChannel
 ProductOutputChannelGet(ConstHandle2Product self)
 {
@@ -356,7 +356,7 @@ ProductAverageProductEnergyGetConst(ConstHandle2ConstProduct self)
       (CLASSNAME, CLASSNAME+"AverageProductEnergyGetConst", self, extract::averageProductEnergy);
 }
 
-// Get
+// Get, non-const
 Handle2AverageProductEnergy
 ProductAverageProductEnergyGet(ConstHandle2Product self)
 {

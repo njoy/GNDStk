@@ -20,7 +20,7 @@ function OrphanProductsDefaultConst() &
    type(c_ptr) :: OrphanProductsDefaultConst
 end function OrphanProductsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function OrphanProductsDefault() &
       bind(C, name='OrphanProductsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function OrphanProductsCreateConst( &
    type(c_ptr) :: OrphanProductsCreateConst
 end function OrphanProductsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function OrphanProductsCreate( &
    orphanProduct, orphanProductSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine OrphanProductsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function OrphanProductsRead(handle, filename, filenameSize) &
       bind(C, name='OrphanProductsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function OrphanProductsRead(handle, filename, filenameSize) &
 end function OrphanProductsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function OrphanProductsWrite(handle, filename, filenameSize) &
       bind(C, name='OrphanProductsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function OrphanProductsOrphanProductGetConst(handle, index) &
    type(c_ptr) :: OrphanProductsOrphanProductGetConst
 end function OrphanProductsOrphanProductGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function OrphanProductsOrphanProductGet(handle, index) &
       bind(C, name='OrphanProductsOrphanProductGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function OrphanProductsOrphanProductGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: OrphanProductsOrphanProductGetByLabelConst
 end function OrphanProductsOrphanProductGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function OrphanProductsOrphanProductGetByLabel(handle, meta, metaSize) &
       bind(C, name='OrphanProductsOrphanProductGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function OrphanProductsOrphanProductGetByENDFMTConst(handle, meta) &
    type(c_ptr) :: OrphanProductsOrphanProductGetByENDFMTConst
 end function OrphanProductsOrphanProductGetByENDFMTConst
 
-!! Get, by ENDF_MT
+!! Get, by ENDF_MT, non-const
 function OrphanProductsOrphanProductGetByENDFMT(handle, meta) &
       bind(C, name='OrphanProductsOrphanProductGetByENDFMT')
    use iso_c_binding

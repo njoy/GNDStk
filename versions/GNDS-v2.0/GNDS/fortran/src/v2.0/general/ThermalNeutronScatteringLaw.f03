@@ -20,7 +20,7 @@ function ThermalNeutronScatteringLawDefaultConst() &
    type(c_ptr) :: ThermalNeutronScatteringLawDefaultConst
 end function ThermalNeutronScatteringLawDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ThermalNeutronScatteringLawDefault() &
       bind(C, name='ThermalNeutronScatteringLawDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function ThermalNeutronScatteringLawCreateConst( &
    type(c_ptr) :: ThermalNeutronScatteringLawCreateConst
 end function ThermalNeutronScatteringLawCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ThermalNeutronScatteringLawCreate( &
    label, &
    href, &
@@ -87,6 +87,8 @@ end subroutine ThermalNeutronScatteringLawDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ThermalNeutronScatteringLawRead(handle, filename, filenameSize) &
       bind(C, name='ThermalNeutronScatteringLawRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function ThermalNeutronScatteringLawRead(handle, filename, filenameSize) &
 end function ThermalNeutronScatteringLawRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ThermalNeutronScatteringLawWrite(handle, filename, filenameSize) &
       bind(C, name='ThermalNeutronScatteringLawWrite')
    use iso_c_binding

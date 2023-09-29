@@ -70,7 +70,7 @@ typedef       struct SpinClass *      Handle2Spin;
 extern_c Handle2ConstSpin
 SpinDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Spin
 SpinDefault();
 
@@ -80,7 +80,7 @@ SpinCreateConst(
    ConstHandle2ConstFraction fraction
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Spin
 SpinCreate(
    ConstHandle2ConstFraction fraction
@@ -142,7 +142,7 @@ SpinFractionHas(ConstHandle2ConstSpin self);
 extern_c Handle2ConstFraction
 SpinFractionGetConst(ConstHandle2ConstSpin self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Fraction
 SpinFractionGet(ConstHandle2Spin self);
 

@@ -35,7 +35,7 @@ DecayDataDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DecayData
 DecayDataDefault()
 {
@@ -57,7 +57,7 @@ DecayDataCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DecayData
 DecayDataCreate(
    ConstHandle2ConstDecayModes decayModes,
@@ -163,7 +163,7 @@ DecayDataDecayModesGetConst(ConstHandle2ConstDecayData self)
       (CLASSNAME, CLASSNAME+"DecayModesGetConst", self, extract::decayModes);
 }
 
-// Get
+// Get, non-const
 Handle2DecayModes
 DecayDataDecayModesGet(ConstHandle2DecayData self)
 {
@@ -200,7 +200,7 @@ DecayDataAverageEnergiesGetConst(ConstHandle2ConstDecayData self)
       (CLASSNAME, CLASSNAME+"AverageEnergiesGetConst", self, extract::averageEnergies);
 }
 
-// Get
+// Get, non-const
 Handle2AverageEnergies
 DecayDataAverageEnergiesGet(ConstHandle2DecayData self)
 {

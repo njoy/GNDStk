@@ -33,7 +33,7 @@ SummandsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Summands
 SummandsDefault()
 {
@@ -55,7 +55,7 @@ SummandsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Summands
 SummandsCreate(
    ConstHandle2Add *const add, const size_t addSize
@@ -185,7 +185,7 @@ SummandsAddGetConst(ConstHandle2ConstSummands self, const size_t index_)
       (CLASSNAME, CLASSNAME+"AddGetConst", self, extract::add, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Add
 SummandsAddGet(ConstHandle2Summands self, const size_t index_)
 {
@@ -230,7 +230,7 @@ SummandsAddGetByHrefConst(
        self, extract::add, meta::href, href);
 }
 
-// Get, by href
+// Get, by href, non-const
 Handle2Add
 SummandsAddGetByHref(
    ConstHandle2Summands self,

@@ -72,7 +72,7 @@ typedef       struct YieldsClass *      Handle2Yields;
 extern_c Handle2ConstYields
 YieldsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Yields
 YieldsDefault();
 
@@ -84,7 +84,7 @@ YieldsCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Yields
 YieldsCreate(
    ConstHandle2ConstNuclides nuclides,
@@ -148,7 +148,7 @@ YieldsNuclidesHas(ConstHandle2ConstYields self);
 extern_c Handle2ConstNuclides
 YieldsNuclidesGetConst(ConstHandle2ConstYields self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Nuclides
 YieldsNuclidesGet(ConstHandle2Yields self);
 
@@ -169,7 +169,7 @@ YieldsValuesHas(ConstHandle2ConstYields self);
 extern_c Handle2ConstValues
 YieldsValuesGetConst(ConstHandle2ConstYields self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Values
 YieldsValuesGet(ConstHandle2Yields self);
 
@@ -190,7 +190,7 @@ YieldsUncertaintyHas(ConstHandle2ConstYields self);
 extern_c Handle2ConstUncertainty
 YieldsUncertaintyGetConst(ConstHandle2ConstYields self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 YieldsUncertaintyGet(ConstHandle2Yields self);
 

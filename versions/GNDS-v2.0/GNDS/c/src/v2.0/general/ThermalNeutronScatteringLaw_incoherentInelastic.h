@@ -70,7 +70,7 @@ typedef       struct ThermalNeutronScatteringLaw_incoherentInelasticClass *     
 extern_c Handle2ConstThermalNeutronScatteringLaw_incoherentInelastic
 ThermalNeutronScatteringLaw_incoherentInelasticDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_incoherentInelastic
 ThermalNeutronScatteringLaw_incoherentInelasticDefault();
 
@@ -85,7 +85,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticCreateConst(
    ConstHandle2ConstScatteringAtoms scatteringAtoms
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ThermalNeutronScatteringLaw_incoherentInelastic
 ThermalNeutronScatteringLaw_incoherentInelasticCreate(
    const char *const label,
@@ -242,7 +242,7 @@ ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsHas(ConstHandle2Co
 extern_c Handle2ConstScatteringAtoms
 ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGetConst(ConstHandle2ConstThermalNeutronScatteringLaw_incoherentInelastic self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2ScatteringAtoms
 ThermalNeutronScatteringLaw_incoherentInelasticScatteringAtomsGet(ConstHandle2ThermalNeutronScatteringLaw_incoherentInelastic self);
 

@@ -20,7 +20,7 @@ function ElapsedTimesDefaultConst() &
    type(c_ptr) :: ElapsedTimesDefaultConst
 end function ElapsedTimesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ElapsedTimesDefault() &
       bind(C, name='ElapsedTimesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ElapsedTimesCreateConst( &
    type(c_ptr) :: ElapsedTimesCreateConst
 end function ElapsedTimesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ElapsedTimesCreate( &
    elapsedTime, elapsedTimeSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ElapsedTimesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ElapsedTimesRead(handle, filename, filenameSize) &
       bind(C, name='ElapsedTimesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ElapsedTimesRead(handle, filename, filenameSize) &
 end function ElapsedTimesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ElapsedTimesWrite(handle, filename, filenameSize) &
       bind(C, name='ElapsedTimesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ElapsedTimesElapsedTimeGetConst(handle, index) &
    type(c_ptr) :: ElapsedTimesElapsedTimeGetConst
 end function ElapsedTimesElapsedTimeGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ElapsedTimesElapsedTimeGet(handle, index) &
       bind(C, name='ElapsedTimesElapsedTimeGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ElapsedTimesElapsedTimeGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ElapsedTimesElapsedTimeGetByLabelConst
 end function ElapsedTimesElapsedTimeGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ElapsedTimesElapsedTimeGetByLabel(handle, meta, metaSize) &
       bind(C, name='ElapsedTimesElapsedTimeGetByLabel')
    use iso_c_binding

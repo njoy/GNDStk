@@ -37,7 +37,7 @@ SpectrumDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Spectrum
 SpectrumDefault()
 {
@@ -65,7 +65,7 @@ SpectrumCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Spectrum
 SpectrumCreate(
    const char *const label,
@@ -261,7 +261,7 @@ SpectrumDiscreteGetConst(ConstHandle2ConstSpectrum self, const size_t index_)
       (CLASSNAME, CLASSNAME+"DiscreteGetConst", self, extract::discrete, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Discrete
 SpectrumDiscreteGet(ConstHandle2Spectrum self, const size_t index_)
 {
@@ -306,7 +306,7 @@ SpectrumDiscreteGetByTypeConst(
        self, extract::discrete, meta::type, type);
 }
 
-// Get, by type
+// Get, by type, non-const
 Handle2Discrete
 SpectrumDiscreteGetByType(
    ConstHandle2Spectrum self,
@@ -350,7 +350,7 @@ SpectrumContinuumGetConst(ConstHandle2ConstSpectrum self)
       (CLASSNAME, CLASSNAME+"ContinuumGetConst", self, extract::continuum);
 }
 
-// Get
+// Get, non-const
 Handle2Continuum
 SpectrumContinuumGet(ConstHandle2Spectrum self)
 {

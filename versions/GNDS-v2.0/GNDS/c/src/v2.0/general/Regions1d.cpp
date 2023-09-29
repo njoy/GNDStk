@@ -39,7 +39,7 @@ Regions1dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Regions1d
 Regions1dDefault()
 {
@@ -67,7 +67,7 @@ Regions1dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Regions1d
 Regions1dCreate(
    const char *const label,
@@ -239,7 +239,7 @@ Regions1dAxesGetConst(ConstHandle2ConstRegions1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 Regions1dAxesGet(ConstHandle2Regions1d self)
 {
@@ -276,7 +276,7 @@ Regions1dUncertaintyGetConst(ConstHandle2ConstRegions1d self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 Regions1dUncertaintyGet(ConstHandle2Regions1d self)
 {
@@ -313,7 +313,7 @@ Regions1dFunction1dsGetConst(ConstHandle2ConstRegions1d self)
       (CLASSNAME, CLASSNAME+"Function1dsGetConst", self, extract::function1ds);
 }
 
-// Get
+// Get, non-const
 Handle2Function1ds
 Regions1dFunction1dsGet(ConstHandle2Regions1d self)
 {

@@ -37,7 +37,7 @@ TableDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Table
 TableDefault()
 {
@@ -63,7 +63,7 @@ TableCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Table
 TableCreate(
    const int rows,
@@ -233,7 +233,7 @@ TableColumnHeadersGetConst(ConstHandle2ConstTable self)
       (CLASSNAME, CLASSNAME+"ColumnHeadersGetConst", self, extract::columnHeaders);
 }
 
-// Get
+// Get, non-const
 Handle2ColumnHeaders
 TableColumnHeadersGet(ConstHandle2Table self)
 {
@@ -270,7 +270,7 @@ TableDataGetConst(ConstHandle2ConstTable self)
       (CLASSNAME, CLASSNAME+"DataGetConst", self, extract::data);
 }
 
-// Get
+// Get, non-const
 Handle2Data
 TableDataGet(ConstHandle2Table self)
 {

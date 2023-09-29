@@ -37,7 +37,7 @@ IncoherentPhotonScatteringDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2IncoherentPhotonScattering
 IncoherentPhotonScatteringDefault()
 {
@@ -65,7 +65,7 @@ IncoherentPhotonScatteringCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2IncoherentPhotonScattering
 IncoherentPhotonScatteringCreate(
    const char *const label,
@@ -297,7 +297,7 @@ IncoherentPhotonScatteringScatteringFactorGetConst(ConstHandle2ConstIncoherentPh
       (CLASSNAME, CLASSNAME+"ScatteringFactorGetConst", self, extract::scatteringFactor);
 }
 
-// Get
+// Get, non-const
 Handle2ScatteringFactor
 IncoherentPhotonScatteringScatteringFactorGet(ConstHandle2IncoherentPhotonScattering self)
 {

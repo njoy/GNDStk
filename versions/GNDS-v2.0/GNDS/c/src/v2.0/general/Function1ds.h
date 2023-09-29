@@ -72,7 +72,7 @@ typedef       struct Function1dsClass *      Handle2Function1ds;
 extern_c Handle2ConstFunction1ds
 Function1dsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Function1ds
 Function1dsDefault();
 
@@ -84,7 +84,7 @@ Function1dsCreateConst(
    ConstHandle2Regions1d *const regions1d, const size_t regions1dSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Function1ds
 Function1dsCreate(
    ConstHandle2Legendre *const Legendre, const size_t LegendreSize,
@@ -160,7 +160,7 @@ Function1dsLegendreAdd(ConstHandle2Function1ds self, ConstHandle2ConstLegendre L
 extern_c Handle2ConstLegendre
 Function1dsLegendreGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Legendre
 Function1dsLegendreGet(ConstHandle2Function1ds self, const size_t index_);
 
@@ -190,7 +190,7 @@ Function1dsLegendreGetByOuterDomainValueConst(
    const double outerDomainValue
 );
 
-// +++ Get, by outerDomainValue
+// +++ Get, by outerDomainValue, non-const
 extern_c Handle2Legendre
 Function1dsLegendreGetByOuterDomainValue(
    ConstHandle2Function1ds self,
@@ -230,7 +230,7 @@ Function1dsXYs1dAdd(ConstHandle2Function1ds self, ConstHandle2ConstXYs1d XYs1d);
 extern_c Handle2ConstXYs1d
 Function1dsXYs1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGet(ConstHandle2Function1ds self, const size_t index_);
 
@@ -260,7 +260,7 @@ Function1dsXYs1dGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByLabel(
    ConstHandle2Function1ds self,
@@ -293,7 +293,7 @@ Function1dsXYs1dGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index
+// +++ Get, by index, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByIndex(
    ConstHandle2Function1ds self,
@@ -326,7 +326,7 @@ Function1dsXYs1dGetByInterpolationConst(
    const char *const interpolation
 );
 
-// +++ Get, by interpolation
+// +++ Get, by interpolation, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByInterpolation(
    ConstHandle2Function1ds self,
@@ -359,7 +359,7 @@ Function1dsXYs1dGetByOuterDomainValueConst(
    const double outerDomainValue
 );
 
-// +++ Get, by outerDomainValue
+// +++ Get, by outerDomainValue, non-const
 extern_c Handle2XYs1d
 Function1dsXYs1dGetByOuterDomainValue(
    ConstHandle2Function1ds self,
@@ -399,7 +399,7 @@ Function1dsRegions1dAdd(ConstHandle2Function1ds self, ConstHandle2ConstRegions1d
 extern_c Handle2ConstRegions1d
 Function1dsRegions1dGetConst(ConstHandle2ConstFunction1ds self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Regions1d
 Function1dsRegions1dGet(ConstHandle2Function1ds self, const size_t index_);
 
@@ -429,7 +429,7 @@ Function1dsRegions1dGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Regions1d
 Function1dsRegions1dGetByLabel(
    ConstHandle2Function1ds self,
@@ -462,7 +462,7 @@ Function1dsRegions1dGetByOuterDomainValueConst(
    const double outerDomainValue
 );
 
-// +++ Get, by outerDomainValue
+// +++ Get, by outerDomainValue, non-const
 extern_c Handle2Regions1d
 Function1dsRegions1dGetByOuterDomainValue(
    ConstHandle2Function1ds self,

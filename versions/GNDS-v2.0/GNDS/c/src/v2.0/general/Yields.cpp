@@ -37,7 +37,7 @@ YieldsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Yields
 YieldsDefault()
 {
@@ -61,7 +61,7 @@ YieldsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Yields
 YieldsCreate(
    ConstHandle2ConstNuclides nuclides,
@@ -169,7 +169,7 @@ YieldsNuclidesGetConst(ConstHandle2ConstYields self)
       (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
-// Get
+// Get, non-const
 Handle2Nuclides
 YieldsNuclidesGet(ConstHandle2Yields self)
 {
@@ -206,7 +206,7 @@ YieldsValuesGetConst(ConstHandle2ConstYields self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get
+// Get, non-const
 Handle2Values
 YieldsValuesGet(ConstHandle2Yields self)
 {
@@ -243,7 +243,7 @@ YieldsUncertaintyGetConst(ConstHandle2ConstYields self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 YieldsUncertaintyGet(ConstHandle2Yields self)
 {

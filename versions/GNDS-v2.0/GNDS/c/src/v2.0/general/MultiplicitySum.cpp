@@ -37,7 +37,7 @@ MultiplicitySumDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2MultiplicitySum
 MultiplicitySumDefault()
 {
@@ -63,7 +63,7 @@ MultiplicitySumCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2MultiplicitySum
 MultiplicitySumCreate(
    const char *const label,
@@ -233,7 +233,7 @@ MultiplicitySumMultiplicityGetConst(ConstHandle2ConstMultiplicitySum self)
       (CLASSNAME, CLASSNAME+"MultiplicityGetConst", self, extract::multiplicity);
 }
 
-// Get
+// Get, non-const
 Handle2Multiplicity
 MultiplicitySumMultiplicityGet(ConstHandle2MultiplicitySum self)
 {
@@ -270,7 +270,7 @@ MultiplicitySumSummandsGetConst(ConstHandle2ConstMultiplicitySum self)
       (CLASSNAME, CLASSNAME+"SummandsGetConst", self, extract::summands);
 }
 
-// Get
+// Get, non-const
 Handle2Summands
 MultiplicitySumSummandsGet(ConstHandle2MultiplicitySum self)
 {

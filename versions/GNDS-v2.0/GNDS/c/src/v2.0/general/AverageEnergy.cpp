@@ -36,7 +36,7 @@ AverageEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2AverageEnergy
 AverageEnergyDefault()
 {
@@ -62,7 +62,7 @@ AverageEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2AverageEnergy
 AverageEnergyCreate(
    const char *const label,
@@ -262,7 +262,7 @@ AverageEnergyUncertaintyGetConst(ConstHandle2ConstAverageEnergy self)
       (CLASSNAME, CLASSNAME+"UncertaintyGetConst", self, extract::uncertainty);
 }
 
-// Get
+// Get, non-const
 Handle2Uncertainty
 AverageEnergyUncertaintyGet(ConstHandle2AverageEnergy self)
 {

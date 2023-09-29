@@ -20,7 +20,7 @@ function ThetaDefaultConst() &
    type(c_ptr) :: ThetaDefaultConst
 end function ThetaDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ThetaDefault() &
       bind(C, name='ThetaDefault')
    use iso_c_binding
@@ -41,7 +41,7 @@ function ThetaCreateConst( &
    type(c_ptr) :: ThetaCreateConst
 end function ThetaCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ThetaCreate( &
    XYs1d, &
    regions1d &
@@ -79,6 +79,8 @@ end subroutine ThetaDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ThetaRead(handle, filename, filenameSize) &
       bind(C, name='ThetaRead')
    use iso_c_binding
@@ -90,6 +92,8 @@ function ThetaRead(handle, filename, filenameSize) &
 end function ThetaRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ThetaWrite(handle, filename, filenameSize) &
       bind(C, name='ThetaWrite')
    use iso_c_binding
@@ -150,7 +154,7 @@ function ThetaXYs1dGetConst(handle) &
    type(c_ptr) :: ThetaXYs1dGetConst
 end function ThetaXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function ThetaXYs1dGet(handle) &
       bind(C, name='ThetaXYs1dGet')
    use iso_c_binding
@@ -191,7 +195,7 @@ function ThetaRegions1dGetConst(handle) &
    type(c_ptr) :: ThetaRegions1dGetConst
 end function ThetaRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function ThetaRegions1dGet(handle) &
       bind(C, name='ThetaRegions1dGet')
    use iso_c_binding

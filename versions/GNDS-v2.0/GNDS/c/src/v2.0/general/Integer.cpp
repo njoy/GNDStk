@@ -33,7 +33,7 @@ IntegerDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Integer
 IntegerDefault()
 {
@@ -57,7 +57,7 @@ IntegerCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Integer
 IntegerCreate(
    const char *const label,

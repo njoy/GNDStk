@@ -71,7 +71,7 @@ typedef       struct HalflifeClass *      Handle2Halflife;
 extern_c Handle2ConstHalflife
 HalflifeDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Halflife
 HalflifeDefault();
 
@@ -82,7 +82,7 @@ HalflifeCreateConst(
    ConstHandle2ConstDouble Double
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Halflife
 HalflifeCreate(
    ConstHandle2ConstString string,
@@ -145,7 +145,7 @@ HalflifeStringHas(ConstHandle2ConstHalflife self);
 extern_c Handle2ConstString
 HalflifeStringGetConst(ConstHandle2ConstHalflife self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2String
 HalflifeStringGet(ConstHandle2Halflife self);
 
@@ -166,7 +166,7 @@ HalflifeDoubleHas(ConstHandle2ConstHalflife self);
 extern_c Handle2ConstDouble
 HalflifeDoubleGetConst(ConstHandle2ConstHalflife self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 HalflifeDoubleGet(ConstHandle2Halflife self);
 

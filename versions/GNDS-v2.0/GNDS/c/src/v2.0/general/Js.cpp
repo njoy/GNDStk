@@ -33,7 +33,7 @@ JsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Js
 JsDefault()
 {
@@ -55,7 +55,7 @@ JsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Js
 JsCreate(
    ConstHandle2J *const J, const size_t JSize
@@ -185,7 +185,7 @@ JsJGetConst(ConstHandle2ConstJs self, const size_t index_)
       (CLASSNAME, CLASSNAME+"JGetConst", self, extract::J, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2J
 JsJGet(ConstHandle2Js self, const size_t index_)
 {
@@ -230,7 +230,7 @@ JsJGetByLabelConst(
        self, extract::J, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2J
 JsJGetByLabel(
    ConstHandle2Js self,
@@ -279,7 +279,7 @@ JsJGetByValueConst(
        self, extract::J, meta::value, value);
 }
 
-// Get, by value
+// Get, by value, non-const
 Handle2J
 JsJGetByValue(
    ConstHandle2Js self,

@@ -20,7 +20,7 @@ function CrossSectionReconstructedDefaultConst() &
    type(c_ptr) :: CrossSectionReconstructedDefaultConst
 end function CrossSectionReconstructedDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CrossSectionReconstructedDefault() &
       bind(C, name='CrossSectionReconstructedDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function CrossSectionReconstructedCreateConst( &
    type(c_ptr) :: CrossSectionReconstructedCreateConst
 end function CrossSectionReconstructedCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CrossSectionReconstructedCreate( &
    label, &
    derivedFrom, &
@@ -95,6 +95,8 @@ end subroutine CrossSectionReconstructedDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CrossSectionReconstructedRead(handle, filename, filenameSize) &
       bind(C, name='CrossSectionReconstructedRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function CrossSectionReconstructedRead(handle, filename, filenameSize) &
 end function CrossSectionReconstructedRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CrossSectionReconstructedWrite(handle, filename, filenameSize) &
       bind(C, name='CrossSectionReconstructedWrite')
    use iso_c_binding

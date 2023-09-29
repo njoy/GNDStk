@@ -20,7 +20,7 @@ function EFHDefaultConst() &
    type(c_ptr) :: EFHDefaultConst
 end function EFHDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function EFHDefault() &
       bind(C, name='EFHDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function EFHCreateConst( &
    type(c_ptr) :: EFHCreateConst
 end function EFHCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function EFHCreate( &
    value, &
    unit, &
@@ -83,6 +83,8 @@ end subroutine EFHDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function EFHRead(handle, filename, filenameSize) &
       bind(C, name='EFHRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function EFHRead(handle, filename, filenameSize) &
 end function EFHRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function EFHWrite(handle, filename, filenameSize) &
       bind(C, name='EFHWrite')
    use iso_c_binding

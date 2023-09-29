@@ -33,7 +33,7 @@ BaryonsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Baryons
 BaryonsDefault()
 {
@@ -55,7 +55,7 @@ BaryonsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Baryons
 BaryonsCreate(
    ConstHandle2Baryon *const baryon, const size_t baryonSize
@@ -185,7 +185,7 @@ BaryonsBaryonGetConst(ConstHandle2ConstBaryons self, const size_t index_)
       (CLASSNAME, CLASSNAME+"BaryonGetConst", self, extract::baryon, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Baryon
 BaryonsBaryonGet(ConstHandle2Baryons self, const size_t index_)
 {
@@ -230,7 +230,7 @@ BaryonsBaryonGetByIdConst(
        self, extract::baryon, meta::id, id);
 }
 
-// Get, by id
+// Get, by id, non-const
 Handle2Baryon
 BaryonsBaryonGetById(
    ConstHandle2Baryons self,

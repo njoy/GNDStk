@@ -20,7 +20,7 @@ function XYs3dDefaultConst() &
    type(c_ptr) :: XYs3dDefaultConst
 end function XYs3dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function XYs3dDefault() &
       bind(C, name='XYs3dDefault')
    use iso_c_binding
@@ -46,7 +46,7 @@ function XYs3dCreateConst( &
    type(c_ptr) :: XYs3dCreateConst
 end function XYs3dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function XYs3dCreate( &
    interpolationQualifier, &
    axes, &
@@ -89,6 +89,8 @@ end subroutine XYs3dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function XYs3dRead(handle, filename, filenameSize) &
       bind(C, name='XYs3dRead')
    use iso_c_binding
@@ -100,6 +102,8 @@ function XYs3dRead(handle, filename, filenameSize) &
 end function XYs3dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function XYs3dWrite(handle, filename, filenameSize) &
       bind(C, name='XYs3dWrite')
    use iso_c_binding
@@ -193,7 +197,7 @@ function XYs3dAxesGetConst(handle) &
    type(c_ptr) :: XYs3dAxesGetConst
 end function XYs3dAxesGetConst
 
-!! Get
+!! Get, non-const
 function XYs3dAxesGet(handle) &
       bind(C, name='XYs3dAxesGet')
    use iso_c_binding
@@ -261,7 +265,7 @@ function XYs3dFunction2dsGetConst(handle, index) &
    type(c_ptr) :: XYs3dFunction2dsGetConst
 end function XYs3dFunction2dsGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function XYs3dFunction2dsGet(handle, index) &
       bind(C, name='XYs3dFunction2dsGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function UnorthodoxesDefaultConst() &
    type(c_ptr) :: UnorthodoxesDefaultConst
 end function UnorthodoxesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function UnorthodoxesDefault() &
       bind(C, name='UnorthodoxesDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function UnorthodoxesCreateConst( &
    type(c_ptr) :: UnorthodoxesCreateConst
 end function UnorthodoxesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function UnorthodoxesCreate( &
    unorthodox, unorthodoxSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine UnorthodoxesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function UnorthodoxesRead(handle, filename, filenameSize) &
       bind(C, name='UnorthodoxesRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function UnorthodoxesRead(handle, filename, filenameSize) &
 end function UnorthodoxesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function UnorthodoxesWrite(handle, filename, filenameSize) &
       bind(C, name='UnorthodoxesWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function UnorthodoxesUnorthodoxGetConst(handle, index) &
    type(c_ptr) :: UnorthodoxesUnorthodoxGetConst
 end function UnorthodoxesUnorthodoxGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function UnorthodoxesUnorthodoxGet(handle, index) &
       bind(C, name='UnorthodoxesUnorthodoxGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function UnorthodoxesUnorthodoxGetByIdConst(handle, meta, metaSize) &
    type(c_ptr) :: UnorthodoxesUnorthodoxGetByIdConst
 end function UnorthodoxesUnorthodoxGetByIdConst
 
-!! Get, by id
+!! Get, by id, non-const
 function UnorthodoxesUnorthodoxGetById(handle, meta, metaSize) &
       bind(C, name='UnorthodoxesUnorthodoxGetById')
    use iso_c_binding

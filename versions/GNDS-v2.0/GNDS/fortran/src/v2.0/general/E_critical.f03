@@ -20,7 +20,7 @@ function E_criticalDefaultConst() &
    type(c_ptr) :: E_criticalDefaultConst
 end function E_criticalDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function E_criticalDefault() &
       bind(C, name='E_criticalDefault')
    use iso_c_binding
@@ -43,7 +43,7 @@ function E_criticalCreateConst( &
    type(c_ptr) :: E_criticalCreateConst
 end function E_criticalCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function E_criticalCreate( &
    value, &
    unit, &
@@ -83,6 +83,8 @@ end subroutine E_criticalDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function E_criticalRead(handle, filename, filenameSize) &
       bind(C, name='E_criticalRead')
    use iso_c_binding
@@ -94,6 +96,8 @@ function E_criticalRead(handle, filename, filenameSize) &
 end function E_criticalRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function E_criticalWrite(handle, filename, filenameSize) &
       bind(C, name='E_criticalWrite')
    use iso_c_binding

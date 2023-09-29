@@ -70,7 +70,7 @@ typedef       struct RealAnomalousFactorClass *      Handle2RealAnomalousFactor;
 extern_c Handle2ConstRealAnomalousFactor
 RealAnomalousFactorDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2RealAnomalousFactor
 RealAnomalousFactorDefault();
 
@@ -80,7 +80,7 @@ RealAnomalousFactorCreateConst(
    ConstHandle2ConstXYs1d XYs1d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2RealAnomalousFactor
 RealAnomalousFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -142,7 +142,7 @@ RealAnomalousFactorXYs1dHas(ConstHandle2ConstRealAnomalousFactor self);
 extern_c Handle2ConstXYs1d
 RealAnomalousFactorXYs1dGetConst(ConstHandle2ConstRealAnomalousFactor self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs1d
 RealAnomalousFactorXYs1dGet(ConstHandle2RealAnomalousFactor self);
 

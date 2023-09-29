@@ -35,7 +35,7 @@ IsotopeDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Isotope
 IsotopeDefault()
 {
@@ -59,7 +59,7 @@ IsotopeCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Isotope
 IsotopeCreate(
    const char *const symbol,
@@ -227,7 +227,7 @@ IsotopeNuclidesGetConst(ConstHandle2ConstIsotope self)
       (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
-// Get
+// Get, non-const
 Handle2Nuclides
 IsotopeNuclidesGet(ConstHandle2Isotope self)
 {

@@ -27,7 +27,7 @@ Isotropic2dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Isotropic2d
 Isotropic2dDefault()
 {
@@ -45,7 +45,7 @@ Isotropic2dCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Isotropic2d
 Isotropic2dCreate()
 {

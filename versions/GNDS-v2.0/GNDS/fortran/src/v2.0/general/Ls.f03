@@ -20,7 +20,7 @@ function LsDefaultConst() &
    type(c_ptr) :: LsDefaultConst
 end function LsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function LsDefault() &
       bind(C, name='LsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function LsCreateConst( &
    type(c_ptr) :: LsCreateConst
 end function LsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function LsCreate( &
    L, LSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine LsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function LsRead(handle, filename, filenameSize) &
       bind(C, name='LsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function LsRead(handle, filename, filenameSize) &
 end function LsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function LsWrite(handle, filename, filenameSize) &
       bind(C, name='LsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function LsLGetConst(handle, index) &
    type(c_ptr) :: LsLGetConst
 end function LsLGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function LsLGet(handle, index) &
       bind(C, name='LsLGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function LsLGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: LsLGetByLabelConst
 end function LsLGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function LsLGetByLabel(handle, meta, metaSize) &
       bind(C, name='LsLGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function LsLGetByValueConst(handle, meta) &
    type(c_ptr) :: LsLGetByValueConst
 end function LsLGetByValueConst
 
-!! Get, by value
+!! Get, by value, non-const
 function LsLGetByValue(handle, meta) &
       bind(C, name='LsLGetByValue')
    use iso_c_binding

@@ -20,7 +20,7 @@ function PhotonEmissionProbabilitiesDefaultConst() &
    type(c_ptr) :: PhotonEmissionProbabilitiesDefaultConst
 end function PhotonEmissionProbabilitiesDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function PhotonEmissionProbabilitiesDefault() &
       bind(C, name='PhotonEmissionProbabilitiesDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function PhotonEmissionProbabilitiesCreateConst( &
    type(c_ptr) :: PhotonEmissionProbabilitiesCreateConst
 end function PhotonEmissionProbabilitiesCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function PhotonEmissionProbabilitiesCreate( &
    shell &
 ) &
@@ -75,6 +75,8 @@ end subroutine PhotonEmissionProbabilitiesDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function PhotonEmissionProbabilitiesRead(handle, filename, filenameSize) &
       bind(C, name='PhotonEmissionProbabilitiesRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function PhotonEmissionProbabilitiesRead(handle, filename, filenameSize) &
 end function PhotonEmissionProbabilitiesRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function PhotonEmissionProbabilitiesWrite(handle, filename, filenameSize) &
       bind(C, name='PhotonEmissionProbabilitiesWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function PhotonEmissionProbabilitiesShellGetConst(handle) &
    type(c_ptr) :: PhotonEmissionProbabilitiesShellGetConst
 end function PhotonEmissionProbabilitiesShellGetConst
 
-!! Get
+!! Get, non-const
 function PhotonEmissionProbabilitiesShellGet(handle) &
       bind(C, name='PhotonEmissionProbabilitiesShellGet')
    use iso_c_binding

@@ -20,7 +20,7 @@ function ParameterLinkDefaultConst() &
    type(c_ptr) :: ParameterLinkDefaultConst
 end function ParameterLinkDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ParameterLinkDefault() &
       bind(C, name='ParameterLinkDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function ParameterLinkCreateConst( &
    type(c_ptr) :: ParameterLinkCreateConst
 end function ParameterLinkCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ParameterLinkCreate( &
    label, &
    href, &
@@ -95,6 +95,8 @@ end subroutine ParameterLinkDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ParameterLinkRead(handle, filename, filenameSize) &
       bind(C, name='ParameterLinkRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function ParameterLinkRead(handle, filename, filenameSize) &
 end function ParameterLinkRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ParameterLinkWrite(handle, filename, filenameSize) &
       bind(C, name='ParameterLinkWrite')
    use iso_c_binding

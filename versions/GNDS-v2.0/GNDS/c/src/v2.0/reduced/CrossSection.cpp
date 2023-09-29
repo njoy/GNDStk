@@ -37,7 +37,7 @@ CrossSectionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2CrossSection
 CrossSectionDefault()
 {
@@ -61,7 +61,7 @@ CrossSectionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2CrossSection
 CrossSectionCreate(
    ConstHandle2ConstXYs1d XYs1d,
@@ -169,7 +169,7 @@ CrossSectionXYs1dGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 CrossSectionXYs1dGet(ConstHandle2CrossSection self)
 {
@@ -206,7 +206,7 @@ CrossSectionRegions1dGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"Regions1dGetConst", self, extract::regions1d);
 }
 
-// Get
+// Get, non-const
 Handle2Regions1d
 CrossSectionRegions1dGet(ConstHandle2CrossSection self)
 {
@@ -243,7 +243,7 @@ CrossSectionReferenceGetConst(ConstHandle2ConstCrossSection self)
       (CLASSNAME, CLASSNAME+"ReferenceGetConst", self, extract::reference);
 }
 
-// Get
+// Get, non-const
 Handle2Reference
 CrossSectionReferenceGet(ConstHandle2CrossSection self)
 {

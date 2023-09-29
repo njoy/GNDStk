@@ -40,7 +40,7 @@ DiscreteDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Discrete
 DiscreteDefault()
 {
@@ -68,7 +68,7 @@ DiscreteCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Discrete
 DiscreteCreate(
    const char *const type,
@@ -210,7 +210,7 @@ DiscreteIntensityGetConst(ConstHandle2ConstDiscrete self)
       (CLASSNAME, CLASSNAME+"IntensityGetConst", self, extract::intensity);
 }
 
-// Get
+// Get, non-const
 Handle2Intensity
 DiscreteIntensityGet(ConstHandle2Discrete self)
 {
@@ -247,7 +247,7 @@ DiscreteEnergyGetConst(ConstHandle2ConstDiscrete self)
       (CLASSNAME, CLASSNAME+"EnergyGetConst", self, extract::energy);
 }
 
-// Get
+// Get, non-const
 Handle2Energy
 DiscreteEnergyGet(ConstHandle2Discrete self)
 {
@@ -284,7 +284,7 @@ DiscreteInternalConversionCoefficientsGetConst(ConstHandle2ConstDiscrete self)
       (CLASSNAME, CLASSNAME+"InternalConversionCoefficientsGetConst", self, extract::internalConversionCoefficients);
 }
 
-// Get
+// Get, non-const
 Handle2InternalConversionCoefficients
 DiscreteInternalConversionCoefficientsGet(ConstHandle2Discrete self)
 {
@@ -321,7 +321,7 @@ DiscretePositronEmissionIntensityGetConst(ConstHandle2ConstDiscrete self)
       (CLASSNAME, CLASSNAME+"PositronEmissionIntensityGetConst", self, extract::positronEmissionIntensity);
 }
 
-// Get
+// Get, non-const
 Handle2PositronEmissionIntensity
 DiscretePositronEmissionIntensityGet(ConstHandle2Discrete self)
 {

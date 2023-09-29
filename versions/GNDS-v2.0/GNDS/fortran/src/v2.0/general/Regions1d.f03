@@ -20,7 +20,7 @@ function Regions1dDefaultConst() &
    type(c_ptr) :: Regions1dDefaultConst
 end function Regions1dDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function Regions1dDefault() &
       bind(C, name='Regions1dDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function Regions1dCreateConst( &
    type(c_ptr) :: Regions1dCreateConst
 end function Regions1dCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function Regions1dCreate( &
    label, &
    outerDomainValue, &
@@ -95,6 +95,8 @@ end subroutine Regions1dDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function Regions1dRead(handle, filename, filenameSize) &
       bind(C, name='Regions1dRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function Regions1dRead(handle, filename, filenameSize) &
 end function Regions1dRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function Regions1dWrite(handle, filename, filenameSize) &
       bind(C, name='Regions1dWrite')
    use iso_c_binding
@@ -231,7 +235,7 @@ function Regions1dAxesGetConst(handle) &
    type(c_ptr) :: Regions1dAxesGetConst
 end function Regions1dAxesGetConst
 
-!! Get
+!! Get, non-const
 function Regions1dAxesGet(handle) &
       bind(C, name='Regions1dAxesGet')
    use iso_c_binding
@@ -272,7 +276,7 @@ function Regions1dUncertaintyGetConst(handle) &
    type(c_ptr) :: Regions1dUncertaintyGetConst
 end function Regions1dUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function Regions1dUncertaintyGet(handle) &
       bind(C, name='Regions1dUncertaintyGet')
    use iso_c_binding
@@ -313,7 +317,7 @@ function Regions1dFunction1dsGetConst(handle) &
    type(c_ptr) :: Regions1dFunction1dsGetConst
 end function Regions1dFunction1dsGetConst
 
-!! Get
+!! Get, non-const
 function Regions1dFunction1dsGet(handle) &
       bind(C, name='Regions1dFunction1dsGet')
    use iso_c_binding

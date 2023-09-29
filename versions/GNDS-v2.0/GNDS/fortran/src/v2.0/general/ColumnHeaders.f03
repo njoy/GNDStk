@@ -20,7 +20,7 @@ function ColumnHeadersDefaultConst() &
    type(c_ptr) :: ColumnHeadersDefaultConst
 end function ColumnHeadersDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ColumnHeadersDefault() &
       bind(C, name='ColumnHeadersDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ColumnHeadersCreateConst( &
    type(c_ptr) :: ColumnHeadersCreateConst
 end function ColumnHeadersCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ColumnHeadersCreate( &
    column, columnSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ColumnHeadersDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ColumnHeadersRead(handle, filename, filenameSize) &
       bind(C, name='ColumnHeadersRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ColumnHeadersRead(handle, filename, filenameSize) &
 end function ColumnHeadersRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ColumnHeadersWrite(handle, filename, filenameSize) &
       bind(C, name='ColumnHeadersWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ColumnHeadersColumnGetConst(handle, index) &
    type(c_ptr) :: ColumnHeadersColumnGetConst
 end function ColumnHeadersColumnGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ColumnHeadersColumnGet(handle, index) &
       bind(C, name='ColumnHeadersColumnGet')
    use iso_c_binding
@@ -219,7 +223,7 @@ function ColumnHeadersColumnGetByIndexConst(handle, meta) &
    type(c_ptr) :: ColumnHeadersColumnGetByIndexConst
 end function ColumnHeadersColumnGetByIndexConst
 
-!! Get, by index
+!! Get, by index, non-const
 function ColumnHeadersColumnGetByIndex(handle, meta) &
       bind(C, name='ColumnHeadersColumnGetByIndex')
    use iso_c_binding
@@ -265,7 +269,7 @@ function ColumnHeadersColumnGetByNameConst(handle, meta, metaSize) &
    type(c_ptr) :: ColumnHeadersColumnGetByNameConst
 end function ColumnHeadersColumnGetByNameConst
 
-!! Get, by name
+!! Get, by name, non-const
 function ColumnHeadersColumnGetByName(handle, meta, metaSize) &
       bind(C, name='ColumnHeadersColumnGetByName')
    use iso_c_binding
@@ -313,7 +317,7 @@ function ColumnHeadersColumnGetByUnitConst(handle, meta, metaSize) &
    type(c_ptr) :: ColumnHeadersColumnGetByUnitConst
 end function ColumnHeadersColumnGetByUnitConst
 
-!! Get, by unit
+!! Get, by unit, non-const
 function ColumnHeadersColumnGetByUnit(handle, meta, metaSize) &
       bind(C, name='ColumnHeadersColumnGetByUnit')
    use iso_c_binding

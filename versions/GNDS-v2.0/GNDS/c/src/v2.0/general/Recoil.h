@@ -69,7 +69,7 @@ typedef       struct RecoilClass *      Handle2Recoil;
 extern_c Handle2ConstRecoil
 RecoilDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Recoil
 RecoilDefault();
 
@@ -79,7 +79,7 @@ RecoilCreateConst(
    const char *const href
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Recoil
 RecoilCreate(
    const char *const href

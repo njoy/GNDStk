@@ -20,7 +20,7 @@ function HardSphereRadiusDefaultConst() &
    type(c_ptr) :: HardSphereRadiusDefaultConst
 end function HardSphereRadiusDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function HardSphereRadiusDefault() &
       bind(C, name='HardSphereRadiusDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function HardSphereRadiusCreateConst( &
    type(c_ptr) :: HardSphereRadiusCreateConst
 end function HardSphereRadiusCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function HardSphereRadiusCreate( &
    constant1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine HardSphereRadiusDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function HardSphereRadiusRead(handle, filename, filenameSize) &
       bind(C, name='HardSphereRadiusRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function HardSphereRadiusRead(handle, filename, filenameSize) &
 end function HardSphereRadiusRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function HardSphereRadiusWrite(handle, filename, filenameSize) &
       bind(C, name='HardSphereRadiusWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function HardSphereRadiusConstant1dGetConst(handle) &
    type(c_ptr) :: HardSphereRadiusConstant1dGetConst
 end function HardSphereRadiusConstant1dGetConst
 
-!! Get
+!! Get, non-const
 function HardSphereRadiusConstant1dGet(handle) &
       bind(C, name='HardSphereRadiusConstant1dGet')
    use iso_c_binding

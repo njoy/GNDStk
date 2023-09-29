@@ -69,7 +69,7 @@ typedef       struct EFLClass *      Handle2EFL;
 extern_c Handle2ConstEFL
 EFLDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2EFL
 EFLDefault();
 
@@ -80,7 +80,7 @@ EFLCreateConst(
    const char *const unit
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2EFL
 EFLCreate(
    const double value,

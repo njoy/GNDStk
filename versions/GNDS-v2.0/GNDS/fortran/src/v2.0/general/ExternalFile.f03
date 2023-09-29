@@ -20,7 +20,7 @@ function ExternalFileDefaultConst() &
    type(c_ptr) :: ExternalFileDefaultConst
 end function ExternalFileDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ExternalFileDefault() &
       bind(C, name='ExternalFileDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function ExternalFileCreateConst( &
    type(c_ptr) :: ExternalFileCreateConst
 end function ExternalFileCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ExternalFileCreate( &
    label, &
    path, &
@@ -103,6 +103,8 @@ end subroutine ExternalFileDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ExternalFileRead(handle, filename, filenameSize) &
       bind(C, name='ExternalFileRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function ExternalFileRead(handle, filename, filenameSize) &
 end function ExternalFileRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ExternalFileWrite(handle, filename, filenameSize) &
       bind(C, name='ExternalFileWrite')
    use iso_c_binding

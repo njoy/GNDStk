@@ -32,7 +32,7 @@ E_criticalDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2E_critical
 E_criticalDefault()
 {
@@ -54,7 +54,7 @@ E_criticalCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2E_critical
 E_criticalCreate(
    const double value,

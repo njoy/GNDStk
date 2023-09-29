@@ -20,7 +20,7 @@ function CoherentPhotonScatteringDefaultConst() &
    type(c_ptr) :: CoherentPhotonScatteringDefaultConst
 end function CoherentPhotonScatteringDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CoherentPhotonScatteringDefault() &
       bind(C, name='CoherentPhotonScatteringDefault')
    use iso_c_binding
@@ -59,7 +59,7 @@ function CoherentPhotonScatteringCreateConst( &
    type(c_ptr) :: CoherentPhotonScatteringCreateConst
 end function CoherentPhotonScatteringCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CoherentPhotonScatteringCreate( &
    label, &
    href, &
@@ -115,6 +115,8 @@ end subroutine CoherentPhotonScatteringDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CoherentPhotonScatteringRead(handle, filename, filenameSize) &
       bind(C, name='CoherentPhotonScatteringRead')
    use iso_c_binding
@@ -126,6 +128,8 @@ function CoherentPhotonScatteringRead(handle, filename, filenameSize) &
 end function CoherentPhotonScatteringRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CoherentPhotonScatteringWrite(handle, filename, filenameSize) &
       bind(C, name='CoherentPhotonScatteringWrite')
    use iso_c_binding
@@ -318,7 +322,7 @@ function CoherentPhotonScatteringFormFactorGetConst(handle) &
    type(c_ptr) :: CoherentPhotonScatteringFormFactorGetConst
 end function CoherentPhotonScatteringFormFactorGetConst
 
-!! Get
+!! Get, non-const
 function CoherentPhotonScatteringFormFactorGet(handle) &
       bind(C, name='CoherentPhotonScatteringFormFactorGet')
    use iso_c_binding
@@ -359,7 +363,7 @@ function CoherentPhotonScatteringRealAnomalousFactorGetConst(handle) &
    type(c_ptr) :: CoherentPhotonScatteringRealAnomalousFactorGetConst
 end function CoherentPhotonScatteringRealAnomalousFactorGetConst
 
-!! Get
+!! Get, non-const
 function CoherentPhotonScatteringRealAnomalousFactorGet(handle) &
       bind(C, name='CoherentPhotonScatteringRealAnomalousFactorGet')
    use iso_c_binding
@@ -400,7 +404,7 @@ function CoherentPhotonScatteringImaginaryAnomalousFactorGetConst(handle) &
    type(c_ptr) :: CoherentPhotonScatteringImaginaryAnomalousFactorGetConst
 end function CoherentPhotonScatteringImaginaryAnomalousFactorGetConst
 
-!! Get
+!! Get, non-const
 function CoherentPhotonScatteringImaginaryAnomalousFactorGet(handle) &
       bind(C, name='CoherentPhotonScatteringImaginaryAnomalousFactorGet')
    use iso_c_binding

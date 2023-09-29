@@ -20,7 +20,7 @@ function WeightedFunctionalsDefaultConst() &
    type(c_ptr) :: WeightedFunctionalsDefaultConst
 end function WeightedFunctionalsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function WeightedFunctionalsDefault() &
       bind(C, name='WeightedFunctionalsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function WeightedFunctionalsCreateConst( &
    type(c_ptr) :: WeightedFunctionalsCreateConst
 end function WeightedFunctionalsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function WeightedFunctionalsCreate( &
    weighted, weightedSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine WeightedFunctionalsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function WeightedFunctionalsRead(handle, filename, filenameSize) &
       bind(C, name='WeightedFunctionalsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function WeightedFunctionalsRead(handle, filename, filenameSize) &
 end function WeightedFunctionalsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function WeightedFunctionalsWrite(handle, filename, filenameSize) &
       bind(C, name='WeightedFunctionalsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function WeightedFunctionalsWeightedGetConst(handle, index) &
    type(c_ptr) :: WeightedFunctionalsWeightedGetConst
 end function WeightedFunctionalsWeightedGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function WeightedFunctionalsWeightedGet(handle, index) &
       bind(C, name='WeightedFunctionalsWeightedGet')
    use iso_c_binding

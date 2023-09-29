@@ -20,7 +20,7 @@ function ImaginaryAnomalousFactorDefaultConst() &
    type(c_ptr) :: ImaginaryAnomalousFactorDefaultConst
 end function ImaginaryAnomalousFactorDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ImaginaryAnomalousFactorDefault() &
       bind(C, name='ImaginaryAnomalousFactorDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function ImaginaryAnomalousFactorCreateConst( &
    type(c_ptr) :: ImaginaryAnomalousFactorCreateConst
 end function ImaginaryAnomalousFactorCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ImaginaryAnomalousFactorCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine ImaginaryAnomalousFactorDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ImaginaryAnomalousFactorRead(handle, filename, filenameSize) &
       bind(C, name='ImaginaryAnomalousFactorRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function ImaginaryAnomalousFactorRead(handle, filename, filenameSize) &
 end function ImaginaryAnomalousFactorRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ImaginaryAnomalousFactorWrite(handle, filename, filenameSize) &
       bind(C, name='ImaginaryAnomalousFactorWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function ImaginaryAnomalousFactorXYs1dGetConst(handle) &
    type(c_ptr) :: ImaginaryAnomalousFactorXYs1dGetConst
 end function ImaginaryAnomalousFactorXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function ImaginaryAnomalousFactorXYs1dGet(handle) &
       bind(C, name='ImaginaryAnomalousFactorXYs1dGet')
    use iso_c_binding

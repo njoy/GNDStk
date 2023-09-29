@@ -33,7 +33,7 @@ DelayedGammaEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2DelayedGammaEnergy
 DelayedGammaEnergyDefault()
 {
@@ -53,7 +53,7 @@ DelayedGammaEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2DelayedGammaEnergy
 DelayedGammaEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d
@@ -157,7 +157,7 @@ DelayedGammaEnergyPolynomial1dGetConst(ConstHandle2ConstDelayedGammaEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 DelayedGammaEnergyPolynomial1dGet(ConstHandle2DelayedGammaEnergy self)
 {

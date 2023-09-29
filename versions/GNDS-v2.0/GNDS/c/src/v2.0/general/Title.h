@@ -69,7 +69,7 @@ typedef       struct TitleClass *      Handle2Title;
 extern_c Handle2ConstTitle
 TitleDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Title
 TitleDefault();
 
@@ -77,7 +77,7 @@ TitleDefault();
 extern_c Handle2ConstTitle
 TitleCreateConst();
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Title
 TitleCreate();
 

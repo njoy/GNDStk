@@ -20,7 +20,7 @@ function CovarianceSectionsDefaultConst() &
    type(c_ptr) :: CovarianceSectionsDefaultConst
 end function CovarianceSectionsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CovarianceSectionsDefault() &
       bind(C, name='CovarianceSectionsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function CovarianceSectionsCreateConst( &
    type(c_ptr) :: CovarianceSectionsCreateConst
 end function CovarianceSectionsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CovarianceSectionsCreate( &
    covarianceSection, covarianceSectionSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine CovarianceSectionsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CovarianceSectionsRead(handle, filename, filenameSize) &
       bind(C, name='CovarianceSectionsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function CovarianceSectionsRead(handle, filename, filenameSize) &
 end function CovarianceSectionsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CovarianceSectionsWrite(handle, filename, filenameSize) &
       bind(C, name='CovarianceSectionsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function CovarianceSectionsCovarianceSectionGetConst(handle, index) &
    type(c_ptr) :: CovarianceSectionsCovarianceSectionGetConst
 end function CovarianceSectionsCovarianceSectionGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function CovarianceSectionsCovarianceSectionGet(handle, index) &
       bind(C, name='CovarianceSectionsCovarianceSectionGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function CovarianceSectionsCovarianceSectionGetByLabelConst(handle, meta, metaSi
    type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByLabelConst
 end function CovarianceSectionsCovarianceSectionGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function CovarianceSectionsCovarianceSectionGetByLabel(handle, meta, metaSize) &
       bind(C, name='CovarianceSectionsCovarianceSectionGetByLabel')
    use iso_c_binding
@@ -267,7 +271,7 @@ function CovarianceSectionsCovarianceSectionGetByCrossTermConst(handle, meta) &
    type(c_ptr) :: CovarianceSectionsCovarianceSectionGetByCrossTermConst
 end function CovarianceSectionsCovarianceSectionGetByCrossTermConst
 
-!! Get, by crossTerm
+!! Get, by crossTerm, non-const
 function CovarianceSectionsCovarianceSectionGetByCrossTerm(handle, meta) &
       bind(C, name='CovarianceSectionsCovarianceSectionGetByCrossTerm')
    use iso_c_binding

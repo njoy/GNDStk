@@ -33,7 +33,7 @@ ConfigurationsDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Configurations
 ConfigurationsDefault()
 {
@@ -55,7 +55,7 @@ ConfigurationsCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Configurations
 ConfigurationsCreate(
    ConstHandle2Configuration *const configuration, const size_t configurationSize
@@ -185,7 +185,7 @@ ConfigurationsConfigurationGetConst(ConstHandle2ConstConfigurations self, const 
       (CLASSNAME, CLASSNAME+"ConfigurationGetConst", self, extract::configuration, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Configuration
 ConfigurationsConfigurationGet(ConstHandle2Configurations self, const size_t index_)
 {
@@ -230,7 +230,7 @@ ConfigurationsConfigurationGetBySubshellConst(
        self, extract::configuration, meta::subshell, subshell);
 }
 
-// Get, by subshell
+// Get, by subshell, non-const
 Handle2Configuration
 ConfigurationsConfigurationGetBySubshell(
    ConstHandle2Configurations self,
@@ -279,7 +279,7 @@ ConfigurationsConfigurationGetByElectronNumberConst(
        self, extract::configuration, meta::electronNumber, electronNumber);
 }
 
-// Get, by electronNumber
+// Get, by electronNumber, non-const
 Handle2Configuration
 ConfigurationsConfigurationGetByElectronNumber(
    ConstHandle2Configurations self,

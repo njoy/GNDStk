@@ -70,7 +70,7 @@ typedef       struct SpectraClass *      Handle2Spectra;
 extern_c Handle2ConstSpectra
 SpectraDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Spectra
 SpectraDefault();
 
@@ -80,7 +80,7 @@ SpectraCreateConst(
    ConstHandle2Spectrum *const spectrum, const size_t spectrumSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Spectra
 SpectraCreate(
    ConstHandle2Spectrum *const spectrum, const size_t spectrumSize
@@ -154,7 +154,7 @@ SpectraSpectrumAdd(ConstHandle2Spectra self, ConstHandle2ConstSpectrum spectrum)
 extern_c Handle2ConstSpectrum
 SpectraSpectrumGetConst(ConstHandle2ConstSpectra self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Spectrum
 SpectraSpectrumGet(ConstHandle2Spectra self, const size_t index_);
 
@@ -184,7 +184,7 @@ SpectraSpectrumGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Spectrum
 SpectraSpectrumGetByLabel(
    ConstHandle2Spectra self,
@@ -217,7 +217,7 @@ SpectraSpectrumGetByPidConst(
    const char *const pid
 );
 
-// +++ Get, by pid
+// +++ Get, by pid, non-const
 extern_c Handle2Spectrum
 SpectraSpectrumGetByPid(
    ConstHandle2Spectra self,

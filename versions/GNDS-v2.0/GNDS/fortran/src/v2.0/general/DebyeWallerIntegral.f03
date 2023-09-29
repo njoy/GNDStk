@@ -20,7 +20,7 @@ function DebyeWallerIntegralDefaultConst() &
    type(c_ptr) :: DebyeWallerIntegralDefaultConst
 end function DebyeWallerIntegralDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DebyeWallerIntegralDefault() &
       bind(C, name='DebyeWallerIntegralDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function DebyeWallerIntegralCreateConst( &
    type(c_ptr) :: DebyeWallerIntegralCreateConst
 end function DebyeWallerIntegralCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DebyeWallerIntegralCreate( &
    XYs1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine DebyeWallerIntegralDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DebyeWallerIntegralRead(handle, filename, filenameSize) &
       bind(C, name='DebyeWallerIntegralRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function DebyeWallerIntegralRead(handle, filename, filenameSize) &
 end function DebyeWallerIntegralRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DebyeWallerIntegralWrite(handle, filename, filenameSize) &
       bind(C, name='DebyeWallerIntegralWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function DebyeWallerIntegralXYs1dGetConst(handle) &
    type(c_ptr) :: DebyeWallerIntegralXYs1dGetConst
 end function DebyeWallerIntegralXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function DebyeWallerIntegralXYs1dGet(handle) &
       bind(C, name='DebyeWallerIntegralXYs1dGet')
    use iso_c_binding

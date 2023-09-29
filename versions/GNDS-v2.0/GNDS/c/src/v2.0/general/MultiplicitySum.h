@@ -71,7 +71,7 @@ typedef       struct MultiplicitySumClass *      Handle2MultiplicitySum;
 extern_c Handle2ConstMultiplicitySum
 MultiplicitySumDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumDefault();
 
@@ -84,7 +84,7 @@ MultiplicitySumCreateConst(
    ConstHandle2ConstSummands summands
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2MultiplicitySum
 MultiplicitySumCreate(
    const char *const label,
@@ -185,7 +185,7 @@ MultiplicitySumMultiplicityHas(ConstHandle2ConstMultiplicitySum self);
 extern_c Handle2ConstMultiplicity
 MultiplicitySumMultiplicityGetConst(ConstHandle2ConstMultiplicitySum self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Multiplicity
 MultiplicitySumMultiplicityGet(ConstHandle2MultiplicitySum self);
 
@@ -206,7 +206,7 @@ MultiplicitySumSummandsHas(ConstHandle2ConstMultiplicitySum self);
 extern_c Handle2ConstSummands
 MultiplicitySumSummandsGetConst(ConstHandle2ConstMultiplicitySum self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Summands
 MultiplicitySumSummandsGet(ConstHandle2MultiplicitySum self);
 

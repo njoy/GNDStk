@@ -20,7 +20,7 @@ function DelayedBetaEnergyDefaultConst() &
    type(c_ptr) :: DelayedBetaEnergyDefaultConst
 end function DelayedBetaEnergyDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DelayedBetaEnergyDefault() &
       bind(C, name='DelayedBetaEnergyDefault')
    use iso_c_binding
@@ -39,7 +39,7 @@ function DelayedBetaEnergyCreateConst( &
    type(c_ptr) :: DelayedBetaEnergyCreateConst
 end function DelayedBetaEnergyCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DelayedBetaEnergyCreate( &
    polynomial1d &
 ) &
@@ -75,6 +75,8 @@ end subroutine DelayedBetaEnergyDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DelayedBetaEnergyRead(handle, filename, filenameSize) &
       bind(C, name='DelayedBetaEnergyRead')
    use iso_c_binding
@@ -86,6 +88,8 @@ function DelayedBetaEnergyRead(handle, filename, filenameSize) &
 end function DelayedBetaEnergyRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DelayedBetaEnergyWrite(handle, filename, filenameSize) &
       bind(C, name='DelayedBetaEnergyWrite')
    use iso_c_binding
@@ -146,7 +150,7 @@ function DelayedBetaEnergyPolynomial1dGetConst(handle) &
    type(c_ptr) :: DelayedBetaEnergyPolynomial1dGetConst
 end function DelayedBetaEnergyPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function DelayedBetaEnergyPolynomial1dGet(handle) &
       bind(C, name='DelayedBetaEnergyPolynomial1dGet')
    use iso_c_binding

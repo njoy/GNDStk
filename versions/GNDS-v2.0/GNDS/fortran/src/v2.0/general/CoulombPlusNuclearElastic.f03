@@ -20,7 +20,7 @@ function CoulombPlusNuclearElasticDefaultConst() &
    type(c_ptr) :: CoulombPlusNuclearElasticDefaultConst
 end function CoulombPlusNuclearElasticDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CoulombPlusNuclearElasticDefault() &
       bind(C, name='CoulombPlusNuclearElasticDefault')
    use iso_c_binding
@@ -61,7 +61,7 @@ function CoulombPlusNuclearElasticCreateConst( &
    type(c_ptr) :: CoulombPlusNuclearElasticCreateConst
 end function CoulombPlusNuclearElasticCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CoulombPlusNuclearElasticCreate( &
    label, &
    href, &
@@ -119,6 +119,8 @@ end subroutine CoulombPlusNuclearElasticDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CoulombPlusNuclearElasticRead(handle, filename, filenameSize) &
       bind(C, name='CoulombPlusNuclearElasticRead')
    use iso_c_binding
@@ -130,6 +132,8 @@ function CoulombPlusNuclearElasticRead(handle, filename, filenameSize) &
 end function CoulombPlusNuclearElasticRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CoulombPlusNuclearElasticWrite(handle, filename, filenameSize) &
       bind(C, name='CoulombPlusNuclearElasticWrite')
    use iso_c_binding
@@ -354,7 +358,7 @@ function CoulombPlusNuclearElasticRutherfordScatteringGetConst(handle) &
    type(c_ptr) :: CoulombPlusNuclearElasticRutherfordScatteringGetConst
 end function CoulombPlusNuclearElasticRutherfordScatteringGetConst
 
-!! Get
+!! Get, non-const
 function CoulombPlusNuclearElasticRutherfordScatteringGet(handle) &
       bind(C, name='CoulombPlusNuclearElasticRutherfordScatteringGet')
    use iso_c_binding
@@ -395,7 +399,7 @@ function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst(handle) &
    type(c_ptr) :: CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst
 end function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGetConst
 
-!! Get
+!! Get, non-const
 function CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet(handle) &
       bind(C, name='CoulombPlusNuclearElasticNuclearAmplitudeExpansionGet')
    use iso_c_binding
@@ -436,7 +440,7 @@ function CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst(handle) &
    type(c_ptr) :: CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst
 end function CoulombPlusNuclearElasticNuclearPlusInterferenceGetConst
 
-!! Get
+!! Get, non-const
 function CoulombPlusNuclearElasticNuclearPlusInterferenceGet(handle) &
       bind(C, name='CoulombPlusNuclearElasticNuclearPlusInterferenceGet')
    use iso_c_binding

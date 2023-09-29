@@ -33,7 +33,7 @@ FissionEnergyReleasesDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2FissionEnergyReleases
 FissionEnergyReleasesDefault()
 {
@@ -55,7 +55,7 @@ FissionEnergyReleasesCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2FissionEnergyReleases
 FissionEnergyReleasesCreate(
    ConstHandle2FissionEnergyRelease *const fissionEnergyRelease, const size_t fissionEnergyReleaseSize
@@ -185,7 +185,7 @@ FissionEnergyReleasesFissionEnergyReleaseGetConst(ConstHandle2ConstFissionEnergy
       (CLASSNAME, CLASSNAME+"FissionEnergyReleaseGetConst", self, extract::fissionEnergyRelease, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGet(ConstHandle2FissionEnergyReleases self, const size_t index_)
 {
@@ -230,7 +230,7 @@ FissionEnergyReleasesFissionEnergyReleaseGetByLabelConst(
        self, extract::fissionEnergyRelease, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2FissionEnergyRelease
 FissionEnergyReleasesFissionEnergyReleaseGetByLabel(
    ConstHandle2FissionEnergyReleases self,

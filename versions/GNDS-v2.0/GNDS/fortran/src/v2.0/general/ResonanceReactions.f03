@@ -20,7 +20,7 @@ function ResonanceReactionsDefaultConst() &
    type(c_ptr) :: ResonanceReactionsDefaultConst
 end function ResonanceReactionsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ResonanceReactionsDefault() &
       bind(C, name='ResonanceReactionsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ResonanceReactionsCreateConst( &
    type(c_ptr) :: ResonanceReactionsCreateConst
 end function ResonanceReactionsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ResonanceReactionsCreate( &
    resonanceReaction, resonanceReactionSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ResonanceReactionsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ResonanceReactionsRead(handle, filename, filenameSize) &
       bind(C, name='ResonanceReactionsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ResonanceReactionsRead(handle, filename, filenameSize) &
 end function ResonanceReactionsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ResonanceReactionsWrite(handle, filename, filenameSize) &
       bind(C, name='ResonanceReactionsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ResonanceReactionsResonanceReactionGetConst(handle, index) &
    type(c_ptr) :: ResonanceReactionsResonanceReactionGetConst
 end function ResonanceReactionsResonanceReactionGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ResonanceReactionsResonanceReactionGet(handle, index) &
       bind(C, name='ResonanceReactionsResonanceReactionGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ResonanceReactionsResonanceReactionGetByLabelConst(handle, meta, metaSi
    type(c_ptr) :: ResonanceReactionsResonanceReactionGetByLabelConst
 end function ResonanceReactionsResonanceReactionGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ResonanceReactionsResonanceReactionGetByLabel(handle, meta, metaSize) &
       bind(C, name='ResonanceReactionsResonanceReactionGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ResonanceReactionsResonanceReactionGetByEjectileConst(handle, meta, met
    type(c_ptr) :: ResonanceReactionsResonanceReactionGetByEjectileConst
 end function ResonanceReactionsResonanceReactionGetByEjectileConst
 
-!! Get, by ejectile
+!! Get, by ejectile, non-const
 function ResonanceReactionsResonanceReactionGetByEjectile(handle, meta, metaSize) &
       bind(C, name='ResonanceReactionsResonanceReactionGetByEjectile')
    use iso_c_binding
@@ -315,7 +319,7 @@ function ResonanceReactionsResonanceReactionGetByEliminatedConst(handle, meta) &
    type(c_ptr) :: ResonanceReactionsResonanceReactionGetByEliminatedConst
 end function ResonanceReactionsResonanceReactionGetByEliminatedConst
 
-!! Get, by eliminated
+!! Get, by eliminated, non-const
 function ResonanceReactionsResonanceReactionGetByEliminated(handle, meta) &
       bind(C, name='ResonanceReactionsResonanceReactionGetByEliminated')
    use iso_c_binding

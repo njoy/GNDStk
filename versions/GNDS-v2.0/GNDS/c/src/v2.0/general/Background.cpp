@@ -37,7 +37,7 @@ BackgroundDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Background
 BackgroundDefault()
 {
@@ -61,7 +61,7 @@ BackgroundCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Background
 BackgroundCreate(
    ConstHandle2ConstResolvedRegion resolvedRegion,
@@ -169,7 +169,7 @@ BackgroundResolvedRegionGetConst(ConstHandle2ConstBackground self)
       (CLASSNAME, CLASSNAME+"ResolvedRegionGetConst", self, extract::resolvedRegion);
 }
 
-// Get
+// Get, non-const
 Handle2ResolvedRegion
 BackgroundResolvedRegionGet(ConstHandle2Background self)
 {
@@ -206,7 +206,7 @@ BackgroundFastRegionGetConst(ConstHandle2ConstBackground self)
       (CLASSNAME, CLASSNAME+"FastRegionGetConst", self, extract::fastRegion);
 }
 
-// Get
+// Get, non-const
 Handle2FastRegion
 BackgroundFastRegionGet(ConstHandle2Background self)
 {
@@ -243,7 +243,7 @@ BackgroundUnresolvedRegionGetConst(ConstHandle2ConstBackground self)
       (CLASSNAME, CLASSNAME+"UnresolvedRegionGetConst", self, extract::unresolvedRegion);
 }
 
-// Get
+// Get, non-const
 Handle2UnresolvedRegion
 BackgroundUnresolvedRegionGet(ConstHandle2Background self)
 {

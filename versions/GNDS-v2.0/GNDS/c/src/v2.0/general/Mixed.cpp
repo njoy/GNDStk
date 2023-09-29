@@ -38,7 +38,7 @@ MixedDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Mixed
 MixedDefault()
 {
@@ -68,7 +68,7 @@ MixedCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Mixed
 MixedCreate(
    const char *const label,
@@ -236,7 +236,7 @@ MixedCovarianceMatrixGetConst(ConstHandle2ConstMixed self, const size_t index_)
       (CLASSNAME, CLASSNAME+"CovarianceMatrixGetConst", self, extract::covarianceMatrix, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGet(ConstHandle2Mixed self, const size_t index_)
 {
@@ -281,7 +281,7 @@ MixedCovarianceMatrixGetByLabelConst(
        self, extract::covarianceMatrix, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByLabel(
    ConstHandle2Mixed self,
@@ -330,7 +330,7 @@ MixedCovarianceMatrixGetByTypeConst(
        self, extract::covarianceMatrix, meta::type, type);
 }
 
-// Get, by type
+// Get, by type, non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByType(
    ConstHandle2Mixed self,
@@ -379,7 +379,7 @@ MixedCovarianceMatrixGetByProductFrameConst(
        self, extract::covarianceMatrix, meta::productFrame, productFrame);
 }
 
-// Get, by productFrame
+// Get, by productFrame, non-const
 Handle2CovarianceMatrix
 MixedCovarianceMatrixGetByProductFrame(
    ConstHandle2Mixed self,
@@ -447,7 +447,7 @@ MixedSumGetConst(ConstHandle2ConstMixed self, const size_t index_)
       (CLASSNAME, CLASSNAME+"SumGetConst", self, extract::sum, index_);
 }
 
-// Get, by index \in [0,size)
+// Get, by index \in [0,size), non-const
 Handle2Sum
 MixedSumGet(ConstHandle2Mixed self, const size_t index_)
 {
@@ -492,7 +492,7 @@ MixedSumGetByLabelConst(
        self, extract::sum, meta::label, label);
 }
 
-// Get, by label
+// Get, by label, non-const
 Handle2Sum
 MixedSumGetByLabel(
    ConstHandle2Mixed self,
@@ -541,7 +541,7 @@ MixedSumGetByDomainMinConst(
        self, extract::sum, meta::domainMin, domainMin);
 }
 
-// Get, by domainMin
+// Get, by domainMin, non-const
 Handle2Sum
 MixedSumGetByDomainMin(
    ConstHandle2Mixed self,
@@ -590,7 +590,7 @@ MixedSumGetByDomainMaxConst(
        self, extract::sum, meta::domainMax, domainMax);
 }
 
-// Get, by domainMax
+// Get, by domainMax, non-const
 Handle2Sum
 MixedSumGetByDomainMax(
    ConstHandle2Mixed self,
@@ -639,7 +639,7 @@ MixedSumGetByDomainUnitConst(
        self, extract::sum, meta::domainUnit, domainUnit);
 }
 
-// Get, by domainUnit
+// Get, by domainUnit, non-const
 Handle2Sum
 MixedSumGetByDomainUnit(
    ConstHandle2Mixed self,
@@ -683,7 +683,7 @@ MixedShortRangeSelfScalingVarianceGetConst(ConstHandle2ConstMixed self)
       (CLASSNAME, CLASSNAME+"ShortRangeSelfScalingVarianceGetConst", self, extract::shortRangeSelfScalingVariance);
 }
 
-// Get
+// Get, non-const
 Handle2ShortRangeSelfScalingVariance
 MixedShortRangeSelfScalingVarianceGet(ConstHandle2Mixed self)
 {

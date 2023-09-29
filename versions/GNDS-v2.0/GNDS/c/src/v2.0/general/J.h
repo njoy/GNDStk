@@ -71,7 +71,7 @@ typedef       struct JClass *      Handle2J;
 extern_c Handle2ConstJ
 JDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2J
 JDefault();
 
@@ -84,7 +84,7 @@ JCreateConst(
    ConstHandle2ConstWidths widths
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2J
 JCreate(
    const char *const label,
@@ -185,7 +185,7 @@ JLevelSpacingHas(ConstHandle2ConstJ self);
 extern_c Handle2ConstLevelSpacing
 JLevelSpacingGetConst(ConstHandle2ConstJ self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2LevelSpacing
 JLevelSpacingGet(ConstHandle2J self);
 
@@ -206,7 +206,7 @@ JWidthsHas(ConstHandle2ConstJ self);
 extern_c Handle2ConstWidths
 JWidthsGetConst(ConstHandle2ConstJ self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Widths
 JWidthsGet(ConstHandle2J self);
 

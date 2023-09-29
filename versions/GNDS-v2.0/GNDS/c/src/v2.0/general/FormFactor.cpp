@@ -33,7 +33,7 @@ FormFactorDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2FormFactor
 FormFactorDefault()
 {
@@ -53,7 +53,7 @@ FormFactorCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2FormFactor
 FormFactorCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ FormFactorXYs1dGetConst(ConstHandle2ConstFormFactor self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 FormFactorXYs1dGet(ConstHandle2FormFactor self)
 {

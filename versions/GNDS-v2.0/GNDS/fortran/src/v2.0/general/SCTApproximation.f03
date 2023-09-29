@@ -20,7 +20,7 @@ function SCTApproximationDefaultConst() &
    type(c_ptr) :: SCTApproximationDefaultConst
 end function SCTApproximationDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SCTApproximationDefault() &
       bind(C, name='SCTApproximationDefault')
    use iso_c_binding
@@ -37,7 +37,7 @@ function SCTApproximationCreateConst( &
    type(c_ptr) :: SCTApproximationCreateConst
 end function SCTApproximationCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SCTApproximationCreate( &
 ) &
       bind(C, name='SCTApproximationCreate')
@@ -71,6 +71,8 @@ end subroutine SCTApproximationDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SCTApproximationRead(handle, filename, filenameSize) &
       bind(C, name='SCTApproximationRead')
    use iso_c_binding
@@ -82,6 +84,8 @@ function SCTApproximationRead(handle, filename, filenameSize) &
 end function SCTApproximationRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SCTApproximationWrite(handle, filename, filenameSize) &
       bind(C, name='SCTApproximationWrite')
    use iso_c_binding

@@ -33,7 +33,7 @@ FractionDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Fraction
 FractionDefault()
 {
@@ -57,7 +57,7 @@ FractionCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Fraction
 FractionCreate(
    const char *const label,

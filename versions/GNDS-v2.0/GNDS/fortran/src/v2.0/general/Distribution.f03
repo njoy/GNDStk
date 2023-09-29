@@ -20,7 +20,7 @@ function DistributionDefaultConst() &
    type(c_ptr) :: DistributionDefaultConst
 end function DistributionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DistributionDefault() &
       bind(C, name='DistributionDefault')
    use iso_c_binding
@@ -59,7 +59,7 @@ function DistributionCreateConst( &
    type(c_ptr) :: DistributionCreateConst
 end function DistributionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DistributionCreate( &
    thermalNeutronScatteringLaw, &
    uncorrelated, &
@@ -115,6 +115,8 @@ end subroutine DistributionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DistributionRead(handle, filename, filenameSize) &
       bind(C, name='DistributionRead')
    use iso_c_binding
@@ -126,6 +128,8 @@ function DistributionRead(handle, filename, filenameSize) &
 end function DistributionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DistributionWrite(handle, filename, filenameSize) &
       bind(C, name='DistributionWrite')
    use iso_c_binding
@@ -186,7 +190,7 @@ function DistributionThermalNeutronScatteringLawGetConst(handle) &
    type(c_ptr) :: DistributionThermalNeutronScatteringLawGetConst
 end function DistributionThermalNeutronScatteringLawGetConst
 
-!! Get
+!! Get, non-const
 function DistributionThermalNeutronScatteringLawGet(handle) &
       bind(C, name='DistributionThermalNeutronScatteringLawGet')
    use iso_c_binding
@@ -227,7 +231,7 @@ function DistributionUncorrelatedGetConst(handle) &
    type(c_ptr) :: DistributionUncorrelatedGetConst
 end function DistributionUncorrelatedGetConst
 
-!! Get
+!! Get, non-const
 function DistributionUncorrelatedGet(handle) &
       bind(C, name='DistributionUncorrelatedGet')
    use iso_c_binding
@@ -268,7 +272,7 @@ function DistributionUnspecifiedGetConst(handle) &
    type(c_ptr) :: DistributionUnspecifiedGetConst
 end function DistributionUnspecifiedGetConst
 
-!! Get
+!! Get, non-const
 function DistributionUnspecifiedGet(handle) &
       bind(C, name='DistributionUnspecifiedGet')
    use iso_c_binding
@@ -309,7 +313,7 @@ function DistributionBranching3dGetConst(handle) &
    type(c_ptr) :: DistributionBranching3dGetConst
 end function DistributionBranching3dGetConst
 
-!! Get
+!! Get, non-const
 function DistributionBranching3dGet(handle) &
       bind(C, name='DistributionBranching3dGet')
    use iso_c_binding
@@ -350,7 +354,7 @@ function DistributionAngularTwoBodyGetConst(handle) &
    type(c_ptr) :: DistributionAngularTwoBodyGetConst
 end function DistributionAngularTwoBodyGetConst
 
-!! Get
+!! Get, non-const
 function DistributionAngularTwoBodyGet(handle) &
       bind(C, name='DistributionAngularTwoBodyGet')
    use iso_c_binding
@@ -391,7 +395,7 @@ function DistributionEnergyAngularGetConst(handle) &
    type(c_ptr) :: DistributionEnergyAngularGetConst
 end function DistributionEnergyAngularGetConst
 
-!! Get
+!! Get, non-const
 function DistributionEnergyAngularGet(handle) &
       bind(C, name='DistributionEnergyAngularGet')
    use iso_c_binding
@@ -432,7 +436,7 @@ function DistributionKalbachMannGetConst(handle) &
    type(c_ptr) :: DistributionKalbachMannGetConst
 end function DistributionKalbachMannGetConst
 
-!! Get
+!! Get, non-const
 function DistributionKalbachMannGet(handle) &
       bind(C, name='DistributionKalbachMannGet')
    use iso_c_binding
@@ -473,7 +477,7 @@ function DistributionAngularEnergyGetConst(handle) &
    type(c_ptr) :: DistributionAngularEnergyGetConst
 end function DistributionAngularEnergyGetConst
 
-!! Get
+!! Get, non-const
 function DistributionAngularEnergyGet(handle) &
       bind(C, name='DistributionAngularEnergyGet')
    use iso_c_binding
@@ -514,7 +518,7 @@ function DistributionCoulombPlusNuclearElasticGetConst(handle) &
    type(c_ptr) :: DistributionCoulombPlusNuclearElasticGetConst
 end function DistributionCoulombPlusNuclearElasticGetConst
 
-!! Get
+!! Get, non-const
 function DistributionCoulombPlusNuclearElasticGet(handle) &
       bind(C, name='DistributionCoulombPlusNuclearElasticGet')
    use iso_c_binding
@@ -555,7 +559,7 @@ function DistributionCoherentPhotonScatteringGetConst(handle) &
    type(c_ptr) :: DistributionCoherentPhotonScatteringGetConst
 end function DistributionCoherentPhotonScatteringGetConst
 
-!! Get
+!! Get, non-const
 function DistributionCoherentPhotonScatteringGet(handle) &
       bind(C, name='DistributionCoherentPhotonScatteringGet')
    use iso_c_binding
@@ -596,7 +600,7 @@ function DistributionIncoherentPhotonScatteringGetConst(handle) &
    type(c_ptr) :: DistributionIncoherentPhotonScatteringGetConst
 end function DistributionIncoherentPhotonScatteringGetConst
 
-!! Get
+!! Get, non-const
 function DistributionIncoherentPhotonScatteringGet(handle) &
       bind(C, name='DistributionIncoherentPhotonScatteringGet')
    use iso_c_binding

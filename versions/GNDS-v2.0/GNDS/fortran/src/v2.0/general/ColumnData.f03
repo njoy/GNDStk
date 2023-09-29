@@ -20,7 +20,7 @@ function ColumnDataDefaultConst() &
    type(c_ptr) :: ColumnDataDefaultConst
 end function ColumnDataDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ColumnDataDefault() &
       bind(C, name='ColumnDataDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function ColumnDataCreateConst( &
    type(c_ptr) :: ColumnDataCreateConst
 end function ColumnDataCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ColumnDataCreate( &
    ENDF_MFMT, &
    href, &
@@ -91,6 +91,8 @@ end subroutine ColumnDataDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ColumnDataRead(handle, filename, filenameSize) &
       bind(C, name='ColumnDataRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function ColumnDataRead(handle, filename, filenameSize) &
 end function ColumnDataRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ColumnDataWrite(handle, filename, filenameSize) &
       bind(C, name='ColumnDataWrite')
    use iso_c_binding
@@ -228,7 +232,7 @@ function ColumnDataSlicesGetConst(handle) &
    type(c_ptr) :: ColumnDataSlicesGetConst
 end function ColumnDataSlicesGetConst
 
-!! Get
+!! Get, non-const
 function ColumnDataSlicesGet(handle) &
       bind(C, name='ColumnDataSlicesGet')
    use iso_c_binding

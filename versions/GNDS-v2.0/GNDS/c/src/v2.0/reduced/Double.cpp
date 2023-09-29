@@ -31,7 +31,7 @@ DoubleDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Double
 DoubleDefault()
 {
@@ -51,7 +51,7 @@ DoubleCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Double
 DoubleCreate(
    const double value

@@ -72,7 +72,7 @@ typedef       struct ReactionClass *      Handle2Reaction;
 extern_c Handle2ConstReaction
 ReactionDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Reaction
 ReactionDefault();
 
@@ -87,7 +87,7 @@ ReactionCreateConst(
    ConstHandle2ConstDoubleDifferentialCrossSection doubleDifferentialCrossSection
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Reaction
 ReactionCreate(
    const char *const label,
@@ -208,7 +208,7 @@ ReactionCrossSectionHas(ConstHandle2ConstReaction self);
 extern_c Handle2ConstCrossSection
 ReactionCrossSectionGetConst(ConstHandle2ConstReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2CrossSection
 ReactionCrossSectionGet(ConstHandle2Reaction self);
 
@@ -229,7 +229,7 @@ ReactionOutputChannelHas(ConstHandle2ConstReaction self);
 extern_c Handle2ConstOutputChannel
 ReactionOutputChannelGetConst(ConstHandle2ConstReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2OutputChannel
 ReactionOutputChannelGet(ConstHandle2Reaction self);
 
@@ -250,7 +250,7 @@ ReactionDoubleDifferentialCrossSectionHas(ConstHandle2ConstReaction self);
 extern_c Handle2ConstDoubleDifferentialCrossSection
 ReactionDoubleDifferentialCrossSectionGetConst(ConstHandle2ConstReaction self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DoubleDifferentialCrossSection
 ReactionDoubleDifferentialCrossSectionGet(ConstHandle2Reaction self);
 

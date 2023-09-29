@@ -20,7 +20,7 @@ function SliceDefaultConst() &
    type(c_ptr) :: SliceDefaultConst
 end function SliceDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function SliceDefault() &
       bind(C, name='SliceDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function SliceCreateConst( &
    type(c_ptr) :: SliceCreateConst
 end function SliceCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function SliceCreate( &
    dimension, &
    domainValue, &
@@ -95,6 +95,8 @@ end subroutine SliceDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function SliceRead(handle, filename, filenameSize) &
       bind(C, name='SliceRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function SliceRead(handle, filename, filenameSize) &
 end function SliceRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function SliceWrite(handle, filename, filenameSize) &
       bind(C, name='SliceWrite')
    use iso_c_binding

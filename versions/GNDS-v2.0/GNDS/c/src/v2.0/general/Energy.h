@@ -80,7 +80,7 @@ typedef       struct EnergyClass *      Handle2Energy;
 extern_c Handle2ConstEnergy
 EnergyDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Energy
 EnergyDefault();
 
@@ -102,7 +102,7 @@ EnergyCreateConst(
    ConstHandle2ConstMadlandNix MadlandNix
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Energy
 EnergyCreate(
    const double value,
@@ -212,7 +212,7 @@ EnergyDoubleHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstDouble
 EnergyDoubleGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 EnergyDoubleGet(ConstHandle2Energy self);
 
@@ -233,7 +233,7 @@ EnergyUncertaintyHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstUncertainty
 EnergyUncertaintyGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 EnergyUncertaintyGet(ConstHandle2Energy self);
 
@@ -254,7 +254,7 @@ EnergyNBodyPhaseSpaceHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstNBodyPhaseSpace
 EnergyNBodyPhaseSpaceGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2NBodyPhaseSpace
 EnergyNBodyPhaseSpaceGet(ConstHandle2Energy self);
 
@@ -275,7 +275,7 @@ EnergyPrimaryGammaHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstPrimaryGamma
 EnergyPrimaryGammaGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2PrimaryGamma
 EnergyPrimaryGammaGet(ConstHandle2Energy self);
 
@@ -296,7 +296,7 @@ EnergyDiscreteGammaHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstDiscreteGamma
 EnergyDiscreteGammaGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2DiscreteGamma
 EnergyDiscreteGammaGet(ConstHandle2Energy self);
 
@@ -317,7 +317,7 @@ EnergyXYs2dHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstXYs2d
 EnergyXYs2dGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 EnergyXYs2dGet(ConstHandle2Energy self);
 
@@ -338,7 +338,7 @@ EnergyGeneralEvaporationHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstGeneralEvaporation
 EnergyGeneralEvaporationGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2GeneralEvaporation
 EnergyGeneralEvaporationGet(ConstHandle2Energy self);
 
@@ -359,7 +359,7 @@ EnergyEvaporationHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstEvaporation
 EnergyEvaporationGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Evaporation
 EnergyEvaporationGet(ConstHandle2Energy self);
 
@@ -380,7 +380,7 @@ EnergyWeightedFunctionalsHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstWeightedFunctionals
 EnergyWeightedFunctionalsGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2WeightedFunctionals
 EnergyWeightedFunctionalsGet(ConstHandle2Energy self);
 
@@ -401,7 +401,7 @@ EnergySimpleMaxwellianFissionHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstSimpleMaxwellianFission
 EnergySimpleMaxwellianFissionGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2SimpleMaxwellianFission
 EnergySimpleMaxwellianFissionGet(ConstHandle2Energy self);
 
@@ -422,7 +422,7 @@ EnergyMadlandNixHas(ConstHandle2ConstEnergy self);
 extern_c Handle2ConstMadlandNix
 EnergyMadlandNixGetConst(ConstHandle2ConstEnergy self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2MadlandNix
 EnergyMadlandNixGet(ConstHandle2Energy self);
 

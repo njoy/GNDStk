@@ -20,7 +20,7 @@ function DoubleDefaultConst() &
    type(c_ptr) :: DoubleDefaultConst
 end function DoubleDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function DoubleDefault() &
       bind(C, name='DoubleDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function DoubleCreateConst( &
    type(c_ptr) :: DoubleCreateConst
 end function DoubleCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function DoubleCreate( &
    label, &
    value, &
@@ -95,6 +95,8 @@ end subroutine DoubleDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function DoubleRead(handle, filename, filenameSize) &
       bind(C, name='DoubleRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function DoubleRead(handle, filename, filenameSize) &
 end function DoubleRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function DoubleWrite(handle, filename, filenameSize) &
       bind(C, name='DoubleWrite')
    use iso_c_binding
@@ -264,7 +268,7 @@ function DoubleUncertaintyGetConst(handle) &
    type(c_ptr) :: DoubleUncertaintyGetConst
 end function DoubleUncertaintyGetConst
 
-!! Get
+!! Get, non-const
 function DoubleUncertaintyGet(handle) &
       bind(C, name='DoubleUncertaintyGet')
    use iso_c_binding

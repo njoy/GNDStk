@@ -20,7 +20,7 @@ function CrossSectionDefaultConst() &
    type(c_ptr) :: CrossSectionDefaultConst
 end function CrossSectionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CrossSectionDefault() &
       bind(C, name='CrossSectionDefault')
    use iso_c_binding
@@ -49,7 +49,7 @@ function CrossSectionCreateConst( &
    type(c_ptr) :: CrossSectionCreateConst
 end function CrossSectionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CrossSectionCreate( &
    XYs1d, &
    regions1d, &
@@ -95,6 +95,8 @@ end subroutine CrossSectionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CrossSectionRead(handle, filename, filenameSize) &
       bind(C, name='CrossSectionRead')
    use iso_c_binding
@@ -106,6 +108,8 @@ function CrossSectionRead(handle, filename, filenameSize) &
 end function CrossSectionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CrossSectionWrite(handle, filename, filenameSize) &
       bind(C, name='CrossSectionWrite')
    use iso_c_binding
@@ -166,7 +170,7 @@ function CrossSectionXYs1dGetConst(handle) &
    type(c_ptr) :: CrossSectionXYs1dGetConst
 end function CrossSectionXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionXYs1dGet(handle) &
       bind(C, name='CrossSectionXYs1dGet')
    use iso_c_binding
@@ -207,7 +211,7 @@ function CrossSectionRegions1dGetConst(handle) &
    type(c_ptr) :: CrossSectionRegions1dGetConst
 end function CrossSectionRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionRegions1dGet(handle) &
       bind(C, name='CrossSectionRegions1dGet')
    use iso_c_binding
@@ -248,7 +252,7 @@ function CrossSectionReferenceGetConst(handle) &
    type(c_ptr) :: CrossSectionReferenceGetConst
 end function CrossSectionReferenceGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionReferenceGet(handle) &
       bind(C, name='CrossSectionReferenceGet')
    use iso_c_binding
@@ -289,7 +293,7 @@ function CrossSectionResonancesWithBackgroundGetConst(handle) &
    type(c_ptr) :: CrossSectionResonancesWithBackgroundGetConst
 end function CrossSectionResonancesWithBackgroundGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionResonancesWithBackgroundGet(handle) &
       bind(C, name='CrossSectionResonancesWithBackgroundGet')
    use iso_c_binding
@@ -330,7 +334,7 @@ function CrossSectionCoulombPlusNuclearElasticGetConst(handle) &
    type(c_ptr) :: CrossSectionCoulombPlusNuclearElasticGetConst
 end function CrossSectionCoulombPlusNuclearElasticGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionCoulombPlusNuclearElasticGet(handle) &
       bind(C, name='CrossSectionCoulombPlusNuclearElasticGet')
    use iso_c_binding
@@ -371,7 +375,7 @@ function CrossSectionThermalNeutronScatteringLaw1dGetConst(handle) &
    type(c_ptr) :: CrossSectionThermalNeutronScatteringLaw1dGetConst
 end function CrossSectionThermalNeutronScatteringLaw1dGetConst
 
-!! Get
+!! Get, non-const
 function CrossSectionThermalNeutronScatteringLaw1dGet(handle) &
       bind(C, name='CrossSectionThermalNeutronScatteringLaw1dGet')
    use iso_c_binding

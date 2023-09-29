@@ -70,7 +70,7 @@ typedef       struct MassClass *      Handle2Mass;
 extern_c Handle2ConstMass
 MassDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Mass
 MassDefault();
 
@@ -82,7 +82,7 @@ MassCreateConst(
    ConstHandle2ConstDouble Double
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Mass
 MassCreate(
    const double value,
@@ -182,7 +182,7 @@ MassDoubleHas(ConstHandle2ConstMass self);
 extern_c Handle2ConstDouble
 MassDoubleGetConst(ConstHandle2ConstMass self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Double
 MassDoubleGet(ConstHandle2Mass self);
 

@@ -20,7 +20,7 @@ function EnergyAngularDefaultConst() &
    type(c_ptr) :: EnergyAngularDefaultConst
 end function EnergyAngularDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function EnergyAngularDefault() &
       bind(C, name='EnergyAngularDefault')
    use iso_c_binding
@@ -47,7 +47,7 @@ function EnergyAngularCreateConst( &
    type(c_ptr) :: EnergyAngularCreateConst
 end function EnergyAngularCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function EnergyAngularCreate( &
    label, &
    productFrame, &
@@ -91,6 +91,8 @@ end subroutine EnergyAngularDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function EnergyAngularRead(handle, filename, filenameSize) &
       bind(C, name='EnergyAngularRead')
    use iso_c_binding
@@ -102,6 +104,8 @@ function EnergyAngularRead(handle, filename, filenameSize) &
 end function EnergyAngularRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function EnergyAngularWrite(handle, filename, filenameSize) &
       bind(C, name='EnergyAngularWrite')
    use iso_c_binding
@@ -228,7 +232,7 @@ function EnergyAngularXYs3dGetConst(handle) &
    type(c_ptr) :: EnergyAngularXYs3dGetConst
 end function EnergyAngularXYs3dGetConst
 
-!! Get
+!! Get, non-const
 function EnergyAngularXYs3dGet(handle) &
       bind(C, name='EnergyAngularXYs3dGet')
    use iso_c_binding

@@ -27,7 +27,7 @@ RutherfordScatteringDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2RutherfordScattering
 RutherfordScatteringDefault()
 {
@@ -45,7 +45,7 @@ RutherfordScatteringCreateConst()
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2RutherfordScattering
 RutherfordScatteringCreate()
 {

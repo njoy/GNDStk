@@ -37,7 +37,7 @@ Polynomial1dDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Polynomial1d
 Polynomial1dDefault()
 {
@@ -63,7 +63,7 @@ Polynomial1dCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Polynomial1d
 Polynomial1dCreate(
    const double domainMin,
@@ -233,7 +233,7 @@ Polynomial1dAxesGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"AxesGetConst", self, extract::axes);
 }
 
-// Get
+// Get, non-const
 Handle2Axes
 Polynomial1dAxesGet(ConstHandle2Polynomial1d self)
 {
@@ -270,7 +270,7 @@ Polynomial1dValuesGetConst(ConstHandle2ConstPolynomial1d self)
       (CLASSNAME, CLASSNAME+"ValuesGetConst", self, extract::values);
 }
 
-// Get
+// Get, non-const
 Handle2Values
 Polynomial1dValuesGet(ConstHandle2Polynomial1d self)
 {

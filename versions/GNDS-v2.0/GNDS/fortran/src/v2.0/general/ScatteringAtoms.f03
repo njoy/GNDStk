@@ -20,7 +20,7 @@ function ScatteringAtomsDefaultConst() &
    type(c_ptr) :: ScatteringAtomsDefaultConst
 end function ScatteringAtomsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ScatteringAtomsDefault() &
       bind(C, name='ScatteringAtomsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ScatteringAtomsCreateConst( &
    type(c_ptr) :: ScatteringAtomsCreateConst
 end function ScatteringAtomsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ScatteringAtomsCreate( &
    scatteringAtom, scatteringAtomSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ScatteringAtomsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ScatteringAtomsRead(handle, filename, filenameSize) &
       bind(C, name='ScatteringAtomsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ScatteringAtomsRead(handle, filename, filenameSize) &
 end function ScatteringAtomsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ScatteringAtomsWrite(handle, filename, filenameSize) &
       bind(C, name='ScatteringAtomsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ScatteringAtomsScatteringAtomGetConst(handle, index) &
    type(c_ptr) :: ScatteringAtomsScatteringAtomGetConst
 end function ScatteringAtomsScatteringAtomGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ScatteringAtomsScatteringAtomGet(handle, index) &
       bind(C, name='ScatteringAtomsScatteringAtomGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ScatteringAtomsScatteringAtomGetByPidConst(handle, meta, metaSize) &
    type(c_ptr) :: ScatteringAtomsScatteringAtomGetByPidConst
 end function ScatteringAtomsScatteringAtomGetByPidConst
 
-!! Get, by pid
+!! Get, by pid, non-const
 function ScatteringAtomsScatteringAtomGetByPid(handle, meta, metaSize) &
       bind(C, name='ScatteringAtomsScatteringAtomGetByPid')
    use iso_c_binding
@@ -267,7 +271,7 @@ function ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst(handle, meta) 
    type(c_ptr) :: ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst
 end function ScatteringAtomsScatteringAtomGetByNumberPerMoleculeConst
 
-!! Get, by numberPerMolecule
+!! Get, by numberPerMolecule, non-const
 function ScatteringAtomsScatteringAtomGetByNumberPerMolecule(handle, meta) &
       bind(C, name='ScatteringAtomsScatteringAtomGetByNumberPerMolecule')
    use iso_c_binding
@@ -311,7 +315,7 @@ function ScatteringAtomsScatteringAtomGetByPrimaryScattererConst(handle, meta) &
    type(c_ptr) :: ScatteringAtomsScatteringAtomGetByPrimaryScattererConst
 end function ScatteringAtomsScatteringAtomGetByPrimaryScattererConst
 
-!! Get, by primaryScatterer
+!! Get, by primaryScatterer, non-const
 function ScatteringAtomsScatteringAtomGetByPrimaryScatterer(handle, meta) &
       bind(C, name='ScatteringAtomsScatteringAtomGetByPrimaryScatterer')
    use iso_c_binding

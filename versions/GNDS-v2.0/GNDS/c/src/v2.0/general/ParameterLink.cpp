@@ -34,7 +34,7 @@ ParameterLinkDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ParameterLink
 ParameterLinkDefault()
 {
@@ -60,7 +60,7 @@ ParameterLinkCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ParameterLink
 ParameterLinkCreate(
    const char *const label,

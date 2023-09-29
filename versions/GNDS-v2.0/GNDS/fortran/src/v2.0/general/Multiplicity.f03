@@ -20,7 +20,7 @@ function MultiplicityDefaultConst() &
    type(c_ptr) :: MultiplicityDefaultConst
 end function MultiplicityDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MultiplicityDefault() &
       bind(C, name='MultiplicityDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function MultiplicityCreateConst( &
    type(c_ptr) :: MultiplicityCreateConst
 end function MultiplicityCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MultiplicityCreate( &
    constant1d, &
    XYs1d, &
@@ -103,6 +103,8 @@ end subroutine MultiplicityDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MultiplicityRead(handle, filename, filenameSize) &
       bind(C, name='MultiplicityRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function MultiplicityRead(handle, filename, filenameSize) &
 end function MultiplicityRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MultiplicityWrite(handle, filename, filenameSize) &
       bind(C, name='MultiplicityWrite')
    use iso_c_binding
@@ -174,7 +178,7 @@ function MultiplicityConstant1dGetConst(handle) &
    type(c_ptr) :: MultiplicityConstant1dGetConst
 end function MultiplicityConstant1dGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityConstant1dGet(handle) &
       bind(C, name='MultiplicityConstant1dGet')
    use iso_c_binding
@@ -215,7 +219,7 @@ function MultiplicityXYs1dGetConst(handle) &
    type(c_ptr) :: MultiplicityXYs1dGetConst
 end function MultiplicityXYs1dGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityXYs1dGet(handle) &
       bind(C, name='MultiplicityXYs1dGet')
    use iso_c_binding
@@ -256,7 +260,7 @@ function MultiplicityRegions1dGetConst(handle) &
    type(c_ptr) :: MultiplicityRegions1dGetConst
 end function MultiplicityRegions1dGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityRegions1dGet(handle) &
       bind(C, name='MultiplicityRegions1dGet')
    use iso_c_binding
@@ -297,7 +301,7 @@ function MultiplicityPolynomial1dGetConst(handle) &
    type(c_ptr) :: MultiplicityPolynomial1dGetConst
 end function MultiplicityPolynomial1dGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityPolynomial1dGet(handle) &
       bind(C, name='MultiplicityPolynomial1dGet')
    use iso_c_binding
@@ -338,7 +342,7 @@ function MultiplicityReferenceGetConst(handle) &
    type(c_ptr) :: MultiplicityReferenceGetConst
 end function MultiplicityReferenceGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityReferenceGet(handle) &
       bind(C, name='MultiplicityReferenceGet')
    use iso_c_binding
@@ -379,7 +383,7 @@ function MultiplicityBranching1dGetConst(handle) &
    type(c_ptr) :: MultiplicityBranching1dGetConst
 end function MultiplicityBranching1dGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityBranching1dGet(handle) &
       bind(C, name='MultiplicityBranching1dGet')
    use iso_c_binding
@@ -420,7 +424,7 @@ function MultiplicityBranching3dGetConst(handle) &
    type(c_ptr) :: MultiplicityBranching3dGetConst
 end function MultiplicityBranching3dGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityBranching3dGet(handle) &
       bind(C, name='MultiplicityBranching3dGet')
    use iso_c_binding
@@ -461,7 +465,7 @@ function MultiplicityUnspecifiedGetConst(handle) &
    type(c_ptr) :: MultiplicityUnspecifiedGetConst
 end function MultiplicityUnspecifiedGetConst
 
-!! Get
+!! Get, non-const
 function MultiplicityUnspecifiedGet(handle) &
       bind(C, name='MultiplicityUnspecifiedGet')
    use iso_c_binding

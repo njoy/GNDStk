@@ -33,7 +33,7 @@ T_MDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2T_M
 T_MDefault()
 {
@@ -53,7 +53,7 @@ T_MCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2T_M
 T_MCreate(
    ConstHandle2ConstXYs1d XYs1d
@@ -157,7 +157,7 @@ T_MXYs1dGetConst(ConstHandle2ConstT_M self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 T_MXYs1dGet(ConstHandle2T_M self)
 {

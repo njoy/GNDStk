@@ -71,7 +71,7 @@ typedef       struct ImaginaryInterferenceTermClass *      Handle2ImaginaryInter
 extern_c Handle2ConstImaginaryInterferenceTerm
 ImaginaryInterferenceTermDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ImaginaryInterferenceTerm
 ImaginaryInterferenceTermDefault();
 
@@ -82,7 +82,7 @@ ImaginaryInterferenceTermCreateConst(
    ConstHandle2ConstXYs2d XYs2d
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ImaginaryInterferenceTerm
 ImaginaryInterferenceTermCreate(
    ConstHandle2ConstRegions2d regions2d,
@@ -145,7 +145,7 @@ ImaginaryInterferenceTermRegions2dHas(ConstHandle2ConstImaginaryInterferenceTerm
 extern_c Handle2ConstRegions2d
 ImaginaryInterferenceTermRegions2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Regions2d
 ImaginaryInterferenceTermRegions2dGet(ConstHandle2ImaginaryInterferenceTerm self);
 
@@ -166,7 +166,7 @@ ImaginaryInterferenceTermXYs2dHas(ConstHandle2ConstImaginaryInterferenceTerm sel
 extern_c Handle2ConstXYs2d
 ImaginaryInterferenceTermXYs2dGetConst(ConstHandle2ConstImaginaryInterferenceTerm self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2XYs2d
 ImaginaryInterferenceTermXYs2dGet(ConstHandle2ImaginaryInterferenceTerm self);
 

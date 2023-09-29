@@ -35,7 +35,7 @@ PromptGammaEnergyDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2PromptGammaEnergy
 PromptGammaEnergyDefault()
 {
@@ -57,7 +57,7 @@ PromptGammaEnergyCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2PromptGammaEnergy
 PromptGammaEnergyCreate(
    ConstHandle2ConstPolynomial1d polynomial1d,
@@ -163,7 +163,7 @@ PromptGammaEnergyPolynomial1dGetConst(ConstHandle2ConstPromptGammaEnergy self)
       (CLASSNAME, CLASSNAME+"Polynomial1dGetConst", self, extract::polynomial1d);
 }
 
-// Get
+// Get, non-const
 Handle2Polynomial1d
 PromptGammaEnergyPolynomial1dGet(ConstHandle2PromptGammaEnergy self)
 {
@@ -200,7 +200,7 @@ PromptGammaEnergyXYs1dGetConst(ConstHandle2ConstPromptGammaEnergy self)
       (CLASSNAME, CLASSNAME+"XYs1dGetConst", self, extract::XYs1d);
 }
 
-// Get
+// Get, non-const
 Handle2XYs1d
 PromptGammaEnergyXYs1dGet(ConstHandle2PromptGammaEnergy self)
 {

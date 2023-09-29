@@ -20,7 +20,7 @@ function ConfigurationsDefaultConst() &
    type(c_ptr) :: ConfigurationsDefaultConst
 end function ConfigurationsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ConfigurationsDefault() &
       bind(C, name='ConfigurationsDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ConfigurationsCreateConst( &
    type(c_ptr) :: ConfigurationsCreateConst
 end function ConfigurationsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ConfigurationsCreate( &
    configuration, configurationSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ConfigurationsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ConfigurationsRead(handle, filename, filenameSize) &
       bind(C, name='ConfigurationsRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ConfigurationsRead(handle, filename, filenameSize) &
 end function ConfigurationsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ConfigurationsWrite(handle, filename, filenameSize) &
       bind(C, name='ConfigurationsWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ConfigurationsConfigurationGetConst(handle, index) &
    type(c_ptr) :: ConfigurationsConfigurationGetConst
 end function ConfigurationsConfigurationGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ConfigurationsConfigurationGet(handle, index) &
       bind(C, name='ConfigurationsConfigurationGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ConfigurationsConfigurationGetBySubshellConst(handle, meta, metaSize) &
    type(c_ptr) :: ConfigurationsConfigurationGetBySubshellConst
 end function ConfigurationsConfigurationGetBySubshellConst
 
-!! Get, by subshell
+!! Get, by subshell, non-const
 function ConfigurationsConfigurationGetBySubshell(handle, meta, metaSize) &
       bind(C, name='ConfigurationsConfigurationGetBySubshell')
    use iso_c_binding
@@ -267,7 +271,7 @@ function ConfigurationsConfigurationGetByElectronNumberConst(handle, meta) &
    type(c_ptr) :: ConfigurationsConfigurationGetByElectronNumberConst
 end function ConfigurationsConfigurationGetByElectronNumberConst
 
-!! Get, by electronNumber
+!! Get, by electronNumber, non-const
 function ConfigurationsConfigurationGetByElectronNumber(handle, meta) &
       bind(C, name='ConfigurationsConfigurationGetByElectronNumber')
    use iso_c_binding

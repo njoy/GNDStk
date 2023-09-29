@@ -70,7 +70,7 @@ typedef       struct DecayPathClass *      Handle2DecayPath;
 extern_c Handle2ConstDecayPath
 DecayPathDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DecayPath
 DecayPathDefault();
 
@@ -80,7 +80,7 @@ DecayPathCreateConst(
    ConstHandle2Decay *const decay, const size_t decaySize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DecayPath
 DecayPathCreate(
    ConstHandle2Decay *const decay, const size_t decaySize
@@ -154,7 +154,7 @@ DecayPathDecayAdd(ConstHandle2DecayPath self, ConstHandle2ConstDecay decay);
 extern_c Handle2ConstDecay
 DecayPathDecayGetConst(ConstHandle2ConstDecayPath self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Decay
 DecayPathDecayGet(ConstHandle2DecayPath self, const size_t index_);
 
@@ -184,7 +184,7 @@ DecayPathDecayGetByIndexConst(
    const int index
 );
 
-// +++ Get, by index
+// +++ Get, by index, non-const
 extern_c Handle2Decay
 DecayPathDecayGetByIndex(
    ConstHandle2DecayPath self,
@@ -217,7 +217,7 @@ DecayPathDecayGetByModeConst(
    const char *const mode
 );
 
-// +++ Get, by mode
+// +++ Get, by mode, non-const
 extern_c Handle2Decay
 DecayPathDecayGetByMode(
    ConstHandle2DecayPath self,
@@ -250,7 +250,7 @@ DecayPathDecayGetByCompleteConst(
    const bool complete
 );
 
-// +++ Get, by complete
+// +++ Get, by complete, non-const
 extern_c Handle2Decay
 DecayPathDecayGetByComplete(
    ConstHandle2DecayPath self,

@@ -33,7 +33,7 @@ AxisDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2Axis
 AxisDefault()
 {
@@ -57,7 +57,7 @@ AxisCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2Axis
 AxisCreate(
    const int index,

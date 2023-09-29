@@ -70,7 +70,7 @@ typedef       struct GaugeBosonsClass *      Handle2GaugeBosons;
 extern_c Handle2ConstGaugeBosons
 GaugeBosonsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2GaugeBosons
 GaugeBosonsDefault();
 
@@ -80,7 +80,7 @@ GaugeBosonsCreateConst(
    ConstHandle2GaugeBoson *const gaugeBoson, const size_t gaugeBosonSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2GaugeBosons
 GaugeBosonsCreate(
    ConstHandle2GaugeBoson *const gaugeBoson, const size_t gaugeBosonSize
@@ -154,7 +154,7 @@ GaugeBosonsGaugeBosonAdd(ConstHandle2GaugeBosons self, ConstHandle2ConstGaugeBos
 extern_c Handle2ConstGaugeBoson
 GaugeBosonsGaugeBosonGetConst(ConstHandle2ConstGaugeBosons self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2GaugeBoson
 GaugeBosonsGaugeBosonGet(ConstHandle2GaugeBosons self, const size_t index_);
 
@@ -184,7 +184,7 @@ GaugeBosonsGaugeBosonGetByIdConst(
    const char *const id
 );
 
-// +++ Get, by id
+// +++ Get, by id, non-const
 extern_c Handle2GaugeBoson
 GaugeBosonsGaugeBosonGetById(
    ConstHandle2GaugeBosons self,

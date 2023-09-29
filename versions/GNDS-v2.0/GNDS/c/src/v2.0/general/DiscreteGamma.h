@@ -70,7 +70,7 @@ typedef       struct DiscreteGammaClass *      Handle2DiscreteGamma;
 extern_c Handle2ConstDiscreteGamma
 DiscreteGammaDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2DiscreteGamma
 DiscreteGammaDefault();
 
@@ -83,7 +83,7 @@ DiscreteGammaCreateConst(
    ConstHandle2ConstAxes axes
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2DiscreteGamma
 DiscreteGammaCreate(
    const double value,
@@ -202,7 +202,7 @@ DiscreteGammaAxesHas(ConstHandle2ConstDiscreteGamma self);
 extern_c Handle2ConstAxes
 DiscreteGammaAxesGetConst(ConstHandle2ConstDiscreteGamma self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Axes
 DiscreteGammaAxesGet(ConstHandle2DiscreteGamma self);
 

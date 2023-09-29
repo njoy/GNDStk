@@ -36,7 +36,7 @@ ProductYieldDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2ProductYield
 ProductYieldDefault()
 {
@@ -60,7 +60,7 @@ ProductYieldCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2ProductYield
 ProductYieldCreate(
    const char *const label,
@@ -198,7 +198,7 @@ ProductYieldNuclidesGetConst(ConstHandle2ConstProductYield self)
       (CLASSNAME, CLASSNAME+"NuclidesGetConst", self, extract::nuclides);
 }
 
-// Get
+// Get, non-const
 Handle2Nuclides
 ProductYieldNuclidesGet(ConstHandle2ProductYield self)
 {
@@ -235,7 +235,7 @@ ProductYieldElapsedTimesGetConst(ConstHandle2ConstProductYield self)
       (CLASSNAME, CLASSNAME+"ElapsedTimesGetConst", self, extract::elapsedTimes);
 }
 
-// Get
+// Get, non-const
 Handle2ElapsedTimes
 ProductYieldElapsedTimesGet(ConstHandle2ProductYield self)
 {

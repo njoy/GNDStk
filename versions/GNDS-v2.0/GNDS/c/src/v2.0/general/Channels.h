@@ -70,7 +70,7 @@ typedef       struct ChannelsClass *      Handle2Channels;
 extern_c Handle2ConstChannels
 ChannelsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Channels
 ChannelsDefault();
 
@@ -80,7 +80,7 @@ ChannelsCreateConst(
    ConstHandle2Channel *const channel, const size_t channelSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Channels
 ChannelsCreate(
    ConstHandle2Channel *const channel, const size_t channelSize
@@ -154,7 +154,7 @@ ChannelsChannelAdd(ConstHandle2Channels self, ConstHandle2ConstChannel channel);
 extern_c Handle2ConstChannel
 ChannelsChannelGetConst(ConstHandle2ConstChannels self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Channel
 ChannelsChannelGet(ConstHandle2Channels self, const size_t index_);
 
@@ -184,7 +184,7 @@ ChannelsChannelGetByLabelConst(
    const char *const label
 );
 
-// +++ Get, by label
+// +++ Get, by label, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByLabel(
    ConstHandle2Channels self,
@@ -217,7 +217,7 @@ ChannelsChannelGetByResonanceReactionConst(
    const char *const resonanceReaction
 );
 
-// +++ Get, by resonanceReaction
+// +++ Get, by resonanceReaction, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByResonanceReaction(
    ConstHandle2Channels self,
@@ -250,7 +250,7 @@ ChannelsChannelGetByLConst(
    const int L
 );
 
-// +++ Get, by L
+// +++ Get, by L, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByL(
    ConstHandle2Channels self,
@@ -283,7 +283,7 @@ ChannelsChannelGetByChannelSpinConst(
    const int channelSpin
 );
 
-// +++ Get, by channelSpin
+// +++ Get, by channelSpin, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByChannelSpin(
    ConstHandle2Channels self,
@@ -316,7 +316,7 @@ ChannelsChannelGetByColumnIndexConst(
    const int columnIndex
 );
 
-// +++ Get, by columnIndex
+// +++ Get, by columnIndex, non-const
 extern_c Handle2Channel
 ChannelsChannelGetByColumnIndex(
    ConstHandle2Channels self,

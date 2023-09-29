@@ -20,7 +20,7 @@ function ENDFconversionFlagsDefaultConst() &
    type(c_ptr) :: ENDFconversionFlagsDefaultConst
 end function ENDFconversionFlagsDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ENDFconversionFlagsDefault() &
       bind(C, name='ENDFconversionFlagsDefault')
    use iso_c_binding
@@ -48,7 +48,7 @@ function ENDFconversionFlagsCreateConst( &
    type(c_ptr) :: ENDFconversionFlagsCreateConst
 end function ENDFconversionFlagsCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ENDFconversionFlagsCreate( &
    flags, &
    href, &
@@ -93,6 +93,8 @@ end subroutine ENDFconversionFlagsDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ENDFconversionFlagsRead(handle, filename, filenameSize) &
       bind(C, name='ENDFconversionFlagsRead')
    use iso_c_binding
@@ -104,6 +106,8 @@ function ENDFconversionFlagsRead(handle, filename, filenameSize) &
 end function ENDFconversionFlagsRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ENDFconversionFlagsWrite(handle, filename, filenameSize) &
       bind(C, name='ENDFconversionFlagsWrite')
    use iso_c_binding
@@ -257,7 +261,7 @@ function ENDFconversionFlagsConversionGetConst(handle, index) &
    type(c_ptr) :: ENDFconversionFlagsConversionGetConst
 end function ENDFconversionFlagsConversionGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ENDFconversionFlagsConversionGet(handle, index) &
       bind(C, name='ENDFconversionFlagsConversionGet')
    use iso_c_binding
@@ -303,7 +307,7 @@ function ENDFconversionFlagsConversionGetByFlagsConst(handle, meta, metaSize) &
    type(c_ptr) :: ENDFconversionFlagsConversionGetByFlagsConst
 end function ENDFconversionFlagsConversionGetByFlagsConst
 
-!! Get, by flags
+!! Get, by flags, non-const
 function ENDFconversionFlagsConversionGetByFlags(handle, meta, metaSize) &
       bind(C, name='ENDFconversionFlagsConversionGetByFlags')
    use iso_c_binding
@@ -351,7 +355,7 @@ function ENDFconversionFlagsConversionGetByHrefConst(handle, meta, metaSize) &
    type(c_ptr) :: ENDFconversionFlagsConversionGetByHrefConst
 end function ENDFconversionFlagsConversionGetByHrefConst
 
-!! Get, by href
+!! Get, by href, non-const
 function ENDFconversionFlagsConversionGetByHref(handle, meta, metaSize) &
       bind(C, name='ENDFconversionFlagsConversionGetByHref')
    use iso_c_binding

@@ -70,7 +70,7 @@ typedef       struct SummandsClass *      Handle2Summands;
 extern_c Handle2ConstSummands
 SummandsDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2Summands
 SummandsDefault();
 
@@ -80,7 +80,7 @@ SummandsCreateConst(
    ConstHandle2Add *const add, const size_t addSize
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2Summands
 SummandsCreate(
    ConstHandle2Add *const add, const size_t addSize
@@ -154,7 +154,7 @@ SummandsAddAdd(ConstHandle2Summands self, ConstHandle2ConstAdd add);
 extern_c Handle2ConstAdd
 SummandsAddGetConst(ConstHandle2ConstSummands self, const size_t index_);
 
-// +++ Get, by index \in [0,size)
+// +++ Get, by index \in [0,size), non-const
 extern_c Handle2Add
 SummandsAddGet(ConstHandle2Summands self, const size_t index_);
 
@@ -184,7 +184,7 @@ SummandsAddGetByHrefConst(
    const char *const href
 );
 
-// +++ Get, by href
+// +++ Get, by href, non-const
 extern_c Handle2Add
 SummandsAddGetByHref(
    ConstHandle2Summands self,

@@ -20,7 +20,7 @@ function MassDefaultConst() &
    type(c_ptr) :: MassDefaultConst
 end function MassDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function MassDefault() &
       bind(C, name='MassDefault')
    use iso_c_binding
@@ -45,7 +45,7 @@ function MassCreateConst( &
    type(c_ptr) :: MassCreateConst
 end function MassCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function MassCreate( &
    value, &
    unit, &
@@ -87,6 +87,8 @@ end subroutine MassDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function MassRead(handle, filename, filenameSize) &
       bind(C, name='MassRead')
    use iso_c_binding
@@ -98,6 +100,8 @@ function MassRead(handle, filename, filenameSize) &
 end function MassRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function MassWrite(handle, filename, filenameSize) &
       bind(C, name='MassWrite')
    use iso_c_binding
@@ -223,7 +227,7 @@ function MassDoubleGetConst(handle) &
    type(c_ptr) :: MassDoubleGetConst
 end function MassDoubleGetConst
 
-!! Get
+!! Get, non-const
 function MassDoubleGet(handle) &
       bind(C, name='MassDoubleGet')
    use iso_c_binding

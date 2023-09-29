@@ -20,7 +20,7 @@ function CovarianceSectionDefaultConst() &
    type(c_ptr) :: CovarianceSectionDefaultConst
 end function CovarianceSectionDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function CovarianceSectionDefault() &
       bind(C, name='CovarianceSectionDefault')
    use iso_c_binding
@@ -53,7 +53,7 @@ function CovarianceSectionCreateConst( &
    type(c_ptr) :: CovarianceSectionCreateConst
 end function CovarianceSectionCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function CovarianceSectionCreate( &
    label, &
    crossTerm, &
@@ -103,6 +103,8 @@ end subroutine CovarianceSectionDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function CovarianceSectionRead(handle, filename, filenameSize) &
       bind(C, name='CovarianceSectionRead')
    use iso_c_binding
@@ -114,6 +116,8 @@ function CovarianceSectionRead(handle, filename, filenameSize) &
 end function CovarianceSectionRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function CovarianceSectionWrite(handle, filename, filenameSize) &
       bind(C, name='CovarianceSectionWrite')
    use iso_c_binding
@@ -239,7 +243,7 @@ function CovarianceSectionRowDataGetConst(handle) &
    type(c_ptr) :: CovarianceSectionRowDataGetConst
 end function CovarianceSectionRowDataGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSectionRowDataGet(handle) &
       bind(C, name='CovarianceSectionRowDataGet')
    use iso_c_binding
@@ -280,7 +284,7 @@ function CovarianceSectionColumnDataGetConst(handle) &
    type(c_ptr) :: CovarianceSectionColumnDataGetConst
 end function CovarianceSectionColumnDataGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSectionColumnDataGet(handle) &
       bind(C, name='CovarianceSectionColumnDataGet')
    use iso_c_binding
@@ -321,7 +325,7 @@ function CovarianceSectionCovarianceMatrixGetConst(handle) &
    type(c_ptr) :: CovarianceSectionCovarianceMatrixGetConst
 end function CovarianceSectionCovarianceMatrixGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSectionCovarianceMatrixGet(handle) &
       bind(C, name='CovarianceSectionCovarianceMatrixGet')
    use iso_c_binding
@@ -362,7 +366,7 @@ function CovarianceSectionMixedGetConst(handle) &
    type(c_ptr) :: CovarianceSectionMixedGetConst
 end function CovarianceSectionMixedGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSectionMixedGet(handle) &
       bind(C, name='CovarianceSectionMixedGet')
    use iso_c_binding
@@ -403,7 +407,7 @@ function CovarianceSectionSumGetConst(handle) &
    type(c_ptr) :: CovarianceSectionSumGetConst
 end function CovarianceSectionSumGetConst
 
-!! Get
+!! Get, non-const
 function CovarianceSectionSumGet(handle) &
       bind(C, name='CovarianceSectionSumGet')
    use iso_c_binding

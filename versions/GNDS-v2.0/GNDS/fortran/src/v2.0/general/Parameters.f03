@@ -20,7 +20,7 @@ function ParametersDefaultConst() &
    type(c_ptr) :: ParametersDefaultConst
 end function ParametersDefaultConst
 
-!! Create, default
+!! Create, default, non-const
 function ParametersDefault() &
       bind(C, name='ParametersDefault')
    use iso_c_binding
@@ -40,7 +40,7 @@ function ParametersCreateConst( &
    type(c_ptr) :: ParametersCreateConst
 end function ParametersCreateConst
 
-!! Create, general
+!! Create, general, non-const
 function ParametersCreate( &
    parameterLink, parameterLinkSize &
 ) &
@@ -77,6 +77,8 @@ end subroutine ParametersDelete
 !! -----------------------------------------------------------------------------
 
 !! Read from file
+!! File can be XML, JSON, or HDF5.
+!! We'll examine the file's contents to determine its type automatically.
 function ParametersRead(handle, filename, filenameSize) &
       bind(C, name='ParametersRead')
    use iso_c_binding
@@ -88,6 +90,8 @@ function ParametersRead(handle, filename, filenameSize) &
 end function ParametersRead
 
 !! Write to file
+!! File can be XML, JSON, or HDF5.
+!! We'll use filename's extension to determine the type you want written.
 function ParametersWrite(handle, filename, filenameSize) &
       bind(C, name='ParametersWrite')
    use iso_c_binding
@@ -175,7 +179,7 @@ function ParametersParameterLinkGetConst(handle, index) &
    type(c_ptr) :: ParametersParameterLinkGetConst
 end function ParametersParameterLinkGetConst
 
-!! Get, by index \in [0,size)
+!! Get, by index \in [0,size), non-const
 function ParametersParameterLinkGet(handle, index) &
       bind(C, name='ParametersParameterLinkGet')
    use iso_c_binding
@@ -221,7 +225,7 @@ function ParametersParameterLinkGetByLabelConst(handle, meta, metaSize) &
    type(c_ptr) :: ParametersParameterLinkGetByLabelConst
 end function ParametersParameterLinkGetByLabelConst
 
-!! Get, by label
+!! Get, by label, non-const
 function ParametersParameterLinkGetByLabel(handle, meta, metaSize) &
       bind(C, name='ParametersParameterLinkGetByLabel')
    use iso_c_binding
@@ -269,7 +273,7 @@ function ParametersParameterLinkGetByHrefConst(handle, meta, metaSize) &
    type(c_ptr) :: ParametersParameterLinkGetByHrefConst
 end function ParametersParameterLinkGetByHrefConst
 
-!! Get, by href
+!! Get, by href, non-const
 function ParametersParameterLinkGetByHref(handle, meta, metaSize) &
       bind(C, name='ParametersParameterLinkGetByHref')
    use iso_c_binding
@@ -315,7 +319,7 @@ function ParametersParameterLinkGetByNParametersConst(handle, meta) &
    type(c_ptr) :: ParametersParameterLinkGetByNParametersConst
 end function ParametersParameterLinkGetByNParametersConst
 
-!! Get, by nParameters
+!! Get, by nParameters, non-const
 function ParametersParameterLinkGetByNParameters(handle, meta) &
       bind(C, name='ParametersParameterLinkGetByNParameters')
    use iso_c_binding
@@ -359,7 +363,7 @@ function ParametersParameterLinkGetByMatrixStartIndexConst(handle, meta) &
    type(c_ptr) :: ParametersParameterLinkGetByMatrixStartIndexConst
 end function ParametersParameterLinkGetByMatrixStartIndexConst
 
-!! Get, by matrixStartIndex
+!! Get, by matrixStartIndex, non-const
 function ParametersParameterLinkGetByMatrixStartIndex(handle, meta) &
       bind(C, name='ParametersParameterLinkGetByMatrixStartIndex')
    use iso_c_binding

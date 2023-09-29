@@ -37,7 +37,7 @@ JDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2J
 JDefault()
 {
@@ -63,7 +63,7 @@ JCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2J
 JCreate(
    const char *const label,
@@ -233,7 +233,7 @@ JLevelSpacingGetConst(ConstHandle2ConstJ self)
       (CLASSNAME, CLASSNAME+"LevelSpacingGetConst", self, extract::levelSpacing);
 }
 
-// Get
+// Get, non-const
 Handle2LevelSpacing
 JLevelSpacingGet(ConstHandle2J self)
 {
@@ -270,7 +270,7 @@ JWidthsGetConst(ConstHandle2ConstJ self)
       (CLASSNAME, CLASSNAME+"WidthsGetConst", self, extract::widths);
 }
 
-// Get
+// Get, non-const
 Handle2Widths
 JWidthsGet(ConstHandle2J self)
 {

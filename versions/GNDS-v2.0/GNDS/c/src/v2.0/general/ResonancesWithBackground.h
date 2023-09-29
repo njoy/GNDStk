@@ -72,7 +72,7 @@ typedef       struct ResonancesWithBackgroundClass *      Handle2ResonancesWithB
 extern_c Handle2ConstResonancesWithBackground
 ResonancesWithBackgroundDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2ResonancesWithBackground
 ResonancesWithBackgroundDefault();
 
@@ -85,7 +85,7 @@ ResonancesWithBackgroundCreateConst(
    ConstHandle2ConstUncertainty uncertainty
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2ResonancesWithBackground
 ResonancesWithBackgroundCreate(
    const char *const label,
@@ -168,7 +168,7 @@ ResonancesWithBackgroundResonancesHas(ConstHandle2ConstResonancesWithBackground 
 extern_c Handle2ConstResonances
 ResonancesWithBackgroundResonancesGetConst(ConstHandle2ConstResonancesWithBackground self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Resonances
 ResonancesWithBackgroundResonancesGet(ConstHandle2ResonancesWithBackground self);
 
@@ -189,7 +189,7 @@ ResonancesWithBackgroundBackgroundHas(ConstHandle2ConstResonancesWithBackground 
 extern_c Handle2ConstBackground
 ResonancesWithBackgroundBackgroundGetConst(ConstHandle2ConstResonancesWithBackground self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Background
 ResonancesWithBackgroundBackgroundGet(ConstHandle2ResonancesWithBackground self);
 
@@ -210,7 +210,7 @@ ResonancesWithBackgroundUncertaintyHas(ConstHandle2ConstResonancesWithBackground
 extern_c Handle2ConstUncertainty
 ResonancesWithBackgroundUncertaintyGetConst(ConstHandle2ConstResonancesWithBackground self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Uncertainty
 ResonancesWithBackgroundUncertaintyGet(ConstHandle2ResonancesWithBackground self);
 

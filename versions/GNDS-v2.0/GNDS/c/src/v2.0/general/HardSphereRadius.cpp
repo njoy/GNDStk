@@ -33,7 +33,7 @@ HardSphereRadiusDefaultConst()
       (CLASSNAME, CLASSNAME+"DefaultConst");
 }
 
-// Create, default
+// Create, default, non-const
 Handle2HardSphereRadius
 HardSphereRadiusDefault()
 {
@@ -53,7 +53,7 @@ HardSphereRadiusCreateConst(
    return handle;
 }
 
-// Create, general
+// Create, general, non-const
 Handle2HardSphereRadius
 HardSphereRadiusCreate(
    ConstHandle2ConstConstant1d constant1d
@@ -157,7 +157,7 @@ HardSphereRadiusConstant1dGetConst(ConstHandle2ConstHardSphereRadius self)
       (CLASSNAME, CLASSNAME+"Constant1dGetConst", self, extract::constant1d);
 }
 
-// Get
+// Get, non-const
 Handle2Constant1d
 HardSphereRadiusConstant1dGet(ConstHandle2HardSphereRadius self)
 {

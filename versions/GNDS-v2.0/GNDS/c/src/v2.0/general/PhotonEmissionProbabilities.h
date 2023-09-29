@@ -70,7 +70,7 @@ typedef       struct PhotonEmissionProbabilitiesClass *      Handle2PhotonEmissi
 extern_c Handle2ConstPhotonEmissionProbabilities
 PhotonEmissionProbabilitiesDefaultConst();
 
-// +++ Create, default
+// +++ Create, default, non-const
 extern_c Handle2PhotonEmissionProbabilities
 PhotonEmissionProbabilitiesDefault();
 
@@ -80,7 +80,7 @@ PhotonEmissionProbabilitiesCreateConst(
    ConstHandle2ConstShell shell
 );
 
-// +++ Create, general
+// +++ Create, general, non-const
 extern_c Handle2PhotonEmissionProbabilities
 PhotonEmissionProbabilitiesCreate(
    ConstHandle2ConstShell shell
@@ -142,7 +142,7 @@ PhotonEmissionProbabilitiesShellHas(ConstHandle2ConstPhotonEmissionProbabilities
 extern_c Handle2ConstShell
 PhotonEmissionProbabilitiesShellGetConst(ConstHandle2ConstPhotonEmissionProbabilities self);
 
-// +++ Get
+// +++ Get, non-const
 extern_c Handle2Shell
 PhotonEmissionProbabilitiesShellGet(ConstHandle2PhotonEmissionProbabilities self);
 
