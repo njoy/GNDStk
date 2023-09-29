@@ -12,7 +12,7 @@ meta(
    bool &found = detail::default_bool
 ) const {
    // search
-   for (auto &m : metadata)
+   for (const auto &m : metadata)
       if (std::regex_match(m.first, std::regex(key)))
          return found = true, m.second;
 
@@ -46,7 +46,6 @@ meta(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Node.meta(Meta<void>)
 // -----------------------------------------------------------------------------
@@ -70,59 +69,49 @@ meta(
 }
 
 
-
 // -----------------------------------------------------------------------------
 // Node.meta(Meta<non-void>)
 // -----------------------------------------------------------------------------
 
 // ------------------------
-// TYPE
+// TYPE, optional<TYPE>
 // ------------------------
 
-template<class TYPE, class CONVERTER>
-TYPE
-meta(
-   const Meta<TYPE,CONVERTER> &kwd,
+template<class T, class CONVERTER>
+void meta(
+   T &existing,
+   const Meta<T,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      // call meta(string), with the Meta's key
-      const std::string &value = meta(kwd.name,found);
-      // convert value, if any, to an object of the appropriate type
-      TYPE obj = kwd.object;
-      if (found)
-         kwd.converter(value,obj);
-      return obj;
-   } catch (...) {
-      log::member("Node.meta(" + detail::keyname(kwd) + ")");
-      throw;
-   }
-}
-
-
-// ------------------------
-// optional<TYPE>
-// ------------------------
-
-template<class TYPE, class CONVERTER>
-std::optional<TYPE>
-meta(
-   const Meta<std::optional<TYPE>,CONVERTER> &kwd,
-   bool &found = detail::default_bool
-) const {
-   try {
-      // Local "found", because found == default can lead to exceptions.
-      // We still place in a try{}, in case an exception otherwise arises.
-      bool f;
-      const TYPE obj =
-         meta((kwd.object.has_value() ? kwd.object.value() : TYPE{})/kwd, f);
-      // The "found" status affects our behavior here, but for optional we'll
-      // always *return* with found == true. After all, being optional means
-      // something can be (1) there or (2) not there. That condition is always
-      // true. :-) And, this way, if an optional element isn't there, then its
-      // absence won't break a multi-query.
-      found = true;
-      return f ? std::optional<TYPE>(obj) : std::nullopt;
+      if constexpr (!detail::isOptional<T>) {
+         // call meta(string), with the Meta's key
+         const std::string &str = meta(kwd.name,found);
+         // convert str, if any, to an object of the appropriate type
+         if (found) {
+            #ifdef NJOY_GNDSTK_INSTRUMENT
+            for (const auto &m : metadata)
+               if (std::regex_match(m.first, std::regex(kwd.name)))
+                  detail::instrument::mark(m.first);
+            #endif
+            kwd.converter(str,existing);
+         }
+      } else {
+         using TYPE = typename T::value_type;
+         bool f; // local "found" for TYPE (not optional<TYPE>)
+         TYPE obj;
+         meta(obj, TYPE()/kwd, f);
+         if (f)
+            existing = obj;
+         else
+            existing = std::nullopt;
+         // For optional, we always *return* with found == true. After all,
+         // being  optional means something can either be there, or not be
+         // there. That condition is always true. :-) And, this way, if an
+         // optional value isn't there, its absence won't - and shouldn't -
+         // break a multi-query.
+         found = true;
+      }
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
@@ -135,19 +124,21 @@ meta(
 // ------------------------
 
 template<class TYPE, class CONVERTER>
-Defaulted<TYPE>
-meta(
+void meta(
+   Defaulted<TYPE> &existing,
    const Meta<Defaulted<TYPE>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
    try {
-      // Comments similar to those for std::optional above
+      // Remarks as with those for optional case above
       bool f; // local "found"
-      const TYPE obj = meta(kwd.object.value()/kwd, f);
+      TYPE obj;
+      meta(obj, TYPE()/kwd, f);
+      if (f)
+         existing = obj;
+      else
+         existing.reset();
       found = true; // always
-      return f
-         ? Defaulted<TYPE>(kwd.object.get_default(),obj)
-         : Defaulted<TYPE>(kwd.object.get_default());
    } catch (...) {
       log::member("Node.meta(" + detail::keyname(kwd) + ")");
       throw;
@@ -160,14 +151,44 @@ meta(
 // ------------------------
 
 // With caller-specified type
-template<class TYPE, class... Ts, class CONVERTER>
-std::enable_if_t<
-   detail::isAlternativeOrTheVariant<TYPE,std::variant<Ts...>>,
-   TYPE
-> meta(
+template<
+   class TYPE, class... Ts, class CONVERTER,
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
+>
+void meta(
+   TYPE &existing,
    const Meta<std::variant<Ts...>,CONVERTER> &kwd,
    bool &found = detail::default_bool
 ) const {
-   const auto ptr = std::get_if<TYPE>(&kwd.object);
-   return meta((ptr ? *ptr : TYPE{})/kwd, found);
+   meta(existing, existing/kwd, found);
+}
+
+
+// -----------------------------------------------------------------------------
+// Formulations that return TYPE, instead of taking an existing TYPE object
+// -----------------------------------------------------------------------------
+
+// general
+template<class TYPE, class CONVERTER>
+TYPE meta(
+   const Meta<TYPE,CONVERTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   TYPE ret;
+   meta(ret, kwd, found);
+   return ret;
+}
+
+// variant
+template<
+   class TYPE, class... Ts, class CONVERTER,
+   class = std::enable_if_t<detail::is_in_v<TYPE,Ts...>>
+>
+TYPE meta(
+   const Meta<std::variant<Ts...>,CONVERTER> &kwd,
+   bool &found = detail::default_bool
+) const {
+   TYPE ret;
+   meta<TYPE>(ret, kwd, found);
+   return ret;
 }

@@ -1,0 +1,35 @@
+{
+    "//": "Initial cut at GNDS v2.0",
+
+    "Project": "GNDS",
+    "Version": "v2.0",
+
+    "JSONFiles": [
+        "top.json",
+        "general.json",
+        "reduced.json",
+        "g2d.json",
+        "g3d.json"
+    ],
+
+    "Enumerators": {
+        "BoundaryCondition": [ ],
+        "ContributorType": [ ],
+        "DateType": [ ],
+        "DecayType": [ ],
+        "Encoding": [ ],
+        "Energy": [ ],
+        "Frame": [ ],
+        "GridStyle": [ ],
+        "HashAlgorithm": [ ],
+        "Interaction": [ ],
+        "Interpolation": [ ],
+        "InterpolationQualifier": [ ],
+        "Length": [ ],
+        "Parity": [ ],
+        "RelationType": [ ],
+        "StorageOrder": [ ]
+    },
+
+    "Changes": "changes.json"
+}

@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "GNDStk.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
 
 // In this file, we'll also test the detail:: functions on which Component's
 // sort() function is based. Those tests could have gone into detail.test.cpp,
@@ -51,11 +51,13 @@ struct IndexLabel {
    struct {
       int index;
       std::string label;
-   } content;
+   } Content;
    std::string value;
 
-   std::size_t index() const { return content.index; };
-   std::string label() const { return content.label; };
+   const size_t &index() const { return Content.index; };
+   size_t &index() { return Content.index; };
+   const std::string &label() const { return Content.label; };
+   std::string &label() { return Content.label; };
 
    IndexLabel(
       const int index = 0,
@@ -64,8 +66,8 @@ struct IndexLabel {
    ) :
       value(value)
    {
-      content.index = index;
-      content.label = label;
+      this->index() = index;
+      this->label() = label;
    }
 };
    */

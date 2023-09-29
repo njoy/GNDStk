@@ -17,7 +17,7 @@ Metadata
 
 Need a legend for things like this....
 
-.. literalinclude:: files/code-tables/node-add-meta.cc
+.. literalinclude:: files/code-tables/node-add-meta.cpp
    :language: cpp
    :linenos:
 
@@ -25,6 +25,6 @@ Need a legend for things like this....
 Children
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-add-child.cc
+.. literalinclude:: files/code-tables/node-add-child.cpp
    :language: cpp
    :linenos:

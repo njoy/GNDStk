@@ -18,7 +18,7 @@
                 "required": false
             }
         },
-        "data": "float",
+        "vector": "float",
         "childNodes": {}
     },
 
@@ -39,7 +39,7 @@
                 "required": false
             }
         },
-        "data": "double",
+        "vector": "double",
         "childNodes": {}
     },
 
@@ -60,7 +60,7 @@
                 "required": false
             }
         },
-        "data": "long double",
+        "vector": "long double",
         "childNodes": {}
     },
 
@@ -120,19 +120,19 @@
         },
         "childNodes": {
             "floats": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             },
             "doubles": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             },
             "quads": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             },
             "reals": {
-                "occurrence": "1",
+                "times": "1",
                 "required": false
             }
         }

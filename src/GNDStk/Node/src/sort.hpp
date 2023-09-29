@@ -72,7 +72,7 @@ public: // undo the above private
 Node &sort()
 {
    // recurse to children *first*
-   for (auto &c : children)
+   for (const childPtr &c : children)
       c->sort();
 
    // sort metadata pairs

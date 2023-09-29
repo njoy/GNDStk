@@ -42,7 +42,7 @@ convert(string,type) for some existing C++ container types.
 
 // default
 template<class T>
-inline void convert(std::istream &is, T &value)
+void convert(std::istream &is, T &value)
 {
    if constexpr (std::is_floating_point_v<T>) {
       std::string str;
@@ -55,9 +55,15 @@ inline void convert(std::istream &is, T &value)
    }
 }
 
+// string
+inline void convert(std::istream &is, std::string &value)
+{
+   is >> value;
+}
+
 // pair
 template<class X, class Y>
-inline void convert(std::istream &is, std::pair<X,Y> &p)
+void convert(std::istream &is, std::pair<X,Y> &p)
 {
    // we allow:
    //    x y
@@ -71,7 +77,7 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
 }
 
 // some sequence containers
-#define GNDSTK_CONVERT(container) \
+#define NJOY_GNDSTK_CONVERT(container) \
    template<class T, class Alloc> \
    inline void convert( \
       std::istream &is, \
@@ -81,20 +87,20 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
       T val; \
       while ((convert(is,val),is)) { \
          value.push_back(val); \
-         /* The following of course means that any ',' after the container */ \
-         /* elements will be eaten, but we don't believe this will create  */ \
-         /* problems, given this function's usage. In fact the container's */ \
-         /* last element is *probably* at the end of the istream anyway.   */ \
+         /* The following of course means that any ',' after the container  */ \
+         /* elements will be eaten, but we don't believe this will create   */ \
+         /* problems, given this function's usage. In fact, the container's */ \
+         /* last element is *probably* at the end of the istream anyway.    */ \
          if (is.get() != ',') \
             is.unget(); \
       } \
    }
 
-   GNDSTK_CONVERT(deque)
-   GNDSTK_CONVERT(list)
-   GNDSTK_CONVERT(vector)
+   NJOY_GNDSTK_CONVERT(deque)
+   NJOY_GNDSTK_CONVERT(list)
+   NJOY_GNDSTK_CONVERT(vector)
 
-#undef GNDSTK_CONVERT
+#undef NJOY_GNDSTK_CONVERT
 
 
 // -----------------------------------------------------------------------------
@@ -104,7 +110,7 @@ inline void convert(std::istream &is, std::pair<X,Y> &p)
 
 // default
 template<class T>
-inline void convert(const std::string &str, T &value)
+void convert(const std::string &str, T &value)
 {
    // try block, in case someone overloads our convert()s
    try {
@@ -143,17 +149,17 @@ inline void convert(const std::string &str, bool &value)
 
 // miscellaneous
 // string-to-T specializations that may be faster than our default
-#define GNDSTK_CONVERT(fun,TYPE) \
+#define NJOY_GNDSTK_CONVERT(fun,TYPE) \
    inline void convert(const std::string &str, TYPE &value) \
    { \
       value = std::fun(str); \
    }
 
-   GNDSTK_CONVERT(stoi,   int)
-   GNDSTK_CONVERT(stol,   long)
-   GNDSTK_CONVERT(stoll,  long long)
-   GNDSTK_CONVERT(stoul,  unsigned) // apparently there's no std::stou()
-   GNDSTK_CONVERT(stoul,  unsigned long)
-   GNDSTK_CONVERT(stoull, unsigned long long)
+   NJOY_GNDSTK_CONVERT(stoi,   int)
+   NJOY_GNDSTK_CONVERT(stol,   long)
+   NJOY_GNDSTK_CONVERT(stoll,  long long)
+   NJOY_GNDSTK_CONVERT(stoul,  unsigned) // apparently there's no std::stou()
+   NJOY_GNDSTK_CONVERT(stoul,  unsigned long)
+   NJOY_GNDSTK_CONVERT(stoull, unsigned long long)
 
-#undef GNDSTK_CONVERT
+#undef NJOY_GNDSTK_CONVERT

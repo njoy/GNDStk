@@ -11,10 +11,11 @@ using namespace njoy::GNDStk;
 // JSON literal
 // -----------------------------------------------------------------------------
 
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 static const std::string string_real_json =
 R"***({
    "covarianceSuite": {
-      "attributes": {
+      "#metadata": {
          "evaluation": "ENDF/B-8.0",
          "format": "1.9",
          "projectile": "n",
@@ -22,7 +23,7 @@ R"***({
       },
       "externalFiles": {
          "externalFile": {
-            "attributes": {
+            "#metadata": {
                "label": "reactions",
                "path": "n-069_Tm_170.xml"
             }
@@ -30,30 +31,30 @@ R"***({
       },
       "parameterCovariances": {
          "parameterCovariance": {
-            "attributes": {
+            "#metadata": {
                "label": "resolved resonances"
             },
             "parameterCovarianceMatrix": {
                "array": {
-                  "attributes": {
+                  "#metadata": {
                      "compression": "diagonal",
                      "shape": "78,78"
                   },
                   "values": {
-                     "pcdata": {
-                        "attributes": {
-                           "text": "0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012"
+                     "#data": {
+                        "#metadata": {
+                           "#text": "0.015 0 0 0 4.5e-5 0.015 3e-2 0 0 0 1.35e-4 0.015 2e-2 0 0 0 1.5e-3 0.012 5e-2 0 0 0 1.875e-3 6e-2 5e-2 0 0 0 1.05e-4 0.015 0.1 0 0 0 6e-4 0.012 0.1 0 0 0 2.25e-4 0.012 0.2 0 0 0 5.25e-3 0.012 0.2 0 0 0 3.45e-3 0.012 0.3 0 0 0 4.5e-4 0.012 0.3 0 0 0 3e-3 0.012 0.4 0 0 0 9e-3 0.012 0.4 0 0 0 1.425e-3 0.012"
                         }
                      }
                   }
                },
-               "attributes": {
+               "#metadata": {
                   "label": "eval",
                   "type": "absolute"
                },
                "parameters": {
                   "parameterLink": {
-                     "attributes": {
+                     "#metadata": {
                         "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']/resonanceParameters/table",
                         "label": "resonanceParameters",
                         "nParameters": "78"
@@ -62,7 +63,7 @@ R"***({
                }
             },
             "rowData": {
-               "attributes": {
+               "#metadata": {
                   "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']"
                }
             }
@@ -70,21 +71,21 @@ R"***({
       },
       "styles": {
          "evaluated": {
-            "attributes": {
+            "#metadata": {
                "date": "2011-10-01",
                "label": "eval",
                "library": "ENDF/B",
                "version": "8.0.1"
             },
             "projectileEnergyDomain": {
-               "attributes": {
+               "#metadata": {
                   "max": "30000000.0",
                   "min": "1e-05",
                   "unit": "eV"
                }
             },
             "temperature": {
-               "attributes": {
+               "#metadata": {
                   "unit": "K",
                   "value": "0.0"
                }
@@ -93,13 +94,92 @@ R"***({
       }
    }
 })***";
+#endif
+
+
+// -----------------------------------------------------------------------------
+// writeAndReadJSON
+// Helper function
+// -----------------------------------------------------------------------------
+
+#ifndef NJOY_GNDSTK_DISABLE_JSON
+void writeAndReadJSON(
+   const Tree &oldTree,
+   const bool reduced, const bool typed,
+   const std::string &correct,
+   const std::string &baseName
+) {
+   // Set flags
+   JSON::reduced = reduced;
+   JSON::typed = typed;
+
+   // Compute file names
+   const std::string newFile = baseName + ".json";
+   const std::string vettedFile = "correct-" + newFile;
+
+   // Write the Tree to a JSON file
+   oldTree.write(newFile);
+
+   // Read from the JSON file into a brand-new Tree
+   Tree newTree(newFile);
+
+   // Test #1. Ensure that the newly-read Tree prints (in our debug format)
+   // in exactly the same way as the original Tree did.
+   std::ostringstream oss;
+   newTree.sort().top().write(oss,"debug");
+   CHECK(oss.str() == correct);
+
+   // Test #2. Ensure that file newFile (written above, from the original Tree)
+   // is identical to the vetted JSON file vettedFile.
+   std::ifstream ifsWant(vettedFile);
+   std::stringstream bufWant;
+   bufWant << ifsWant.rdbuf();
+   std::cout << "bufWant.str().size() == " << bufWant.str().size() << std::endl;
+
+   std::ifstream ifsHave(newFile);
+   std::stringstream bufHave;
+   bufHave << ifsHave.rdbuf();
+   std::cout << "bufHave.str().size() == " << bufHave.str().size() << std::endl;
+
+   CHECK(bufWant.str() == bufHave.str());
+}
+#endif
 
 
 // -----------------------------------------------------------------------------
 // SCENARIO
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing GNDStk JSON") {
+SCENARIO("Testing GNDStk JSON, Part I") {
+#ifndef NJOY_GNDSTK_DISABLE_JSON
+   WHEN("We create a Tree from an XML with various constructs in it") {
+      // Read Tree
+      Tree tree("various.xml");
+
+      // Write to a string, in our simple debug format
+      std::ostringstream oss;
+      tree.sort().top().write(oss,"debug");
+      const std::string correct = oss.str();
+
+      // Write/read to/from JSON, for each combination of the available flags
+      // for doing so: JSON::reduced = false/true (x) JSON::typed = false/true
+      writeAndReadJSON(tree, false, false, correct, "raw-string");
+      writeAndReadJSON(tree, false, true,  correct, "raw-typed");
+      writeAndReadJSON(tree, true,  false, correct, "reduced-string");
+      writeAndReadJSON(tree, true,  true,  correct, "reduced-typed");
+   }
+#endif
+}
+
+
+// -----------------------------------------------------------------------------
+// SCENARIO
+// -----------------------------------------------------------------------------
+
+SCENARIO("Testing GNDStk JSON, Part II") {
+#ifndef NJOY_GNDSTK_DISABLE_JSON
+   JSON::reduced = false;
+   JSON::typed   = false;
 
    // read a JSON
    JSON j("n-069_Tm_170-covar.json");
@@ -120,7 +200,7 @@ SCENARIO("Testing GNDStk JSON") {
       THEN("The Tree should have only an empty declaration node") {
          CHECK(t.children.size() == 1);
          CHECK(t.has_decl());
-         CHECK(t.decl().name == "json");
+         CHECK(t.decl().name == special::json);
          CHECK(t.decl().metadata.size() == 0);
          CHECK(t.decl().children.size() == 0);
       }
@@ -188,7 +268,7 @@ SCENARIO("Testing GNDStk JSON") {
       }
    }
 
-   // from file name
+   // from file
    WHEN("We construct a JSON from a file") {
       const JSON j("n-069_Tm_170-covar.json");
       THEN("It should produce an equivalent to the Tree made from the file") {
@@ -310,4 +390,5 @@ SCENARIO("Testing GNDStk JSON") {
          CHECK(oss.str() == string_real_json);
       }
    }
+#endif
 }
