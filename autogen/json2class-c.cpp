@@ -208,8 +208,8 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    src(2,"(CLASSNAME, CLASSNAME+\"DefaultConst\");");
    src("}");
 
-   // create: default
-   PPP(hdr,src,"Create, default");
+   // create: default, non-const
+   PPP(hdr,src,"Create, default, non-const");
    ext(hdr,src,"Handle2@", per.clname);
    two(hdr,src,"@Default(", per.clname, false);
    sig(hdr,src);
@@ -227,8 +227,8 @@ void fileCInterfaceBasics(writer &hdr, writer &src, const PerClass &per)
    src(2,"CLASSNAME, CLASSNAME+\"CreateConst\"", false);
    fileCInterfaceCreateCall(hdr,src,per);
 
-   // create: general
-   PPP(hdr,src,"Create, general");
+   // create: general, non-const
+   PPP(hdr,src,"Create, general, non-const");
    ext(hdr,src,"Handle2@", per.clname);
    two(hdr,src,"@Create(", per.clname, false);
    fileCInterfaceCreateParams(hdr,src,per);
@@ -441,8 +441,8 @@ void fileCInterfaceVector(
       src(2,"(CLASSNAME, CLASSNAME+\"@GetArrayConst\", self);", Types);
       src("}");
 
-      // get pointer to existing values
-      PPP(hdr,src,"Get pointer to existing values");
+      // get pointer to existing values, non-const
+      PPP(hdr,src,"Get pointer to existing values, non-const");
       ext(hdr,src,"@ *", type);
       two(hdr,src,"@@GetArray(", Class, Types, false);
       two(hdr,src,"ConstHandle2@ self", Class, false);
@@ -557,8 +557,8 @@ void fileCInterfaceChild(
           Child, child);
       src("}");
 
-      // get
-      PPP(hdr,src,"Get");
+      // get, non-const
+      PPP(hdr,src,"Get, non-const");
       ext(hdr,src,"Handle2@", Child);
       two(hdr,src,"@@Get(", Class, Child, false);
       two(hdr,src,"ConstHandle2@ self", Class, false);
@@ -631,8 +631,8 @@ void fileCInterfaceChild(
        Child, child);
    src("}");
 
-   // get, by index
-   PPP(hdr,src,"Get, by index \\in [0,size)");
+   // get, by index, non-const
+   PPP(hdr,src,"Get, by index \\in [0,size), non-const");
    ext(hdr,src,"Handle2@", Child);
    two(hdr,src,"@@Get(", Class, Child, false);
    two(hdr,src,"ConstHandle2@ self, ", Class, false);
@@ -658,8 +658,8 @@ void fileCInterfaceChild(
    src("}");
 
    // ------------------------
-   // for this child's metadata:
-   // has, get const, get, set
+   // for this child's
+   // metadata
    // ------------------------
 
    // first make sure that we know about this class
@@ -676,7 +676,7 @@ void fileCInterfaceChild(
       return;
    }
 
-   // has, get const, get, set
+   // has, get const, get non-const, set
    for (const auto &m : it->second.metadata) {
       const std::string Meta = UpperCamel(m.name);
       const std::string meta = m.name;
@@ -713,8 +713,8 @@ void fileCInterfaceChild(
       src(2," self, extract::@, meta::@, @);", child, meta, meta);
       src("}");
 
-      // get, by metadatum
-      PPP(hdr,src,"Get, by @", meta);
+      // get, by metadatum, non-const
+      PPP(hdr,src,"Get, by @, non-const", meta);
       ext(hdr,src,"Handle2@", Child);
       two(hdr,src,"@@GetBy@(", Class, Child, Meta, false);
       two(hdr,src);

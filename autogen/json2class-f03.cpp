@@ -154,10 +154,10 @@ void fileF03InterfaceBasics(writer &src, const PerClass &per)
    src(1,"type(c_ptr) :: @", sub);
    src("end function @", sub);
 
-   // create: default
+   // create: default, non-const
    sub = per.clname + "Default";
    src();
-   src("!! Create, default");
+   src("!! Create, default, non-const");
    src("function @() &", sub);
    src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
@@ -179,10 +179,10 @@ void fileF03InterfaceBasics(writer &src, const PerClass &per)
    src(1,"type(c_ptr) :: @", sub);
    src("end function @", sub);
 
-   // create: general
+   // create: general, non-const
    sub = per.clname + "Create";
    src();
-   src("!! Create, general");
+   src("!! Create, general, non-const");
    src("function @( &", sub, false);
    fileF03InterfaceCreateParams(src,per);
    src(") &");
@@ -238,6 +238,10 @@ void fileF03InterfaceIO(writer &src, const PerClass &per)
    sub = per.clname + "Read";
    src();
    src("!! Read from file");
+
+   src("!! File can be XML, JSON, or HDF5.");
+   src("!! We'll examine the file's contents to determine "
+       "its type automatically.");
    src("function @(handle, filename, filenameSize) &", sub);
    src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
@@ -252,6 +256,9 @@ void fileF03InterfaceIO(writer &src, const PerClass &per)
    sub = per.clname + "Write";
    src();
    src("!! Write to file");
+   src("!! File can be XML, JSON, or HDF5.");
+   src("!! We'll use filename's extension to determine "
+       "the type you want written.");
    src("function @(handle, filename, filenameSize) &", sub);
    src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
@@ -430,10 +437,10 @@ void fileF03InterfaceVector(
       src(1,"type(c_ptr) :: @", sub);
       src("end function @", sub);
 
-      // get pointer to existing values
+      // get pointer to existing values, non-const
       sub = Class + Types + "GetArray";
       src();
-      src("!! Get pointer to existing values");
+      src("!! Get pointer to existing values, non-const");
       src("function @(handle) &", sub);
       src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
@@ -565,10 +572,10 @@ void fileF03InterfaceChild(
       src(1,"type(c_ptr) :: @", sub);
       src("end function @", sub);
 
-      // get
+      // get, non-const
       sub = Class + Child + "Get";
       src();
-      src("!! Get");
+      src("!! Get, non-const");
       src("function @(handle) &", sub);
       src(2,"bind(C, name='@')", sub);
       src(1,"use iso_c_binding");
@@ -645,10 +652,10 @@ void fileF03InterfaceChild(
    src(1,"type(c_ptr) :: @", sub);
    src("end function @", sub);
 
-   // get, by index
+   // get, by index, non-const
    sub = Class + Child + "Get";
    src();
-   src("!! Get, by index \\in [0,size)");
+   src("!! Get, by index \\in [0,size), non-const");
    src("function @(handle, index) &", sub);
    src(2,"bind(C, name='@')", sub);
    src(1,"use iso_c_binding");
@@ -672,8 +679,8 @@ void fileF03InterfaceChild(
    src("end subroutine @", sub);
 
    // ------------------------
-   // for this child's metadata:
-   // has, get const, get, set
+   // for this child's
+   // metadata
    // ------------------------
 
    // first make sure that we know about this class
@@ -690,7 +697,7 @@ void fileF03InterfaceChild(
       return;
    }
 
-   // has, get const, get, set
+   // has, get const, get non-const, set
    for (const auto &m : it->second.metadata) {
       const std::string Meta = UpperCamel(m.name);
       const std::string meta = m.name;
@@ -739,10 +746,10 @@ void fileF03InterfaceChild(
       src(1,"type(c_ptr) :: @", sub);
       src("end function @", sub);
 
-      // get, by metadatum
+      // get, by metadatum, non-const
       sub = Class + Child + "GetBy" + Meta;
       src();
-      src("!! Get, by @", meta);
+      src("!! Get, by @, non-const", meta);
       m.type == "std::string"
        ? src("function @(handle, meta, metaSize) &", sub)
        : src("function @(handle, meta) &", sub);
