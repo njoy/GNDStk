@@ -102,7 +102,7 @@ inline int indent = 3;
 #include "json-read.hpp"
 #include "json-write.hpp"
 
-// Definitions of object's operator[] and its contains() function. Given here,
+// Definitions of object's operator[] and its has() function. Given here,
 // not in-class, because they need class value's definition to be complete.
 #include "json-object-def.hpp"
 

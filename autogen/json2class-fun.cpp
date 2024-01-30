@@ -167,9 +167,9 @@ bool isClass(const json::pair &keyval)
       return false;
 
    // not a node class?
-   if ((val.contains("__class__") &&
+   if ((val.has("__class__") &&
         val["__class__"].get<json::string>() != "nodes.Node") ||
-       (val.contains(  "class"  ) &&
+       (val.has(  "class"  ) &&
         val[  "class"  ].get<json::string>() != "nodes.Node")
    )
       return false;
@@ -185,7 +185,7 @@ const std::string &getTimes(
    const std::string occurrence = "occurrence"; // accept; used in GNDS specs
 
    // need exactly one - not neither, not both
-   if (value.contains(times) == value.contains(occurrence)) {
+   if (value.has(times) == value.has(occurrence)) {
       log::error(
         "In namespace \"{}\", class \"{}\":\n"
         "Child node \"{}\" needs exactly one of \"times\" or \"occurrence\".\n"
@@ -194,7 +194,7 @@ const std::string &getTimes(
       throw std::exception{};
    }
 
-   return value.contains(times)
+   return value.has(times)
       ? value[times].get<json::string>()
       : value[occurrence].get<json::string>();
 }
@@ -220,7 +220,7 @@ const std::string &nameGNDS(
    // For debugging
    if (debugging && print) {
       const std::string key = keyval.first;
-      const std::string name = keyval.second.contains("name")
+      const std::string name = keyval.second.has("name")
          ? keyval.second["name"].get<json::string>()
          : key;
 
@@ -234,7 +234,7 @@ const std::string &nameGNDS(
 
    // As-is, directly as stipulated in the key in the JSON spec, except
    // that we allow a "name" entry in the key's value to override the key.
-   return keyval.second.contains("name")
+   return keyval.second.has("name")
       ? keyval.second["name"].get<json::string>()
       : keyval.first;
 }
@@ -287,7 +287,7 @@ std::string namePython(const std::string &name)
 // Get the JSON's "namespace"
 const std::string &getFileNamespace(const json::object &j)
 {
-   return j.contains("__namespace__")
+   return j.has("__namespace__")
       ? j["__namespace__"].get<json::string>()
       : j[  "namespace"  ].get<json::string>();
 }
@@ -312,9 +312,9 @@ std::string getChildNamespace(
    // childClass' namespace...
 
    // ...is explicitly given by "__namespace__"or "namespace"
-   if (j.contains("__namespace__"))
+   if (j.has("__namespace__"))
       return j["__namespace__"].get<json::string>();
-   if (j.contains(  "namespace"  ))
+   if (j.has(  "namespace"  ))
       return j[  "namespace"  ].get<json::string>();
 
    // ...isn't given, and this child isn't in any of the JSONs :-(
@@ -386,7 +386,7 @@ void getClassMetadata(
       m.name = nameField(field,specs);
 
       // Converter, if given
-      m.converter = metaRHS.contains("converter")
+      m.converter = metaRHS.has("converter")
          ? metaRHS["converter"].get<json::string>()
          : "";
 
@@ -395,7 +395,7 @@ void getClassMetadata(
 
       // Has default?
       m.defaultValue = "";
-      if (metaRHS.contains("default") && !metaRHS["default"].is_null()) {
+      if (metaRHS.has("default") && !metaRHS["default"].is_null()) {
          m.defaultValue = stringify(metaRHS["default"]);
          // Apply the "changes.json" change, if any, to the given value
          const auto it = specs.mapMetaDefault.find(m.defaultValue);
@@ -467,11 +467,11 @@ void getClassChildren(
       c.name = nameField(field,specs);
 
       // Converter, Filter, and Label, if given
-      c.converter = elemRHS.contains("converter")
+      c.converter = elemRHS.has("converter")
          ? elemRHS["converter"].get<json::string>() : "";
-      c.filter    = elemRHS.contains("filter")
+      c.filter    = elemRHS.has("filter")
          ? elemRHS["filter"   ].get<json::string>() : "";
-      c.label     = elemRHS.contains("label")
+      c.label     = elemRHS.has("label")
          ? elemRHS["label"    ].get<json::string>() : "";
 
       // Type, excluding namespace
@@ -557,7 +557,7 @@ void getClassVariants(
          continue;
 
       // Variant name
-      const std::string variantName = elemRHS.contains("variant")
+      const std::string variantName = elemRHS.has("variant")
          ? elemRHS["variant"].get<json::string>()
          : ""; // to be determined
       map.insert(std::make_pair(variantName,InfoVariants{}));
@@ -577,7 +577,7 @@ void getClassVariants(
          continue;
 
       // Variant name
-      const std::string variantName = elemRHS.contains("variant")
+      const std::string variantName = elemRHS.has("variant")
          ? elemRHS["variant"].get<json::string>()
          : "";
       auto it = map.find(variantName);
@@ -666,8 +666,8 @@ json::object getMetadataJSON(const json::object &j)
 {
    static const std::string metastr = "metadata";
    static const std::string attrstr = "attributes";
-   const bool meta = j.contains(metastr);
-   const bool attr = j.contains(attrstr);
+   const bool meta = j.has(metastr);
+   const bool attr = j.has(attrstr);
 
    // not both
    assert(!(meta && attr));
@@ -684,8 +684,8 @@ json::object getChildrenJSON(const json::object &j)
 {
    static const std::string chldstr = "children";
    static const std::string nodestr = "childNodes";
-   const bool chld = j.contains(chldstr);
-   const bool node = j.contains(nodestr);
+   const bool chld = j.has(chldstr);
+   const bool node = j.has(nodestr);
 
    // not both
    assert(!(chld && node));
@@ -711,7 +711,7 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
    using pair = std::pair<std::string,std::string>;
 
    // Changes to name?
-   if (jchanges.contains("name"))
+   if (jchanges.has("name"))
       for (const auto &item : jchanges["name"].items())
          if (!isComment(item.first))
             specs.mapName.insert(
@@ -722,14 +722,14 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
    const json::object metadata = getMetadataJSON(jchanges);
 
    // from/to pairs for "type"
-   if (metadata.contains("type"))
+   if (metadata.has("type"))
       for (const auto &item : metadata["type"].items())
          if (!isComment(item.first))
             specs.mapMetaType.insert(
                pair(item.first,item.second.get<json::string>())
             );
    // from/to pairs for "default"
-   if (metadata.contains("default"))
+   if (metadata.has("default"))
       for (const auto &item : metadata["default"].items())
          if (!isComment(item.first))
             specs.mapMetaDefault.insert(
@@ -757,9 +757,9 @@ void printSingletons(const std::string &file)
          continue;
 
       const bool hasdata =
-         (rhs.contains("string"  ) && !rhs["string"  ].is_null()) ||
-         (rhs.contains("vector"  ) && !rhs["vector"  ].is_null()) ||
-         (rhs.contains("bodyText") && !rhs["bodyText"].is_null());
+         (rhs.has("string"  ) && !rhs["string"  ].is_null()) ||
+         (rhs.has("vector"  ) && !rhs["vector"  ].is_null()) ||
+         (rhs.has("bodyText") && !rhs["bodyText"].is_null());
 
       const json::object metadata = getMetadataJSON(rhs);
       const json::object children = getChildrenJSON(rhs);
@@ -807,13 +807,13 @@ void commandLine(
    static const std::string changes = "Changes";
 
    // Need "Version"
-   if (!jmain.contains(version)) {
+   if (!jmain.has(version)) {
       log::error("The input JSON file needs {}", version);
       throw std::exception{};
    }
 
    // Need "JSONFiles"
-   if (!jmain.contains(files)) {
+   if (!jmain.has(files)) {
       log::error("The input JSON file needs {}", files);
       throw std::exception{};
    }
@@ -821,14 +821,14 @@ void commandLine(
    // Extract information from the command line JSON file...
 
    // ...these are optional:
-   specs.Path    = jmain.contains(path   )
+   specs.Path    = jmain.has(path   )
       ? jmain[path   ].get<json::string>() : ".";
-   specs.Project = jmain.contains(project)
+   specs.Project = jmain.has(project)
       ? jmain[project].get<json::string>() : "GNDStk";
-   specs.JSONDir = jmain.contains(input  )
+   specs.JSONDir = jmain.has(input  )
       ? jmain[input  ].get<json::string>() : ".";
 
-   if (jmain.contains(enums))
+   if (jmain.has(enums))
       for (const auto &e : jmain[enums].get<json::object>().items()) {
          specs.Enumerators.push_back(
             std::make_pair(e.first,std::vector<std::string>()));
@@ -869,7 +869,7 @@ void commandLine(
    specs.cppPython = pybase + specs.Version + ".python.cpp";
 
    // Changes?
-   if (jmain.contains(changes))
+   if (jmain.has(changes))
       readChangesFile(jmain[changes].get<json::string>(),specs);
 } // commandLine
 
@@ -1040,8 +1040,8 @@ void validateMetadata(const json::object &metadata)
    for (const auto &field : metadata.items()) {
       if (beginsin(field.first, "//"))
          continue;
-      assert(field.second.contains("type"));
-      assert(field.second.contains("required"));
+      assert(field.second.has("type"));
+      assert(field.second.has("required"));
    }
 }
 
@@ -1051,7 +1051,7 @@ void validateChildren(const json::object &children, const PerClass &per)
    for (const auto &field : children.items()) {
       if (beginsin(field.first, "//"))
          continue;
-      assert(field.second.contains("required"));
+      assert(field.second.has("required"));
 
       // Consistency check: certain occurrence values imply *not* required.
       // Remark: the GNDS manual speaks of "choice2" and "choice2+" options
@@ -1067,7 +1067,7 @@ void validateChildren(const json::object &children, const PerClass &per)
 
       if (debugging) {
          const std::string key  = field.first;
-         const std::string name = field.second.contains("name")
+         const std::string name = field.second.has("name")
             ? field.second["name"].get<json::string>()
             : key;
          std::cout
@@ -1114,9 +1114,9 @@ void getClass(
 
    // data-node information
    const bool
-      str  = classRHS.contains("string"  ) && !classRHS["string"  ].is_null(),
-      vec  = classRHS.contains("vector"  ) && !classRHS["vector"  ].is_null(),
-      body = classRHS.contains("bodyText") && !classRHS["bodyText"].is_null();
+      str  = classRHS.has("string"  ) && !classRHS["string"  ].is_null(),
+      vec  = classRHS.has("vector"  ) && !classRHS["vector"  ].is_null(),
+      body = classRHS.has("bodyText") && !classRHS["bodyText"].is_null();
    assert(int(str) + int(vec) + int(body) <= 1); // no more than one
 
    per.isDataString = str;
@@ -1132,7 +1132,7 @@ void getClass(
       per.isDataString ||
      (per.isDataVector && per.elementType != "");
    per.cdata =
-      classRHS.contains("cdata") &&
+      classRHS.has("cdata") &&
       classRHS["cdata"].get<json::boolean>();
 
    // save dependencies

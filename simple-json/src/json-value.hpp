@@ -74,9 +74,24 @@ public:
       -> decltype(number().read<T,U>(is,0)); // SFINAE: need number::read<T,U>
    void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
 
-   // has
-   template<class T>
-   bool has() const { return std::holds_alternative<T>(*this); }
+   // has alternative
+   template<
+      class T,
+      class = std::enable_if_t<
+         std::is_same_v<T,std::string> ||
+         detail::invar<T,variant> ||
+         detail::invar<T,number::variant>
+      >
+   >
+   bool has() const
+   {
+      if constexpr (std::is_same_v<T,std::string>)
+         return has<string>(); // <== json::string, not std::string
+      else if constexpr (detail::invar<T,variant>)
+         return std::holds_alternative<T>(*this);
+      else
+         return has<number>() && get<number>().has<T>();
+   }
 
    // get<T>
    #include "json-value-get.hpp"
@@ -91,9 +106,10 @@ public:
       return write(oss), oss.str();
    }
 
-   // contains
-   bool contains(const string &key) const
-   { return has<object>() && get<object>().contains(key); }
+   // has key (and, itself, has an object, so that we can get the object,
+   // and check that the object has the key)
+   bool has(const string &key) const
+   { return has<object>() && get<object>().has(key); }
 
    // operator[]
    value &operator[](const string &key)

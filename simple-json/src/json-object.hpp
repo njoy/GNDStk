@@ -32,6 +32,6 @@ public:
    value &operator[](const string &key);
    const value &operator[](const string &key) const;
 
-   // contains
-   bool contains(const string &key) const;
+   // has key
+   bool has(const string &key) const;
 };

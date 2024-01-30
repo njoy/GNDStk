@@ -52,7 +52,8 @@ inline void diagnostic(
 
       // restore stream state and position
       is.clear();
-      quit = (is.seekg(currentPosition), !(is && is.tellg() == currentPosition));
+      quit = (is.seekg(currentPosition),
+              !(is && is.tellg() == currentPosition));
       is.setstate(oldState);
    }
 

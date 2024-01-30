@@ -36,10 +36,11 @@ struct toVariant<T, std::variant<A,As...>>
 };
 
 // For brevity
-template<class T, class U> inline constexpr bool
-   invar = inVariant<T,U>::count == 1;
-template<class T, class U> inline constexpr bool
-   tovar = toVariant<T,U>::count == 1;
+template<class T, class VARIANT> inline constexpr bool
+   invar = inVariant<T,VARIANT>::count == 1;
+template<class T, class VARIANT> inline constexpr bool
+   tovar = toVariant<T,VARIANT>::count == 1;
+
 template<class T> inline constexpr bool isintegral =
    std::is_integral_v<std::decay_t<T>>;
 template<class T> inline constexpr bool isfloating =
@@ -170,7 +171,7 @@ bool readableAs(const std::string &str, TARGET &target)
       try { target = std::stoi(str,&idx); } catch (...) { return false; }
       while (isspace(str.data()[idx])) ++idx;
       return str.data()[idx] == '\0';
-   } else if constexpr (detail::isfloating<T>) {
+   } else if constexpr (isfloating<T>) {
       char *end; using quad = long double;
       if constexpr (std::is_same_v<T,float >) target = strtof (str.data(),&end);
       if constexpr (std::is_same_v<T,double>) target = strtod (str.data(),&end);

@@ -23,8 +23,8 @@ inline const value &object::operator[](const string &key) const
    return ret;
 }
 
-// contains
-inline bool object::contains(const string &key) const
+// has key
+inline bool object::has(const string &key) const
 {
    for (const pair &elem : *this)
       if (elem.first == key)

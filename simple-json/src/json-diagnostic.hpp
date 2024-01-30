@@ -1,10 +1,15 @@
 
-namespace detail { inline std::istringstream iss; } // for internal use
+// for internal use
+namespace detail {
+   inline std::istringstream iss;
+}
+
+// error (declaration; for use in the below #include)
 inline void error(const std::string &message, std::istream &is = detail::iss);
 
 #include "json-diagnostic-detail.hpp"
 
-// error
+// error (definition)
 inline void error(const std::string &message, std::istream &is)
 {
    static const std::string red = detail::color(200,40,80);

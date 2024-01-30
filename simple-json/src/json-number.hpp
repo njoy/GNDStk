@@ -51,7 +51,7 @@ public:
    void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
 
    // has
-   template<class T>
+   template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
    bool has() const { return std::holds_alternative<T>(*this); }
 
    // get<T>
