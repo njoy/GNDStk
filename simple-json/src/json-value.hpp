@@ -16,63 +16,103 @@ class value
 #include "json-value-helper.hpp"
 
 public:
+
+   // ------------------------
+   // Construction
+   // ------------------------
+
    using variant::variant;
-   using variant::operator=;
+
+   // default
+   value() : variant(object()) { }
+
+   // from variant
    value(const variant &from) : variant(from) { }
    value(variant &&from) : variant(std::move(from)) { }
-   value &operator=(const variant &from)
-   { static_cast<variant &>(*this) = from; return *this; }
-   value &operator=(variant &&from)
-   { static_cast<variant &>(*this) = std::move(from); return *this; }
 
-   // ------------------------
-   // Constructors
-   // ------------------------
-
-   value() : variant(object()) { }
+   // from initializer_list
    value(const std::initializer_list<value> &from) : variant(array(from)) { }
    value(const std::initializer_list<pair> &from) : variant(object(from)) { }
 
    // ------------------------
-   // Assignment operators
+   // Assignment
    // ------------------------
 
-   // assignment: from T convertible to anything in the variant
-   template<class T, class = std::enable_if_t<detail::tovar<T,variant>>>
+   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
    value &operator=(const T &from)
    {
-      return static_cast<variant &>(*this) = from, *this;
+      variant::operator=(from);
+      return *this;
    }
 
-   // zzz Is this necessary?
-   // assignment: from std::vector<T convertible to anything in the variant>
-   template<class T>
-   value &operator=(const std::vector<T> &from)
+   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
+   value &operator=(T &&from)
    {
-      return static_cast<variant &>(*this) = array(from), *this;
-   }
-
-   // assignment: from std::initializer_list<value>
-   value &operator=(const std::initializer_list<value> &from)
-   {
-      return static_cast<variant &>(*this) = array(from), *this;
-   }
-
-   // assignment: from std::initializer_list<pair>
-   value &operator=(const std::initializer_list<pair> &from)
-   {
-      return static_cast<variant &>(*this) = object(from), *this;
+      variant::operator=(std::move(from));
+      return *this;
    }
 
    // ------------------------
-   // Miscellaneous
+   // Conversion
    // ------------------------
 
-   // read, write
-   template<class T = void, class U = void>
-   auto read(std::istream &is, const int = as_literal::none)
-      -> decltype(number().read<T,U>(is,0)); // SFINAE: need number::read<T,U>
-   void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
+   // to T
+   template<
+      class T,
+      class = std::enable_if_t<
+         std::is_arithmetic_v<T> ||
+         std::is_same_v<T,std::string> ||
+         detail::invar<T,variant>
+      >
+   >
+   operator T() const
+   {
+      if constexpr (std::is_arithmetic_v<T>)
+         return T(get<number>());
+      else if constexpr (std::is_same_v<T,std::string>)
+         return get<std::string>();
+      else
+         return get<T>();
+   }
+
+   // ------------------------
+   // operator[]
+   // ------------------------
+
+   // const
+   template<
+      class T,
+      class = std::enable_if_t<
+         detail::isintegral<T> || std::is_constructible_v<string,T>
+      >
+   >
+   const value &operator[](const T &key) const
+   {
+      if constexpr (detail::isintegral<T>)
+         return get<array >()[key];
+      else
+         return get<object>()[key];
+   }
+
+   // non-const
+   template<
+      class T,
+      class = std::enable_if_t<
+         detail::isintegral<T> || std::is_constructible_v<string,T>
+      >
+   >
+   value &operator[](const T &key)
+   {
+      return const_cast<value &>(std::as_const(*this).operator[](key));
+   }
+
+   // ------------------------
+   // Other
+   // ------------------------
+
+   // items
+   const std::vector<pair> &items() const { return get<object>().items(); }
+   std::vector<pair> &items() { return get<object>().items(); }
 
    // has alternative
    template<
@@ -93,6 +133,13 @@ public:
          return has<number>() && get<number>().has<T>();
    }
 
+   // has key
+   // Assumes this value is an object
+   bool has(const string &key) const
+   {
+      return get<object>().has(key);
+   }
+
    // get<T>
    #include "json-value-get.hpp"
 
@@ -106,18 +153,13 @@ public:
       return write(oss), oss.str();
    }
 
-   // has key (and, itself, has an object, so that we can get the object,
-   // and check that the object has the key)
-   bool has(const string &key) const
-   { return has<object>() && get<object>().has(key); }
+   // ------------------------
+   // read, write
+   // ------------------------
 
-   // operator[]
-   value &operator[](const string &key)
-   { return get<object>()[key]; }
-   const value &operator[](const string &key) const
-   { return get<object>()[key]; }
+   template<class T = void, class U = void>
+   auto read(std::istream &is, const int = as_literal::none)
+      -> decltype(number().read<T,U>(is,0)); // SFINAE: need number::read<T,U>
 
-   // items
-   const std::vector<pair> &items() const { return get<object>().items(); }
-   std::vector<pair> &items() { return get<object>().items(); }
+   void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
 };

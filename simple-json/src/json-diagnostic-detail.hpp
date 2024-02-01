@@ -13,7 +13,8 @@ inline std::string color(const int r, const int g, const int b)
 // diagnostic
 inline void diagnostic(
    std::istream &is,
-   const std::string &message, const std::string &label
+   const std::string &message,
+   const std::string &label
 ) {
    static const std::string reset = "\033[0m"; // all colors/decorations off
    const std::string spaces(indent,' ');
@@ -62,6 +63,7 @@ inline void diagnostic(
    for (const char &ch : message)
       std::cout << ch << (ch == '\n' ? spaces : "");
    std::cout << reset << std::endl;
+
    if (quit)
       error("Unable to recover. istream.seekg() failed after attempt\n"
             "to determine line number for previous diagnostic.");

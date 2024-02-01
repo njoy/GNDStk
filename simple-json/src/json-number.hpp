@@ -27,30 +27,64 @@ class number
 #include "json-number-helper.hpp"
 
 public:
-   using variant::operator=;
-   number(const variant &from) : variant(from) { }
-   number(variant &&from) : variant(std::move(from)) { }
-   number &operator=(const variant &from)
-   { static_cast<variant &>(*this) = from; return *this; }
-   number &operator=(variant &&from)
-   { static_cast<variant &>(*this) = std::move(from); return *this; }
 
-   // constructor: default
-   number() : variant(0) { }
+   // ------------------------
+   // Construction
+   // ------------------------
 
-   // constructor: from T in the variant
+   // default
+   number() :
+      variant(0)
+   { }
+
+   // from variant
+   number(const variant &from) :
+      variant(from)
+   { }
+   number(variant &&from) :
+      variant(std::move(from))
+   { }
+
+   // from T in the variant
    template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
-   number(const T &from) : variant(from) { }
+   number(const T &from) :
+      variant(from)
+   { }
 
-   // read, write
-   template<
-      class T = void, class U = void,
-      class = std::enable_if_t<types<T,U>::compatible>
-   >
-   std::string read(std::istream &, const int = as_literal::none);
-   void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
+   // ------------------------
+   // Assignment
+   // ------------------------
 
-   // has
+   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
+   number &operator=(const T &from)
+   { variant::operator=(from); return *this; }
+
+   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
+   number &operator=(T &&from)
+   { variant::operator=(std::move(from)); return *this; }
+
+   // ------------------------
+   // Conversion
+   // ------------------------
+
+   // to T
+   template<class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
+   operator T() const
+   {
+      return std::visit(
+         [](const auto &alt)
+         {
+            return T(alt);
+         },
+         static_cast<const variant &>(*this)
+      );
+   }
+
+   // ------------------------
+   // Other
+   // ------------------------
+
+   // has<T>
    template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
    bool has() const { return std::holds_alternative<T>(*this); }
 
@@ -59,4 +93,16 @@ public:
    const T &get() const { return std::get<T>(*this); }
    template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
    T &get() { return std::get<T>(*this); }
+
+   // ------------------------
+   // read, write
+   // ------------------------
+
+   template<
+      class T = void, class U = void,
+      class = std::enable_if_t<types<T,U>::compatible>
+   >
+   std::string read(std::istream &, const int = as_literal::none);
+
+   void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
 };

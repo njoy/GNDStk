@@ -6,7 +6,7 @@ namespace detail {
 // -----------------------------------------------------------------------------
 
 // inVariant
-// count == number of times T is exactly the same as a type in the std::variant
+// count == number of times T is exactly the same as a type in a std::variant
 template<class, class>
 struct inVariant { };
 
@@ -17,7 +17,7 @@ struct inVariant<T, std::variant<As...>>
 };
 
 // toVariant
-// count == number of times T is convertible to a type in the std::variant
+// count == number of times T is convertible to a type in a std::variant
 template<class, class>
 struct toVariant { };
 
@@ -36,15 +36,18 @@ struct toVariant<T, std::variant<A,As...>>
 };
 
 // For brevity
-template<class T, class VARIANT> inline constexpr bool
-   invar = inVariant<T,VARIANT>::count == 1;
-template<class T, class VARIANT> inline constexpr bool
-   tovar = toVariant<T,VARIANT>::count == 1;
-
-template<class T> inline constexpr bool isintegral =
-   std::is_integral_v<std::decay_t<T>>;
-template<class T> inline constexpr bool isfloating =
-   std::is_floating_point_v<std::decay_t<T>>;
+// invar
+// tovar
+// isintegral
+// isfloating
+template<class T, class VARIANT>
+inline constexpr bool invar = inVariant<T,VARIANT>::count == 1;
+template<class T, class VARIANT>
+inline constexpr bool tovar = toVariant<T,VARIANT>::count == 1;
+template<class T>
+inline constexpr bool isintegral = std::is_integral_v<std::decay_t<T>>;
+template<class T>
+inline constexpr bool isfloating = std::is_floating_point_v<std::decay_t<T>>;
 
 // variant2tuple
 template<class>

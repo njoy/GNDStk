@@ -22,10 +22,14 @@ class chars {
 
 public:
 
-   // constructor: default
+   // ------------------------
+   // Construction
+   // ------------------------
+
+   // default
    chars() { }
 
-   // constructor: from float, double, or long double
+   // from float, double, or long double
    template<
       class T,
       class = std::enable_if_t<
@@ -39,11 +43,15 @@ public:
       str(buf, std::to_chars(buf,buf+SIZE,from,format).ptr - buf)
    { }
 
-   // convert: to std::string
+   // ------------------------
+   // Conversion
+   // ------------------------
+
+   // to std::string
    operator const std::string &() const { return str; }
    operator std::string &() { return str; }
 
-   // convert: to literal
+   // to literal
    operator literal() const
    {
       return literal(str);

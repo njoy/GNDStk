@@ -8,21 +8,22 @@ inline void null::
 write(std::ostream &os, const int, const int) const
 {
    os << "null";
-} // null::write
+}
 
 inline void boolean::
 write(std::ostream &os, const int, const int) const
 {
    os << (b ? "true" : "false");
-} // boolean::write
+}
 
 
 // -----------------------------------------------------------------------------
 // number
 // -----------------------------------------------------------------------------
 
-// zzz Idea: give all write() function <T,U>, like the read()s, and then be able
-// zzz to do floating ==> chars ==> literal ==> literal.write() from here...
+// zzz
+// Idea: give all write() functions <T,U>, like the read()s; then be able
+// to do floating ==> chars ==> literal ==> literal.write() from here...
 inline void number::
 write(std::ostream &os, const int, const int) const
 {
@@ -40,7 +41,7 @@ write(std::ostream &os, const int, const int) const
       },
       static_cast<const variant &>(*this)
    );
-} // number::write
+}
 
 
 // -----------------------------------------------------------------------------
@@ -63,7 +64,7 @@ write(std::ostream &os, const int, const int) const
       ch == '\t' ? os << "\\t"  :
       os << ch;
    os << '"';
-} // string::write
+}
 
 
 // -----------------------------------------------------------------------------
@@ -89,7 +90,7 @@ write(std::ostream &os, const int indentLevel, const int width) const
 
    // ]
    detail::suffix(os, ']', indentNSpaces, indentLevel, first);
-} // array::write
+}
 
 
 // -----------------------------------------------------------------------------
@@ -117,7 +118,7 @@ write(std::ostream &os, const int indentLevel, const int width) const
 
    // }
    detail::suffix(os, '}', indentNSpaces, indentLevel, first);
-} // object::write
+}
 
 
 // -----------------------------------------------------------------------------
@@ -131,7 +132,7 @@ write(std::ostream &os, const int, const int) const
    // Write the literal string literally, with no processing or assumptions
    // at all. Know what you're doing, or you could produce invalid JSON. :-)
    os << str;
-} // literal::write
+}
 
 inline void value::
 write(std::ostream &os, const int indentLevel, const int indentNSpaces) const
@@ -143,4 +144,4 @@ write(std::ostream &os, const int indentLevel, const int indentNSpaces) const
       },
       static_cast<const variant &>(*this)
    );
-} // value::write
+}

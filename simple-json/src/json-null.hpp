@@ -31,21 +31,33 @@
 class null {
 public:
 
-   // constructor: default
+   // ------------------------
+   // Construction
+   // ------------------------
+
+   // default
    null() { }
 
-   // constructor: from std::nullptr_t
+   // from std::nullptr_t
    template<class T, class = std::enable_if_t<std::is_same_v<T,std::nullptr_t>>>
    null(const T &) { }
 
-   // convert: to std::nullptr_t
+   // ------------------------
+   // Conversion
+   // ------------------------
+
+   // to std::nullptr_t
    operator const std::nullptr_t &() const
    { static const std::nullptr_t ret = nullptr; return ret; }
    operator       std::nullptr_t &()
    { static       std::nullptr_t ret = nullptr; return ret; }
 
+   // ------------------------
    // read, write
+   // ------------------------
+
    template<class T = void, class U = void>
    std::string read(std::istream &, const int = as_literal::none);
+
    void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
 };

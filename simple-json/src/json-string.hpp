@@ -5,24 +5,19 @@
 // -----------------------------------------------------------------------------
 
 class string : public std::string {
-   using STRING = std::string;
-
 public:
-   using STRING::operator=;
-   string(const STRING &from) : STRING(from) { }
-   string(STRING &&from) : STRING(std::move(from)) { }
-   string &operator=(const STRING &from)
-   { static_cast<STRING &>(*this) = from; return *this; }
-   string &operator=(STRING &&from)
-   { static_cast<STRING &>(*this) = std::move(from); return *this; }
 
-   // constructor: default
+   // ------------------------
+   // Construction
+   // ------------------------
+
+   // default
    string() { }
 
-   // constructor: from std::string
-   // constructor: from const char *
-   // constructor: from char *
-   // constructor: from char
+   // from std::string
+   // from const char *
+   // from char *
+   // from char
    // Remark. For the "from char" case, using str{from} below, not str(from),
    // allows std::string's constructor from initializer_list<char> to be used.
    template<
@@ -34,14 +29,57 @@ public:
          std::is_same_v<T,      char >
       >
    >
-   string(const T &from) : STRING{from} { }
+   string(const T &from) :
+      std::string{from}
+   { }
 
-   // constructor: from char[N]
-   template<class T, size_t N, class = std::enable_if_t<std::is_same_v<T,char>>>
-   string(const T (&from)[N]) : STRING(from) { }
+   string(const std::string &from) :
+      std::string(from)
+   { }
 
+   string(std::string &&from) :
+      std::string(std::move(from))
+   { }
+
+   // from char[N]
+   template<
+      class T, size_t N,
+      class = std::enable_if_t<std::is_same_v<T,char>>
+   >
+   string(const T (&from)[N]) :
+      std::string(from)
+   { }
+
+   // ------------------------
+   // Assignment
+   // ------------------------
+
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<std::string,T>>
+   >
+   string &operator=(const T &from)
+   {
+      std::string::operator=(from);
+      return *this;
+   }
+
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<std::string,T>>
+   >
+   string &operator=(T &&from)
+   {
+      std::string::operator=(std::move(from));
+      return *this;
+   }
+
+   // ------------------------
    // read, write
+   // ------------------------
+
    template<class T = void, class U = void>
    std::string read(std::istream &, const int = as_literal::none);
+
    void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
 };
