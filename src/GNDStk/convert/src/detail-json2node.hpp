@@ -76,7 +76,7 @@ void json_pair(
       } else {
          node.add(special::data)
              .add(special::text, json_array(val.get<json::array>()));
-         for (const auto &peer : peers.items()) {
+         for (const auto &peer : peers) {
             if (peer.first == key + special::nodename)
                node.name = peer.second.get<json::string>();
             if (peer.first == key + special::metadata) {
@@ -119,7 +119,7 @@ void json2node(const json::object &object, NODE &node, bool inferNodeName)
          node.name.pop_back();
 
    // For each key/value pair
-   for (const auto &pair : object.items()) {
+   for (const auto &pair : object) {
       const std::string &key = pair.first;
       const json::value &val = pair.second;
 
@@ -164,8 +164,8 @@ void json2node(const json::object &object, NODE &node, bool inferNodeName)
          // Special key: with nodename or metadata *suffix*
          // Ignore, in this context. Note that key *equal* to either of those
          // was handled earlier. The cases here are dealt with in json_pair(),
-         // called below. There, we process e.g. "foo", and scan object.items()
-         // to process "foo*" where * is either of the relevant suffixes.
+         // called below. There, we process e.g. "foo", and scan object to
+         // process "foo*" where * is either of the relevant suffixes.
       } else {
          // Normal key
          json_pair(key, val, object, node.add(key));

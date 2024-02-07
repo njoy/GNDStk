@@ -38,17 +38,12 @@ public:
    // Assignment
    // ------------------------
 
-   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
-   value &operator=(const T &from)
-   {
-      variant::operator=(from);
-      return *this;
-   }
-
-   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<variant, T &&>>>
    value &operator=(T &&from)
    {
-      variant::operator=(std::move(from));
+      variant::operator=(std::forward<T>(from));
       return *this;
    }
 
@@ -56,23 +51,36 @@ public:
    // Conversion
    // ------------------------
 
-   // to T
+   // to T; arithmetic
    template<
       class T,
-      class = std::enable_if_t<
-         std::is_arithmetic_v<T> ||
-         std::is_same_v<T,std::string> ||
-         detail::invar<T,variant>
-      >
+      class = std::enable_if_t<std::is_arithmetic_v<T>>
    >
    operator T() const
    {
-      if constexpr (std::is_arithmetic_v<T>)
-         return T(get<number>());
-      else if constexpr (std::is_same_v<T,std::string>)
-         return get<std::string>();
-      else
-         return get<T>();
+      return T(get<number>());
+   }
+
+   // to T; std::string, or in value's variant; const
+   template<
+      class T,
+      class = std::enable_if_t<
+         std::is_same_v<T,std::string> || detail::invar<T,variant>>
+   >
+   operator const T &() const
+   {
+      return get<T>();
+   }
+
+   // to T; std::string, or in value's variant; non-const
+   template<
+      class T,
+      class = std::enable_if_t<
+         std::is_same_v<T,std::string> || detail::invar<T,variant>>
+   >
+   operator T &()
+   {
+      return get<T>();
    }
 
    // ------------------------
@@ -83,8 +91,7 @@ public:
    template<
       class T,
       class = std::enable_if_t<
-         detail::isintegral<T> || std::is_constructible_v<string,T>
-      >
+         detail::isintegral<T> || std::is_constructible_v<string,T>>
    >
    const value &operator[](const T &key) const
    {
@@ -98,8 +105,7 @@ public:
    template<
       class T,
       class = std::enable_if_t<
-         detail::isintegral<T> || std::is_constructible_v<string,T>
-      >
+         detail::isintegral<T> || std::is_constructible_v<string,T>>
    >
    value &operator[](const T &key)
    {
@@ -111,8 +117,14 @@ public:
    // ------------------------
 
    // items
+   const std::vector<pair> &items() const { return get<object>(); }
+         std::vector<pair> &items()       { return get<object>(); }
+
+   /*
+   // items
    const std::vector<pair> &items() const { return get<object>().items(); }
-   std::vector<pair> &items() { return get<object>().items(); }
+         std::vector<pair> &items()       { return get<object>().items(); }
+   */
 
    // has alternative
    template<

@@ -49,7 +49,7 @@ public:
 
    // to std::string
    operator const std::string &() const { return str; }
-   operator std::string &() { return str; }
+   operator       std::string &()       { return str; }
 
    // to literal
    operator literal() const

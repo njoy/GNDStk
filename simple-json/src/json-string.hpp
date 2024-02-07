@@ -56,21 +56,10 @@ public:
 
    template<
       class T,
-      class = std::enable_if_t<std::is_assignable_v<std::string,T>>
-   >
-   string &operator=(const T &from)
-   {
-      std::string::operator=(from);
-      return *this;
-   }
-
-   template<
-      class T,
-      class = std::enable_if_t<std::is_assignable_v<std::string,T>>
-   >
+      class = std::enable_if_t<std::is_assignable_v<std::string, T &&>>>
    string &operator=(T &&from)
    {
-      std::string::operator=(std::move(from));
+      std::string::operator=(std::forward<T>(from));
       return *this;
    }
 

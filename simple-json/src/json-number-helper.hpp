@@ -14,8 +14,8 @@ struct types {
       tfloating, T, std::conditional_t<ufloating, U, void>>;
 
    // compatible: are T and U compatible, for our purposes?
-   // Is true iff T and U are both either in the variant or are void;
-   // AND they aren't both integral or both floating-point.
+   // True iff T and U aren't both integral and aren't both floating-point,
+   // and are both either void, or in number's variant.
    static constexpr bool compatible =
      !(tintegral && uintegral) &&
      !(tfloating && ufloating) &&

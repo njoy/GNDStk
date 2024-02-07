@@ -27,12 +27,25 @@ public:
    { }
 
    // ------------------------
+   // Assignment
+   // ------------------------
+
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<std::string, T &&>>>
+   literal &operator=(T &&from)
+   {
+      str = from;
+      return *this;
+   }
+
+   // ------------------------
    // Conversion
    // ------------------------
 
    // to std::string
    operator const std::string &() const { return str; }
-   operator std::string &() { return str; }
+   operator       std::string &()       { return str; }
 
    // ------------------------
    // read, write

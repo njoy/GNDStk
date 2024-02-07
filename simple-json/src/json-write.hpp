@@ -21,7 +21,7 @@ write(std::ostream &os, const int, const int) const
 // number
 // -----------------------------------------------------------------------------
 
-// zzz
+// todo
 // Idea: give all write() functions <T,U>, like the read()s; then be able
 // to do floating ==> chars ==> literal ==> literal.write() from here...
 inline void number::

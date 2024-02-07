@@ -897,7 +897,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
       auto it = namespace2children.insert(
          std::make_pair(getFileNamespace(jmain),std::set<pair>{}));
 
-      for (const auto &node : jmain.items()) {
+      for (const auto &node : jmain) {
          if (isClass(node)) {
             // nodes ==> children
             it->second.insert(std::make_pair(
@@ -907,7 +907,7 @@ void fileGNDStkKey(const InfoSpecs &specs)
             // attributes ==> metadata
             const json::object attrs =
                getMetadataJSON(node.second.get<json::object>());
-            for (const auto &attr : attrs.items()) {
+            for (const auto &attr : attrs) {
                if (beginsin(attr.first, "//"))
                   continue;
                metadata.insert(std::make_pair(

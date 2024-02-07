@@ -55,13 +55,14 @@ public:
    // Assignment
    // ------------------------
 
-   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
-   number &operator=(const T &from)
-   { variant::operator=(from); return *this; }
-
-   template<class T, class = std::enable_if_t<std::is_assignable_v<variant,T>>>
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<variant, T &&>>>
    number &operator=(T &&from)
-   { variant::operator=(std::move(from)); return *this; }
+   {
+      variant::operator=(std::forward<T>(from));
+      return *this;
+   }
 
    // ------------------------
    // Conversion
@@ -92,7 +93,7 @@ public:
    template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
    const T &get() const { return std::get<T>(*this); }
    template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
-   T &get() { return std::get<T>(*this); }
+         T &get()       { return std::get<T>(*this); }
 
    // ------------------------
    // read, write

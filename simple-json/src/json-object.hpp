@@ -20,13 +20,14 @@ public:
    // Assignment
    // ------------------------
 
-   template<class T, class = std::enable_if_t<std::is_assignable_v<vector,T>>>
-   object &operator=(const T &from)
-   { vector::operator=(from); return *this; }
-
-   template<class T, class = std::enable_if_t<std::is_assignable_v<vector,T>>>
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<vector, T &&>>>
    object &operator=(T &&from)
-   { vector::operator=(std::move(from)); return *this; }
+   {
+      vector::operator=(std::forward<T>(from));
+      return *this;
+   }
 
    // ------------------------
    // operator[]
@@ -35,16 +36,18 @@ public:
    // Provided directly - not inherited - because we want certain behavior
    // that std::vector's operator[] doesn't have.
    const value &operator[](const string &key) const;
-   value &operator[](const string &key);
+         value &operator[](const string &key);
 
    // ------------------------
    // Other
    // ------------------------
 
+   /*
    // items
    // Returns the std::vector base.
    const vector &items() const { return *this; }
-   vector &items() { return *this; }
+         vector &items()       { return *this; }
+   */
 
    // has key
    bool has(const string &key) const;

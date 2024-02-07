@@ -31,13 +31,14 @@ public:
    // Assignment
    // ------------------------
 
-   template<class T, class = std::enable_if_t<std::is_assignable_v<vector,T>>>
-   array &operator=(const T &from)
-   { vector::operator=(from); return *this; }
-
-   template<class T, class = std::enable_if_t<std::is_assignable_v<vector,T>>>
+   template<
+      class T,
+      class = std::enable_if_t<std::is_assignable_v<vector, T &&>>>
    array &operator=(T &&from)
-   { vector::operator=(std::move(from)); return *this; }
+   {
+      vector::operator=(std::forward<T>(from));
+      return *this;
+   }
 
    // ------------------------
    // read, write

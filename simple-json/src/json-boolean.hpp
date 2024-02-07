@@ -30,7 +30,7 @@ public:
 
    // to bool
    operator const bool &() const { return b; }
-   operator bool &() { return b; }
+   operator       bool &()       { return b; }
 
    // ------------------------
    // read, write

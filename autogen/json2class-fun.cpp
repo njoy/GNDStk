@@ -373,7 +373,7 @@ void getClassMetadata(
    const json::object &j, const InfoSpecs &specs,
    PerClass &per
 ) {
-   for (const auto &field : j.items()) {
+   for (const auto &field : j) {
       if (beginsin(field.first, "//"))
          continue;
       if (!field.second.has<json::object>())
@@ -449,7 +449,7 @@ void getClassChildren(
    const json::object &j, const InfoSpecs &specs,
    PerClass &per, Class2Dependencies &dep
 ) {
-   for (const auto &field : j.items()) {
+   for (const auto &field : j) {
       if (beginsin(field.first, "//"))
          continue;
       if (!field.second.has<json::object>())
@@ -544,7 +544,7 @@ void getClassVariants(
    // Pass 1
    // Collect "variant" names, and if ever it's absent, a to-be-determined
    // name for all choice children for which it's absent
-   for (const auto &field : j.items()) {
+   for (const auto &field : j) {
       if (beginsin(field.first, "//"))
          continue;
 
@@ -564,7 +564,7 @@ void getClassVariants(
    }
 
    // Pass 2
-   for (const auto &field : j.items()) {
+   for (const auto &field : j) {
       if (beginsin(field.first, "//"))
          continue;
 
@@ -746,7 +746,7 @@ void printSingletons(const std::string &file)
 {
    const json::object &jfile = readJSONFile(file,true);
 
-   for (const auto &item : jfile.items()) {
+   for (const auto &item : jfile) {
       if (beginsin(item.first, "//"))
          continue;
       if (!item.second.has<json::object>())
@@ -829,7 +829,7 @@ void commandLine(
       ? jmain[input  ].get<json::string>() : ".";
 
    if (jmain.has(enums))
-      for (const auto &e : jmain[enums].get<json::object>().items()) {
+      for (const auto &e : jmain[enums].get<json::object>()) {
          specs.Enumerators.push_back(
             std::make_pair(e.first,std::vector<std::string>()));
          for (const auto &sym : e.second.get<json::array>())
@@ -1022,7 +1022,7 @@ void preprocessFiles(InfoSpecs &specs)
       const json::object jmain = readJSONFile(file,true);
       const std::string nsname = getFileNamespace(jmain);
       // classes in the file
-      for (const auto &cl : jmain.items())
+      for (const auto &cl : jmain)
          preprocessClass(specs, nsname, cl);
    }
 } // preprocessFiles
@@ -1037,7 +1037,7 @@ void preprocessFiles(InfoSpecs &specs)
 // validateMetadata
 void validateMetadata(const json::object &metadata)
 {
-   for (const auto &field : metadata.items()) {
+   for (const auto &field : metadata) {
       if (beginsin(field.first, "//"))
          continue;
       assert(field.second.has("type"));
@@ -1048,7 +1048,7 @@ void validateMetadata(const json::object &metadata)
 // validateChildren
 void validateChildren(const json::object &children, const PerClass &per)
 {
-   for (const auto &field : children.items()) {
+   for (const auto &field : children) {
       if (beginsin(field.first, "//"))
          continue;
       assert(field.second.has("required"));
@@ -1148,7 +1148,7 @@ void getFilesAndClasses(InfoSpecs &specs)
       const json::object jmain = readJSONFile(file);
       const std::string nsname = getFileNamespace(jmain);
       // each class
-      for (const auto &cl : jmain.items())
+      for (const auto &cl : jmain)
          getClass(specs, nsname, cl);
    }
 } // getFilesAndClasses
