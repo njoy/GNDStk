@@ -1,10 +1,9 @@
+
 # standard imports
 import unittest
 
-# third party imports
-
 # local imports
-from GNDStk import GridStyle
+from GNDStk.v2_0 import GridStyle
 
 class Test_GNDStk_GridStyle( unittest.TestCase ) :
     """Unit test for the GridStyle enumerator."""

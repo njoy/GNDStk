@@ -1,4 +1,6 @@
 
+#include "GNDStk/Meta/src/detail.hpp"
+
 // -----------------------------------------------------------------------------
 // Meta
 // -----------------------------------------------------------------------------
@@ -9,23 +11,20 @@
 
 template<
    class TYPE = void,
-   class CONVERTER = typename detail::default_converter<TYPE>::type
+   class CONVERTER = detail::default_converter_t<TYPE>
 >
 class Meta {
 public:
    // name, object, converter
    std::string name;
-   const TYPE object;
    CONVERTER converter; // optional custom converter; needs operator()
 
    // ctor
    explicit Meta(
       const std::string &n,
-      const TYPE &t = TYPE{},
-      const CONVERTER &c = CONVERTER{}
+      const CONVERTER &c = detail::make_once<CONVERTER>()
    ) :
       name(n),
-      object(t),
       converter(c)
    { }
 
@@ -48,7 +47,7 @@ public:
 template<class CONVERTER>
 class Meta<void,CONVERTER> {
    static_assert(
-      std::is_same_v<CONVERTER,void>,
+      detail::is_void_v<CONVERTER>,
      "Can't create Meta<void,CONVERTER> with non-default CONVERTER"
    );
 
@@ -77,10 +76,10 @@ public:
 
 // Macro
 // For Meta building.
-// This macro doesn't allow for the (optional) TYPE object or the converter.
-// For those, construct a Meta directly.
-#define GNDSTK_MAKE_META(TYPE,name) \
-   inline const Meta<TYPE> name(#name)
+// This macro doesn't allow a custom converter to be given.
+// If you need a custom converter, construct a Meta directly.
+#define NJOY_GNDSTK_MAKE_META(TYPE,name) \
+   inline const njoy::GNDStk::Meta<TYPE> name(#name)
 // Note: we won't #undef this eventually, as we normally would,
 // because it's a perfectly viable macro for users to invoke.
 

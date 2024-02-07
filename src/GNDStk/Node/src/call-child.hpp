@@ -7,7 +7,7 @@ template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    bool &found = detail::default_bool
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    try {
       // Don't need or want:
       //    if (kwd.name == "")
@@ -23,14 +23,16 @@ decltype(auto) operator()(
 
 // ------------------------
 // ()(Child, string)
+// ()(Child, char *, ...)
 // ------------------------
 
+// ()(Child, string)
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string label,
    bool &found = detail::default_bool
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    // as above, don't need or want (kwd.name == "") conditional
    try {
       // total filter
@@ -44,6 +46,19 @@ decltype(auto) operator()(
    }
 }
 
+// ()(Child, char *, ...)
+// Without this, an ambiguity can arise with operator()() cases, in other
+// files, that have KEYWORDS &&...keywords. (Under "normal" circumstances,
+// a char * would simply convert to a std::string.)
+template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
+decltype(auto) operator()(
+   const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
+   const char *const label,
+   bool &found = detail::default_bool
+) NJOY_GNDSTK_CONST {
+   return (*this)(kwd, std::string(label), found);
+}
+
 
 // ------------------------
 // ()(Child, regex)
@@ -54,7 +69,7 @@ decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::regex labelRegex,
    bool &found = detail::default_bool
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    try {
       // similar to std::string case
       auto filter = [kwd,labelRegex](const Node &n)
@@ -82,7 +97,7 @@ template<
 decltype(auto) operator()(
    const std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,SECOND> &pair,
    bool &found = detail::default_bool
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    try {
       return (*this)(pair.first, pair.second, found);
    } catch (...) {
@@ -92,4 +107,4 @@ decltype(auto) operator()(
 }
 
 
-#undef GNDSTK_CONST
+#undef NJOY_GNDSTK_CONST

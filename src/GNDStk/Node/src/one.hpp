@@ -27,7 +27,7 @@ const Node &one(
 ) const {
    // ""
    // meaning: return the current node
-   if (key == "") {
+   if (key == "" || key == special::self) {
       // filter is ignored in this case
       return found = true, *this;
    }
@@ -37,8 +37,8 @@ const Node &one(
    // nname: #times node name matches key
    // nboth: #times node name matches key AND ALSO the filter condition is met
    const Node *theone = nullptr;
-   std::size_t nname = 0, nboth = 0;
-   for (auto &c : children)
+   size_t nname = 0, nboth = 0;
+   for (const childPtr &c : children)
       if (std::regex_match(c->name, std::regex(key))
           && (nname++, filter(*c)) && nboth++ == 0)
          theone = &(*c);
@@ -47,9 +47,9 @@ const Node &one(
    if (nboth) {
       if (nboth > 1)
          log::warning(
-            "Node.one(\"{}\") called, but {} matching nodes were found;\n"
-            "returning the first one that was found",
-            key, nboth
+            "Node.one(\"{}\") was called, but {} matching nodes were found.\n"
+            "Returning the first one that was found. Context: Node \"{}\".",
+            key, nboth, name // name == current ("parent") node's name
          );
       return found = true, *theone;
    }

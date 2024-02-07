@@ -3,6 +3,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 
 using namespace njoy::GNDStk;
 
@@ -39,19 +40,20 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
 
    WHEN("We make a Node foo with particular content") {
       Node foo("foo");
-      // If a Node has a "text" metadatum, then the convert(Node,container)
+      // If a Node has a special::text metadatum, then the
+      //    convert(Node,container)
       // function, where container is e.g. vector<T>, will attempt to fill
-      // the container with the contents of the "text" metadatum's value.
-      foo.add("text","12 34 56 78 90");
+      // the container with the contents of the special::text metadatum's value.
+      foo.add(special::text,"12 34 56 78 90");
 
       // Update, 2020-10-19. The relevant convert() functionality has been
-      // reformulated into the detail::convert_pcdata_text_t callable object,
+      // reformulated into the detail::convert_data_text_t callable object,
       // so we'll reformulate with that. Ultimately, due to the location of
       // the new code, we should probably put this test material elsewhere.
 
       THEN("convert(foo,deque) extracts the content correctly") {
          std::deque<int> container;
-         detail::convert_pcdata_text_t{}(foo,container);
+         detail::convert_data_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
          CHECK(container[1] == 34);
@@ -62,7 +64,7 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
 
       THEN("convert(foo,list) extracts the content correctly") {
          std::list<int> container;
-         detail::convert_pcdata_text_t{}(foo,container);
+         detail::convert_data_text_t{}(foo,container);
          CHECK(container.size() == 5);
          auto iter = container.begin();
          CHECK(*iter++ == 12);
@@ -74,7 +76,7 @@ SCENARIO("Testing GNDStk convert(Node,type)") {
 
       THEN("convert(foo,vector) extracts the content correctly") {
          std::vector<int> container;
-         detail::convert_pcdata_text_t{}(foo,container);
+         detail::convert_data_text_t{}(foo,container);
          CHECK(container.size() == 5);
          CHECK(container[0] == 12);
          CHECK(container[1] == 34);

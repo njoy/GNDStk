@@ -5,10 +5,10 @@
 
 // Cases:
 //
-// 1. read(istream,   FileType)
-// 2. read(file name, FileType) calls 1 after making istream from file name
-// 3. read(istream,   string  ) calls 1 after making FileType from string
-// 4. read(file name, string  ) calls 2 after making FileType from string
+// 1. read(istream, FileType)
+// 2. read(file,    FileType) calls 1 after making istream from file
+// 3. read(istream, string  ) calls 1 after making FileType from string
+// 4. read(file,    string  ) calls 2 after making FileType from string
 //
 // Discussion
 //
@@ -16,28 +16,29 @@
 // or not any declaration node (say, <?xml version="1.0" encoding="UTF-8"?>)
 // should be read.
 //
-// GNDStk distinguishes between Node (which means a typical node somewhere in
-// an entire GNDS tree), and Tree, which specifically means an entire GNDS tree.
-// Tree derives from Node, and, for most functionality, Tree defers to Node.
-// For Tree I/O, however, GNDStk tries to preserve any declaration node that
-// might be present. It does not, by default, do this for Node.
+// GNDStk distinguishes between Node (meaning a typical node somewhere in an
+// entire GNDS tree), and Tree (meaning an entire GNDS tree). Tree derives from
+// Node, and, for most functionality, defers to Node. For its I/O, however, we
+// also try to preserve any declaration node that might be present.
 //
 // To support all this, Node's read functionality, below, provides the optional
-// bool decl parameter, indicating whether or not to handle any declaration node
-// that might be seen. It's false, by default. These Node read() functions are
-// called by the Tree read() functions, however, and those call these with decl
-// set to true, precisely so that they preserve declaration nodes.
+// bool DECL parameter, indicating whether or not to handle any declaration node
+// that might be seen. DECL is formulated in such a way that if a caller sends
+// it (as opposed to its default being used), then the function respects - i.e.
+// uses - the sent value. If the caller doesn't send it, then the function looks
+// at *this Node's name, decides if it's a Node proper or a Tree (via Tree's use
+// of a special name at its top level), and behaves accordingly.
 //
 // If decl == false, we'll find any NON-declaration node in the input, and
 // place it directly into the *this node. Any declaration node that's present,
-// in the input, will be ignored. This behavior reflects what we want for
-// "regular" Node objects.
+// in the input, is ignored. This behavior reflects what we want for "regular"
+// Node objects.
 //
-// If decl == true, we'll make *this be a Node with an empty name, "". Then,
-// we'll place any input non-declaration node into one of its children. And,
-// finally, we'll preserve any *declaration* node as another child. This
-// behavior reflects what we actually want for Tree objects (and, remember,
-// Tree derives from Node).
+// If decl == true, we'll make *this be a Node with the proper tree-root node
+// name. Then, we'll place any input non-declaration node into one of its
+// children. And, finally, we'll preserve any *declaration* node as another
+// child. This behavior reflects what we actually want for Tree, which in this
+// situation is probably what *this really is.
 
 
 
@@ -47,9 +48,12 @@
 
 std::istream &read(
    std::istream &is,
-   FileType format = FileType::null,
-   const bool decl = false
+   const FileType FORMAT = FileType::guess,
+   const bool &DECL = detail::default_bool
 ) {
+   FileType format = FORMAT; // non-const; may change
+   const bool decl = detail::getDecl(*this,DECL);
+
    // ------------------------
    // Clear current contents
    // ------------------------
@@ -59,11 +63,11 @@ std::istream &read(
    clear();
 
    // ------------------------
-   // FileType::text
+   // FileType::debug
    // Not allowed in read
    // ------------------------
 
-   if (format == FileType::text) {
+   if (format == FileType::debug) {
       log::error(detail::error_format_read);
       log::member("Node.read(istream)");
       throw std::exception{};
@@ -92,12 +96,9 @@ std::istream &read(
    std::string used;
    static const std::string request = ", because it was requested";
 
-   // Retrieve the stream's first character ("file magic number")
-   int magicNumber;
-   do {
-      magicNumber = is.get();
-   } while (isspace(magicNumber));
-   is.unget();
+   // Examine the stream's first character ("file magic number")
+   is >> std::ws;
+   const int magicNumber = is.peek();
 
    // Perform some checks
    if (magicNumber == EOF) {
@@ -107,35 +108,35 @@ std::istream &read(
       return is;
    } else if (magicNumber == '<') {
       // looks like XML
-      if (format == FileType::null) {
+      if (format == FileType::guess) {
          format = FileType::xml;
          used = "Assumed XML, based on the first character of the istream";
       } else if (format != FileType::xml) {
          detail::warning_io_data(format, "XML");
-         used = "Used " + detail::print_format(format) + request;
+         used = "Used " + detail::printFormat(format) + request;
       }
    } else if (magicNumber == 137) {
       // looks like HDF5
-      if (format == FileType::null) {
+      if (format == FileType::guess) {
          format = FileType::hdf5;
          used = "Assumed HDF5, based on the first character of the istream";
       } else if (format != FileType::hdf5) {
          detail::warning_io_data(format, "HDF5");
-         used = "Used " + detail::print_format(format) + request;
+         used = "Used " + detail::printFormat(format) + request;
       }
    } else {
       // looks like JSON (via process of elimination)
-      if (format == FileType::null) {
+      if (format == FileType::guess) {
          format = FileType::json;
          used = "Assumed JSON, based on the first character of the istream";
       } else if (format != FileType::json) {
          detail::warning_io_data(format, "JSON");
-         used = "Used " + detail::print_format(format) + request;
+         used = "Used " + detail::printFormat(format) + request;
       }
    }
 
-   // The above logic is such that format cannot henceforth be FileType::text,
-   // which would have triggered a return, or FileType::null, which would have
+   // The above logic is such that format cannot henceforth be FileType::debug,
+   // which would have triggered a return, or FileType::guess, which would have
    // become one of {xml,json,hdf5}, somewhere in the above conditional, if we
    // didn't return already.
 
@@ -146,7 +147,7 @@ std::istream &read(
    try {
       // Obey format, independent of whatever might or might not have been
       // warned about above. Note that if the original format parameter was
-      // FileType::null, then format would have been modified, above, to the
+      // FileType::guess, then format would have been modified, above, to the
       // likely correct one, based on the file magic number.
       if (format == FileType::xml) {
          // assume XML; so, create Node by converting from a temporary XML...
@@ -157,14 +158,15 @@ std::istream &read(
          if (!convert(JSON(is), *this, decl))
             throw std::exception{};
       } else if (format == FileType::hdf5) {
-         log::error("Node.read() for HDF5 is not implemented yet");
-         throw std::exception{};
+         // assume HDF5; so, create Node by converting from a temporary HDF5...
+         if (!convert(HDF5(is), *this, decl))
+            throw std::exception{};
       } else {
          // The earlier logic is such that this shouldn't happen; consider
-         // removing at some point
+         // removing it at some point
          log::error(
-            "Internal error: unrecognized file format. "
-            "Please report this to us");
+            "Internal error: unrecognized file format.\n"
+            "Please report this to us.");
          throw std::exception{};
       }
    } catch (...) {
@@ -181,24 +183,26 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// 2. read(file name, FileType)
+// 2. read(file, FileType)
 // -----------------------------------------------------------------------------
 
 bool read(
    const std::string &filename,
-   const FileType format = FileType::null,
-   const bool decl = false
+   const FileType format = FileType::guess,
+   const bool &DECL = detail::default_bool
 ) {
+   const bool decl = detail::getDecl(*this,DECL);
+
    // Remark as in read(istream) above
    clear();
 
    // ------------------------
-   // FileType::text
+   // FileType::debug
    // Not allowed in read()
    // ------------------------
 
    // This format ("debugging output") is only for write(), not for read()
-   if (format == FileType::text) {
+   if (format == FileType::debug) {
       log::error(detail::error_format_read);
       log::member("Node.read(\"{}\",format)", filename);
       throw std::exception{};
@@ -209,7 +213,7 @@ bool read(
    // Check: consistent name?
    // ------------------------
 
-   // If we requested XML, but the file name has an extension that's not xml...
+   // If we requested XML, but the file's extension is not xml...
    if (format == FileType::xml && has_extension(filename)
        && !endsin_xml(filename)) {
       detail::warning_io_name("read", "xml",  filename, "XML" );
@@ -256,14 +260,15 @@ bool read(
 std::istream &read(
    std::istream &is,
    const std::string &format,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) {
+   const bool decl = detail::getDecl(*this,DECL);
+
    try {
-      if (eq_null(format)) return read(is, FileType::null, decl);
-      if (eq_text(format)) return read(is, FileType::text, decl);
-      if (eq_xml (format)) return read(is, FileType::xml,  decl);
-      if (eq_json(format)) return read(is, FileType::json, decl);
-      if (eq_hdf5(format)) return read(is, FileType::hdf5, decl);
+      bool matched;
+      const FileType type = string2filetype(format,matched);
+      if (matched)
+         return read(is, type, decl);
 
       // unrecognized file format
       log::warning(
@@ -272,8 +277,8 @@ std::istream &read(
          format
       );
 
-      // fallback: automagick
-      return read(is, FileType::null, decl);
+      // fallback: guess, from file magic number
+      return read(is, FileType::guess, decl);
    } catch (...) {
       log::member("Node.read(istream,\"{}\")", format);
       throw;
@@ -283,20 +288,21 @@ std::istream &read(
 
 
 // -----------------------------------------------------------------------------
-// 4. read(file name, string)
+// 4. read(file, string)
 // -----------------------------------------------------------------------------
 
 bool read(
    const std::string &filename,
    const std::string &format,
-   const bool decl = false
+   const bool &DECL = detail::default_bool
 ) {
+   const bool decl = detail::getDecl(*this,DECL);
+
    try {
-      if (eq_null(format)) return read(filename, FileType::null, decl);
-      if (eq_text(format)) return read(filename, FileType::text, decl);
-      if (eq_xml (format)) return read(filename, FileType::xml,  decl);
-      if (eq_json(format)) return read(filename, FileType::json, decl);
-      if (eq_hdf5(format)) return read(filename, FileType::hdf5, decl);
+      bool matched;
+      const FileType type = string2filetype(format,matched);
+      if (matched)
+         return read(filename, type, decl);
 
       // unrecognized file format
       log::warning(
@@ -305,8 +311,8 @@ bool read(
          filename, format
       );
 
-      // fallback: automagick
-      return read(filename, FileType::null, decl);
+      // fallback: guess, from file magic number
+      return read(filename, FileType::guess, decl);
    } catch (...) {
       log::member("Node.read(\"{}\",\"{}\")", filename, format);
       throw;
