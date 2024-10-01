@@ -11,20 +11,17 @@ public:
    // Construction
    // ------------------------
 
+   // inherited
    using vector::vector;
+
+   // from instance of base class
+   array(const vector &from) : vector(from) { }
+   array(vector &&from) : vector(std::move(from)) { }
 
    // constructor: from std::vector<T convertible to value>
    template<class T, class = std::enable_if_t<std::is_convertible_v<T,value>>>
    array(const std::vector<T> &from) :
       vector(from.begin(), from.end())
-   { }
-
-   array(const vector &from) :
-      vector(from)
-   { }
-
-   array(vector &&from) :
-      vector(std::move(from))
    { }
 
    // ------------------------

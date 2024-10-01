@@ -32,24 +32,15 @@ public:
    // Construction
    // ------------------------
 
-   // default
-   number() :
-      variant(0)
-   { }
+   // inherited
+   using variant::variant;
 
-   // from variant
-   number(const variant &from) :
-      variant(from)
-   { }
-   number(variant &&from) :
-      variant(std::move(from))
-   { }
+   // default (override inherited because we want to select int)
+   number() : variant(0) { }
 
-   // from T in the variant
-   template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
-   number(const T &from) :
-      variant(from)
-   { }
+   // from instance of base class
+   number(const variant &from) : variant(from) { }
+   number(variant &&from) : variant(std::move(from)) { }
 
    // ------------------------
    // Assignment
@@ -68,7 +59,9 @@ public:
    // Conversion
    // ------------------------
 
-   // to T
+   // to arithmetic T
+   // Returns by value, so that we need not assume that the underlying
+   // variant holds exactly a T. Also, then, we need only a const version.
    template<class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
    operator T() const
    {

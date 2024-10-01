@@ -91,7 +91,7 @@ bool is_number(const bool allowLiteral = true) const
          const number &num = get<number>();
 
          // Does the number actually hold a T?
-         if (std::holds_alternative<T>(number::variant(num)))
+         if (num.has<T>())
             return true;
 
          // The number has something other than a T. We'll say that the

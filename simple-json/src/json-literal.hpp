@@ -18,13 +18,10 @@ public:
    literal() { }
 
    // from std::string
-   // Explicit, so that std::string prefers string's constructor, not literal's.
-   // We want literal to be something we get only by specifically asking for it.
-   // Note also that this constructor's being explicit lets us dispense with the
-   // enable_if business that we spoke of above class null's definition.
-   explicit literal(const std::string &from) :
-      str(from)
-   { }
+   // Explicit, so that std::string prefers json::string's constructor, not
+   // json::literal's. We want json::literal to be something we get only by
+   // specifically asking for it.
+   explicit literal(const std::string &from) : str(from) { }
 
    // ------------------------
    // Assignment

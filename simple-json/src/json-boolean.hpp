@@ -14,15 +14,11 @@ public:
    // ------------------------
 
    // default
-   boolean() :
-      b(false)
-   { }
+   boolean() : b(false) { }
 
-   // from bool
+   // from bool (exactly)
    template<class T, class = std::enable_if_t<std::is_same_v<T,bool>>>
-   boolean(const T &from) :
-      b(from)
-   { }
+   boolean(const T &from) : b(from) { }
 
    // ------------------------
    // Conversion

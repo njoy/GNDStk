@@ -38,7 +38,7 @@ public:
    // default
    null() { }
 
-   // from std::nullptr_t
+   // from std::nullptr_t (exactly)
    template<class T, class = std::enable_if_t<std::is_same_v<T,std::nullptr_t>>>
    null(const T &) { }
 

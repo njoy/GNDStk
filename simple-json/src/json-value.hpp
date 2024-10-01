@@ -21,16 +21,22 @@ public:
    // Construction
    // ------------------------
 
+   // inherited
    using variant::variant;
 
-   // default
+   // default (override inherited because we want to select object)
    value() : variant(object()) { }
 
-   // from variant
+   // from instance of base class
    value(const variant &from) : variant(from) { }
    value(variant &&from) : variant(std::move(from)) { }
 
-   // from initializer_list
+   // from std::nullptr_t
+   // from bool
+   // from std::initializer_list<value> ==> json::array
+   // from std::initializer_list<pair> ==> json::object
+   value(const std::nullptr_t &from) : variant(json::null(from)) { }
+   value(const bool &from) : variant(json::boolean(from)) { }
    value(const std::initializer_list<value> &from) : variant(array(from)) { }
    value(const std::initializer_list<pair> &from) : variant(object(from)) { }
 
@@ -51,36 +57,41 @@ public:
    // Conversion
    // ------------------------
 
-   // to T; arithmetic
-   template<
-      class T,
-      class = std::enable_if_t<std::is_arithmetic_v<T>>
-   >
+   template<class T>
+   using converts = std::enable_if_t<
+      detail::invar<T,value::variant> ||
+      std::is_same_v<T,std::nullptr_t> ||
+      std::is_same_v<T,std::string>
+   >;
+
+   // to arithmetic T
+   // Assumes json::number, and forwards to its conversion to arithmetic T.
+   // Returns by value; so, const only.
+   template<class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
    operator T() const
    {
       return T(get<number>());
    }
 
-   // to T; std::string, or in value's variant; const
-   template<
-      class T,
-      class = std::enable_if_t<
-         std::is_same_v<T,std::string> || detail::invar<T,variant>>
-   >
+   // to specific Ts; const
+   template<class T, class = converts<T>>
    operator const T &() const
    {
-      return get<T>();
+      if constexpr (detail::invar<T,value::variant>)
+         return get<T>();
+      else if constexpr (std::is_same_v<T,std::nullptr_t>)
+         return get<null>();
+      else if (has<json::literal>())
+         return get<json::literal>();
+      else
+         return get<json::string>();
    }
 
-   // to T; std::string, or in value's variant; non-const
-   template<
-      class T,
-      class = std::enable_if_t<
-         std::is_same_v<T,std::string> || detail::invar<T,variant>>
-   >
+   // to specific Ts; non-const
+   template<class T, class = converts<T>>
    operator T &()
    {
-      return get<T>();
+      return const_cast<T &>((const T &)(std::as_const(*this)));
    }
 
    // ------------------------
@@ -91,7 +102,8 @@ public:
    template<
       class T,
       class = std::enable_if_t<
-         detail::isintegral<T> || std::is_constructible_v<string,T>>
+         detail::isintegral<T> || std::is_constructible_v<string,T>
+      >
    >
    const value &operator[](const T &key) const
    {
@@ -105,7 +117,8 @@ public:
    template<
       class T,
       class = std::enable_if_t<
-         detail::isintegral<T> || std::is_constructible_v<string,T>>
+         detail::isintegral<T> || std::is_constructible_v<string,T>
+      >
    >
    value &operator[](const T &key)
    {
@@ -120,26 +133,17 @@ public:
    const std::vector<pair> &items() const { return get<object>(); }
          std::vector<pair> &items()       { return get<object>(); }
 
-   /*
-   // items
-   const std::vector<pair> &items() const { return get<object>().items(); }
-         std::vector<pair> &items()       { return get<object>().items(); }
-   */
-
    // has alternative
    template<
       class T,
       class = std::enable_if_t<
-         std::is_same_v<T,std::string> ||
          detail::invar<T,variant> ||
          detail::invar<T,number::variant>
       >
    >
    bool has() const
    {
-      if constexpr (std::is_same_v<T,std::string>)
-         return has<string>(); // <== json::string, not std::string
-      else if constexpr (detail::invar<T,variant>)
+      if constexpr (detail::invar<T,variant>)
          return std::holds_alternative<T>(*this);
       else
          return has<number>() && get<number>().has<T>();

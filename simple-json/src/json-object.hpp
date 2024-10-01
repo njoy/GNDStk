@@ -11,8 +11,10 @@ public:
    // Construction
    // ------------------------
 
+   // inherited
    using vector::vector;
 
+   // from instance of base class
    object(const vector &from) : vector(from) { }
    object(vector &&from) : vector(std::move(from)) { }
 
@@ -41,13 +43,6 @@ public:
    // ------------------------
    // Other
    // ------------------------
-
-   /*
-   // items
-   // Returns the std::vector base.
-   const vector &items() const { return *this; }
-         vector &items()       { return *this; }
-   */
 
    // has key
    bool has(const string &key) const;
