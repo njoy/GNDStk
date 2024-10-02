@@ -19,16 +19,14 @@ public:
    string(std::string &&from) : std::string(std::move(from)) { }
 
    // from char (exactly)
-   template<class T, class = std::enable_if_t<std::is_same_v<T,char>>>
+   template<class T, class = require<same<T,char>>>
    string(const T &from) : std::string{from} { }
 
    // ------------------------
    // Assignment
    // ------------------------
 
-   template<
-      class T,
-      class = std::enable_if_t<std::is_assignable_v<std::string, T &&>>>
+   template<class T, class = require<assignable<std::string, T &&>>>
    string &operator=(T &&from)
    {
       std::string::operator=(std::forward<T>(from));

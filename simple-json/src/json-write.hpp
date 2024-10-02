@@ -32,9 +32,9 @@ write(std::ostream &os, const int, const int) const
       [&os](auto &alt)
       {
          using T = std::decay_t<decltype(alt)>;
-         if constexpr (std::is_same_v<T,unsigned char>)
+         if constexpr (same<T,unsigned char>)
             os << (unsigned short)alt;
-         else if constexpr (std::is_same_v<T,signed char>)
+         else if constexpr (same<T,signed char>)
             os << (signed short)alt;
          else
             os << alt;
@@ -129,8 +129,8 @@ write(std::ostream &os, const int indentLevel, const int width) const
 inline void literal::
 write(std::ostream &os, const int, const int) const
 {
-   // Write the literal string literally, with no processing or assumptions
-   // at all. Know what you're doing, or you could produce invalid JSON. :-)
+   // Write the contents literally, with no processing or assumptions at
+   // all. Know what you're doing, or you could produce invalid JSON. :-)
    os << str;
 }
 

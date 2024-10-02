@@ -17,7 +17,7 @@ public:
    boolean() : b(false) { }
 
    // from bool (exactly)
-   template<class T, class = std::enable_if_t<std::is_same_v<T,bool>>>
+   template<class T, class = require<same<T,bool>>>
    boolean(const T &from) : b(from) { }
 
    // ------------------------

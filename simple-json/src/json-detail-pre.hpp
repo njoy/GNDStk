@@ -1,53 +1,20 @@
 
-namespace detail {
-
 // -----------------------------------------------------------------------------
 // Classes
 // -----------------------------------------------------------------------------
 
+namespace detail {
+
 // inVariant
-// count == number of times T is exactly the same as a type in a std::variant
+// count == number of times T is exactly the same as a type in the variant
 template<class, class>
 struct inVariant { };
 
 template<class T, class... As>
-struct inVariant<T, std::variant<As...>>
+struct inVariant<T,std::variant<As...>>
 {
-   static inline constexpr int count = (std::is_same_v<T,As> + ...);
+   static inline constexpr int count = (same<T,As> + ...);
 };
-
-// toVariant
-// count == number of times T is convertible to a type in a std::variant
-template<class, class>
-struct toVariant { };
-
-template<class T, class A>
-struct toVariant<T, std::variant<A>>
-{
-   static inline constexpr int count =
-      std::is_convertible_v<T,A>;
-};
-
-template<class T, class A, class... As>
-struct toVariant<T, std::variant<A,As...>>
-{
-   static inline constexpr int count =
-      std::is_convertible_v<T,A> + toVariant<T,std::variant<As...>>::count;
-};
-
-// For brevity
-// invar
-// tovar
-// isintegral
-// isfloating
-template<class T, class VARIANT>
-inline constexpr bool invar = inVariant<T,VARIANT>::count == 1;
-template<class T, class VARIANT>
-inline constexpr bool tovar = toVariant<T,VARIANT>::count == 1;
-template<class T>
-inline constexpr bool isintegral = std::is_integral_v<std::decay_t<T>>;
-template<class T>
-inline constexpr bool isfloating = std::is_floating_point_v<std::decay_t<T>>;
 
 // variant2tuple
 template<class>
@@ -58,7 +25,7 @@ struct variant2tuple<std::variant<As...>> { using type = std::tuple<As...>; };
 
 
 // -----------------------------------------------------------------------------
-// Functions
+// Small functions
 // -----------------------------------------------------------------------------
 
 // prefix
@@ -73,7 +40,7 @@ inline void inside(
    std::ostream &os, const char ch, // ch is always a ',' separator, for now
    const int indentNSpaces, const int indentLevel, bool &first
 ) {
-   const std::string spaces(indentNSpaces*indentLevel,' ');
+   const std::string spaces(indentNSpaces*indentLevel, ' ');
    first
       ? indentNSpaces ? (os       << '\n' << spaces) : (os      )
       : indentNSpaces ? (os << ch << '\n' << spaces) : (os << ch);
@@ -85,14 +52,14 @@ inline void suffix(
    std::ostream &os, const char ch,
    const int indentNSpaces, const int indentLevel, const bool first
 ) {
-   const std::string spaces(indentNSpaces*indentLevel,' ');
+   const std::string spaces(indentNSpaces*indentLevel, ' ');
    first
       ? indentNSpaces ? (os                   << ch) : (os << ch)
       : indentNSpaces ? (os << '\n' << spaces << ch) : (os << ch);
 }
 
 // token
-// First, skip white space. Then, read and return a token. Depending on the
+// First, skip whitespace. Then, read and return a token. Depending on the
 // template argument, the token must consist of either (1) alpha characters
 // only, or (2) alphanumeric characters, '.', '-', or '+'.
 template<bool justAlpha> // <== alpha characters only
@@ -132,12 +99,12 @@ inline void expect(std::istream &is, const int want, const std::string &context)
    }
 }
 
-// caseless
-// Case-insensitive string comparison.
-// The old C language strcasecmp() is nonstandard. A modern, true case
-// insensitive string comparison is actually a tougher nut to crack than
-// meets the eye, but the following should suffice for our purposes.
-inline bool caseless(const std::string &one, const std::string &two)
+// nocasecmp
+// Case-insensitive std::string comparison.
+// The old C language strcasecmp() is nonstandard. A modern, true caseless
+// std::string comparison would depend on, e.g., locale; but the following
+// should suffice for our purposes.
+inline bool nocasecmp(const std::string &one, const std::string &two)
 {
    return std::equal(
       one.begin(), one.end(),
@@ -156,32 +123,32 @@ std::string many(
 
 
 // -----------------------------------------------------------------------------
-// readableAs<T>(string,target)
+// readableAs<T>(std::string,target)
 // -----------------------------------------------------------------------------
 
-// Return value: are the string's contents *completely* readable as a T? (For
-// example, "123" is readable as an int, among other things. However, "123foo"
-// is not. Neither is, for example, 3.1415927, which in other interpretations
-// might read as the int 3.) If so, then the so-read value will be placed into
-// target. Note that we allow target to be of a different type than T. In some
-// calls it is; in others, TARGET is (derived from) a std::variant with T as
-// an alternative. This is why we have both T and TARGET.
+// Are the std::string's contents *completely* readable as a T? (For example,
+// "123" is readable as an int, among other things. However, "123foo" is not.
+// Neither is, for example, 3.1415927, which in other interpretations might read
+// as the int 3.) If so, then the so-read value will be placed into target. Note
+// that we allow target to be of a different type than T. In some calls it is;
+// in others, TARGET is (derived from) a std::variant with T as an alternative.
+// This is why we have both T and TARGET.
 template<class T, class TARGET>
 bool readableAs(const std::string &str, TARGET &target)
 {
-   if constexpr (std::is_same_v<T,int>) {
-      size_t idx;
+   if constexpr (same<T,int>) {
+      usize idx;
       try { target = std::stoi(str,&idx); } catch (...) { return false; }
       while (isspace(str.data()[idx])) ++idx;
       return str.data()[idx] == '\0';
-   } else if constexpr (isfloating<T>) {
+   } else if constexpr (floating<T>) {
       char *end; using quad = long double;
-      if constexpr (std::is_same_v<T,float >) target = strtof (str.data(),&end);
-      if constexpr (std::is_same_v<T,double>) target = strtod (str.data(),&end);
-      if constexpr (std::is_same_v<T,quad  >) target = strtold(str.data(),&end);
+      if constexpr (same<T,float >) target = strtof (str.data(),&end);
+      if constexpr (same<T,double>) target = strtod (str.data(),&end);
+      if constexpr (same<T,quad  >) target = strtold(str.data(),&end);
       if (end == str.data()) return false; // no conversion performed
-      while (isspace(*end)) ++end; // white space is fine at the end...
-      return *end == '\0'; // ...but only white space, nothing else, before \0
+      while (isspace(*end)) ++end; // whitespace is fine at the end...
+      return *end == '\0'; // ...but only whitespace, nothing else, before \0
    } else {
       // Can we successfully read a T, with nothing of substance remaining?
       // The second condition means e.g. that "3.1415927" wouldn't pass as
@@ -193,3 +160,6 @@ bool readableAs(const std::string &str, TARGET &target)
 }
 
 } // namespace detail
+
+template<class T, class VARIANT>
+inline constexpr bool allowed = detail::inVariant<T,VARIANT>::count;

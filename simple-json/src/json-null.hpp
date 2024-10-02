@@ -8,9 +8,9 @@
 //
 // In one of class null's constructors, and in some of the constructors in some
 // of our other classes, we have what may seem at first glance to be unnecessary
-// or even unwanted uses of std::enable_if_t. Below, for example, instead of:
+// or even unwanted uses of require<>. Below, for example, instead of:
 //
-//    template<class T, ...enabled only if T is std::nullptr_t...>
+//    template<class T, ...require that T == std::nullptr_t...>
 //    null(const T &) { }
 //
 // why not just have the following instead?
@@ -26,7 +26,7 @@
 //
 // Construction would be ambiguous if the argument could be converted to what's
 // needed in the constructor of more than one of the variant's alternatives. Our
-// std::enable_if_t approach, by requiring an exact match, prevents ambiguities.
+// approach, by requiring an exact match, prevents ambiguities.
 
 class null {
 public:
@@ -39,7 +39,7 @@ public:
    null() { }
 
    // from std::nullptr_t (exactly)
-   template<class T, class = std::enable_if_t<std::is_same_v<T,std::nullptr_t>>>
+   template<class T, class = require<same<T,std::nullptr_t>>>
    null(const T &) { }
 
    // ------------------------

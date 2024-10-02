@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // value
-// As in, the "value" of a JSON "key:value pair". This will be an instance
+// As in, the "value" of a JSON "key:value" pair. This will be an instance
 // of a JSON standard type, or of our special literal type.
 // -----------------------------------------------------------------------------
 
@@ -33,10 +33,10 @@ public:
 
    // from std::nullptr_t
    // from bool
-   // from std::initializer_list<value> ==> json::array
-   // from std::initializer_list<pair> ==> json::object
-   value(const std::nullptr_t &from) : variant(json::null(from)) { }
-   value(const bool &from) : variant(json::boolean(from)) { }
+   // from std::initializer_list<value> ==> array
+   // from std::initializer_list<pair> ==> object
+   value(const std::nullptr_t &from) : variant(null(from)) { }
+   value(const bool &from) : variant(boolean(from)) { }
    value(const std::initializer_list<value> &from) : variant(array(from)) { }
    value(const std::initializer_list<pair> &from) : variant(object(from)) { }
 
@@ -44,9 +44,7 @@ public:
    // Assignment
    // ------------------------
 
-   template<
-      class T,
-      class = std::enable_if_t<std::is_assignable_v<variant, T &&>>>
+   template<class T, class = require<assignable<variant, T &&>>>
    value &operator=(T &&from)
    {
       variant::operator=(std::forward<T>(from));
@@ -57,17 +55,19 @@ public:
    // Conversion
    // ------------------------
 
+   // helper
    template<class T>
-   using converts = std::enable_if_t<
-      detail::invar<T,value::variant> ||
-      std::is_same_v<T,std::nullptr_t> ||
-      std::is_same_v<T,std::string>
+   using converts = require<
+      allowed<T,value::variant> ||
+      same<T,std::nullptr_t> ||
+      same<T,bool> ||
+      same<T,std::string>
    >;
 
-   // to arithmetic T
-   // Assumes json::number, and forwards to its conversion to arithmetic T.
+   // to arithmetic T, excluding bool
+   // Assumes number, and forwards to its conversion to arithmetic T.
    // Returns by value; so, const only.
-   template<class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
+   template<class T, class = require<arithmetic<T> && !same<T,bool>>>
    operator T() const
    {
       return T(get<number>());
@@ -77,14 +77,16 @@ public:
    template<class T, class = converts<T>>
    operator const T &() const
    {
-      if constexpr (detail::invar<T,value::variant>)
+      if constexpr (allowed<T,value::variant>)
          return get<T>();
-      else if constexpr (std::is_same_v<T,std::nullptr_t>)
+      else if constexpr (same<T,std::nullptr_t>)
          return get<null>();
-      else if (has<json::literal>())
-         return get<json::literal>();
+      else if constexpr (same<T,bool>)
+         return get<boolean>();
+      else if (has<literal>())
+         return get<literal>();
       else
-         return get<json::string>();
+         return get<string>();
    }
 
    // to specific Ts; non-const
@@ -99,30 +101,27 @@ public:
    // ------------------------
 
    // const
-   template<
-      class T,
-      class = std::enable_if_t<
-         detail::isintegral<T> || std::is_constructible_v<string,T>
-      >
-   >
+   template<class T, class = require<integral<T> || constructible<key,T>>>
    const value &operator[](const T &key) const
    {
-      if constexpr (detail::isintegral<T>)
+      if constexpr (integral<T>)
          return get<array >()[key];
       else
          return get<object>()[key];
    }
 
    // non-const
-   template<
-      class T,
-      class = std::enable_if_t<
-         detail::isintegral<T> || std::is_constructible_v<string,T>
-      >
-   >
+   template<class T, class = require<integral<T> || constructible<key,T>>>
    value &operator[](const T &key)
    {
-      return const_cast<value &>(std::as_const(*this).operator[](key));
+      // I think we want this direct, as written below, instead of doing this:
+      //    return const_cast<value &>(std::as_const(*this).operator[](key));
+      // because of the subtle difference between object's const and non-const
+      // versions. See the "feature, not defect" remark for object::operator[].
+      if constexpr (integral<T>)
+         return get<array >()[key];
+      else
+         return get<object>()[key];
    }
 
    // ------------------------
@@ -135,15 +134,11 @@ public:
 
    // has alternative
    template<
-      class T,
-      class = std::enable_if_t<
-         detail::invar<T,variant> ||
-         detail::invar<T,number::variant>
-      >
+      class T, class = require<allowed<T,variant> || allowed<T,number::variant>>
    >
    bool has() const
    {
-      if constexpr (detail::invar<T,variant>)
+      if constexpr (allowed<T,variant>)
          return std::holds_alternative<T>(*this);
       else
          return has<number>() && get<number>().has<T>();
@@ -151,7 +146,7 @@ public:
 
    // has key
    // Assumes this value is an object
-   bool has(const string &key) const
+   bool has(const key &key) const
    {
       return get<object>().has(key);
    }

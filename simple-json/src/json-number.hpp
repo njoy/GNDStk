@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // number
-// In JSON: integral or floating-point number.
+// In JSON: integral or floating point number.
 // -----------------------------------------------------------------------------
 
 class number
@@ -46,9 +46,7 @@ public:
    // Assignment
    // ------------------------
 
-   template<
-      class T,
-      class = std::enable_if_t<std::is_assignable_v<variant, T &&>>>
+   template<class T, class = require<assignable<variant, T &&>>>
    number &operator=(T &&from)
    {
       variant::operator=(std::forward<T>(from));
@@ -62,7 +60,7 @@ public:
    // to arithmetic T
    // Returns by value, so that we need not assume that the underlying
    // variant holds exactly a T. Also, then, we need only a const version.
-   template<class T, class = std::enable_if_t<std::is_arithmetic_v<T>>>
+   template<class T, class = require<arithmetic<T>>>
    operator T() const
    {
       return std::visit(
@@ -79,13 +77,13 @@ public:
    // ------------------------
 
    // has<T>
-   template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
+   template<class T, class = require<allowed<T,variant>>>
    bool has() const { return std::holds_alternative<T>(*this); }
 
    // get<T>
-   template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
+   template<class T, class = require<allowed<T,variant>>>
    const T &get() const { return std::get<T>(*this); }
-   template<class T, class = std::enable_if_t<detail::invar<T,variant>>>
+   template<class T, class = require<allowed<T,variant>>>
          T &get()       { return std::get<T>(*this); }
 
    // ------------------------
@@ -94,7 +92,7 @@ public:
 
    template<
       class T = void, class U = void,
-      class = std::enable_if_t<types<T,U>::compatible>
+      class = require<types<T,U>::compatible>
    >
    std::string read(std::istream &, const int = as_literal::none);
 

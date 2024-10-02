@@ -12,7 +12,7 @@ std::string many(
    const int prefix, const int suffix, const std::string &context
 ) {
    vec.clear();
-   detail::expect(is,prefix,context);
+   expect(is,prefix,context);
    const bool thisLiteral = litFlags & as;
    std::string text(1,char(prefix));
 
@@ -20,14 +20,14 @@ std::string many(
    while ((ch = (is >> std::ws).peek()) != EOF && ch != suffix) {
       // comma
       if (vec.size()) {
-         detail::expect(is,',',context);
+         expect(is,',',context);
          if (thisLiteral)
             text += ',';
       }
 
       // value or key:value, with value read in-place for efficiency
       value *vptr = nullptr;
-      if constexpr (std::is_same_v<ELEMENT,value>) {
+      if constexpr (same<ELEMENT,value>) {
          // array
          // ELEMENT == value (from array's base std::vector<value>)
          vec.push_back(value());
@@ -35,9 +35,9 @@ std::string many(
       } else {
          // object
          // ELEMENT == pair (from object's base std::vector<pair>)
-         string key; // <== json::string, not std::string, to handle escapes
+         json::key key; // <== json::key, not std::string, to handle escapes
          key.read<T,U>(is);
-         detail::expect(is,':',context);
+         expect(is,':',context);
          if (thisLiteral)
             text += '"' + key + "\":";
          vec.push_back(ELEMENT(key,value()));
@@ -49,7 +49,7 @@ std::string many(
          : vptr->read<T,U>(is,litFlags);
    }
 
-   detail::expect(is,suffix,context);
+   expect(is,suffix,context);
    return thisLiteral ? text + char(suffix) : "";
 } // many
 

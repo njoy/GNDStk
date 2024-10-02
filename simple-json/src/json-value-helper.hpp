@@ -18,7 +18,7 @@ void readValue(
 std::string trim() const
 {
    const std::string &str = std::get<literal>(*this);
-   size_t b = 0, e = str.size(); // begin, end
+   usize b = 0, e = str.size(); // begin, end
    while (b < e && isspace(str[b  ])) b++; // skip beginning spaces
    while (b < e && isspace(str[e-1])) e--; // skip ending spaces
    return str.substr(b,e-b);

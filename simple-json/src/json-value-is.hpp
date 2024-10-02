@@ -52,13 +52,11 @@ bool is_boolean(const bool allowLiteral = true) const
 
 template<
    class T = void,
-   class = std::enable_if_t<
-      std::is_same_v<T,void> || detail::invar<T,number::variant>
-   >
+   class = require<same<T,void> || allowed<T,number::variant>>
 >
 bool is_number(const bool allowLiteral = true) const
 {
-   if constexpr (std::is_same_v<T,void>) {
+   if constexpr (same<T,void>) {
       // *** CASE: T == void
       // *** This is the default is_number<>() call, and means the caller
       // *** is asking if this value is a "number" in a generalized sense.
@@ -68,14 +66,14 @@ bool is_number(const bool allowLiteral = true) const
       if (has<number>())
          return true;
 
-      // Does this value hold a literal whose string doesn't look viable
-      // as anything *other* than a number? (If the literal's string begins
+      // Does this value hold a literal whose contents don't look viable
+      // as anything *other* than a number? (If the literal's contents begin
       // with 'n', 't', 'f', '"', '[', or '}', then it's probably a null,
       // boolean, string, array, or object. And, in any event, it certainly
       // can't be a valid number if it begins with one of those.)
       if (allowLiteral && is_literal()) {
          const std::string s = trim();
-         // todo Recall if there was a reason we didn't allow for N, T, or F,
+         // todo: Recall if there was a reason we didn't allow for N, T, or F,
          // that is, in upper case. And why }, not {? Was there a reason?
          static const std::string other = "ntf\"[}";
          return s.size() && other.find(s[0]) == std::string::npos;
@@ -109,8 +107,8 @@ bool is_number(const bool allowLiteral = true) const
          );
       }
 
-      // Does this value hold a literal? If so, in this "T is given by
-      // the caller" case, we'll attempt to read a T from the literal's string,
+      // Does this value hold a literal? If so, in this "T is given by the
+      // caller" case, we'll attempt to read a T from the literal's contents,
       // and see if this is successful. As suggested above, in another remark:
       // is_number<T>() is probably being called as a prelude to attempting to
       // extract a T if is_number<T>() returns true. In other logical branches,

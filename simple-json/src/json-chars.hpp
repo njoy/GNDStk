@@ -12,12 +12,12 @@
 //    };
 // At the time of this writing, g++ appears to have it, but clang++ does not.
 
-template<class = SIMPLE_JSON_FLOATING>
+template<class = JSON_FLOATING>
 class chars {
    std::string str;
 
-   // SIZE here is overkill, but should certainly be adequate
-   static inline const size_t SIZE = 1000;
+   // SIZE here is overkill, but should be adequate
+   static inline const usize SIZE = 1000;
    static inline char buf[SIZE];
 
 public:
@@ -30,12 +30,7 @@ public:
    chars() { }
 
    // from float, double, or long double
-   template<
-      class T,
-      class = std::enable_if_t<
-         detail::isfloating<T> && detail::invar<T,number::variant>
-      >
-   >
+   template<class T, class = require<floating<T> && allowed<T,number::variant>>>
    chars(
       const T &from,
       const std::chars_format format = std::chars_format::general

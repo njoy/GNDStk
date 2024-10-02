@@ -1,6 +1,6 @@
 
 // operator[]: const
-inline const value &object::operator[](const string &key) const
+inline const value &object::operator[](const key &key) const
 {
    for (const pair &elem : *this)
       if (elem.first == key)
@@ -15,7 +15,7 @@ inline const value &object::operator[](const string &key) const
 // operator[]: non-const
 // Feature, not defect: referring to an element creates it, if it isn't
 // already there. Use operator[] const if you don't want this behavior.
-inline value &object::operator[](const string &key)
+inline value &object::operator[](const key &key)
 {
    for (pair &elem : *this)
       if (elem.first == key)
@@ -24,7 +24,7 @@ inline value &object::operator[](const string &key)
 }
 
 // has key
-inline bool object::has(const string &key) const
+inline bool object::has(const key &key) const
 {
    for (const pair &elem : *this)
       if (elem.first == key)

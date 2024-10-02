@@ -1,7 +1,7 @@
 
 // -----------------------------------------------------------------------------
 // literal
-// String content to be printed exactly as-is, without quotes or any processing.
+// Content to be printed exactly as-is, without quotes or any processing.
 // Special type for our API.
 // -----------------------------------------------------------------------------
 
@@ -27,9 +27,7 @@ public:
    // Assignment
    // ------------------------
 
-   template<
-      class T,
-      class = std::enable_if_t<std::is_assignable_v<std::string, T &&>>>
+   template<class T, class = require<assignable<std::string, T &&>>>
    literal &operator=(T &&from)
    {
       str = from;

@@ -1,13 +1,13 @@
 
-#ifndef SIMPLE_JSON
-#define SIMPLE_JSON
+#ifndef JSON_GUARD
+#define JSON_GUARD
 
-#ifndef SIMPLE_JSON_INTEGRAL
-#define SIMPLE_JSON_INTEGRAL int
+#ifndef JSON_INTEGRAL
+#define JSON_INTEGRAL int
 #endif
 
-#ifndef SIMPLE_JSON_FLOATING
-#define SIMPLE_JSON_FLOATING double
+#ifndef JSON_FLOATING
+#define JSON_FLOATING double
 #endif
 
 
@@ -19,6 +19,8 @@
 #include <charconv>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
+#include <exception>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
@@ -37,8 +39,9 @@
 namespace json {
 
 class string;
+using key = string;
 class value;
-using pair = std::pair<string,value>;
+using pair = std::pair<key,value>;
 
 // as_literal
 // See the read() functions in various classes. These allow for specification
@@ -56,15 +59,41 @@ namespace as_literal {
       array   = 0b00010000,
       object  = 0b00100000,
       // none/all of the above
-      none = 0b00000000,
-      all  = 0b00111111;
+      none    = 0b00000000,
+      all     = 0b00111111;
 } // namespace as_literal
 
-// See https://stackoverflow.com/questions/42797279
-using std::size_t;
+// Inline variables
+inline int  indent   = 3;
+inline bool notes    = true;
+inline bool warnings = true;
+inline bool errors   = true;
+inline bool colors   = true;
 
-// indent
-inline int indent = 3;
+// ------------------------
+// Shorthand for certain
+// std:: constructs
+// ------------------------
+
+using usize = std::size_t;
+
+template<bool B, class T = void>
+   using require = std::enable_if_t<B,T>;
+
+template<class T, class U>
+   inline constexpr bool same = std::is_same_v<T,U>;
+template<class T, class U>
+   inline constexpr bool assignable = std::is_assignable_v<T,U>;
+template<class From, class To>
+   inline constexpr bool convertible = std::is_convertible_v<From,To>;
+template<class T, class... Args>
+   inline constexpr bool constructible = std::is_constructible_v<T,Args...>;
+template<class T>
+   inline constexpr bool arithmetic = std::is_arithmetic_v<T>;
+template<class T>
+   inline constexpr bool integral = std::is_integral_v<std::decay_t<T>>;
+template<class T>
+   inline constexpr bool floating = std::is_floating_point_v<std::decay_t<T>>;
 
 
 // -----------------------------------------------------------------------------
@@ -88,7 +117,7 @@ inline int indent = 3;
 #include "json-value.hpp"
 
 // For std::to_chars() and std::from_chars(), if applicable.
-#ifdef SIMPLE_JSON_CHARS
+#ifdef JSON_CHARS
 #include "json-chars.hpp"
 #endif
 
@@ -114,22 +143,22 @@ inline int indent = 3;
 // in the relevant classes.
 // -----------------------------------------------------------------------------
 
-#define SIMPLE_JSON_IO(type) \
+#define JSON_IO(type) \
    inline std::istream &operator>>(std::istream &is, type &j) \
-      { j.read<SIMPLE_JSON_INTEGRAL,SIMPLE_JSON_FLOATING>(is); return is; } \
+      { j.read<JSON_INTEGRAL,JSON_FLOATING>(is); return is; } \
    inline std::ostream &operator<<(std::ostream &os, const type &j) \
       { j.write(os); return os; }
 
-   SIMPLE_JSON_IO(null)
-   SIMPLE_JSON_IO(boolean)
-   SIMPLE_JSON_IO(number)
-   SIMPLE_JSON_IO(string)
-   SIMPLE_JSON_IO(array)
-   SIMPLE_JSON_IO(object)
-   SIMPLE_JSON_IO(literal)
-   SIMPLE_JSON_IO(value)
+   JSON_IO(null)
+   JSON_IO(boolean)
+   JSON_IO(number)
+   JSON_IO(string)
+   JSON_IO(array)
+   JSON_IO(object)
+   JSON_IO(literal)
+   JSON_IO(value)
 
-#undef SIMPLE_JSON_IO
+#undef JSON_IO
 
 } // namespace json
 #endif

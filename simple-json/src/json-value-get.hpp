@@ -6,14 +6,11 @@
 // const
 template<
    class T,
-   class = std::enable_if_t<
-      detail::invar<T,variant> ||
-      detail::invar<T,number::variant>
-   >
+   class = require<allowed<T,variant> || allowed<T,number::variant>>
 >
 const T &get() const
 {
-   if constexpr (detail::invar<T,variant>)
+   if constexpr (allowed<T,variant>)
       return std::get<T>(*this);
    else
       return get<number>().get<T>();

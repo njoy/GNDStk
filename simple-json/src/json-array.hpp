@@ -19,7 +19,7 @@ public:
    array(vector &&from) : vector(std::move(from)) { }
 
    // constructor: from std::vector<T convertible to value>
-   template<class T, class = std::enable_if_t<std::is_convertible_v<T,value>>>
+   template<class T, class = require<convertible<T,value>>>
    array(const std::vector<T> &from) :
       vector(from.begin(), from.end())
    { }
@@ -28,9 +28,7 @@ public:
    // Assignment
    // ------------------------
 
-   template<
-      class T,
-      class = std::enable_if_t<std::is_assignable_v<vector, T &&>>>
+   template<class T, class = require<assignable<vector, T &&>>>
    array &operator=(T &&from)
    {
       vector::operator=(std::forward<T>(from));
@@ -42,7 +40,7 @@ public:
    // ------------------------
 
    template<class T = void, class U = void>
-   auto read(std::istream &is, const int = as_literal::none)
+   auto /* std::string */ read(std::istream &is, const int = as_literal::none)
       -> decltype(number().read<T,U>(is,0)); // SFINAE: need number::read<T,U>
 
    void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
