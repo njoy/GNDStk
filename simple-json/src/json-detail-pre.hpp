@@ -1,8 +1,4 @@
 
-// -----------------------------------------------------------------------------
-// Classes
-// -----------------------------------------------------------------------------
-
 namespace detail {
 
 // inVariant
@@ -16,150 +12,24 @@ struct inVariant<T,std::variant<As...>>
    static inline constexpr int count = (same<T,As> + ...);
 };
 
-// variant2tuple
-template<class>
-struct variant2tuple { };
+// Re: printing
+class SHAPE { }; // ==> print types only
+class WRITE { }; // ==> print values; essentially regular JSON
+class DEBUG { }; // ==> print both; probably for debugging
 
-template<class... As>
-struct variant2tuple<std::variant<As...>> { using type = std::tuple<As...>; };
-
-
-// -----------------------------------------------------------------------------
-// Small functions
-// -----------------------------------------------------------------------------
-
-// prefix
-inline void prefix(
-   std::ostream &os, const char ch
-) {
-   os << std::setw(0) << ch;
-}
-
-// inside
-inline void inside(
-   std::ostream &os, const char ch, // ch is always a ',' separator, for now
-   const int indentNSpaces, const int indentLevel, bool &first
-) {
-   const std::string spaces(indentNSpaces*indentLevel, ' ');
-   first
-      ? indentNSpaces ? (os       << '\n' << spaces) : (os      )
-      : indentNSpaces ? (os << ch << '\n' << spaces) : (os << ch);
-   first = false;
-}
-
-// suffix
-inline void suffix(
-   std::ostream &os, const char ch,
-   const int indentNSpaces, const int indentLevel, const bool first
-) {
-   const std::string spaces(indentNSpaces*indentLevel, ' ');
-   first
-      ? indentNSpaces ? (os                   << ch) : (os << ch)
-      : indentNSpaces ? (os << '\n' << spaces << ch) : (os << ch);
-}
-
-// token
-// First, skip whitespace. Then, read and return a token. Depending on the
-// template argument, the token must consist of either (1) alpha characters
-// only, or (2) alphanumeric characters, '.', '-', or '+'.
-template<bool justAlpha> // <== alpha characters only
-inline std::string token(std::istream &is, const std::string &context)
-{
-   std::string result; int ch;
-   is >> std::ws;
-
-   if constexpr (justAlpha)
-      while (isalpha(is.peek()))
-         result += char(is.get());
-   else
-      while ((isalnum(ch = is.peek()) || ch == '.' || ch == '-' || ch == '+'))
-         result += char(is.get());
-
-   if (result.empty()) {
-      const std::string found = "Found " + ((ch = is.get()) == EOF
-         ? "EOF" : "'" + std::string(1,ch) + "'") + "... instead.";
-      const std::string expected = context + "Expected a token consisting of ";
-      justAlpha
-       ? error(expected + "alphabetic characters.\n" + found, is)
-       : error(expected + "alphanumeric characters, ., -, or +.\n" + found, is);
-   }
-   return result;
-}
-
-// expect
-inline void expect(std::istream &is, const int want, const std::string &context)
-{
-   const int ch = (is >> std::ws).get();
-   if (ch != want) {
-      const std::string got = ch == EOF ? "EOF" : "'" + std::string(1,ch) + "'";
-      warning(context + "Expected the character '" + char(want) + "'.\nFound " +
-              got + " instead.\nWe'll pretend we saw a '" + char(want) + "' "
-             "before the " + got + ", but further problems could arise.", is);
-      is.unget();
-   }
-}
-
-// nocasecmp
-// Case-insensitive std::string comparison.
-// The old C language strcasecmp() is nonstandard. A modern, true caseless
-// std::string comparison would depend on, e.g., locale; but the following
-// should suffice for our purposes.
-inline bool nocasecmp(const std::string &one, const std::string &two)
-{
-   return std::equal(
-      one.begin(), one.end(),
-      two.begin(), two.end(),
-      [](const char a, const char b) { return tolower(a) == tolower(b); }
-   );
-}
-
-// many: forward declaration
-template<class T, class U, class ELEMENT>
-std::string many(
-   std::vector<ELEMENT> &vec, std::istream &is,
-   const int litFlags, const int as,
-   const int prefix, const int suffix, const std::string &context
-);
-
-
-// -----------------------------------------------------------------------------
-// readableAs<T>(std::string,target)
-// -----------------------------------------------------------------------------
-
-// Are the std::string's contents *completely* readable as a T? (For example,
-// "123" is readable as an int, among other things. However, "123foo" is not.
-// Neither is, for example, 3.1415927, which in other interpretations might read
-// as the int 3.) If so, then the so-read value will be placed into target. Note
-// that we allow target to be of a different type than T. In some calls it is;
-// in others, TARGET is (derived from) a std::variant with T as an alternative.
-// This is why we have both T and TARGET.
-template<class T, class TARGET>
-bool readableAs(const std::string &str, TARGET &target)
-{
-   if constexpr (same<T,int>) {
-      usize idx;
-      try { target = std::stoi(str,&idx); } catch (...) { return false; }
-      while (isspace(str.data()[idx])) ++idx;
-      return str.data()[idx] == '\0';
-   } else if constexpr (floating<T>) {
-      char *end; using quad = long double;
-      if constexpr (same<T,float >) target = strtof (str.data(),&end);
-      if constexpr (same<T,double>) target = strtod (str.data(),&end);
-      if constexpr (same<T,quad  >) target = strtold(str.data(),&end);
-      if (end == str.data()) return false; // no conversion performed
-      while (isspace(*end)) ++end; // whitespace is fine at the end...
-      return *end == '\0'; // ...but only whitespace, nothing else, before \0
-   } else {
-      // Can we successfully read a T, with nothing of substance remaining?
-      // The second condition means e.g. that "3.1415927" wouldn't pass as
-      // an int merely because >> by itself would get 3.
-      std::istringstream iss(str);
-      T t;
-      return iss >> t >> std::ws && iss.get() == EOF ? (target=t,true) : false;
-   }
-}
+#define JSON_IO(type) \
+   template<class ACTION> \
+   void print(std::ostream &os, const int level) const; \
+   std::ostream &shape(std::ostream &os = std::cout) const \
+      { return print<detail::SHAPE>(os,0), os; } \
+   std::ostream &write(std::ostream &os = std::cout) const \
+      { return print<detail::WRITE>(os,0), os; } \
+   std::ostream &debug(std::ostream &os = std::cout) const \
+      { return print<detail::DEBUG>(os,0), os; } \
+   friend std::ostream &operator<<(std::ostream &os, const type &j) \
+      { return j.write(os); } \
+   template<class T = JSON_INTEGRAL, class U = JSON_FLOATING, \
+            class = require<number::types<T,U>::compatible>> \
+   literal read(std::istream &is, const unsigned flags = 0)
 
 } // namespace detail
-
-template<class T, class VARIANT>
-inline constexpr bool allowed = detail::inVariant<T,VARIANT>::count;

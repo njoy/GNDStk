@@ -15,7 +15,8 @@
          "string": "ab",
          "strings": "cd ef gh ij"
       },
-      "bar": {},
+      "bar": {
+      },
       "double": {
          "#metadata": {
             "remark": "one double"
@@ -227,7 +228,8 @@
                ]
             }
          },
-         "regularElement": {}
+         "regularElement": {
+         }
       }
    }
 }

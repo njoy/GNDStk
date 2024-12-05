@@ -6,6 +6,7 @@
 
 class array : public std::vector<value> {
 public:
+   JSON_IO(array);
 
    // ------------------------
    // Construction
@@ -18,7 +19,7 @@ public:
    array(const vector &from) : vector(from) { }
    array(vector &&from) : vector(std::move(from)) { }
 
-   // constructor: from std::vector<T convertible to value>
+   // from std::vector<T convertible to value>
    template<class T, class = require<convertible<T,value>>>
    array(const std::vector<T> &from) :
       vector(from.begin(), from.end())
@@ -31,17 +32,14 @@ public:
    template<class T, class = require<assignable<vector, T &&>>>
    array &operator=(T &&from)
    {
-      vector::operator=(std::forward<T>(from));
-      return *this;
+      return vector::operator=(std::forward<T>(from)), *this;
    }
 
    // ------------------------
-   // read, write
+   // Other
    // ------------------------
 
-   template<class T = void, class U = void>
-   auto /* std::string */ read(std::istream &is, const int = as_literal::none)
-      -> decltype(number().read<T,U>(is,0)); // SFINAE: need number::read<T,U>
-
-   void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
+   // values
+   const std::vector<value> &values() const { return *this; }
+   std::vector<value> &values() { return *this; }
 };

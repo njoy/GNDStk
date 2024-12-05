@@ -138,8 +138,10 @@ std::string replace(const std::string &str, const char from, const char to)
 // Stringify JSON
 std::string stringify(const json::value &j)
 {
-   const std::string tmp = j.dump();
-   return j.has<json::string>()
+   std::ostringstream oss;
+   j.write(oss);
+   const std::string tmp = oss.str();
+   return j.holds<json::string>()
       ? tmp.substr(1, tmp.size()-2)
       : tmp;
 }
@@ -235,8 +237,8 @@ const std::string &nameGNDS(
    // As-is, directly as stipulated in the key in the JSON spec, except
    // that we allow a "name" entry in the key's value to override the key.
    return keyval.second.has("name")
-      ? keyval.second["name"].get<json::string>()
-      : keyval.first;
+      ? (std::string &)keyval.second["name"].get<json::string>()
+      : (std::string &)keyval.first;
 }
 
 // nameField
@@ -376,7 +378,7 @@ void getClassMetadata(
    for (const auto &field : j) {
       if (beginsin(field.first, "//"))
          continue;
-      if (!field.second.has<json::object>())
+      if (!field.second.holds<json::object>())
          continue;
       const json::object &metaRHS = field.second.get<json::object>();
 
@@ -395,7 +397,7 @@ void getClassMetadata(
 
       // Has default?
       m.defaultValue = "";
-      if (metaRHS.has("default") && !metaRHS["default"].is_null()) {
+      if (metaRHS.has("default") && !metaRHS["default"].holds<json::null>()) {
          m.defaultValue = stringify(metaRHS["default"]);
          // Apply the "changes.json" change, if any, to the given value
          const auto it = specs.mapMetaDefault.find(m.defaultValue);
@@ -452,7 +454,7 @@ void getClassChildren(
    for (const auto &field : j) {
       if (beginsin(field.first, "//"))
          continue;
-      if (!field.second.has<json::object>())
+      if (!field.second.holds<json::object>())
          continue;
       const json::object &elemRHS = field.second.get<json::object>();
 
@@ -549,7 +551,7 @@ void getClassVariants(
          continue;
 
       // Is it a choice child?
-      if (!field.second.has<json::object>())
+      if (!field.second.holds<json::object>())
          continue;
       const json::object &elemRHS = field.second.get<json::object>();
       const std::string &times = getTimes(per,field.first,elemRHS);
@@ -569,7 +571,7 @@ void getClassVariants(
          continue;
 
       // Is it a choice child?
-      if (!field.second.has<json::object>())
+      if (!field.second.holds<json::object>())
          continue;
       const json::object &elemRHS = field.second.get<json::object>();
       const std::string &times = getTimes(per,field.first,elemRHS);
@@ -712,7 +714,7 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
 
    // Changes to name?
    if (jchanges.has("name"))
-      for (const auto &item : jchanges["name"].items())
+      for (const auto &item : jchanges["name"].pairs())
          if (!isComment(item.first))
             specs.mapName.insert(
                pair(item.first, item.second.get<json::string>())
@@ -723,14 +725,14 @@ void readChangesFile(const std::string &file, InfoSpecs &specs)
 
    // from/to pairs for "type"
    if (metadata.has("type"))
-      for (const auto &item : metadata["type"].items())
+      for (const auto &item : metadata["type"].pairs())
          if (!isComment(item.first))
             specs.mapMetaType.insert(
                pair(item.first,item.second.get<json::string>())
             );
    // from/to pairs for "default"
    if (metadata.has("default"))
-      for (const auto &item : metadata["default"].items())
+      for (const auto &item : metadata["default"].pairs())
          if (!isComment(item.first))
             specs.mapMetaDefault.insert(
                pair(item.first,item.second.get<json::string>())
@@ -749,7 +751,7 @@ void printSingletons(const std::string &file)
    for (const auto &item : jfile) {
       if (beginsin(item.first, "//"))
          continue;
-      if (!item.second.has<json::object>())
+      if (!item.second.holds<json::object>())
          continue;
       const json::object &rhs = item.second.get<json::object>();
 
@@ -757,9 +759,9 @@ void printSingletons(const std::string &file)
          continue;
 
       const bool hasdata =
-         (rhs.has("string"  ) && !rhs["string"  ].is_null()) ||
-         (rhs.has("vector"  ) && !rhs["vector"  ].is_null()) ||
-         (rhs.has("bodyText") && !rhs["bodyText"].is_null());
+         (rhs.has("string"  ) && !rhs["string"  ].holds<json::null>()) ||
+         (rhs.has("vector"  ) && !rhs["vector"  ].holds<json::null>()) ||
+         (rhs.has("bodyText") && !rhs["bodyText"].holds<json::null>());
 
       const json::object metadata = getMetadataJSON(rhs);
       const json::object children = getChildrenJSON(rhs);
@@ -1114,9 +1116,9 @@ void getClass(
 
    // data-node information
    const bool
-      str  = classRHS.has("string"  ) && !classRHS["string"  ].is_null(),
-      vec  = classRHS.has("vector"  ) && !classRHS["vector"  ].is_null(),
-      body = classRHS.has("bodyText") && !classRHS["bodyText"].is_null();
+      str  = classRHS.has("string"  ) && !classRHS["string"  ].holds<json::null>(),
+      vec  = classRHS.has("vector"  ) && !classRHS["vector"  ].holds<json::null>(),
+      body = classRHS.has("bodyText") && !classRHS["bodyText"].holds<json::null>();
    assert(int(str) + int(vec) + int(body) <= 1); // no more than one
 
    per.isDataString = str;

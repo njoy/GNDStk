@@ -32,8 +32,8 @@ inline std::string json_array(const json::array &array)
       // because json::string has its own operator<< that prints the string
       // in the JSON manner - with delimiting quotes. For our purposes here,
       // we need the string printed as std::string does - without quotes.
-      element.is_number() ? (oss << element.get<json::number>())
-    : element.is_string() ? (oss << std::string(element.get<json::string>()))
+      element.holds<json::number>() ? (oss << element.get<json::number>())
+    : element.holds<json::string>() ? (oss << std::string(element.get<json::string>()))
     : // unexpected element type
      (json2node_error("JSON array element is of unexpected type"), oss);
    }
@@ -51,12 +51,12 @@ void json_pair(
    const std::string &key, const json::value &val,
    const json::object &peers, NODE &node
 ) {
-   if (val.is_null()) {
+   if (val.holds<json::null>()) {
       // null; nothing to do
-   } else if (val.is_boolean()) {
+   } else if (val.holds<json::boolean>()) {
       // boolean
       node.add(key, val.get<json::boolean>() ? "true" : "false");
-   } else if (val.is_number()) {
+   } else if (val.holds<json::number>()) {
       // number
       std::visit(
          [&node,&key](auto &&alt)
@@ -65,10 +65,10 @@ void json_pair(
          },
          json::number::variant(val.get<json::number>())
       );
-   } else if (val.is_string()) {
+   } else if (val.holds<json::string>()) {
       // string
       node.add(key, val.get<json::string>());
-   } else if (val.is_array()) {
+   } else if (val.holds<json::array>()) {
       // array
       if (peers.size() == 0) {
          // context is such that it's metadata
@@ -80,12 +80,12 @@ void json_pair(
             if (peer.first == key + special::nodename)
                node.name = peer.second.get<json::string>();
             if (peer.first == key + special::metadata) {
-               for (const auto &m : peer.second.items())
+               for (const auto &m : peer.second.pairs())
                   json_pair(m.first, m.second, json::object{}, node);
             }
          }
       }
-   } else if (val.is_object()) {
+   } else if (val.holds<json::object>()) {
       // object
       try {
          json2node(val.get<json::object>(),node);
@@ -134,7 +134,7 @@ void json2node(const json::object &object, NODE &node, bool inferNodeName)
          inferNodeName = false;
       } else if (key == special::metadata) {
          // Special key: metadata
-         for (const auto &m : val.items())
+         for (const auto &m : val.pairs())
             json_pair(m.first, m.second, json::object{}, node);
       } else if (
          beginsin(key,special::cdata) ||
@@ -142,7 +142,7 @@ void json2node(const json::object &object, NODE &node, bool inferNodeName)
          beginsin(key,special::data)
       ) {
          // Special key: cdata, comment, or data, with optional suffix
-         if (val.is_object()) {
+         if (val.holds<json::object>()) {
             try {
                json2node(val.get<json::object>(), node.add(key));
             } catch (...) {

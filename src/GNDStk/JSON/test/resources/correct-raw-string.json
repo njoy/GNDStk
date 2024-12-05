@@ -8,7 +8,8 @@
          "string": "ab",
          "strings": "cd ef gh ij"
       },
-      "bar": {},
+      "bar": {
+      },
       "double": {
          "#metadata": {
             "remark": "one double"
@@ -174,7 +175,8 @@
                "#text": "a b c d e f g"
             }
          },
-         "regularElement": {}
+         "regularElement": {
+         }
       }
    }
 }

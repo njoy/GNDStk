@@ -19,7 +19,8 @@ R"***(<?xml version="1.0"?>)***";
 
 // json
 static const std::string string_empty_json =
-R"***({})***";
+R"***({
+})***";
 
 
 
@@ -281,12 +282,12 @@ SCENARIO("Testing GNDStk tree write() and operator<<") {
       // FileType::json
 #ifndef NJOY_GNDSTK_DISABLE_JSON
       WHEN("We write() the empty tree using FileType::json") {
-         THEN("We get JSON \"(null)\" only (case: FileType::json)") {
+         THEN("We get JSON {} only (case: FileType::json)") {
             std::ostringstream oss;
             tree.write(oss, FileType::json);
             CHECK(oss.str() == string_empty_json);
          }
-         THEN("We get JSON \"(null)\" only (case: \"json\")") {
+         THEN("We get JSON {} only (case: \"json\")") {
             std::ostringstream oss;
             tree.write(oss, "json");
             CHECK(oss.str() == string_empty_json);

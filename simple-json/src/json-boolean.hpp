@@ -8,6 +8,7 @@ class boolean {
    bool b;
 
 public:
+   JSON_IO(boolean);
 
    // ------------------------
    // Construction
@@ -26,14 +27,5 @@ public:
 
    // to bool
    operator const bool &() const { return b; }
-   operator       bool &()       { return b; }
-
-   // ------------------------
-   // read, write
-   // ------------------------
-
-   template<class T = void, class U = void>
-   std::string read(std::istream &, const int = as_literal::none);
-
-   void write(std::ostream & = std::cout, const int = 0, const int = -1) const;
+   operator bool &() { return b; }
 };
