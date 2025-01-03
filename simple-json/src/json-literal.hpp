@@ -21,10 +21,10 @@ public:
    // isn't meaningful for these purposes. Note that these are given directly
    // as unsigned ints (not, say, as enumerator values); their expected use is
    // in bitwise operations. Remark: These are not, in any particular respect,
-   // tightly associated with this literal class. Their purpose, however, like
-   // the purpose of this class, is to support our ability to handle literal
-   // JSON content. Placing them here (not, say, in a namespace with a similar
-   // but different name) seems reasonable, and helps avoid name clutter.
+   // tightly associated with the functionality of this literal class. Their
+   // purpose, however, like that of this class, is to support our ability to
+   // handle literal JSON content. Placing them here (not, say, in a namespace
+   // with a similar but different name) helps us to avoid name clutter.
    static inline constexpr unsigned
       // standard JSON types
       null    = 0b0000001,
@@ -47,16 +47,16 @@ public:
    literal() { }
 
    // from std::string
-   // Explicit, so that std::string prefers our string's constructor, not
-   // our literal's. We want to get literal only when it's explicitly wanted.
-   explicit literal(const std::string &from) : str(from) { }
+   // Explicit, so that std::string prefers json::string's constructor, not
+   // json::literal's. We want to get literal only when it's explicitly wanted.
+   explicit literal(const std::string &s) : str(s) { }
 
    // ------------------------
    // Assignment
    // ------------------------
 
-   template<class T, class = require<assignable<std::string, T &&>>>
-   literal &operator=(T &&from)
+   template<class FROM, class = require<assignable<std::string, FROM &&>>>
+   literal &operator=(FROM &&from)
    {
       return str = from, *this;
    }

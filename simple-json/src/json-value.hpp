@@ -1,18 +1,21 @@
 
 // -----------------------------------------------------------------------------
 // value
-// As in, the "value" of a JSON "key:value" pair. This will be an instance
+// As in, the value of a JSON key:value pair. This will be an instance
 // of a JSON standard type, or of our special literal type.
 // -----------------------------------------------------------------------------
 
-class value
- : public std::variant<
-      // JSON standard types
-      null, boolean, number, string, array, object,
-      // our type
-      literal
-   >
-{
+class value : public std::variant<
+   // JSON standard types
+   atom<null>,
+   atom<boolean>,
+   atom<number>,
+   atom<string>,
+   atom<array>,
+   atom<object>,
+   // our type
+   atom<literal>
+> {
    // ------------------------
    // Helper constructs
    // ------------------------
@@ -30,7 +33,7 @@ class value
       } else {
          // This value <== a JCLASS
          // read variant (= JCLASS()) in-place for efficiency
-         text = (*this=JCLASS(), get<JCLASS>()).template read<T,U>(is,flags);
+         text = (*this = JCLASS(), get<JCLASS>()).template read<T,U>(is,flags);
       }
       return literal(flags & literal::self ? text : "");
    }
@@ -55,9 +58,9 @@ public:
    // default (override inherited, because we want to select object)
    value() : variant(object()) { }
 
-   // from instance of base class
-   value(const variant &from) : variant(from) { }
-   value(variant &&from) : variant(std::move(from)) { }
+   // from std::variant<...> (instance of base class)
+   value(const variant &base) : variant(base) { }
+   value(variant &&base) : variant(std::move(base)) { }
 
    // from std::nullptr_t
    // from bool
@@ -68,14 +71,29 @@ public:
    value(const std::initializer_list<value> &from) : variant(array(from)) { }
    value(const std::initializer_list<pair> &from) : variant(object(from)) { }
 
+   // The following is necessary for correct handling of parameters (in terms
+   // of what kinds of values they produce) when atom<T> != T. If atom<T> == T,
+   // then this is unnecessary but harmless.
+   template<
+      class T,
+      class = require<invar<T,number::variant> || constructible<string,T>>
+   >
+   value(const T &from)
+   {
+      if constexpr (invar<T,number::variant>)
+         *this = number(from);
+      else
+         *this = string(from);
+   }
+
    // ------------------------
    // Assignment
    // ------------------------
 
-   template<class T, class = require<assignable<variant, T &&>>>
-   value &operator=(T &&from)
+   template<class FROM, class = require<assignable<variant, FROM &&>>>
+   value &operator=(FROM &&from)
    {
-      return variant::operator=(std::forward<T>(from)), *this;
+      return variant::operator=(std::forward<FROM>(from)), *this;
    }
 
    // ------------------------
@@ -83,7 +101,7 @@ public:
    // ------------------------
 
    // Remark: A question arises about how to handle conversion of json::value
-   // to bool (not to json::boolean, that is, but to C++ bool.) I.e., what do
+   // to bool (not to json::boolean, that is, but to C++ bool). I.e., what do
    // we do with bool(v), for a json::value v? If we assume *this is a number,
    // we can use number's conversion operator. It returns by value, for maximum
    // usability. If we assume *this is a boolean, we can return a const or non-
@@ -146,7 +164,7 @@ public:
    // all have operator[]s:
    //    - array has [index] through its vector<value> base.
    //    - object has [index] through its vector<key:value pair> base,
-   //         but also has [key] to support lookup by key.
+   //      AND also has [key] to support lookup by key.
    //    - value allows [index] or [key], as defined below.
    // Consider the relevant return types for array and object's operator[]s:
    //    array [index] ==> value
@@ -183,7 +201,7 @@ public:
    template<class T, class = require<integral<T> || constructible<key,T>>>
    value &operator[](const T &t)
    {
-      // We define this directly, as written below, instead of doing:
+      // We must define this directly, as written below, instead of doing:
       //    return const_cast<value &>(std::as_const(*this).operator[](t));
       // because of the subtle difference between object's const and non-const
       // versions. See the "feature, not defect" remark for object::operator[].
@@ -197,8 +215,8 @@ public:
    // Other
    // ------------------------
 
-   // values; assumes this value is an array
-   // pairs (key:value pairs); assumes this value is an object
+   // values; assumes *this holds an array
+   // pairs (key:value pairs); assumes *this holds an object
    const std::vector<value> &values() const { return get<array>(); }
    std::vector<value> &values() { return get<array>(); }
    const std::vector<pair> &pairs() const { return get<object>(); }
@@ -216,7 +234,7 @@ public:
    require<invar<T,variant> || invar<T,number::variant>, bool> holds() const
    {
       if constexpr (invar<T,variant>)
-         return std::holds_alternative<T>(*this);
+         return std::holds_alternative<atom<T>>(*this);
       else
          return holds<number>() && get<number>().holds<T>();
    }
@@ -226,7 +244,7 @@ public:
    require<invar<T,variant> || invar<T,number::variant>, const T &> get() const
    {
       if constexpr (invar<T,variant>)
-         return std::get<T>(*this);
+         return std::get<atom<T>>(*this);
       else
          return get<number>().get<T>();
    }

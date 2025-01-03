@@ -29,10 +29,10 @@ namespace color {
    inline const std::string cerulean = rgb(  30, 170, 215 );
    inline const std::string cyan     = rgb(  80, 250, 250 );
 
-   // colors/decorations off
+   // all colors/decorations off
    inline const std::string reset = "\033[0m";
 
-   // for JSON content, if colors == true; user changeable (not const)
+   // for JSON content when colors == true; user changeable (not const)
    inline std::string key     = green;
    inline std::string null    = orange;
    inline std::string boolean = white;
@@ -48,7 +48,7 @@ inline void error(const std::string &msg, std::istream *const is = nullptr);
 
 
 // -----------------------------------------------------------------------------
-// diagnostic
+// detail::diagnostic
 // -----------------------------------------------------------------------------
 
 namespace detail {

@@ -4,7 +4,7 @@
 // In JSON: lower-case null.
 // -----------------------------------------------------------------------------
 
-// Remark.
+// Remark:
 //
 // In one of class null's constructors, and in some of the constructors in some
 // of our other classes, we have what may seem at first to be an unnecessary or
@@ -19,14 +19,11 @@
 //
 // We do this because the first form forces an initializer to have *exactly* the
 // given type, not just to be convertible to that type. Why not convertibility?
-// It turns out that our primary "JSON value" class, value, will make use of a
-// std::variant to contain an instance of any of our individual JSON types:
-//
-//    std::variant<null, boolean, number, ...>
-//
-// Construction would be ambiguous if a parameter could be converted to what's
-// needed in the constructor of more than one of the variant's alternatives.
-// Requiring exact matches in selected cases helps us prevent such ambiguities.
+// It turns out that our primary "JSON value" class, json::value, will make use
+// of a std::variant to contain an instance of any of our individual JSON types.
+// Construction would be ambiguous if a parameter could be converted to what is
+// needed in the constructor of more than one of the variant's alternatives. By
+// requiring an exact match in selected cases, we prevent such ambiguities.
 
 class null {
 public:
@@ -40,8 +37,8 @@ public:
    null() { }
 
    // from std::nullptr_t (exactly)
-   template<class T, class = require<same<T,std::nullptr_t>>>
-   null(const T &) { }
+   template<class NULLPTR, class = require<same<NULLPTR,std::nullptr_t>>>
+   null(const NULLPTR &) { }
 
    // ------------------------
    // Conversion

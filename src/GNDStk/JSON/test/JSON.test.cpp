@@ -16,7 +16,7 @@ static const std::string string_real_json =
 R"***({
    "covarianceSuite": {
       "#metadata": {
-         "evaluation": "ENDF/B-8.0",
+         "evaluation": "ENDF\/B-8.0",
          "format": "1.9",
          "projectile": "n",
          "target": "Tm170"
@@ -55,7 +55,7 @@ R"***({
                "parameters": {
                   "parameterLink": {
                      "#metadata": {
-                        "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']/resonanceParameters/table",
+                        "href": "$reactions#\/reactionSuite\/resonances\/resolved\/BreitWigner[@label='eval']\/resonanceParameters\/table",
                         "label": "resonanceParameters",
                         "nParameters": "78"
                      }
@@ -64,7 +64,7 @@ R"***({
             },
             "rowData": {
                "#metadata": {
-                  "href": "$reactions#/reactionSuite/resonances/resolved/BreitWigner[@label='eval']"
+                  "href": "$reactions#\/reactionSuite\/resonances\/resolved\/BreitWigner[@label='eval']"
                }
             }
          }
@@ -74,7 +74,7 @@ R"***({
             "#metadata": {
                "date": "2011-10-01",
                "label": "eval",
-               "library": "ENDF/B",
+               "library": "ENDF\/B",
                "version": "8.0.1"
             },
             "projectileEnergyDomain": {

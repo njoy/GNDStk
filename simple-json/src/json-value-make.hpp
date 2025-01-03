@@ -12,7 +12,7 @@
 // that situation. We decided, however, not to suppress read()'s diagnostics.
 // Notice that we do check for "reasonableness" first; for example, if we'll
 // be trying to read a boolean from the literal, we check first that the
-// literal begins with 'n' or 'N'. json::literals are intended, after all,
+// literal begins with 't' or 'f'. json::literals are intended, after all,
 // to contain valid JSON content, even if they're also sufficiently flexible
 // to contain general gibberish. With this in mind, if OUT is one of the types
 // below, and the literal seems to begin reasonably, then calling out content
@@ -53,8 +53,8 @@ bool value::make(OUT &to, const bool allowLiteral) const
 
    // At this point, invar<OUT,variant> || invar<OUT,number::variant>
 
-   // If OUT \in {null,boolean,number,string,array,object} AND literal applies.
-   // Attempt to read(), as long as the literal initially looks reasonable.
+   // If OUT \in {null,boolean,number,string,array,object} AND literal applies,
+   // then attempt to read() as long as the literal initially looks reasonable.
    if constexpr (invar<OUT,variant>) {
       if (holds<literal>() && allowLiteral) {
          char c = '\0';
@@ -68,7 +68,7 @@ bool value::make(OUT &to, const bool allowLiteral) const
              (same<OUT,array  > && (c == '[')) ||
              (same<OUT,object > && (c == '{'))) {
             try {
-               // zzz This works, but I think it also allows trailing
+               // todo This works, but I think it also allows trailing
                // non-whitespace, unlike readableAs(). Think about this.
                return to.read(std::istringstream(get<literal>())), true;
             } catch (...) { }

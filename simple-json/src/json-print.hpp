@@ -33,14 +33,15 @@ void number::print(std::ostream &os, const int level) const
    std::string str;
    if constexpr (!same<ACTION,detail::SHAPE>)
       std::visit(
-         [&os,&str](auto &alt)
+         [&os,&str](const auto &alt)
          {
+            using T = detail::base<std::decay_t<decltype(alt)>>;
             #ifdef JSON_CHARS
-               str = chars(alt);
+               (void)os; // suppress compiler warnings that os is unused
+               str = chars(static_cast<const T &>(alt));
             #else
-               using T = std::decay_t<decltype(alt)>;
                if constexpr (integral<T>)
-                  str = chars(alt);
+                  str = chars(static_cast<const T &>(alt));
                else {
                   std::ostringstream oss;
                   oss << std::setw(os.width()) << alt;
@@ -58,19 +59,26 @@ void number::print(std::ostream &os, const int level) const
 // key
 // ------------------------
 
+// Remark: JSON allows forward slashes, /, to be escaped, but does not require
+// them to be. See, for example, the following discussion:
+//    https://stackoverflow.com/questions/1580647
+// We'll escape them by default, but allow users to switch off this behavior by
+// setting the global bool json::forward to false. That flag defaults to true,
+// except if JSON_UNESCAPED_SLASHES is #defined prior to #including json.hpp. A
+// #define JSON_UNESCAPED_SLASHES is thus another way to prevent escaping of \.
+//
+// As for single quotes: in read(), we *accepted* escaped single quotes. Doing
+// so allowed us to read input strings that were delimited by single quotes,
+// even though double quotes are the JSON standard. Now, however, we're writing,
+// not reading, and we delimit JSON strings correctly: with double quotes. We
+// thus have no need here to escape single quotes.
+
 template<bool b>
 template<class ACTION>
 void String<b>::print(std::ostream &os, const int level) const
 {
    std::string str;
    if constexpr (!same<ACTION,detail::SHAPE>) {
-      // We won't escape forward slashes; JSON doesn't require this. See:
-      //    https://stackoverflow.com/questions/1580647
-      // As for single quotes: in read(), we *accepted* escaped single quotes.
-      // Doing so allowed us to read input strings that were delimited by single
-      // quotes, even though double quotes are the JSON standard. Now, however,
-      // we're writing, not reading, and we delimit JSON strings correctly: with
-      // double quotes. We thus have no need here to escape single quotes.
       str += '"';
       for (const char ch : *this) {
          // contents
@@ -81,8 +89,9 @@ void String<b>::print(std::ostream &os, const int level) const
          ch == '\n' ? str += "\\n"  :
          ch == '\r' ? str += "\\r"  :
          ch == '\t' ? str += "\\t"  :
+         ch == '/' && forward ? str += "\\/" :
          str += ch;
-         // Other escapes aren't supported yet; see remarks in string's read().
+         // todo There's more to do regarding unprintable chars, \u output, etc.
       }
       str += '"';
    }
@@ -158,7 +167,8 @@ void value::print(std::ostream &os, const int level) const
    std::visit(
       [&os,level](const auto &alt)
       {
-         alt.template print<ACTION>(os,level);
+         using T = detail::base<std::decay_t<decltype(alt)>>;
+         static_cast<const T &>(alt).template print<ACTION>(os,level);
       },
       static_cast<const variant &>(*this)
    );

@@ -21,6 +21,7 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <memory>
 #include <sstream>
 #include <stdexcept>
 #include <string>
@@ -37,8 +38,16 @@
 namespace json {
 
 // Variables: for JSON content
-inline int  indent = 3;
-inline bool colors = false;
+// Regarding json::forward, see:
+// https://stackoverflow.com/questions/1580647
+inline int  indent  = 3;
+inline bool colors  = false;
+inline bool forward =
+#ifdef JSON_UNESCAPED_SLASHES
+   false; // if a user wants us to *not* escape forward slashes, /
+#else
+   true;  // by default, we escape forward slashes in JSON strings
+#endif
 
 // Variables: for diagnostics on/off
 inline bool notes    = true;
@@ -51,7 +60,7 @@ namespace diagnostics {
    inline bool colors = true;
 }
 
-// Variables: for floating point to_chars
+// Variables: for floating point to_chars()
 #ifdef JSON_CHARS
    inline constexpr std::chars_format fixed      = std::chars_format::fixed;
    inline constexpr std::chars_format scientific = std::chars_format::scientific;
@@ -71,7 +80,7 @@ using pair = std::pair<key,value>;
 // std:: constructs
 // ------------------------
 
-// Alias for the ever-important std::enable_if_t.
+// Alias for std::enable_if_t.
 template<bool B, class T = void>
    using require = std::enable_if_t<B,T>;
 
@@ -100,8 +109,9 @@ using std::size_t;
 // Errors, warnings, notes.
 #include "json-diagnostic.hpp"
 
-// Detail constructs that are needed prior to the class definitions below.
+// Constructs that are needed prior to the class definitions below.
 class literal;
+#include "json-atom.hpp"
 #include "json-detail-pre.hpp"
 
 // invar
@@ -120,12 +130,12 @@ inline constexpr bool invar = detail::inVariant<T,VARIANT>::count;
 #include "json-value-make.hpp"
 #include "json-chars.hpp"
 
-// Detail constructs that require knowledge of the class definitions above.
+// Constructs that require knowledge of the class definitions above.
 #include "json-detail-post.hpp"
 
 // Definitions of read() and print() for null, boolean, number, string, array,
-// object, literal, and value. Some of these use post-class details included
-// just above; this is why we put them here.
+// object, literal, and value. Some of these use post-class details #included
+// just above; this is why they're here.
 #include "json-read.hpp"
 #include "json-print.hpp"
 
@@ -135,7 +145,7 @@ inline constexpr bool invar = detail::inVariant<T,VARIANT>::count;
 
 
 // -----------------------------------------------------------------------------
-// Finish stream output. Via read(), they needed literal's definition.
+// Finish stream output. (They needed literal's definition first.)
 // -----------------------------------------------------------------------------
 
 #undef JSON_IO
@@ -146,16 +156,14 @@ inline constexpr bool invar = detail::inVariant<T,VARIANT>::count;
 JSON_IO(null)
 JSON_IO(boolean)
 JSON_IO(number)
+template<bool b>
+JSON_IO(String<b>)
 JSON_IO(array)
 JSON_IO(object)
 JSON_IO(literal)
 JSON_IO(value)
 
 #undef JSON_IO
-
-template<bool b>
-inline std::istream &operator>>(std::istream &is, String<b> &j)
-   { j.template read<JSON_INTEGRAL,JSON_FLOATING>(is); return is; }
 
 } // namespace json
 #endif

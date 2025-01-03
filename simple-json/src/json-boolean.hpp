@@ -18,8 +18,8 @@ public:
    boolean() : b(false) { }
 
    // from bool (exactly)
-   template<class T, class = require<same<T,bool>>>
-   boolean(const T &from) : b(from) { }
+   template<class BOOL, class = require<same<BOOL,bool>>>
+   boolean(const BOOL &from) : b(from) { }
 
    // ------------------------
    // Conversion

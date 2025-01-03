@@ -51,7 +51,7 @@ literal boolean::read(std::istream &is, const unsigned flags)
 // ------------------------
 
 // Remark: We'll rig class number's read() function so it uses the first of its
-// variant's types that it's able to (examining types in the order in which they
+// variant's types that it can (examining the types in the order in which they
 // appear in the variant) when it reads a number. Users can always convert what
 // we provide into a "longer" type. Also, read() allows specific integral and/or
 // floating point types to be requested, overriding our default. Note that we'll
@@ -59,7 +59,7 @@ literal boolean::read(std::istream &is, const unsigned flags)
 // points, we'll prefer good old-fashioned dog-eared double, with float the last
 // choice. Having float be first would no doubt lead to all manner of grief.
 
-// A caller can use T and/or U to specify up to one integral type and one
+// A caller can use T and/or U to specify up to one integral type and up to one
 // floating point type. (Any such type(s) must still be in our variant.)
 template<class T, class U, class>
 literal number::read(std::istream &is, const unsigned flags)
@@ -101,9 +101,12 @@ literal number::read(std::istream &is, const unsigned flags)
          // integral types (the requested one would have been tried above
          // already, without success), and similarly for gaveFloating.
          (( found || (found =
-          !(gaveIntegral && json::integral<std::decay_t<decltype(alt)>>) &&
-          !(gaveFloating && json::floating<std::decay_t<decltype(alt)>>) &&
-           (readableAs<std::decay_t<decltype(alt)>>(tok,*this)))
+          !(gaveIntegral &&
+            json::integral<detail::base<std::decay_t<decltype(alt)>>>) &&
+          !(gaveFloating &&
+            json::floating<detail::base<std::decay_t<decltype(alt)>>>) &&
+           (readableAs<detail::base<std::decay_t<decltype(alt)>>>(tok,*this))
+          )
          ), ...);
       },
       detail::variant2tuple<variant>::type()
@@ -150,23 +153,22 @@ literal String<b>::read(std::istream &is, const unsigned flags)
          // plain character (not backslash)
          *this += ch;
       } else switch (ch = is.get()) {
-         // backslash; so, get next character
-         case '\'' : *this += '\'' ; break;
-         case '"'  : *this += '"'  ; break;
-         case '/'  : *this += '/'  ; break;
-         case '\\' : *this += '\\' ; break;
-         case 'b'  : *this += '\b' ; break;
-         case 'f'  : *this += '\f' ; break;
-         case 'n'  : *this += '\n' ; break;
-         case 'r'  : *this += '\r' ; break;
-         case 't'  : *this += '\t' ; break;
+         // backslash; so, get the next character
+         case '"'  : *this += '"'  ; break; // standard
+         case '\\' : *this += '\\' ; break; // standard
+         case 'b'  : *this += '\b' ; break; // standard
+         case 'f'  : *this += '\f' ; break; // standard
+         case 'n'  : *this += '\n' ; break; // standard
+         case 'r'  : *this += '\r' ; break; // standard
+         case 't'  : *this += '\t' ; break; // standard
+         case '/'  : *this += '/'  ; break; // we'll accept \/
+         case '\'' : *this += '\'' ; break; // we'll accept \'
 
-         case 'u': // these escapes aren't supported yet :-(
-            error(context + "String escapes of the form \\u#### "
-                 "aren't supported at this time.", &is);
+         case 'u':
+            detail::unicode(context, is, *this);
             break;
 
-         case EOF: // a '\' appeared right before EOF
+         case EOF: // a \ appeared right before EOF
             error(context + "String escape \\ appears right before EOF.", &is);
             break;
 

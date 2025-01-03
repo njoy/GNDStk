@@ -6,21 +6,21 @@
 
 class number : public std::variant<
    // unsigned integers
-   unsigned char,
-   unsigned short,
-   unsigned int,
-   unsigned long,
-   unsigned long long,
+   atom<unsigned char>,
+   atom<unsigned short>,
+   atom<unsigned int>,
+   atom<unsigned long>,
+   atom<unsigned long long>,
    // signed integers
-   signed char,
-   short,
-   int,
-   long,
-   long long,
+   atom<signed char>,
+   atom<short>,
+   atom<int>,
+   atom<long>,
+   atom<long long>,
    // floating points
-   double,
-   long double,
-   float
+   atom<double>,
+   atom<long double>,
+   atom<float>
 > {
    // ------------------------
    // Helper: readableAs
@@ -29,24 +29,16 @@ class number : public std::variant<
    // Are the std::string's contents *completely* readable as a T? For example,
    // "123" is completely readable as an int, but "123foo" is not. Neither is,
    // say, "3.1415927", which in other interpretations might qualify as int 3.
-   // If yes, place the so-read value into the output. Note that we allow the
-   // output to be of a different type than T. In some calls it is; in others,
-   // OUT is (derived from) a std::variant that has T as an alternative.
+   // If yes, place the so-read value into the out parameter. Remark: The out
+   // parameter need not be of type T. In some calls it is, but in others, OUT
+   // is (derived from) a std::variant that has T as an alternative.
    template<class T, class OUT, class = require<invar<T,variant>>>
    static bool readableAs(const std::string &str, OUT &out) noexcept
    {
-      #ifdef JSON_CHARS
-         // Readable?
-         T ret;
-         const char *c = &str[0], *const end = c + str.size();
-         while (isspace(*c)) ++c;
-         auto [ptr,err] = std::from_chars(*c == '+' ? ++c : c, end, ret);
-         if (err != std::errc()) return false;
-         // Completely?
-         while (isspace(*ptr)) ++ptr;
-         return ptr == end ? out = ret, true : false;
-      #else
-         if constexpr (integral<T>) {
+      #ifndef JSON_CHARS
+         if constexpr (integral<T>)
+      #endif
+         {
             // Readable?
             T ret;
             const char *c = &str[0], *const end = c + str.size();
@@ -56,7 +48,9 @@ class number : public std::variant<
             // Completely?
             while (isspace(*ptr)) ++ptr;
             return ptr == end ? out = ret, true : false;
-         } else {
+         }
+      #ifndef JSON_CHARS
+         else {
             try {
                // Readable?
                size_t idx;
@@ -80,11 +74,13 @@ public:
    // ------------------------
 
    template<class T, class U>
-   struct types {
+   class types {
       // Are T/U integral/floating?
       static constexpr bool
          tintegral = json::integral<T>, tfloating = json::floating<T>,
          uintegral = json::integral<U>, ufloating = json::floating<U>;
+
+   public:
 
       // types: integral, floating
       using integral = std::conditional_t<
@@ -112,18 +108,18 @@ public:
    // default (override inherited, because we want to select int)
    number() : variant(0) { }
 
-   // from instance of base class
-   number(const variant &from) : variant(from) { }
-   number(variant &&from) : variant(std::move(from)) { }
+   // from std::variant<...> (instance of base class)
+   number(const variant &base) : variant(base) { }
+   number(variant &&base) : variant(std::move(base)) { }
 
    // ------------------------
    // Assignment
    // ------------------------
 
-   template<class T, class = require<assignable<variant, T &&>>>
-   number &operator=(T &&from)
+   template<class FROM, class = require<assignable<variant, FROM &&>>>
+   number &operator=(FROM &&from)
    {
-      return variant::operator=(std::forward<T>(from)), *this;
+      return variant::operator=(std::forward<FROM>(from)), *this;
    }
 
    // ------------------------
@@ -148,13 +144,13 @@ public:
 
    // holds<T>
    template<class T, class = require<invar<T,variant>>>
-   bool holds() const { return std::holds_alternative<T>(*this); }
+   bool holds() const { return std::holds_alternative<atom<T>>(*this); }
 
    // get<T>
    template<class T, class = require<invar<T,variant>>>
-   const T &get() const { return std::get<T>(*this); }
+   const T &get() const { return std::get<atom<T>>(*this); }
    template<class T, class = require<invar<T,variant>>>
-   T &get() { return std::get<T>(*this); }
+   T &get() { return std::get<atom<T>>(*this); }
 
    // make
    template<class T, class = require<invar<T,variant> || same<T,bool>>>
@@ -163,7 +159,7 @@ public:
       return std::visit(
          [&to](const auto &alt)
          {
-            return std::decay_t<decltype(alt)>(to = T(alt)) == alt;
+            return detail::base<std::decay_t<decltype(alt)>>(to=T(alt)) == alt;
          },
          static_cast<const variant &>(*this)
       );

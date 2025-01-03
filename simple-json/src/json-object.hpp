@@ -15,18 +15,18 @@ public:
    // inherited
    using vector::vector;
 
-   // from instance of base class
-   object(const vector &from) : vector(from) { }
-   object(vector &&from) : vector(std::move(from)) { }
+   // from std::vector<pair> (instance of base class)
+   object(const vector &base) : vector(base) { }
+   object(vector &&base) : vector(std::move(base)) { }
 
    // ------------------------
    // Assignment
    // ------------------------
 
-   template<class T, class = require<assignable<vector, T &&>>>
-   object &operator=(T &&from)
+   template<class FROM, class = require<assignable<vector, FROM &&>>>
+   object &operator=(FROM &&from)
    {
-      return vector::operator=(std::forward<T>(from)), *this;
+      return vector::operator=(std::forward<FROM>(from)), *this;
    }
 
    // ------------------------

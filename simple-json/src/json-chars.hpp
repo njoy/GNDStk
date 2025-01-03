@@ -30,17 +30,23 @@ public:
    ) {
       std::to_chars_result res;
 
-      if constexpr (integral<T>)
+      if constexpr (integral<T>) {
          res = same<T,unsigned char>
              ? std::to_chars(buffer, buffer+SIZE, (unsigned short)from)
              : same<T,  signed char>
              ? std::to_chars(buffer, buffer+SIZE, (  signed short)from)
              : std::to_chars(buffer, buffer+SIZE, from);
-      else {
+      } else {
          #ifdef JSON_CHARS
             res = std::to_chars(buffer, buffer+SIZE, from, format);
          #else
-            assert(false);
+            error("Cannot construct a json::chars from a floating point "
+                  "value unless\nJSON_CHARS is #defined. This further "
+                  "requires that std::to_chars()\nbe available for "
+                  "floating points. (It isn't for some compilers.)");
+            // error() throws; this return just suppresses warnings from
+            // some compilers about res being uninitialized below.
+            return;
          #endif
       }
 

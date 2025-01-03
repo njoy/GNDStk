@@ -15,24 +15,24 @@ public:
    // inherited
    using vector::vector;
 
-   // from instance of base class
-   array(const vector &from) : vector(from) { }
-   array(vector &&from) : vector(std::move(from)) { }
+   // from std::vector<value> (instance of base class)
+   array(const vector &base) : vector(base) { }
+   array(vector &&base) : vector(std::move(base)) { }
 
    // from std::vector<T convertible to value>
    template<class T, class = require<convertible<T,value>>>
-   array(const std::vector<T> &from) :
-      vector(from.begin(), from.end())
+   array(const std::vector<T> &vec) :
+      vector(vec.begin(), vec.end())
    { }
 
    // ------------------------
    // Assignment
    // ------------------------
 
-   template<class T, class = require<assignable<vector, T &&>>>
-   array &operator=(T &&from)
+   template<class FROM, class = require<assignable<vector, FROM &&>>>
+   array &operator=(FROM &&from)
    {
-      return vector::operator=(std::forward<T>(from)), *this;
+      return vector::operator=(std::forward<FROM>(from)), *this;
    }
 
    // ------------------------
