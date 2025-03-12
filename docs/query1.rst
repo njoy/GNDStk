@@ -27,7 +27,7 @@ Query Metadata
 Node.meta(string)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-meta-string.cc
+.. literalinclude:: files/code-tables/node-meta-string.cpp
    :language: cpp
    :linenos:
 
@@ -35,7 +35,7 @@ Node.meta(string)
 Node.meta(Meta)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-meta-meta.cc
+.. literalinclude:: files/code-tables/node-meta-meta.cpp
    :language: cpp
    :linenos:
 
@@ -43,7 +43,7 @@ Node.meta(Meta)
 Node(Meta)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-meta-call.cc
+.. literalinclude:: files/code-tables/node-meta-call.cpp
    :language: cpp
    :linenos:
 
@@ -55,7 +55,7 @@ Query Child Nodes
 Node.one(string)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-one-string.cc
+.. literalinclude:: files/code-tables/node-one-string.cpp
    :language: cpp
    :linenos:
 
@@ -63,7 +63,7 @@ Node.one(string)
 Node.many(string)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-many-string.cc
+.. literalinclude:: files/code-tables/node-many-string.cpp
    :language: cpp
    :linenos:
 
@@ -71,7 +71,7 @@ Node.many(string)
 Node.child(Child)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-child-child.cc
+.. literalinclude:: files/code-tables/node-child-child.cpp
    :language: cpp
    :linenos:
 
@@ -79,6 +79,6 @@ Node.child(Child)
 Node(Child)
 ----------------------------
 
-.. literalinclude:: files/code-tables/node-child-call.cc
+.. literalinclude:: files/code-tables/node-child-call.cpp
    :language: cpp
    :linenos:

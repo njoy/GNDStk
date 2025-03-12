@@ -11,7 +11,7 @@ Node(Node &&other)
 {
    *this = std::move(other);
    // validate
-   for (auto &c : children)
+   for (const childPtr &c : children)
       assert(c->parentNode == this);
 }
 
@@ -20,7 +20,7 @@ Node(const Node &other)
 {
    *this = other;
    // validate
-   for (auto &c : children)
+   for (const childPtr &c : children)
       assert(c->parentNode == this);
 }
 
@@ -36,14 +36,14 @@ Node(const Node &other)
 // ------------------------
 
 // string
-Node(const std::string &name) :
+explicit Node(const std::string &name) :
    name(name)
 {
 }
 
 // Child<*>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-Node(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
+explicit Node(const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd) :
    name(kwd.name)
 {
 }
@@ -64,7 +64,7 @@ Node(
       *this = value; // <== updates this->children's parentNode pointers
       name = kwd.name; // overrides any name from the above assignment
       // validate
-      for (auto &c : children)
+      for (const childPtr &c : children)
          assert(c->parentNode == this);
    } catch (...) {
       log::ctor("Node(" + detail::keyname(kwd) + ",value)");
@@ -100,7 +100,7 @@ Node(
       kwd.converter(TYPE(value),*this);
       name = kwd.name; // overrides any name from the above conversion
       // validate
-      for (auto &c : children)
+      for (const childPtr &c : children)
          assert(c->parentNode == this);
    } catch (...) {
       log::ctor("Node(" + detail::keyname(kwd) + ",value)");

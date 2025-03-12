@@ -1,0 +1,26 @@
+{
+    "namespace": "g2d",
+
+    "array": {
+        "metadata": {
+            "shape": {
+                "type": "string",
+                "required": true
+            },
+            "compression": {
+                "type": "string",
+                "required": false
+            },
+            "symmetry": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "values": {
+                "times": "1",
+                "required": true
+            }
+        }
+    }
+}

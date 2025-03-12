@@ -1,14 +1,14 @@
 
 // -----------------------------------------------------------------------------
-// Some classes we'll use in a couple of places, for testing either the
-// getter() functions in detail::, or the ones in the Component class.
+// Some classes we'll use in a couple of places, for testing the compGetter()
+// functions in detail::, or the getter() functions in class Component.
 // -----------------------------------------------------------------------------
 
 // Empty
 // Has neither index nor label
 struct Empty {
    struct {
-   } content;
+   } Content;
 };
 
 
@@ -18,17 +18,19 @@ struct Index {
    struct {
       int index;
       std::string value;
-   } content;
+   } Content;
 
-   std::size_t index() const { return content.index; };
-   std::string value() const { return content.value; };
+   const int &index() const { return Content.index; };
+   int &index() { return Content.index; };
+   const std::string &value() const { return Content.value; };
+   std::string &value() { return Content.value; };
 
    Index(
       const int index = 0,
       const std::string &value = ""
    ) {
-      content.value = value;
-      content.index = index;
+      this->index() = index;
+      this->value() = value;
    }
 };
 
@@ -39,17 +41,19 @@ struct Label {
    struct {
       std::string label;
       std::string value;
-   } content;
+   } Content;
 
-   std::string label() const { return content.label; };
-   std::string value() const { return content.value; };
+   const std::string &label() const { return Content.label; };
+   std::string &label() { return Content.label; };
+   const std::string &value() const { return Content.value; };
+   std::string &value() { return Content.value; };
 
    Label(
       const std::string &label = "",
       const std::string &value = ""
    ) {
-      content.value = value;
-      content.label = label;
+      this->label() = label;
+      this->value() = value;
    }
 };
 
@@ -61,19 +65,22 @@ struct IndexLabel {
       int index;
       std::string label;
       std::string value;
-   } content;
+   } Content;
 
-   std::size_t index() const { return content.index; };
-   std::string label() const { return content.label; };
-   std::string value() const { return content.value; };
+   const int &index() const { return Content.index; };
+   int &index() { return Content.index; };
+   const std::string &label() const { return Content.label; };
+   std::string &label() { return Content.label; };
+   const std::string &value() const { return Content.value; };
+   std::string &value() { return Content.value; };
 
    IndexLabel(
       const int index = 0,
       const std::string &label = "",
       const std::string &value = ""
    ) {
-      content.value = value;
-      content.index = index;
-      content.label = label;
+      this->index() = index;
+      this->label() = label;
+      this->value() = value;
    }
 };

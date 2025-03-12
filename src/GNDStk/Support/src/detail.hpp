@@ -1,12 +1,8 @@
 
-// fixme
-// The "MapTypeString" and "MapStringType" terminology could probably be
-// improved. For now this is detail material, so we won't worry about it.
-
 namespace detail {
 
 // -----------------------------------------------------------------------------
-// MapTypeString
+// Type2Names
 // -----------------------------------------------------------------------------
 
 // ------------------------
@@ -14,12 +10,12 @@ namespace detail {
 // ------------------------
 
 template<class T>
-class MapTypeString {
+class Type2Names {
 public:
    static inline const std::vector<std::string> value = {""};
    static bool find(const std::string &str)
    {
-      return std::find(value.begin(),value.end(),str) != value.end();
+      return std::find(value.begin(), value.end(), str) != value.end();
    }
 };
 
@@ -27,92 +23,91 @@ public:
 // For specific types
 // ------------------------
 
-#define makeMapTypeString(T,vec) \
+#define makeType2Names(T,vec) \
    template<> \
-   class MapTypeString<T> { \
+   class Type2Names<T> { \
    public: \
       static inline const std::vector<std::string> value = vec; \
       static bool find(const std::string &str) \
       { \
-         return std::find(value.begin(),value.end(),str) != value.end(); \
+         return std::find(value.begin(), value.end(), str) != value.end(); \
       } \
    }
 
-makeMapTypeString(char,               {"char"});
-makeMapTypeString(signed char,        {"signed char"});
-makeMapTypeString(short,              {"short"});
-makeMapTypeString(long,               {"long"});
-makeMapTypeString(long long,          {"long long"});
-makeMapTypeString(unsigned char,      {"unsigned char"});
-makeMapTypeString(unsigned short,     {"unsigned short"});
-makeMapTypeString(unsigned long,      {"unsigned long"});
-makeMapTypeString(unsigned long long, {"unsigned long long"});
-makeMapTypeString(float,              {"float"});
-makeMapTypeString(long double,        {"long double"});
+makeType2Names(char,               {"char"});
+makeType2Names(signed char,        {"signed char"});
+makeType2Names(short,              {"short"});
+makeType2Names(long,               {"long"});
+makeType2Names(long long,          {"long long"});
+makeType2Names(unsigned char,      {"unsigned char"});
+makeType2Names(unsigned short,     {"unsigned short"});
+makeType2Names(unsigned long,      {"unsigned long"});
+makeType2Names(unsigned long long, {"unsigned long long"});
+makeType2Names(float,              {"float"});
+makeType2Names(long double,        {"long double"});
 
 // COMMA idea: https://stackoverflow.com/questions/13842468
 #define COMMA ,
-makeMapTypeString(std::string,
+makeType2Names(std::string,
    {"UTF8Text" COMMA "string" COMMA "std::string"});
-makeMapTypeString(int,
+makeType2Names(int,
    {"Integer32" COMMA "int"});
-makeMapTypeString(unsigned int,
+makeType2Names(unsigned,
    {"UInteger32" COMMA "unsigned" COMMA "unsigned int"});
-makeMapTypeString(double,
+makeType2Names(double,
    {"Float64" COMMA "double"});
 #undef COMMA
 
-#undef makeMapTypeString
+#undef makeType2Names
 
 // ------------------------
 // Based on variant visit
 // ------------------------
 
 template<class VARIANT>
-std::string visitMapTypeString(const VARIANT &variant)
+std::string visitType2Names(const VARIANT &variant)
 {
    return std::visit(
       [](auto &&vec)
       {
-         return MapTypeString<std::decay_t<decltype(vec[0])>>::value[0];
+         return Type2Names<std::decay_t<decltype(vec[0])>>::value[0];
       },
       variant
    );
 }
 
 
-
 // -----------------------------------------------------------------------------
-// MapStringType
+// Names2Type
 // -----------------------------------------------------------------------------
 
 template<class CALLBACK>
-void MapStringType(const std::string &str, const CALLBACK &call)
+void Names2Type(const std::string &str, const CALLBACK &call)
 {
    // U helps when type T has spaces (e.g. T is long double)
-#define makeMapStringType(T) \
-   else if (MapTypeString<T>::find(str)) { using U = T; call(U{}); }
+#define makeNames2Type(T) \
+   else if (Type2Names<T>::find(str)) { using U = T; call(U{}); }
 
    if (false) { } // so macro's "else" always works
-   makeMapStringType(std::string)
-   makeMapStringType(char)
-   makeMapStringType(signed char)
-   makeMapStringType(short)
-   makeMapStringType(int)
-   makeMapStringType(long)
-   makeMapStringType(long long)
-   makeMapStringType(unsigned char)
-   makeMapStringType(unsigned short)
-   makeMapStringType(unsigned int)
-   makeMapStringType(unsigned long)
-   makeMapStringType(unsigned long long)
-   makeMapStringType(float)
-   makeMapStringType(double)
-   makeMapStringType(long double)
+   makeNames2Type(std::string)
+   makeNames2Type(char)
+   makeNames2Type(signed char)
+   makeNames2Type(short)
+   makeNames2Type(int)
+   makeNames2Type(long)
+   makeNames2Type(long long)
+   makeNames2Type(unsigned char)
+   makeNames2Type(unsigned short)
+   makeNames2Type(unsigned)
+   makeNames2Type(unsigned long)
+   makeNames2Type(unsigned long long)
+   makeNames2Type(float)
+   makeNames2Type(double)
+   makeNames2Type(long double)
    else
       call(std::string{});
 
-#undef makeMapStringType
+#undef makeNames2Type
 }
 
 } // namespace detail

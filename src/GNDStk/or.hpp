@@ -1,326 +1,147 @@
 
-// -----------------------------------------------------------------------------
-// fixme
-// Material here should be rearranged at some point, to be consistent with the
-// general NJOY21 source structure. For now, we're making it available quickly.
-// -----------------------------------------------------------------------------
+#include "GNDStk/or/src/detail.hpp"
 
-// -----------------------------------------------------------------------------
-// Helper classes:
-//    IsMeta
-//    IsChild
-//    IsMetaOrChild
-//    IsStringOrRegex
-// for SFINAE.
-// -----------------------------------------------------------------------------
+/*
+Discussion.
 
-namespace detail {
+KeyTuple is based mostly on std::tuple, but is specifically designed to help
+GNDStk's multi-query system work smoothly.
 
-// ------------------------
-// IsMeta
-// ------------------------
+makeKeyTuple() can be understood in terms of the KEYS() function in a class
+that derives from GNDStk::Component. Typically, a KEYS() function returns some
+number of Meta and/or Child objects, |'d together with one of the operator|
+overloads that we provide at the end of this file. However, a KEYS() function
+can in fact return any of:
 
-// default
-template<class T>
-class IsMeta {
-public:
-   static constexpr bool value = false;
-};
+   - A KeyTuple (via operator| as described above).
+   - A single Meta object.
+   - A single Child object.
+   - A std::tuple<>.
 
-// Meta
-template<class TYPE, class CONVERTER>
-class IsMeta<Meta<TYPE,CONVERTER>> {
-public:
-   static constexpr bool value = true;
-};
-
-
-// ------------------------
-// IsChild
-// ------------------------
-
-// default
-template<class T>
-class IsChild {
-public:
-   static constexpr bool value = false;
-};
-
-// Child
-template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class IsChild<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
-public:
-   static constexpr bool value = true;
-};
-
-
-// ------------------------
-// IsMetaOrChild
-// ------------------------
-
-template<class T>
-class IsMetaOrChild {
-public:
-   static constexpr bool value = IsMeta<T>::value || IsChild<T>::value;
-};
-
-
-// ------------------------
-// IsStringOrRegex
-// ------------------------
-
-// default
-template<class T>
-class IsStringOrRegex {
-public:
-   static constexpr bool value = false;
-};
-
-// string
-template<>
-class IsStringOrRegex<std::string> {
-public:
-   static constexpr bool value = true;
-   using type = std::string;
-};
-
-// char *
-template<>
-class IsStringOrRegex<char *> {
-public:
-   static constexpr bool value = true;
-   using type = std::string;
-};
-
-// const char *
-template<>
-class IsStringOrRegex<const char *> {
-public:
-   static constexpr bool value = true;
-   using type = std::string;
-};
-
-// char[N]
-template<std::size_t N>
-class IsStringOrRegex<char[N]> {
-public:
-   static constexpr bool value = true;
-   using type = std::string;
-};
-
-// regex
-template<>
-class IsStringOrRegex<std::regex> {
-public:
-   static constexpr bool value = true;
-   using type = std::regex;
-};
-
-
-// ------------------------
-// IsPairChildStringOrRegex
-// ------------------------
-
-// default
-template<class T>
-class IsPairChildStringOrRegex {
-public:
-   static constexpr bool value = false;
-};
-
-// pair
-template<class FIRST, class SECOND>
-class IsPairChildStringOrRegex<std::pair<FIRST,SECOND>> {
-public:
-   static constexpr bool value =
-      IsChild<FIRST>::value && IsStringOrRegex<SECOND>::value;
-};
-
-} // namespace detail
-
+The first use is probably the most common, but all are allowed. The purpose of
+makeKeyTuple() (which could be considered analogous to std::make_pair in C++)
+is to take any of the above, and return an appropriately templated version of
+KeyTuple, representing what KEYS() is asking for. Other functions can then be
+defined uniformly in terms of KeyTuple only - not KeyTuple, Meta, etc.
+*/
 
 
 // -----------------------------------------------------------------------------
-// Helper functionality for std::tuple
-// -----------------------------------------------------------------------------
-
-namespace detail {
-
-// ------------------------
-// tupleAllButLast
-// ------------------------
-
-// These are adapted from: https://stackoverflow.com/questions/51810702
-
-template<class... Args, std::size_t... Is>
-constexpr auto tupleAllButLastHelper(
-   const std::tuple<Args...> &tup,
-   std::index_sequence<Is...>
-) {
-   return std::tuple(std::get<Is>(tup)...);
-}
-
-template<
-   class... Args,
-   class = std::enable_if_t<(0 < sizeof...(Args))>
->
-constexpr auto tupleAllButLast(const std::tuple<Args...> &tup)
-{
-   return tupleAllButLastHelper(
-      tup,
-      std::make_index_sequence<sizeof...(Args) - 1>{}
-   );
-}
-
-
-// ------------------------
-// tupleReplaceLast
-// ------------------------
-
-// Given a tuple with at least one element, make a new tuple that's mostly the
-// same, except for a different last element, which can be of a different type.
-
-template<
-   class... Args, class RHS,
-   class = std::enable_if_t<(0 < sizeof...(Args))>
->
-constexpr auto tupleReplaceLast(const std::tuple<Args...> &tup, const RHS &rhs)
-{
-   return std::tuple_cat(tupleAllButLast(tup), std::tuple<RHS>(rhs));
-}
-
-} // namespace detail
-
-
-
-// -----------------------------------------------------------------------------
-// KeywordTup
+// KeyTuple
 // -----------------------------------------------------------------------------
 
 // default
 template<class... Ks>
-class KeywordTup {
+class KeyTuple {
 public:
    std::tuple<Ks...> tup;
 
+   // last_t
    using last_t =
-      // Sans std::decay, const &ness can break detail::IsSomething<> traits.
-      // Note: sizeof...(Ks) >= 1 here, because we'll specialize the <> case
+      // Without std::decay, const &ness can break detail::IsSomething<> traits.
+      // Note: sizeof...(Ks) >= 1 here; we've specialized the KeyTuple<> case.
       std::decay_t<decltype(std::get<sizeof...(Ks)-1>(tup))>;
 
-   // KeywordTup(KeywordTup, RHS)
+   // KeyTuple(KeyTuple<LHS...>, RHS)
    template<
       class... LHS, class RHS,
-      // ensure Ks... == LHS... RHS
+      // require Ks... == LHS... RHS
       class = std::enable_if_t<
-         std::is_same_v<
-            std::tuple<Ks...>,
-            std::tuple<LHS...,RHS>
-         >
+         std::is_same_v<std::tuple<Ks...>, std::tuple<LHS...,RHS>>
       >,
-      // ensure RHS \in {Meta, Child, pair<Child,string|regex>, string, regex}
+      // require RHS \in {Meta, Child, pair<Child,string|regex>}
       class = std::enable_if_t<
-          detail::IsMetaOrChild<RHS>::value ||
-          detail::IsPairChildStringOrRegex<RHS>::value
+          detail::IsMetaOrChild_v<RHS> ||
+          detail::IsPairChildStringOrRegex_v<RHS>
       >
    >
-   KeywordTup(const KeywordTup<LHS...> &lhs, const RHS &rhs) :
+   KeyTuple(const KeyTuple<LHS...> &lhs, const RHS &rhs) :
       tup(std::tuple_cat(lhs.tup, std::tuple<RHS>(rhs)))
    { }
 
-   // KeywordTup(tuple)
-   KeywordTup(const std::tuple<Ks...> &tup) :
-      tup(tup)
-   { }
+   // KeyTuple(tuple)
+   KeyTuple(const std::tuple<Ks...> &tup) : tup(tup) { }
 };
-
 
 // <>
-// intentionally non-constructible
 template<>
-class KeywordTup<>
+class KeyTuple<>
 {
-   KeywordTup() = delete;
-   KeywordTup(const KeywordTup &) = delete;
-   KeywordTup(KeywordTup &&) = delete;
+public:
+   std::tuple<> tup;
+   KeyTuple(const std::tuple<> &tup) : tup(tup) { }
 };
 
-
-// just Meta
+// for Meta
 template<class TYPE, class CONVERTER>
-class KeywordTup<Meta<TYPE,CONVERTER>> {
+class KeyTuple<Meta<TYPE,CONVERTER>> {
    using M = Meta<TYPE,CONVERTER>;
 public:
    std::tuple<M> tup;
-   explicit KeywordTup(const M &m) : tup(m) { }
+   explicit KeyTuple(const M &m) : tup(m) { }
 };
 
-
-// just Child
+// for Child
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class KeywordTup<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
+class KeyTuple<Child<TYPE,ALLOW,CONVERTER,FILTER>> {
    using C = Child<TYPE,ALLOW,CONVERTER,FILTER>;
 public:
    std::tuple<C> tup;
-   explicit KeywordTup(const C &c) : tup(c) { }
+   explicit KeyTuple(const C &c) : tup(c) { }
 };
 
-
-// std::pair<Child,string>
+// for std::pair<Child,string>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class KeywordTup<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>> {
+class KeyTuple<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>> {
    using CPAIR = std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::string>;
 public:
    using last_t = CPAIR;
    std::tuple<CPAIR> tup;
-   explicit KeywordTup(const CPAIR &cpair) : tup(cpair) { }
+   explicit KeyTuple(const CPAIR &cpair) : tup(cpair) { }
 };
 
-
-// std::pair<Child,regex>
+// for std::pair<Child,regex>
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-class KeywordTup<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>> {
+class KeyTuple<std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>> {
    using CPAIR = std::pair<Child<TYPE,ALLOW,CONVERTER,FILTER>,std::regex>;
 public:
    using last_t = CPAIR;
    std::tuple<CPAIR> tup;
-   explicit KeywordTup(const CPAIR &cpair) : tup(cpair) { }
+   explicit KeyTuple(const CPAIR &cpair) : tup(cpair) { }
 };
 
 
-
 // -----------------------------------------------------------------------------
-// toKeywordTup
+// makeKeyTuple
 // -----------------------------------------------------------------------------
 
-// for std::tuple
+// for KeyTuple
 template<class... Args>
-constexpr auto toKeywordTup(const std::tuple<Args...> &tup)
+constexpr auto makeKeyTuple(const KeyTuple<Args...> &keytup)
 {
-   return KeywordTup<Args...>(tup);
-}
-
-// for KeywordTup
-template<class... Args>
-constexpr auto toKeywordTup(const KeywordTup<Args...> &kwds)
-{
-   return kwds;
+   return keytup;
 }
 
 // for Meta, Child, and pair<Child,string/regex>
-// Returns a 1-element KeywordTup made from the object
+// Returns a 1-element KeyTuple made from the object
 template<
    class T,
    class = std::enable_if_t<
-       detail::IsMetaOrChild<T>::value ||
-       detail::IsPairChildStringOrRegex<T>::value
+       detail::IsMetaOrChild_v<T> ||
+       detail::IsPairChildStringOrRegex_v<T>
    >
 >
-constexpr auto toKeywordTup(const T &obj)
+constexpr auto makeKeyTuple(const T &obj)
 {
-   return KeywordTup<T>(obj);
+   return KeyTuple<T>(obj);
 }
 
+// for std::tuple
+template<class... Args>
+constexpr auto makeKeyTuple(const std::tuple<Args...> &tup)
+{
+   return KeyTuple<Args...>(tup);
+}
 
 
 // -----------------------------------------------------------------------------
@@ -332,56 +153,55 @@ constexpr auto toKeywordTup(const T &obj)
 CASES
 ------------------------
 
-Below, KeywordTup<...> doesn't include <>; at least one element must exist.
+Below, KeyTuple<...> doesn't include <>; at least one element must exist.
 
------------------------------------------+------------------------------------
-   CASE                                  |  RESULT
------------------------------------------+------------------------------------
-1. Meta/Child | Meta/Child               |
-   a. Meta  | Meta                       |  KeywordTup<Meta,Meta>
-   b. Meta  | Child                      |  KeywordTup<Meta,Child>
-   c. Child | Meta                       |  KeywordTup<Child,Meta>
-   d. Child | Child                      |  KeywordTup<Child,Child>
------------------------------------------+------------------------------------
-2. Child | string/regex                  |
-   a. Child | string                     |  KeywordTup<pair<Child,string>>
-   b. Child | char *                     |  KeywordTup<pair<Child,string>>
-   c. Child | regex                      |  KeywordTup<pair<Child,regex>>
------------------------------------------+------------------------------------
-3. KeywordTup<...> | Meta/Child          |
-   a. KeywordTup<...> | Meta             |  KeywordTup<...,Meta>
-   b. KeywordTup<...> | Child            |  KeywordTup<...,Child>
------------------------------------------+------------------------------------
-4. KeywordTup<...,Child> | string/regex  |
-   a. KeywordTup<...,Child> | string     |  KeywordTup<...,pair<Child,string>>
-   b. KeywordTup<...,Child> | char *     |  KeywordTup<...,pair<Child,string>>
-   c. KeywordTup<...,Child> | regex      |  KeywordTup<...,pair<Child,regex>>
------------------------------------------+------------------------------------
+---------------------------------------+------------------------------------
+   CASE                                |  RESULT
+---------------------------------------+------------------------------------
+1. Meta/Child | Meta/Child             |
+   a. Meta  | Meta                     |  KeyTuple<Meta,Meta>
+   b. Meta  | Child                    |  KeyTuple<Meta,Child>
+   c. Child | Meta                     |  KeyTuple<Child,Meta>
+   d. Child | Child                    |  KeyTuple<Child,Child>
+---------------------------------------+------------------------------------
+2. Child | string/regex                |
+   a. Child | string                   |  KeyTuple<pair<Child,string>>
+   b. Child | char *                   |  KeyTuple<pair<Child,string>>
+   c. Child | regex                    |  KeyTuple<pair<Child,regex>>
+---------------------------------------+------------------------------------
+3. KeyTuple<...> | Meta/Child          |
+   a. KeyTuple<...> | Meta             |  KeyTuple<...,Meta>
+   b. KeyTuple<...> | Child            |  KeyTuple<...,Child>
+---------------------------------------+------------------------------------
+4. KeyTuple<...,Child> | string/regex  |
+   a. KeyTuple<...,Child> | string     |  KeyTuple<...,pair<Child,string>>
+   b. KeyTuple<...,Child> | char *     |  KeyTuple<...,pair<Child,string>>
+   c. KeyTuple<...,Child> | regex      |  KeyTuple<...,pair<Child,regex>>
+---------------------------------------+------------------------------------
 */
 
 
 // ------------------------
-// Bootstrap KeywordTup<...>
+// Bootstrap KeyTuple<...>
 // ------------------------
 
 // 1. Meta/Child | Meta/Child
-// ==> KeywordTup<Meta/Child, Meta/Child>
+// ==> KeyTuple<Meta/Child, Meta/Child>
 template<
    class LHS, class RHS,
-   class = std::enable_if_t<detail::IsMetaOrChild<LHS>::value>,
-   class = std::enable_if_t<detail::IsMetaOrChild<RHS>::value>
+   class = std::enable_if_t<detail::IsMetaOrChild_v<LHS>>,
+   class = std::enable_if_t<detail::IsMetaOrChild_v<RHS>>
 >
 auto operator|(
    const LHS &lhs, // via SFINAE: Meta or Child
    const RHS &rhs  // via SFINAE: Meta or Child
 ) {
-   log::debug("or #1: Meta/Child | Meta/Child");
-   return KeywordTup<LHS,RHS>(KeywordTup<LHS>(lhs),rhs);
+   return KeyTuple<LHS,RHS>(KeyTuple<LHS>(lhs),rhs);
 }
 
 
 // 2. Child | string/regex
-// ==> KeywordTup<pair<Child,string/regex>>
+// ==> KeyTuple<pair<Child,string/regex>>
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER, class RHS,
    class StringOrRegex = typename detail::IsStringOrRegex<RHS>::type
@@ -390,54 +210,50 @@ auto operator|(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &lhs,
    const RHS &rhs // via SFINAE: string (or char * etc.) or regex
 ) {
-   log::debug("or #2: Child | string/regex");
    using LHS = Child<TYPE,ALLOW,CONVERTER,FILTER>;
-   return KeywordTup<std::pair<LHS,StringOrRegex>>(
+   return KeyTuple<std::pair<LHS,StringOrRegex>>(
       std::pair<LHS,StringOrRegex>(lhs,StringOrRegex(rhs))
    );
 }
 
 
-
 // ------------------------
-// Append to KeywordTup<...>
+// Append to KeyTuple<...>
 // ------------------------
 
-// 3. KeywordTup<...> | Meta/Child
-// ==> KeywordTup<..., Meta/Child>
+// 3. KeyTuple<...> | Meta/Child
+// ==> KeyTuple<..., Meta/Child>
 template<
    class... LHS, class RHS,
-   class = std::enable_if_t<detail::IsMetaOrChild<RHS>::value>
+   class = std::enable_if_t<detail::IsMetaOrChild_v<RHS>>
 >
 auto operator|(
-   const KeywordTup<LHS...> &lhs,
+   const KeyTuple<LHS...> &lhs,
    const RHS &rhs // via SFINAE: Meta or Child
 ) {
-   log::debug("or #3: KeywordTup<...> | Meta/Child");
-   return KeywordTup<LHS...,RHS>(lhs,rhs);
+   return KeyTuple<LHS...,RHS>(lhs,rhs);
 }
 
 
-// 4. KeywordTup<...,Child> | string/regex
-// ==> KeywordTup<..., pair<Child,string/regex>>
+// 4. KeyTuple<...,Child> | string/regex
+// ==> KeyTuple<..., pair<Child,string/regex>>
 template<
    class... LHS, class RHS,
    class = std::enable_if_t<
-      detail::IsChild<typename KeywordTup<LHS...>::last_t>::value
+      detail::IsChild<typename KeyTuple<LHS...>::last_t>::value
    >,
    class StringOrRegex = typename detail::IsStringOrRegex<RHS>::type
 >
 auto operator|(
-   const KeywordTup<LHS...> &lhs,
-   const RHS &rhs // via SFINAE: string (or char * etc.) or regex
+   const KeyTuple<LHS...> &lhs,
+   const RHS &rhs // via SFINAE: string or char array, or regex
 ) {
-   log::debug("or #4: KeywordTup<...,Child> | string/regex");
-   return toKeywordTup(
+   return makeKeyTuple(
       detail::tupleReplaceLast(
          lhs.tup,
          std::make_pair(
             std::get<sizeof...(LHS)-1>(lhs.tup),
-            StringOrRegex(rhs)
+            StringOrRegex(rhs) // cast ensures char array ==> std::string
          )
       )
    );

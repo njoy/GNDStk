@@ -16,12 +16,12 @@
 
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       // ""?
@@ -53,13 +53,13 @@ decltype(auto) operator()(
 
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::string label,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       // ""?
@@ -79,13 +79,13 @@ decltype(auto) operator()(
 // Otherwise, char * would match with class... KEYWORDS, not with std::string
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const char *const label,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    // Forward to the string overload
    return (*this)(kwd, std::string(label), std::forward<KEYWORDS>(keywords)...);
 }
@@ -97,13 +97,13 @@ decltype(auto) operator()(
 
 template<
    class TYPE, Allow ALLOW, class CONVERTER, class FILTER,
-   class... KEYWORDS
+   class... KEYWORDS, class = std::enable_if_t<(sizeof...(KEYWORDS) > 0)>
 >
 decltype(auto) operator()(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    const std::regex labelRegex,
    KEYWORDS &&...keywords
-) GNDSTK_CONST {
+) NJOY_GNDSTK_CONST {
    bool &found = detail::extract_found(std::forward<KEYWORDS>(keywords)...);
    try {
       // ""?
@@ -129,4 +129,4 @@ decltype(auto) operator()(
 }
 
 
-#undef GNDSTK_CONST
+#undef NJOY_GNDSTK_CONST

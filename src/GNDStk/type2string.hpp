@@ -13,7 +13,7 @@ key/value pair.
 */
 
 // User-settable flag
-inline bool comma = false;
+inline bool commas = false;
 
 
 // -----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ inline bool comma = false;
 
 // default
 template<class T>
-inline void convert(const T &value, std::ostream &os)
+void convert(const T &value, std::ostream &os)
 {
    if constexpr (std::is_floating_point_v<T>) {
       os << detail::Precision<
@@ -34,33 +34,39 @@ inline void convert(const T &value, std::ostream &os)
    }
 }
 
+// string
+inline void convert(const std::string &value, std::ostream &os)
+{
+   os << value;
+}
+
 // pair
 template<class X, class Y>
-inline void convert(const std::pair<X,Y> &p, std::ostream &os)
+void convert(const std::pair<X,Y> &p, std::ostream &os)
 {
-   if ((convert(p.first,os),os) && os << (GNDStk::comma ? ',' : ' '))
+   if ((convert(p.first,os),os) && os << (GNDStk::commas ? ',' : ' '))
       convert(p.second,os);
 }
 
 // some sequence containers
-#define GNDSTK_CONVERT(container) \
+#define NJOY_GNDSTK_CONVERT(container) \
    template<class T, class Alloc> \
    inline void convert( \
       const std::container<T,Alloc> &value, \
       std::ostream &os \
    ) { \
-      const std::string sep = GNDStk::comma ? "," : " "; \
-      std::size_t count = 0; \
+      const std::string sep = GNDStk::commas ? "," : " "; \
+      size_t count = 0; \
       for (const T &val : value) \
          if (!(os << (count++ ? sep : "") && (convert(val,os),os))) \
             break; /* might as well, because the stream is broken */ \
    }
 
-   GNDSTK_CONVERT(deque)
-   GNDSTK_CONVERT(list)
-   GNDSTK_CONVERT(vector)
+   NJOY_GNDSTK_CONVERT(deque)
+   NJOY_GNDSTK_CONVERT(list)
+   NJOY_GNDSTK_CONVERT(vector)
 
-#undef GNDSTK_CONVERT
+#undef NJOY_GNDSTK_CONVERT
 
 
 // -----------------------------------------------------------------------------
@@ -70,7 +76,7 @@ inline void convert(const std::pair<X,Y> &p, std::ostream &os)
 
 // default
 template<class T>
-inline void convert(const T &value, std::string &str)
+void convert(const T &value, std::string &str)
 {
    // try block, in case someone overloads our convert()s
    try {
@@ -103,17 +109,17 @@ inline void convert(const bool &value, std::string &str)
 
 // miscellaneous
 // Integral T-to-string specializations that may be faster than our default
-#define GNDSTK_CONVERT(TYPE) \
+#define NJOY_GNDSTK_CONVERT(TYPE) \
    inline void convert(const TYPE &value, std::string &str) \
    { \
       str = std::to_string(value); \
    }
 
-   GNDSTK_CONVERT(int)
-   GNDSTK_CONVERT(long)
-   GNDSTK_CONVERT(long long)
-   GNDSTK_CONVERT(unsigned)
-   GNDSTK_CONVERT(unsigned long)
-   GNDSTK_CONVERT(unsigned long long)
+   NJOY_GNDSTK_CONVERT(int)
+   NJOY_GNDSTK_CONVERT(long)
+   NJOY_GNDSTK_CONVERT(long long)
+   NJOY_GNDSTK_CONVERT(unsigned)
+   NJOY_GNDSTK_CONVERT(unsigned long)
+   NJOY_GNDSTK_CONVERT(unsigned long long)
 
-#undef GNDSTK_CONVERT
+#undef NJOY_GNDSTK_CONVERT

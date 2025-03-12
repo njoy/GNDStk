@@ -1,8 +1,9 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-
 using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
 using namespace misc;
 
 
@@ -14,28 +15,26 @@ using namespace misc;
 // xml_t
 // ------------------------
 
-class xml_t {
-public:
+struct xml_t {
    double version;
    std::string encoding;
 };
 
 template<class NODE>
-inline void convert(const NODE &node, xml_t &out)
+void convert(const NODE &node, xml_t &out)
 {
    out.version  = std::stod(node.meta(version));
    out.encoding = node.meta(encoding);
 }
 
-inline const Child<xml_t> xml("xml");
+inline const Child<xml_t> xml(special::xml);
 
 
 // ------------------------
 // reactionSuite_t
 // ------------------------
 
-class reactionSuite_t {
-public:
+struct reactionSuite_t {
    std::string projectile;
    std::string target;
    std::string evaluation;
@@ -44,7 +43,7 @@ public:
 };
 
 template<class NODE>
-inline void convert(const NODE &node, reactionSuite_t &out)
+void convert(const NODE &node, reactionSuite_t &out)
 {
    out.projectile = node.meta(projectile);
    out.target     = node.meta(target);

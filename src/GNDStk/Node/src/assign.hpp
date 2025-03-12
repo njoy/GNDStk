@@ -10,7 +10,7 @@ Node &operator=(Node &&other)
       name = std::move(other.name);
       metadata = std::move(other.metadata);
       children = std::move(other.children);
-      for (auto &c : children)
+      for (const childPtr &c : children)
          c->parentNode = this;
    }
    return *this;
@@ -20,12 +20,19 @@ Node &operator=(Node &&other)
 Node &operator=(const Node &other)
 {
    if (&other != this) {
-      // The following uses add()s to add child nodes. The add()s,
-      // in turn, ensure that the parentNode pointers are correct.
-      detail::node2Node(other,*this);
+      clear();
+      name = other.name;
+
+      // metadata
+      for (const auto &m : other.metadata)
+         add(m.first,m.second);
+
+      // children
+      for (const childPtr &c : other.children)
+         add() = *c;
 
       // validate
-      for (auto &c : children)
+      for (const childPtr &c : children)
          assert(c->parentNode = this);
    }
    return *this;

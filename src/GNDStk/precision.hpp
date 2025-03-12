@@ -19,7 +19,7 @@
 //    reals: all of the above
 // in each of:
 //    GNDStk::metadata::
-//    GNDStk::data:: (in body text, i.e. XML "plain character data")
+//    GNDStk::data:: (in block data, i.e. XML "plain character data")
 //    GNDStk::
 // the last meaning for both metadata:: and data::.
 

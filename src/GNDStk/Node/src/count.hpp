@@ -4,8 +4,8 @@
 // -----------------------------------------------------------------------------
 
 /*
-These return the std::size_t number of times a child node of the given name is
-seen, subject to any filter condition that might be provided.
+These return the size_t number of times a child node of the given name is seen,
+subject to any filter condition that might be provided.
 
 A Child's TYPE, ALLOW, and CONVERTER are irrelevant for the purposes of these
 functions. No conversion (as normally CONVERTER performs) is applied, because no
@@ -32,11 +32,11 @@ to avoid needing considerable extra machinery here: we have no count() analogs
 of the variadic operator()s. In practice, this means that instead of writing,
 say, something like the following for a Node n and Child objects A-G:
 
-   std::size_t size = n.count(A,B,C,D,E,F,G);
+   size_t size = n.count(A,B,C,D,E,F,G);
 
 you should instead write:
 
-   std::size_t size = n(A,B,C,D,E,F).count(G);
+   size_t size = n(A,B,C,D,E,F).count(G);
 
 We write variations (1) and (2) together, with a FILTER default that means,
 in effect, no filter. For the Child cases (3)-(5), the selection of nodes for
@@ -58,7 +58,7 @@ lieu of matching std::string. It does implicitly convert to a std::string here.
 // ------------------------
 
 template<class FILTER = detail::noFilter>
-std::size_t count(
+size_t count(
    const std::string &key,
    const FILTER &filter = FILTER{}
 ) const {
@@ -81,9 +81,9 @@ std::size_t count(
    // matching the node's name. Don't confuse this behavior with the explicit
    // regex that's required, in another count() function, in order to get a
    // regex label match. GNDS labels tend to contain special regex characters,
-   // so we don't want to a regex match to be the default with label.
-   std::size_t size = 0;
-   for (auto &c : children)
+   // so we don't want a regex match to be the default with label.
+   size_t size = 0;
+   for (const childPtr &c : children)
       if (std::regex_match(c->name, std::regex(key)) && filter(*c))
          size++;
 
@@ -96,7 +96,7 @@ std::size_t count(
 // ------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-std::size_t count(
+size_t count(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd
 ) const {
    return count(kwd.name,kwd.filter);
@@ -107,7 +107,7 @@ std::size_t count(
 // ------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-std::size_t count(
+size_t count(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    std::string &&label // additional filter: string match label with this
 ) const {
@@ -123,7 +123,7 @@ std::size_t count(
 // ------------------------
 
 template<class TYPE, Allow ALLOW, class CONVERTER, class FILTER>
-std::size_t count(
+size_t count(
    const Child<TYPE,ALLOW,CONVERTER,FILTER> &kwd,
    std::regex &&labelRegex // additional filter: regex match label with this
 ) const {

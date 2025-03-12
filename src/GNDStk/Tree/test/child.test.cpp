@@ -1,8 +1,9 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
-
 using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
 using namespace misc;
 
 
@@ -18,8 +19,7 @@ using namespace misc;
 
 // type: xml_t
 // Basically, users can write custom types like this.
-class xml_t {
-public:
+struct xml_t {
    double version;
    std::string encoding;
 };
@@ -28,7 +28,7 @@ public:
 // Given that Node is templated, it's easiest to write functions
 // like this by using template<class NODE> as I do here...
 template<class NODE>
-inline void convert(const NODE &node, xml_t &out)
+void convert(const NODE &node, xml_t &out)
 {
    out.version  = std::stod(node.meta(version));
    out.encoding = node.meta(encoding);
@@ -36,9 +36,9 @@ inline void convert(const NODE &node, xml_t &out)
 
 // keyword: my_xml_keyword
 // Users can write custom Child objects like this, and then use them in
-// child() functions. Here, "xml" is what the keyword uses to look up nodes
-// that can be converted to xml_t objects via the above convert().
-inline const Child<xml_t> my_xml_keyword("xml");
+// child() functions. Here, special::xml is what the keyword uses to look
+// up nodes that can be converted to xml_t objects via the above convert().
+inline const Child<xml_t> my_xml_keyword(special::xml);
 
 
 
@@ -51,8 +51,7 @@ inline const Child<xml_t> my_xml_keyword("xml");
 // Basically made-up here, just for the sake of creating an example. In real
 // life, this sort of type might be designed to hold whatever data (perhaps
 // absolutely everything) from an entire covarianceSuite node.
-class covarianceSuite_type_1 {
-public:
+struct covarianceSuite_type_1 {
    // just to illustrate that we can write whatever we want into these types
    int foo;
    int bar;
@@ -60,8 +59,7 @@ public:
 
 // type: covarianceSuite_type_2
 // A bit more meaningful that the above goofy covarianceSuite type
-class covarianceSuite_type_2 {
-public:
+struct covarianceSuite_type_2 {
    // more realistic, though we'd also probably want to extract more than
    // just the covarianceSuite node's *metadata*
    std::string projectile;
@@ -72,7 +70,7 @@ public:
 
 // From a Node, build a covarianceSuite_type_1
 template<class NODE>
-inline void convert(const NODE &, covarianceSuite_type_1 &out)
+void convert(const NODE &, covarianceSuite_type_1 &out)
 {
    // some random nonsense, just for illustration
    out.foo = 123;
@@ -81,7 +79,7 @@ inline void convert(const NODE &, covarianceSuite_type_1 &out)
 
 // From a Node, build a covarianceSuite_type_2
 template<class NODE>
-inline void convert(const NODE &node, covarianceSuite_type_2 &out)
+void convert(const NODE &node, covarianceSuite_type_2 &out)
 {
    // Here, let's take advantage of GNDStk's projectile, target, evaluation,
    // and format Meta objects - which return, respectively, string, string,

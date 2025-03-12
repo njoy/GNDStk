@@ -1,6 +1,7 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 using namespace njoy::GNDStk;
 
 
@@ -110,8 +111,8 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
 
    WHEN("A Node is constructed from just a name (no metadata/children)") {
-      Node n("NodeName");
-      CHECK(n.name == "NodeName");
+      Node n("MyName");
+      CHECK(n.name == "MyName");
       CHECK(n.metadata.size() == 0);
       CHECK(n.children.size() == 0);
    }
@@ -176,8 +177,8 @@ SCENARIO("Testing GNDStk Node constructors") {
    // ------------------------
 
    GIVEN("Some Child<type> objects") {
-      const Child<yyyymmdd,Allow::one> ymd("YearMonthDay",yyyymmdd{0,0,0});
-      const Child<mmddyyyy,Allow::one> mdy("MonthDayYear",mmddyyyy{0,0,0});
+      const Child<yyyymmdd,Allow::one> ymd("YearMonthDay");
+      const Child<mmddyyyy,Allow::one> mdy("MonthDayYear");
 
       WHEN("A Node is constructed with (Child<type>,type)") {
          Node n(ymd,yyyymmdd{1776,7,4});

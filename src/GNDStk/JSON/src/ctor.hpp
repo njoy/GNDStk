@@ -3,6 +3,10 @@
 // JSON Constructors
 // -----------------------------------------------------------------------------
 
+// ------------------------
+// Basics
+// ------------------------
+
 // default
 JSON() = default;
 
@@ -10,16 +14,26 @@ JSON() = default;
 JSON(JSON &&) = default;
 
 // copy
-JSON(const JSON &j)
-try: doc(j.doc)
+#ifdef NJOY_GNDSTK_DISABLE_JSON
+JSON(const JSON &) = default;
+#else
+JSON(const JSON &other)
+try: doc(other.doc)
 {
 }
 catch (...) {
    log::ctor("JSON(JSON)");
    throw;
 }
+#endif
 
-// XML
+
+// ------------------------
+// From other classes
+// ------------------------
+
+// From XML
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 explicit JSON(const XML &x)
 {
    try {
@@ -30,8 +44,25 @@ explicit JSON(const XML &x)
       throw;
    }
 }
+#endif
 
-// Node
+// From HDF5
+#ifndef NJOY_GNDSTK_DISABLE_JSON
+#ifndef NJOY_GNDSTK_DISABLE_HDF5
+explicit JSON(const HDF5 &h)
+{
+   try {
+      if (!convert(h,*this))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(HDF5)");
+      throw;
+   }
+}
+#endif
+#endif
+
+// From Node
 explicit JSON(const Node &n)
 {
    try {
@@ -43,31 +74,12 @@ explicit JSON(const Node &n)
    }
 }
 
-// Tree
-explicit JSON(const Tree &t)
-{
-   try {
-      if (!convert(t,*this))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("JSON(Tree)");
-      throw;
-   }
-}
 
-// file name
-explicit JSON(const std::string &filename)
-{
-   try {
-      if (!read(filename))
-         throw std::exception{};
-   } catch (...) {
-      log::ctor("JSON(\"{}\")", filename);
-      throw;
-   }
-}
+// ------------------------
+// From istream and file
+// ------------------------
 
-// istream
+// From istream
 explicit JSON(std::istream &is)
 {
    try {
@@ -78,3 +90,17 @@ explicit JSON(std::istream &is)
       throw;
    }
 }
+
+// From file
+#ifndef NJOY_GNDSTK_DISABLE_JSON
+explicit JSON(const std::string &filename)
+{
+   try {
+      if (!read(filename))
+         throw std::exception{};
+   } catch (...) {
+      log::ctor("JSON(\"{}\")", filename);
+      throw;
+   }
+}
+#endif

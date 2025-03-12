@@ -4,6 +4,8 @@
 #include <cstring>
 
 using namespace njoy::GNDStk;
+
+#include "GNDStk/test/keys.hpp"
 using namespace misc;
 
 SCENARIO("Testing GNDStk Node many()") {
@@ -82,7 +84,7 @@ SCENARIO("Testing GNDStk Node many()") {
          }
 
          THEN("As above, with filter") {
-            // filter should be ignored when used with key==""
+            // filter should be ignored when used with key == ""
             auto filter = [](const Node &n) { return false; };
             bool found = false;
             CHECK(Rs.has_many("",filter));

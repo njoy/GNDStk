@@ -1,0 +1,52 @@
+<?xml?>
+
+<foo
+    double="1.2"
+    doubles="3.4 5.6 7.8"
+    int="1"
+    ints="2 3"
+    string="ab"
+    strings="cd ef gh ij">
+
+  <bar/>
+
+  <remark>
+    <!--Remark-->
+  </remark>
+
+  <remarks>
+    <!--Remark #0-->
+    <!--Remark #1-->
+    <!--Remark #2-->
+  </remarks>
+
+  <double remark="one double">1.2</double>
+  <doubles remark="three doubles">1.2 3.45 6.789</doubles>
+
+  <int>1</int>
+  <ints>12 345 6789</ints>
+
+  <onecdata>
+    <![CDATA[Block of CDATA]]>
+  </onecdata>
+
+  <string>ab</string>
+  <strings>cd efg hijk</strings>
+
+  <twocdata>
+    <![CDATA[Block #0 of CDATA]]>
+    <![CDATA[Block #1 of CDATA]]>
+  </twocdata>
+
+  <values x="123">1 2 3</values>
+  <values y="4.5">4.4 5.5</values>
+  <values z="abc">a b c</values>
+
+  <various>
+    <!--First remark-->1 2 3 4<![CDATA[Some CDATA]]>
+    <!--Second remark-->9.87 6.54 3.21<!--Third remark-->
+    <![CDATA[More CDATA]]>
+    <regularElement>
+    </regularElement>a b c d e f g</various>
+
+</foo>

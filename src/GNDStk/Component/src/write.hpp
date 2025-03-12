@@ -1,126 +1,52 @@
 
 // -----------------------------------------------------------------------------
 // Component::write()
+// Via Node, and using Node's write()s.
+// So, Component-derived classes can use .write(...) directly.
 // -----------------------------------------------------------------------------
 
-std::ostream &write(std::ostream &os = std::cout, const int level = 0) const
-{
-   try {
-      // Indent, write header, newline
-      detail::indentString(
-         os, level,
-         detail::colorize_component(
-            detail::fullName(DERIVED::namespaceName(), DERIVED::className())
-         ) + " " +
-         detail::colorize_brace("{") +
-        (comments
-            ? " " +
-              detail::colorize_comment(
-                 std::string("// GNDS: ") + DERIVED::GNDSName()
-              )
-            : ""
-         ) + "\n"
-      );
+// ------------------------
+// stream, with enum- or
+// string-based file type
+// ------------------------
 
-      if constexpr (std::is_same_v<decltype(DERIVED::keys()),std::tuple<>>) {
-         // Consistency check
-         assert(0 == links.size());
-      } else {
-         // Make tuple (of individual keys) from DERIVED::keys()
-         const auto tup = toKeywordTup(DERIVED::keys()).tup;
+// write(ostream, FileType)
+std::ostream &write(
+   std::ostream &os = std::cout,
+   const FileType format = FileType::guess,
+   const bool decl = false
+) const {
+   return Node(*this).write(os, format, decl);
+}
 
-         // Consistency check
-         assert(std::tuple_size<decltype(tup)>::value == links.size());
+// write(ostream, string)
+std::ostream &write(
+   std::ostream &os,
+   const std::string &format,
+   const bool decl = false
+) const {
+   return Node(*this).write(os, format, decl);
+}
 
-         // Compute maximum length of key names, if aligning. Note that we
-         // could - but don't - take into account that keys associated with
-         // optional or Defaulted values *might* not in fact show up in the
-         // final printed text. In such cases, and if values of those types
-         // happen to have longer names, then the printing that does appear
-         // might use more spacing than it really needs to. By choosing not
-         // to factor this in, on a case-by-case basis, all objects of this
-         // particular Component<...> type will print with consistent spacing.
-         // We prefer this behavior, and it's also slightly simpler to write.
-         std::size_t maxlen = 0;
-         if (GNDStk::align)
-            std::apply(
-               [&maxlen](const auto &... key) {
-                  ((maxlen=std::max(maxlen,detail::getName(key).size())), ...);
-               },
-               tup
-            );
+// ------------------------
+// filename, with enum- or
+// string-based file type
+// ------------------------
 
-         // Apply links:
-         // derived-class data ==> print
-         std::apply(
-            [this,&os,&level,maxlen](const auto &... key) {
-               std::size_t n = 0;
-               (
-                  (
-                     // indent, write internal value, newline
-                     detail::writeComponentPart(
-                        os,
-                        level+1,
-                      *(std::decay_t<decltype(Node{}(key))> *)links[n++],
-                        detail::getName(key),
-                        maxlen
-                     ) && (os << '\n') // no if()s in fold expressions :-/
-                  ),
-                  ...
-               );
-            },
-            tup
-         );
-      }
+// write(filename, FileType)
+bool write(
+   const std::string &filename,
+   const FileType format = FileType::guess,
+   const bool decl = false
+) const {
+   return Node(*this).write(filename, format, decl);
+}
 
-      // Derived class write()s, if any.
-      // Note that neither, either, or both can be provided.
-      // To be recognized here, signatures must be exactly what we expect.
-      if constexpr (detail::hasWriteOneArg<DERIVED>) {
-         // DERIVED::write() doesn't take an indentation level; we handle here
-         std::ostringstream tmp;
-         derived().write(tmp);
-         if (tmp.str().size() != 0)
-            os << indentTo(level+1);
-         for (char c : tmp.str())
-            os << c << (c == '\n' ? indentTo(level+1) : "");
-         if (tmp.str().size())
-            os << std::endl;
-      }
-      if constexpr (detail::hasWriteTwoArg<DERIVED>) {
-         // DERIVED::write() takes an indentation level
-         std::ostringstream tmp;
-         derived().write(tmp,level+1);
-         os << tmp.str();
-         if (tmp.str().size())
-            os << std::endl;
-      }
-
-      // BodyText, if any
-      if constexpr (hasBodyText)
-         body::write(os,level+1);
-
-      // Indent, write footer, NO newline
-      detail::indentString(
-         os, level,
-         detail::colorize_brace("}")
-          + (comments
-              ? " " +
-                detail::colorize_comment(
-                   std::string("// ") +
-                   detail::fullName(
-                      DERIVED::namespaceName(),
-                      DERIVED::className()
-                   )
-                )
-              : ""
-            )
-      );
-
-      return os;
-
-   } catch (...) {
-      log::member("Component.write()");
-      throw;
-   }
+// write(filename, string)
+bool write(
+   const std::string &filename,
+   const std::string &format,
+   const bool decl = false
+) const {
+   return Node(*this).write(filename, format, decl);
 }

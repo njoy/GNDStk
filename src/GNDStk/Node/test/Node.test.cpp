@@ -9,7 +9,7 @@ SCENARIO("Testing GNDStk Node") {
    GIVEN("A Node") {
       Node n;
       CHECK(n.empty());
-      CHECK(n.name == "");
+      CHECK(n.name == emptyNodeName);
       CHECK(n.metadata.size() == 0);
       CHECK(n.children.size() == 0);
    }

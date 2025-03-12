@@ -11,8 +11,10 @@ const Node &decl() const
          log::error("Tree has no declaration node");
          throw std::exception{};
       }
-      for (auto &c : this->children)
-         if (c->name == "xml" || c->name == "json" || c->name == "hdf5")
+      for (const childPtr &c : children)
+         if (c->name == special::xml ||
+             c->name == special::json ||
+             c->name == special::hdf5)
             return *c;
       log::error("Tree's declaration node not found");
       throw std::exception{};

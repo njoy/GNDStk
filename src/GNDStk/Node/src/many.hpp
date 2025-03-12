@@ -25,13 +25,13 @@ CONTAINER<Node> many(
    try {
       // ""
       // meaning: return a container with a copy of current node
-      if (key == "") {
+      if (key == "" || key == special::self) {
          // filter is ignored in this case
          container.push_back(*this);
          found = true;
       } else {
          // search in the current node's children
-         for (auto &c : children) {
+         for (const childPtr &c : children) {
             if (std::regex_match(c->name, std::regex(key)) && filter(*c)) {
                container.push_back(*c); // can throw
                found = true;

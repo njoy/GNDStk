@@ -15,26 +15,29 @@
 /*
 Usage sketch:
 
-   // The following will throw an exception if the GNDS tree's structure
-   // is such that the given path, down into the tree, doesn't exist...
-   auto foo = tree(reactionSuite,PoPs,chemicalElements);
+   Node node;
+   // Initialize node in some way.
+
+   // The following will throw an exception if the Node's structure
+   // is such that the given path, down into the Node, doesn't exist:
+   auto foo = node(reactionSuite,PoPs,chemicalElements);
 
    // Option 1: use a "found" out-parameter directly:
    bool found;
-   auto foo = tree(reactionSuite,PoPs,chemicalElements,found);
+   auto foo = node(reactionSuite, PoPs, chemicalElements, found);
    if (found) {
       ...
    }
 
    // Option 2: use has() to "pre-check" the call:
-   if (tree.has(reactionSuite,PoPs,chemicalElements)) {
-      auto foo = tree(reactionSuite,PoPs,chemicalElements);
+   if (node.has(reactionSuite, PoPs, chemicalElements)) {
+      auto foo = node(reactionSuite, PoPs, chemicalElements);
       ...
    }
 
-Node's (by extension Tree's) "call operator", operator(), is illustrated
-in the above example. There are, however, several data-access functions,
-not just the call operator. Here's what you should use for each:
+Node's "call operator", operator(), is illustrated in the above example.
+But we also have several data-access functions, not just the call operator.
+Here's what you should use for each:
 
    Use this:       To see if this will succeed:
    --------------------------------------------

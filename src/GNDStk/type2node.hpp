@@ -10,7 +10,7 @@ The description of those, seen in reverse, applies here.
 In short, these functions are for taking various types, perhaps user-defined,
 and converting them into a Node that's destined to be added as a child node.
 
-At the moment, this file is empty except for comments. We're intentionally
+At the moment, this file is empty except for remarks. We're intentionally
 leaving it here, as a placeholder, in case we decide that we *should* have
 some default type-to-Node convert() functions.
 */

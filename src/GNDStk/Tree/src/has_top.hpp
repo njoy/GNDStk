@@ -8,9 +8,11 @@ bool has_top() const
 
    // Does the tree have something that looks like a top-level GNDS node,
    // defined as something that *doesn't* look like a declaration node?
-   int count = 0;
-   for (auto &c : this->children)
-      if (c->name != "xml" && c->name != "json" && c->name != "hdf5")
+   size_t count = 0;
+   for (const childPtr &c : children)
+      if (c->name != special::xml &&
+          c->name != special::json &&
+          c->name != special::hdf5)
          count++;
 
    // Ill-formed if there's more than one such node
@@ -24,11 +26,11 @@ bool has_top() const
    }
 
    // Ill-formed if there's more than one of something else
-   if (this->children.size()-count > 1) {
+   if (children.size()-count > 1) {
       log::error(
          "Tree does not appear to be well-formed. It has {} (more than one)\n"
          "node that looks like a declaration node",
-         this->children.size()-count
+         children.size()-count
       );
       throw std::exception{};
    }

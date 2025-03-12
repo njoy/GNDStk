@@ -3,12 +3,13 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "GNDStk/test/keys.hpp"
 
 using namespace njoy::GNDStk;
 
 static const std::string correct_node =
-R"***(pcdata:
-   text: 1 2.3 4.56)***";
+R"***(#data:
+   #text: 1 2.3 4.56)***";
 
 SCENARIO("Testing GNDStk convert(type,Node)") {
 
@@ -18,20 +19,20 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
    // convert(type,Node) function.
 
    // Update, 2020-10-19. The relevant convert() functionality has been
-   // reformulated into the detail::convert_pcdata_text_t callable object,
+   // reformulated into the detail::convert_data_text_t callable object,
    // so we'll reformulate with that. Ultimately, due to the location of
    // the new code, we should probably put this test material elsewhere.
 
    WHEN("type is vector") {
       std::vector<double> container = { 1, 2.3, 4.56 };
       Node n("old name");
-      detail::convert_pcdata_text_t{}(container,n);
+      detail::convert_data_text_t{}(container,n);
 
       // one way to check the Node
-      CHECK(n.name == "pcdata");
+      CHECK(n.name == special::data);
       CHECK(n.metadata.size() == 1);
       CHECK(n.children.size() == 0);
-      CHECK(n.metadata[0].first == "text");
+      CHECK(n.metadata[0].first == special::text);
       CHECK(n.metadata[0].second == "1 2.3 4.56");
 
       // a shorter way
@@ -42,7 +43,7 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
    WHEN("type is deque") {
       std::deque<double> container = { 1, 2.3, 4.56 };
       Node n("old name");
-      detail::convert_pcdata_text_t{}(container,n);
+      detail::convert_data_text_t{}(container,n);
       std::ostringstream oss; oss << n;
       CHECK(oss.str() == correct_node);
    }
@@ -50,7 +51,7 @@ SCENARIO("Testing GNDStk convert(type,Node)") {
    WHEN("type is list") {
       std::list<double> container = { 1, 2.3, 4.56 };
       Node n("old name");
-      detail::convert_pcdata_text_t{}(container,n);
+      detail::convert_data_text_t{}(container,n);
       std::ostringstream oss; oss << n;
       CHECK(oss.str() == correct_node);
    }

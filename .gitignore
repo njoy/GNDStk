@@ -5,3 +5,6 @@ build
 *~
 metaconfigure/*.pyc
 docs/.build
+debug
+minsizerel
+release

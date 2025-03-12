@@ -1,22 +1,24 @@
 
 #include "catch.hpp"
 #include "GNDStk.hpp"
+#include "prototype.hpp"
 
-using namespace njoy::GNDStk::core;
+using namespace njoy::GNDStk;
+using detail::compGetter;
 
 
 
 // -----------------------------------------------------------------------------
-// Classes for testing the hasWrite*() functions
+// Classes for testing the hasPrint*() functions
 // -----------------------------------------------------------------------------
 
 struct Neither {
-   // has neither of the write()s seen in the upcoming classes
+   // has neither of the print()s seen in the upcoming classes
 };
 
 struct One {
    // (ostream) only
-   std::ostream &write(std::ostream &os) const
+   std::ostream &print(std::ostream &os) const
    {
       return os;
    }
@@ -24,7 +26,7 @@ struct One {
 
 struct Two {
    // (ostream,int) only
-   std::ostream &write(std::ostream &os, const int) const
+   std::ostream &print(std::ostream &os, const int) const
    {
       return os;
    }
@@ -32,12 +34,12 @@ struct Two {
 
 struct Both {
    // (ostream)
-   std::ostream &write(std::ostream &os) const
+   std::ostream &print(std::ostream &os) const
    {
       return os;
    }
    // (ostream,int)
-   std::ostream &write(std::ostream &os, const int) const
+   std::ostream &print(std::ostream &os, const int) const
    {
       return os;
    }
@@ -46,8 +48,8 @@ struct Both {
 
 
 // -----------------------------------------------------------------------------
-// Classes for testing hasIndex and hasLabel,
-// and for use in the getter() tests
+// Classes for testing has_index_v and has_label_v,
+// and for use in the compGetter() tests
 // -----------------------------------------------------------------------------
 
 #include "indexnlabel.hpp"
@@ -57,7 +59,12 @@ struct FooBar {
    struct {
       int foo;
       double bar;
-   } content;
+   } Content;
+
+   const int &foo() const { return Content.foo; }
+   int &foo() { return Content.foo; }
+   const double &bar() const { return Content.bar; }
+   double &bar() { return Content.bar; }
 };
 
 
@@ -65,17 +72,18 @@ struct FooBar {
 // -----------------------------------------------------------------------------
 // class Derived
 // Is derived from Component
-// Used in the tests of writeComponentPart()
+// Used in the tests of printComponentPart()
 // -----------------------------------------------------------------------------
 
 class Derived : public Component<Derived> {
 public:
    friend class Component<Derived>;
 
-   static auto className() { return "Derived"; }
-   static auto GNDSName() { return "none"; }
+   static auto NAMESPACE() { return ""; }
+   static auto CLASS() { return "Derived"; }
+   static auto NODENAME() { return "none"; }
 
-   static auto keys()
+   static auto KEYS()
    {
       return
          // metadata
@@ -84,10 +92,28 @@ public:
       ;
    }
 
+   static const auto &FIELDNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "foo",
+         "bar"
+      };
+      return names;
+   }
+
+   static const auto &PYTHONNAMES()
+   {
+      static const std::vector<std::string> names = {
+         "foo",
+         "bar"
+      };
+      return names;
+   }
+
    int foo = 56;
    double bar = 7.8;
 
-   Derived() : Component(BodyText{},foo,bar) { }
+   Derived() : Component(BlockData{},foo,bar) { }
 };
 
 
@@ -103,7 +129,7 @@ public:
    double bar = 3.4;
 };
 
-// Needs << in order to participate in writeComponentPart() - which it does,
+// Needs << in order to participate in printComponentPart() - which it does,
 // because we're using it as a test subject there.
 
 inline std::ostream &operator<<(std::ostream &s, const NonDerived &obj)
@@ -149,34 +175,36 @@ SCENARIO("Testing Component detail:: miscellaneous functions") {
 
    // colorize
    GIVEN("Function: colorize()") {
-      WHEN("Called with GNDStk::color == true and color == \"\"") {
+      WHEN("Called with GNDStk::colors == true and color == \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = true;
-            // coloring is on, but we don't give a color
+            njoy::GNDStk::colors = true;
+            // coloring is on, but we don't provide a color,
+            // and the default label color is set to ""
+            color::label = "";
             CHECK(detail::colorize("one","") == "one");
          }
       }
 
-      WHEN("Called with GNDStk::color == true and color != \"\"") {
+      WHEN("Called with GNDStk::colors == true and color != \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = true;
-            // coloring is on, and we give a color
+            njoy::GNDStk::colors = true;
+            // coloring is on, and we provide a color
             CHECK(detail::colorize("two","[color]") == "[color]two\033[0m");
          }
       }
 
-      WHEN("Called with GNDStk::color == false and color == \"\"") {
+      WHEN("Called with GNDStk::colors == false and color == \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = false;
-            // coloring is off, and we don't give a color anyway
+            njoy::GNDStk::colors = false;
+            // coloring is off, and we don't provide a color anyway
             CHECK(detail::colorize("three","") == "three");
          }
       }
 
-      WHEN("Called with GNDStk::color == false and color != \"\"") {
+      WHEN("Called with GNDStk::colors == false and color != \"\"") {
          THEN("It returns the expected result") {
-            njoy::GNDStk::color = false;
-            // coloring is off, and we give a color (but it isn't used,
+            njoy::GNDStk::colors = false;
+            // coloring is off, and we provide a color (but it isn't used,
             // because coloring is off)
             CHECK(detail::colorize("four","[color]") == "four");
          }
@@ -228,20 +256,20 @@ SCENARIO("Testing Component detail:: miscellaneous functions") {
       CHECK(oss.str() == "      foo");
    } // GIVEN
 
-   // hasWrite*
+   // hasPrint*
    // Test some SFINAE constructs
-   GIVEN("Functions: hasWriteOneArg(), hasWriteTwoArg()") {
-      CHECK(detail::hasWriteOneArg<Neither> == false);
-      CHECK(detail::hasWriteTwoArg<Neither> == false);
+   GIVEN("Functions: hasPrintOneArg(), hasPrintTwoArg()") {
+      CHECK(detail::hasPrintOneArg<Neither> == false);
+      CHECK(detail::hasPrintTwoArg<Neither> == false);
 
-      CHECK(detail::hasWriteOneArg<One> == true);
-      CHECK(detail::hasWriteTwoArg<One> == false);
+      CHECK(detail::hasPrintOneArg<One> == true);
+      CHECK(detail::hasPrintTwoArg<One> == false);
 
-      CHECK(detail::hasWriteOneArg<Two> == false);
-      CHECK(detail::hasWriteTwoArg<Two> == true);
+      CHECK(detail::hasPrintOneArg<Two> == false);
+      CHECK(detail::hasPrintTwoArg<Two> == true);
 
-      CHECK(detail::hasWriteOneArg<Both> == true);
-      CHECK(detail::hasWriteTwoArg<Both> == true);
+      CHECK(detail::hasPrintOneArg<Both> == true);
+      CHECK(detail::hasPrintTwoArg<Both> == true);
    } // GIVEN
 }
 
@@ -260,66 +288,66 @@ SCENARIO("Testing Component detail:: miscellaneous functions") {
 //    ostream, level, vector,    label, maxlen, color = ""
 // All return bool.
 
-SCENARIO("Testing Component detail:: writeComponentPart()") {
+SCENARIO("Testing Component detail:: printComponentPart()") {
    // for clarity below
    int level;
-   std::size_t maxlen;
+   size_t maxlen;
    std::ostringstream oss;
    indent = 2;
-   using detail::writeComponentPart;
+   using detail::printComponentPart;
 
    // For string
-   GIVEN("writeComponentPart() for string") {
+   GIVEN("printComponentPart() for string") {
       oss.str("");
-      writeComponentPart(oss, level=2, "foo\nbar", "label", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "label", "foo\nbar");
       CHECK(oss.str() ==
             "    label : foo\n"
             "    bar");
 
       oss.str("");
-      writeComponentPart(oss, level=2, "foo\nbar", "label", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "label", "foo\nbar");
       CHECK(oss.str() ==
             "    label      : foo\n"
             "    bar");
 
       oss.str("");
-      writeComponentPart(oss, level=2, "foo\nbar", "", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "", "foo\nbar");
       CHECK(oss.str() ==
             "    foo\n"
             "    bar");
 
       oss.str("");
-      writeComponentPart(oss, level=2, "foo\nbar", "", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "", "foo\nbar");
       CHECK(oss.str() ==
             "    foo\n"
             "    bar");
    } // GIVEN
 
    // For general types T
-   GIVEN("writeComponentPart() for T") {
+   GIVEN("printComponentPart() for T") {
 
       // For double
       WHEN("T is double") {
          double value = 1.234;
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", value);
          CHECK(oss.str() == "    label : 1.234");
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", value);
          CHECK(oss.str() == "    label      : 1.234");
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", value);
          CHECK(oss.str() == "    1.234");
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", value);
          CHECK(oss.str() == "    1.234");
       }
 
-      // writeComponentPart() for general T has an if-constexpr that
+      // printComponentPart() for general T has an if-constexpr that
       // distinguished classes that *are* derived from Component from
       // those that aren't, so we'll test both cases. (double, above,
       // in fact falls into the latter category.) ...
@@ -330,29 +358,34 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
 
          // label and maxlen don't get used in this case.
          // The Component-derived nature of the class causes
-         // value.write(stream,level) to be called instead.
+         // value.print(stream,level) to be called instead.
          // So we get the same result from each call.
-         const std::string expected =
-            "    Derived { // GNDS: none\n"
+         const std::string expected1 =
+            "    label {\n"
             "      foo : 56\n"
             "      bar : 7.8\n"
-            "    } // Derived";
+            "    } // label";
+         const std::string expected2 =
+            "    {\n"
+            "      foo : 56\n"
+            "      bar : 7.8\n"
+            "    }";
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "label", maxlen=0);
-         CHECK(oss.str() == expected);
+         printComponentPart(oss, level=2, maxlen= 0, "label", value);
+         CHECK(oss.str() == expected1);
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "label", maxlen=10);
-         CHECK(oss.str() == expected);
+         printComponentPart(oss, level=2, maxlen=10, "label", value);
+         CHECK(oss.str() == expected1);
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "", maxlen=0);
-         CHECK(oss.str() == expected);
+         printComponentPart(oss, level=2, maxlen= 0, "", value);
+         CHECK(oss.str() == expected2);
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "", maxlen=10);
-         CHECK(oss.str() == expected);
+         printComponentPart(oss, level=2, maxlen=10, "", value);
+         CHECK(oss.str() == expected2);
       }
 
       // For "NonDerived"
@@ -360,42 +393,42 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          NonDerived value;
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", value);
          CHECK(oss.str() == "    label : {12,3.4}");
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", value);
          CHECK(oss.str() == "    label      : {12,3.4}");
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", value);
          CHECK(oss.str() == "    {12,3.4}");
 
          oss.str("");
-         writeComponentPart(oss, level=2, value, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", value);
          CHECK(oss.str() == "    {12,3.4}");
       }
    } // GIVEN
 
    // For optional
-   GIVEN("writeComponentPart() for optional") {
+   GIVEN("printComponentPart() for optional") {
       WHEN("The optional has a value") {
          std::optional<double> opt = 1.234;
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", opt);
          CHECK(oss.str() == "    label : 1.234");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", opt);
          CHECK(oss.str() == "    label      : 1.234");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", opt);
          CHECK(oss.str() == "    1.234");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", opt);
          CHECK(oss.str() == "    1.234");
       }
 
@@ -405,19 +438,19 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          comments = false;
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "label", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "label", opt);
          CHECK(oss.str() == "");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "label", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "label", opt);
          CHECK(oss.str() == "");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "", maxlen=0);
+         printComponentPart(oss, level=2, maxlen= 0, "", opt);
          CHECK(oss.str() == "");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "", maxlen=10);
+         printComponentPart(oss, level=2, maxlen=10, "", opt);
          CHECK(oss.str() == "");
       }
 
@@ -427,25 +460,25 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          comments = true;
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "label", maxlen=0);
-         CHECK(oss.str() == "    label : // optional; has no value");
+         printComponentPart(oss, level=2, maxlen= 0, "label", opt);
+         CHECK(oss.str() == "");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "label", maxlen=10);
-         CHECK(oss.str() == "    label      : // optional; has no value");
+         printComponentPart(oss, level=2, maxlen=10, "label", opt);
+         CHECK(oss.str() == "");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "", maxlen=0);
-         CHECK(oss.str() == "    // optional; has no value");
+         printComponentPart(oss, level=2, maxlen= 0, "", opt);
+         CHECK(oss.str() == "");
 
          oss.str("");
-         writeComponentPart(oss, level=2, opt, "", maxlen=10);
-         CHECK(oss.str() == "    // optional; has no value");
+         printComponentPart(oss, level=2, maxlen=10, "", opt);
+         CHECK(oss.str() == "");
       }
    } // GIVEN
 
    // For Defaulted
-   GIVEN("writeComponentPart() for Defaulted") {
+   GIVEN("printComponentPart() for Defaulted") {
       WHEN("The Defaulted has an explicitly provided value") {
          // For the following:
          //    5.6 is the default
@@ -453,20 +486,20 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          Defaulted<double> def(5.6,7.8);
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "label", maxlen=0);
-         CHECK(oss.str() == "    label : 7.8");
+         printComponentPart(oss, level=2, maxlen= 0, "label", def);
+         CHECK(oss.str() == "    label : 7.8 // its default");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "label", maxlen=10);
-         CHECK(oss.str() == "    label      : 7.8");
+         printComponentPart(oss, level=2, maxlen=10, "label", def);
+         CHECK(oss.str() == "    label      : 7.8 // its default");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "", maxlen=0);
-         CHECK(oss.str() == "    7.8");
+         printComponentPart(oss, level=2, maxlen= 0, "", def);
+         CHECK(oss.str() == "    7.8 // its default");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "", maxlen=10);
-         CHECK(oss.str() == "    7.8");
+         printComponentPart(oss, level=2, maxlen=10, "", def);
+         CHECK(oss.str() == "    7.8 // its default");
       }
 
       WHEN("The Defaulted has its default, and comments == false") {
@@ -475,20 +508,20 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          comments = false;
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "label", maxlen=0);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen= 0, "label", def);
+         CHECK(oss.str() == "    label : 3.14");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "label", maxlen=10);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen=10, "label", def);
+         CHECK(oss.str() == "    label      : 3.14");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "", maxlen=0);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen= 0, "", def);
+         CHECK(oss.str() == "    3.14");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "", maxlen=10);
-         CHECK(oss.str() == "");
+         printComponentPart(oss, level=2, maxlen=10, "", def);
+         CHECK(oss.str() == "    3.14");
       }
 
       WHEN("The Defaulted has its default, and comments == true") {
@@ -497,49 +530,52 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          comments = true;
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "label", maxlen=0);
-         CHECK(oss.str() == "    label : // defaulted; is its default (2.72)");
+         printComponentPart(oss, level=2, maxlen= 0, "label", def);
+         CHECK(oss.str() ==
+               "    label : 2.72 // its default");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "label", maxlen=10);
-         CHECK(oss.str() == "    label      : // defaulted; is its default (2.72)");
+         printComponentPart(oss, level=2, maxlen=10, "label", def);
+         CHECK(oss.str() ==
+               "    label      : 2.72 // its default");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "", maxlen=0);
-         CHECK(oss.str() == "    // defaulted; is its default (2.72)");
+         printComponentPart(oss, level=2, maxlen= 0, "", def);
+         CHECK(oss.str() == "    2.72 // its default");
 
          oss.str("");
-         writeComponentPart(oss, level=2, def, "", maxlen=10);
-         CHECK(oss.str() == "    // defaulted; is its default (2.72)");
+         printComponentPart(oss, level=2, maxlen=10, "", def);
+         CHECK(oss.str() == "    2.72 // its default");
       }
    } // GIVEN
 
    // For variant
-   GIVEN("writeComponentPart() for variant") {
+   GIVEN("printComponentPart() for variant") {
       oss.str("");
       std::variant<int,double> var(9.87);
 
       oss.str("");
-      writeComponentPart(oss, level=2, var, "label", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "label", var);
       CHECK(oss.str() == "    label : 9.87");
 
       oss.str("");
-      writeComponentPart(oss, level=2, var, "label", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "label", var);
       CHECK(oss.str() == "    label      : 9.87");
 
       oss.str("");
-      writeComponentPart(oss, level=2, var, "", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "", var);
       CHECK(oss.str() == "    9.87");
 
       oss.str("");
-      writeComponentPart(oss, level=2, var, "", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "", var);
       CHECK(oss.str() == "    9.87");
    } // GIVEN
 
    // For vector
-   GIVEN("writeComponentPart() for vector") {
+   GIVEN("printComponentPart() for vector") {
       oss.str("");
       const std::vector<std::string> vec{{"a","b","c","d","e"}};
+      comments = false;
 
       const std::string expected =
          "    label [\n"
@@ -551,11 +587,11 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
          "    ]";
 
       oss.str("");
-      writeComponentPart(oss, level=2, vec, "label", maxlen=0);
+      printComponentPart(oss, level=2, maxlen= 0, "label", vec);
       CHECK(oss.str() == expected);
 
       oss.str("");
-      writeComponentPart(oss, level=2, vec, "label", maxlen=10);
+      printComponentPart(oss, level=2, maxlen=10, "label", vec);
       CHECK(oss.str() == expected);
    } // GIVEN
 }
@@ -568,71 +604,71 @@ SCENARIO("Testing Component detail:: writeComponentPart()") {
 
 SCENARIO("Testing Component detail:: classes for SFINAE") {
 
-   // hasIndex
-   CHECK((detail::hasIndex<Empty     > == false));
-   CHECK((detail::hasIndex<FooBar    > == false));
-   CHECK((detail::hasIndex<Index     > == true));
-   CHECK((detail::hasIndex<Label     > == false));
-   CHECK((detail::hasIndex<IndexLabel> == true));
+   // has_index_v
+   CHECK((detail::has_index_v<Empty     > == false));
+   CHECK((detail::has_index_v<FooBar    > == false));
+   CHECK((detail::has_index_v<Index     > == true));
+   CHECK((detail::has_index_v<Label     > == false));
+   CHECK((detail::has_index_v<IndexLabel> == true));
 
-   CHECK((detail::hasIndex<std::variant<Empty     ,Empty     >> == false));
-   CHECK((detail::hasIndex<std::variant<Empty     ,FooBar    >> == false));
-   CHECK((detail::hasIndex<std::variant<Empty     ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<Empty     ,Label     >> == false));
-   CHECK((detail::hasIndex<std::variant<Empty     ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,Empty     >> == false));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,FooBar    >> == false));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,Label     >> == false));
-   CHECK((detail::hasIndex<std::variant<FooBar    ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,Empty     >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,FooBar    >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,Label     >> == true));
-   CHECK((detail::hasIndex<std::variant<Index     ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<Label     ,Empty     >> == false));
-   CHECK((detail::hasIndex<std::variant<Label     ,FooBar    >> == false));
-   CHECK((detail::hasIndex<std::variant<Label     ,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<Label     ,Label     >> == false));
-   CHECK((detail::hasIndex<std::variant<Label     ,IndexLabel>> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,Empty     >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,FooBar    >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,Index     >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,Label     >> == true));
-   CHECK((detail::hasIndex<std::variant<IndexLabel,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<Empty     ,Empty     >> == false));
+   CHECK((detail::has_index_v<std::variant<Empty     ,FooBar    >> == false));
+   CHECK((detail::has_index_v<std::variant<Empty     ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<Empty     ,Label     >> == false));
+   CHECK((detail::has_index_v<std::variant<Empty     ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,Empty     >> == false));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,FooBar    >> == false));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,Label     >> == false));
+   CHECK((detail::has_index_v<std::variant<FooBar    ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,Empty     >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,FooBar    >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,Label     >> == true));
+   CHECK((detail::has_index_v<std::variant<Index     ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<Label     ,Empty     >> == false));
+   CHECK((detail::has_index_v<std::variant<Label     ,FooBar    >> == false));
+   CHECK((detail::has_index_v<std::variant<Label     ,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<Label     ,Label     >> == false));
+   CHECK((detail::has_index_v<std::variant<Label     ,IndexLabel>> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,Empty     >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,FooBar    >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,Index     >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,Label     >> == true));
+   CHECK((detail::has_index_v<std::variant<IndexLabel,IndexLabel>> == true));
 
-   // hasLabel
-   CHECK((detail::hasLabel<Empty     > == false));
-   CHECK((detail::hasLabel<FooBar    > == false));
-   CHECK((detail::hasLabel<Index     > == false));
-   CHECK((detail::hasLabel<Label     > == true));
-   CHECK((detail::hasLabel<IndexLabel> == true));
+   // has_label_v
+   CHECK((detail::has_label_v<Empty     > == false));
+   CHECK((detail::has_label_v<FooBar    > == false));
+   CHECK((detail::has_label_v<Index     > == false));
+   CHECK((detail::has_label_v<Label     > == true));
+   CHECK((detail::has_label_v<IndexLabel> == true));
 
-   CHECK((detail::hasLabel<std::variant<Empty     ,Empty     >> == false));
-   CHECK((detail::hasLabel<std::variant<Empty     ,FooBar    >> == false));
-   CHECK((detail::hasLabel<std::variant<Empty     ,Index     >> == false));
-   CHECK((detail::hasLabel<std::variant<Empty     ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<Empty     ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,Empty     >> == false));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,FooBar    >> == false));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,Index     >> == false));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<FooBar    ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<Index     ,Empty     >> == false));
-   CHECK((detail::hasLabel<std::variant<Index     ,FooBar    >> == false));
-   CHECK((detail::hasLabel<std::variant<Index     ,Index     >> == false));
-   CHECK((detail::hasLabel<std::variant<Index     ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<Index     ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,Empty     >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,FooBar    >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,Index     >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<Label     ,IndexLabel>> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,Empty     >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,FooBar    >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,Index     >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,Label     >> == true));
-   CHECK((detail::hasLabel<std::variant<IndexLabel,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<Empty     ,Empty     >> == false));
+   CHECK((detail::has_label_v<std::variant<Empty     ,FooBar    >> == false));
+   CHECK((detail::has_label_v<std::variant<Empty     ,Index     >> == false));
+   CHECK((detail::has_label_v<std::variant<Empty     ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<Empty     ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,Empty     >> == false));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,FooBar    >> == false));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,Index     >> == false));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<FooBar    ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<Index     ,Empty     >> == false));
+   CHECK((detail::has_label_v<std::variant<Index     ,FooBar    >> == false));
+   CHECK((detail::has_label_v<std::variant<Index     ,Index     >> == false));
+   CHECK((detail::has_label_v<std::variant<Index     ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<Index     ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,Empty     >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,FooBar    >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,Index     >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<Label     ,IndexLabel>> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,Empty     >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,FooBar    >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,Index     >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,Label     >> == true));
+   CHECK((detail::has_label_v<std::variant<IndexLabel,IndexLabel>> == true));
 }
 
 
@@ -641,7 +677,7 @@ SCENARIO("Testing Component detail:: classes for SFINAE") {
 // Scenario
 // -----------------------------------------------------------------------------
 
-SCENARIO("Testing Component detail:: getter() functions") {
+SCENARIO("Testing Component detail:: compGetter() functions") {
    std::vector<IndexLabel> vec = {
       { 0, "a", "0a" },
       { 4, "e", "4e" },
@@ -650,6 +686,8 @@ SCENARIO("Testing Component detail:: getter() functions") {
       { 3, "d", "3d" }
    };
 
+   using GNDStk::proto::index;
+   using GNDStk::proto::label;
 
    // ------------------------
    // vector
@@ -657,14 +695,14 @@ SCENARIO("Testing Component detail:: getter() functions") {
 
    GIVEN("A vector of objects that have both index and label") {
       // look for specific index
-      THEN("getter() based on index works properly") {
-         CHECK((detail::getter(vec,0,"name","class","field").value() == "0a"));
-         CHECK((detail::getter(vec,1,"name","class","field").value() == "1b"));
-         CHECK((detail::getter(vec,2,"name","class","field").value() == "2c"));
-         CHECK((detail::getter(vec,3,"name","class","field").value() == "3d"));
-         CHECK((detail::getter(vec,4,"name","class","field").value() == "4e"));
+      THEN("compGetter() based on index works properly") {
+         CHECK((compGetter(vec, index(0), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(vec, index(1), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(vec, index(2), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(vec, index(3), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(vec, index(4), "name", "class", "field").value() == "4e"));
          try {
-            detail::getter(vec,100,"name","class","field");
+            compGetter(vec, index(100), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -672,21 +710,20 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN("getter() based on label works properly") {
-         CHECK((detail::getter(vec,"a","name","class","field").value() == "0a"));
-         CHECK((detail::getter(vec,"b","name","class","field").value() == "1b"));
-         CHECK((detail::getter(vec,"c","name","class","field").value() == "2c"));
-         CHECK((detail::getter(vec,"d","name","class","field").value() == "3d"));
-         CHECK((detail::getter(vec,"e","name","class","field").value() == "4e"));
+      THEN("compGetter() based on label works properly") {
+         CHECK((compGetter(vec, label("a"), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(vec, label("b"), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(vec, label("c"), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(vec, label("d"), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(vec, label("e"), "name", "class", "field").value() == "4e"));
          try {
-            detail::getter(vec,"z","name","class","field");
+            compGetter(vec, label("z"), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
          }
       }
    } // GIVEN
-
 
    // ------------------------
    // optional vector,
@@ -697,14 +734,14 @@ SCENARIO("Testing Component detail:: getter() functions") {
       std::optional<std::vector<IndexLabel>> opt = vec;
 
       // look for specific index
-      THEN("getter() based on index works properly") {
-         CHECK((detail::getter(opt,0UL,"name","class","field").value() == "0a"));
-         CHECK((detail::getter(opt,1UL,"name","class","field").value() == "1b"));
-         CHECK((detail::getter(opt,2UL,"name","class","field").value() == "2c"));
-         CHECK((detail::getter(opt,3UL,"name","class","field").value() == "3d"));
-         CHECK((detail::getter(opt,4UL,"name","class","field").value() == "4e"));
+      THEN("compGetter() based on index works properly") {
+         CHECK((compGetter(opt, index(0UL), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(opt, index(1UL), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(opt, index(2UL), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(opt, index(3UL), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(opt, index(4UL), "name", "class", "field").value() == "4e"));
          try {
-            detail::getter(opt,100UL,"name","class","field");
+            compGetter(opt, index(100UL), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -712,21 +749,20 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN("getter() based on label works properly") {
-         CHECK((detail::getter(opt,"a","name","class","field").value() == "0a"));
-         CHECK((detail::getter(opt,"b","name","class","field").value() == "1b"));
-         CHECK((detail::getter(opt,"c","name","class","field").value() == "2c"));
-         CHECK((detail::getter(opt,"d","name","class","field").value() == "3d"));
-         CHECK((detail::getter(opt,"e","name","class","field").value() == "4e"));
+      THEN("compGetter() based on label works properly") {
+         CHECK((compGetter(opt, label("a"), "name", "class", "field").value() == "0a"));
+         CHECK((compGetter(opt, label("b"), "name", "class", "field").value() == "1b"));
+         CHECK((compGetter(opt, label("c"), "name", "class", "field").value() == "2c"));
+         CHECK((compGetter(opt, label("d"), "name", "class", "field").value() == "3d"));
+         CHECK((compGetter(opt, label("e"), "name", "class", "field").value() == "4e"));
          try {
-            detail::getter(opt,"z","name","class","field");
+            compGetter(opt, label("z"), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
          }
       }
    } // GIVEN
-
 
    // ------------------------
    // optional vector,
@@ -737,9 +773,9 @@ SCENARIO("Testing Component detail:: getter() functions") {
       std::optional<std::vector<IndexLabel>> opt;
 
       // look for specific index
-      THEN("getter() based on index works properly") {
+      THEN("compGetter() based on index works properly") {
          try {
-            detail::getter(opt,0,"name","class","field");
+            compGetter(opt, index(0), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
@@ -747,39 +783,15 @@ SCENARIO("Testing Component detail:: getter() functions") {
       }
 
       // look for specific label
-      THEN("getter() based on label works properly") {
+      THEN("compGetter() based on label works properly") {
          try {
-            detail::getter(opt,"a","name","class","field");
+            compGetter(opt, label("a"), "name", "class", "field");
             // the above should throw, so we shouldn't get here...
             CHECK(false);
          } catch (...) {
          }
       }
    } // GIVEN
-
-
-   // ------------------------
-   // variant
-   // ------------------------
-
-   GIVEN("A variant of objects that may or may not have index and/or label") {
-      std::variant<Index,Label,IndexLabel> var;
-
-      // Note that these don't involve index or label fields
-
-      var = Index(0,"zero");
-      CHECK((detail::getter<Index>(var,"name","class","field")->value() ==
-             "zero"));
-
-      var = Label("hello","world");
-      CHECK((detail::getter<Label>(var,"name","class","field")->value() ==
-             "world"));
-
-      var = IndexLabel(10,"ten","TEN");
-      CHECK((detail::getter<IndexLabel>(var,"name","class","field")->value() ==
-             "TEN"));
-   } // GIVEN
-
 
    // ------------------------
    // vector<variant>
@@ -800,17 +812,17 @@ SCENARIO("Testing Component detail:: getter() functions") {
          Empty{},
       }};
 
-      CHECK((detail::getter<Index     >(vec,0,      "name","class","field")
+      CHECK((compGetter<Index     >(vec,index(0),      "name","class","field")
              ->value() == "zero"));
-      CHECK((detail::getter<Label     >(vec,"hello","name","class","field")
+      CHECK((compGetter<Label     >(vec,label("hello"),"name","class","field")
              ->value() == "world"));
-      CHECK((detail::getter<IndexLabel>(vec,10,     "name","class","field")
+      CHECK((compGetter<IndexLabel>(vec,index(10),     "name","class","field")
              ->value() == "TEN"));
-      CHECK((detail::getter<IndexLabel>(vec,11,     "name","class","field")
+      CHECK((compGetter<IndexLabel>(vec,index(11),     "name","class","field")
              ->value() == "ELEVEN"));
-      CHECK((detail::getter<Label     >(vec,"2",    "name","class","field")
+      CHECK((compGetter<Label     >(vec,label("2"),    "name","class","field")
              ->value() == "two"));
-      CHECK((detail::getter<Index     >(vec,1,      "name","class","field")
+      CHECK((compGetter<Index     >(vec,index(1),      "name","class","field")
              ->value() == "one"));
    } // GIVEN
 }

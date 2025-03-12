@@ -1,0 +1,9 @@
+{
+    "Project": "multi",
+    "Version": "v1",
+
+    "JSONDir": ".",
+    "JSONFiles": [
+        "multi-classes.json"
+    ]
+}

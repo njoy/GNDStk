@@ -1,0 +1,72 @@
+{
+    "namespace": "g3d",
+
+    "array": {
+        "metadata": {
+            "shape": {
+                "type": "string",
+                "required": true
+            },
+            "compression": {
+                "type": "string",
+                "required": false
+            },
+            "symmetry": {
+                "type": "string",
+                "required": false
+            }
+        },
+        "children": {
+            "starts": {
+                "REMARK": "use the <values> with metadatum label == 'start'",
+                "name": "values",
+                "label": "starts",
+                "times": "1",
+                "required": false
+            },
+            "lengths": {
+                "REMARK": "use the <values> with metadatum label == 'lengths'",
+                "name": "values",
+                "label": "lengths",
+                "times": "1",
+                "required": false
+            },
+            "values": {
+                "times": "1",
+                "required": true,
+                "REMARK": "use the <values> node that has no metadata",
+                "filter": "[](auto &node) { return node.metadata.size() == 0; }"
+            }
+        }
+    },
+
+    "starts": {
+        "name": "values",
+        "metadata": {
+            "valueType": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "vector": "int"
+    },
+
+    "lengths": {
+        "name": "values",
+        "metadata": {
+            "valueType": {
+                "type": "string",
+                "required": true
+            },
+            "label": {
+                "type": "string",
+                "required": true
+            }
+        },
+        "vector": "int"
+    }
+}

@@ -7,25 +7,40 @@
 // write(ostream)
 // ------------------------
 
-std::ostream &write(std::ostream &os, const bool decl = true) const
+std::ostream &write(std::ostream &os = std::cout, const bool decl = true) const
 {
-   (void)decl; // ignored
+   static const std::string context = "JSON.write(ostream)";
 
-   // call nlohmann::json's write capability
+#ifdef NJOY_GNDSTK_DISABLE_JSON
+
+   (void)os; (void)decl;
+   log::error(
+      "We can't perform the action " + context + ", because the code\n"
+      "has been compiled with JSON disabled (macro NJOY_GNDSTK_DISABLE_JSON).");
+   log::function(context);
+   throw std::exception{};
+
+#else
+
+   (void)decl; // unused, at least for now
+
+   // call orderedJSON's write capability
    try {
       // intentional: no << std::endl
       os << std::setw(indent) << doc;
 
       // check for errors
       if (!os) {
-         log::error("ostream << nlohmann::json returned with !ostream");
-         log::member("JSON.write(ostream)");
+         log::error("ostream << orderedJSON returned with !ostream");
+         log::member(context);
       }
    } catch (...) {
-      log::error("ostream << nlohmann::json threw an exception");
-      log::member("JSON.write(ostream)");
+      log::error("ostream << orderedJSON threw an exception");
+      log::member(context);
       os.setstate(std::ios::failbit);
    }
+
+#endif
 
    // done
    return os;
@@ -33,9 +48,10 @@ std::ostream &write(std::ostream &os, const bool decl = true) const
 
 
 // ------------------------
-// write(file name)
+// write(file)
 // ------------------------
 
+#ifndef NJOY_GNDSTK_DISABLE_JSON
 bool write(const std::string &filename, const bool decl = true) const
 {
    // open file
@@ -46,12 +62,11 @@ bool write(const std::string &filename, const bool decl = true) const
       return false;
    }
 
-   // write to ostream
-   if (!write(ofs,decl)) {
-      log::member("JSON.write(\"{}\")", filename);
-      return false;
-   }
+   // write to the ofstream
+   if (write(ofs,decl) << std::endl)
+      return true;
 
-   // done
-   return true;
+   log::member("JSON.write(\"{}\")", filename);
+   return false;
 }
+#endif
