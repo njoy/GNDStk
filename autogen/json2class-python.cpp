@@ -72,6 +72,7 @@ void filePythonVersion(const InfoSpecs &specs)
 {
    writer out(specs.cppPython);
    out();
+   out("#include <cstdint>");
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
    out();
@@ -137,6 +138,7 @@ void filePythonNamespace(const InfoSpecs &specs, const PerNamespace &per)
 {
    writer out(per.cppPython);
    out();
+   out("#include <cstdint>");
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
    out();
@@ -211,6 +213,7 @@ void filePythonClass(const InfoSpecs &specs, const PerClass &per)
 
    out();
    out("// system includes");
+   out("#include <cstdint>");
    out("#include <pybind11/pybind11.h>");
    out("#include <pybind11/stl.h>");
 
